@@ -1,0 +1,1833 @@
+<Type Name="DataRowView" FullName="System.Data.DataRowView">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="1903d25ad25c92a80120b896b69d50274eb37bd9" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class DataRowView : System.ComponentModel.ICustomTypeDescriptor, System.ComponentModel.IDataErrorInfo, System.ComponentModel.IEditableObject, System.ComponentModel.INotifyPropertyChanged" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit DataRowView extends System.Object implements class System.ComponentModel.ICustomTypeDescriptor, class System.ComponentModel.IDataErrorInfo, class System.ComponentModel.IEditableObject, class System.ComponentModel.INotifyPropertyChanged" />
+  <TypeSignature Language="DocId" Value="T:System.Data.DataRowView" />
+  <TypeSignature Language="VB.NET" Value="Public Class DataRowView&#xA;Implements ICustomTypeDescriptor, IDataErrorInfo, IEditableObject, INotifyPropertyChanged" />
+  <TypeSignature Language="C++ CLI" Value="public ref class DataRowView : System::ComponentModel::ICustomTypeDescriptor, System::ComponentModel::IDataErrorInfo, System::ComponentModel::IEditableObject, System::ComponentModel::INotifyPropertyChanged" />
+  <AssemblyInfo>
+    <AssemblyName>System.Data</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Data.Common</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.ComponentModel.ICustomTypeDescriptor</InterfaceName>
+    </Interface>
+    <Interface>
+      <InterfaceName>System.ComponentModel.IDataErrorInfo</InterfaceName>
+    </Interface>
+    <Interface>
+      <InterfaceName>System.ComponentModel.IEditableObject</InterfaceName>
+    </Interface>
+    <Interface>
+      <InterfaceName>System.ComponentModel.INotifyPropertyChanged</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="5b37b-101">
+        <see cref="T:System.Data.DataRow" /> のカスタマイズされたビューを表します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="5b37b-101">Represents a customized view of a <see cref="T:System.Data.DataRow" />.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-102">たびにデータが表示されているようにこのような<xref:System.Windows.Forms.DataGrid>コントロール、各行のバージョンを 1 つだけが表示されることができます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-102">Whenever data is displayed, such as in a <xref:System.Windows.Forms.DataGrid> control, only one version of each row can be displayed.</span></span> <span data-ttu-id="5b37b-103">表示されている行は、<xref:System.Data.DataRowView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-103">The displayed row is a <xref:System.Data.DataRowView>.</span></span>  
+  
+ <span data-ttu-id="5b37b-104">A <xref:System.Data.DataRowView> 4 つの異なるバージョンの状態のいずれかの: `Default`、 `Original`、 `Current`、および`Proposed`です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-104">A <xref:System.Data.DataRowView> can have one of four different version states: `Default`, `Original`, `Current`, and `Proposed`.</span></span>  
+  
+ <span data-ttu-id="5b37b-105">呼び出し後に<xref:System.Data.DataRow.BeginEdit%2A>上、 <xref:System.Data.DataRow>、編集した値になります、`Proposed`値。</span><span class="sxs-lookup"><span data-stu-id="5b37b-105">After invoking <xref:System.Data.DataRow.BeginEdit%2A> on a <xref:System.Data.DataRow>, any edited value becomes the `Proposed` value.</span></span> <span data-ttu-id="5b37b-106">されるまで、<xref:System.Data.DataRowView.CancelEdit%2A>または<xref:System.Data.DataRowView.EndEdit%2A>が呼び出されると、行が含まれて、`Original`と`Proposed`バージョン。</span><span class="sxs-lookup"><span data-stu-id="5b37b-106">Until either <xref:System.Data.DataRowView.CancelEdit%2A> or <xref:System.Data.DataRowView.EndEdit%2A> is invoked, the row has an `Original` and a `Proposed` version.</span></span> <span data-ttu-id="5b37b-107">場合<xref:System.Data.DataRowView.CancelEdit%2A>が呼び出されると、提案されたバージョンが破棄され、値に戻ります`Original`です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-107">If <xref:System.Data.DataRowView.CancelEdit%2A> is invoked, the proposed version is discarded, and the value reverts to `Original`.</span></span> <span data-ttu-id="5b37b-108">場合<xref:System.Data.DataRowView.EndEdit%2A>が呼び出される、<xref:System.Data.DataRowView>がなくなった、`Proposed`バージョン; 提案された値が代わりに、現在の値になります。</span><span class="sxs-lookup"><span data-stu-id="5b37b-108">If <xref:System.Data.DataRowView.EndEdit%2A> is invoked, the <xref:System.Data.DataRowView> no longer has a `Proposed` version; instead, the proposed value becomes the current value.</span></span> <span data-ttu-id="5b37b-109">既定値は、既定値が定義された列のある行でのみ使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-109">Default values are available only on rows that have columns with default values defined.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5b37b-110">次の例では、<xref:System.Data.DataRowView.RowVersion%2A>内の行の状態を決定するプロパティ、<xref:System.Data.DataRowView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-110">The following example uses the <xref:System.Data.DataRowView.RowVersion%2A> property to determine the state of a row in the <xref:System.Data.DataRowView>.</span></span> <span data-ttu-id="5b37b-111">(を参照してください<xref:System.Data.DataView.RowFilter%2A>別の使用例については<xref:System.Data.DataRowView>)。</span><span class="sxs-lookup"><span data-stu-id="5b37b-111">(See <xref:System.Data.DataView.RowFilter%2A> for another example using <xref:System.Data.DataRowView>.)</span></span>  
+  
+ [!code-csharp[DataWorks DataRowView.RowVersion1#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks DataRowView.RowVersion1/CS/source.cs#1)]
+ [!code-vb[DataWorks DataRowView.RowVersion1#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks DataRowView.RowVersion1/VB/source.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <threadsafe>
+      <span data-ttu-id="5b37b-112">この型は、マルチ スレッドの読み取り操作に対して安全です。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="5b37b-112">This type is safe for multithreaded read operations.</span>
+      </span>
+      <span data-ttu-id="5b37b-113">すべての書き込み操作を同期する必要があります。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="5b37b-113">You must synchronize any write operations.</span>
+      </span>
+    </threadsafe>
+    <altmember cref="T:System.Data.DataRow" />
+  </Docs>
+  <Members>
+    <Member MemberName="BeginEdit">
+      <MemberSignature Language="C#" Value="public void BeginEdit ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void BeginEdit() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.BeginEdit" />
+      <MemberSignature Language="VB.NET" Value="Public Sub BeginEdit ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void BeginEdit();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-114">編集プロシージャを開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-114">Begins an edit procedure.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-115">使用して<xref:System.Data.DataView.AddNew%2A>を追加する、<xref:System.Data.DataRowView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-115">Use <xref:System.Data.DataView.AddNew%2A> to add a <xref:System.Data.DataRowView>.</span></span>  
+  
+ <span data-ttu-id="5b37b-116"><xref:System.Data.DataRowView.BeginEdit%2A>メソッドは、<xref:System.Data.DataRow.BeginEdit%2A?displayProperty=nameWithType>のメソッド、<xref:System.Data.DataRow>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-116">The <xref:System.Data.DataRowView.BeginEdit%2A> method is identical to the <xref:System.Data.DataRow.BeginEdit%2A?displayProperty=nameWithType> method of the <xref:System.Data.DataRow>.</span></span> <span data-ttu-id="5b37b-117">呼び出した後<xref:System.Data.DataRowView.BeginEdit%2A>に加えられた変更、<xref:System.Data.DataRowView>ロールバックできるを呼び出して<xref:System.Data.DataRow.CancelEdit%2A>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-117">After calling <xref:System.Data.DataRowView.BeginEdit%2A>, any changes made to the <xref:System.Data.DataRowView> can be rolled back by calling <xref:System.Data.DataRow.CancelEdit%2A>.</span></span> <span data-ttu-id="5b37b-118">呼び出す、<xref:System.Data.DataRowView.BeginEdit%2A>行の値を変更するユーザーを許可する前にメソッドです。</span><span class="sxs-lookup"><span data-stu-id="5b37b-118">Call the <xref:System.Data.DataRowView.BeginEdit%2A> method before allowing users to change row values.</span></span> <span data-ttu-id="5b37b-119">設定して、新しい値を取得する値が変更された後、<xref:System.Data.DataRowView.RowVersion%2A>に`DataRowVersion.Proposed`です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-119">After values have been changed, you retrieve the new values by setting the <xref:System.Data.DataRowView.RowVersion%2A> to `DataRowVersion.Proposed`.</span></span> <span data-ttu-id="5b37b-120">値を確認して、ビジネス ルールを使用して呼び出すことによって必要な場合は、変更をロールバック<xref:System.Data.DataRowView.CancelEdit%2A>、または呼び出す<xref:System.Data.DataRowView.EndEdit%2A>変更を確定します。</span><span class="sxs-lookup"><span data-stu-id="5b37b-120">Check the values with a business rule, and roll back the changes if needed by calling <xref:System.Data.DataRowView.CancelEdit%2A>, or call <xref:System.Data.DataRowView.EndEdit%2A> to accept the changes.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5b37b-121">次の例は、内の行を編集、<xref:System.Data.DataRowView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-121">The following example edits a row in a <xref:System.Data.DataRowView>.</span></span> <span data-ttu-id="5b37b-122">呼び出す、<xref:System.Data.DataRowView.BeginEdit%2A>前に、および<xref:System.Data.DataRowView.EndEdit%2A>後です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-122">calling the <xref:System.Data.DataRowView.BeginEdit%2A> before, and <xref:System.Data.DataRowView.EndEdit%2A> afterwards.</span></span>  
+  
+ [!code-csharp[Classic WebData DataRowView.BeginEdit Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData DataRowView.BeginEdit Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData DataRowView.BeginEdit Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataRowView.BeginEdit Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Data.DataRow.AcceptChanges" />
+        <altmember cref="P:System.Data.DataView.AllowDelete" />
+        <altmember cref="P:System.Data.DataView.AllowEdit" />
+        <altmember cref="P:System.Data.DataView.AllowNew" />
+        <altmember cref="M:System.Data.DataRowView.CancelEdit" />
+        <altmember cref="T:System.Data.DataRow" />
+        <altmember cref="M:System.Data.DataRowView.EndEdit" />
+      </Docs>
+    </Member>
+    <Member MemberName="CancelEdit">
+      <MemberSignature Language="C#" Value="public void CancelEdit ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void CancelEdit() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.CancelEdit" />
+      <MemberSignature Language="VB.NET" Value="Public Sub CancelEdit ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void CancelEdit();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-123">編集プロシージャをキャンセルします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-123">Cancels an edit procedure.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-124">呼び出した後<xref:System.Data.DataRowView.CancelEdit%2A>、行に対するすべての変更をロールバックします。</span><span class="sxs-lookup"><span data-stu-id="5b37b-124">After calling <xref:System.Data.DataRowView.CancelEdit%2A>, all changes to the row are rolled back.</span></span> <span data-ttu-id="5b37b-125">ことができますも変更をロールバックを呼び出して<xref:System.Data.DataTable.RejectChanges%2A>親<xref:System.Data.DataTable>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-125">You can also roll back changes by calling <xref:System.Data.DataTable.RejectChanges%2A> on the parent <xref:System.Data.DataTable>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5b37b-126">次の例は、内の行を編集、<xref:System.Data.DataView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-126">The following example edits a row in a <xref:System.Data.DataView>.</span></span> <span data-ttu-id="5b37b-127"><xref:System.Data.DataRowView.CancelEdit%2A>検証に失敗した場合、変更をキャンセルするメソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-127">The <xref:System.Data.DataRowView.CancelEdit%2A> method is called to cancel the changes if the validation fails.</span></span>  
+  
+ [!code-csharp[Classic WebData DataRowView.BeginEdit Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData DataRowView.BeginEdit Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData DataRowView.BeginEdit Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataRowView.BeginEdit Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Data.DataRow.AcceptChanges" />
+        <altmember cref="P:System.Data.DataView.AllowDelete" />
+        <altmember cref="P:System.Data.DataView.AllowEdit" />
+        <altmember cref="P:System.Data.DataView.AllowNew" />
+        <altmember cref="M:System.Data.DataRowView.BeginEdit" />
+        <altmember cref="T:System.Data.DataRow" />
+        <altmember cref="M:System.Data.DataRowView.EndEdit" />
+        <altmember cref="P:System.Data.DataRowView.RowVersion" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="CreateChildView">
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-128">子 <see cref="T:System.Data.DataView" /> の <see cref="T:System.Data.DataTable" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-128">Returns a <see cref="T:System.Data.DataView" /> for the child <see cref="T:System.Data.DataTable" />.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="CreateChildView">
+      <MemberSignature Language="C#" Value="public System.Data.DataView CreateChildView (System.Data.DataRelation relation);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Data.DataView CreateChildView(class System.Data.DataRelation relation) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.CreateChildView(System.Data.DataRelation)" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateChildView (relation As DataRelation) As DataView" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::DataView ^ CreateChildView(System::Data::DataRelation ^ relation);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.DataView</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="relation" Type="System.Data.DataRelation" />
+      </Parameters>
+      <Docs>
+        <param name="relation">
+          <span data-ttu-id="5b37b-129">
+            <see cref="T:System.Data.DataRelation" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-129">The <see cref="T:System.Data.DataRelation" /> object.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-130">指定した子 <see cref="T:System.Data.DataView" /> を使用して子 <see cref="T:System.Data.DataTable" /> の <see cref="T:System.Data.DataRelation" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-130">Returns a <see cref="T:System.Data.DataView" /> for the child <see cref="T:System.Data.DataTable" /> with the specified child <see cref="T:System.Data.DataRelation" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-131">子 <see cref="T:System.Data.DataView" /> の <see cref="T:System.Data.DataTable" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-131">a <see cref="T:System.Data.DataView" /> for the child <see cref="T:System.Data.DataTable" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateChildView">
+      <MemberSignature Language="C#" Value="public System.Data.DataView CreateChildView (string relationName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Data.DataView CreateChildView(string relationName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.CreateChildView(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateChildView (relationName As String) As DataView" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::DataView ^ CreateChildView(System::String ^ relationName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.DataView</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="relationName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="relationName">
+          <span data-ttu-id="5b37b-132">
+            <see cref="T:System.Data.DataRelation" /> 名を格納している文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-132">A string containing the <see cref="T:System.Data.DataRelation" /> name.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-133">指定した子 <see cref="T:System.Data.DataView" /> 名を使用して子 <see cref="T:System.Data.DataTable" /> の <see cref="T:System.Data.DataRelation" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-133">Returns a <see cref="T:System.Data.DataView" /> for the child <see cref="T:System.Data.DataTable" /> with the specified child <see cref="T:System.Data.DataRelation" /> name.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-134">子 <see cref="T:System.Data.DataView" /> の <see cref="T:System.Data.DataTable" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-134">a <see cref="T:System.Data.DataView" /> for the child <see cref="T:System.Data.DataTable" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateChildView">
+      <MemberSignature Language="C#" Value="public System.Data.DataView CreateChildView (System.Data.DataRelation relation, bool followParent);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Data.DataView CreateChildView(class System.Data.DataRelation relation, bool followParent) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.CreateChildView(System.Data.DataRelation,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateChildView (relation As DataRelation, followParent As Boolean) As DataView" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::DataView ^ CreateChildView(System::Data::DataRelation ^ relation, bool followParent);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.DataView</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="relation" Type="System.Data.DataRelation" />
+        <Parameter Name="followParent" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="relation">
+          <span data-ttu-id="5b37b-135">
+            <see cref="T:System.Data.DataRelation" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-135">The <see cref="T:System.Data.DataRelation" /> object.</span>
+          </span>
+        </param>
+        <param name="followParent">
+          <span data-ttu-id="5b37b-136">親オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-136">The parent object.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-137">指定した <see cref="T:System.Data.DataView" /> と親を使用して子 <see cref="T:System.Data.DataTable" /> の <see cref="T:System.Data.DataRelation" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-137">Returns a <see cref="T:System.Data.DataView" /> for the child <see cref="T:System.Data.DataTable" /> with the specified <see cref="T:System.Data.DataRelation" /> and parent..</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-138">子 <see cref="T:System.Data.DataView" /> の <see cref="T:System.Data.DataTable" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-138">A <see cref="T:System.Data.DataView" /> for the child <see cref="T:System.Data.DataTable" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateChildView">
+      <MemberSignature Language="C#" Value="public System.Data.DataView CreateChildView (string relationName, bool followParent);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Data.DataView CreateChildView(string relationName, bool followParent) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.CreateChildView(System.String,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateChildView (relationName As String, followParent As Boolean) As DataView" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::DataView ^ CreateChildView(System::String ^ relationName, bool followParent);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.DataView</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="relationName" Type="System.String" />
+        <Parameter Name="followParent" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="relationName">
+          <span data-ttu-id="5b37b-139">
+            <see cref="T:System.Data.DataRelation" /> 名を格納している文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-139">A string containing the <see cref="T:System.Data.DataRelation" /> name.</span>
+          </span>
+        </param>
+        <param name="followParent">
+          <span data-ttu-id="5b37b-140">親</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-140">The parent</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-141">指定した <see cref="T:System.Data.DataView" /> 名と親を使用して子 <see cref="T:System.Data.DataTable" /> の <see cref="T:System.Data.DataRelation" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-141">Returns a <see cref="T:System.Data.DataView" /> for the child <see cref="T:System.Data.DataTable" /> with the specified <see cref="T:System.Data.DataRelation" /> name and parent.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-142">子 <see cref="T:System.Data.DataView" /> の <see cref="T:System.Data.DataTable" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-142">a <see cref="T:System.Data.DataView" /> for the child <see cref="T:System.Data.DataTable" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="DataView">
+      <MemberSignature Language="C#" Value="public System.Data.DataView DataView { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Data.DataView DataView" />
+      <MemberSignature Language="DocId" Value="P:System.Data.DataRowView.DataView" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property DataView As DataView" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Data::DataView ^ DataView { System::Data::DataView ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.DataView</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-143">この行が属する <see cref="T:System.Data.DataView" /> を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-143">Gets the <see cref="T:System.Data.DataView" /> to which this row belongs.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5b37b-144">この行が属する <see langword="DataView" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-144">The <see langword="DataView" /> to which this row belongs.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="5b37b-145">次の例を返します、<xref:System.Data.DataView>の指定した<xref:System.Data.DataRowView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-145">The following example returns the <xref:System.Data.DataView> of the specified <xref:System.Data.DataRowView>.</span></span>  
+  
+ [!code-csharp[Classic WebData DataRowView.DataView Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData DataRowView.DataView Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData DataRowView.DataView Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataRowView.DataView Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Delete">
+      <MemberSignature Language="C#" Value="public void Delete ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Delete() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.Delete" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Delete ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Delete();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-146">行を削除します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-146">Deletes a row.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-147">まで、行が完全に削除されません<xref:System.Data.DataTable.AcceptChanges%2A>で呼び出される、<xref:System.Data.DataTable>行が属しています。</span><span class="sxs-lookup"><span data-stu-id="5b37b-147">The row is not permanently deleted until <xref:System.Data.DataTable.AcceptChanges%2A> is invoked on the <xref:System.Data.DataTable> that the row belongs to.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="5b37b-148">A<xref:System.Data.DataRowView>できない有効な場合に、`DataRow`は基になるテーブルから削除します。</span><span class="sxs-lookup"><span data-stu-id="5b37b-148">A <xref:System.Data.DataRowView> may be invalid when a `DataRow` is deleted from the underlying table.</span></span> <span data-ttu-id="5b37b-149">ときに、<xref:System.Data.DataRowView>が、無効になるに関連付けられている値にアクセスする操作<xref:System.Data.DataRowView>など<xref:System.Data.DataRowView.Delete%2A>例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="5b37b-149">When the <xref:System.Data.DataRowView> becomes invalid, operations that access values associated with <xref:System.Data.DataRowView>, such as <xref:System.Data.DataRowView.Delete%2A>, throw an exception.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5b37b-150">次の例では、<xref:System.Data.DataRowView.Delete%2A>メソッドの行にします。</span><span class="sxs-lookup"><span data-stu-id="5b37b-150">The following example uses the <xref:System.Data.DataRowView.Delete%2A> method on a row.</span></span>  
+  
+ [!code-csharp[Classic WebData DataRowView.Delete Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData DataRowView.Delete Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData DataRowView.Delete Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataRowView.Delete Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Data.DataRowView.BeginEdit" />
+      </Docs>
+    </Member>
+    <Member MemberName="EndEdit">
+      <MemberSignature Language="C#" Value="public void EndEdit ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void EndEdit() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.EndEdit" />
+      <MemberSignature Language="VB.NET" Value="Public Sub EndEdit ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void EndEdit();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-151">
+            <see cref="T:System.Data.DataRow" /> に対する変更をコミットし、<see cref="M:System.Data.DataRowView.BeginEdit" /> によって開始された編集セッションを終了します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-151">Commits changes to the underlying <see cref="T:System.Data.DataRow" /> and ends the editing session that was begun with <see cref="M:System.Data.DataRowView.BeginEdit" />.</span>
+          </span>
+          <span data-ttu-id="5b37b-152">
+            <see cref="M:System.Data.DataRowView.CancelEdit" /> への変更を破棄するには、<see cref="T:System.Data.DataRow" /> を使用します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-152">Use <see cref="M:System.Data.DataRowView.CancelEdit" /> to discard the changes made to the <see cref="T:System.Data.DataRow" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="5b37b-153">次の例は、内の行を編集、<xref:System.Data.DataView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-153">The following example edits a row in a <xref:System.Data.DataView>.</span></span> <span data-ttu-id="5b37b-154">呼び出す、<xref:System.Data.DataRowView.BeginEdit%2A>前に、および<xref:System.Data.DataRowView.EndEdit%2A>後です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-154">calling the <xref:System.Data.DataRowView.BeginEdit%2A> before, and <xref:System.Data.DataRowView.EndEdit%2A> afterwards.</span></span>  
+  
+ [!code-vb[Classic WebData DataRowView.EndEdit Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataRowView.EndEdit Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Data.DataRow.AcceptChanges" />
+        <altmember cref="P:System.Data.DataView.AllowDelete" />
+        <altmember cref="P:System.Data.DataView.AllowEdit" />
+        <altmember cref="P:System.Data.DataView.AllowNew" />
+        <altmember cref="M:System.Data.DataRowView.CancelEdit" />
+        <altmember cref="T:System.Data.DataRow" />
+        <altmember cref="M:System.Data.DataRowView.BeginEdit" />
+      </Docs>
+    </Member>
+    <Member MemberName="Equals">
+      <MemberSignature Language="C#" Value="public override bool Equals (object other);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance bool Equals(object other) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.Equals(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function Equals (other As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override bool Equals(System::Object ^ other);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="other" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="other">
+          <span data-ttu-id="5b37b-155">比較する <see cref="T:System.Object" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-155">An <see cref="T:System.Object" /> to be compared.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-156">現在の <see cref="T:System.Data.DataRowView" /> が指定したオブジェクトと同一かどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-156">Gets a value indicating whether the current <see cref="T:System.Data.DataRowView" /> is identical to the specified object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-157">
+            <paramref name="object" /> が <see cref="T:System.Data.DataRowView" /> であり、現在の <see cref="T:System.Data.DataRowView" /> と同じ行を返す場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-157">
+              <see langword="true" /> if <paramref name="object" /> is a <see cref="T:System.Data.DataRowView" /> and it returns the same row as the current <see cref="T:System.Data.DataRowView" />; otherwise <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetHashCode">
+      <MemberSignature Language="C#" Value="public override int GetHashCode ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 GetHashCode() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.GetHashCode" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function GetHashCode () As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int GetHashCode();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-158">
+            <see cref="T:System.Data.DataRow" /> オブジェクトのハッシュ コードを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-158">Returns the hash code of the <see cref="T:System.Data.DataRow" /> object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-159">このインスタンスの値が 0 以外の場合はブール値 <see langword="true" /> を表す 32 ビット符号付き整数ハッシュ コードの 1。それ以外の場合はブール値 <see langword="false" /> を表す整数の 0。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-159">A 32-bit signed integer hash code 1, which represents Boolean <see langword="true" /> if the value of this instance is nonzero; otherwise the integer zero, which represents Boolean <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsEdit">
+      <MemberSignature Language="C#" Value="public bool IsEdit { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsEdit" />
+      <MemberSignature Language="DocId" Value="P:System.Data.DataRowView.IsEdit" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property IsEdit As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool IsEdit { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-160">行が編集モードかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-160">Indicates whether the row is in edit mode.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5b37b-161">行が編集モードである場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-161">
+              <see langword="true" /> if the row is in edit mode; otherwise <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <altmember cref="M:System.Data.DataRowView.BeginEdit" />
+      </Docs>
+    </Member>
+    <Member MemberName="IsNew">
+      <MemberSignature Language="C#" Value="public bool IsNew { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsNew" />
+      <MemberSignature Language="DocId" Value="P:System.Data.DataRowView.IsNew" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property IsNew As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool IsNew { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-162">
+            <see cref="T:System.Data.DataRowView" /> が新しいかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-162">Indicates whether a <see cref="T:System.Data.DataRowView" /> is new.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5b37b-163">行が新しい場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-163">
+              <see langword="true" /> if the row is new; otherwise <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-164">呼び出し後に呼び出す<xref:System.Data.DataView.AddNew%2A>、 <xref:System.Data.DataRowView.IsNew%2A> 、返されたを true になります<xref:System.Data.DataRowView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-164">After you call you call <xref:System.Data.DataView.AddNew%2A>, <xref:System.Data.DataRowView.IsNew%2A> will be true for the returned <xref:System.Data.DataRowView>.</span></span> <span data-ttu-id="5b37b-165"><xref:System.Data.DataRowView.IsNew%2A> されるまで、true になります<xref:System.Data.DataRowView.EndEdit%2A>で呼び出されると、 <xref:System.Data.DataRowView>、または<xref:System.Data.DataView.AddNew%2A>再び呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-165"><xref:System.Data.DataRowView.IsNew%2A> will be true until either <xref:System.Data.DataRowView.EndEdit%2A> is called on the <xref:System.Data.DataRowView>, or <xref:System.Data.DataView.AddNew%2A> is called again.</span></span> <span data-ttu-id="5b37b-166">(は新しい行を 1 つだけです。)</span><span class="sxs-lookup"><span data-stu-id="5b37b-166">(There is only one new row.)</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Item">
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-167">指定した列の値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-167">Gets or sets a value in a specified column.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Item">
+      <MemberSignature Language="C#" Value="public object this[int ndx] { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance object Item(int32)" />
+      <MemberSignature Language="DocId" Value="P:System.Data.DataRowView.Item(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Default Public Property Item(ndx As Integer) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Object ^ default[int] { System::Object ^ get(int ndx); void set(int ndx, System::Object ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="ndx" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="ndx">
+          <span data-ttu-id="5b37b-168">指定した列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-168">The specified column.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-169">指定した列の値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-169">Gets or sets a value in a specified column.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5b37b-170">列の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-170">The value of the column.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="5b37b-171">次の例では、それぞれの各項目の値を表示<xref:System.Data.DataRowView>で、<xref:System.Data.DataView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-171">The following example displays the value in each item of each <xref:System.Data.DataRowView> in a <xref:System.Data.DataView>.</span></span>  
+  
+ [!code-csharp[Classic WebData DataRowView.this2 Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData DataRowView.this2 Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData DataRowView.this2 Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataRowView.this2 Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Item">
+      <MemberSignature Language="C#" Value="public object this[string property] { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance object Item(string)" />
+      <MemberSignature Language="DocId" Value="P:System.Data.DataRowView.Item(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Default Public Property Item(property As String) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Object ^ default[System::String ^] { System::Object ^ get(System::String ^ property); void set(System::String ^ property, System::Object ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="property" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="property">
+          <span data-ttu-id="5b37b-172">指定した列を格納している文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-172">String that contains the specified column.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-173">指定した列の値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-173">Gets or sets a value in a specified column.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5b37b-174">列の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-174">The value of the column.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="5b37b-175">次の例では、変更された各行の列の値にテキストを追加、<xref:System.Data.DataView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-175">The following example appends text to the value of a column in each modified row of a <xref:System.Data.DataView>.</span></span>  
+  
+ [!code-csharp[Classic WebData DataRowView.this Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData DataRowView.this Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData DataRowView.this Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataRowView.this Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="PropertyChanged">
+      <MemberSignature Language="C#" Value="public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.ComponentModel.PropertyChangedEventHandler PropertyChanged" />
+      <MemberSignature Language="DocId" Value="E:System.Data.DataRowView.PropertyChanged" />
+      <MemberSignature Language="VB.NET" Value="Public Custom Event PropertyChanged As PropertyChangedEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual event System::ComponentModel::PropertyChangedEventHandler ^ PropertyChanged;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.PropertyChangedEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-176">
+            <see cref="T:System.Data.DataRowView" /> プロパティの変更時に発生するイベント。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-176">Event that is raised when a <see cref="T:System.Data.DataRowView" /> property is changed.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-177">このイベントは、列の値に関連付けられているときに発生します。、<xref:System.Data.DataRowView>変更します。</span><span class="sxs-lookup"><span data-stu-id="5b37b-177">This event fires when the column value associated with the <xref:System.Data.DataRowView> changes.</span></span> <span data-ttu-id="5b37b-178">この変更の関連付けられているインデックスの位置、<xref:System.Data.DataRowView>を変更します。</span><span class="sxs-lookup"><span data-stu-id="5b37b-178">This change does not cause the associated index position of the <xref:System.Data.DataRowView> to be changed.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Row">
+      <MemberSignature Language="C#" Value="public System.Data.DataRow Row { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Data.DataRow Row" />
+      <MemberSignature Language="DocId" Value="P:System.Data.DataRowView.Row" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Row As DataRow" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Data::DataRow ^ Row { System::Data::DataRow ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.DataRow</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-179">表示されている <see cref="T:System.Data.DataRow" /> を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-179">Gets the <see cref="T:System.Data.DataRow" /> being viewed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5b37b-180">
+            <see cref="T:System.Data.DataRow" /> に表示されている <see cref="T:System.Data.DataRowView" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-180">The <see cref="T:System.Data.DataRow" /> being viewed by the <see cref="T:System.Data.DataRowView" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="5b37b-181">次の例では、<xref:System.Data.DataRowView.Row%2A>プロパティの変更された各行の 3 番目の列の値を出力を<xref:System.Data.DataView>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-181">The following example uses the <xref:System.Data.DataRowView.Row%2A> property to print the value of the third column in each modified row of a <xref:System.Data.DataView>.</span></span>  
+  
+ [!code-csharp[Classic WebData DataRowView.Row Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData DataRowView.Row Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData DataRowView.Row Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataRowView.Row Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Data.DataRowView" />
+        <altmember cref="T:System.Data.DataRow" />
+      </Docs>
+    </Member>
+    <Member MemberName="RowVersion">
+      <MemberSignature Language="C#" Value="public System.Data.DataRowVersion RowVersion { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Data.DataRowVersion RowVersion" />
+      <MemberSignature Language="DocId" Value="P:System.Data.DataRowView.RowVersion" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property RowVersion As DataRowVersion" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Data::DataRowVersion RowVersion { System::Data::DataRowVersion get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.DataRowVersion</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-182">
+            <see cref="T:System.Data.DataRow" /> の現在のバージョンの説明を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-182">Gets the current version description of the <see cref="T:System.Data.DataRow" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5b37b-183">
+            <see cref="T:System.Data.DataRowVersion" /> 値のいずれか 1 つ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-183">One of the <see cref="T:System.Data.DataRowVersion" /> values.</span>
+          </span>
+          <span data-ttu-id="5b37b-184">
+            <see cref="P:System.Data.DataRowView.RowVersion" /> プロパティに使用できる値は、<see langword="Default" />、<see langword="Original" />、<see langword="Current" />、および <see langword="Proposed" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-184">Possible values for the <see cref="P:System.Data.DataRowView.RowVersion" /> property are <see langword="Default" />, <see langword="Original" />, <see langword="Current" />, and <see langword="Proposed" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-185"><xref:System.Data.DataView.RowStateFilter%2A>プロパティが両方とも指定<xref:System.Data.DataRowState>と<xref:System.Data.DataRowVersion>設定します。</span><span class="sxs-lookup"><span data-stu-id="5b37b-185">The <xref:System.Data.DataView.RowStateFilter%2A> property specifies both <xref:System.Data.DataRowState> and <xref:System.Data.DataRowVersion> settings.</span></span> <span data-ttu-id="5b37b-186">詳細については、「<xref:System.Data.DataRowState>「<xref:System.Data.DataRowVersion>および「<xref:System.Data.DataViewRowState>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="5b37b-186">For more information, see <xref:System.Data.DataRowState>, <xref:System.Data.DataRowVersion>, and <xref:System.Data.DataViewRowState>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5b37b-187">次の例では、<xref:System.Data.DataRowView.RowVersion%2A>プロパティを表示、<xref:System.Data.DataRowVersion>です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-187">The following example uses the <xref:System.Data.DataRowView.RowVersion%2A> property to display the <xref:System.Data.DataRowVersion>.</span></span>  
+  
+ [!code-csharp[DataWorks DataRowView.RowVersion1#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks DataRowView.RowVersion1/CS/source.cs#1)]
+ [!code-vb[DataWorks DataRowView.RowVersion1#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks DataRowView.RowVersion1/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Data.DataRow.AcceptChanges" />
+        <altmember cref="M:System.Data.DataRow.BeginEdit" />
+        <altmember cref="T:System.Data.DataRowVersion" />
+        <altmember cref="M:System.Data.DataRow.EndEdit" />
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetAttributes">
+      <MemberSignature Language="C#" Value="System.ComponentModel.AttributeCollection ICustomTypeDescriptor.GetAttributes ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.ComponentModel.AttributeCollection System.ComponentModel.ICustomTypeDescriptor.GetAttributes() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetAttributes" />
+      <MemberSignature Language="VB.NET" Value="Function GetAttributes () As AttributeCollection Implements ICustomTypeDescriptor.GetAttributes" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::ComponentModel::AttributeCollection ^ System.ComponentModel.ICustomTypeDescriptor.GetAttributes() = System::ComponentModel::ICustomTypeDescriptor::GetAttributes;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.AttributeCollection</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-188">コンポーネントのこのインスタンスのカスタム属性のコレクションを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-188">Returns a collection of custom attributes for this instance of a component.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-189">このオブジェクトの属性を格納する AttributeCollection。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-189">An AttributeCollection containing the attributes for this object.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-190">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-190">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-191">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-191">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetClassName">
+      <MemberSignature Language="C#" Value="string ICustomTypeDescriptor.GetClassName ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance string System.ComponentModel.ICustomTypeDescriptor.GetClassName() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetClassName" />
+      <MemberSignature Language="VB.NET" Value="Function GetClassName () As String Implements ICustomTypeDescriptor.GetClassName" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::String ^ System.ComponentModel.ICustomTypeDescriptor.GetClassName() = System::ComponentModel::ICustomTypeDescriptor::GetClassName;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-192">コンポーネントのこのインスタンスのクラス名を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-192">Returns the class name of this instance of a component.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-193">コンポーネントのこのインスタンスのクラス名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-193">The class name of this instance of a component.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-194">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-194">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-195">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-195">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetComponentName">
+      <MemberSignature Language="C#" Value="string ICustomTypeDescriptor.GetComponentName ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance string System.ComponentModel.ICustomTypeDescriptor.GetComponentName() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetComponentName" />
+      <MemberSignature Language="VB.NET" Value="Function GetComponentName () As String Implements ICustomTypeDescriptor.GetComponentName" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::String ^ System.ComponentModel.ICustomTypeDescriptor.GetComponentName() = System::ComponentModel::ICustomTypeDescriptor::GetComponentName;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-196">コンポーネントのこのインスタンスの名前を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-196">Returns the name of this instance of a component.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-197">コンポーネントのこのインスタンスの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-197">The name of this instance of a component.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-198">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-198">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-199">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-199">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetConverter">
+      <MemberSignature Language="C#" Value="System.ComponentModel.TypeConverter ICustomTypeDescriptor.GetConverter ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.ComponentModel.TypeConverter System.ComponentModel.ICustomTypeDescriptor.GetConverter() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetConverter" />
+      <MemberSignature Language="VB.NET" Value="Function GetConverter () As TypeConverter Implements ICustomTypeDescriptor.GetConverter" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::ComponentModel::TypeConverter ^ System.ComponentModel.ICustomTypeDescriptor.GetConverter() = System::ComponentModel::ICustomTypeDescriptor::GetConverter;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.TypeConverter</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-200">コンポーネントのこのインスタンスの型コンバーターを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-200">Returns a type converter for this instance of a component.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-201">コンポーネントのこのインスタンスの型コンバーター。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-201">The type converter for this instance of a component.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-202">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-202">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-203">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-203">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent">
+      <MemberSignature Language="C#" Value="System.ComponentModel.EventDescriptor ICustomTypeDescriptor.GetDefaultEvent ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.ComponentModel.EventDescriptor System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetDefaultEvent" />
+      <MemberSignature Language="VB.NET" Value="Function GetDefaultEvent () As EventDescriptor Implements ICustomTypeDescriptor.GetDefaultEvent" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::ComponentModel::EventDescriptor ^ System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent() = System::ComponentModel::ICustomTypeDescriptor::GetDefaultEvent;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.EventDescriptor</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-204">コンポーネントのこのインスタンスの既定のイベントを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-204">Returns the default event for this instance of a component.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-205">コンポーネントのこのインスタンスの既定のイベント。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-205">The default event for this instance of a component.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-206">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-206">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-207">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-207">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty">
+      <MemberSignature Language="C#" Value="System.ComponentModel.PropertyDescriptor ICustomTypeDescriptor.GetDefaultProperty ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.ComponentModel.PropertyDescriptor System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetDefaultProperty" />
+      <MemberSignature Language="VB.NET" Value="Function GetDefaultProperty () As PropertyDescriptor Implements ICustomTypeDescriptor.GetDefaultProperty" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::ComponentModel::PropertyDescriptor ^ System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty() = System::ComponentModel::ICustomTypeDescriptor::GetDefaultProperty;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.PropertyDescriptor</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-208">コンポーネントのこのインスタンスの既定のプロパティを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-208">Returns the default property for this instance of a component.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-209">コンポーネントのこのインスタンスの既定のプロパティ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-209">The default property for this instance of a component.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-210">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-210">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-211">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-211">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetEditor">
+      <MemberSignature Language="C#" Value="object ICustomTypeDescriptor.GetEditor (Type editorBaseType);" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance object System.ComponentModel.ICustomTypeDescriptor.GetEditor(class System.Type editorBaseType) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetEditor(System.Type)" />
+      <MemberSignature Language="VB.NET" Value="Function GetEditor (editorBaseType As Type) As Object Implements ICustomTypeDescriptor.GetEditor" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::Object ^ System.ComponentModel.ICustomTypeDescriptor.GetEditor(Type ^ editorBaseType) = System::ComponentModel::ICustomTypeDescriptor::GetEditor;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="editorBaseType" Type="System.Type" />
+      </Parameters>
+      <Docs>
+        <param name="editorBaseType">
+          <span data-ttu-id="5b37b-212">このオブジェクトのエディターを表す <see cref="T:System.Type" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-212">A <see cref="T:System.Type" /> that represents the editor for this object.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-213">コンポーネントのこのインスタンスに対して指定されている型のエディターを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-213">Returns an editor of the specified type for this instance of a component.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-214">このオブジェクトのエディターである指定された型の <see cref="T:System.Object" />。エディターが見つからない場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-214">An <see cref="T:System.Object" /> of the specified type that is the editor for this object, or <see langword="null" /> if the editor cannot be found.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-215">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-215">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-216">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-216">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="System.ComponentModel.ICustomTypeDescriptor.GetEvents">
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-217">コンポーネントのこのインスタンスのイベントを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-217">Returns the events for this instance of a component.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-218">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-218">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-219">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-219">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetEvents">
+      <MemberSignature Language="C#" Value="System.ComponentModel.EventDescriptorCollection ICustomTypeDescriptor.GetEvents ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.ComponentModel.EventDescriptorCollection System.ComponentModel.ICustomTypeDescriptor.GetEvents() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetEvents" />
+      <MemberSignature Language="VB.NET" Value="Function GetEvents () As EventDescriptorCollection Implements ICustomTypeDescriptor.GetEvents" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::ComponentModel::EventDescriptorCollection ^ System.ComponentModel.ICustomTypeDescriptor.GetEvents() = System::ComponentModel::ICustomTypeDescriptor::GetEvents;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.EventDescriptorCollection</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-220">コンポーネントのこのインスタンスのイベントを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-220">Returns the events for this instance of a component.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-221">コンポーネントのこのインスタンスのイベント。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-221">The events for this instance of a component.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-222">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-222">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-223">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-223">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetEvents">
+      <MemberSignature Language="C#" Value="System.ComponentModel.EventDescriptorCollection ICustomTypeDescriptor.GetEvents (Attribute[] attributes);" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.ComponentModel.EventDescriptorCollection System.ComponentModel.ICustomTypeDescriptor.GetEvents(class System.Attribute[] attributes) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetEvents(System.Attribute[])" />
+      <MemberSignature Language="VB.NET" Value="Function GetEvents (attributes As Attribute()) As EventDescriptorCollection Implements ICustomTypeDescriptor.GetEvents" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::ComponentModel::EventDescriptorCollection ^ System.ComponentModel.ICustomTypeDescriptor.GetEvents(cli::array &lt;Attribute ^&gt; ^ attributes) = System::ComponentModel::ICustomTypeDescriptor::GetEvents;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.EventDescriptorCollection</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="attributes" Type="System.Attribute[]" />
+      </Parameters>
+      <Docs>
+        <param name="attributes">
+          <span data-ttu-id="5b37b-224">属性</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-224">The attributes</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-225">指定された属性を持つコンポーネントのこのインスタンスのイベントを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-225">Returns the events for this instance of a component with specified attributes.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-226">コンポーネントのこのインスタンスのイベント。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-226">The events for this instance of a component.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-227">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-227">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-228">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-228">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="System.ComponentModel.ICustomTypeDescriptor.GetProperties">
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-229">コンポーネントのこのインスタンスのプロパティを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-229">Returns the properties for this instance of a component.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-230">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-230">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-231">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-231">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetProperties">
+      <MemberSignature Language="C#" Value="System.ComponentModel.PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.ComponentModel.PropertyDescriptorCollection System.ComponentModel.ICustomTypeDescriptor.GetProperties() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetProperties" />
+      <MemberSignature Language="VB.NET" Value="Function GetProperties () As PropertyDescriptorCollection Implements ICustomTypeDescriptor.GetProperties" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::ComponentModel::PropertyDescriptorCollection ^ System.ComponentModel.ICustomTypeDescriptor.GetProperties() = System::ComponentModel::ICustomTypeDescriptor::GetProperties;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.PropertyDescriptorCollection</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-232">コンポーネントのこのインスタンスのプロパティを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-232">Returns the properties for this instance of a component.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-233">コンポーネントのこのインスタンスのプロパティ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-233">The properties for this instance of a component.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-234">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-234">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-235">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-235">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetProperties">
+      <MemberSignature Language="C#" Value="System.ComponentModel.PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties (Attribute[] attributes);" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.ComponentModel.PropertyDescriptorCollection System.ComponentModel.ICustomTypeDescriptor.GetProperties(class System.Attribute[] attributes) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetProperties(System.Attribute[])" />
+      <MemberSignature Language="VB.NET" Value="Function GetProperties (attributes As Attribute()) As PropertyDescriptorCollection Implements ICustomTypeDescriptor.GetProperties" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::ComponentModel::PropertyDescriptorCollection ^ System.ComponentModel.ICustomTypeDescriptor.GetProperties(cli::array &lt;Attribute ^&gt; ^ attributes) = System::ComponentModel::ICustomTypeDescriptor::GetProperties;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.PropertyDescriptorCollection</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="attributes" Type="System.Attribute[]" />
+      </Parameters>
+      <Docs>
+        <param name="attributes">
+          <span data-ttu-id="5b37b-236">属性。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-236">The attributes.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-237">指定された属性を持つコンポーネントのこのインスタンスのプロパティを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-237">Returns the properties for this instance of a component with specified attributes.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-238">コンポーネントのこのインスタンスのプロパティ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-238">The properties for this instance of a component.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-239">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-239">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-240">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-240">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner">
+      <MemberSignature Language="C#" Value="object ICustomTypeDescriptor.GetPropertyOwner (System.ComponentModel.PropertyDescriptor pd);" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance object System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner(class System.ComponentModel.PropertyDescriptor pd) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.DataRowView.System#ComponentModel#ICustomTypeDescriptor#GetPropertyOwner(System.ComponentModel.PropertyDescriptor)" />
+      <MemberSignature Language="VB.NET" Value="Function GetPropertyOwner (pd As PropertyDescriptor) As Object Implements ICustomTypeDescriptor.GetPropertyOwner" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::Object ^ System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner(System::ComponentModel::PropertyDescriptor ^ pd) = System::ComponentModel::ICustomTypeDescriptor::GetPropertyOwner;" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="pd" Type="System.ComponentModel.PropertyDescriptor" />
+      </Parameters>
+      <Docs>
+        <param name="pd">
+          <span data-ttu-id="5b37b-241">所有者を検索する対象のプロパティを表す <see cref="T:System.ComponentModel.PropertyDescriptor" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-241">A <see cref="T:System.ComponentModel.PropertyDescriptor" /> that represents the property whose owner is to be found.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-242">指定したプロパティ記述子によって記述されたプロパティを含むオブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-242">Returns an object that contains the property described by the specified property descriptor.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5b37b-243">指定されたプロパティの所有者を表す <see cref="T:System.Object" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-243">An <see cref="T:System.Object" /> that represents the owner of the specified property.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-244">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-244">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-245">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.ICustomTypeDescriptor> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-245">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.ICustomTypeDescriptor> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.IDataErrorInfo.Error">
+      <MemberSignature Language="C#" Value="string System.ComponentModel.IDataErrorInfo.Error { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string System.ComponentModel.IDataErrorInfo.Error" />
+      <MemberSignature Language="DocId" Value="P:System.Data.DataRowView.System#ComponentModel#IDataErrorInfo#Error" />
+      <MemberSignature Language="VB.NET" Value=" ReadOnly Property Error As String Implements IDataErrorInfo.Error" />
+      <MemberSignature Language="C++ CLI" Value="property System::String ^ System.ComponentModel.IDataErrorInfo.Error { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5b37b-246">オブジェクトの検証エラーを説明するメッセージを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-246">Gets a message that describes any validation errors for the object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5b37b-247">オブジェクトの検証エラー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-247">The validation error on the object.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-248">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-248">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-249">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.IDataErrorInfo> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-249">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.IDataErrorInfo> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ComponentModel.IDataErrorInfo.Item">
+      <MemberSignature Language="C#" Value="string System.ComponentModel.IDataErrorInfo.Item[string colName] { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string System.ComponentModel.IDataErrorInfo.Item(string)" />
+      <MemberSignature Language="DocId" Value="P:System.Data.DataRowView.System#ComponentModel#IDataErrorInfo#Item(System.String)" />
+      <MemberSignature Language="VB.NET" Value=" ReadOnly Property Item(colName As String) As String Implements IDataErrorInfo.Item" />
+      <MemberSignature Language="C++ CLI" Value="property System::String ^ System.ComponentModel.IDataErrorInfo.Item[System::String ^] { System::String ^ get(System::String ^ colName); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Common</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="colName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="colName">
+          <span data-ttu-id="5b37b-250">エラー メッセージを取得する対象のプロパティの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-250">The name of the property whose error message to get.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5b37b-251">指定した名前のプロパティに関するエラー メッセージを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-251">Gets the error message for the property with the given name.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5b37b-252">プロパティに関するエラー メッセージ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-252">The error message for the property.</span>
+          </span>
+          <span data-ttu-id="5b37b-253">既定値は、空の文字列 ("") です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5b37b-253">The default is an empty string ("").</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5b37b-254">このメンバーは、明示的なインターフェイス メンバーの実装です。</span><span class="sxs-lookup"><span data-stu-id="5b37b-254">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="5b37b-255">これは、<xref:System.Data.DataRowView> のインスタンスが <xref:System.ComponentModel.IDataErrorInfo> インターフェイスにキャストされる場合のみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="5b37b-255">It can be used only when the <xref:System.Data.DataRowView> instance is cast to an <xref:System.ComponentModel.IDataErrorInfo> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

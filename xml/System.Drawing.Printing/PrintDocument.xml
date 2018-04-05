@@ -1,0 +1,948 @@
+<Type Name="PrintDocument" FullName="System.Drawing.Printing.PrintDocument">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="3226da59f248f0e62f48f2881c168acd1651a90b" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class PrintDocument : System.ComponentModel.Component" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit PrintDocument extends System.ComponentModel.Component" />
+  <TypeSignature Language="DocId" Value="T:System.Drawing.Printing.PrintDocument" />
+  <TypeSignature Language="VB.NET" Value="Public Class PrintDocument&#xA;Inherits Component" />
+  <TypeSignature Language="C++ CLI" Value="public ref class PrintDocument : System::ComponentModel::Component" />
+  <AssemblyInfo>
+    <AssemblyName>System.Drawing</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.ComponentModel.Component</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.ComponentModel.DefaultEvent("PrintPage")</AttributeName>
+    </Attribute>
+    <Attribute>
+      <AttributeName>System.ComponentModel.DefaultProperty("DocumentName")</AttributeName>
+    </Attribute>
+    <Attribute>
+      <AttributeName>System.ComponentModel.ToolboxItemFilter("System.Drawing.Printing")</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="bd05b-101">Windows フォーム アプリケーションからの印刷時にプリンターに出力を送信する再利用可能なオブジェクトを定義します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="bd05b-101">Defines a reusable object that sends output to a printer, when printing from a Windows Forms application.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-102">通常のインスタンスを作成、<xref:System.Drawing.Printing.PrintDocument>クラスでプロパティを設定など、<xref:System.Drawing.Printing.PrintDocument.DocumentName%2A>と<xref:System.Drawing.Printing.PrintDocument.PrinterSettings%2A>を呼び出すと、<xref:System.Drawing.Printing.PrintDocument.Print%2A>印刷プロセスを開始するメソッド。</span><span class="sxs-lookup"><span data-stu-id="bd05b-102">Typically, you create an instance of the <xref:System.Drawing.Printing.PrintDocument> class, set properties such as the <xref:System.Drawing.Printing.PrintDocument.DocumentName%2A> and <xref:System.Drawing.Printing.PrintDocument.PrinterSettings%2A>, and call the <xref:System.Drawing.Printing.PrintDocument.Print%2A> method to start the printing process.</span></span> <span data-ttu-id="bd05b-103">処理、<xref:System.Drawing.Printing.PrintDocument.PrintPage>イベントを使用して、印刷出力を指定する、 <xref:System.Drawing.Printing.PrintPageEventArgs.Graphics%2A> <xref:System.Drawing.Graphics>のプロパティ、<xref:System.Drawing.Printing.PrintPageEventArgs>です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-103">Handle the <xref:System.Drawing.Printing.PrintDocument.PrintPage> event where you specify the output to print, by using the <xref:System.Drawing.Printing.PrintPageEventArgs.Graphics%2A><xref:System.Drawing.Graphics> property of the <xref:System.Drawing.Printing.PrintPageEventArgs>.</span></span>  
+  
+ <span data-ttu-id="bd05b-104">詳細については、Windows フォーム アプリケーションから印刷すると、次を参照してください。、 [Windows フォームにおける印刷のサポート](~/docs/framework/winforms/advanced/windows-forms-print-support.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-104">For more information about printing from a Windows Form application, see the [Windows Forms Print Support](~/docs/framework/winforms/advanced/windows-forms-print-support.md).</span></span> <span data-ttu-id="bd05b-105">Windows Presentation Foundation アプリケーションから印刷する場合を参照してください、<xref:System.Printing>名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-105">If you wish to print from a Windows Presentation Foundation application, see the <xref:System.Printing> namespace.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="bd05b-106">次のコード例では、既定のプリンターで C:\My Documents\MyFile.txt をという名前のファイルを出力します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-106">The following code example prints the file named C:\My Documents\MyFile.txt on the default printer.</span></span> <span data-ttu-id="bd05b-107">例を実行するには、新しい Windows フォーム プロジェクトを作成し、コード例をファイルの内容を置き換える、フォームに貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-107">To run the example, create a new Windows Forms project and paste the example code into the form, replacing the file contents.</span></span> <span data-ttu-id="bd05b-108">C# の場合は、Form1.Designer.cs ファイルを削除する必要があります。</span><span class="sxs-lookup"><span data-stu-id="bd05b-108">For C#, you will need to delete the Form1.Designer.cs file.</span></span> <span data-ttu-id="bd05b-109">また、印刷するファイルへのパスを変更します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-109">Also, change the path to the file you want to print.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="bd05b-110">この例では、各行が、ページの幅内に収まることが必要です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-110">The example requires that each line fits within the page width.</span></span>  
+  
+ <span data-ttu-id="bd05b-111">使用して、 <xref:System.ComponentModel>、 <xref:System.Windows.Forms>、 <xref:System.Drawing>、 <xref:System.Drawing.Printing>、および<xref:System.IO>この例の名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-111">Use the <xref:System.ComponentModel>, <xref:System.Windows.Forms>, <xref:System.Drawing>, <xref:System.Drawing.Printing>, and <xref:System.IO> namespaces for this example.</span></span>  
+  
+ [!code-cpp[Classic PrintDocument Example#1](~/samples/snippets/cpp/VS_Snippets_Winforms/Classic PrintDocument Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic PrintDocument Example#1](~/samples/snippets/csharp/VS_Snippets_Winforms/Classic PrintDocument Example/CS/source.cs#1)]
+ [!code-vb[Classic PrintDocument Example#1](~/samples/snippets/visualbasic/VS_Snippets_Winforms/Classic PrintDocument Example/VB/source.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Drawing.Graphics" />
+    <altmember cref="T:System.Drawing.Printing.PageSettings" />
+    <altmember cref="T:System.Drawing.Printing.PrintController" />
+    <altmember cref="T:System.Drawing.Printing.PrinterSettings" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public PrintDocument ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Drawing.Printing.PrintDocument.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; PrintDocument();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-112">
+            <see cref="T:System.Drawing.Printing.PrintDocument" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-112">Initializes a new instance of the <see cref="T:System.Drawing.Printing.PrintDocument" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-113">既定のコンス トラクターは、既定のプリンターに基づくすべてのフィールドを初期化します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-113">The default constructor initializes all fields based upon the default printer.</span></span> <span data-ttu-id="bd05b-114">新規作成した後は、通常、 <xref:System.Drawing.Printing.PrintDocument>、を通じて出力に影響するプリンターとページの設定を設定する、<xref:System.Drawing.Printing.PrintDocument.PrinterSettings%2A>と<xref:System.Drawing.Printing.PrintDocument.DefaultPageSettings%2A>プロパティ、それぞれします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-114">Typically, after creating a new <xref:System.Drawing.Printing.PrintDocument>, you set printer and page settings that affect the output through the <xref:System.Drawing.Printing.PrintDocument.PrinterSettings%2A> and <xref:System.Drawing.Printing.PrintDocument.DefaultPageSettings%2A> properties, respectively.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="bd05b-115">次のコード例は、ドキュメントのページの向きを横を設定し、文書を印刷します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-115">The following code example sets a document's page orientation to landscape, and prints the document.</span></span>  
+  
+ <span data-ttu-id="bd05b-116">使用して、 <xref:System.Drawing>、 <xref:System.Drawing.Printing>、および<xref:System.IO>この例の名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-116">Use the <xref:System.Drawing>, <xref:System.Drawing.Printing>, and <xref:System.IO> namespaces for this example.</span></span>  
+  
+ [!code-cpp[Classic PrintDocument Example#1](~/samples/snippets/cpp/VS_Snippets_Winforms/Classic PrintDocument Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic PrintDocument Example#1](~/samples/snippets/csharp/VS_Snippets_Winforms/Classic PrintDocument Example/CS/source.cs#1)]
+ [!code-vb[Classic PrintDocument Example#1](~/samples/snippets/visualbasic/VS_Snippets_Winforms/Classic PrintDocument Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="BeginPrint">
+      <MemberSignature Language="C#" Value="public event System.Drawing.Printing.PrintEventHandler BeginPrint;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.Drawing.Printing.PrintEventHandler BeginPrint" />
+      <MemberSignature Language="DocId" Value="E:System.Drawing.Printing.PrintDocument.BeginPrint" />
+      <MemberSignature Language="VB.NET" Value="Public Custom Event BeginPrint As PrintEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event System::Drawing::Printing::PrintEventHandler ^ BeginPrint;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Drawing.Printing.PrintEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-117">
+            <see cref="M:System.Drawing.Printing.PrintDocument.Print" /> メソッドが呼び出されたとき (ドキュメントの最初のページが印刷される前) に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-117">Occurs when the <see cref="M:System.Drawing.Printing.PrintDocument.Print" /> method is called and before the first page of the document prints.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-118">通常は、処理、<xref:System.Drawing.Printing.PrintDocument.BeginPrint>フォント、ファイル ストリーム、および印刷処理中に使用されるその他のリソースを初期化するためにイベント。</span><span class="sxs-lookup"><span data-stu-id="bd05b-118">Typically, you handle the <xref:System.Drawing.Printing.PrintDocument.BeginPrint> event to initialize fonts, file streams, and other resources used during the printing process.</span></span>  
+  
+ <span data-ttu-id="bd05b-119">イベントをイベント ハンドラーに関連付けるのインスタンスを追加、<xref:System.Drawing.Printing.PrintEventHandler>イベントにデリゲートします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-119">To associate the event with your event handler, add an instance of the <xref:System.Drawing.Printing.PrintEventHandler> delegate to the event.</span></span> <span data-ttu-id="bd05b-120">イベントが発生するたびに、イベント ハンドラーが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-120">The event handler is called whenever the event occurs.</span></span> <span data-ttu-id="bd05b-121">デリゲートでイベントを処理の詳細については、次を参照してください。[処理とイベントの発生](~/docs/standard/events/index.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-121">For more information about handling events with delegates, see [Handling and Raising Events](~/docs/standard/events/index.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Drawing.Printing.PrintEventHandler" />
+        <altmember cref="T:System.Drawing.Printing.PrintEventArgs" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.EndPrint" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.PrintPage" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.QueryPageSettings" />
+      </Docs>
+    </Member>
+    <Member MemberName="DefaultPageSettings">
+      <MemberSignature Language="C#" Value="public System.Drawing.Printing.PageSettings DefaultPageSettings { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Drawing.Printing.PageSettings DefaultPageSettings" />
+      <MemberSignature Language="DocId" Value="P:System.Drawing.Printing.PrintDocument.DefaultPageSettings" />
+      <MemberSignature Language="VB.NET" Value="Public Property DefaultPageSettings As PageSettings" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Drawing::Printing::PageSettings ^ DefaultPageSettings { System::Drawing::Printing::PageSettings ^ get(); void set(System::Drawing::Printing::PageSettings ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DesignerSerializationVisibility</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Drawing.Printing.PageSettings</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-122">印刷するすべてのページの既定値として使用されるページ設定を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-122">Gets or sets page settings that are used as defaults for all pages to be printed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="bd05b-123">ドキュメントの既定のページ設定を指定する <see cref="T:System.Drawing.Printing.PageSettings" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-123">A <see cref="T:System.Drawing.Printing.PageSettings" /> that specifies the default page settings for the document.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-124">いくつかの既定のページ設定を指定できます、<xref:System.Drawing.Printing.PrintDocument.DefaultPageSettings%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-124">You can specify several default page settings through the <xref:System.Drawing.Printing.PrintDocument.DefaultPageSettings%2A> property.</span></span> <span data-ttu-id="bd05b-125">など、<xref:System.Drawing.Printing.PageSettings.Color%2A?displayProperty=nameWithType>プロパティは、ページの色で印刷するかどうかを指定します、<xref:System.Drawing.Printing.PageSettings.Landscape%2A?displayProperty=nameWithType>プロパティは、横または縦の向きを指定し、<xref:System.Drawing.Printing.PageSettings.Margins%2A?displayProperty=nameWithType>プロパティがページの余白を指定します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-125">For example, the <xref:System.Drawing.Printing.PageSettings.Color%2A?displayProperty=nameWithType> property specifies whether the page prints in color, the <xref:System.Drawing.Printing.PageSettings.Landscape%2A?displayProperty=nameWithType> property specifies landscape or portrait orientation, and the <xref:System.Drawing.Printing.PageSettings.Margins%2A?displayProperty=nameWithType> property specifies the margins of the page.</span></span>  
+  
+ <span data-ttu-id="bd05b-126">ページの単位で設定を指定するには、処理、<xref:System.Drawing.Printing.PrintDocument.PrintPage>または<xref:System.Drawing.Printing.PrintDocument.QueryPageSettings>イベントを変更し、<xref:System.Drawing.Printing.PrintPageEventArgs.PageSettings%2A>引数に含まれる、<xref:System.Drawing.Printing.PrintPageEventArgs>または<xref:System.Drawing.Printing.QueryPageSettingsEventArgs>、それぞれします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-126">To specify settings on a page-by-page basis, handle the <xref:System.Drawing.Printing.PrintDocument.PrintPage> or <xref:System.Drawing.Printing.PrintDocument.QueryPageSettings> event and modify the <xref:System.Drawing.Printing.PrintPageEventArgs.PageSettings%2A> argument included in the <xref:System.Drawing.Printing.PrintPageEventArgs> or <xref:System.Drawing.Printing.QueryPageSettingsEventArgs>, respectively.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="bd05b-127">印刷が開始した後でページ設定の変更、<xref:System.Drawing.Printing.PrintDocument.DefaultPageSettings%2A>プロパティが印刷されるページと変わりません。</span><span class="sxs-lookup"><span data-stu-id="bd05b-127">After printing has started, changes to page settings through the <xref:System.Drawing.Printing.PrintDocument.DefaultPageSettings%2A> property will not affect pages being printed.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="bd05b-128">次のコード例は、ドキュメントのページの向きを横を設定し、文書を印刷します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-128">The following code example sets a document's page orientation to landscape, and prints the document.</span></span> <span data-ttu-id="bd05b-129">例は次の 3 つの前提条件: という名前の変数を`filePath`; を印刷するファイルのパスに設定されていますという名前のメソッドを`pd_PrintPage`、処理する、<xref:System.Drawing.Printing.PrintDocument.PrintPage>イベントが定義されて、という名前の変数`printer`されましたプリンターの名前に設定されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-129">The example makes three assumptions: that a variable named `filePath` has been set to the path of the file to print; that a method named `pd_PrintPage`, which handles the <xref:System.Drawing.Printing.PrintDocument.PrintPage> event, has been defined; and that a variable named `printer` has been set to the printer's name.</span></span>  
+  
+ <span data-ttu-id="bd05b-130">使用して、 <xref:System.Drawing>、 <xref:System.Drawing.Printing>、および<xref:System.IO>この例の名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-130">Use the <xref:System.Drawing>, <xref:System.Drawing.Printing>, and <xref:System.IO> namespaces for this example.</span></span>  
+  
+ [!code-cpp[Classic PrintDocument.PrintDocument Example#1](~/samples/snippets/cpp/VS_Snippets_Winforms/Classic PrintDocument.PrintDocument Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic PrintDocument.PrintDocument Example#1](~/samples/snippets/csharp/VS_Snippets_Winforms/Classic PrintDocument.PrintDocument Example/CS/source.cs#1)]
+ [!code-vb[Classic PrintDocument.PrintDocument Example#1](~/samples/snippets/visualbasic/VS_Snippets_Winforms/Classic PrintDocument.PrintDocument Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Drawing.Printing.PageSettings" />
+        <altmember cref="P:System.Drawing.Printing.PrintDocument.PrintController" />
+        <altmember cref="P:System.Drawing.Printing.PrintDocument.PrinterSettings" />
+      </Docs>
+    </Member>
+    <Member MemberName="DocumentName">
+      <MemberSignature Language="C#" Value="public string DocumentName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string DocumentName" />
+      <MemberSignature Language="DocId" Value="P:System.Drawing.Printing.PrintDocument.DocumentName" />
+      <MemberSignature Language="VB.NET" Value="Public Property DocumentName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ DocumentName { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DefaultValue("document")</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-131">ドキュメントの印刷中に、印刷ステータス ダイアログ ボックスやプリンター キューなどで表示するドキュメントの名前を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-131">Gets or sets the document name to display (for example, in a print status dialog box or printer queue) while printing the document.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="bd05b-132">ドキュメントの印刷中に表示するドキュメント名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-132">The document name to display while printing the document.</span>
+          </span>
+          <span data-ttu-id="bd05b-133">既定値は "document" です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-133">The default is "document".</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-134"><xref:System.Drawing.Printing.PrintDocument.DocumentName%2A>プロパティが印刷するファイルを指定していません。</span><span class="sxs-lookup"><span data-stu-id="bd05b-134">The <xref:System.Drawing.Printing.PrintDocument.DocumentName%2A> property does not specify the file to print.</span></span> <span data-ttu-id="bd05b-135">処理することにより、出力を指定する代わりに、<xref:System.Drawing.Printing.PrintDocument.PrintPage>イベント。</span><span class="sxs-lookup"><span data-stu-id="bd05b-135">Rather, you specify the output to print by handling the <xref:System.Drawing.Printing.PrintDocument.PrintPage> event.</span></span> <span data-ttu-id="bd05b-136">例については、次を参照してください。、<xref:System.Drawing.Printing.PrintDocument>クラスの概要です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-136">For an example, see the <xref:System.Drawing.Printing.PrintDocument> class overview.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="bd05b-137">次のコード例は、色の最初のページ文書を印刷する場合は、プリンターがサポートしていると、設定、<xref:System.Drawing.Printing.PrintDocument.DocumentName%2A>のわかりやすい名前にします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-137">The following code example prints a document with the first page in color, if the printer supports it, and sets the <xref:System.Drawing.Printing.PrintDocument.DocumentName%2A> to a user-friendly name.</span></span> <span data-ttu-id="bd05b-138">例では、する必要があります、<xref:System.Drawing.Printing.PrintDocument>という名前の変数`printDoc`が作成されたら、および<xref:System.Drawing.Printing.PrintDocument.PrintPage>と<xref:System.Drawing.Printing.PrintDocument.QueryPageSettings>イベントが処理されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-138">The example requires that a <xref:System.Drawing.Printing.PrintDocument> variable named `printDoc` has been created, and the <xref:System.Drawing.Printing.PrintDocument.PrintPage> and <xref:System.Drawing.Printing.PrintDocument.QueryPageSettings> events are handled.</span></span>  
+  
+ <span data-ttu-id="bd05b-139">使用して、<xref:System.Drawing>と<xref:System.Drawing.Printing>この例の名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-139">Use the <xref:System.Drawing> and <xref:System.Drawing.Printing> namespaces for this example.</span></span>  
+  
+ [!code-cpp[PaperSource and PaperSize Example with Resolution#6](~/samples/snippets/cpp/VS_Snippets_Winforms/PaperSource and PaperSize Example with Resolution/CPP/source.cpp#6)]
+ [!code-csharp[PaperSource and PaperSize Example with Resolution#6](~/samples/snippets/csharp/VS_Snippets_Winforms/PaperSource and PaperSize Example with Resolution/CS/source.cs#6)]
+ [!code-vb[PaperSource and PaperSize Example with Resolution#6](~/samples/snippets/visualbasic/VS_Snippets_Winforms/PaperSource and PaperSize Example with Resolution/VB/source.vb#6)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Drawing.Printing.PrintDocument" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.PrintPage" />
+      </Docs>
+    </Member>
+    <Member MemberName="EndPrint">
+      <MemberSignature Language="C#" Value="public event System.Drawing.Printing.PrintEventHandler EndPrint;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.Drawing.Printing.PrintEventHandler EndPrint" />
+      <MemberSignature Language="DocId" Value="E:System.Drawing.Printing.PrintDocument.EndPrint" />
+      <MemberSignature Language="VB.NET" Value="Public Custom Event EndPrint As PrintEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event System::Drawing::Printing::PrintEventHandler ^ EndPrint;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Drawing.Printing.PrintEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-140">ドキュメントの最後のページが印刷されたときに発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-140">Occurs when the last page of the document has printed.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-141">通常は、処理、<xref:System.Drawing.Printing.PrintDocument.EndPrint>などのフォントのフォント、ファイル ストリーム、および印刷処理中に使用されるその他のリソースを解放するイベントです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-141">Typically, you handle the <xref:System.Drawing.Printing.PrintDocument.EndPrint> event to release fonts, file streams, and other resources used during the printing process, like fonts.</span></span>  
+  
+ <span data-ttu-id="bd05b-142">設定して印刷するページはありませんがあることを示します、<xref:System.Drawing.Printing.PrintPageEventArgs.HasMorePages%2A?displayProperty=nameWithType>プロパティを`false`で、<xref:System.Drawing.Printing.PrintDocument.PrintPage>イベント。</span><span class="sxs-lookup"><span data-stu-id="bd05b-142">You indicate that there are no more pages to print by setting the <xref:System.Drawing.Printing.PrintPageEventArgs.HasMorePages%2A?displayProperty=nameWithType> property to `false` in the <xref:System.Drawing.Printing.PrintDocument.PrintPage> event.</span></span> <span data-ttu-id="bd05b-143"><xref:System.Drawing.Printing.PrintDocument.EndPrint>イベントは、印刷の処理が取り消されたか、印刷処理中に例外が発生した場合にも発生します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-143">The <xref:System.Drawing.Printing.PrintDocument.EndPrint> event also occurs if the printing process is canceled or an exception occurs during the printing process.</span></span>  
+  
+ <span data-ttu-id="bd05b-144">イベントをイベント ハンドラーに関連付けるのインスタンスを追加、<xref:System.Drawing.Printing.PrintEventHandler>イベントにデリゲートします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-144">To associate the event with your event handler, add an instance of the <xref:System.Drawing.Printing.PrintEventHandler> delegate to the event.</span></span> <span data-ttu-id="bd05b-145">イベントが発生するたびに、イベント ハンドラーが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-145">The event handler is called whenever the event occurs.</span></span> <span data-ttu-id="bd05b-146">デリゲートでイベントを処理の詳細については、次を参照してください。[処理とイベントの発生](~/docs/standard/events/index.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-146">For more information about handling events with delegates, see [Handling and Raising Events](~/docs/standard/events/index.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Drawing.Printing.PrintEventHandler" />
+        <altmember cref="T:System.Drawing.Printing.PrintEventArgs" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.BeginPrint" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.PrintPage" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.QueryPageSettings" />
+      </Docs>
+    </Member>
+    <Member MemberName="OnBeginPrint">
+      <MemberSignature Language="C#" Value="protected virtual void OnBeginPrint (System.Drawing.Printing.PrintEventArgs e);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnBeginPrint(class System.Drawing.Printing.PrintEventArgs e) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Drawing.Printing.PrintDocument.OnBeginPrint(System.Drawing.Printing.PrintEventArgs)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub OnBeginPrint (e As PrintEventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void OnBeginPrint(System::Drawing::Printing::PrintEventArgs ^ e);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="e" Type="System.Drawing.Printing.PrintEventArgs" />
+      </Parameters>
+      <Docs>
+        <param name="e">
+          <span data-ttu-id="bd05b-147">イベント データを格納している <see cref="T:System.Drawing.Printing.PrintEventArgs" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-147">A <see cref="T:System.Drawing.Printing.PrintEventArgs" /> that contains the event data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="bd05b-148">
+            <see cref="E:System.Drawing.Printing.PrintDocument.BeginPrint" /> イベントを発生させます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-148">Raises the <see cref="E:System.Drawing.Printing.PrintDocument.BeginPrint" /> event.</span>
+          </span>
+          <span data-ttu-id="bd05b-149">
+            <see cref="M:System.Drawing.Printing.PrintDocument.Print" /> メソッドが呼び出された後、ドキュメントの最初のページが印刷される前に呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-149">It is called after the <see cref="M:System.Drawing.Printing.PrintDocument.Print" /> method is called and before the first page of the document prints.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-150"><xref:System.Drawing.Printing.PrintDocument.OnBeginPrint%2A>メソッドにより、派生クラスでデリゲートを結び付けずに、イベントを処理します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-150">The <xref:System.Drawing.Printing.PrintDocument.OnBeginPrint%2A> method allows derived classes to handle the event without attaching a delegate.</span></span> <span data-ttu-id="bd05b-151">派生クラスでイベントを処理する場合は、この手法をお勧めします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-151">This is the preferred technique for handling the event in a derived class.</span></span>  
+  
+ <span data-ttu-id="bd05b-152">派生クラスを呼び出すと、<xref:System.Drawing.Printing.PrintDocument.OnBeginPrint%2A>を生成、メソッド、<xref:System.Drawing.Printing.PrintDocument.BeginPrint>を呼び出して、イベント ハンドラーがデリゲートからのイベントです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-152">When a derived class calls the <xref:System.Drawing.Printing.PrintDocument.OnBeginPrint%2A> method, it raises the <xref:System.Drawing.Printing.PrintDocument.BeginPrint> event by invoking the event handler through a delegate.</span></span> <span data-ttu-id="bd05b-153">詳細については、次を参照してください。[処理とイベントの発生](~/docs/standard/events/index.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-153">For more information, see [Handling and Raising Events](~/docs/standard/events/index.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="bd05b-154">派生クラスで <see cref="M:System.Drawing.Printing.PrintDocument.OnBeginPrint(System.Drawing.Printing.PrintEventArgs)" /> をオーバーライドする場合は、登録されているデリゲートがイベントを受け取ることができるように、基本クラスの <see cref="M:System.Drawing.Printing.PrintDocument.OnBeginPrint(System.Drawing.Printing.PrintEventArgs)" /> メソッドを呼び出してください。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="bd05b-154">When overriding <see cref="M:System.Drawing.Printing.PrintDocument.OnBeginPrint(System.Drawing.Printing.PrintEventArgs)" /> in a derived class, be sure to call the base class's <see cref="M:System.Drawing.Printing.PrintDocument.OnBeginPrint(System.Drawing.Printing.PrintEventArgs)" /> method so that registered delegates receive the event.</span>
+            </span>
+            <span data-ttu-id="bd05b-155">このメソッドは、初期化を実行します。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="bd05b-155">This method is a good place for initialization.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.BeginPrint" />
+        <altmember cref="T:System.Drawing.Printing.PrintEventArgs" />
+      </Docs>
+    </Member>
+    <Member MemberName="OnEndPrint">
+      <MemberSignature Language="C#" Value="protected virtual void OnEndPrint (System.Drawing.Printing.PrintEventArgs e);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnEndPrint(class System.Drawing.Printing.PrintEventArgs e) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Drawing.Printing.PrintDocument.OnEndPrint(System.Drawing.Printing.PrintEventArgs)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub OnEndPrint (e As PrintEventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void OnEndPrint(System::Drawing::Printing::PrintEventArgs ^ e);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="e" Type="System.Drawing.Printing.PrintEventArgs" />
+      </Parameters>
+      <Docs>
+        <param name="e">
+          <span data-ttu-id="bd05b-156">イベント データを格納している <see cref="T:System.Drawing.Printing.PrintEventArgs" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-156">A <see cref="T:System.Drawing.Printing.PrintEventArgs" /> that contains the event data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="bd05b-157">
+            <see cref="E:System.Drawing.Printing.PrintDocument.EndPrint" /> イベントを発生させます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-157">Raises the <see cref="E:System.Drawing.Printing.PrintDocument.EndPrint" /> event.</span>
+          </span>
+          <span data-ttu-id="bd05b-158">ドキュメントの最後のページが印刷されたときに呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-158">It is called when the last page of the document has printed.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-159"><xref:System.Drawing.Printing.PrintDocument.OnEndPrint%2A>メソッドにより、派生クラスでデリゲートを結び付けずに、イベントを処理します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-159">The <xref:System.Drawing.Printing.PrintDocument.OnEndPrint%2A> method allows derived classes to handle the event without attaching a delegate.</span></span> <span data-ttu-id="bd05b-160">派生クラスでイベントを処理する場合は、この手法をお勧めします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-160">This is the preferred technique for handling the event in a derived class.</span></span> <span data-ttu-id="bd05b-161"><xref:System.Drawing.Printing.PrintDocument.OnEndPrint%2A>印刷処理が取り消されたり、印刷処理中に例外が発生した場合、メソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-161">The <xref:System.Drawing.Printing.PrintDocument.OnEndPrint%2A> method is also called if the printing process is canceled or an exception occurs during the printing process.</span></span>  
+  
+ <span data-ttu-id="bd05b-162">派生クラスを呼び出すと、<xref:System.Drawing.Printing.PrintDocument.OnEndPrint%2A>を生成、メソッド、<xref:System.Drawing.Printing.PrintDocument.EndPrint>を呼び出して、イベント ハンドラーがデリゲートからのイベントです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-162">When a derived class calls the <xref:System.Drawing.Printing.PrintDocument.OnEndPrint%2A> method, it raises the <xref:System.Drawing.Printing.PrintDocument.EndPrint> event by invoking the event handler through a delegate.</span></span> <span data-ttu-id="bd05b-163">詳細については、次を参照してください。[処理とイベントの発生](~/docs/standard/events/index.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-163">For more information, see [Handling and Raising Events](~/docs/standard/events/index.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="bd05b-164">派生クラスで <see cref="M:System.Drawing.Printing.PrintDocument.OnEndPrint(System.Drawing.Printing.PrintEventArgs)" /> をオーバーライドする場合は、登録されているデリゲートがイベントを受け取ることができるように、基本クラスの <see cref="M:System.Drawing.Printing.PrintDocument.OnEndPrint(System.Drawing.Printing.PrintEventArgs)" /> メソッドを呼び出してください。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="bd05b-164">When overriding <see cref="M:System.Drawing.Printing.PrintDocument.OnEndPrint(System.Drawing.Printing.PrintEventArgs)" /> in a derived class, be sure to call the base class's <see cref="M:System.Drawing.Printing.PrintDocument.OnEndPrint(System.Drawing.Printing.PrintEventArgs)" /> method so that registered delegates receive the event.</span>
+            </span>
+            <span data-ttu-id="bd05b-165">このメソッドは、初期化解除中に適した場所です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="bd05b-165">This method is a good place for uninitialization.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.EndPrint" />
+        <altmember cref="T:System.Drawing.Printing.PrintEventArgs" />
+      </Docs>
+    </Member>
+    <Member MemberName="OnPrintPage">
+      <MemberSignature Language="C#" Value="protected virtual void OnPrintPage (System.Drawing.Printing.PrintPageEventArgs e);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnPrintPage(class System.Drawing.Printing.PrintPageEventArgs e) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Drawing.Printing.PrintDocument.OnPrintPage(System.Drawing.Printing.PrintPageEventArgs)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub OnPrintPage (e As PrintPageEventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void OnPrintPage(System::Drawing::Printing::PrintPageEventArgs ^ e);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="e" Type="System.Drawing.Printing.PrintPageEventArgs" />
+      </Parameters>
+      <Docs>
+        <param name="e">
+          <span data-ttu-id="bd05b-166">イベント データを格納している <see cref="T:System.Drawing.Printing.PrintPageEventArgs" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-166">A <see cref="T:System.Drawing.Printing.PrintPageEventArgs" /> that contains the event data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="bd05b-167">
+            <see cref="E:System.Drawing.Printing.PrintDocument.PrintPage" /> イベントを発生させます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-167">Raises the <see cref="E:System.Drawing.Printing.PrintDocument.PrintPage" /> event.</span>
+          </span>
+          <span data-ttu-id="bd05b-168">ページの印刷前に呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-168">It is called before a page prints.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-169"><xref:System.Drawing.Printing.PrintDocument.OnPrintPage%2A>メソッドにより、派生クラスでデリゲートを結び付けずに、イベントを処理します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-169">The <xref:System.Drawing.Printing.PrintDocument.OnPrintPage%2A> method allows derived classes to handle the event without attaching a delegate.</span></span> <span data-ttu-id="bd05b-170">派生クラスでイベントを処理する場合は、この手法をお勧めします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-170">This is the preferred technique for handling the event in a derived class.</span></span>  
+  
+ <span data-ttu-id="bd05b-171">派生クラスを呼び出すと、<xref:System.Drawing.Printing.PrintDocument.OnPrintPage%2A>を生成、メソッド、<xref:System.Drawing.Printing.PrintDocument.PrintPage>を呼び出して、イベント ハンドラーがデリゲートからのイベントです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-171">When a derived class calls the <xref:System.Drawing.Printing.PrintDocument.OnPrintPage%2A> method, it raises the <xref:System.Drawing.Printing.PrintDocument.PrintPage> event by invoking the event handler through a delegate.</span></span> <span data-ttu-id="bd05b-172">詳細については、次を参照してください。[処理とイベントの発生](~/docs/standard/events/index.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-172">For more information, see [Handling and Raising Events](~/docs/standard/events/index.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="bd05b-173">派生クラスで <see cref="M:System.Drawing.Printing.PrintDocument.OnPrintPage(System.Drawing.Printing.PrintPageEventArgs)" /> をオーバーライドする場合は、登録されているデリゲートがイベントを受け取ることができるように、基本クラスの <see cref="M:System.Drawing.Printing.PrintDocument.OnPrintPage(System.Drawing.Printing.PrintPageEventArgs)" /> メソッドを呼び出してください。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="bd05b-173">When overriding <see cref="M:System.Drawing.Printing.PrintDocument.OnPrintPage(System.Drawing.Printing.PrintPageEventArgs)" /> in a derived class, be sure to call the base class's <see cref="M:System.Drawing.Printing.PrintDocument.OnPrintPage(System.Drawing.Printing.PrintPageEventArgs)" /> method so that registered delegates receive the event.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.PrintPage" />
+        <altmember cref="T:System.Drawing.Printing.PrintPageEventArgs" />
+      </Docs>
+    </Member>
+    <Member MemberName="OnQueryPageSettings">
+      <MemberSignature Language="C#" Value="protected virtual void OnQueryPageSettings (System.Drawing.Printing.QueryPageSettingsEventArgs e);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnQueryPageSettings(class System.Drawing.Printing.QueryPageSettingsEventArgs e) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Drawing.Printing.PrintDocument.OnQueryPageSettings(System.Drawing.Printing.QueryPageSettingsEventArgs)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub OnQueryPageSettings (e As QueryPageSettingsEventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void OnQueryPageSettings(System::Drawing::Printing::QueryPageSettingsEventArgs ^ e);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="e" Type="System.Drawing.Printing.QueryPageSettingsEventArgs" />
+      </Parameters>
+      <Docs>
+        <param name="e">
+          <span data-ttu-id="bd05b-174">イベント データを格納している <see cref="T:System.Drawing.Printing.QueryPageSettingsEventArgs" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-174">A <see cref="T:System.Drawing.Printing.QueryPageSettingsEventArgs" /> that contains the event data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="bd05b-175">
+            <see cref="E:System.Drawing.Printing.PrintDocument.QueryPageSettings" /> イベントを発生させます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-175">Raises the <see cref="E:System.Drawing.Printing.PrintDocument.QueryPageSettings" /> event.</span>
+          </span>
+          <span data-ttu-id="bd05b-176">各 <see cref="E:System.Drawing.Printing.PrintDocument.PrintPage" /> イベントの直前に呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-176">It is called immediately before each <see cref="E:System.Drawing.Printing.PrintDocument.PrintPage" /> event.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-177"><xref:System.Drawing.Printing.PrintDocument.OnQueryPageSettings%2A> メソッドを使用すると、デリゲートを結び付けずに、派生クラスでイベントを処理することもできます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-177">The <xref:System.Drawing.Printing.PrintDocument.OnQueryPageSettings%2A> method also allows derived classes to handle the event without attaching a delegate.</span></span> <span data-ttu-id="bd05b-178">派生クラスでイベントを処理する場合は、この手法をお勧めします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-178">This is the preferred technique for handling the event in a derived class.</span></span>  
+  
+ <span data-ttu-id="bd05b-179">派生クラスを呼び出すと、<xref:System.Drawing.Printing.PrintDocument.OnQueryPageSettings%2A>を生成、メソッド、<xref:System.Drawing.Printing.PrintDocument.QueryPageSettings>を呼び出して、イベント ハンドラーがデリゲートからのイベントです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-179">When a derived class calls the <xref:System.Drawing.Printing.PrintDocument.OnQueryPageSettings%2A> method, it raises the <xref:System.Drawing.Printing.PrintDocument.QueryPageSettings> event by invoking the event handler through a delegate.</span></span> <span data-ttu-id="bd05b-180">詳細については、次を参照してください。[処理とイベントの発生](~/docs/standard/events/index.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-180">For more information, see [Handling and Raising Events](~/docs/standard/events/index.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="bd05b-181">派生クラスで <see cref="M:System.Drawing.Printing.PrintDocument.OnQueryPageSettings(System.Drawing.Printing.QueryPageSettingsEventArgs)" /> をオーバーライドする場合は、登録されているデリゲートがイベントを受け取ることができるように、基本クラスの <see cref="M:System.Drawing.Printing.PrintDocument.OnQueryPageSettings(System.Drawing.Printing.QueryPageSettingsEventArgs)" /> メソッドを呼び出してください。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="bd05b-181">When overriding <see cref="M:System.Drawing.Printing.PrintDocument.OnQueryPageSettings(System.Drawing.Printing.QueryPageSettingsEventArgs)" /> in a derived class, be sure to call the base class's <see cref="M:System.Drawing.Printing.PrintDocument.OnQueryPageSettings(System.Drawing.Printing.QueryPageSettingsEventArgs)" /> method so that registered delegates receive the event.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="T:System.Drawing.Printing.QueryPageSettingsEventArgs" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.QueryPageSettings" />
+      </Docs>
+    </Member>
+    <Member MemberName="OriginAtMargins">
+      <MemberSignature Language="C#" Value="public bool OriginAtMargins { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool OriginAtMargins" />
+      <MemberSignature Language="DocId" Value="P:System.Drawing.Printing.PrintDocument.OriginAtMargins" />
+      <MemberSignature Language="VB.NET" Value="Public Property OriginAtMargins As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool OriginAtMargins { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DefaultValue(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-182">ページに関連付けられているグラフィック オブジェクトの位置が、ユーザー指定の余白の内側にあるか、ページの印刷可能領域の左上隅にあるかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-182">Gets or sets a value indicating whether the position of a graphics object associated with a page is located just inside the user-specified margins or at the top-left corner of the printable area of the page.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="bd05b-183">グラフィックの原点がページの余白から始まっている場合は <see langword="true" />、グラフィックの原点が印刷可能ページの左上隅にある場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-183">
+              <see langword="true" /> if the graphics origin starts at the page margins; <see langword="false" /> if the graphics origin is at the top-left corner of the printable page.</span>
+          </span>
+          <span data-ttu-id="bd05b-184">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-184">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-185">印刷可能な領域を計算するには、用紙、ページの余白の物理サイズとの場所を知る必要があります、<xref:System.Drawing.Graphics>配信元のオブジェクトします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-185">Calculating the area available to print requires knowing the physical size of the paper, the margins for the page, and the location of the <xref:System.Drawing.Graphics> object origin.</span></span> <span data-ttu-id="bd05b-186">ときに<xref:System.Drawing.Printing.PrintDocument.OriginAtMargins%2A>は`true`、<xref:System.Drawing.Graphics>オブジェクトの場所は考慮に入れて、<xref:System.Drawing.Printing.PageSettings.Margins%2A?displayProperty=nameWithType>プロパティの値と、ページの印刷可能な領域。</span><span class="sxs-lookup"><span data-stu-id="bd05b-186">When <xref:System.Drawing.Printing.PrintDocument.OriginAtMargins%2A> is `true`, the <xref:System.Drawing.Graphics> object location takes into account the <xref:System.Drawing.Printing.PageSettings.Margins%2A?displayProperty=nameWithType> property value and the printable area of the page.</span></span> <span data-ttu-id="bd05b-187">ときに<xref:System.Drawing.Printing.PrintDocument.OriginAtMargins%2A>は`false`の場所を特定するページの印刷可能領域のみが使用される、 <xref:System.Drawing.Graphics> 、元のオブジェクト、<xref:System.Drawing.Printing.PageSettings.Margins%2A?displayProperty=nameWithType>値は無視されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-187">When <xref:System.Drawing.Printing.PrintDocument.OriginAtMargins%2A> is `false`, only the printable area of the page is used to determine the location of the <xref:System.Drawing.Graphics> object origin, the <xref:System.Drawing.Printing.PageSettings.Margins%2A?displayProperty=nameWithType> value is ignored.</span></span>  
+  
+ <span data-ttu-id="bd05b-188">たとえば場合、<xref:System.Drawing.Printing.PrintDocument.OriginAtMargins%2A>は`true`、および<xref:System.Drawing.Printing.PageSettings.Margins%2A?displayProperty=nameWithType>それぞれの側では、1 インチに設定されて、<xref:System.Drawing.Graphics>に含まれるオブジェクト、<xref:System.Drawing.Printing.PrintPageEventArgs>配置の 1 インチ、左右のページの上部からです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-188">For example, if <xref:System.Drawing.Printing.PrintDocument.OriginAtMargins%2A> is `true`, and <xref:System.Drawing.Printing.PageSettings.Margins%2A?displayProperty=nameWithType> is set for 1 inch on each side, the <xref:System.Drawing.Graphics> object included in the <xref:System.Drawing.Printing.PrintPageEventArgs> is located 1 inch from the left and top of the page.</span></span> <span data-ttu-id="bd05b-189">ページの印刷可能領域の両側に 1 インチの.25 場合および<xref:System.Drawing.Printing.PrintDocument.OriginAtMargins%2A>は`false`、<xref:System.Drawing.Graphics>オブジェクトがある.25 インチ、左右のページの上部からです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-189">If the printable area of the page is .25 of an inch on each side and <xref:System.Drawing.Printing.PrintDocument.OriginAtMargins%2A> is `false`, the <xref:System.Drawing.Graphics> object is located .25 of an inch from the left and top of the page.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="bd05b-190">ページの印刷可能な領域は、プリンターによって異なります、対称であるとは限りません。</span><span class="sxs-lookup"><span data-stu-id="bd05b-190">The printable area of a page varies from printer to printer and is not guaranteed to be symmetrical.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Print">
+      <MemberSignature Language="C#" Value="public void Print ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Print() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Drawing.Printing.PrintDocument.Print" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Print ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Print();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-191">ドキュメントの印刷プロセスを開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-191">Starts the document's printing process.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-192">処理することにより、出力を指定、<xref:System.Drawing.Printing.PrintDocument.PrintPage>イベントを使用して、<xref:System.Drawing.Graphics>に含まれる、<xref:System.Drawing.Printing.PrintPageEventArgs>です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-192">Specify the output to print by handling the <xref:System.Drawing.Printing.PrintDocument.PrintPage> event and by using the <xref:System.Drawing.Graphics> included in the <xref:System.Drawing.Printing.PrintPageEventArgs>.</span></span>  
+  
+ <span data-ttu-id="bd05b-193">使用して、<xref:System.Drawing.Printing.PrinterSettings.PrinterName%2A?displayProperty=nameWithType>プロパティを指定するプリンターはドキュメントを印刷する必要があります。</span><span class="sxs-lookup"><span data-stu-id="bd05b-193">Use the <xref:System.Drawing.Printing.PrinterSettings.PrinterName%2A?displayProperty=nameWithType> property to specify which printer should print the document.</span></span>  
+  
+ <span data-ttu-id="bd05b-194"><xref:System.Drawing.Printing.PrintDocument.Print%2A>メソッドが、印刷ダイアログ ボックスを使用せずに文書を印刷します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-194">The <xref:System.Drawing.Printing.PrintDocument.Print%2A> method prints the document without using a print dialog.</span></span> <span data-ttu-id="bd05b-195">使用して、<xref:System.Windows.Forms.PrintDialog>印刷設定を選択する機能をユーザーに提供する場合。</span><span class="sxs-lookup"><span data-stu-id="bd05b-195">Use a <xref:System.Windows.Forms.PrintDialog> when you want to offer the user the ability to choose print settings.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="bd05b-196">例外によって処理されていない場合、<xref:System.Drawing.Printing.PrintDocument.Print%2A>メソッドは、印刷時にスローされると、ドキュメントの印刷を中止します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-196">If an exception that is not handled by the <xref:System.Drawing.Printing.PrintDocument.Print%2A> method is thrown during printing, the printing of the document is aborted.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="bd05b-197">次のコード例では、既定のプリンターにコマンドラインを使用して指定されているファイルを出力します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-197">The following code example prints the file that is specified through the command line to the default printer.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="bd05b-198">この例では、各行が、ページの幅内に収まることが必要です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-198">The example requires that each line fits within the page width.</span></span>  
+  
+ <span data-ttu-id="bd05b-199">使用して、 <xref:System.ComponentModel>、 <xref:System.Drawing>、 <xref:System.Drawing.Printing>、 <xref:System.IO>、および<xref:System.Windows.Forms>この例の名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-199">Use the <xref:System.ComponentModel>, <xref:System.Drawing>, <xref:System.Drawing.Printing>, <xref:System.IO>, and <xref:System.Windows.Forms> namespaces for this example.</span></span>  
+  
+ [!code-cpp[Classic PrintDocument.PrintPage Example#1](~/samples/snippets/cpp/VS_Snippets_Winforms/Classic PrintDocument.PrintPage Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic PrintDocument.PrintPage Example#1](~/samples/snippets/csharp/VS_Snippets_Winforms/Classic PrintDocument.PrintPage Example/CS/source.cs#1)]
+ [!code-vb[Classic PrintDocument.PrintPage Example#1](~/samples/snippets/visualbasic/VS_Snippets_Winforms/Classic PrintDocument.PrintPage Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Drawing.Printing.InvalidPrinterException">
+          <span data-ttu-id="bd05b-200">
+            <see cref="P:System.Drawing.Printing.PrinterSettings.PrinterName" /> プロパティで指定されたプリンターが存在しません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-200">The printer named in the <see cref="P:System.Drawing.Printing.PrinterSettings.PrinterName" /> property does not exist.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Drawing.Printing.PrintingPermission">
+          <span data-ttu-id="bd05b-201">安全な印刷用の制限付きのダイアログ ボックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-201">for safe printing from a restricted dialog box.</span>
+          </span>
+          <span data-ttu-id="bd05b-202">関連する列挙。 <see cref="F:System.Drawing.Printing.PrintingPermissionLevel.SafePrinting" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-202">Associated enumeration: <see cref="F:System.Drawing.Printing.PrintingPermissionLevel.SafePrinting" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="PrintController">
+      <MemberSignature Language="C#" Value="public System.Drawing.Printing.PrintController PrintController { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Drawing.Printing.PrintController PrintController" />
+      <MemberSignature Language="DocId" Value="P:System.Drawing.Printing.PrintDocument.PrintController" />
+      <MemberSignature Language="VB.NET" Value="Public Property PrintController As PrintController" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Drawing::Printing::PrintController ^ PrintController { System::Drawing::Printing::PrintController ^ get(); void set(System::Drawing::Printing::PrintController ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DesignerSerializationVisibility</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Drawing.Printing.PrintController</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-203">印刷プロセスを制御するプリント コントローラーを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-203">Gets or sets the print controller that guides the printing process.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="bd05b-204">印刷プロセスを制御する <see cref="T:System.Drawing.Printing.PrintController" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-204">The <see cref="T:System.Drawing.Printing.PrintController" /> that guides the printing process.</span>
+          </span>
+          <span data-ttu-id="bd05b-205">既定値は、<see cref="T:System.Windows.Forms.PrintControllerWithStatusDialog" /> クラスの新しいインスタンスです。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-205">The default is a new instance of the <see cref="T:System.Windows.Forms.PrintControllerWithStatusDialog" /> class.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-206">プリント コント ローラーは、いくつかの方法での印刷プロセスをガイドします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-206">A print controller guides the printing process in several ways.</span></span> <span data-ttu-id="bd05b-207">たとえば、ドキュメントを印刷する必要がありますに変換する<xref:System.Drawing.Graphics>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="bd05b-207">For example, to print a document, you need to convert it to a <xref:System.Drawing.Graphics> object.</span></span> <span data-ttu-id="bd05b-208">A<xref:System.Drawing.Printing.PrintController>または実際には、ドキュメントを印刷するプリンターで印刷プレビューの画像の画像を描画する場所を指定します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-208">A <xref:System.Drawing.Printing.PrintController> specifies where to draw the graphic in an image for a print preview or on a printer to actually print the document.</span></span> <span data-ttu-id="bd05b-209">プリント コント ローラーはすぐに、ドキュメントを印刷または指定した時間だけ待機するかどうかも指定できます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-209">A print controller can also specify whether to print a document immediately, or wait a specified interval.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="bd05b-210">次のコード例では、インスタンスを作成することが必要です、<xref:System.Drawing.Printing.PrintDocument>というクラス`myPrintDocument`です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-210">The following code example requires that you have created an instance of the <xref:System.Drawing.Printing.PrintDocument> class that is named `myPrintDocument`.</span></span> <span data-ttu-id="bd05b-211">例では、新しいインスタンスを作成する、<xref:System.Drawing.Printing.PrintController>クラスに割り当てます、<xref:System.Drawing.Printing.PrintDocument.PrintController%2A>プロパティ`myPrintDocument`、し、文書を印刷します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-211">The example creates a new instance of the <xref:System.Drawing.Printing.PrintController> class, assigns it to the <xref:System.Drawing.Printing.PrintDocument.PrintController%2A> property of `myPrintDocument`, and prints the document.</span></span>  
+  
+ <span data-ttu-id="bd05b-212">使用して、<xref:System.Drawing.Printing>と<xref:System.Windows.Forms>この例の名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-212">Use the <xref:System.Drawing.Printing> and <xref:System.Windows.Forms> namespaces for this example.</span></span>  
+  
+ [!code-cpp[Classic PrintDocument.PrintController Example#1](~/samples/snippets/cpp/VS_Snippets_Winforms/Classic PrintDocument.PrintController Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic PrintDocument.PrintController Example#1](~/samples/snippets/csharp/VS_Snippets_Winforms/Classic PrintDocument.PrintController Example/CS/source.cs#1)]
+ [!code-vb[Classic PrintDocument.PrintController Example#1](~/samples/snippets/visualbasic/VS_Snippets_Winforms/Classic PrintDocument.PrintController Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Drawing.Printing.PrintingPermission">
+          <span data-ttu-id="bd05b-213">安全な印刷用の制限付きのダイアログ ボックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-213">for safe printing from a restricted dialog box.</span>
+          </span>
+          <span data-ttu-id="bd05b-214">関連する列挙。 <see cref="F:System.Drawing.Printing.PrintingPermissionLevel.SafePrinting" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-214">Associated enumeration: <see cref="F:System.Drawing.Printing.PrintingPermissionLevel.SafePrinting" /></span>
+          </span>
+        </permission>
+        <altmember cref="P:System.Drawing.Printing.PrintDocument.DefaultPageSettings" />
+        <altmember cref="P:System.Drawing.Printing.PrintDocument.DocumentName" />
+        <altmember cref="T:System.Drawing.Printing.PreviewPrintController" />
+        <altmember cref="T:System.Drawing.Printing.PrintController" />
+        <altmember cref="T:System.Windows.Forms.PrintControllerWithStatusDialog" />
+        <altmember cref="P:System.Drawing.Printing.PrintDocument.PrinterSettings" />
+        <altmember cref="T:System.Drawing.Printing.StandardPrintController" />
+      </Docs>
+    </Member>
+    <Member MemberName="PrinterSettings">
+      <MemberSignature Language="C#" Value="public System.Drawing.Printing.PrinterSettings PrinterSettings { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Drawing.Printing.PrinterSettings PrinterSettings" />
+      <MemberSignature Language="DocId" Value="P:System.Drawing.Printing.PrintDocument.PrinterSettings" />
+      <MemberSignature Language="VB.NET" Value="Public Property PrinterSettings As PrinterSettings" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Drawing::Printing::PrinterSettings ^ PrinterSettings { System::Drawing::Printing::PrinterSettings ^ get(); void set(System::Drawing::Printing::PrinterSettings ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DesignerSerializationVisibility</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Drawing.Printing.PrinterSettings</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-215">ドキュメントを印刷するプリンターを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-215">Gets or sets the printer that prints the document.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="bd05b-216">ドキュメントを印刷する場所と方法を指定する <see cref="T:System.Drawing.Printing.PrinterSettings" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-216">A <see cref="T:System.Drawing.Printing.PrinterSettings" /> that specifies where and how the document is printed.</span>
+          </span>
+          <span data-ttu-id="bd05b-217">既定値は、プロパティが既定値に設定されている <see cref="T:System.Drawing.Printing.PrinterSettings" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-217">The default is a <see cref="T:System.Drawing.Printing.PrinterSettings" /> with its properties set to their default values.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-218">複数のプリンター設定を指定できます、<xref:System.Drawing.Printing.PrintDocument.PrinterSettings%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-218">You can specify several printer settings through the <xref:System.Drawing.Printing.PrintDocument.PrinterSettings%2A> property.</span></span> <span data-ttu-id="bd05b-219">たとえば、使用して、<xref:System.Drawing.Printing.PrinterSettings.Copies%2A?displayProperty=nameWithType>プロパティを印刷する部数を指定する、<xref:System.Drawing.Printing.PrinterSettings.PrinterName%2A?displayProperty=nameWithType>プロパティを使用するには、プリンターを指定して<xref:System.Drawing.Printing.PrinterSettings.PrintRange%2A?displayProperty=nameWithType>を印刷するページの範囲を指定するプロパティ。</span><span class="sxs-lookup"><span data-stu-id="bd05b-219">For example, use the <xref:System.Drawing.Printing.PrinterSettings.Copies%2A?displayProperty=nameWithType> property to specify the number of copies you want to print, the <xref:System.Drawing.Printing.PrinterSettings.PrinterName%2A?displayProperty=nameWithType> property to specify the printer to use, and the <xref:System.Drawing.Printing.PrinterSettings.PrintRange%2A?displayProperty=nameWithType> property to specify the range of pages you want to print.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="bd05b-220">次のコード例では、指定されたプリンターにドキュメントを印刷します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-220">The following code example prints a document on the specified printer.</span></span> <span data-ttu-id="bd05b-221">例は次の 3 つの前提条件: する変数名`filePath`; を印刷するファイルのパスに設定されていますという名前のメソッドを`pd_PrintPage`、処理する、<xref:System.Drawing.Printing.PrintDocument.PrintPage>イベントが定義されて、という名前の変数`printer`されましたプリンターの名前に設定されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-221">The example makes three assumptions: that a variable names `filePath` has been set to the path of the file to print; that a method named `pd_PrintPage`, which handles the <xref:System.Drawing.Printing.PrintDocument.PrintPage> event, has been defined; and that a variable named `printer` has been set to the printer's name.</span></span>  
+  
+ <span data-ttu-id="bd05b-222">使用して、 <xref:System.Drawing>、 <xref:System.Drawing.Printing>、および<xref:System.IO>この例の名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-222">Use the <xref:System.Drawing>, <xref:System.Drawing.Printing>, and <xref:System.IO> namespaces for this example.</span></span>  
+  
+ [!code-cpp[Classic PrintDocument.PrinterSettings Example#1](~/samples/snippets/cpp/VS_Snippets_Winforms/Classic PrintDocument.PrinterSettings Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic PrintDocument.PrinterSettings Example#1](~/samples/snippets/csharp/VS_Snippets_Winforms/Classic PrintDocument.PrinterSettings Example/CS/source.cs#1)]
+ [!code-vb[Classic PrintDocument.PrinterSettings Example#1](~/samples/snippets/visualbasic/VS_Snippets_Winforms/Classic PrintDocument.PrinterSettings Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Drawing.Printing.PrintDocument.DefaultPageSettings" />
+        <altmember cref="P:System.Drawing.Printing.PrintDocument.DocumentName" />
+        <altmember cref="P:System.Drawing.Printing.PrintDocument.PrintController" />
+        <altmember cref="T:System.Drawing.Printing.PrinterSettings" />
+      </Docs>
+    </Member>
+    <Member MemberName="PrintPage">
+      <MemberSignature Language="C#" Value="public event System.Drawing.Printing.PrintPageEventHandler PrintPage;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.Drawing.Printing.PrintPageEventHandler PrintPage" />
+      <MemberSignature Language="DocId" Value="E:System.Drawing.Printing.PrintDocument.PrintPage" />
+      <MemberSignature Language="VB.NET" Value="Public Custom Event PrintPage As PrintPageEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event System::Drawing::Printing::PrintPageEventHandler ^ PrintPage;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Drawing.Printing.PrintPageEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-223">現在のページに印刷する出力が必要なときに発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-223">Occurs when the output to print for the current page is needed.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-224">印刷する出力を指定するには、使用、<xref:System.Drawing.Printing.PrintPageEventArgs.Graphics%2A>のプロパティ、<xref:System.Drawing.Printing.PrintPageEventArgs>です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-224">To specify the output to print, use the <xref:System.Drawing.Printing.PrintPageEventArgs.Graphics%2A> property of the <xref:System.Drawing.Printing.PrintPageEventArgs>.</span></span> <span data-ttu-id="bd05b-225">たとえばをある行のテキストを印刷するかを指定するには、描画を使用して、テキスト、<xref:System.Drawing.Graphics.DrawString%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="bd05b-225">For example, to specify a line of text that should be printed, draw the text using the <xref:System.Drawing.Graphics.DrawString%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ <span data-ttu-id="bd05b-226">出力を指定するだけでなくを設定して印刷するその他のページがあるかどうかを示すことができます、<xref:System.Drawing.Printing.PrintPageEventArgs.HasMorePages%2A?displayProperty=nameWithType>プロパティを`true`です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-226">In addition to specifying the output, you can indicate if there are additional pages to print by setting the <xref:System.Drawing.Printing.PrintPageEventArgs.HasMorePages%2A?displayProperty=nameWithType> property to `true`.</span></span> <span data-ttu-id="bd05b-227">既定値は`false`、印刷するページはありませんがあることを示します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-227">The default is `false`, which indicates that there are no more pages to print.</span></span> <span data-ttu-id="bd05b-228">個々 のページの設定を変更することも、<xref:System.Drawing.Printing.PageSettings>を設定して、印刷ジョブを取り消すことができます、<xref:System.Drawing.Printing.PrintPageEventArgs.Cancel%2A?displayProperty=nameWithType>プロパティを`true`です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-228">Individual page settings can also be modified through the <xref:System.Drawing.Printing.PageSettings> and the print job can be canceled by setting the <xref:System.Drawing.Printing.PrintPageEventArgs.Cancel%2A?displayProperty=nameWithType> property to `true`.</span></span> <span data-ttu-id="bd05b-229">別のページの設定を使用してドキュメントの各ページを印刷するには、処理、<xref:System.Drawing.Printing.PrintDocument.QueryPageSettings>イベント。</span><span class="sxs-lookup"><span data-stu-id="bd05b-229">To print each page of a document using different page settings, handle the <xref:System.Drawing.Printing.PrintDocument.QueryPageSettings> event.</span></span>  
+  
+ <span data-ttu-id="bd05b-230">イベントをイベント ハンドラーに関連付けるのインスタンスを追加、<xref:System.Drawing.Printing.PrintPageEventHandler>イベントにデリゲートします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-230">To associate the event with your event handler, add an instance of the <xref:System.Drawing.Printing.PrintPageEventHandler> delegate to the event.</span></span> <span data-ttu-id="bd05b-231">イベントが発生するたびに、イベント ハンドラーが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-231">The event handler is called whenever the event occurs.</span></span> <span data-ttu-id="bd05b-232">デリゲートでイベントを処理の詳細については、次を参照してください。[処理とイベントの発生](~/docs/standard/events/index.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-232">For more information about handling events with delegates, see [Handling and Raising Events](~/docs/standard/events/index.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="bd05b-233">次のコード例は、処理を示します、<xref:System.Drawing.Printing.PrintDocument.PrintPage>イベント。</span><span class="sxs-lookup"><span data-stu-id="bd05b-233">The following code example demonstrates handling the <xref:System.Drawing.Printing.PrintDocument.PrintPage> event.</span></span>  
+  
+ <span data-ttu-id="bd05b-234">別の例では、次を参照してください。[する方法: Windows フォームで複数ページのテキスト ファイルを印刷](~/docs/framework/winforms/advanced/how-to-print-a-multi-page-text-file-in-windows-forms.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-234">For another example, see [How to: Print a Multi-Page Text File in Windows Forms](~/docs/framework/winforms/advanced/how-to-print-a-multi-page-text-file-in-windows-forms.md).</span></span>  
+  
+ <span data-ttu-id="bd05b-235">使用して、 <xref:System.Drawing>、 <xref:System.Drawing.Printing>、および<xref:System.IO>この例の名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-235">Use the <xref:System.Drawing>, <xref:System.Drawing.Printing>, and <xref:System.IO> namespaces for this example.</span></span>  
+  
+ [!code-cpp[Classic PrintDocument Example#1](~/samples/snippets/cpp/VS_Snippets_Winforms/Classic PrintDocument Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic PrintDocument Example#1](~/samples/snippets/csharp/VS_Snippets_Winforms/Classic PrintDocument Example/CS/source.cs#1)]
+ [!code-vb[Classic PrintDocument Example#1](~/samples/snippets/visualbasic/VS_Snippets_Winforms/Classic PrintDocument Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Drawing.Printing.PrintPageEventHandler" />
+        <altmember cref="T:System.Drawing.Printing.PrintPageEventArgs" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.BeginPrint" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.EndPrint" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.QueryPageSettings" />
+        <altmember cref="T:System.Drawing.Graphics" />
+      </Docs>
+    </Member>
+    <Member MemberName="QueryPageSettings">
+      <MemberSignature Language="C#" Value="public event System.Drawing.Printing.QueryPageSettingsEventHandler QueryPageSettings;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.Drawing.Printing.QueryPageSettingsEventHandler QueryPageSettings" />
+      <MemberSignature Language="DocId" Value="E:System.Drawing.Printing.PrintDocument.QueryPageSettings" />
+      <MemberSignature Language="VB.NET" Value="Public Custom Event QueryPageSettings As QueryPageSettingsEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event System::Drawing::Printing::QueryPageSettingsEventHandler ^ QueryPageSettings;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Drawing.Printing.QueryPageSettingsEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-236">各 <see cref="E:System.Drawing.Printing.PrintDocument.PrintPage" /> イベントの直前に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-236">Occurs immediately before each <see cref="E:System.Drawing.Printing.PrintDocument.PrintPage" /> event.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="bd05b-237">別のページの設定を使用してドキュメントの各ページを印刷することができます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-237">It is possible to print each page of a document using different page settings.</span></span> <span data-ttu-id="bd05b-238">設定ページの個々 のプロパティを変更することによって、<xref:System.Drawing.Printing.QueryPageSettingsEventArgs.PageSettings%2A?displayProperty=nameWithType>プロパティまたはプロパティを設定して、<xref:System.Drawing.Printing.PageSettings>です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-238">You set page settings by modifying individual properties of the <xref:System.Drawing.Printing.QueryPageSettingsEventArgs.PageSettings%2A?displayProperty=nameWithType> property or by setting the property to a <xref:System.Drawing.Printing.PageSettings>.</span></span> <span data-ttu-id="bd05b-239">変更、<xref:System.Drawing.Printing.PageSettings>だけ現在のページ、ドキュメントの既定のページ設定ではなくに影響します。</span><span class="sxs-lookup"><span data-stu-id="bd05b-239">Changes made to the <xref:System.Drawing.Printing.PageSettings> affect only the current page, not the document's default page settings.</span></span> <span data-ttu-id="bd05b-240">印刷ジョブを設定して取り消すこともできます、<xref:System.ComponentModel.CancelEventArgs.Cancel%2A>プロパティを`true`の<xref:System.Drawing.Printing.QueryPageSettingsEventArgs>です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-240">The print job can also be canceled by setting the <xref:System.ComponentModel.CancelEventArgs.Cancel%2A> property to `true` for the <xref:System.Drawing.Printing.QueryPageSettingsEventArgs>.</span></span>  
+  
+ <span data-ttu-id="bd05b-241">イベントをイベント ハンドラーに関連付けるのインスタンスを追加、<xref:System.Drawing.Printing.QueryPageSettingsEventHandler>イベントにデリゲートします。</span><span class="sxs-lookup"><span data-stu-id="bd05b-241">To associate the event with your event handler, add an instance of the <xref:System.Drawing.Printing.QueryPageSettingsEventHandler> delegate to the event.</span></span> <span data-ttu-id="bd05b-242">イベントが発生するたびに、イベント ハンドラーが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-242">The event handler is called whenever the event occurs.</span></span> <span data-ttu-id="bd05b-243">デリゲートでイベントを処理の詳細については、次を参照してください。[処理とイベントの発生](~/docs/standard/events/index.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-243">For more information about handling events with delegates, see [Handling and Raising Events](~/docs/standard/events/index.md).</span></span>  
+  
+<span data-ttu-id="bd05b-244">使用する場合、<xref:System.Drawing.Printing.PrintDocument.QueryPageSettings>のパフォーマンスのプリンターの設定を変更するイベント、<xref:System.Windows.Forms.PrintPreviewDialog>コントロールは、最適化の構成スイッチが設定されている場合でもは改善されません。</span><span class="sxs-lookup"><span data-stu-id="bd05b-244">If you use the <xref:System.Drawing.Printing.PrintDocument.QueryPageSettings> event to modify printer settings, the performance of the <xref:System.Windows.Forms.PrintPreviewDialog> control will not improve even if an optimization configuration switch is set.</span></span> <span data-ttu-id="bd05b-245">詳細については、次を参照してください。 [PrintPreviewDialog コントロールの概要](~/docs/framework/winforms/controls/printpreviewdialog-control-overview-windows-forms.md)です。</span><span class="sxs-lookup"><span data-stu-id="bd05b-245">For more information, see [PrintPreviewDialog control overview](~/docs/framework/winforms/controls/printpreviewdialog-control-overview-windows-forms.md).</span></span>   
+  
+## Examples  
+ <span data-ttu-id="bd05b-246">次のコード例は、色の最初のページ文書を印刷するプリンターがサポートされている場合。</span><span class="sxs-lookup"><span data-stu-id="bd05b-246">The following code example prints a document with the first page in color, if the printer supports it.</span></span> <span data-ttu-id="bd05b-247">例では、する必要があります、<xref:System.Drawing.Printing.PrintDocument>という名前の変数`printDoc`が作成されたら、および<xref:System.Drawing.Printing.PrintDocument.PrintPage>と<xref:System.Drawing.Printing.PrintDocument.QueryPageSettings>イベントが処理されます。</span><span class="sxs-lookup"><span data-stu-id="bd05b-247">The example requires that a <xref:System.Drawing.Printing.PrintDocument> variable named `printDoc` has been created, and the <xref:System.Drawing.Printing.PrintDocument.PrintPage> and <xref:System.Drawing.Printing.PrintDocument.QueryPageSettings> events are handled.</span></span> <span data-ttu-id="bd05b-248">`currentPageNumber`ですべてのページが印刷された後に変数が増加、<xref:System.Drawing.Printing.PrintDocument.PrintPage>イベントは表示されません。</span><span class="sxs-lookup"><span data-stu-id="bd05b-248">The `currentPageNumber` variable is incremented after every page is printed in the <xref:System.Drawing.Printing.PrintDocument.PrintPage> event, which is not shown.</span></span>  
+  
+ <span data-ttu-id="bd05b-249">使用して、<xref:System.Drawing>と<xref:System.Drawing.Printing>この例の名前空間。</span><span class="sxs-lookup"><span data-stu-id="bd05b-249">Use the <xref:System.Drawing> and <xref:System.Drawing.Printing> namespaces for this example.</span></span>  
+  
+ [!code-cpp[PaperSource and PaperSize Example with Resolution#6](~/samples/snippets/cpp/VS_Snippets_Winforms/PaperSource and PaperSize Example with Resolution/CPP/source.cpp#6)]
+ [!code-csharp[PaperSource and PaperSize Example with Resolution#6](~/samples/snippets/csharp/VS_Snippets_Winforms/PaperSource and PaperSize Example with Resolution/CS/source.cs#6)]
+ [!code-vb[PaperSource and PaperSize Example with Resolution#6](~/samples/snippets/visualbasic/VS_Snippets_Winforms/PaperSource and PaperSize Example with Resolution/VB/source.vb#6)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Drawing.Printing.QueryPageSettingsEventHandler" />
+        <altmember cref="T:System.Drawing.Printing.PrintPageEventArgs" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.BeginPrint" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.EndPrint" />
+        <altmember cref="E:System.Drawing.Printing.PrintDocument.PrintPage" />
+      </Docs>
+    </Member>
+    <Member MemberName="ToString">
+      <MemberSignature Language="C#" Value="public override string ToString ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ToString() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Drawing.Printing.PrintDocument.ToString" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ToString () As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::String ^ ToString();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Drawing</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="bd05b-250">印刷ドキュメントに関する情報を文字列形式で提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-250">Provides information about the print document, in string form.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="bd05b-251">文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="bd05b-251">A string.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

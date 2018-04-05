@@ -1,0 +1,1610 @@
+<Type Name="DynamicObject" FullName="System.Dynamic.DynamicObject">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="048b7221c8f650af7e40e1fc748386ee05216b4b" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class DynamicObject : System.Dynamic.IDynamicMetaObjectProvider" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit DynamicObject extends System.Object implements class System.Dynamic.IDynamicMetaObjectProvider" />
+  <TypeSignature Language="DocId" Value="T:System.Dynamic.DynamicObject" />
+  <TypeSignature Language="VB.NET" Value="Public Class DynamicObject&#xA;Implements IDynamicMetaObjectProvider" />
+  <TypeSignature Language="C++ CLI" Value="public ref class DynamicObject : System::Dynamic::IDynamicMetaObjectProvider" />
+  <AssemblyInfo>
+    <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Core</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Linq.Expressions</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.Dynamic.IDynamicMetaObjectProvider</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="83332-101">実行時の動的な動作を指定する基底クラスを提供します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="83332-101">Provides a base class for specifying dynamic behavior at run time.</span>
+      </span>
+      <span data-ttu-id="83332-102">このクラスは継承される必要があります。直接インスタンス化することはできません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="83332-102">This class must be inherited from; you cannot instantiate it directly.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-103">`DynamicObject`クラスでは、動的オブジェクトでどのような操作を実行でき、これらの操作を実行する方法を定義することができます。</span><span class="sxs-lookup"><span data-stu-id="83332-103">The `DynamicObject` class enables you to define which operations can be performed on dynamic objects and how to perform those operations.</span></span> <span data-ttu-id="83332-104">たとえば、取得、オブジェクトのプロパティを設定またはメソッドを呼び出す、または加算および乗算などの標準的な数学的演算を実行しようとしたときの動作を定義できます。</span><span class="sxs-lookup"><span data-stu-id="83332-104">For example, you can define what happens when you try to get or set an object property, call a method, or perform standard mathematical operations such as addition and multiplication.</span></span>  
+  
+ <span data-ttu-id="83332-105">このクラスは、ライブラリの方が便利なプロトコルを作成する場合に役立ちます。</span><span class="sxs-lookup"><span data-stu-id="83332-105">This class can be useful if you want to create a more convenient protocol for a library.</span></span> <span data-ttu-id="83332-106">たとえば、次のような構文を使用する必要は、ライブラリのユーザー `Scriptobj.SetProperty("Count", 1)`、like 程度簡単な構文を使用する機能を提供できます`scriptobj.Count = 1`です。</span><span class="sxs-lookup"><span data-stu-id="83332-106">For example, if users of your library have to use syntax like `Scriptobj.SetProperty("Count", 1)`, you can provide the ability to use much simpler syntax, like `scriptobj.Count = 1`.</span></span>  
+  
+ <span data-ttu-id="83332-107">インスタンスを直接作成することはできません、`DynamicObject`クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-107">You cannot directly create an instance of the `DynamicObject` class.</span></span> <span data-ttu-id="83332-108">動的な動作を実装するのから継承する必要な可能性があります、`DynamicObject`クラスし、必要なメソッドをオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="83332-108">To implement the dynamic behavior, you may want to inherit from the `DynamicObject` class and override necessary methods.</span></span> <span data-ttu-id="83332-109">たとえばの設定とプロパティの取得の操作を実行する場合に、オーバーライドできますだけ、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="83332-109">For example, if you need only operations for setting and getting properties, you can override just the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods.</span></span>  
+  
+ <span data-ttu-id="83332-110">C# の場合から派生したクラスのインスタンスの動的な動作を有効にする、`DynamicObject`クラスを使用する必要がある、`dynamic`キーワード。</span><span class="sxs-lookup"><span data-stu-id="83332-110">In C#, to enable dynamic behavior for instances of classes derived from the `DynamicObject` class, you must use the `dynamic` keyword.</span></span> <span data-ttu-id="83332-111">詳細については、「[dynamic 型の使用](~/docs/csharp/programming-guide/types/using-type-dynamic.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="83332-111">For more information, see [Using Type dynamic](~/docs/csharp/programming-guide/types/using-type-dynamic.md).</span></span>  
+  
+ <span data-ttu-id="83332-112">Visual basic では、動的な処理は遅延バインディングによってサポートされます。</span><span class="sxs-lookup"><span data-stu-id="83332-112">In Visual Basic, dynamic operations are supported by late binding.</span></span> <span data-ttu-id="83332-113">詳細については、次を参照してください。 [Early and 遅延バインディング](http://msdn.microsoft.com/library/d6ff7f1e-b94f-4205-ab8d-5cfa91758724)です。</span><span class="sxs-lookup"><span data-stu-id="83332-113">For more information, see [Early and Late Binding](http://msdn.microsoft.com/library/d6ff7f1e-b94f-4205-ab8d-5cfa91758724).</span></span>  
+  
+ <span data-ttu-id="83332-114">次のコード例から派生したクラスのインスタンスを作成する方法を示します、`DynamicObject`クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-114">The following code example demonstrates how to create an instance of a class that is derived from the `DynamicObject` class.</span></span>  
+  
+```csharp  
+public class SampleDynamicObject : DynamicObject {}  
+//...  
+dynamic sampleObject = new SampleDynamicObject ();  
+```  
+  
+```vb  
+Public Class SampleDynamicObject   
+    Inherits DynamicObject  
+'...  
+Dim sampleObject As Object = New SampleDynamicObject()  
+```  
+  
+ <span data-ttu-id="83332-115">派生したクラスに、独自のメンバーを追加することも、`DynamicObject`クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-115">You can also add your own members to classes derived from the `DynamicObject` class.</span></span> <span data-ttu-id="83332-116">クラスのプロパティを定義およびもオーバーライド場合、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>メソッド、動的言語ランタイム (DLR) 最初を使用して、言語バインダー クラス内のプロパティの静的な定義を検索します。</span><span class="sxs-lookup"><span data-stu-id="83332-116">If your class defines properties and also overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> method, the dynamic language runtime (DLR) first uses the language binder to look for a static definition of a property in the class.</span></span> <span data-ttu-id="83332-117">このようなプロパティが存在しない場合は、DLR を呼び出します、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="83332-117">If there is no such property, the DLR calls the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> method.</span></span>  
+  
+ <span data-ttu-id="83332-118">`DynamicObject`クラスは、DLR<xref:System.Dynamic.IDynamicMetaObjectProvider>のインスタンスを共有できます、 `DynamicObject` DLR 相互運用性モデルをサポートする言語のクラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-118">The `DynamicObject` class implements the DLR interface <xref:System.Dynamic.IDynamicMetaObjectProvider>, which enables you to share instances of the `DynamicObject` class between languages that support the DLR interoperability model.</span></span> <span data-ttu-id="83332-119">インスタンスを作成するなど、 `DynamicObject` c# のクラスし、IronPython 関数に渡すことです。</span><span class="sxs-lookup"><span data-stu-id="83332-119">For example, you can create an instance of the `DynamicObject` class in C# and then pass it to an IronPython function.</span></span> <span data-ttu-id="83332-120">詳細については、次を参照してください。[動的言語ランタイムの概要](~/docs/framework/reflection-and-codedom/dynamic-language-runtime-overview.md)です。</span><span class="sxs-lookup"><span data-stu-id="83332-120">For more information, see [Dynamic Language Runtime Overview](~/docs/framework/reflection-and-codedom/dynamic-language-runtime-overview.md).</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="83332-121">オブジェクトを特定の操作を定義およびにされませんが静的メンバーを使用する必要はありませんが、追加して、実行時にメンバーを削除することができますのみを必要する単純なシナリオがある場合、<xref:System.Dynamic.ExpandoObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-121">If you have a simple scenario in which you need an object that can only add and remove members at run time but that does not need to define specific operations and does not have static members, use the <xref:System.Dynamic.ExpandoObject> class.</span></span>  
+>   
+>  <span data-ttu-id="83332-122">動的オブジェクトの相互運用性プロトコルに参加または DLR 高速な動的ディスパッチ キャッシュを管理する必要がありますの方法を定義する必要があるより高度なシナリオがあれば、独自の実装を作成、<xref:System.Dynamic.IDynamicMetaObjectProvider>インターフェイスです。</span><span class="sxs-lookup"><span data-stu-id="83332-122">If you have a more advanced scenario in which you need to define how dynamic objects participate in the interoperability protocol, or you need to manage DLR fast dynamic dispatch caching, create your own implementation of the <xref:System.Dynamic.IDynamicMetaObjectProvider> interface.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-123">書き込みの代わりに、ディクショナリ内の値にアクセスするための代替構文を提供することを前提としています`sampleDictionary["Text"] = "Sample text"`(`sampleDictionary("Text") = "Sample text"` Visual Basic で)、書き込めること`sampleDictionary.Text = "Sample text"`です。</span><span class="sxs-lookup"><span data-stu-id="83332-123">Assume that you want to provide alternative syntax for accessing values in a dictionary, so that instead of writing `sampleDictionary["Text"] = "Sample text"` (`sampleDictionary("Text") = "Sample text"` in Visual Basic), you can write `sampleDictionary.Text = "Sample text"`.</span></span> <span data-ttu-id="83332-124">また、この構文を区別しない、ようにするように`sampleDictionary.Text`は等価`sampleDictionary.text`です。</span><span class="sxs-lookup"><span data-stu-id="83332-124">Also, you want this syntax to be case-insensitive, so that `sampleDictionary.Text` is equivalent to `sampleDictionary.text`.</span></span>  
+  
+ <span data-ttu-id="83332-125">次のコード例を示しています、`DynamicDictionary`から派生するクラス、`DynamicObject`クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-125">The following code example demonstrates the `DynamicDictionary` class, which is derived from the `DynamicObject` class.</span></span> <span data-ttu-id="83332-126">`DynamicDictionary`クラスのオブジェクトに含まれる、`Dictionary<string, object>`型 (`Dictionary(Of String, Object)` Visual Basic で) キーと値のペアと上書きを格納する、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>新しい構文をサポートするメソッド。</span><span class="sxs-lookup"><span data-stu-id="83332-126">The `DynamicDictionary` class contains an object of the `Dictionary<string, object>` type (`Dictionary(Of String, Object)` in Visual Basic) to store the key-value pairs, and overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to support the new syntax.</span></span> <span data-ttu-id="83332-127">用意されています、`Count`ディクショナリ数の動的なプロパティを表示するプロパティが含まれます。</span><span class="sxs-lookup"><span data-stu-id="83332-127">It also provides a `Count` property, which shows how many dynamic properties the dictionary contains.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#1)]
+ [!code-vb[System.Dynamic.DynamicObject#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.dynamic.dynamicobject/vb/module1.vb#1)]  
+  
+ <span data-ttu-id="83332-128">例については、次を参照してください。 [DynamicObject でラッパーを作成する](http://go.microsoft.com/fwlink/?LinkId=169008)c# よく寄せられる質問ブログ。</span><span class="sxs-lookup"><span data-stu-id="83332-128">For more examples, see [Creating Wrappers with DynamicObject](http://go.microsoft.com/fwlink/?LinkId=169008) on the C# Frequently Asked Questions blog.</span></span>  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected DynamicObject ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; DynamicObject();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="83332-129">派生型で <see cref="T:System.Dynamic.DynamicObject" /> 型の新しいインスタンスを初期化できるようにします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-129">Enables derived types to initialize a new instance of the <see cref="T:System.Dynamic.DynamicObject" /> type.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-130">インスタンスを直接作成することはできません、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-130">You cannot directly create an instance of the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-131">動的な動作を実装するのから継承する必要がある、<xref:System.Dynamic.DynamicObject>クラスし、必要なメソッドをオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="83332-131">To implement dynamic behavior, you have to inherit from the <xref:System.Dynamic.DynamicObject> class and override necessary methods.</span></span>  
+  
+ <span data-ttu-id="83332-132">C# の場合から派生したクラスのインスタンスの動的な動作を有効にする、<xref:System.Dynamic.DynamicObject>クラスを使用する必要がある、`dynamic`キーワード。</span><span class="sxs-lookup"><span data-stu-id="83332-132">In C#, to enable dynamic behavior for instances of the classes derived from the <xref:System.Dynamic.DynamicObject> class, you must use the `dynamic` keyword.</span></span> <span data-ttu-id="83332-133">詳細については、「[dynamic 型の使用](~/docs/csharp/programming-guide/types/using-type-dynamic.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="83332-133">For more information, see [Using Type dynamic](~/docs/csharp/programming-guide/types/using-type-dynamic.md).</span></span>  
+  
+ <span data-ttu-id="83332-134">Visual basic では、動的な処理は遅延バインディングによってサポートされます。</span><span class="sxs-lookup"><span data-stu-id="83332-134">In Visual Basic, dynamic operations are supported by late binding.</span></span> <span data-ttu-id="83332-135">詳細については、次を参照してください。 [Early and 遅延バインディング](http://msdn.microsoft.com/library/d6ff7f1e-b94f-4205-ab8d-5cfa91758724)です。</span><span class="sxs-lookup"><span data-stu-id="83332-135">For more information, see [Early and Late Binding](http://msdn.microsoft.com/library/d6ff7f1e-b94f-4205-ab8d-5cfa91758724).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-136">次のコード例から派生したクラスのインスタンスを作成する方法を示します、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-136">The following code example demonstrates how to create an instance of classes that are derived from the <xref:System.Dynamic.DynamicObject> class.</span></span>  
+  
+```csharp  
+public class SampleDynamicObject : DynamicObject {}  
+//...  
+dynamic sampleObject = new SampleDynamicObject ();  
+```  
+  
+```vb  
+Public Class SampleDynamicObject   
+    Inherits DynamicObject  
+'...  
+Dim sampleObject As Object = New SampleDynamicObject()  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetDynamicMemberNames">
+      <MemberSignature Language="C#" Value="public virtual System.Collections.Generic.IEnumerable&lt;string&gt; GetDynamicMemberNames ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Collections.Generic.IEnumerable`1&lt;string&gt; GetDynamicMemberNames() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.GetDynamicMemberNames" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetDynamicMemberNames () As IEnumerable(Of String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Collections::Generic::IEnumerable&lt;System::String ^&gt; ^ GetDynamicMemberNames();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.IEnumerable&lt;System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="83332-137">すべての動的メンバー名の列挙値を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-137">Returns the enumeration of all dynamic member names.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-138">動的メンバー名を含むシーケンス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-138">A sequence that contains dynamic member names.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-139">このメソッドは、デバッグにのみ存在します。</span><span class="sxs-lookup"><span data-stu-id="83332-139">This method exists for debugging purposes only.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetMetaObject">
+      <MemberSignature Language="C#" Value="public virtual System.Dynamic.DynamicMetaObject GetMetaObject (System.Linq.Expressions.Expression parameter);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Dynamic.DynamicMetaObject GetMetaObject(class System.Linq.Expressions.Expression parameter) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.GetMetaObject(System.Linq.Expressions.Expression)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetMetaObject (parameter As Expression) As DynamicMetaObject" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Dynamic::DynamicMetaObject ^ GetMetaObject(System::Linq::Expressions::Expression ^ parameter);" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Dynamic.IDynamicMetaObjectProvider.GetMetaObject(System.Linq.Expressions.Expression)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Dynamic.DynamicMetaObject</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="parameter" Type="System.Linq.Expressions.Expression" />
+      </Parameters>
+      <Docs>
+        <param name="parameter">
+          <span data-ttu-id="83332-140">動的仮想メソッドにディスパッチされる <see cref="T:System.Dynamic.DynamicMetaObject" /> を表す式。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-140">The expression that represents <see cref="T:System.Dynamic.DynamicMetaObject" /> to dispatch to the dynamic virtual methods.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-141">動的仮想メソッドにディスパッチされる <see cref="T:System.Dynamic.DynamicMetaObject" /> を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-141">Provides a <see cref="T:System.Dynamic.DynamicMetaObject" /> that dispatches to the dynamic virtual methods.</span>
+          </span>
+          <span data-ttu-id="83332-142">このオブジェクトを別の <see cref="T:System.Dynamic.DynamicMetaObject" /> の内部にカプセル化することにより、個々のアクションのカスタム動作を指定することができます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-142">The object can be encapsulated inside another <see cref="T:System.Dynamic.DynamicMetaObject" /> to provide custom behavior for individual actions.</span>
+          </span>
+          <span data-ttu-id="83332-143">このメソッドは言語実装者向けの DLR (動的言語ランタイム) インフラストラクチャをサポートします。コードから直接使用するためのものではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-143">This method supports the Dynamic Language Runtime infrastructure for language implementers and it is not intended to be used directly from your code.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-144">
+            <see cref="T:System.Dynamic.DynamicMetaObject" /> 型のオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-144">An object of the <see cref="T:System.Dynamic.DynamicMetaObject" /> type.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryBinaryOperation">
+      <MemberSignature Language="C#" Value="public virtual bool TryBinaryOperation (System.Dynamic.BinaryOperationBinder binder, object arg, out object result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryBinaryOperation(class System.Dynamic.BinaryOperationBinder binder, object arg, [out] object&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryBinaryOperation(System.Dynamic.BinaryOperationBinder,System.Object,System.Object@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryBinaryOperation (binder As BinaryOperationBinder, arg As Object, ByRef result As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryBinaryOperation(System::Dynamic::BinaryOperationBinder ^ binder, System::Object ^ arg, [Runtime::InteropServices::Out] System::Object ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.BinaryOperationBinder" />
+        <Parameter Name="arg" Type="System.Object" />
+        <Parameter Name="result" Type="System.Object&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-145">二項演算に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-145">Provides information about the binary operation.</span>
+          </span>
+          <span data-ttu-id="83332-146">
+            <c>binder.Operation</c> プロパティは <see cref="T:System.Linq.Expressions.ExpressionType" /> オブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-146">The <c>binder.Operation</c> property returns an <see cref="T:System.Linq.Expressions.ExpressionType" /> object.</span>
+          </span>
+          <span data-ttu-id="83332-147">たとえば、<c>sum = first + second</c> ステートメントの場合 (<c>first</c> と <c>second</c> は <see langword="DynamicObject" /> クラスから派生)、<c>binder.Operation</c> クラスは <c>ExpressionType.Add</c> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-147">For example, for the <c>sum = first + second</c> statement, where <c>first</c> and <c>second</c> are derived from the <see langword="DynamicObject" /> class, <c>binder.Operation</c> returns <c>ExpressionType.Add</c>.</span>
+          </span>
+        </param>
+        <param name="arg">
+          <span data-ttu-id="83332-148">二項演算の右オペランド。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-148">The right operand for the binary operation.</span>
+          </span>
+          <span data-ttu-id="83332-149">たとえば、<c>sum = first + second</c> ステートメントの場合 (<c>first</c> と <c>second</c> は <see langword="DynamicObject" /> クラスから派生)、<c>arg</c> は <c>second</c> と等しくなります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-149">For example, for the <c>sum = first + second</c> statement, where <c>first</c> and <c>second</c> are derived from the <see langword="DynamicObject" /> class, <c>arg</c> is equal to <c>second</c>.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="83332-150">二項演算の結果。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-150">The result of the binary operation.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-151">二項演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-151">Provides implementation for binary operations.</span>
+          </span>
+          <span data-ttu-id="83332-152">
+            <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、加算や乗算などの演算の動的な動作を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-152">Classes derived from the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to specify dynamic behavior for operations such as addition and multiplication.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-153">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-153">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-154">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-154">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-155">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-155">(In most cases, a language-specific run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-156">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、動的なオブジェクトの二項演算を実行する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-156">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how binary operations should be performed for a dynamic object.</span></span> <span data-ttu-id="83332-157">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-157">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-158">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-158">(In most cases, a language-specific run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-159">加算や乗算などの二項演算がある場合は、このメソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="83332-159">This method is called when you have binary operations such as addition or multiplication.</span></span> <span data-ttu-id="83332-160">たとえば場合、<xref:System.Dynamic.DynamicObject.TryBinaryOperation%2A>メソッドがオーバーライドされた場合などのステートメントに対して自動的に呼び出されます`sum = first + second`または`multiply = first*second`ここで、`first`から派生した、`DynamicObject`クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-160">For example, if the <xref:System.Dynamic.DynamicObject.TryBinaryOperation%2A> method is overridden, it is automatically invoked for statements like `sum = first + second` or `multiply = first*second`, where `first` is derived from the `DynamicObject` class.</span></span>  
+  
+ <span data-ttu-id="83332-161">使用して二項演算の種類に関する情報を取得することができます、`Operation`のプロパティ、`binder`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="83332-161">You can get information about the type of the binary operation by using the `Operation` property of the `binder` parameter.</span></span>  
+  
+ <span data-ttu-id="83332-162">C# および Visual Basic の場合にのみ、動的なオブジェクトを使用する場合、`binder.Operation`プロパティから次の値のいずれかを持つことができます、<xref:System.Linq.Expressions.ExpressionType>列挙します。</span><span class="sxs-lookup"><span data-stu-id="83332-162">If your dynamic object is used only in C# and Visual Basic, the `binder.Operation` property can have one of the following values from the <xref:System.Linq.Expressions.ExpressionType> enumeration.</span></span> <span data-ttu-id="83332-163">ただし、IronPython、IronRuby など他の言語では、その他の値を持つことができます。</span><span class="sxs-lookup"><span data-stu-id="83332-163">However, in other languages such as IronPython or IronRuby, you can have other values.</span></span>
+  
+|<span data-ttu-id="83332-164">[値]</span><span class="sxs-lookup"><span data-stu-id="83332-164">Value</span></span>|<span data-ttu-id="83332-165">説明</span><span class="sxs-lookup"><span data-stu-id="83332-165">Description</span></span>|<span data-ttu-id="83332-166">C#</span><span class="sxs-lookup"><span data-stu-id="83332-166">C#</span></span>|<span data-ttu-id="83332-167">Visual Basic</span><span class="sxs-lookup"><span data-stu-id="83332-167">Visual Basic</span></span>|  
+|-----------|-----------------|---------|------------------|  
+|`Add`|<span data-ttu-id="83332-168">オペランドの数値オーバーフロー チェックを行わない加算演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-168">An addition operation without overflow checking, for numeric operands.</span></span>|`a + b`|`a + b`|  
+|`AddAssign`|<span data-ttu-id="83332-169">オペランドの数値オーバーフロー チェックを行わない加算複合代入演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-169">An addition compound assignment operation without overflow checking, for numeric operands.</span></span>|`a += b`|<span data-ttu-id="83332-170">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-170">Not supported.</span></span>|  
+|`And`|<span data-ttu-id="83332-171">ビット単位`AND`操作します。</span><span class="sxs-lookup"><span data-stu-id="83332-171">A bitwise `AND` operation.</span></span>|`a & b`|`a And b`|  
+|`AndAssign`|<span data-ttu-id="83332-172">ビット単位`AND`複合代入演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-172">A bitwise `AND` compound assignment operation.</span></span>|`a &= b`|<span data-ttu-id="83332-173">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-173">Not supported.</span></span>|  
+|`Divide`|<span data-ttu-id="83332-174">算術除算演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-174">An arithmetic division operation.</span></span>|`a / b`|`a / b`|  
+|`DivideAssign`|<span data-ttu-id="83332-175">算術除算複合代入演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-175">An arithmetic division compound assignment operation.</span></span>|`a /= b`|<span data-ttu-id="83332-176">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-176">Not supported.</span></span>|  
+|`ExclusiveOr`|<span data-ttu-id="83332-177">ビット単位`XOR`操作します。</span><span class="sxs-lookup"><span data-stu-id="83332-177">A bitwise `XOR` operation.</span></span>|`a ^ b`|`a Xor b`|  
+|`ExclusiveOrAssign`|<span data-ttu-id="83332-178">ビット単位`XOR`複合代入演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-178">A bitwise `XOR` compound assignment operation.</span></span>|`a ^= b`|<span data-ttu-id="83332-179">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-179">Not supported.</span></span>|  
+|`GreaterThan`|<span data-ttu-id="83332-180">「大なり」を比較します。</span><span class="sxs-lookup"><span data-stu-id="83332-180">A "greater than" comparison.</span></span>|`a > b`|`a > b`|  
+|`GreaterThanOrEqual`|<span data-ttu-id="83332-181">「より大きいまたは等しい」比較します。</span><span class="sxs-lookup"><span data-stu-id="83332-181">A "greater than or equal to" comparison.</span></span>|`a >= b`|<span data-ttu-id="83332-182">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-182">Not supported.</span></span>|  
+|`LeftShift`|<span data-ttu-id="83332-183">ビットごとの左シフト演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-183">A bitwise left-shift operation.</span></span>|`a << b`|`a << b`|  
+|`LeftShiftAssign`|<span data-ttu-id="83332-184">ビットごとの左シフト複合代入操作です。</span><span class="sxs-lookup"><span data-stu-id="83332-184">A bitwise left-shift compound assignment operation.</span></span>|`a <<= b`|<span data-ttu-id="83332-185">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-185">Not supported.</span></span>|  
+|`LessThan`|<span data-ttu-id="83332-186">「より小さい」比較します。</span><span class="sxs-lookup"><span data-stu-id="83332-186">A "less than" comparison.</span></span>|`a < b`|`a < b`|  
+|`LessThanOrEqual`|<span data-ttu-id="83332-187">「以下に」を比較します。</span><span class="sxs-lookup"><span data-stu-id="83332-187">A "less than or equal to" comparison.</span></span>|`a <= b`|<span data-ttu-id="83332-188">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-188">Not supported.</span></span>|  
+|`Modulo`|<span data-ttu-id="83332-189">算術剰余演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-189">An arithmetic remainder operation.</span></span>|`a % b`|`a Mod b`|  
+|`ModuloAssign`|<span data-ttu-id="83332-190">算術剰余複合代入演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-190">An arithmetic remainder compound assignment operation.</span></span>|`a %= b`|<span data-ttu-id="83332-191">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-191">Not supported.</span></span>|  
+|`Multiply`|<span data-ttu-id="83332-192">オペランドの数値オーバーフロー チェックを行わない乗算します。</span><span class="sxs-lookup"><span data-stu-id="83332-192">A multiplication operation without overflow checking, for numeric operands.</span></span>|`a * b`|`a * b`|  
+|`MultiplyAssign`|<span data-ttu-id="83332-193">オペランドの数値オーバーフロー チェックを行わない乗算複合代入演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-193">A multiplication compound assignment operation without overflow checking, for numeric operands.</span></span>|`a *= b`|<span data-ttu-id="83332-194">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-194">Not supported.</span></span>|  
+|`NotEqual`|<span data-ttu-id="83332-195">非等価比較します。</span><span class="sxs-lookup"><span data-stu-id="83332-195">An inequality comparison.</span></span>|`a != b`|`a <> b`|  
+|`Or`|<span data-ttu-id="83332-196">ビットごとの or 論理を`OR`操作します。</span><span class="sxs-lookup"><span data-stu-id="83332-196">A bitwise or logical `OR` operation.</span></span>|`a &#124; b`|`a Or b`|  
+|`OrAssign`|<span data-ttu-id="83332-197">ビットごとの or 論理を`OR`複合代入。</span><span class="sxs-lookup"><span data-stu-id="83332-197">A bitwise or logical `OR` compound assignment.</span></span>|`a &#124;= b`|<span data-ttu-id="83332-198">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-198">Not supported.</span></span>|  
+|`Power`|<span data-ttu-id="83332-199">数値の累乗の数学的演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-199">A mathematical operation of raising a number to a power.</span></span>|<span data-ttu-id="83332-200">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-200">Not supported.</span></span>|`a ^ b`|  
+|`RightShift`|<span data-ttu-id="83332-201">ビットごとの右シフト演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-201">A bitwise right-shift operation.</span></span>|`a >> b`|`a >> b`|  
+|`RightShiftAssign`|<span data-ttu-id="83332-202">ビットごとの右シフト複合代入操作です。</span><span class="sxs-lookup"><span data-stu-id="83332-202">A bitwise right-shift compound assignment operation.</span></span>|`a >>= b`|<span data-ttu-id="83332-203">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-203">Not supported.</span></span>|  
+|`Subtract`|<span data-ttu-id="83332-204">オペランドの数値オーバーフロー チェックを行わない減算します。</span><span class="sxs-lookup"><span data-stu-id="83332-204">A subtraction operation without overflow checking, for numeric operands.</span></span>|`a - b`|`a - b`|  
+|`SubtractAssign`|<span data-ttu-id="83332-205">オペランドの数値オーバーフロー チェックを行わない減算複合代入演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-205">A subtraction compound assignment operation without overflow checking, for numeric operands.</span></span>|`a -= b`|<span data-ttu-id="83332-206">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-206">Not supported.</span></span>|  
+  
+> [!NOTE]
+>  <span data-ttu-id="83332-207">実装する`OrElse`(`a || b`) および`AndAlso`(`a && b`) を両方を実装することがあります (C#) 動的オブジェクトの操作で、<xref:System.Dynamic.DynamicObject.TryUnaryOperation%2A>メソッドおよび<xref:System.Dynamic.DynamicObject.TryBinaryOperation%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="83332-207">To implement `OrElse` (`a || b`) and `AndAlso` (`a && b`) operations for dynamic objects in C#, you may want to implement both the <xref:System.Dynamic.DynamicObject.TryUnaryOperation%2A> method and the <xref:System.Dynamic.DynamicObject.TryBinaryOperation%2A> method.</span></span>  
+>   
+>  <span data-ttu-id="83332-208">`OrElse`操作では、単項`IsTrue`操作と、バイナリ`Or`操作します。</span><span class="sxs-lookup"><span data-stu-id="83332-208">The `OrElse` operation consists of the unary `IsTrue` operation and the binary `Or` operation.</span></span> <span data-ttu-id="83332-209">`Or`場合にのみ操作が実行の結果、`IsTrue`操作が`false`です。</span><span class="sxs-lookup"><span data-stu-id="83332-209">The `Or` operation is performed only if the result of the `IsTrue` operation is `false`.</span></span>  
+>   
+>  <span data-ttu-id="83332-210">`AndAlso`操作では、単項`IsFalse`操作と、バイナリ`And`操作します。</span><span class="sxs-lookup"><span data-stu-id="83332-210">The `AndAlso` operation consists of the unary `IsFalse` operation and the binary `And` operation.</span></span> <span data-ttu-id="83332-211">`And`場合にのみ操作が実行の結果、`IsFalse`操作が`false`です。</span><span class="sxs-lookup"><span data-stu-id="83332-211">The `And` operation is performed only if the result of the `IsFalse` operation is `false`.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-212">数値、テキストと数値表現を格納するデータ構造を作成する必要があり、このようなデータの加算や減算などの基本的な算術演算を定義することを想定しています。</span><span class="sxs-lookup"><span data-stu-id="83332-212">Assume that you need a data structure to store textual and numeric representations of numbers, and you want to define basic mathematical operations such as addition and subtraction for such data.</span></span>  
+  
+ <span data-ttu-id="83332-213">次のコード例を示しています、`DynamicNumber`から派生するクラス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-213">The following code example demonstrates the `DynamicNumber` class, which is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-214">`DynamicNumber` 上書き、<xref:System.Dynamic.DynamicObject.TryBinaryOperation%2A>数学的な操作を有効にするメソッド。</span><span class="sxs-lookup"><span data-stu-id="83332-214">`DynamicNumber` overrides the <xref:System.Dynamic.DynamicObject.TryBinaryOperation%2A> method to enable mathematical operations.</span></span> <span data-ttu-id="83332-215">オーバーライド、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>要素へのアクセスを可能にする方法です。</span><span class="sxs-lookup"><span data-stu-id="83332-215">It also overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to enable access to the elements.</span></span>  
+  
+ <span data-ttu-id="83332-216">この例では、加算と減算操作のみがサポートされます。</span><span class="sxs-lookup"><span data-stu-id="83332-216">In this example, only addition and subtraction operations are supported.</span></span> <span data-ttu-id="83332-217">次のステートメントを記述しようとする場合`resultNumber = firstNumber*secondNumber`実行時例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="83332-217">If you try to write a statement like `resultNumber = firstNumber*secondNumber`, a run-time exception is thrown.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#2)]
+ [!code-vb[System.Dynamic.DynamicObject#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.dynamic.dynamicobject/vb/module1.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryConvert">
+      <MemberSignature Language="C#" Value="public virtual bool TryConvert (System.Dynamic.ConvertBinder binder, out object result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryConvert(class System.Dynamic.ConvertBinder binder, [out] object&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryConvert(System.Dynamic.ConvertBinder,System.Object@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryConvert (binder As ConvertBinder, ByRef result As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryConvert(System::Dynamic::ConvertBinder ^ binder, [Runtime::InteropServices::Out] System::Object ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.ConvertBinder" />
+        <Parameter Name="result" Type="System.Object&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-218">変換演算に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-218">Provides information about the conversion operation.</span>
+          </span>
+          <span data-ttu-id="83332-219">
+            <c>binder.Type</c> プロパティは、オブジェクトの変換後の型を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-219">The <c>binder.Type</c> property provides the type to which the object must be converted.</span>
+          </span>
+          <span data-ttu-id="83332-220">たとえば、C# のステートメント <c>(String)sampleObject</c> (Visual Basic では <c>CType(sampleObject, Type)</c>) の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスのインスタンス)、<c>binder.Type</c> は <see cref="T:System.String" /> 型を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-220">For example, for the statement <c>(String)sampleObject</c> in C# (<c>CType(sampleObject, Type)</c> in Visual Basic), where <c>sampleObject</c> is an instance of the class derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <c>binder.Type</c> returns the <see cref="T:System.String" /> type.</span>
+          </span>
+          <span data-ttu-id="83332-221">
+            <c>binder.Explicit</c> プロパティは、行われる変換の種類に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-221">The <c>binder.Explicit</c> property provides information about the kind of conversion that occurs.</span>
+          </span>
+          <span data-ttu-id="83332-222">このプロパティは、明示的な変換の場合は <see langword="true" />、暗黙の変換の場合は <see langword="false" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-222">It returns <see langword="true" /> for explicit conversion and <see langword="false" /> for implicit conversion.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="83332-223">型変換演算の結果。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-223">The result of the type conversion operation.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-224">型変換演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-224">Provides implementation for type conversion operations.</span>
+          </span>
+          <span data-ttu-id="83332-225">
+            <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、オブジェクトの型を別の型に変換する演算の動的な動作を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-225">Classes derived from the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to specify dynamic behavior for operations that convert an object from one type to another.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-226">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-226">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-227">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-227">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-228">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-228">(In most cases, a language-specific run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-229">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、動的なオブジェクトの型変換を実行する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-229">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how a type conversion should be performed for a dynamic object.</span></span> <span data-ttu-id="83332-230">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-230">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-231">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-231">(In most cases, a language-specific run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-232">C# の場合は、このメソッドがオーバーライドされた場合は、自動的に呼び出されます、明示的または暗黙的な変換がある場合の次のコード例に示すように。</span><span class="sxs-lookup"><span data-stu-id="83332-232">In C#, if this method is overridden, it is automatically invoked when you have an explicit or implicit conversion, as shown in the code example below.</span></span>  
+  
+ <span data-ttu-id="83332-233">Visual basic で明示的な変換のみがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="83332-233">In Visual Basic, only explicit conversion is supported.</span></span> <span data-ttu-id="83332-234">使用して呼び出すこのメソッドをオーバーライドする場合、<xref:Microsoft.VisualBasic.Conversion.CTypeDynamic%2A>または<xref:Microsoft.VisualBasic.Conversion.CTypeDynamic%2A>関数。</span><span class="sxs-lookup"><span data-stu-id="83332-234">If you override this method, you call it by using the <xref:Microsoft.VisualBasic.Conversion.CTypeDynamic%2A> or <xref:Microsoft.VisualBasic.Conversion.CTypeDynamic%2A> functions.</span></span>  
+  
+```csharp  
+// Explicit conversion.  
+String sampleExplicit = (String)sampleObject;  
+// Implicit conversion.  
+String sampleImplicit = sampleObject;  
+```  
+  
+```vb  
+// Explicit conversion - first variant.  
+Dim testExplicit1 = CTypeDynamic(Of String)(sampleObject)  
+// Explicit conversion - second variant.  
+Dim testExplicit2 = CTypeDynamic(sampleObject, GetType(String))  
+```  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-235">数値、テキストと数値表現を格納するデータ構造を作成する必要があり、文字列と整数にこのデータ構造体の変換を定義することを想定しています。</span><span class="sxs-lookup"><span data-stu-id="83332-235">Assume that you need a data structure to store textual and numeric representations of numbers, and you want to define conversions of this data structure to strings and integers.</span></span>  
+  
+ <span data-ttu-id="83332-236">次のコード例を示しています、`DynamicNumber`から派生するクラス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-236">The following code example demonstrates the `DynamicNumber` class, which is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-237">`DynamicNumber` 上書き、<xref:System.Dynamic.DynamicObject.TryConvert%2A>型変換を有効にするメソッド。</span><span class="sxs-lookup"><span data-stu-id="83332-237">`DynamicNumber` overrides the <xref:System.Dynamic.DynamicObject.TryConvert%2A> method to enable type conversion.</span></span> <span data-ttu-id="83332-238">オーバーライド、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>データ要素へのアクセスを可能にする方法です。</span><span class="sxs-lookup"><span data-stu-id="83332-238">It also overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to enable access to the data elements.</span></span>  
+  
+ <span data-ttu-id="83332-239">この例では文字列と整数への変換のみがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="83332-239">In this example, only conversion to strings and integers is supported.</span></span> <span data-ttu-id="83332-240">オブジェクトを他の型に変換しようとすると、実行時例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="83332-240">If you try to convert an object to any other type, a run-time exception is thrown.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#3)]
+ [!code-vb[System.Dynamic.DynamicObject#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.dynamic.dynamicobject/vb/module1.vb#3)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryCreateInstance">
+      <MemberSignature Language="C#" Value="public virtual bool TryCreateInstance (System.Dynamic.CreateInstanceBinder binder, object[] args, out object result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryCreateInstance(class System.Dynamic.CreateInstanceBinder binder, object[] args, [out] object&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryCreateInstance(System.Dynamic.CreateInstanceBinder,System.Object[],System.Object@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryCreateInstance (binder As CreateInstanceBinder, args As Object(), ByRef result As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryCreateInstance(System::Dynamic::CreateInstanceBinder ^ binder, cli::array &lt;System::Object ^&gt; ^ args, [Runtime::InteropServices::Out] System::Object ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.CreateInstanceBinder" />
+        <Parameter Name="args" Type="System.Object[]" />
+        <Parameter Name="result" Type="System.Object&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-241">初期化演算に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-241">Provides information about the initialization operation.</span>
+          </span>
+        </param>
+        <param name="args">
+          <span data-ttu-id="83332-242">初期化中にオブジェクトに渡される引数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-242">The arguments that are passed to the object during initialization.</span>
+          </span>
+          <span data-ttu-id="83332-243">たとえば、<c>new SampleType(100)</c> 演算の場合 (<c>SampleType</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生型)、<c>args[0]</c> は 100 に等しくなります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-243">For example, for the <c>new SampleType(100)</c> operation, where <c>SampleType</c> is the type derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <c>args[0]</c> is equal to 100.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="83332-244">初期化の結果。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-244">The result of the initialization.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-245">動的オブジェクトの新しいインスタンスを初期化する演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-245">Provides the implementation for operations that initialize a new instance of a dynamic object.</span>
+          </span>
+          <span data-ttu-id="83332-246">このメソッドは、C# または Visual Basic で使用するためのものではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-246">This method is not intended for use in C# or Visual Basic.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-247">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-247">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-248">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-248">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-249">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-249">(In most cases, a language-specific run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-250">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、動的なオブジェクトの新しいインスタンスを初期化する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-250">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how a new instance of the dynamic object should be initialized.</span></span> <span data-ttu-id="83332-251">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-251">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-252">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-252">(In most cases, a language-specific run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-253">C# および Visual Basic コンパイラは、ファースト クラスの型をサポートしていないため、このメソッドを使用してコードを生成しません。</span><span class="sxs-lookup"><span data-stu-id="83332-253">C# and Visual Basic compilers never emit code to use this method because they do not support first-class types.</span></span> <span data-ttu-id="83332-254">このメソッドはのような構文を使用して動的オブジェクトの初期化をサポートする言語用、`dynamic new`です。</span><span class="sxs-lookup"><span data-stu-id="83332-254">This method is intended for languages that support the initialization of dynamic objects by using syntax like `dynamic new`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryDeleteIndex">
+      <MemberSignature Language="C#" Value="public virtual bool TryDeleteIndex (System.Dynamic.DeleteIndexBinder binder, object[] indexes);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryDeleteIndex(class System.Dynamic.DeleteIndexBinder binder, object[] indexes) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryDeleteIndex(System.Dynamic.DeleteIndexBinder,System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryDeleteIndex (binder As DeleteIndexBinder, indexes As Object()) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryDeleteIndex(System::Dynamic::DeleteIndexBinder ^ binder, cli::array &lt;System::Object ^&gt; ^ indexes);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.DeleteIndexBinder" />
+        <Parameter Name="indexes" Type="System.Object[]" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-255">削除に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-255">Provides information about the deletion.</span>
+          </span>
+        </param>
+        <param name="indexes">
+          <span data-ttu-id="83332-256">削除するインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-256">The indexes to be deleted.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-257">インデックスを使用してオブジェクトを削除する演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-257">Provides the implementation for operations that delete an object by index.</span>
+          </span>
+          <span data-ttu-id="83332-258">このメソッドは、C# または Visual Basic で使用するためのものではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-258">This method is not intended for use in C# or Visual Basic.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-259">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-259">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-260">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-260">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-261">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-261">(In most cases, a language-specific run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-262">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、指定したインデックスを持つ値を削除する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-262">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how a value that has a specified index should be deleted.</span></span> <span data-ttu-id="83332-263">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-263">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-264">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-264">(In most cases, a language-specific run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-265">C# および Visual Basic コンパイラは、このような操作をサポートしていないため、このメソッドを使用してコードを生成しません。</span><span class="sxs-lookup"><span data-stu-id="83332-265">C# and Visual Basic compilers never emit code to use this method because they do not support this kind of operation.</span></span> <span data-ttu-id="83332-266">このメソッドは、インデックスを使用してオブジェクトを削除するなどの構文をサポートする言語用、 `del sampleObject[1,2]` Python でします。</span><span class="sxs-lookup"><span data-stu-id="83332-266">This method is intended for languages that support syntax for deleting objects by index, such as `del sampleObject[1,2]` in Python.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryDeleteMember">
+      <MemberSignature Language="C#" Value="public virtual bool TryDeleteMember (System.Dynamic.DeleteMemberBinder binder);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryDeleteMember(class System.Dynamic.DeleteMemberBinder binder) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryDeleteMember(System.Dynamic.DeleteMemberBinder)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryDeleteMember (binder As DeleteMemberBinder) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryDeleteMember(System::Dynamic::DeleteMemberBinder ^ binder);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.DeleteMemberBinder" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-267">削除に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-267">Provides information about the deletion.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-268">オブジェクト メンバーを削除する演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-268">Provides the implementation for operations that delete an object member.</span>
+          </span>
+          <span data-ttu-id="83332-269">このメソッドは、C# または Visual Basic で使用するためのものではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-269">This method is not intended for use in C# or Visual Basic.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-270">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-270">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-271">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-271">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-272">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-272">(In most cases, a language-specific run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-273">派生したクラス、<xref:System.Dynamic.DynamicObject>クラス オブジェクト メンバーを削除する方法を指定するには、このメソッドをオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="83332-273">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how an object member should be deleted.</span></span> <span data-ttu-id="83332-274">このメソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-274">When this method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-275">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-275">(In most cases, a language-specific run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-276">C# および Visual Basic コンパイラは、このような操作をサポートしていないため、このメソッドを使用してコードを生成しません。</span><span class="sxs-lookup"><span data-stu-id="83332-276">C# and Visual Basic compilers never emit code to use this method because they do not support this kind of operation.</span></span> <span data-ttu-id="83332-277">このメソッドは、のように、メンバーを削除するための構文をサポートする言語`del sampleObject.SampleMember`Python でします。</span><span class="sxs-lookup"><span data-stu-id="83332-277">This method is intended for languages that support syntax for deleting members, such as `del sampleObject.SampleMember` in Python.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryGetIndex">
+      <MemberSignature Language="C#" Value="public virtual bool TryGetIndex (System.Dynamic.GetIndexBinder binder, object[] indexes, out object result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryGetIndex(class System.Dynamic.GetIndexBinder binder, object[] indexes, [out] object&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryGetIndex(System.Dynamic.GetIndexBinder,System.Object[],System.Object@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryGetIndex (binder As GetIndexBinder, indexes As Object(), ByRef result As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryGetIndex(System::Dynamic::GetIndexBinder ^ binder, cli::array &lt;System::Object ^&gt; ^ indexes, [Runtime::InteropServices::Out] System::Object ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.GetIndexBinder" />
+        <Parameter Name="indexes" Type="System.Object[]" />
+        <Parameter Name="result" Type="System.Object&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-278">演算に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-278">Provides information about the operation.</span>
+          </span>
+        </param>
+        <param name="indexes">
+          <span data-ttu-id="83332-279">演算に使用されるインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-279">The indexes that are used in the operation.</span>
+          </span>
+          <span data-ttu-id="83332-280">たとえば、C# の <c>sampleObject[3]</c> (Visual Basic では <c>sampleObject(3)</c>) 演算の場合 (<c>sampleObject</c> は <see langword="DynamicObject" /> クラスから派生)、<c>indexes[0]</c> は 3 に等しくなります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-280">For example, for the <c>sampleObject[3]</c> operation in C# (<c>sampleObject(3)</c> in Visual Basic), where <c>sampleObject</c> is derived from the <see langword="DynamicObject" /> class, <c>indexes[0]</c> is equal to 3.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="83332-281">インデックス演算の結果。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-281">The result of the index operation.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-282">インデックスを使用して値を取得する演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-282">Provides the implementation for operations that get a value by index.</span>
+          </span>
+          <span data-ttu-id="83332-283">
+            <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、インデックス演算の動的な動作を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-283">Classes derived from the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to specify dynamic behavior for indexing operations.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-284">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-284">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-285">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-285">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-286">(ほとんどの場合、実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-286">(In most cases, a run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-287">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、インデックスを使用して値を取得する必要があります実行する方法の動的なオブジェクトを指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-287">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how getting a value by index should be performed for a dynamic object.</span></span> <span data-ttu-id="83332-288">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-288">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-289">(ほとんどの場合、実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-289">(In most cases, a run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-290">このメソッドがオーバーライドされた場合は、それが自動的に起動などの演算がある場合`sampleObject[3]`(C#) または`sampleObject(3)`Visual Basic、where`sampleObject`から派生した、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-290">If this method is overridden, it is automatically invoked when you have an operation like `sampleObject[3]` in C# or `sampleObject(3)` in Visual Basic, where `sampleObject` is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-291">前提としています名前でいずれかのようにアクセス プロパティができるオブジェクトを作成する`Property0`、`Property1`など、またはインデックスでようになど、`sampleObject.Property0`と等価`sampleObject[0]`(C#) または`sampleObject(0)`Visual Basic でします。</span><span class="sxs-lookup"><span data-stu-id="83332-291">Assume that you want to create an object in which properties can be accessed either by names such as `Property0`, `Property1`, and so on, or by index, so that, for example, `sampleObject.Property0` is equivalent to `sampleObject[0]` in C# or `sampleObject(0)` in Visual Basic.</span></span>  
+  
+ <span data-ttu-id="83332-292">次のコード例を示しています、`SampleDynamicObject`から派生するクラス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-292">The following code example demonstrates the `SampleDynamicObject` class, which is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-293">`SampleDynamicObject`クラスにはオブジェクトが含まれています、`Dictionary<string, object>`型 (`Dictionary(Of String, Object)` Visual Basic で) をキーと値のペアを格納します。</span><span class="sxs-lookup"><span data-stu-id="83332-293">The `SampleDynamicObject` class contains an object of the `Dictionary<string, object>` type (`Dictionary(Of String, Object)` in Visual Basic) to store the key-value pairs.</span></span> <span data-ttu-id="83332-294">`SampleDynamicObject` 上書き、<xref:System.Dynamic.DynamicObject.TrySetIndex%2A>と<xref:System.Dynamic.DynamicObject.TryGetIndex%2A>インデックスによってアクセスを可能にする方法です。</span><span class="sxs-lookup"><span data-stu-id="83332-294">`SampleDynamicObject` overrides the <xref:System.Dynamic.DynamicObject.TrySetIndex%2A> and <xref:System.Dynamic.DynamicObject.TryGetIndex%2A> methods to enable access by index.</span></span> <span data-ttu-id="83332-295">も優先、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>プロパティ名によるアクセスを可能にする方法です。</span><span class="sxs-lookup"><span data-stu-id="83332-295">It overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to enable access by property name.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#4)]
+ [!code-vb[System.Dynamic.DynamicObject#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.dynamic.dynamicobject/vb/module1.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryGetMember">
+      <MemberSignature Language="C#" Value="public virtual bool TryGetMember (System.Dynamic.GetMemberBinder binder, out object result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryGetMember(class System.Dynamic.GetMemberBinder binder, [out] object&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryGetMember (binder As GetMemberBinder, ByRef result As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryGetMember(System::Dynamic::GetMemberBinder ^ binder, [Runtime::InteropServices::Out] System::Object ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.GetMemberBinder" />
+        <Parameter Name="result" Type="System.Object&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-296">動的演算を呼び出したオブジェクトに関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-296">Provides information about the object that called the dynamic operation.</span>
+          </span>
+          <span data-ttu-id="83332-297">
+            <c>binder.Name</c> プロパティは、動的演算の対象であるメンバーの名前を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-297">The <c>binder.Name</c> property provides the name of the member on which the dynamic operation is performed.</span>
+          </span>
+          <span data-ttu-id="83332-298">たとえば、<c>Console.WriteLine(sampleObject.SampleProperty)</c> ステートメントの場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスのインスタンス)、<c>binder.Name</c> は "SampleProperty" を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-298">For example, for the <c>Console.WriteLine(sampleObject.SampleProperty)</c> statement, where <c>sampleObject</c> is an instance of the class derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <c>binder.Name</c> returns "SampleProperty".</span>
+          </span>
+          <span data-ttu-id="83332-299">メンバー名で大文字と小文字を区別するかどうかを <c>binder.IgnoreCase</c> プロパティで指定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-299">The <c>binder.IgnoreCase</c> property specifies whether the member name is case-sensitive.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="83332-300">取得操作の結果。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-300">The result of the get operation.</span>
+          </span>
+          <span data-ttu-id="83332-301">たとえば、メソッドがプロパティに対して呼び出された場合、プロパティ値を <c>result</c> に割り当てることができます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-301">For example, if the method is called for a property, you can assign the property value to <c>result</c>.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-302">メンバー値を取得する演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-302">Provides the implementation for operations that get member values.</span>
+          </span>
+          <span data-ttu-id="83332-303">
+            <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、プロパティ値の取得などの演算の動的な動作を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-303">Classes derived from the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to specify dynamic behavior for operations such as getting a value for a property.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-304">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-304">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-305">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-305">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-306">(ほとんどの場合、実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-306">(In most cases, a run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-307">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、動的なオブジェクトのメンバーの値を取得する操作を実行する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-307">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how operations that get member values should be performed for a dynamic object.</span></span> <span data-ttu-id="83332-308">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-308">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-309">(ほとんどの場合、実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-309">(In most cases, a run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-310">ようなステートメントがある場合、このメソッドが呼び出されます`Console.WriteLine(sampleObject.SampleProperty)`ここで、`sampleObject`から派生したクラスのインスタンス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-310">This method is called when you have statements like `Console.WriteLine(sampleObject.SampleProperty)`, where `sampleObject` is an instance of the class derived from the <xref:System.Dynamic.DynamicObject> class.</span></span>  
+  
+ <span data-ttu-id="83332-311">派生したクラスに、独自のメンバーを追加することも、`DynamicObject`クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-311">You can also add your own members to classes derived from the `DynamicObject` class.</span></span> <span data-ttu-id="83332-312">クラスのプロパティを定義およびもオーバーライド場合、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>メソッド、動的言語ランタイム (DLR) 最初を使用して、言語バインダー クラス内のプロパティの静的な定義を検索します。</span><span class="sxs-lookup"><span data-stu-id="83332-312">If your class defines properties and also overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> method, the dynamic language runtime (DLR) first uses the language binder to look for a static definition of a property in the class.</span></span> <span data-ttu-id="83332-313">このようなプロパティが存在しない場合は、DLR を呼び出します、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="83332-313">If there is no such property, the DLR calls the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-314">書き込みの代わりに、ディクショナリ内の値にアクセスするための代替構文を提供することを前提としています`sampleDictionary["Text"] = "Sample text"`(`sampleDictionary("Text") = "Sample text"` Visual Basic で)、書き込めること`sampleDictionary.Text = "Sample text"`です。</span><span class="sxs-lookup"><span data-stu-id="83332-314">Assume that you want to provide alternative syntax for accessing values in a dictionary, so that instead of writing `sampleDictionary["Text"] = "Sample text"` (`sampleDictionary("Text") = "Sample text"` in Visual Basic), you can write `sampleDictionary.Text = "Sample text"`.</span></span> <span data-ttu-id="83332-315">また、この構文が、大文字と小文字にする必要がありますように`sampleDictionary.Text`は等価`sampleDictionary.text`です。</span><span class="sxs-lookup"><span data-stu-id="83332-315">Also, this syntax must be case-insensitive, so that `sampleDictionary.Text` is equivalent to `sampleDictionary.text`.</span></span>  
+  
+ <span data-ttu-id="83332-316">次のコード例を示しています、`DynamicDictionary`から派生するクラス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-316">The following code example demonstrates the `DynamicDictionary` class, which is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-317">`DynamicDictionary`クラスのオブジェクトに含まれる、`Dictionary<string, object>`型 (`Dictionary(Of String, Object)` Visual Basic で) キーと値のペアと上書きを格納する、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>新しい構文をサポートするメソッド。</span><span class="sxs-lookup"><span data-stu-id="83332-317">The `DynamicDictionary` class contains an object of the `Dictionary<string, object>` type (`Dictionary(Of String, Object)` in Visual Basic) to store the key-value pairs, and overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to support the new syntax.</span></span> <span data-ttu-id="83332-318">用意されています、`Count`ディクショナリ数の動的なプロパティを表示するプロパティが含まれます。</span><span class="sxs-lookup"><span data-stu-id="83332-318">It also provides a `Count` property, which shows how many dynamic properties the dictionary contains.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#1)]
+ [!code-vb[System.Dynamic.DynamicObject#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.dynamic.dynamicobject/vb/module1.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryInvoke">
+      <MemberSignature Language="C#" Value="public virtual bool TryInvoke (System.Dynamic.InvokeBinder binder, object[] args, out object result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryInvoke(class System.Dynamic.InvokeBinder binder, object[] args, [out] object&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryInvoke(System.Dynamic.InvokeBinder,System.Object[],System.Object@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryInvoke (binder As InvokeBinder, args As Object(), ByRef result As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryInvoke(System::Dynamic::InvokeBinder ^ binder, cli::array &lt;System::Object ^&gt; ^ args, [Runtime::InteropServices::Out] System::Object ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.InvokeBinder" />
+        <Parameter Name="args" Type="System.Object[]" />
+        <Parameter Name="result" Type="System.Object&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-319">呼び出し演算に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-319">Provides information about the invoke operation.</span>
+          </span>
+        </param>
+        <param name="args">
+          <span data-ttu-id="83332-320">呼び出し演算でオブジェクトに渡される引数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-320">The arguments that are passed to the object during the invoke operation.</span>
+          </span>
+          <span data-ttu-id="83332-321">たとえば、<c>sampleObject(100)</c> 演算の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスから派生)、<c>args[0]</c> は 100 に等しくなります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-321">For example, for the <c>sampleObject(100)</c> operation, where <c>sampleObject</c> is derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <c>args[0]</c> is equal to 100.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="83332-322">オブジェクト呼び出しの結果。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-322">The result of the object invocation.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-323">オブジェクトを呼び出す演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-323">Provides the implementation for operations that invoke an object.</span>
+          </span>
+          <span data-ttu-id="83332-324">
+            <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、オブジェクトやデリゲートの呼び出しなどの演算の動的な動作を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-324">Classes derived from the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to specify dynamic behavior for operations such as invoking an object or a delegate.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-325">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-325">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-326">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-326">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-327">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-327">(In most cases, a language-specific run-time exception is thrown.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-328">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、動的なオブジェクトのオブジェクトを呼び出す操作を実行する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-328">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how operations that invoke an object should be performed for a dynamic object.</span></span> <span data-ttu-id="83332-329">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-329">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-330">(ほとんどの場合、実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-330">(In most cases, a run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-331">このメソッドがオーバーライドされた場合は、それが自動的に起動などの演算がある場合`sampleObject(100)`ここで、`sampleObject`から派生した、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-331">If this method is overridden, it is automatically invoked when you have an operation like `sampleObject(100)`, where `sampleObject` is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span>  
+  
+ <span data-ttu-id="83332-332">オブジェクトを呼び出すため操作には、Visual Basic ではありませんが、c# ではサポートされています。</span><span class="sxs-lookup"><span data-stu-id="83332-332">The operation for invoking an object is supported in C# but not in Visual Basic.</span></span> <span data-ttu-id="83332-333">Visual Basic コンパイラはこのメソッドを使用してコードを出力することはありませんし、Visual Basic 言語はのような構文をサポートしていない`sampleObject(100)`です。</span><span class="sxs-lookup"><span data-stu-id="83332-333">The Visual Basic compiler never emits code to use this method, and the Visual Basic language does not support syntax like `sampleObject(100)`.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-334">テキストと数値で表された数値を格納するデータ構造をする必要があると仮定します。</span><span class="sxs-lookup"><span data-stu-id="83332-334">Assume that you need a data structure to store textual and numeric representations of numbers.</span></span> <span data-ttu-id="83332-335">各プロパティの値を個別に指定し、1 つのステートメントのすべてのプロパティを初期化できることができるします。</span><span class="sxs-lookup"><span data-stu-id="83332-335">You want to be able to specify the value for each property individually and also to be able to initialize all properties in a single statement.</span></span>  
+  
+ <span data-ttu-id="83332-336">次のコード例を示しています、`DynamicNumber`から派生するクラス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-336">The following code example demonstrates the `DynamicNumber` class, which is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-337">`DynamicNumber` 上書き、<xref:System.Dynamic.DynamicObject.TryInvoke%2A>を同時にすべてのプロパティの初期化を有効にするメソッド。</span><span class="sxs-lookup"><span data-stu-id="83332-337">`DynamicNumber` overrides the <xref:System.Dynamic.DynamicObject.TryInvoke%2A> method to enable initialization of all properties at one time.</span></span> <span data-ttu-id="83332-338">オーバーライド、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>個々 のオブジェクトのプロパティへのアクセスを可能にする方法です。</span><span class="sxs-lookup"><span data-stu-id="83332-338">It also overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to enable access to individual object properties.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#5)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryInvokeMember">
+      <MemberSignature Language="C#" Value="public virtual bool TryInvokeMember (System.Dynamic.InvokeMemberBinder binder, object[] args, out object result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryInvokeMember(class System.Dynamic.InvokeMemberBinder binder, object[] args, [out] object&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryInvokeMember (binder As InvokeMemberBinder, args As Object(), ByRef result As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryInvokeMember(System::Dynamic::InvokeMemberBinder ^ binder, cli::array &lt;System::Object ^&gt; ^ args, [Runtime::InteropServices::Out] System::Object ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.InvokeMemberBinder" />
+        <Parameter Name="args" Type="System.Object[]" />
+        <Parameter Name="result" Type="System.Object&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-339">動的な演算に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-339">Provides information about the dynamic operation.</span>
+          </span>
+          <span data-ttu-id="83332-340">
+            <c>binder.Name</c> プロパティは、動的演算の対象であるメンバーの名前を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-340">The <c>binder.Name</c> property provides the name of the member on which the dynamic operation is performed.</span>
+          </span>
+          <span data-ttu-id="83332-341">たとえば、ステートメント <c>sampleObject.SampleMethod(100)</c> の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスのインスタンス)、<c>binder.Name</c> は "SampleMethod" を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-341">For example, for the statement <c>sampleObject.SampleMethod(100)</c>, where <c>sampleObject</c> is an instance of the class derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <c>binder.Name</c> returns "SampleMethod".</span>
+          </span>
+          <span data-ttu-id="83332-342">メンバー名で大文字と小文字を区別するかどうかを <c>binder.IgnoreCase</c> プロパティで指定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-342">The <c>binder.IgnoreCase</c> property specifies whether the member name is case-sensitive.</span>
+          </span>
+        </param>
+        <param name="args">
+          <span data-ttu-id="83332-343">呼び出し演算でオブジェクト メンバーに渡される引数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-343">The arguments that are passed to the object member during the invoke operation.</span>
+          </span>
+          <span data-ttu-id="83332-344">たとえば、ステートメント <c>sampleObject.SampleMethod(100)</c> の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスから派生)、<c>args[0]</c> は 100 に等しくなります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-344">For example, for the statement <c>sampleObject.SampleMethod(100)</c>, where <c>sampleObject</c> is derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <c>args[0]</c> is equal to 100.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="83332-345">メンバー呼び出しの結果。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-345">The result of the member invocation.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-346">メンバーを呼び出す演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-346">Provides the implementation for operations that invoke a member.</span>
+          </span>
+          <span data-ttu-id="83332-347">
+            <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、メソッドの呼び出しなどの演算の動的な動作を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-347">Classes derived from the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to specify dynamic behavior for operations such as calling a method.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-348">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-348">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-349">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-349">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-350">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-350">(In most cases, a language-specific run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-351">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、動的なオブジェクトのオブジェクトのメンバーを呼び出す操作を実行する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-351">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how operations that invoke an object member should be performed for a dynamic object.</span></span> <span data-ttu-id="83332-352">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-352">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-353">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-353">(In most cases, a language-specific run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-354">このメソッドがオーバーライドされた場合は、それが自動的に起動などの演算を実行するときに`sampleObject.SampleMethod(100)`ここで、`sampleObject`から派生した、`DynamicObject`クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-354">If this method is overridden, it is automatically invoked when you perform an operation like `sampleObject.SampleMethod(100)`, where `sampleObject` is derived from the `DynamicObject` class.</span></span>  
+  
+ <span data-ttu-id="83332-355">派生したクラスに、独自のメソッドを追加することも、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-355">You can also add your own methods to classes that are derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-356">たとえば、オーバーライドする場合、<xref:System.Dynamic.DynamicObject.TryInvokeMember%2A>メソッド、動的ディスパッチ システムまずしようと、クラスで、指定したメソッドが存在するかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="83332-356">For example, if you override the <xref:System.Dynamic.DynamicObject.TryInvokeMember%2A> method, the dynamic dispatch system first attempts to determine whether the specified method exists in the class.</span></span> <span data-ttu-id="83332-357">メソッドが見つからない場合は、使用、<xref:System.Dynamic.DynamicObject.TryInvokeMember%2A>実装します。</span><span class="sxs-lookup"><span data-stu-id="83332-357">If it does not find the method, it uses the <xref:System.Dynamic.DynamicObject.TryInvokeMember%2A> implementation.</span></span>  
+  
+ <span data-ttu-id="83332-358">このメソッドがサポートしていません`ref`と`out`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="83332-358">This method does not support `ref` and `out` parameters.</span></span> <span data-ttu-id="83332-359">すべてのパラメーター、`args`配列が値によって渡されます。</span><span class="sxs-lookup"><span data-stu-id="83332-359">All parameters in the `args` array are passed by value.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-360">書き込みの代わりに、ディクショナリ内の値にアクセスするための代替構文を提供することを前提としています`sampleDictionary["Text"] = "Sample text"`(`sampleDictionary("Text") = "Sample text"` Visual Basic で)、書き込めること`sampleDictionary.Text = "Sample text"`です。</span><span class="sxs-lookup"><span data-stu-id="83332-360">Assume that you want to provide alternative syntax for accessing values in a dictionary, so that instead of writing `sampleDictionary["Text"] = "Sample text"` (`sampleDictionary("Text") = "Sample text"` in Visual Basic), you can write `sampleDictionary.Text = "Sample text"`.</span></span> <span data-ttu-id="83332-361">また、このディクショナリのすべての標準の辞書メソッドを呼び出すことができるします。</span><span class="sxs-lookup"><span data-stu-id="83332-361">Also, you want to be able to call all the standard dictionary methods on this dictionary.</span></span>  
+  
+ <span data-ttu-id="83332-362">次のコード例を示しています、`DynamicDictionary`から派生するクラス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-362">The following code example demonstrates the `DynamicDictionary` class, which is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-363">`DynamicDictionary`クラスにはオブジェクトが含まれています、`Dictionary<string, object>`型 (`Dictionary(Of String, Object)` Visual Basic で) をキーと値のペアを格納します。</span><span class="sxs-lookup"><span data-stu-id="83332-363">The `DynamicDictionary` class contains an object of the `Dictionary<string, object>` type (`Dictionary(Of String, Object)` in Visual Basic) to store the key-value pairs.</span></span> <span data-ttu-id="83332-364">も優先、<xref:System.Dynamic.DynamicObject.TryInvokeMember%2A>メソッドのメソッドをサポートするために、<xref:System.Collections.Generic.Dictionary%602>クラスおよびオーバーライド、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>新しい構文をサポートするメソッド。</span><span class="sxs-lookup"><span data-stu-id="83332-364">It overrides the <xref:System.Dynamic.DynamicObject.TryInvokeMember%2A> method to support methods of the <xref:System.Collections.Generic.Dictionary%602> class and overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to support the new syntax.</span></span> <span data-ttu-id="83332-365">用意されています、`Print`メソッドで、すべてのディクショナリのキーと値を出力します。</span><span class="sxs-lookup"><span data-stu-id="83332-365">It also provides a `Print` method, which prints out all dictionary keys and values.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#6](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#6)]
+ [!code-vb[System.Dynamic.DynamicObject#6](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.dynamic.dynamicobject/vb/module1.vb#6)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TrySetIndex">
+      <MemberSignature Language="C#" Value="public virtual bool TrySetIndex (System.Dynamic.SetIndexBinder binder, object[] indexes, object value);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TrySetIndex(class System.Dynamic.SetIndexBinder binder, object[] indexes, object value) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TrySetIndex(System.Dynamic.SetIndexBinder,System.Object[],System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TrySetIndex (binder As SetIndexBinder, indexes As Object(), value As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TrySetIndex(System::Dynamic::SetIndexBinder ^ binder, cli::array &lt;System::Object ^&gt; ^ indexes, System::Object ^ value);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.SetIndexBinder" />
+        <Parameter Name="indexes" Type="System.Object[]" />
+        <Parameter Name="value" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-366">演算に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-366">Provides information about the operation.</span>
+          </span>
+        </param>
+        <param name="indexes">
+          <span data-ttu-id="83332-367">演算に使用されるインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-367">The indexes that are used in the operation.</span>
+          </span>
+          <span data-ttu-id="83332-368">たとえば、C# の <c>sampleObject[3] = 10</c> (Visual Basic では <c>sampleObject(3) = 10</c>) 演算の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスから派生)、<c>indexes[0]</c> は 3 に等しくなります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-368">For example, for the <c>sampleObject[3] = 10</c> operation in C# (<c>sampleObject(3) = 10</c> in Visual Basic), where <c>sampleObject</c> is derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <c>indexes[0]</c> is equal to 3.</span>
+          </span>
+        </param>
+        <param name="value">
+          <span data-ttu-id="83332-369">指定したインデックスのオブジェクトに設定する値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-369">The value to set to the object that has the specified index.</span>
+          </span>
+          <span data-ttu-id="83332-370">たとえば、C# の <c>sampleObject[3] = 10</c> (Visual Basic では <c>sampleObject(3) = 10</c>) 演算の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスから派生)、<c>value</c> は 10 に等しくなります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-370">For example, for the <c>sampleObject[3] = 10</c> operation in C# (<c>sampleObject(3) = 10</c> in Visual Basic), where <c>sampleObject</c> is derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <c>value</c> is equal to 10.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-371">インデックスを使用して値を設定する演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-371">Provides the implementation for operations that set a value by index.</span>
+          </span>
+          <span data-ttu-id="83332-372">
+            <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、指定したインデックスを使用してオブジェクトにアクセスする演算の動的な動作を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-372">Classes derived from the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to specify dynamic behavior for operations that access objects by a specified index.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-373">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-373">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-374">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-374">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-375">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-375">(In most cases, a language-specific run-time exception is thrown.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-376">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、動的なオブジェクトのインデックスを使用してオブジェクトにアクセスする操作を実行する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-376">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how operations that access an object by index should be performed for a dynamic object.</span></span> <span data-ttu-id="83332-377">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-377">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-378">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-378">(In most cases, a language-specific run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-379">このメソッドがオーバーライドされた場合は、それが自動的に起動などの演算がある場合`sampleObject[3] = 10`(C#) または`sampleObject(3) = 10`Visual Basic、where`sampleObject`から派生した、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-379">If this method is overridden, it is automatically invoked when you have an operation like `sampleObject[3] = 10` in C# or `sampleObject(3) = 10` in Visual Basic, where `sampleObject` is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-380">前提としています名前でいずれかのようにアクセス プロパティができるオブジェクトを作成する`Property0`、`Property1`など、またはインデックスでようになど、`sampleObject.Property0`と等価`sampleObject[0]`(C#) または`sampleObject(0)`Visual Basic でします。</span><span class="sxs-lookup"><span data-stu-id="83332-380">Assume that you want to create an object in which properties can be accessed either by names such as `Property0`, `Property1`, and so on, or by index, so that, for example, `sampleObject.Property0` is equivalent to `sampleObject[0]` in C# or `sampleObject(0)` in Visual Basic.</span></span>  
+  
+ <span data-ttu-id="83332-381">次のコード例を示しています、`SampleDynamicObject`から派生するクラス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-381">The following code example demonstrates the `SampleDynamicObject` class, which is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-382">`SampleDynamicObject`クラスにはオブジェクトが含まれています、`Dictionary<string, object>`型 (`Dictionary(Of String, Object)` Visual Basic で) をキーと値のペアを格納します。</span><span class="sxs-lookup"><span data-stu-id="83332-382">The `SampleDynamicObject` class contains an object of the `Dictionary<string, object>` type (`Dictionary(Of String, Object)` in Visual Basic) to store the key-value pairs.</span></span> <span data-ttu-id="83332-383">`SampleDynamicObject` 上書き、<xref:System.Dynamic.DynamicObject.TrySetIndex%2A>と<xref:System.Dynamic.DynamicObject.TryGetIndex%2A>インデックスによってアクセスを可能にする方法です。</span><span class="sxs-lookup"><span data-stu-id="83332-383">`SampleDynamicObject` overrides the <xref:System.Dynamic.DynamicObject.TrySetIndex%2A> and <xref:System.Dynamic.DynamicObject.TryGetIndex%2A> methods to enable access by index.</span></span> <span data-ttu-id="83332-384">も優先、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>プロパティ名によるアクセスを可能にする方法です。</span><span class="sxs-lookup"><span data-stu-id="83332-384">It overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to enable access by property name.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#4)]
+ [!code-vb[System.Dynamic.DynamicObject#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.dynamic.dynamicobject/vb/module1.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TrySetMember">
+      <MemberSignature Language="C#" Value="public virtual bool TrySetMember (System.Dynamic.SetMemberBinder binder, object value);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TrySetMember(class System.Dynamic.SetMemberBinder binder, object value) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TrySetMember (binder As SetMemberBinder, value As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TrySetMember(System::Dynamic::SetMemberBinder ^ binder, System::Object ^ value);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.SetMemberBinder" />
+        <Parameter Name="value" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-385">動的演算を呼び出したオブジェクトに関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-385">Provides information about the object that called the dynamic operation.</span>
+          </span>
+          <span data-ttu-id="83332-386">
+            <c>binder.Name</c> プロパティは、値の割り当て先のメンバーの名前を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-386">The <c>binder.Name</c> property provides the name of the member to which the value is being assigned.</span>
+          </span>
+          <span data-ttu-id="83332-387">たとえば、ステートメント <c>sampleObject.SampleProperty = "Test"</c> の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスのインスタンス)、<c>binder.Name</c> は "SampleProperty" を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-387">For example, for the statement <c>sampleObject.SampleProperty = "Test"</c>, where <c>sampleObject</c> is an instance of the class derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, <c>binder.Name</c> returns "SampleProperty".</span>
+          </span>
+          <span data-ttu-id="83332-388">メンバー名で大文字と小文字を区別するかどうかを <c>binder.IgnoreCase</c> プロパティで指定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-388">The <c>binder.IgnoreCase</c> property specifies whether the member name is case-sensitive.</span>
+          </span>
+        </param>
+        <param name="value">
+          <span data-ttu-id="83332-389">メンバーに設定する値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-389">The value to set to the member.</span>
+          </span>
+          <span data-ttu-id="83332-390">たとえば、<c>sampleObject.SampleProperty = "Test"</c> の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスのインスタンス)、<c>value</c> は "Test" となります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-390">For example, for <c>sampleObject.SampleProperty = "Test"</c>, where <c>sampleObject</c> is an instance of the class derived from the <see cref="T:System.Dynamic.DynamicObject" /> class, the <c>value</c> is "Test".</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-391">メンバー値を設定する演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-391">Provides the implementation for operations that set member values.</span>
+          </span>
+          <span data-ttu-id="83332-392">
+            <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、プロパティ値の設定などの演算の動的な動作を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-392">Classes derived from the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to specify dynamic behavior for operations such as setting a value for a property.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-393">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-393">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-394">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-394">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-395">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-395">(In most cases, a language-specific run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-396">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、動的なオブジェクトのメンバーに値を設定する操作を実行する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-396">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how operations that set a value to a member should be performed for a dynamic object.</span></span> <span data-ttu-id="83332-397">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-397">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-398">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-398">(In most cases, a language-specific run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-399">ようなステートメントがある場合、このメソッドが呼び出されます`sampleObject.SampleProperty = "Test"`ここで、`sampleObject`から派生したクラスのインスタンスには、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-399">This method is called when you have statements like `sampleObject.SampleProperty = "Test"`, where `sampleObject` is an instance of the class that is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span>  
+  
+ <span data-ttu-id="83332-400">派生したクラスに、独自のメンバーを追加することも、`DynamicObject`クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-400">You can also add your own members to classes derived from the `DynamicObject` class.</span></span> <span data-ttu-id="83332-401">クラスのプロパティを定義およびもオーバーライド場合、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>メソッド、動的言語ランタイム (DLR) 最初を使用して、言語バインダー クラス内のプロパティの静的な定義を検索します。</span><span class="sxs-lookup"><span data-stu-id="83332-401">If your class defines properties and also overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> method, the dynamic language runtime (DLR) first uses the language binder to look for a static definition of a property in the class.</span></span> <span data-ttu-id="83332-402">このようなプロパティが存在しない場合は、DLR を呼び出します、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="83332-402">If there is no such property, the DLR calls the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-403">書き込みの代わりに、ディクショナリ内の値にアクセスするための代替構文を提供することを前提としています`sampleDictionary["Text"] = "Sample text"`(`sampleDictionary("Text") = "Sample text"` Visual Basic で)、書き込めること`sampleDictionary.Text = "Sample text"`です。</span><span class="sxs-lookup"><span data-stu-id="83332-403">Assume that you want to provide alternative syntax for accessing values in a dictionary, so that instead of writing `sampleDictionary["Text"] = "Sample text"` (`sampleDictionary("Text") = "Sample text"` in Visual Basic), you can write `sampleDictionary.Text = "Sample text"`.</span></span> <span data-ttu-id="83332-404">また、この構文が、大文字と小文字にする必要がありますように`sampleDictionary.Text`は等価`sampleDictionary.text`です。</span><span class="sxs-lookup"><span data-stu-id="83332-404">Also, this syntax must be case-insensitive, so that `sampleDictionary.Text` is equivalent to `sampleDictionary.text`.</span></span>  
+  
+ <span data-ttu-id="83332-405">次のコード例を示しています、`DynamicDictionary`から派生するクラス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-405">The following code example demonstrates the `DynamicDictionary` class, which is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-406">`DynamicDictionary`クラスのオブジェクトに含まれる、`Dictionary<string, object>`型 (`Dictionary(Of String, Object)` Visual Basic で) キーと値のペアと上書きを格納する、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>新しい構文をサポートするメソッド。</span><span class="sxs-lookup"><span data-stu-id="83332-406">The `DynamicDictionary` class contains an object of the `Dictionary<string, object>` type (`Dictionary(Of String, Object)` in Visual Basic) to store the key-value pairs, and overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to support the new syntax.</span></span> <span data-ttu-id="83332-407">用意されています、`Count`ディクショナリ数の動的なプロパティを表示するプロパティが含まれます。</span><span class="sxs-lookup"><span data-stu-id="83332-407">It also provides a `Count` property, which shows how many dynamic properties the dictionary contains.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#1)]
+ [!code-vb[System.Dynamic.DynamicObject#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.dynamic.dynamicobject/vb/module1.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryUnaryOperation">
+      <MemberSignature Language="C#" Value="public virtual bool TryUnaryOperation (System.Dynamic.UnaryOperationBinder binder, out object result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryUnaryOperation(class System.Dynamic.UnaryOperationBinder binder, [out] object&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Dynamic.DynamicObject.TryUnaryOperation(System.Dynamic.UnaryOperationBinder,System.Object@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryUnaryOperation (binder As UnaryOperationBinder, ByRef result As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryUnaryOperation(System::Dynamic::UnaryOperationBinder ^ binder, [Runtime::InteropServices::Out] System::Object ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Dynamic.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Linq.Expressions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="binder" Type="System.Dynamic.UnaryOperationBinder" />
+        <Parameter Name="result" Type="System.Object&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="binder">
+          <span data-ttu-id="83332-408">単項演算に関する情報を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-408">Provides information about the unary operation.</span>
+          </span>
+          <span data-ttu-id="83332-409">
+            <c>binder.Operation</c> プロパティは <see cref="T:System.Linq.Expressions.ExpressionType" /> オブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-409">The <c>binder.Operation</c> property returns an <see cref="T:System.Linq.Expressions.ExpressionType" /> object.</span>
+          </span>
+          <span data-ttu-id="83332-410">たとえば、<c>negativeNumber = -number</c> ステートメントの場合 (<c>number</c> は <see langword="DynamicObject" /> クラスから派生)、<c>binder.Operation</c> は "Negate" を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-410">For example, for the <c>negativeNumber = -number</c> statement, where <c>number</c> is derived from the <see langword="DynamicObject" /> class, <c>binder.Operation</c> returns "Negate".</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="83332-411">単項演算の結果。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-411">The result of the unary operation.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="83332-412">単項演算の実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-412">Provides implementation for unary operations.</span>
+          </span>
+          <span data-ttu-id="83332-413">
+            <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、否定、インクリメント、デクリメントなどの演算の動的な動作を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-413">Classes derived from the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to specify dynamic behavior for operations such as negation, increment, or decrement.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="83332-414">操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-414">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="83332-415">このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-415">If this method returns <see langword="false" />, the run-time binder of the language determines the behavior.</span>
+          </span>
+          <span data-ttu-id="83332-416">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="83332-416">(In most cases, a language-specific run-time exception is thrown.)</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="83332-417">派生したクラス、<xref:System.Dynamic.DynamicObject>クラスは、動的なオブジェクトを単項演算を実行する方法を指定するには、このメソッドをオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="83332-417">Classes derived from the <xref:System.Dynamic.DynamicObject> class can override this method to specify how unary operations should be performed for a dynamic object.</span></span> <span data-ttu-id="83332-418">メソッドがオーバーライドされていない場合、言語の実行時バインダーは、動作を決定します。</span><span class="sxs-lookup"><span data-stu-id="83332-418">When the method is not overridden, the run-time binder of the language determines the behavior.</span></span> <span data-ttu-id="83332-419">(ほとんどの場合、言語固有の実行時例外がスローされます)。</span><span class="sxs-lookup"><span data-stu-id="83332-419">(In most cases, a language-specific run-time exception is thrown.)</span></span>  
+  
+ <span data-ttu-id="83332-420">このメソッドは、否定、インクリメントなどの単項演算子またはデクリメントしたときに呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="83332-420">This method is called when you have unary operations such as negation, increment, or decrement.</span></span> <span data-ttu-id="83332-421">たとえば場合、<xref:System.Dynamic.DynamicObject.TryUnaryOperation%2A>メソッドがオーバーライドされてなどのステートメントの場合、このメソッドが自動的に呼び出される`negativeNumber = -number`ここで、`number`から派生した、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-421">For example, if the <xref:System.Dynamic.DynamicObject.TryUnaryOperation%2A> method is overridden, this method is automatically invoked for statements like `negativeNumber = -number`, where `number` is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span>  
+  
+ <span data-ttu-id="83332-422">使用して、単項演算の種類に関する情報を取得することができます、`Operation`のプロパティ、`binder`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="83332-422">You can get information about the type of the unary operation by using the `Operation` property of the `binder` parameter.</span></span>  
+  
+ <span data-ttu-id="83332-423">C# および Visual Basic の場合にのみ、動的なオブジェクトを使用する場合、`binder.Operation`プロパティから次の値のいずれかを持つことができます、<xref:System.Linq.Expressions.ExpressionType>列挙します。</span><span class="sxs-lookup"><span data-stu-id="83332-423">If your dynamic object is used only in C# and Visual Basic, the `binder.Operation` property can have one of the following values from the <xref:System.Linq.Expressions.ExpressionType> enumeration.</span></span> <span data-ttu-id="83332-424">ただし、IronPython、IronRuby など他の言語では、その他の値を持つことができます。</span><span class="sxs-lookup"><span data-stu-id="83332-424">However, in other languages such as IronPython or IronRuby, you can have other values.</span></span>
+  
+|<span data-ttu-id="83332-425">[値]</span><span class="sxs-lookup"><span data-stu-id="83332-425">Value</span></span>|<span data-ttu-id="83332-426">説明</span><span class="sxs-lookup"><span data-stu-id="83332-426">Description</span></span>|<span data-ttu-id="83332-427">C#</span><span class="sxs-lookup"><span data-stu-id="83332-427">C#</span></span>|<span data-ttu-id="83332-428">Visual Basic</span><span class="sxs-lookup"><span data-stu-id="83332-428">Visual Basic</span></span>|  
+|-----------|-----------------|---------|------------------|  
+|`Decrement`|<span data-ttu-id="83332-429">単項デクリメント演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-429">A unary decrement operation.</span></span>|`a--`|<span data-ttu-id="83332-430">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-430">Not supported.</span></span>|  
+|`Increment`|<span data-ttu-id="83332-431">単項インクリメント演算です。</span><span class="sxs-lookup"><span data-stu-id="83332-431">A unary increment operation.</span></span>|`a++`|<span data-ttu-id="83332-432">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-432">Not supported.</span></span>|  
+|`Negate`|<span data-ttu-id="83332-433">算術否定。</span><span class="sxs-lookup"><span data-stu-id="83332-433">An arithmetic negation.</span></span>|`-a`|`-a`|  
+|`Not`|<span data-ttu-id="83332-434">論理否定。</span><span class="sxs-lookup"><span data-stu-id="83332-434">A logical negation.</span></span>|`!a`|`Not a`|  
+|`OnesComplement`|<span data-ttu-id="83332-435">1 の補数です。</span><span class="sxs-lookup"><span data-stu-id="83332-435">A ones complement.</span></span>|`~a`|<span data-ttu-id="83332-436">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-436">Not supported.</span></span>|  
+|`IsFalse`|<span data-ttu-id="83332-437">False の条件値です。</span><span class="sxs-lookup"><span data-stu-id="83332-437">A false condition value.</span></span>|`a && b`|<span data-ttu-id="83332-438">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-438">Not supported.</span></span>|  
+|`IsTrue`|<span data-ttu-id="83332-439">条件が真の値です。</span><span class="sxs-lookup"><span data-stu-id="83332-439">A true condition value.</span></span>|`a &#124;&#124; b`|<span data-ttu-id="83332-440">サポートされていません。</span><span class="sxs-lookup"><span data-stu-id="83332-440">Not supported.</span></span>|  
+|`UnaryPlus`|<span data-ttu-id="83332-441">単項プラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-441">A unary plus.</span></span>|`+a`|`+a`|  
+  
+> [!NOTE]
+>  <span data-ttu-id="83332-442">実装する`OrElse`(`a || b`) および`AndAlso`(`a && b`) を両方を実装することがあります (C#) 動的オブジェクトの操作で、<xref:System.Dynamic.DynamicObject.TryUnaryOperation%2A>メソッドおよび<xref:System.Dynamic.DynamicObject.TryBinaryOperation%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="83332-442">To implement `OrElse` (`a || b`) and `AndAlso` (`a && b`) operations for dynamic objects in C#, you may want to implement both the <xref:System.Dynamic.DynamicObject.TryUnaryOperation%2A> method and the <xref:System.Dynamic.DynamicObject.TryBinaryOperation%2A> method.</span></span>  
+>   
+>  <span data-ttu-id="83332-443">`OrElse`操作では、単項`IsTrue`操作と、バイナリ`Or`操作します。</span><span class="sxs-lookup"><span data-stu-id="83332-443">The `OrElse` operation consists of the unary `IsTrue` operation and the binary `Or` operation.</span></span> <span data-ttu-id="83332-444">`Or`場合にのみ操作が実行の結果、`IsTrue`操作が`false`です。</span><span class="sxs-lookup"><span data-stu-id="83332-444">The `Or` operation is performed only if the result of the `IsTrue` operation is `false`.</span></span>  
+>   
+>  <span data-ttu-id="83332-445">`AndAlso`操作では、単項`IsFalse`操作と、バイナリ`And`操作します。</span><span class="sxs-lookup"><span data-stu-id="83332-445">The `AndAlso` operation consists of the unary `IsFalse` operation and the binary `And` operation.</span></span> <span data-ttu-id="83332-446">`And`場合にのみ操作が実行の結果、`IsFalse`操作が`false`です。</span><span class="sxs-lookup"><span data-stu-id="83332-446">The `And` operation is performed only if the result of the `IsFalse` operation is `false`.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="83332-447">数値、テキストと数値の表現を格納するデータ構造を作成する必要があり、このようなデータに対して算術否定演算を定義することを想定しています。</span><span class="sxs-lookup"><span data-stu-id="83332-447">Assume that you need a data structure to store textual and numeric representations of numbers, and you want to define a mathematical negation operation for such data.</span></span>  
+  
+ <span data-ttu-id="83332-448">次のコード例を示しています、`DynamicNumber`から派生するクラス、<xref:System.Dynamic.DynamicObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="83332-448">The following code example demonstrates the `DynamicNumber` class, which is derived from the <xref:System.Dynamic.DynamicObject> class.</span></span> <span data-ttu-id="83332-449">`DynamicNumber` 上書き、<xref:System.Dynamic.DynamicObject.TryUnaryOperation%2A>算術否定演算を有効にするメソッド。</span><span class="sxs-lookup"><span data-stu-id="83332-449">`DynamicNumber` overrides the <xref:System.Dynamic.DynamicObject.TryUnaryOperation%2A> method to enable the mathematical negation operation.</span></span> <span data-ttu-id="83332-450">オーバーライドではまた、<xref:System.Dynamic.DynamicObject.TrySetMember%2A>と<xref:System.Dynamic.DynamicObject.TryGetMember%2A>要素へのアクセスを可能にする方法です。</span><span class="sxs-lookup"><span data-stu-id="83332-450">Is also overrides the <xref:System.Dynamic.DynamicObject.TrySetMember%2A> and <xref:System.Dynamic.DynamicObject.TryGetMember%2A> methods to enable access to the elements.</span></span>  
+  
+ <span data-ttu-id="83332-451">この例では算術否定演算のみがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="83332-451">In this example, only the mathematical negation operation is supported.</span></span> <span data-ttu-id="83332-452">ようなステートメントを記述しようとする場合`negativeNumber = +number`実行時例外が発生します。</span><span class="sxs-lookup"><span data-stu-id="83332-452">If you try to write a statement like `negativeNumber = +number`, a run-time exception occurs.</span></span>  
+  
+ [!code-csharp[System.Dynamic.DynamicObject#7](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.dynamic.dynamicobject/cs/program.cs#7)]
+ [!code-vb[System.Dynamic.DynamicObject#7](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.dynamic.dynamicobject/vb/module1.vb#7)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
