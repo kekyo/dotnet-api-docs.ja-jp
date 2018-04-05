@@ -1,0 +1,1317 @@
+<Type Name="SafeHandle" FullName="System.Runtime.InteropServices.SafeHandle">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="6c4334868cde5130ed9da65bfda7e798c24b12cd" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class SafeHandle : System.Runtime.ConstrainedExecution.CriticalFinalizerObject, IDisposable" />
+  <TypeSignature Language="ILAsm" Value=".class public sequential ansi abstract beforefieldinit SafeHandle extends System.Runtime.ConstrainedExecution.CriticalFinalizerObject implements class System.IDisposable" />
+  <TypeSignature Language="DocId" Value="T:System.Runtime.InteropServices.SafeHandle" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class SafeHandle&#xA;Inherits CriticalFinalizerObject&#xA;Implements IDisposable" />
+  <TypeSignature Language="C++ CLI" Value="public ref class SafeHandle abstract : System::Runtime::ConstrainedExecution::CriticalFinalizerObject, IDisposable" />
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime.Handles</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+    <BaseTypeName FrameworkAlternate="netframework-4.5">System.Runtime.ConstrainedExecution.CriticalFinalizerObject</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.IDisposable</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Security.SecurityCritical</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="eaaf1-101">オペレーティング システム ハンドルのラッパー クラスを表します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="eaaf1-101">Represents a wrapper class for operating system handles.</span>
+      </span>
+      <span data-ttu-id="eaaf1-102">このクラスは継承する必要があります。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="eaaf1-102">This class must be inherited.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-103"><xref:System.Runtime.InteropServices.SafeHandle>クラスは、およびガベージ コレクションによって処理の途中で解放されてから意図しないアンマネージ オブジェクトを参照する Windows では、リサイクル中にハンドルを防止ハンドル リソースの重要な終了処理を提供します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-103">The <xref:System.Runtime.InteropServices.SafeHandle> class provides critical finalization of handle resources, preventing handles from being reclaimed prematurely by garbage collection and from being recycled by Windows to reference unintended unmanaged objects.</span></span>  
+  
+ <span data-ttu-id="eaaf1-104">このトピックには、次のセクションがあります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-104">This topic includes the following sections:</span></span>  
+  
+ <span data-ttu-id="eaaf1-105">[なぜ SafeHandle しますか?](#Why) </span><span class="sxs-lookup"><span data-stu-id="eaaf1-105">[Why SafeHandle?](#Why) </span></span>  
+ <span data-ttu-id="eaaf1-106">[SafeHandle の動作](#Does) </span><span class="sxs-lookup"><span data-stu-id="eaaf1-106">[What SafeHandle does](#Does) </span></span>  
+ [<span data-ttu-id="eaaf1-107">SafeHandle から派生したクラス</span><span class="sxs-lookup"><span data-stu-id="eaaf1-107">Classes derived from SafeHandle</span></span>](#Derived)  
+  
+<a name="Why"></a>   
+## <a name="why-safehandle"></a><span data-ttu-id="eaaf1-108">なぜ SafeHandle しますか?</span><span class="sxs-lookup"><span data-stu-id="eaaf1-108">Why SafeHandle?</span></span>  
+ <span data-ttu-id="eaaf1-109">.NET Framework version 2.0 では、すべてのオペレーティング システムでハンドルをカプセル化でしただけ前に、<xref:System.IntPtr>マネージ ラッパー オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-109">Before the .NET Framework version 2.0, all operating system handles could only be encapsulated in the <xref:System.IntPtr> managed wrapper object.</span></span> <span data-ttu-id="eaaf1-110">これには、ネイティブ コードと相互運用する便利な手段がでしたが、ハンドルが予期せず中止スレッドまたはスタック オーバーフローなど、非同期の例外によってリークする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-110">While this was a convenient way to interoperate with native code, handles could be leaked by asynchronous exceptions, such as a thread aborting unexpectedly or a stack overflow.</span></span> <span data-ttu-id="eaaf1-111">これらの非同期の例外は、オペレーティング システム リソースのクリーンアップに支障をきたすと、アプリでほぼどこでも発生することができます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-111">These asynchronous exceptions are an obstacle to cleaning up operating system resources, and they can occur almost anywhere in your app.</span></span>  
+  
+ <span data-ttu-id="eaaf1-112">上書きを<xref:System.Object.Finalize%2A?displayProperty=nameWithType>メソッドがアンマネージ リソースのクリーンアップを許可するときにオブジェクトがガベージ コレクション、状況によっては、ファイナライズ可能なオブジェクトを再要求できるガベージによって、プラットフォーム内のメソッドの実行中にコレクションが呼び出しです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-112">Although overrides to the <xref:System.Object.Finalize%2A?displayProperty=nameWithType> method allow cleanup of unmanaged resources when an object is being garbage collected, in some circumstances, finalizable objects can be reclaimed by garbage collection while executing a method within a platform invoke call.</span></span> <span data-ttu-id="eaaf1-113">ファイナライザーは、そのプラットフォームに渡されたハンドルを解放呼び出し、破損を処理する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-113">If a finalizer frees the handle passed to that platform invoke call, it could lead to handle corruption.</span></span> <span data-ttu-id="eaaf1-114">プラットフォームの中に、メソッドがブロックされている間、ハンドルを解放もでしたなど、ファイルの読み取り中に呼び出しを起動します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-114">The handle could also be reclaimed while your method is blocked during a platform invoke call, such as while reading a file.</span></span>  
+  
+ <span data-ttu-id="eaaf1-115">ほど、Windows では、積極的にハンドルを再利用、ためハンドルでしたリサイクルされ機密データを含めることができる他のリソースをポイントします。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-115">More critically, because Windows aggressively recycles handles, a handle could be recycled and point to another resource that might contain sensitive data.</span></span> <span data-ttu-id="eaaf1-116">これは、リサイクル攻撃と呼ばれますとことができますデータが破損する可能性のあるセキュリティの脅威となります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-116">This is known as a recycle attack and can potentially corrupt data and be a security threat.</span></span>  
+  
+<a name="Does"></a>   
+## <a name="what-safehandle-does"></a><span data-ttu-id="eaaf1-117">SafeHandle の動作</span><span class="sxs-lookup"><span data-stu-id="eaaf1-117">What SafeHandle does</span></span>  
+ <span data-ttu-id="eaaf1-118"><xref:System.Runtime.InteropServices.SafeHandle>クラスは、これらのオブジェクトの有効期間の問題のいくつかを簡略化し、プラットフォームと統合されたオペレーティング システムのリソースが漏洩しないようにを起動します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-118">The <xref:System.Runtime.InteropServices.SafeHandle> class simplifies several of these object lifetime issues, and is integrated with platform invoke so that operating system resources are not leaked.</span></span> <span data-ttu-id="eaaf1-119"><xref:System.Runtime.InteropServices.SafeHandle>クラスは、割り当てと解放を中断することがなくハンドルによってオブジェクトの有効期間に関する問題を解決します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-119">The <xref:System.Runtime.InteropServices.SafeHandle> class resolves object lifetime issues by assigning and releasing handles without interruption.</span></span> <span data-ttu-id="eaaf1-120">ハンドルが閉じているして中に予期しない実行することが保証されるようにする重要なファイナライザーが含まれている<xref:System.AppDomain>アンロードされると、プラットフォーム呼び出しの状況であってもが破損した状態であると見なされます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-120">It contains a critical finalizer that ensures that the handle is closed and is guaranteed to run during unexpected <xref:System.AppDomain> unloads, even in cases when the platform invoke call is assumed to be in a corrupted state.</span></span>  
+  
+ <span data-ttu-id="eaaf1-121"><xref:System.Runtime.InteropServices.SafeHandle>から継承<xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject>、重要でないすべてのファイナライザーがクリティカル ファイナライザーのいずれかの前に呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-121">Because <xref:System.Runtime.InteropServices.SafeHandle> inherits from <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject>, all the noncritical finalizers are called before any of the critical finalizers.</span></span> <span data-ttu-id="eaaf1-122">同じガベージ コレクションの実行中にライブが不要になったオブジェクトでは、ファイナライザーが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-122">The finalizers are called on objects that are no longer live during the same garbage collection pass.</span></span> <span data-ttu-id="eaaf1-123">たとえば、<xref:System.IO.FileStream>オブジェクトはハンドルのリークまたはリサイクルされるリスクを避けてバッファー内の既存のデータをフラッシュする標準のファイナライザーを実行できます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-123">For example, a <xref:System.IO.FileStream> object can run a normal finalizer to flush out existing buffered data without the risk of the handle being leaked or recycled.</span></span> <span data-ttu-id="eaaf1-124">一般的な用途は、重大かつ重要でないファイナライザー間この非常に弱い順序付けすることはありません。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-124">This very weak ordering between critical and noncritical finalizers is not intended for general use.</span></span> <span data-ttu-id="eaaf1-125">使用するこれらのライブラリを許可することで既存のライブラリの移行を支援するには、主に存在する<xref:System.Runtime.InteropServices.SafeHandle>のセマンティクスを変更することがなくです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-125">It exists primarily to assist in the migration of existing libraries by allowing those libraries to use <xref:System.Runtime.InteropServices.SafeHandle> without altering their semantics.</span></span> <span data-ttu-id="eaaf1-126">さらに、クリティカル ファイナライザーと何も呼び出して、ように、<xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle?displayProperty=nameWithType>メソッドが制約された実行領域である必要があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-126">Additionally, the critical finalizer and anything it calls, such as the <xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle?displayProperty=nameWithType> method, must be in a constrained execution region.</span></span> <span data-ttu-id="eaaf1-127">これには、ファイナライザーの呼び出し先内でどのようなコードを記述する制約が適用されます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-127">This imposes constraints on what code can be written within the finalizer's call graph.</span></span>  
+  
+ <span data-ttu-id="eaaf1-128">プラットフォームが自動的に操作を呼び出しによってカプセル化されたハンドルの参照カウントをインクリメント、<xref:System.Runtime.InteropServices.SafeHandle>と完了したときにそれらをデクリメントします。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-128">Platform invoke operations automatically increment the reference count of handles encapsulated by a <xref:System.Runtime.InteropServices.SafeHandle> and decrement them upon completion.</span></span> <span data-ttu-id="eaaf1-129">ハンドルがありませんするリサイクルされるかになりますが異常終了しました。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-129">This ensures that the handle will not be recycled or closed unexpectedly.</span></span>  
+  
+ <span data-ttu-id="eaaf1-130">基になるハンドルの所有権を指定するには、構築するときに<xref:System.Runtime.InteropServices.SafeHandle>オブジェクトに値を指定して、`ownsHandle`の引数、<xref:System.Runtime.InteropServices.SafeHandle>クラスのコンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-130">You can specify ownership of the underlying handle when constructing <xref:System.Runtime.InteropServices.SafeHandle> objects by supplying a value to the `ownsHandle` argument in the <xref:System.Runtime.InteropServices.SafeHandle> class constructor.</span></span> <span data-ttu-id="eaaf1-131">これを制御するかどうか、<xref:System.Runtime.InteropServices.SafeHandle>オブジェクトは、オブジェクトが破棄された後に、ハンドルを解放します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-131">This controls whether the <xref:System.Runtime.InteropServices.SafeHandle> object will release the handle after the object has been disposed.</span></span>  <span data-ttu-id="eaaf1-132">これは例外的な有効期間の要件を持つハンドルまたはその有効期間が他のユーザーによって制御されますハンドルを使用するために役立ちます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-132">This is useful for handles with peculiar lifetime requirements or for consuming a handle whose lifetime is controlled by someone else.</span></span>  
+  
+<a name="Derived"></a>   
+## <a name="classes-derived-from-safehandle"></a><span data-ttu-id="eaaf1-133">SafeHandle から派生したクラス</span><span class="sxs-lookup"><span data-stu-id="eaaf1-133">Classes derived from SafeHandle</span></span>  
+ <span data-ttu-id="eaaf1-134"><xref:System.Runtime.InteropServices.SafeHandle> オペレーティング システム ハンドルのラッパーの抽象クラスです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-134"><xref:System.Runtime.InteropServices.SafeHandle> is an abstract wrapper class for operating system handles.</span></span> <span data-ttu-id="eaaf1-135">このクラスからの派生は困難です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-135">Deriving from this class is difficult.</span></span> <span data-ttu-id="eaaf1-136">代わりに、次のセーフ ハンドルを提供する <xref:Microsoft.Win32.SafeHandles> 名前空間の派生クラスを使用してください。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-136">Instead, use the derived classes in the <xref:Microsoft.Win32.SafeHandles> namespace that provide safe handles for the following:</span></span>  
+  
+-   <span data-ttu-id="eaaf1-137">ファイル (、<xref:Microsoft.Win32.SafeHandles.SafeFileHandle>クラス)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-137">Files (the <xref:Microsoft.Win32.SafeHandles.SafeFileHandle> class).</span></span>  
+  
+-   <span data-ttu-id="eaaf1-138">メモリ マップト ファイル (、<xref:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle>クラス)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-138">Memory mapped files (the <xref:Microsoft.Win32.SafeHandles.SafeMemoryMappedFileHandle> class).</span></span>  
+  
+-   <span data-ttu-id="eaaf1-139">パイプ (、<xref:Microsoft.Win32.SafeHandles.SafePipeHandle>クラス)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-139">Pipes (the <xref:Microsoft.Win32.SafeHandles.SafePipeHandle> class).</span></span>  
+  
+-   <span data-ttu-id="eaaf1-140">メモリ ビュー (、<xref:Microsoft.Win32.SafeHandles.SafeMemoryMappedViewHandle>クラス)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-140">Memory views (the <xref:Microsoft.Win32.SafeHandles.SafeMemoryMappedViewHandle> class).</span></span>  
+  
+-   <span data-ttu-id="eaaf1-141">暗号化の構成体 (、 <xref:Microsoft.Win32.SafeHandles.SafeNCryptHandle>、 <xref:Microsoft.Win32.SafeHandles.SafeNCryptKeyHandle>、 <xref:Microsoft.Win32.SafeHandles.SafeNCryptProviderHandle>、および<xref:Microsoft.Win32.SafeHandles.SafeNCryptSecretHandle>クラス)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-141">Cryptography constructs (the <xref:Microsoft.Win32.SafeHandles.SafeNCryptHandle>, <xref:Microsoft.Win32.SafeHandles.SafeNCryptKeyHandle>, <xref:Microsoft.Win32.SafeHandles.SafeNCryptProviderHandle>, and <xref:Microsoft.Win32.SafeHandles.SafeNCryptSecretHandle> classes).</span></span>  
+  
+-   <span data-ttu-id="eaaf1-142">プロセス (、<xref:Microsoft.Win32.SafeHandles.SafeProcessHandle>クラス)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-142">Processes (the <xref:Microsoft.Win32.SafeHandles.SafeProcessHandle> class).</span></span>  
+  
+-   <span data-ttu-id="eaaf1-143">レジストリ キー (、<xref:Microsoft.Win32.SafeHandles.SafeRegistryHandle>クラス)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-143">Registry keys (the <xref:Microsoft.Win32.SafeHandles.SafeRegistryHandle> class).</span></span>  
+  
+-   <span data-ttu-id="eaaf1-144">待機ハンドル (、<xref:Microsoft.Win32.SafeHandles.SafeWaitHandle>クラス)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-144">Wait handles (the <xref:Microsoft.Win32.SafeHandles.SafeWaitHandle> class).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="eaaf1-145">派生する、オペレーティング システム ファイル ハンドル用のカスタムのセーフ ハンドルを作成するコード例を次<xref:Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid>です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-145">The following code example creates a custom safe handle for an operating system file handle, deriving from <xref:Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid>.</span></span> <span data-ttu-id="eaaf1-146">ファイルからバイトを読み取り、16 進数値が表示されます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-146">It reads bytes from a file and displays their hexadecimal values.</span></span> <span data-ttu-id="eaaf1-147">テスト ハーネス エラーも含まれています。 中止するには、スレッドを原因となったが、ハンドル値を解放します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-147">It also contains a fault testing harness that causes the thread to abort, but the handle value is freed.</span></span>  <span data-ttu-id="eaaf1-148">使用する場合、<xref:System.IntPtr>ハンドルを表す、ハンドルが非同期スレッドの中止のためリーク場合があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-148">When using an <xref:System.IntPtr> to represent handles, the handle is occasionally leaked due to the asynchronous thread abort.</span></span>  
+  
+ <span data-ttu-id="eaaf1-149">コンパイル済みのアプリケーションと同じフォルダー内のテキスト ファイルを必要があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-149">You will need a text file in the same folder as the compiled application.</span></span> <span data-ttu-id="eaaf1-150">コマンドラインの使用方法は、"hexviewer"だアプリケーションの名前を入力する場合です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-150">Assuming that you name the application "HexViewer", the command line usage is:</span></span>  
+  
+ `HexViewer <filename> -Fault`  
+  
+ <span data-ttu-id="eaaf1-151">必要に応じて指定`-Fault`意図的に特定のウィンドウでスレッドを中止することで、ハンドルのリークしようとします。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-151">Optionally specify `-Fault` to intentionally attempt to leak the handle by aborting the thread in a certain window.</span></span> <span data-ttu-id="eaaf1-152">Windows Perform.exe ツールを使用すると、エラーを挿入中にハンドル数を監視できます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-152">Use the Windows Perform.exe tool to monitor handle counts while injecting faults.</span></span>  
+  
+ [!code-csharp[SafeHandle#1](~/samples/snippets/csharp/VS_Snippets_CLR/SafeHandle/CS/program.cs#1)]  
+  
+ ]]></format>
+    </remarks>
+    <permission cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand">
+      <span data-ttu-id="eaaf1-153">継承時の完全な信頼。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="eaaf1-153">for full trust for inheritors.</span>
+      </span>
+      <span data-ttu-id="eaaf1-154">このメンバーは、部分的に信頼されたコードでは継承できません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="eaaf1-154">This member cannot be inherited by partially trusted code.</span>
+      </span>
+    </permission>
+    <permission cref="T:System.Security.SecurityCriticalAttribute">
+      <span data-ttu-id="eaaf1-155">直前の呼び出し元に対する完全な信頼が必要です。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="eaaf1-155">requires full trust for the immediate caller.</span>
+      </span>
+      <span data-ttu-id="eaaf1-156">このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="eaaf1-156">This member cannot be used by partially trusted or transparent code.</span>
+      </span>
+    </permission>
+    <block subset="none" type="overrides">
+      <para>
+        <span data-ttu-id="eaaf1-157">派生したクラスを作成する<see cref="T:System.Runtime.InteropServices.SafeHandle" />、作成し、オペレーティング システム ハンドルを解放する方法を理解する必要があります。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="eaaf1-157">To create a class derived from <see cref="T:System.Runtime.InteropServices.SafeHandle" />, you must know how to create and free an operating system handle.</span>
+        </span>
+        <span data-ttu-id="eaaf1-158">別のハンドル型の一部を使用しているために、このプロセスは異なる、 [CloseHandle](https://msdn.microsoft.com/library/windows/desktop/ms724211.aspx)関数は、具体的な関数をなど使用して他のユーザーに対し[UnmapViewOfFile](https://msdn.microsoft.com/library/windows/desktop/aa366882.aspx)または[FindClose](https://msdn.microsoft.com/library/windows/desktop/aa364413.aspx).</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="eaaf1-158">This process is different for different handle types because some use the [CloseHandle](https://msdn.microsoft.com/library/windows/desktop/ms724211.aspx) function, while others use more specific functions such as [UnmapViewOfFile](https://msdn.microsoft.com/library/windows/desktop/aa366882.aspx) or [FindClose](https://msdn.microsoft.com/library/windows/desktop/aa364413.aspx).</span>
+        </span>
+        <span data-ttu-id="eaaf1-159">このための派生クラスを作成する必要があります<see cref="T:System.Runtime.InteropServices.SafeHandle" />にセーフ ハンドルをラップするオペレーティング システム ハンドルの種類ごとにします。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="eaaf1-159">For this reason, you must create a derived class of <see cref="T:System.Runtime.InteropServices.SafeHandle" /> for each operating system handle type that you want to wrap in a safe handle.</span>
+        </span>
+        <span data-ttu-id="eaaf1-160">
+          <see cref="T:System.Runtime.InteropServices.SafeHandle" /> から継承する場合は、<see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" /> メンバーと <see cref="M:System.Runtime.InteropServices.SafeHandle.ReleaseHandle" /> メンバーをオーバーライドする必要があります。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="eaaf1-160">When you inherit from <see cref="T:System.Runtime.InteropServices.SafeHandle" />, you must override the following members: <see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" /> and <see cref="M:System.Runtime.InteropServices.SafeHandle.ReleaseHandle" />.</span>
+        </span>
+        <span data-ttu-id="eaaf1-161">無効なハンドル値を表す値を持つ基底コンス トラクターを呼び出す既定のコンス トラクターを提供することも必要があります、<see cref="T:System.Boolean" />ネイティブ ハンドルが所有しているかどうかを示す値、<see cref="T:System.Runtime.InteropServices.SafeHandle" />し、その結果、ときに解放する必要があります<see cref="T:System.Runtime.InteropServices.SafeHandle" />は破棄されました。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="eaaf1-161">You should also provide a default constructor that calls the base constructor with a value that represent an invalid handle value, and a <see cref="T:System.Boolean" /> value indicating whether the native handle is owned by the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> and consequently should be freed when that <see cref="T:System.Runtime.InteropServices.SafeHandle" /> has been disposed.</span>
+        </span>
+      </para>
+    </block>
+    <altmember cref="N:Microsoft.Win32.SafeHandles" />
+    <altmember cref="T:System.Runtime.InteropServices.CriticalHandle" />
+    <altmember cref="T:System.Runtime.ConstrainedExecution.CriticalFinalizerObject" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected SafeHandle ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; SafeHandle();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected SafeHandle (IntPtr invalidHandleValue, bool ownsHandle);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor(native int invalidHandleValue, bool ownsHandle) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.#ctor(System.IntPtr,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New (invalidHandleValue As IntPtr, ownsHandle As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; SafeHandle(IntPtr invalidHandleValue, bool ownsHandle);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.MayFail)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="invalidHandleValue" Type="System.IntPtr" />
+        <Parameter Name="ownsHandle" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="invalidHandleValue">
+          <span data-ttu-id="eaaf1-162">無効なハンドルの値 (通常は 0 または -1)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-162">The value of an invalid handle (usually 0 or -1).</span>
+          </span>
+          <span data-ttu-id="eaaf1-163">
+            <see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" /> の実装では、この値に対して <see langword="true" /> を返す必要があります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-163">Your implementation of <see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" /> should return <see langword="true" /> for this value.</span>
+          </span>
+        </param>
+        <param name="ownsHandle">
+          <span data-ttu-id="eaaf1-164">終了処理中に <see langword="true" /> によってハンドルを確実に解放する場合は <see cref="T:System.Runtime.InteropServices.SafeHandle" />。それ以外の場合は <see langword="false" /> (お勧めしません)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-164">
+              <see langword="true" /> to reliably let <see cref="T:System.Runtime.InteropServices.SafeHandle" /> release the handle during the finalization phase; otherwise, <see langword="false" /> (not recommended).</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="eaaf1-165">指定した無効なハンドル値を使用して、<see cref="T:System.Runtime.InteropServices.SafeHandle" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-165">Initializes a new instance of the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class with the specified invalid handle value.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-166">場合、`ownsHandle`パラメーターは`false`、<xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A>ことはありませんが呼び出されます。 したがって、これはお勧めできませんリソース リークが発生するコードと、このパラメーター値を使用します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-166">If the `ownsHandle` parameter is `false`, <xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A> is never called; thus, it is not recommended to use this parameter value as your code may leak resources.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.TypeLoadException">
+          <span data-ttu-id="eaaf1-167">派生クラスがアンマネージ コードのアクセス許可なしにアセンブリに存在しています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-167">The derived class resides in an assembly without unmanaged code access permission.</span>
+          </span>
+        </exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand">
+          <span data-ttu-id="eaaf1-168">継承時の完全な信頼。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-168">for full trust for inheritors.</span>
+          </span>
+          <span data-ttu-id="eaaf1-169">このメンバーは、部分的に信頼されたコードでは継承できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-169">This member cannot be inherited by partially trusted code.</span>
+          </span>
+        </permission>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="eaaf1-170">直前の呼び出し元に対する完全な信頼が必要です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-170">requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="eaaf1-171">このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-171">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Close">
+      <MemberSignature Language="C#" Value="public void Close ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Close() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.Close" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Close ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Close();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-172">リソースを解放するためのハンドルをマークします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-172">Marks the handle for releasing and freeing resources.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-173">呼び出す、<xref:System.Runtime.InteropServices.SafeHandle.Close%2A>または<xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>メソッドにより、リソースを解放します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-173">Calling the <xref:System.Runtime.InteropServices.SafeHandle.Close%2A> or <xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A> method allows the resources to be freed.</span></span> <span data-ttu-id="eaaf1-174">これにより、他のスレッドが同じオブジェクトのセーフ ハンドルを使用している場合は直ちにに実行されない可能性がありますが、されなくなるとすぐに実行されます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-174">This might not happen immediately if other threads are using the same safe handle object, but will happen as soon as that is no longer the case.</span></span> <span data-ttu-id="eaaf1-175">ほとんどのクラスを使用するが、<xref:System.Runtime.InteropServices.SafeHandle>クラスは、この操作は、必要に応じて、ファイナライザーを用意する必要はありません (たとえば、ファイル バッファーをフラッシュするかを記述するいくつかのデータ バックアップをメモリに)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-175">Although most classes that use the <xref:System.Runtime.InteropServices.SafeHandle> class do not need to provide a finalizer, this is sometimes necessary (for example, to flush out file buffers or to write some data back into memory).</span></span> <span data-ttu-id="eaaf1-176">この例では、クラスが前に実行することが保証が不要なファイナライザーを提供できます、<xref:System.Runtime.InteropServices.SafeHandle>クリティカル ファイナライザーを実行します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-176">In this case, the class can provide a finalizer that is guaranteed to run before the <xref:System.Runtime.InteropServices.SafeHandle> critical finalizer runs.</span></span>  
+  
+ <span data-ttu-id="eaaf1-177">呼び出す、<xref:System.Runtime.InteropServices.SafeHandle.Close%2A>または<xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>が完了したら、メソッドを使用して、<xref:System.Runtime.InteropServices.SafeHandle>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-177">Call the <xref:System.Runtime.InteropServices.SafeHandle.Close%2A> or <xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A> method when you are finished using the <xref:System.Runtime.InteropServices.SafeHandle> object.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="eaaf1-178">常に呼び出す<xref:System.Runtime.InteropServices.SafeHandle.Close%2A>または<xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>への参照を解放する前に、<xref:System.Runtime.InteropServices.SafeHandle>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-178">Always call <xref:System.Runtime.InteropServices.SafeHandle.Close%2A> or <xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A> before you release your last reference to the <xref:System.Runtime.InteropServices.SafeHandle> object.</span></span> <span data-ttu-id="eaaf1-179">そうしないと、ガベージ コレクターが <xref:System.Runtime.InteropServices.SafeHandle> オブジェクトの <xref:System.Runtime.InteropServices.SafeHandle.Finalize%2A> メソッドを呼び出すまで、使用されているリソースは解放されません。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-179">Otherwise, the resources it is using will not be freed until the garbage collector calls the <xref:System.Runtime.InteropServices.SafeHandle> object's <xref:System.Runtime.InteropServices.SafeHandle.Finalize%2A> method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-180">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-180">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-181">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-181">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-182">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-182">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="DangerousAddRef">
+      <MemberSignature Language="C#" Value="public void DangerousAddRef (ref bool success);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void DangerousAddRef(bool&amp; success) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.DangerousAddRef(System.Boolean@)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub DangerousAddRef (ByRef success As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void DangerousAddRef(bool % success);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.MayFail)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="success" Type="System.Boolean&amp;" RefType="ref" />
+      </Parameters>
+      <Docs>
+        <param name="success">
+          <span data-ttu-id="eaaf1-183">参照カウンターが正常にインクリメントされた場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-183">
+              <see langword="true" /> if the reference counter was successfully incremented; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="eaaf1-184">
+            <see cref="T:System.Runtime.InteropServices.SafeHandle" /> インスタンスの参照カウンターを手動でインクリメントします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-184">Manually increments the reference counter on <see cref="T:System.Runtime.InteropServices.SafeHandle" /> instances.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-185"><xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>メソッドでは、共通言語ランタイムを防止をハンドルによって使用されるメモリを再利用 (ランタイムが呼び出す場合に発生する、<xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A>メソッド)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-185">The <xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A> method prevents the common language runtime from reclaiming memory used by a handle (which occurs when the runtime calls the <xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A> method).</span></span> <span data-ttu-id="eaaf1-186">参照カウントを手動でインクリメントするには、このメソッドを使用することができます、<xref:System.Runtime.InteropServices.SafeHandle>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-186">You can use this method to manually increment the reference count on a <xref:System.Runtime.InteropServices.SafeHandle> instance.</span></span> <span data-ttu-id="eaaf1-187"><xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A> 使用して、ブール値を返します、`ref`パラメーター (`success`)、参照カウントが正常にインクリメントされたかどうかを示すです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-187"><xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A> returns a Boolean value using a `ref` parameter (`success`) that indicates whether the reference count was incremented successfully.</span></span> <span data-ttu-id="eaaf1-188">これにより、障害の発生バックアップするのには、プログラム ロジックです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-188">This allows your program logic to back out in case of failure.</span></span> <span data-ttu-id="eaaf1-189">設定する必要があります`success`に`false`呼び出す前に<xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-189">You should set `success` to `false` before calling <xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>.</span></span> <span data-ttu-id="eaaf1-190">場合`success`は`true`への呼び出しを照合することによってリソースのリークの回避<xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>への対応する呼び出しで<xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A>です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-190">If `success` is `true`, avoid resource leaks by matching the call to <xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A> with a corresponding call to <xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A>.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="eaaf1-191">このメソッドは上級ユーザー向けにあり、常に慎重に使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-191">This method is intended for advanced users and must always be used carefully.</span></span> <span data-ttu-id="eaaf1-192">ハンドル リソースのリークを避けるためには、常に、制約された実行領域 (CER)、スレッドの中断が処理を中断できない内部このメソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-192">To avoid leaking handle resources, always call this method inside a constrained execution region (CER), where a thread abort cannot interrupt processing.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-193">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-193">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-194">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-194">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-195">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-195">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+        <altmember cref="M:System.Runtime.InteropServices.SafeHandle.DangerousRelease" />
+      </Docs>
+    </Member>
+    <Member MemberName="DangerousGetHandle">
+      <MemberSignature Language="C#" Value="public IntPtr DangerousGetHandle ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance native int DangerousGetHandle() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.DangerousGetHandle" />
+      <MemberSignature Language="VB.NET" Value="Public Function DangerousGetHandle () As IntPtr" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; IntPtr DangerousGetHandle();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.IntPtr</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-196">
+            <see cref="F:System.Runtime.InteropServices.SafeHandle.handle" /> フィールドの値を戻します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-196">Returns the value of the <see cref="F:System.Runtime.InteropServices.SafeHandle.handle" /> field.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="eaaf1-197">
+            <see langword="IntPtr" /> フィールドの値を表す <see cref="F:System.Runtime.InteropServices.SafeHandle.handle" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-197">An <see langword="IntPtr" /> representing the value of the <see cref="F:System.Runtime.InteropServices.SafeHandle.handle" /> field.</span>
+          </span>
+          <span data-ttu-id="eaaf1-198">ハンドルが <see cref="M:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid" /> で無効としてマークされている場合にも、このメソッドは元のハンドル値を返すため、返される値が古い値である可能性があります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-198">If the handle has been marked invalid with <see cref="M:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid" />, this method still returns the original handle value, which can be a stale value.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-199">このメソッドを使用するには値を取得、実際のハンドルのインスタンスから、<xref:System.Runtime.InteropServices.SafeHandle>クラスを派生します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-199">You can use this method to retrieve the actual handle value from an instance of the <xref:System.Runtime.InteropServices.SafeHandle> derived class.</span></span> <span data-ttu-id="eaaf1-200">このメソッドは、必要なの旧バージョンとの互換性、.NET Framework のプロパティの多くを返すため`IntPtr`型を処理します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-200">This method is needed for backwards compatibility because many properties in the .NET Framework return `IntPtr` handle types.</span></span> <span data-ttu-id="eaaf1-201">`IntPtr` ハンドル型は、プラットフォーム固有の型のポインターまたはハンドルを表すために使用します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-201">`IntPtr` handle types are platform-specific types used to represent a pointer or a handle.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="eaaf1-202">使用して、<xref:System.Runtime.InteropServices.SafeHandle.DangerousGetHandle%2A>ために、メソッドはセキュリティ上のリスクをもたらすことができます、ハンドルが設定されている場合とが無効、 <xref:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid%2A>、<xref:System.Runtime.InteropServices.SafeHandle.DangerousGetHandle%2A>も古い可能性がある、元のハンドル値を返します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-202">Using the <xref:System.Runtime.InteropServices.SafeHandle.DangerousGetHandle%2A> method can pose security risks because, if the handle has been marked as invalid with <xref:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid%2A>, <xref:System.Runtime.InteropServices.SafeHandle.DangerousGetHandle%2A> still returns the original, potentially stale handle value.</span></span> <span data-ttu-id="eaaf1-203">返されるハンドルは、任意の時点でリサイクルされることもできます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-203">The returned handle can also be recycled at any point.</span></span> <span data-ttu-id="eaaf1-204">最高、つまり、ハンドルが突然動作を停止した可能性があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-204">At best, this means the handle might suddenly stop working.</span></span> <span data-ttu-id="eaaf1-205">最悪の場合、ハンドル、またはハンドルが表すリソースが信頼できないコードに公開されている場合は、再利用または返されるハンドルのリサイクル セキュリティ攻撃に対してこの可能性があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-205">At worst, if the handle or the resource that the handle represents is exposed to untrusted code, this can lead to a recycling security attack on the reused or returned handle.</span></span> <span data-ttu-id="eaaf1-206">など、信頼されていない呼び出し元はハンドルでのデータが返されるクエリを実行し、まったく関係のないリソースの情報を取得できます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-206">For example, an untrusted caller can query data on the handle just returned and receive information for an entirely unrelated resource.</span></span> <span data-ttu-id="eaaf1-207">参照してください、<xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>と<xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A>メソッドを使用しての詳細については、 <xref:System.Runtime.InteropServices.SafeHandle.DangerousGetHandle%2A> methodsafely です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-207">See the <xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A> and the <xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A> methods for more information about using the <xref:System.Runtime.InteropServices.SafeHandle.DangerousGetHandle%2A> methodsafely.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-208">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-208">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-209">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-209">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-210">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-210">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="DangerousRelease">
+      <MemberSignature Language="C#" Value="public void DangerousRelease ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void DangerousRelease() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.DangerousRelease" />
+      <MemberSignature Language="VB.NET" Value="Public Sub DangerousRelease ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void DangerousRelease();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-211">
+            <see cref="T:System.Runtime.InteropServices.SafeHandle" /> インスタンスの参照カウンターを手動でデクリメントします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-211">Manually decrements the reference counter on a <see cref="T:System.Runtime.InteropServices.SafeHandle" /> instance.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-212"><xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A>メソッドに対応するは<xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-212">The <xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A> method is the counterpart to <xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>.</span></span> <span data-ttu-id="eaaf1-213">呼び出しを常に一致する必要があります、<xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A>メソッド呼び出しは成功を<xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-213">You should always match a call to the <xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A> method with a successful call to <xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="eaaf1-214">このメソッドは上級ユーザー向けにあり、常に慎重に使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-214">This method is intended for advanced users and must always be used carefully.</span></span> <span data-ttu-id="eaaf1-215">ハンドル リソースのリークを避けるためには、常に、制約された実行領域 (CER)、スレッドの中断が処理を中断できない内部このメソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-215">To avoid leaking handle resources, always call this method inside a constrained execution region (CER), where a thread abort cannot interrupt processing.</span></span> <span data-ttu-id="eaaf1-216">同じ方法を一致しない<xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>呼び出しが一致しないリソース リークを起こすことができます<xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A>呼び出しを他のスレッドを表示するに無効なハンドルの状態が発生することができます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-216">In the same way that unmatched <xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A> calls can cause resource leaks, unmatched <xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A> calls can cause invalid handle states to become visible to other threads.</span></span> <span data-ttu-id="eaaf1-217">公開しない<xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A>または<xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A>信頼されていないコードへの呼び出しです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-217">Do not expose <xref:System.Runtime.InteropServices.SafeHandle.DangerousAddRef%2A> or <xref:System.Runtime.InteropServices.SafeHandle.DangerousRelease%2A> calls to untrusted code.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-218">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-218">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-219">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-219">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-220">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-220">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+        <altmember cref="M:System.Runtime.InteropServices.SafeHandle.DangerousAddRef(System.Boolean@)" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Dispose">
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-221">
+            <see cref="T:System.Runtime.InteropServices.SafeHandle" /> クラスによって使用されているリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-221">Releases the resources used by the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="public void Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.Dispose" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Dispose ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Dispose();" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.IDisposable.Dispose</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-222">
+            <see cref="T:System.Runtime.InteropServices.SafeHandle" /> クラスによって使用されているすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-222">Releases all resources used by the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-223">呼び出す、<xref:System.Runtime.InteropServices.SafeHandle.Close%2A>または<xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>メソッドにより、リソースを解放します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-223">Calling the <xref:System.Runtime.InteropServices.SafeHandle.Close%2A> or <xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A> method allows the resources to be freed.</span></span> <span data-ttu-id="eaaf1-224">これにより、他のスレッドは、セーフ ハンドルの同じインスタンスを使用している場合は直ちにに実行されない可能性がありますが、されなくなるとすぐに実行されます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-224">This might not happen immediately if other threads are using the same instance of the safe handle, but will happen as soon as that is no longer the case.</span></span> <span data-ttu-id="eaaf1-225">クラスの使用の最も<xref:System.Runtime.InteropServices.SafeHandle>ファイナライザーを提供する必要はありません、これは (たとえば、ファイル バッファーをフラッシュするか、一部のデータをメモリに書き戻す) 必要があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-225">Although most classes using <xref:System.Runtime.InteropServices.SafeHandle> do not need to provide a finalizer, this is sometimes necessary (for example, to flush out file buffers or to write some data back into memory).</span></span> <span data-ttu-id="eaaf1-226">この例では、前に実行することが保証が不要なファイナライザーを提示できます、<xref:System.Runtime.InteropServices.SafeHandle>クリティカル ファイナライザーを実行します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-226">In this case, they can provide a finalizer that is guaranteed to run before the <xref:System.Runtime.InteropServices.SafeHandle> critical finalizer runs.</span></span>  
+  
+ <span data-ttu-id="eaaf1-227">呼び出す、<xref:System.Runtime.InteropServices.SafeHandle.Close%2A>または<xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>が完了したら、メソッドを使用して、<xref:System.Runtime.InteropServices.SafeHandle>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-227">Call the <xref:System.Runtime.InteropServices.SafeHandle.Close%2A> or <xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A> method when you are finished using the <xref:System.Runtime.InteropServices.SafeHandle> object.</span></span> <span data-ttu-id="eaaf1-228"><xref:System.Runtime.InteropServices.SafeHandle.Close%2A>メソッドによって、<xref:System.Runtime.InteropServices.SafeHandle>使用不可の状態オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-228">The <xref:System.Runtime.InteropServices.SafeHandle.Close%2A> method leaves the <xref:System.Runtime.InteropServices.SafeHandle> object in an unusable state.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="eaaf1-229">常に呼び出し、<xref:System.Runtime.InteropServices.SafeHandle.Close%2A>または<xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>メソッドへの参照を解放する前に、<xref:System.Runtime.InteropServices.SafeHandle>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-229">Always call the <xref:System.Runtime.InteropServices.SafeHandle.Close%2A> or <xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A> method before you release your last reference to the <xref:System.Runtime.InteropServices.SafeHandle> object.</span></span> <span data-ttu-id="eaaf1-230">そうしないと、ガベージ コレクターが <xref:System.Runtime.InteropServices.SafeHandle> オブジェクトの <xref:System.Runtime.InteropServices.SafeHandle.Finalize%2A> メソッドを呼び出すまで、使用されているリソースは解放されません。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-230">Otherwise, the resources it is using will not be freed until the garbage collector calls the <xref:System.Runtime.InteropServices.SafeHandle> object's <xref:System.Runtime.InteropServices.SafeHandle.Finalize%2A> method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-231">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-231">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-232">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-232">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-233">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-233">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected virtual void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">
+          <span data-ttu-id="eaaf1-234">通常の破棄操作を実行する場合は <see langword="true" />。ハンドルを終了する場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-234">
+              <see langword="true" /> for a normal dispose operation; <see langword="false" /> to finalize the handle.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="eaaf1-235">通常の破棄操作を実行するかどうかを指定して、<see cref="T:System.Runtime.InteropServices.SafeHandle" /> クラスによって使用されているアンマネージ リソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-235">Releases the unmanaged resources used by the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class specifying whether to perform a normal dispose operation.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-236">明示的に呼び出す必要があります、<xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>メソッドを`disposing`パラメーターに設定`false`です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-236">You should never explicitly call the <xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A> method with the `disposing` parameter set to `false`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-237">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-237">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-238">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-238">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-239">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-239">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Finalize">
+      <MemberSignature Language="C#" Value="~SafeHandle ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Finalize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.Finalize" />
+      <MemberSignature Language="VB.NET" Value="Finalize ()" />
+      <MemberSignature Language="C++ CLI" Value="!SafeHandle ()" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-240">ハンドルに関連付けられたすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-240">Frees all resources associated with the handle.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-241"><xref:System.Runtime.InteropServices.SafeHandle.Finalize%2A>メソッドは、デストラクター、<xref:System.Runtime.InteropServices.SafeHandle>クラスです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-241">The <xref:System.Runtime.InteropServices.SafeHandle.Finalize%2A> method is the destructor for the <xref:System.Runtime.InteropServices.SafeHandle> class.</span></span> <span data-ttu-id="eaaf1-242">アプリケーション コードでは、このメソッドを直接呼び出さないでください。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-242">Application code should not call this method directly.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-243">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-243">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-244">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-244">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-245">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-245">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+        <altmember cref="M:System.Runtime.InteropServices.SafeHandle.Dispose" />
+      </Docs>
+    </Member>
+    <Member MemberName="handle">
+      <MemberSignature Language="C#" Value="protected IntPtr handle;" />
+      <MemberSignature Language="ILAsm" Value=".field family native int handle" />
+      <MemberSignature Language="DocId" Value="F:System.Runtime.InteropServices.SafeHandle.handle" />
+      <MemberSignature Language="VB.NET" Value="Protected handle As IntPtr " />
+      <MemberSignature Language="C++ CLI" Value="protected: IntPtr handle;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IntPtr</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-246">ラップするハンドルを指定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-246">Specifies the handle to be wrapped.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-247">ハンドルをパブリックに公開しません (つまり、派生クラスの外部で)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-247">Do not expose the handle publicly (that is, outside of the derived class).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsClosed">
+      <MemberSignature Language="C#" Value="public bool IsClosed { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsClosed" />
+      <MemberSignature Language="DocId" Value="P:System.Runtime.InteropServices.SafeHandle.IsClosed" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property IsClosed As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool IsClosed { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>get: System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-248">ハンドルが閉じているかどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-248">Gets a value indicating whether the handle is closed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="eaaf1-249">ハンドルが閉じている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-249">
+              <see langword="true" /> if the handle is closed; otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-250"><xref:System.Runtime.InteropServices.SafeHandle.IsClosed%2A>メソッドを示す値を返すかどうか、<xref:System.Runtime.InteropServices.SafeHandle>オブジェクトのハンドルは、ネイティブ リソースに関連付けが不要になった。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-250">The <xref:System.Runtime.InteropServices.SafeHandle.IsClosed%2A> method returns a value indicating whether the <xref:System.Runtime.InteropServices.SafeHandle> object's handle is no longer associated with a native resource.</span></span> <span data-ttu-id="eaaf1-251">これの定義とは異なります、<xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A>プロパティで、かどうか、指定されたハンドルは常に無効とみなさを計算します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-251">This differs from the definition of the <xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A> property, which computes whether a given handle is always considered invalid.</span></span> <span data-ttu-id="eaaf1-252"><xref:System.Runtime.InteropServices.SafeHandle.IsClosed%2A>メソッドを返します、`true`値は、次の場合。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-252">The <xref:System.Runtime.InteropServices.SafeHandle.IsClosed%2A> method returns a `true` value in the following cases:</span></span>  
+  
+-   <span data-ttu-id="eaaf1-253"><xref:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid%2A>メソッドが呼び出されました。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-253">The <xref:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid%2A> method was called.</span></span>  
+  
+-   <span data-ttu-id="eaaf1-254"><xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>メソッドまたは<xref:System.Runtime.InteropServices.SafeHandle.Close%2A>メソッドが呼び出されへの参照がない、<xref:System.Runtime.InteropServices.SafeHandle>他のスレッド上のオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-254">The <xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A> method or <xref:System.Runtime.InteropServices.SafeHandle.Close%2A> method was called and there are no references to the <xref:System.Runtime.InteropServices.SafeHandle> object on other threads.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-255">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-255">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-256">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-256">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-257">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-257">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="IsInvalid">
+      <MemberSignature Language="C#" Value="public abstract bool IsInvalid { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsInvalid" />
+      <MemberSignature Language="DocId" Value="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride ReadOnly Property IsInvalid As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract property bool IsInvalid { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>get: System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-258">派生クラスでオーバーライドされると、ハンドル値が無効かどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-258">When overridden in a derived class, gets a value indicating whether the handle value is invalid.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="eaaf1-259">ハンドル値が無効な場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-259">
+              <see langword="true" /> if the handle value is invalid; otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-260">派生クラスを実装する必要があります、<xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A>プロパティ、共通言語ランタイムでは、重要な終了処理が必要かどうかを確認できるようにします。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-260">Derived classes must implement the <xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A> property so that the common language runtime can determine whether critical finalization is required.</span></span> <span data-ttu-id="eaaf1-261">派生クラスは、一般的な種類のハンドルをサポートするのに適した実装を提供する必要があります (0 または-1 が無効)。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-261">Derived classes must provide an implementation that suits the general type of handle they support (0 or -1 is invalid).</span></span> <span data-ttu-id="eaaf1-262">これらのクラスは、特定のセーフ ハンドルの種類をさらに派生します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-262">These classes can then be further derived for specific safe handle types.</span></span>  
+  
+ <span data-ttu-id="eaaf1-263">異なり、<xref:System.Runtime.InteropServices.SafeHandle.IsClosed%2A>プロパティで、報告するかどうか、 <xref:System.Runtime.InteropServices.SafeHandle> 、基になるハンドルを使用してオブジェクトが完了した、<xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A>プロパティを計算するかどうか、指定したハンドルの値は常に無効とみなさです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-263">Unlike the <xref:System.Runtime.InteropServices.SafeHandle.IsClosed%2A> property, which reports whether the <xref:System.Runtime.InteropServices.SafeHandle> object has finished using the underlying handle, the <xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A> property calculates whether the given handle value is always considered invalid.</span></span> <span data-ttu-id="eaaf1-264">したがって、<xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A>プロパティは常に任意の 1 つのハンドル値に対して同じ値を返します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-264">Therefore, the <xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A> property always returns the same value for any one handle value.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="eaaf1-265">次の例では、ファイルが正常に開かれたかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-265">The following example checks if a file was opened successfully.</span></span> <span data-ttu-id="eaaf1-266">このコード例に示されている例の一部である、<xref:System.Runtime.InteropServices.SafeHandle>クラスです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-266">This code example is part of a larger example provided for the <xref:System.Runtime.InteropServices.SafeHandle> class.</span></span>  
+  
+ [!code-csharp[SafeHandle#2](~/samples/snippets/csharp/VS_Snippets_CLR/SafeHandle/CS/program.cs#2)]  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-267">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-267">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-268">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-268">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-269">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-269">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="ReleaseHandle">
+      <MemberSignature Language="C#" Value="protected abstract bool ReleaseHandle ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance bool ReleaseHandle() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.ReleaseHandle" />
+      <MemberSignature Language="VB.NET" Value="Protected MustOverride Function ReleaseHandle () As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract bool ReleaseHandle();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-270">派生クラスでオーバーライドされると、ハンドルを解放するために必要なコードを実行します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-270">When overridden in a derived class, executes the code required to free the handle.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="eaaf1-271">ハンドルが正常に解放された場合は <see langword="true" />。深刻なエラーが発生した場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-271">
+              <see langword="true" /> if the handle is released successfully; otherwise, in the event of a catastrophic failure, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-272">この場合、[releaseHandleFailed](~/docs/framework/debug-trace-profile/releasehandlefailed-mda.md) マネージ デバッグ アシスタントが生成されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-272">In this case, it generates a [releaseHandleFailed](~/docs/framework/debug-trace-profile/releasehandlefailed-mda.md) Managed Debugging Assistant.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-273"><xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A>メソッドを呼び出すだけで 1 回場合にのみ、ハンドルが有効で定義されていることが保証、<xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-273">The <xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A> method is guaranteed to be called only once and only if the handle is valid as defined by the <xref:System.Runtime.InteropServices.SafeHandle.IsInvalid%2A> property.</span></span> <span data-ttu-id="eaaf1-274">このメソッドの実装、<xref:System.Runtime.InteropServices.SafeHandle>ハンドルを解放するために必要なすべてのコードを実行するクラスを派生します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-274">Implement this method in your <xref:System.Runtime.InteropServices.SafeHandle> derived classes to execute any code that is required to free the handle.</span></span> <span data-ttu-id="eaaf1-275">の関数の 1 つ<xref:System.Runtime.InteropServices.SafeHandle>、コードの実装で、リソース リークの防止を保証するためには、<xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A>失敗しない必要があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-275">Because one of the functions of <xref:System.Runtime.InteropServices.SafeHandle> is to guarantee prevention of resource leaks, the code in your implementation of <xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A> must never fail.</span></span> <span data-ttu-id="eaaf1-276">ガベージ コレクター<xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A>ガベージ コレクション、同時になったオブジェクトの通常のファイナライザーを実行した後です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-276">The garbage collector calls <xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A> after normal finalizers have been run for objects that were garbage collected at the same time.</span></span> <span data-ttu-id="eaaf1-277">ガベージ コレクターがこのメソッドを呼び出すためのリソースを保証するが進行している間に、メソッドは中断されません。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-277">The garbage collector guarantees the resources to invoke this method and that the method will not be interrupted while it is in progress.</span></span> <span data-ttu-id="eaaf1-278">このメソッドは、(その静的に確定呼び出し先のすべてのメソッド) およびインスタンスの構築時に、制約された実行領域 (CER) として準備されます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-278">This method will be prepared as a constrained execution region (CER) at instance construction time (along with all the methods in its statically determinable call graph).</span></span> <span data-ttu-id="eaaf1-279">オーバーライドされたどのエラー パスを導入しないように注意する必要がありますが、これには、スレッドの中止割り込みが防止されますが、<xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-279">Although this prevents thread abort interrupts, you must still be careful not to introduce any fault paths in your overridden <xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A> method.</span></span> <span data-ttu-id="eaaf1-280">具体的には、適用、<xref:System.Runtime.ConstrainedExecution.ReliabilityContractAttribute>から呼び出すメソッドが存在する属性<xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A>です。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-280">In particular, apply the <xref:System.Runtime.ConstrainedExecution.ReliabilityContractAttribute> attribute to any methods you call from <xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A>.</span></span> <span data-ttu-id="eaaf1-281">ほとんどの場合、このコードがあります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-281">In most cases this code should be:</span></span>  
+  
+ `ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)`  
+  
+ <span data-ttu-id="eaaf1-282">簡単なクリーンアップをさらに、(たとえば、Win32 API の呼び出し`CloseHandle`ファイル ハンドルの) 1 つのプラットフォーム呼び出しの戻り値を確認することができます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-282">Additionally, for simple cleanup (for example, calling the Win32 API `CloseHandle` on a file handle) you can check the return value for the single platform invoke call.</span></span> <span data-ttu-id="eaaf1-283">複雑なクリーンアップは、多くのプログラム ロジックとこれらの一部が失敗する多くのメソッド呼び出しがあります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-283">For complex cleanup, you may have a lot of program logic and many method calls, some of which might fail.</span></span> <span data-ttu-id="eaaf1-284">プログラム ロジックでこのような場合の各フォールバック コードはことを確認する必要があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-284">You must ensure that your program logic has fallback code for each of those cases.</span></span>  
+  
+ <span data-ttu-id="eaaf1-285">場合<xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A>返します`false`生成何らかの理由で、 [releaseHandleFailed](~/docs/framework/debug-trace-profile/releasehandlefailed-mda.md)マネージ デバッグ アシスタントします。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-285">If <xref:System.Runtime.InteropServices.SafeHandle.ReleaseHandle%2A> returns `false` for any reason, it generates a [releaseHandleFailed](~/docs/framework/debug-trace-profile/releasehandlefailed-mda.md) Managed Debugging Assistant.</span></span>  <span data-ttu-id="eaaf1-286">これにより、リソースを解放しようとすると、失敗した場合を検出できます。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-286">This helps you detect cases where your attempt to release resources fails.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="eaaf1-287">次のコード例は、ハンドルを解放し、示されている例の一部である、<xref:System.Runtime.InteropServices.SafeHandle>クラスです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-287">The following code example releases the handle and is part of a larger example provided for the <xref:System.Runtime.InteropServices.SafeHandle> class.</span></span>  
+  
+ [!code-csharp[SafeHandle#3](~/samples/snippets/csharp/VS_Snippets_CLR/SafeHandle/CS/program.cs#3)]  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-288">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-288">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-289">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-289">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-290">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-290">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="SetHandle">
+      <MemberSignature Language="C#" Value="protected void SetHandle (IntPtr handle);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig instance void SetHandle(native int handle) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.SetHandle(System.IntPtr)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub SetHandle (handle As IntPtr)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; void SetHandle(IntPtr handle);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="handle" Type="System.IntPtr" />
+      </Parameters>
+      <Docs>
+        <param name="handle">
+          <span data-ttu-id="eaaf1-291">使用する既存のハンドル。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-291">The pre-existing handle to use.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="eaaf1-292">ハンドルを指定した既存のハンドルに設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-292">Sets the handle to the specified pre-existing handle.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-293">使用して、<xref:System.Runtime.InteropServices.SafeHandle.SetHandle%2A>メソッドは .NET Framework の COM 相互運用インフラストラクチャは、マーシャ リングをサポートしていないため (たとえば、ハンドルは、構造体で返される) 場合、既存のハンドルをサポートする必要がある場合にのみ出力、構造内のハンドル。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-293">Use the <xref:System.Runtime.InteropServices.SafeHandle.SetHandle%2A> method only if you need to support a pre-existing handle (for example, if the handle is returned in a structure) because the .NET Framework COM interop infrastructure does not support marshaling output handles in a structure.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-294">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-294">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-295">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-295">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-296">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-296">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="SetHandleAsInvalid">
+      <MemberSignature Language="C#" Value="public void SetHandleAsInvalid ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void SetHandleAsInvalid() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid" />
+      <MemberSignature Language="VB.NET" Value="Public Sub SetHandleAsInvalid ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetHandleAsInvalid();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Handles</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="eaaf1-297">今後は使用しないものとしてハンドルをマークします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-297">Marks a handle as no longer used.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="eaaf1-298">呼び出す、<xref:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid%2A>メソッド ハンドルが不要になったリソースを参照していることがわかっている場合にのみです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-298">Call the <xref:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid%2A> method only when you know that your handle no longer references a resource.</span></span> <span data-ttu-id="eaaf1-299">これは、値を変更しない、<xref:System.Runtime.InteropServices.SafeHandle.handle>フィールド; 終了としてのみのハンドルをマークにします。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-299">Doing so does not change the value of the <xref:System.Runtime.InteropServices.SafeHandle.handle> field; it only marks the handle as closed.</span></span> <span data-ttu-id="eaaf1-300">ハンドルは、値が古い可能性のある値を含めるし可能性があります。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-300">The handle might then contain a potentially stale value.</span></span> <span data-ttu-id="eaaf1-301">この呼び出しの影響は、ことは行われません、リソースを解放します。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-301">The effect of this call is that no attempt is made to free the resources.</span></span>  
+  
+ <span data-ttu-id="eaaf1-302">同様、<xref:System.Runtime.InteropServices.SafeHandle.SetHandle%2A>メソッドを使用して<xref:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid%2A>を既存のハンドルをサポートする必要がある場合のみです。</span><span class="sxs-lookup"><span data-stu-id="eaaf1-302">As with the <xref:System.Runtime.InteropServices.SafeHandle.SetHandle%2A> method, use <xref:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid%2A> only if you need to support a pre-existing handle.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="eaaf1-303">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-303">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="eaaf1-304">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-304">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="eaaf1-305">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="eaaf1-305">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

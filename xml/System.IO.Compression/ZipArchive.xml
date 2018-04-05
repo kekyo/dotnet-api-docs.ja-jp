@@ -1,0 +1,1050 @@
+<Type Name="ZipArchive" FullName="System.IO.Compression.ZipArchive">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="69d8f68c04b20c5dff55edf31c96edfb5b763433" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class ZipArchive : IDisposable" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit ZipArchive extends System.Object implements class System.IDisposable" />
+  <TypeSignature Language="DocId" Value="T:System.IO.Compression.ZipArchive" />
+  <TypeSignature Language="VB.NET" Value="Public Class ZipArchive&#xA;Implements IDisposable" />
+  <TypeSignature Language="C++ CLI" Value="public ref class ZipArchive : IDisposable" />
+  <AssemblyInfo>
+    <AssemblyName>System.IO.Compression</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.IDisposable</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="563b2-101">zip アーカイブ形式の圧縮ファイルのパッケージを表します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="563b2-101">Represents a package of compressed files in the zip archive format.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-102">Zip アーカイブや、ファイルのエントリを操作するための方法は 3 つのクラス間で分散: <xref:System.IO.Compression.ZipFile>、 <xref:System.IO.Compression.ZipArchive>、および<xref:System.IO.Compression.ZipArchiveEntry>です。</span><span class="sxs-lookup"><span data-stu-id="563b2-102">The methods for manipulating zip archives and their file entries are spread across three classes: <xref:System.IO.Compression.ZipFile>, <xref:System.IO.Compression.ZipArchive>, and <xref:System.IO.Compression.ZipArchiveEntry>.</span></span>  
+  
+|<span data-ttu-id="563b2-103">終了</span><span class="sxs-lookup"><span data-stu-id="563b2-103">To</span></span>|<span data-ttu-id="563b2-104">使用</span><span class="sxs-lookup"><span data-stu-id="563b2-104">Use</span></span>|  
+|--------|---------|  
+|<span data-ttu-id="563b2-105">ディレクトリからの zip のアーカイブを作成します。</span><span class="sxs-lookup"><span data-stu-id="563b2-105">Create a zip archive from a directory</span></span>|<xref:System.IO.Compression.ZipFile.CreateFromDirectory%2A?displayProperty=nameWithType>|  
+|<span data-ttu-id="563b2-106">ディレクトリの zip アーカイブのコンテンツを抽出します。</span><span class="sxs-lookup"><span data-stu-id="563b2-106">Extract the contents of a zip archive to a directory</span></span>|<xref:System.IO.Compression.ZipFile.ExtractToDirectory%2A?displayProperty=nameWithType>|  
+|<span data-ttu-id="563b2-107">既存の zip アーカイブを新しいファイルを追加します。</span><span class="sxs-lookup"><span data-stu-id="563b2-107">Add new files to an existing zip archive</span></span>|<xref:System.IO.Compression.ZipArchive.CreateEntry%2A?displayProperty=nameWithType>|  
+|<span data-ttu-id="563b2-108">Zip アーカイブからファイルを取得します。</span><span class="sxs-lookup"><span data-stu-id="563b2-108">Retrieve a file from a zip archive</span></span>|<xref:System.IO.Compression.ZipArchive.GetEntry%2A?displayProperty=nameWithType>|  
+|<span data-ttu-id="563b2-109">Zip アーカイブからのすべてのファイルを取得します。</span><span class="sxs-lookup"><span data-stu-id="563b2-109">Retrieve all the files from a zip archive</span></span>|<xref:System.IO.Compression.ZipArchive.Entries%2A?displayProperty=nameWithType>|  
+|<span data-ttu-id="563b2-110">Zip アーカイブに含まれている 1 つのファイル ストリームを開く</span><span class="sxs-lookup"><span data-stu-id="563b2-110">Open a stream to a single file contained in a zip archive</span></span>|<xref:System.IO.Compression.ZipArchiveEntry.Open%2A?displayProperty=nameWithType>|  
+|<span data-ttu-id="563b2-111">Zip アーカイブからファイルを削除します。</span><span class="sxs-lookup"><span data-stu-id="563b2-111">Delete a file from a zip archive</span></span>|<xref:System.IO.Compression.ZipArchiveEntry.Delete%2A?displayProperty=nameWithType>|  
+  
+ <span data-ttu-id="563b2-112">新しいエントリを作成するときに、ファイルが圧縮し、zip パッケージに追加します。</span><span class="sxs-lookup"><span data-stu-id="563b2-112">When you create a new entry, the file is compressed and added to the zip package.</span></span> <span data-ttu-id="563b2-113"><xref:System.IO.Compression.ZipArchive.CreateEntry%2A>メソッドでは、エントリを追加するときに、ディレクトリの階層を指定することができます。</span><span class="sxs-lookup"><span data-stu-id="563b2-113">The <xref:System.IO.Compression.ZipArchive.CreateEntry%2A> method enables you to specify a directory hierarchy when adding the entry.</span></span> <span data-ttu-id="563b2-114">Zip パッケージ内の新しいエントリの相対パスが含まれます。</span><span class="sxs-lookup"><span data-stu-id="563b2-114">You include the relative path of the new entry within the zip package.</span></span> <span data-ttu-id="563b2-115">たとえば、新しいエントリを作成する相対パスを持つ`AddedFolder\NewFile.txt`AddedFolder をという名前のディレクトリに圧縮されたテキスト ファイルを作成します。</span><span class="sxs-lookup"><span data-stu-id="563b2-115">For example, creating a new entry with a relative path of `AddedFolder\NewFile.txt` creates a compressed text file in a directory named AddedFolder.</span></span>  
+  
+ <span data-ttu-id="563b2-116">参照する場合、`System.IO.Compression.FileSystem`アセンブリのプロジェクトで次の 3 つの拡張メソッドにアクセスすることができます (から、<xref:System.IO.Compression.ZipFileExtensions>クラス) の<xref:System.IO.Compression.ZipArchive>クラス: <xref:System.IO.Compression.ZipFileExtensions.CreateEntryFromFile%2A>、 <xref:System.IO.Compression.ZipFileExtensions.CreateEntryFromFile%2A>、および<xref:System.IO.Compression.ZipFileExtensions.ExtractToDirectory%2A>です。</span><span class="sxs-lookup"><span data-stu-id="563b2-116">If you reference the `System.IO.Compression.FileSystem` assembly in your project, you can access three extension methods (from the <xref:System.IO.Compression.ZipFileExtensions> class) for the <xref:System.IO.Compression.ZipArchive> class: <xref:System.IO.Compression.ZipFileExtensions.CreateEntryFromFile%2A>, <xref:System.IO.Compression.ZipFileExtensions.CreateEntryFromFile%2A>, and <xref:System.IO.Compression.ZipFileExtensions.ExtractToDirectory%2A>.</span></span> <span data-ttu-id="563b2-117">これらの拡張メソッドでは、圧縮および圧縮解除をファイルにエントリの内容を有効にします。</span><span class="sxs-lookup"><span data-stu-id="563b2-117">These extension methods enable you to compress and decompress the contents of the entry to a file.</span></span> <span data-ttu-id="563b2-118">`System.IO.Compression.FileSystem`アセンブリでは使用できません[!INCLUDE[win8_appname_long](~/includes/win8-appname-long-md.md)]アプリ。</span><span class="sxs-lookup"><span data-stu-id="563b2-118">The `System.IO.Compression.FileSystem` assembly is not available for [!INCLUDE[win8_appname_long](~/includes/win8-appname-long-md.md)] apps.</span></span> <span data-ttu-id="563b2-119">[!INCLUDE[win8_appname_long](~/includes/win8-appname-long-md.md)]アプリでは、圧縮し、を使用してファイルを圧縮解除することができます、<xref:System.IO.Compression.DeflateStream>または<xref:System.IO.Compression.GZipStream>を使用するか、クラス、[!INCLUDE[wrt](~/includes/wrt-md.md)]型[圧縮](http://go.microsoft.com/fwlink/p/?LinkID=246357)と[圧縮解除プログラム](http://go.microsoft.com/fwlink/p/?LinkID=246358)です。</span><span class="sxs-lookup"><span data-stu-id="563b2-119">In [!INCLUDE[win8_appname_long](~/includes/win8-appname-long-md.md)] apps, you can compress and decompress files by using the <xref:System.IO.Compression.DeflateStream> or <xref:System.IO.Compression.GZipStream> class, or you can use the [!INCLUDE[wrt](~/includes/wrt-md.md)] types [Compressor](http://go.microsoft.com/fwlink/p/?LinkID=246357) and [Decompressor](http://go.microsoft.com/fwlink/p/?LinkID=246358).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="563b2-120">最初の例では、新しいエントリを作成し、ストリームを使用して、書き込みにする方法を示します。</span><span class="sxs-lookup"><span data-stu-id="563b2-120">The first example shows how to create a new entry and write to it by using a stream.</span></span>  
+  
+ [!code-csharp[System.IO.Compression.ZipArchiveMode#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.io.compression.ziparchivemode/cs/program1.cs#1)]
+ [!code-vb[System.IO.Compression.ZipArchiveMode#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.io.compression.ziparchivemode/vb/program1.vb#1)]  
+  
+ <span data-ttu-id="563b2-121">次の例では、zip アーカイブを開き、エントリのコレクションを反復処理する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="563b2-121">The following example shows how to open a zip archive and iterate through the collection of entries.</span></span>  
+  
+ [!code-csharp[System.IO.Compression.ZipArchive#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.io.compression.ziparchive/cs/program1.cs#1)]
+ [!code-vb[System.IO.Compression.ZipArchive#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.io.compression.ziparchive/vb/program1.vb#1)]  
+  
+ <span data-ttu-id="563b2-122">3 番目の例では、既存のファイルからの zip のアーカイブを新しいエントリを作成し、アーカイブの内容を抽出する拡張メソッドを使用する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="563b2-122">The third example shows how to use extension methods to create a new entry in a zip archive from an existing file and extract the archive contents.</span></span> <span data-ttu-id="563b2-123">参照する必要があります、`System.IO.Compression.FileSystem`アセンブリ コードを実行します。</span><span class="sxs-lookup"><span data-stu-id="563b2-123">You must reference the `System.IO.Compression.FileSystem` assembly to execute the code.</span></span>  
+  
+ [!code-csharp[System.IO.Compression.ZipArchive#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.io.compression.ziparchive/cs/program3.cs#3)]
+ [!code-vb[System.IO.Compression.ZipArchive#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.io.compression.ziparchive/vb/program3.vb#3)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.IO.Compression.ZipFile" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="563b2-124">
+            <see cref="T:System.IO.Compression.ZipArchive" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-124">Initializes a new instance of the <see cref="T:System.IO.Compression.ZipArchive" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ZipArchive (System.IO.Stream stream);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Compression.ZipArchive.#ctor(System.IO.Stream)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; ZipArchive(System::IO::Stream ^ stream);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="563b2-125">読み取るアーカイブを格納しているストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-125">The stream that contains the archive to be read.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="563b2-126">指定したストリームから <see cref="T:System.IO.Compression.ZipArchive" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-126">Initializes a new instance of the <see cref="T:System.IO.Compression.ZipArchive" /> class from the specified stream.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="563b2-127">ストリームが既に閉じているか、読み取りをサポートしていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-127">The stream is already closed or does not support reading.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="563b2-128">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-128">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.InvalidDataException">
+          <span data-ttu-id="563b2-129">ストリームの内容は zip アーカイブのフォームにありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-129">The contents of the stream are not in the zip archive format.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ZipArchive (System.IO.Stream stream, System.IO.Compression.ZipArchiveMode mode);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, valuetype System.IO.Compression.ZipArchiveMode mode) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Compression.ZipArchive.#ctor(System.IO.Stream,System.IO.Compression.ZipArchiveMode)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; ZipArchive(System::IO::Stream ^ stream, System::IO::Compression::ZipArchiveMode mode);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="mode" Type="System.IO.Compression.ZipArchiveMode" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="563b2-130">入力ストリームまたは出力ストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-130">The input or output stream.</span>
+          </span>
+        </param>
+        <param name="mode">
+          <span data-ttu-id="563b2-131">zip のアーカイブがエントリの読み込み、作成、または更新に使用されているかどうかを示す列挙値の 1 つ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-131">One of the enumeration values that indicates whether the zip archive is used to read, create, or update entries.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="563b2-132">指定したストリームと指定したモードから <see cref="T:System.IO.Compression.ZipArchive" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-132">Initializes a new instance of the <see cref="T:System.IO.Compression.ZipArchive" /> class from the specified stream and with the specified mode.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-133">場合、`mode`にパラメーターが設定されている<xref:System.IO.Compression.ZipArchiveMode.Read>ストリームは読み取りをサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-133">If the `mode` parameter is set to <xref:System.IO.Compression.ZipArchiveMode.Read>, the stream must support reading.</span></span> <span data-ttu-id="563b2-134">場合、`mode`にパラメーターが設定されている<xref:System.IO.Compression.ZipArchiveMode.Create>ストリームが書き込みをサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-134">If the `mode` parameter is set to <xref:System.IO.Compression.ZipArchiveMode.Create>, the stream must support writing.</span></span> <span data-ttu-id="563b2-135">場合、`mode`にパラメーターが設定されている<xref:System.IO.Compression.ZipArchiveMode.Update>ストリームは、読み取り、書き込み、およびシークをサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-135">If the `mode` parameter is set to <xref:System.IO.Compression.ZipArchiveMode.Update>, the stream must support reading, writing, and seeking.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="563b2-136">ストリームは既に終了しているか、ストリームの機能がモードに一致しません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-136">The stream is already closed, or the capabilities of the stream do not match the mode.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="563b2-137">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-137">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="563b2-138">
+            <paramref name="mode" /> が無効な値です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-138">
+              <paramref name="mode" /> is an invalid value.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.InvalidDataException">
+          <span data-ttu-id="563b2-139">ストリームの内容は zip のアーカイブとして解釈できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-139">The contents of the stream could not be interpreted as a zip archive.</span>
+          </span>
+          <span data-ttu-id="563b2-140">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-140">-or-</span>
+          </span>
+          <span data-ttu-id="563b2-141">
+            <paramref name="mode" /> が <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> で、エントリがアーカイブにないか、または破損していて読み取ることができません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-141">
+              <paramref name="mode" /> is <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> and an entry is missing from the archive or is corrupt and cannot be read.</span>
+          </span>
+          <span data-ttu-id="563b2-142">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-142">-or-</span>
+          </span>
+          <span data-ttu-id="563b2-143">
+            <paramref name="mode" /> が <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> で、エントリが大きすぎてメモリに収まりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-143">
+              <paramref name="mode" /> is <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> and an entry is too large to fit into memory.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ZipArchive (System.IO.Stream stream, System.IO.Compression.ZipArchiveMode mode, bool leaveOpen);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, valuetype System.IO.Compression.ZipArchiveMode mode, bool leaveOpen) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Compression.ZipArchive.#ctor(System.IO.Stream,System.IO.Compression.ZipArchiveMode,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; ZipArchive(System::IO::Stream ^ stream, System::IO::Compression::ZipArchiveMode mode, bool leaveOpen);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="mode" Type="System.IO.Compression.ZipArchiveMode" />
+        <Parameter Name="leaveOpen" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="563b2-144">入力ストリームまたは出力ストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-144">The input or output stream.</span>
+          </span>
+        </param>
+        <param name="mode">
+          <span data-ttu-id="563b2-145">zip のアーカイブがエントリの読み込み、作成、または更新に使用されているかどうかを示す列挙値の 1 つ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-145">One of the enumeration values that indicates whether the zip archive is used to read, create, or update entries.</span>
+          </span>
+        </param>
+        <param name="leaveOpen">
+          <span data-ttu-id="563b2-146">
+            <see cref="T:System.IO.Compression.ZipArchive" /> オブジェクトを破棄した後にストリームを開いたままにする場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-146">
+              <see langword="true" /> to leave the stream open after the <see cref="T:System.IO.Compression.ZipArchive" /> object is disposed; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="563b2-147">指定されたモードの指定されたストリームで <see cref="T:System.IO.Compression.ZipArchive" /> クラスの新しいインスタンスを初期化し、必要に応じて、ストリームを開いたままにします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-147">Initializes a new instance of the <see cref="T:System.IO.Compression.ZipArchive" /> class on the specified stream for the specified mode, and optionally leaves the stream open.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-148">場合、`mode`にパラメーターが設定されている<xref:System.IO.Compression.ZipArchiveMode.Read>ストリームは読み取りをサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-148">If the `mode` parameter is set to <xref:System.IO.Compression.ZipArchiveMode.Read>, the stream must support reading.</span></span> <span data-ttu-id="563b2-149">場合、`mode`にパラメーターが設定されている<xref:System.IO.Compression.ZipArchiveMode.Create>ストリームが書き込みをサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-149">If the `mode` parameter is set to <xref:System.IO.Compression.ZipArchiveMode.Create>, the stream must support writing.</span></span> <span data-ttu-id="563b2-150">場合、`mode`にパラメーターが設定されている<xref:System.IO.Compression.ZipArchiveMode.Update>ストリームは、読み取り、書き込み、およびシークをサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-150">If the `mode` parameter is set to <xref:System.IO.Compression.ZipArchiveMode.Update>, the stream must support reading, writing, and seeking.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="563b2-151">ストリームは既に終了しているか、ストリームの機能がモードに一致しません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-151">The stream is already closed, or the capabilities of the stream do not match the mode.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="563b2-152">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-152">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="563b2-153">
+            <paramref name="mode" /> が無効な値です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-153">
+              <paramref name="mode" /> is an invalid value.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.InvalidDataException">
+          <span data-ttu-id="563b2-154">ストリームの内容は zip のアーカイブとして解釈できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-154">The contents of the stream could not be interpreted as a zip archive.</span>
+          </span>
+          <span data-ttu-id="563b2-155">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-155">-or-</span>
+          </span>
+          <span data-ttu-id="563b2-156">
+            <paramref name="mode" /> が <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> で、エントリがアーカイブにないか、または破損していて読み取ることができません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-156">
+              <paramref name="mode" /> is <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> and an entry is missing from the archive or is corrupt and cannot be read.</span>
+          </span>
+          <span data-ttu-id="563b2-157">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-157">-or-</span>
+          </span>
+          <span data-ttu-id="563b2-158">
+            <paramref name="mode" /> が <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> で、エントリが大きすぎてメモリに収まりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-158">
+              <paramref name="mode" /> is <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> and an entry is too large to fit into memory.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ZipArchive (System.IO.Stream stream, System.IO.Compression.ZipArchiveMode mode, bool leaveOpen, System.Text.Encoding entryNameEncoding);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, valuetype System.IO.Compression.ZipArchiveMode mode, bool leaveOpen, class System.Text.Encoding entryNameEncoding) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Compression.ZipArchive.#ctor(System.IO.Stream,System.IO.Compression.ZipArchiveMode,System.Boolean,System.Text.Encoding)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; ZipArchive(System::IO::Stream ^ stream, System::IO::Compression::ZipArchiveMode mode, bool leaveOpen, System::Text::Encoding ^ entryNameEncoding);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="mode" Type="System.IO.Compression.ZipArchiveMode" />
+        <Parameter Name="leaveOpen" Type="System.Boolean" />
+        <Parameter Name="entryNameEncoding" Type="System.Text.Encoding" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="563b2-159">入力ストリームまたは出力ストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-159">The input or output stream.</span>
+          </span>
+        </param>
+        <param name="mode">
+          <span data-ttu-id="563b2-160">zip のアーカイブがエントリの読み込み、作成、または更新に使用されているかどうかを示す列挙値の 1 つ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-160">One of the enumeration values that indicates whether the zip archive is used to read, create, or update entries.</span>
+          </span>
+        </param>
+        <param name="leaveOpen">
+          <span data-ttu-id="563b2-161">
+            <see cref="T:System.IO.Compression.ZipArchive" /> オブジェクトを破棄した後にストリームを開いたままにする場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-161">
+              <see langword="true" /> to leave the stream open after the <see cref="T:System.IO.Compression.ZipArchive" /> object is disposed; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <param name="entryNameEncoding">
+          <span data-ttu-id="563b2-162">このアーカイブのエントリ名の読み取りまたは書き込み時に使用するエンコード。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-162">The encoding to use when reading or writing entry names in this archive.</span>
+          </span>
+          <span data-ttu-id="563b2-163">エントリ名の UTF-8 エンコードをサポートしない zip アーカイブ ツールとライブラリとの相互運用性のためにエンコードが必要な場合にのみ、このパラメーターの値を指定してください。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-163">Specify a value for this parameter only when an encoding is required for interoperability with zip archive tools and libraries that do not support UTF-8 encoding for entry names.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="563b2-164">指定されたモードの指定されたストリームで <see cref="T:System.IO.Compression.ZipArchive" /> クラスの新しいインスタンスを初期化し、エントリ名に指定されたエンコーディングを使用します。また、必要に応じて、ストリームを開いたままにします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-164">Initializes a new instance of the <see cref="T:System.IO.Compression.ZipArchive" /> class on the specified stream for the specified mode, uses the specified encoding for entry names, and optionally leaves the stream open.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-165">場合、`mode`にパラメーターが設定されている<xref:System.IO.Compression.ZipArchiveMode.Read>ストリームは読み取りをサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-165">If the `mode` parameter is set to <xref:System.IO.Compression.ZipArchiveMode.Read>, the stream must support reading.</span></span> <span data-ttu-id="563b2-166">場合、`mode`にパラメーターが設定されている<xref:System.IO.Compression.ZipArchiveMode.Create>ストリームが書き込みをサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-166">If the `mode` parameter is set to <xref:System.IO.Compression.ZipArchiveMode.Create>, the stream must support writing.</span></span> <span data-ttu-id="563b2-167">場合、`mode`にパラメーターが設定されている<xref:System.IO.Compression.ZipArchiveMode.Update>ストリームは、読み取り、書き込み、およびシークをサポートする必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-167">If the `mode` parameter is set to <xref:System.IO.Compression.ZipArchiveMode.Update>, the stream must support reading, writing, and seeking.</span></span>  
+  
+ <span data-ttu-id="563b2-168">読み取り用の zip アーカイブ ファイルを開くと`entryNameEncoding`に設定されている`null`エントリ名は、次の規則に従ってデコードします。</span><span class="sxs-lookup"><span data-stu-id="563b2-168">When you open a zip archive file for reading and `entryNameEncoding` is set to `null`, entry names are decoded according to the following rules:</span></span>  
+  
+-   <span data-ttu-id="563b2-169">エンコード (ローカル ファイル ヘッダーの汎用のビット フラグの内容) フラグが設定されていないときに現在のシステム既定のコード ページは、エントリ名のデコードに使用されます。</span><span class="sxs-lookup"><span data-stu-id="563b2-169">When the language encoding flag (in the general-purpose bit flag of the local file header) is not set, the current system default code page is used to decode the entry name.</span></span>  
+  
+-   <span data-ttu-id="563b2-170">言語エンコード フラグを設定すると、utf-8 が、エントリ名のデコードに使用されます。</span><span class="sxs-lookup"><span data-stu-id="563b2-170">When the language encoding flag is set, UTF-8 is used to decode the entry name.</span></span>  
+  
+ <span data-ttu-id="563b2-171">読み取り用の zip アーカイブ ファイルを開くと`entryNameEncoding`以外の値に設定されて`null`エントリ名は、次の規則に従ってデコードします。</span><span class="sxs-lookup"><span data-stu-id="563b2-171">When you open a zip archive file for reading and `entryNameEncoding` is set to a value other than `null`, entry names are decoded according to the following rules:</span></span>  
+  
+-   <span data-ttu-id="563b2-172">ときにエンコード フラグが設定されていない、指定した`entryNameEncoding`エントリ名のデコードに使用します。</span><span class="sxs-lookup"><span data-stu-id="563b2-172">When the language encoding flag is not set, the specified `entryNameEncoding` is used to decode the entry name.</span></span>  
+  
+-   <span data-ttu-id="563b2-173">言語エンコード フラグを設定すると、utf-8 が、エントリ名のデコードに使用されます。</span><span class="sxs-lookup"><span data-stu-id="563b2-173">When the language encoding flag is set, UTF-8 is used to decode the entry name.</span></span>  
+  
+ <span data-ttu-id="563b2-174">アーカイブ ファイルを記述する場合と`entryNameEncoding`に設定されている`null`エントリ名は、次のルールに従ってエンコードします。</span><span class="sxs-lookup"><span data-stu-id="563b2-174">When you write to archive files and `entryNameEncoding` is set to `null`, entry names are encoded according to the following rules:</span></span>  
+  
+-   <span data-ttu-id="563b2-175">ASCII の範囲外の文字を含むエントリ名、言語エンコード フラグを設定すると、し、エントリ名は、utf-8 を使用してエンコードされました。</span><span class="sxs-lookup"><span data-stu-id="563b2-175">For entry names that contain characters outside the ASCII range, the language encoding flag is set, and entry names are encoded by using UTF-8.</span></span>  
+  
+-   <span data-ttu-id="563b2-176">ASCII 文字のみを含むエントリ名、言語エンコード フラグが設定されていない、エントリ名は、現在のシステム既定のコード ページを使用してエンコードされました。</span><span class="sxs-lookup"><span data-stu-id="563b2-176">For entry names that contain only ASCII characters, the language encoding flag is not set, and entry names are encoded by using the current system default code page.</span></span>  
+  
+ <span data-ttu-id="563b2-177">アーカイブ ファイルを記述する場合と`entryNameEncoding`以外の値に設定されて`null`、指定した`entryNameEncoding`エントリの名前をバイトにエンコードするために使用します。</span><span class="sxs-lookup"><span data-stu-id="563b2-177">When you write to archive files and `entryNameEncoding` is set to a value other than `null`, the specified `entryNameEncoding` is used to encode the entry names into bytes.</span></span> <span data-ttu-id="563b2-178">フラグ (ローカル ファイル ヘッダーの汎用のビット フラグ) でのエンコード方法は、指定したエンコーディングが utf-8 エンコードの場合にのみ設定されます。</span><span class="sxs-lookup"><span data-stu-id="563b2-178">The language encoding flag (in the general-purpose bit flag of the local file header) is set only when the specified encoding is a UTF-8 encoding.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="563b2-179">ストリームは既に終了しているか、ストリームの機能がモードに一致しません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-179">The stream is already closed, or the capabilities of the stream do not match the mode.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="563b2-180">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-180">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="563b2-181">
+            <paramref name="mode" /> が無効な値です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-181">
+              <paramref name="mode" /> is an invalid value.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.InvalidDataException">
+          <span data-ttu-id="563b2-182">ストリームの内容は zip のアーカイブとして解釈できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-182">The contents of the stream could not be interpreted as a zip archive.</span>
+          </span>
+          <span data-ttu-id="563b2-183">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-183">-or-</span>
+          </span>
+          <span data-ttu-id="563b2-184">
+            <paramref name="mode" /> が <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> で、エントリがアーカイブにないか、または破損していて読み取ることができません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-184">
+              <paramref name="mode" /> is <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> and an entry is missing from the archive or is corrupt and cannot be read.</span>
+          </span>
+          <span data-ttu-id="563b2-185">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-185">-or-</span>
+          </span>
+          <span data-ttu-id="563b2-186">
+            <paramref name="mode" /> が <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> で、エントリが大きすぎてメモリに収まりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-186">
+              <paramref name="mode" /> is <see cref="F:System.IO.Compression.ZipArchiveMode.Update" /> and an entry is too large to fit into memory.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="CreateEntry">
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="563b2-187">空のエントリを zip アーカイブに作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-187">Creates an empty entry in the zip archive.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="CreateEntry">
+      <MemberSignature Language="C#" Value="public System.IO.Compression.ZipArchiveEntry CreateEntry (string entryName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.IO.Compression.ZipArchiveEntry CreateEntry(string entryName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Compression.ZipArchive.CreateEntry(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateEntry (entryName As String) As ZipArchiveEntry" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::IO::Compression::ZipArchiveEntry ^ CreateEntry(System::String ^ entryName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IO.Compression.ZipArchiveEntry</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="entryName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="entryName">
+          <span data-ttu-id="563b2-188">作成されるエントリの名前を指定する、アーカイブのルートを基準とするパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-188">A path, relative to the root of the archive, that specifies the name of the entry to be created.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="563b2-189">指定したパスとエントリ名を持つ空のエントリを zip アーカイブに作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-189">Creates an empty entry that has the specified path and entry name in the zip archive.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="563b2-190">zip アーカイブ内の空のエントリ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-190">An empty entry in the zip archive.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-191">`entryName`文字列は、zip アーカイブ内に作成するエントリの相対パスを反映する必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-191">The `entryName` string should reflect the relative path of the entry you want to create within the zip archive.</span></span> <span data-ttu-id="563b2-192">指定した文字列に制限はありません。</span><span class="sxs-lookup"><span data-stu-id="563b2-192">There is no restriction on the string you provide.</span></span> <span data-ttu-id="563b2-193">ただし、相対パスとしてフォーマットされていない場合、エントリが作成されると、zip アーカイブのコンテンツを抽出するときに例外を取得することがあります。</span><span class="sxs-lookup"><span data-stu-id="563b2-193">However, if it is not formatted as a relative path, the entry is created, but you may get an exception when you extract the contents of the zip archive.</span></span> <span data-ttu-id="563b2-194">アーカイブに指定されたパスと名前を持つエントリが既に存在する場合は、パスと名前が同じで 2 番目のエントリが作成されます。</span><span class="sxs-lookup"><span data-stu-id="563b2-194">If an entry with the specified path and name already exists in the archive, a second entry is created with the same path and name.</span></span>  
+  
+ <span data-ttu-id="563b2-195">値、<xref:System.IO.Compression.ZipArchiveEntry.LastWriteTime%2A>新しいエントリのプロパティが現在の時刻に設定します。</span><span class="sxs-lookup"><span data-stu-id="563b2-195">The value of the <xref:System.IO.Compression.ZipArchiveEntry.LastWriteTime%2A> property for the new entry is set to the current time.</span></span> <span data-ttu-id="563b2-196">エントリは、基になる圧縮アルゴリズムの既定の圧縮レベルを使用して圧縮されます。</span><span class="sxs-lookup"><span data-stu-id="563b2-196">The entry is compressed using the default compression level of the underlying compression algorithm.</span></span> <span data-ttu-id="563b2-197">ごとに異なる圧縮レベルを指定する場合は、使用、<xref:System.IO.Compression.ZipArchive.CreateEntry%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="563b2-197">If you want to specify a different compression level, use the <xref:System.IO.Compression.ZipArchive.CreateEntry%2A> method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="563b2-198">次の例では、エントリを作成し、ストリームを使用して、書き込みにする方法を示します。</span><span class="sxs-lookup"><span data-stu-id="563b2-198">The following example shows how to create an entry and write to it by using a stream.</span></span>  
+  
+ [!code-csharp[System.IO.Compression.ZipArchiveMode#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.io.compression.ziparchivemode/cs/program1.cs#1)]
+ [!code-vb[System.IO.Compression.ZipArchiveMode#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.io.compression.ziparchivemode/vb/program1.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="563b2-199">
+            <paramref name="entryName" /> は <see cref="F:System.String.Empty" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-199">
+              <paramref name="entryName" /> is <see cref="F:System.String.Empty" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="563b2-200">
+            <paramref name="entryName" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-200">
+              <paramref name="entryName" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="563b2-201">zip アーカイブは書き込みをサポートしません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-201">The zip archive does not support writing.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="563b2-202">zip アーカイブが破棄されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-202">The zip archive has been disposed.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateEntry">
+      <MemberSignature Language="C#" Value="public System.IO.Compression.ZipArchiveEntry CreateEntry (string entryName, System.IO.Compression.CompressionLevel compressionLevel);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.IO.Compression.ZipArchiveEntry CreateEntry(string entryName, valuetype System.IO.Compression.CompressionLevel compressionLevel) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Compression.ZipArchive.CreateEntry(System.String,System.IO.Compression.CompressionLevel)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::IO::Compression::ZipArchiveEntry ^ CreateEntry(System::String ^ entryName, System::IO::Compression::CompressionLevel compressionLevel);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IO.Compression.ZipArchiveEntry</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="entryName" Type="System.String" />
+        <Parameter Name="compressionLevel" Type="System.IO.Compression.CompressionLevel" />
+      </Parameters>
+      <Docs>
+        <param name="entryName">
+          <span data-ttu-id="563b2-203">作成されるエントリの名前を指定する、アーカイブのルートを基準とするパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-203">A path, relative to the root of the archive, that specifies the name of the entry to be created.</span>
+          </span>
+        </param>
+        <param name="compressionLevel">
+          <span data-ttu-id="563b2-204">エントリの作成時に速度または圧縮の有効性を強調するかどうかを示す列挙値の 1 つ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-204">One of the enumeration values that indicates whether to emphasize speed or compression effectiveness when creating the entry.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="563b2-205">指定したエントリ名と圧縮レベルを持つ空のエントリを zip アーカイブに作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-205">Creates an empty entry that has the specified entry name and compression level in the zip archive.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="563b2-206">zip アーカイブ内の空のエントリ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-206">An empty entry in the zip archive.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-207">`entryName`文字列は、zip アーカイブ内に作成するエントリの相対パスを反映する必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-207">The `entryName` string should reflect the relative path of the entry you want to create within the zip archive.</span></span> <span data-ttu-id="563b2-208">指定した文字列に制限はありません。</span><span class="sxs-lookup"><span data-stu-id="563b2-208">There is no restriction on the string you provide.</span></span> <span data-ttu-id="563b2-209">ただし、相対パスとしてフォーマットされていない場合、エントリが作成されると、zip アーカイブのコンテンツを抽出するときに例外を取得することがあります。</span><span class="sxs-lookup"><span data-stu-id="563b2-209">However, if it is not formatted as a relative path, the entry is created, but you may get an exception when you extract the contents of the zip archive.</span></span> <span data-ttu-id="563b2-210">アーカイブに指定した名前のエントリが既に存在する場合は、同じ名前の 2 番目のエントリが作成されます。</span><span class="sxs-lookup"><span data-stu-id="563b2-210">If an entry with the specified name already exists in the archive, a second entry is created with the same name.</span></span>  
+  
+ <span data-ttu-id="563b2-211">値、<xref:System.IO.Compression.ZipArchiveEntry.LastWriteTime%2A>新しいエントリのプロパティが現在の時刻に設定します。</span><span class="sxs-lookup"><span data-stu-id="563b2-211">The value of the <xref:System.IO.Compression.ZipArchiveEntry.LastWriteTime%2A> property for the new entry is set to the current time.</span></span> <span data-ttu-id="563b2-212">設定、`compressionLevel`パラメーターを<xref:System.IO.Compression.CompressionLevel.Optimal>する場合、ファイルを圧縮するに可能な限りです。</span><span class="sxs-lookup"><span data-stu-id="563b2-212">Set the `compressionLevel` parameter to <xref:System.IO.Compression.CompressionLevel.Optimal> if you want the file to be compressed as much as possible.</span></span> <span data-ttu-id="563b2-213">設定、`compressionLevel`パラメーターを<xref:System.IO.Compression.CompressionLevel.Fastest>こと、圧縮操作を完了できません十分に速いシナリオでは、問題がある場合のみです。</span><span class="sxs-lookup"><span data-stu-id="563b2-213">Set the `compressionLevel` parameter to <xref:System.IO.Compression.CompressionLevel.Fastest> only if you are concerned that the compression operation will not complete quickly enough for your scenario.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="563b2-214">次の例では、最適な圧縮レベルを持つエントリを作成する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="563b2-214">The following example shows how to create an entry with the optimal compression level.</span></span> <span data-ttu-id="563b2-215">これも、ストリームを使用して、新しいエントリを書き込みます。</span><span class="sxs-lookup"><span data-stu-id="563b2-215">It also writes to the new entry by using a stream.</span></span>  
+  
+ [!code-csharp[System.IO.Compression.ZipArchiveMode#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.io.compression.ziparchivemode/cs/program2.cs#2)]
+ [!code-vb[System.IO.Compression.ZipArchiveMode#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.io.compression.ziparchivemode/vb/program2.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="563b2-216">
+            <paramref name="entryName" /> は <see cref="F:System.String.Empty" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-216">
+              <paramref name="entryName" /> is <see cref="F:System.String.Empty" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="563b2-217">
+            <paramref name="entryName" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-217">
+              <paramref name="entryName" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="563b2-218">zip アーカイブは書き込みをサポートしません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-218">The zip archive does not support writing.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="563b2-219">zip アーカイブが破棄されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-219">The zip archive has been disposed.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Dispose">
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="563b2-220">この <see cref="T:System.IO.Compression.ZipArchive" /> オブジェクトによって使用されているすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-220">Releases all resources used by the <see cref="T:System.IO.Compression.ZipArchive" /> object.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="public void Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Compression.ZipArchive.Dispose" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Dispose ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Dispose();" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.IDisposable.Dispose</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="563b2-221">
+            <see cref="T:System.IO.Compression.ZipArchive" /> クラスの現在のインスタンスによって使用されているリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-221">Releases the resources used by the current instance of the <see cref="T:System.IO.Compression.ZipArchive" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-222">このメソッドは、アーカイブの書き込みが完了しで使用されるすべてのリソースを解放、<xref:System.IO.Compression.ZipArchive>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="563b2-222">This method finishes writing the archive and releases all resources used by the <xref:System.IO.Compression.ZipArchive> object.</span></span> <span data-ttu-id="563b2-223">使用してオブジェクトを構築する場合を除き、<xref:System.IO.Compression.ZipArchive.%23ctor%28System.IO.Stream%2CSystem.IO.Compression.ZipArchiveMode%2CSystem.Boolean%29>コンス トラクター オーバー ロードとセットの`leaveOpen`パラメーターを`true`、すべての基になるストリームが閉じていて、それ以降の書き込み操作で使用できなくします。</span><span class="sxs-lookup"><span data-stu-id="563b2-223">Unless you construct the object by using the <xref:System.IO.Compression.ZipArchive.%23ctor%28System.IO.Stream%2CSystem.IO.Compression.ZipArchiveMode%2CSystem.Boolean%29> constructor overload and set its `leaveOpen` parameter to `true`, all underlying streams are closed and no longer available for subsequent write operations.</span></span>  
+  
+ <span data-ttu-id="563b2-224">このインスタンスの使用が終了したときに<xref:System.IO.Compression.ZipArchive>、呼び出す<xref:System.IO.Compression.ZipArchive.Dispose>をこのインスタンスによって使用されているすべてのリソースを解放します。</span><span class="sxs-lookup"><span data-stu-id="563b2-224">When you are finished using this instance of <xref:System.IO.Compression.ZipArchive>, call <xref:System.IO.Compression.ZipArchive.Dispose> to release all resources used by this instance.</span></span> <span data-ttu-id="563b2-225">これをさらに参照を削除する必要があります<xref:System.IO.Compression.ZipArchive>インスタンスのガベージ コレクターが終了処理の履歴に保持することではなく、インスタンスのメモリを再利用できるようにします。</span><span class="sxs-lookup"><span data-stu-id="563b2-225">You should eliminate further references to this <xref:System.IO.Compression.ZipArchive> instance so that the garbage collector can reclaim the memory of the instance instead of keeping it alive for finalization.</span></span>  
+  
+ <span data-ttu-id="563b2-226"><xref:System.IO.Compression.ZipArchive.Dispose> 呼び出し、<xref:System.IO.Compression.ZipArchive.Dispose%28System.Boolean%29>メソッドで、マネージ コードとアンマネージ リソースを解放するコードが含まれています。</span><span class="sxs-lookup"><span data-stu-id="563b2-226"><xref:System.IO.Compression.ZipArchive.Dispose> calls the <xref:System.IO.Compression.ZipArchive.Dispose%28System.Boolean%29> method, which contains the code to release managed and unmanaged resources.</span></span> <span data-ttu-id="563b2-227">詳細については、次を参照してください。</span><span class="sxs-lookup"><span data-stu-id="563b2-227">For more information, see .</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected virtual void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Compression.ZipArchive.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">
+          <span data-ttu-id="563b2-228">アーカイブの書き込みを終了し、アンマネージ リソースとマネージ リソースを解放する場合は <see langword="true" />。アンマネージ リソースだけを解放する場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-228">
+              <see langword="true" /> to finish writing the archive and release unmanaged and managed resources; <see langword="false" /> to release only unmanaged resources.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="563b2-229">
+            <see cref="M:System.IO.Compression.ZipArchive.Dispose" /> クラスの現在のインスタンスによって使用されるアンマネージ リソースを解放するために、<see cref="M:System.Object.Finalize" /> メソッドと <see cref="T:System.IO.Compression.ZipArchive" /> メソッドによって呼び出されます。オプションで、アーカイブの書き込みを終了し、マネージ リソースを解放できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-229">Called by the <see cref="M:System.IO.Compression.ZipArchive.Dispose" /> and <see cref="M:System.Object.Finalize" /> methods to release the unmanaged resources used by the current instance of the <see cref="T:System.IO.Compression.ZipArchive" /> class, and optionally finishes writing the archive and releases the managed resources.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-230">場合`disposing`に設定されている`true`を使用してオブジェクトを構築する場合を除き、すべての基になるストリームが閉じていて、それ以降の書き込み操作では使用できなく、<xref:System.IO.Compression.ZipArchive.%23ctor%28System.IO.Stream%2CSystem.IO.Compression.ZipArchiveMode%2CSystem.Boolean%29>コンス トラクター オーバー ロードとその`leaveOpen`パラメーターを`true`です。</span><span class="sxs-lookup"><span data-stu-id="563b2-230">If `disposing` is set to `true`, all underlying streams are closed and no longer available for subsequent write operations, unless you construct the object by using the <xref:System.IO.Compression.ZipArchive.%23ctor%28System.IO.Stream%2CSystem.IO.Compression.ZipArchiveMode%2CSystem.Boolean%29> constructor overload and set its `leaveOpen` parameter to `true`.</span></span>  
+  
+ <span data-ttu-id="563b2-231">このメソッドは、パブリックによってのみ呼び出さ<xref:System.IO.Compression.ZipArchive.Dispose>と<xref:System.Object.Finalize>メソッドです。 このメソッドを直接呼び出さないでください。</span><span class="sxs-lookup"><span data-stu-id="563b2-231">This method is called only by the public <xref:System.IO.Compression.ZipArchive.Dispose> and <xref:System.Object.Finalize> methods; do not call this method directly.</span></span>  
+  
+ <span data-ttu-id="563b2-232">ブール型のパラメーター、dispose パターンを実装する場合、<xref:System.IO.Compression.ZipArchive.Dispose%28System.Boolean%29>メソッドを次のように使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="563b2-232">When you implement the dispose pattern, the Boolean parameter of the <xref:System.IO.Compression.ZipArchive.Dispose%28System.Boolean%29> method should be used as follows:</span></span>  
+  
+-   <span data-ttu-id="563b2-233"><xref:System.IO.Compression.ZipArchive.Dispose>現在のオブジェクトのメソッドを呼び出す必要があります<xref:System.IO.Compression.ZipArchive.Dispose%28System.Boolean%29>ブール型のパラメーターを設定した`true`マネージ コードとアンマネージ リソースを解放します。</span><span class="sxs-lookup"><span data-stu-id="563b2-233">The <xref:System.IO.Compression.ZipArchive.Dispose> method of the current object should call <xref:System.IO.Compression.ZipArchive.Dispose%28System.Boolean%29> with the Boolean parameter set to `true` to release both managed and unmanaged resources.</span></span>  
+  
+-   <span data-ttu-id="563b2-234"><xref:System.Object.Finalize>現在のオブジェクトのメソッドを呼び出す必要があります<xref:System.IO.Compression.ZipArchive.Dispose%28System.Boolean%29>ブール型のパラメーターを設定した`false`アンマネージ リソースだけを解放します。</span><span class="sxs-lookup"><span data-stu-id="563b2-234">The <xref:System.Object.Finalize> method of the current object should call <xref:System.IO.Compression.ZipArchive.Dispose%28System.Boolean%29> with the Boolean parameter set to `false` to release only unmanaged resources.</span></span>  
+  
+ <span data-ttu-id="563b2-235">詳細については、次を参照してください。</span><span class="sxs-lookup"><span data-stu-id="563b2-235">For more information, see .</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Entries">
+      <MemberSignature Language="C#" Value="public System.Collections.ObjectModel.ReadOnlyCollection&lt;System.IO.Compression.ZipArchiveEntry&gt; Entries { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.ObjectModel.ReadOnlyCollection`1&lt;class System.IO.Compression.ZipArchiveEntry&gt; Entries" />
+      <MemberSignature Language="DocId" Value="P:System.IO.Compression.ZipArchive.Entries" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Entries As ReadOnlyCollection(Of ZipArchiveEntry)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Collections::ObjectModel::ReadOnlyCollection&lt;System::IO::Compression::ZipArchiveEntry ^&gt; ^ Entries { System::Collections::ObjectModel::ReadOnlyCollection&lt;System::IO::Compression::ZipArchiveEntry ^&gt; ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.ObjectModel.ReadOnlyCollection&lt;System.IO.Compression.ZipArchiveEntry&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="563b2-236">現在 zip アーカイブ内にあるエントリのコレクションを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-236">Gets the collection of entries that are currently in the zip archive.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="563b2-237">現在 zip アーカイブ内にあるエントリのコレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-237">The collection of entries that are currently in the zip archive.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-238">使用して、<xref:System.IO.Compression.ZipArchive.Entries%2A>エントリのコレクション全体を取得するプロパティです。</span><span class="sxs-lookup"><span data-stu-id="563b2-238">Use the <xref:System.IO.Compression.ZipArchive.Entries%2A> property to retrieve the entire collection of entries.</span></span> <span data-ttu-id="563b2-239">使用して、<xref:System.IO.Compression.ZipArchive.GetEntry%2A>を名前で 1 つのエントリを取得する方法です。</span><span class="sxs-lookup"><span data-stu-id="563b2-239">Use the <xref:System.IO.Compression.ZipArchive.GetEntry%2A> method to retrieve a single entry by name.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="563b2-240">次の例では、zip アーカイブを開き、エントリのコレクションを反復処理する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="563b2-240">The following example shows how to open a zip archive and iterate through the collection of entries.</span></span>  
+  
+ [!code-csharp[System.IO.Compression.ZipArchive#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.io.compression.ziparchive/cs/program1.cs#1)]
+ [!code-vb[System.IO.Compression.ZipArchive#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.io.compression.ziparchive/vb/program1.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="563b2-241">zip アーカイブは読み取りをサポートしません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-241">The zip archive does not support reading.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="563b2-242">zip アーカイブが破棄されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-242">The zip archive has been disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.InvalidDataException">
+          <span data-ttu-id="563b2-243">zip アーカイブが破損しているため、エントリを取得できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-243">The zip archive is corrupt, and its entries cannot be retrieved.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetEntry">
+      <MemberSignature Language="C#" Value="public System.IO.Compression.ZipArchiveEntry GetEntry (string entryName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.IO.Compression.ZipArchiveEntry GetEntry(string entryName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Compression.ZipArchive.GetEntry(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetEntry (entryName As String) As ZipArchiveEntry" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::IO::Compression::ZipArchiveEntry ^ GetEntry(System::String ^ entryName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IO.Compression.ZipArchiveEntry</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="entryName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="entryName">
+          <span data-ttu-id="563b2-244">取得するエントリを識別する、アーカイブのルートを基準とするパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-244">A path, relative to the root of the archive, that identifies the entry to retrieve.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="563b2-245">zip アーカイブ内の指定したエントリのラッパーを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-245">Retrieves a wrapper for the specified entry in the zip archive.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="563b2-246">アーカイブ内の指定されたエントリのラッパー。エントリがアーカイブに存在しない場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-246">A wrapper for the specified entry in the archive; <see langword="null" /> if the entry does not exist in the archive.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-247">指定した名前を持つ複数のエントリは、アーカイブに存在する場合は、最初の 1 つが返されます。</span><span class="sxs-lookup"><span data-stu-id="563b2-247">If multiple entries that have the specified name exist in the archive, the first one is returned.</span></span> <span data-ttu-id="563b2-248">エントリの名前と比較されます`entryName`序数に基づく比較を使用します。</span><span class="sxs-lookup"><span data-stu-id="563b2-248">The name of the entry is compared to `entryName` using ordinal comparison.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="563b2-249">次の例を使用する方法を示しています、<xref:System.IO.Compression.ZipArchive.GetEntry%2A>エントリを取得します。</span><span class="sxs-lookup"><span data-stu-id="563b2-249">The following example shows how to use the <xref:System.IO.Compression.ZipArchive.GetEntry%2A> method to retrieve an entry.</span></span>  
+  
+ [!code-csharp[System.IO.Compression.ZipArchiveEntry#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.io.compression.ziparchiveentry/cs/program2.cs#2)]
+ [!code-vb[System.IO.Compression.ZipArchiveEntry#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.io.compression.ziparchiveentry/vb/program2.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="563b2-250">
+            <paramref name="entryName" /> は <see cref="F:System.String.Empty" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-250">
+              <paramref name="entryName" /> is <see cref="F:System.String.Empty" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="563b2-251">
+            <paramref name="entryName" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-251">
+              <paramref name="entryName" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="563b2-252">zip アーカイブは読み取りをサポートしません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-252">The zip archive does not support reading.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="563b2-253">zip アーカイブが破棄されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-253">The zip archive has been disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.InvalidDataException">
+          <span data-ttu-id="563b2-254">zip アーカイブが破損しているため、エントリを取得できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-254">The zip archive is corrupt, and its entries cannot be retrieved.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Mode">
+      <MemberSignature Language="C#" Value="public System.IO.Compression.ZipArchiveMode Mode { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.IO.Compression.ZipArchiveMode Mode" />
+      <MemberSignature Language="DocId" Value="P:System.IO.Compression.ZipArchive.Mode" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Mode As ZipArchiveMode" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::IO::Compression::ZipArchiveMode Mode { System::IO::Compression::ZipArchiveMode get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Compression</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IO.Compression.ZipArchiveMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="563b2-255">zip アーカイブがエントリで実行できる操作の種類を示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-255">Gets a value that describes the type of action the zip archive can perform on entries.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="563b2-256">zip のアーカイブがエントリ上で実行できる操作の種類 (読み込み、作成、または更新) を示す列挙値の 1 つ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="563b2-256">One of the enumeration values that describes the type of action (read, create, or update) the zip archive can perform on entries.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="563b2-257">値を指定する、<xref:System.IO.Compression.ZipArchive>プロパティのインスタンスを作成するときに、<xref:System.IO.Compression.ZipArchive>クラスです。</span><span class="sxs-lookup"><span data-stu-id="563b2-257">You specify a value for the <xref:System.IO.Compression.ZipArchive> property when you create an instance of the <xref:System.IO.Compression.ZipArchive> class.</span></span> <span data-ttu-id="563b2-258">使用して、<xref:System.IO.Compression.ZipArchive.%23ctor%28System.IO.Stream%2CSystem.IO.Compression.ZipArchiveMode%29>または<xref:System.IO.Compression.ZipArchive.%23ctor%28System.IO.Stream%2CSystem.IO.Compression.ZipArchiveMode%2CSystem.Boolean%29>の値を指定するコンス トラクター、<xref:System.IO.Compression.ZipArchive.Mode%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="563b2-258">Use the <xref:System.IO.Compression.ZipArchive.%23ctor%28System.IO.Stream%2CSystem.IO.Compression.ZipArchiveMode%29> or <xref:System.IO.Compression.ZipArchive.%23ctor%28System.IO.Stream%2CSystem.IO.Compression.ZipArchiveMode%2CSystem.Boolean%29> constructor to provide a value for the <xref:System.IO.Compression.ZipArchive.Mode%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

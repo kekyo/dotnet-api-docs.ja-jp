@@ -1,0 +1,2582 @@
+<Type Name="NetworkStream" FullName="System.Net.Sockets.NetworkStream">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="0f9b3287ea8eafb8d3d2d9f207429a0f3d86eb49" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class NetworkStream : System.IO.Stream" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit NetworkStream extends System.IO.Stream" />
+  <TypeSignature Language="DocId" Value="T:System.Net.Sockets.NetworkStream" />
+  <TypeSignature Language="VB.NET" Value="Public Class NetworkStream&#xA;Inherits Stream" />
+  <TypeSignature Language="C++ CLI" Value="public ref class NetworkStream : System::IO::Stream" />
+  <AssemblyInfo>
+    <AssemblyName>System.Net.Sockets</AssemblyName>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.IO.Stream</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="dfefa-101">ネットワーク アクセスの基になるデータ ストリームを提供します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="dfefa-101">Provides the underlying stream of data for network access.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-102"><xref:System.Net.Sockets.NetworkStream>クラス経由でデータを送受信するためのメソッドを提供<xref:System.Net.Sockets.SocketType.Stream>ブロッキング モード ソケットします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-102">The <xref:System.Net.Sockets.NetworkStream> class provides methods for sending and receiving data over <xref:System.Net.Sockets.SocketType.Stream> sockets in blocking mode.</span></span> <span data-ttu-id="dfefa-103">ブロックの詳細については非ブロッキング<xref:System.Net.Sockets.Socket>s」を参照してください[非同期クライアント ソケットの使用](~/docs/framework/network-programming/using-an-asynchronous-client-socket.md)です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-103">For more information about blocking versus nonblocking <xref:System.Net.Sockets.Socket>s, see [Using an Asynchronous Client Socket](~/docs/framework/network-programming/using-an-asynchronous-client-socket.md).</span></span> <span data-ttu-id="dfefa-104">使用することができます、<xref:System.Net.Sockets.NetworkStream>の両方の同期および非同期のデータ転送クラス。</span><span class="sxs-lookup"><span data-stu-id="dfefa-104">You can use the <xref:System.Net.Sockets.NetworkStream> class for both synchronous and asynchronous data transfer.</span></span> <span data-ttu-id="dfefa-105">同期と非同期通信の詳細については、次を参照してください。 [Sockets](~/docs/framework/network-programming/sockets.md)です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-105">For more information about synchronous and asynchronous communication, see [Sockets](~/docs/framework/network-programming/sockets.md).</span></span>  
+  
+ <span data-ttu-id="dfefa-106">作成する、 <xref:System.Net.Sockets.NetworkStream>、接続を提供する必要があります<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-106">To create a <xref:System.Net.Sockets.NetworkStream>, you must provide a connected <xref:System.Net.Sockets.Socket>.</span></span> <span data-ttu-id="dfefa-107">新機能を指定することも<xref:System.IO.FileAccess>権限、<xref:System.Net.Sockets.NetworkStream>経由で提供されているが<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-107">You can also specify what <xref:System.IO.FileAccess> permission the <xref:System.Net.Sockets.NetworkStream> has over the provided <xref:System.Net.Sockets.Socket>.</span></span> <span data-ttu-id="dfefa-108">既定では、終了、<xref:System.Net.Sockets.NetworkStream>が提供されているを閉じない<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-108">By default, closing the <xref:System.Net.Sockets.NetworkStream> does not close the provided <xref:System.Net.Sockets.Socket>.</span></span> <span data-ttu-id="dfefa-109">場合は、<xref:System.Net.Sockets.NetworkStream>を閉じる、提供されたアクセス許可が<xref:System.Net.Sockets.Socket>を指定する必要があります`true`の値を`ownsSocket`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="dfefa-109">If you want the <xref:System.Net.Sockets.NetworkStream> to have permission to close the provided <xref:System.Net.Sockets.Socket>, you must specify `true` for the value of the `ownsSocket` parameter.</span></span>  
+  
+ <span data-ttu-id="dfefa-110">使用して、<xref:System.Net.Sockets.NetworkStream.Write%2A>と<xref:System.Net.Sockets.NetworkStream.Read%2A>簡単な 1 つのメソッドが同期のブロッキング I/O をスレッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-110">Use the <xref:System.Net.Sockets.NetworkStream.Write%2A> and <xref:System.Net.Sockets.NetworkStream.Read%2A> methods for simple single thread synchronous blocking I/O.</span></span> <span data-ttu-id="dfefa-111">個別のスレッドを使用して、I/O を処理する場合は、使用を検討して、<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>と<xref:System.Net.Sockets.NetworkStream.EndWrite%2A>メソッド、または<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>と<xref:System.Net.Sockets.NetworkStream.EndRead%2A>の通信方法です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-111">If you want to process your I/O using separate threads, consider using the <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> and <xref:System.Net.Sockets.NetworkStream.EndWrite%2A> methods, or the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> and <xref:System.Net.Sockets.NetworkStream.EndRead%2A> methods for communication.</span></span>  
+  
+ <span data-ttu-id="dfefa-112"><xref:System.Net.Sockets.NetworkStream>ネットワークのデータ ストリームへのランダム アクセスをサポートしていません。</span><span class="sxs-lookup"><span data-stu-id="dfefa-112">The <xref:System.Net.Sockets.NetworkStream> does not support random access to the network data stream.</span></span> <span data-ttu-id="dfefa-113">値、 <xref:System.Net.Sockets.NetworkStream.CanSeek%2A> 、ストリームがシークをサポートしているかどうかを示す、プロパティは常に`false`以外の場合は読み取り、<xref:System.Net.Sockets.NetworkStream.Position%2A>プロパティを読み取り、<xref:System.Net.Sockets.NetworkStream.Length%2A>プロパティ、または通話、<xref:System.Net.Sockets.NetworkStream.Seek%2A>メソッドがスローされます、<xref:System.NotSupportedException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-113">The value of the <xref:System.Net.Sockets.NetworkStream.CanSeek%2A> property, which indicates whether the stream supports seeking, is always `false`; reading the <xref:System.Net.Sockets.NetworkStream.Position%2A> property, reading the <xref:System.Net.Sockets.NetworkStream.Length%2A> property, or calling the <xref:System.Net.Sockets.NetworkStream.Seek%2A> method will throw a <xref:System.NotSupportedException>.</span></span>  
+  
+ <span data-ttu-id="dfefa-114">読み取りし、書き込み操作は、のインスタンスで同時に実行することができます、<xref:System.Net.Sockets.NetworkStream>クラス同期の必要がない場合。</span><span class="sxs-lookup"><span data-stu-id="dfefa-114">Read and write operations can be performed simultaneously on an instance of the <xref:System.Net.Sockets.NetworkStream> class without the need for synchronization.</span></span> <span data-ttu-id="dfefa-115">書き込み操作のための 1 つの一意のスレッドと読み取り操作の 1 つの一意なスレッドがある限りは行われません間のインターフェイス間での読み取りと書き込みスレッドとは同期されませんが必要です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-115">As long as there is one unique thread for the write operations and one unique thread for the read operations, there will be no cross-interference between read and write threads and no synchronization is required.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-116">次のコード例を作成する方法を示しています、<xref:System.Net.Sockets.NetworkStream>接続から<xref:System.Net.Sockets.SocketType.Stream><xref:System.Net.Sockets.Socket>基本的な同期ブロッキング I/O を実行します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-116">The following code example demonstrates how to create a <xref:System.Net.Sockets.NetworkStream> from a connected <xref:System.Net.Sockets.SocketType.Stream><xref:System.Net.Sockets.Socket> and perform basic synchronous blocking I/O.</span></span>  
+  
+ [!code-cpp[NetworkStream_Synch_SendAndReceive#2](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CPP/source.cpp#2)]
+ [!code-csharp[NetworkStream_Synch_SendAndReceive#2](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CS/source.cs#2)]
+ [!code-vb[NetworkStream_Synch_SendAndReceive#2](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/VB/source.vb#2)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Net.Sockets.TcpClient" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-117">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> クラスの新しいインスタンスを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-117">Creates a new instance of the <see cref="T:System.Net.Sockets.NetworkStream" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public NetworkStream (System.Net.Sockets.Socket socket);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Net.Sockets.Socket socket) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.#ctor(System.Net.Sockets.Socket)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; NetworkStream(System::Net::Sockets::Socket ^ socket);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="socket" Type="System.Net.Sockets.Socket" />
+      </Parameters>
+      <Docs>
+        <param name="socket">
+          <span data-ttu-id="dfefa-118">
+            <see cref="T:System.Net.Sockets.Socket" /> がデータの送受信に使用する <see cref="T:System.Net.Sockets.NetworkStream" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-118">The <see cref="T:System.Net.Sockets.Socket" /> that the <see cref="T:System.Net.Sockets.NetworkStream" /> will use to send and receive data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-119">指定した <see cref="T:System.Net.Sockets.NetworkStream" /> の <see cref="T:System.Net.Sockets.Socket" /> クラスの新しいインスタンスを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-119">Creates a new instance of the <see cref="T:System.Net.Sockets.NetworkStream" /> class for the specified <see cref="T:System.Net.Sockets.Socket" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-120"><xref:System.Net.Sockets.NetworkStream>を指定された読み取り/書き込みアクセスで作成された<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-120">The <xref:System.Net.Sockets.NetworkStream> is created with read/write access to the specified <xref:System.Net.Sockets.Socket>.</span></span> <span data-ttu-id="dfefa-121"><xref:System.Net.Sockets.NetworkStream>が、基になるを所有していない<xref:System.Net.Sockets.Socket>を呼び出すので、<xref:System.Net.Sockets.NetworkStream.Close%2A>メソッドが閉じない、<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-121">The <xref:System.Net.Sockets.NetworkStream> does not own the underlying <xref:System.Net.Sockets.Socket>, so calling the <xref:System.Net.Sockets.NetworkStream.Close%2A> method does not close the <xref:System.Net.Sockets.Socket>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-122">次のコード例を作成する方法を示しています、<xref:System.Net.Sockets.NetworkStream>で、<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-122">The following code example illustrates how to create a <xref:System.Net.Sockets.NetworkStream> with a <xref:System.Net.Sockets.Socket>.</span></span>  
+  
+ [!code-cpp[NetworkStream_Synch_SendAndReceive#2](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CPP/source.cpp#2)]
+ [!code-csharp[NetworkStream_Synch_SendAndReceive#2](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CS/source.cs#2)]
+ [!code-vb[NetworkStream_Synch_SendAndReceive#2](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/VB/source.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="dfefa-123">
+            <paramref name="socket" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-123">The <paramref name="socket" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-124">
+            <paramref name="socket" /> パラメーターが接続されていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-124">The <paramref name="socket" /> parameter is not connected.</span>
+          </span>
+          <span data-ttu-id="dfefa-125">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-125">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-126">
+            <paramref name="socket" /> パラメーターの <see cref="P:System.Net.Sockets.Socket.SocketType" /> プロパティが <see cref="F:System.Net.Sockets.SocketType.Stream" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-126">The <see cref="P:System.Net.Sockets.Socket.SocketType" /> property of the <paramref name="socket" /> parameter is not <see cref="F:System.Net.Sockets.SocketType.Stream" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-127">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-127">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-128">
+            <paramref name="socket" /> パラメーターが非ブロック状態です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-128">The <paramref name="socket" /> parameter is in a nonblocking state.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Net.Sockets.NetworkStream.Close(System.Int32)" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public NetworkStream (System.Net.Sockets.Socket socket, bool ownsSocket);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Net.Sockets.Socket socket, bool ownsSocket) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.#ctor(System.Net.Sockets.Socket,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; NetworkStream(System::Net::Sockets::Socket ^ socket, bool ownsSocket);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="socket" Type="System.Net.Sockets.Socket" />
+        <Parameter Name="ownsSocket" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="socket">
+          <span data-ttu-id="dfefa-129">
+            <see cref="T:System.Net.Sockets.Socket" /> がデータの送受信に使用する <see cref="T:System.Net.Sockets.NetworkStream" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-129">The <see cref="T:System.Net.Sockets.Socket" /> that the <see cref="T:System.Net.Sockets.NetworkStream" /> will use to send and receive data.</span>
+          </span>
+        </param>
+        <param name="ownsSocket">
+          <span data-ttu-id="dfefa-130">
+            <see langword="true" /> に設定すると、<see cref="T:System.Net.Sockets.NetworkStream" /> が <see cref="T:System.Net.Sockets.Socket" /> の所有権を取得することを示します。それ以外の場合は <see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-130">Set to <see langword="true" /> to indicate that the <see cref="T:System.Net.Sockets.NetworkStream" /> will take ownership of the <see cref="T:System.Net.Sockets.Socket" />; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-131">指定した <see cref="T:System.Net.Sockets.NetworkStream" /> 所有権を使用して、指定した <see cref="T:System.Net.Sockets.Socket" /> の <see cref="T:System.Net.Sockets.Socket" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-131">Initializes a new instance of the <see cref="T:System.Net.Sockets.NetworkStream" /> class for the specified <see cref="T:System.Net.Sockets.Socket" /> with the specified <see cref="T:System.Net.Sockets.Socket" /> ownership.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-132"><xref:System.Net.Sockets.NetworkStream>を指定された読み取り/書き込みアクセスで作成された<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-132">The <xref:System.Net.Sockets.NetworkStream> is created with read/write access to the specified <xref:System.Net.Sockets.Socket>.</span></span> <span data-ttu-id="dfefa-133">場合の値`ownsSocket`パラメーターが`true`、<xref:System.Net.Sockets.NetworkStream>所有権を基になる<xref:System.Net.Sockets.Socket>を呼び出すと、<xref:System.Net.Sockets.NetworkStream.Close%2A>メソッドも閉じられます、基になる<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-133">If the value of `ownsSocket` parameter is `true`, the <xref:System.Net.Sockets.NetworkStream> takes ownership of the underlying <xref:System.Net.Sockets.Socket>, and calling the <xref:System.Net.Sockets.NetworkStream.Close%2A> method also closes the underlying <xref:System.Net.Sockets.Socket>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-134">次のコード例を作成、<xref:System.Net.Sockets.NetworkStream>の所有権を<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-134">The following code example creates a <xref:System.Net.Sockets.NetworkStream> with ownership of the <xref:System.Net.Sockets.Socket>.</span></span>  
+  
+ [!code-cpp[NetworkStream_Synch_SendAndReceive#2](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CPP/source.cpp#2)]
+ [!code-csharp[NetworkStream_Synch_SendAndReceive#2](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CS/source.cs#2)]
+ [!code-vb[NetworkStream_Synch_SendAndReceive#2](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/VB/source.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="dfefa-135">
+            <paramref name="socket" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-135">The <paramref name="socket" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-136">
+            <paramref name="socket" /> パラメーターが接続されていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-136">The <paramref name="socket" /> parameter is not connected.</span>
+          </span>
+          <span data-ttu-id="dfefa-137">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-137">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-138">
+            <paramref name="socket" /> パラメーターの <see cref="P:System.Net.Sockets.Socket.SocketType" /> プロパティの値が <see cref="F:System.Net.Sockets.SocketType.Stream" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-138">the value of the <see cref="P:System.Net.Sockets.Socket.SocketType" /> property of the <paramref name="socket" /> parameter is not <see cref="F:System.Net.Sockets.SocketType.Stream" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-139">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-139">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-140">
+            <paramref name="socket" /> パラメーターが非ブロック状態です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-140">the <paramref name="socket" /> parameter is in a nonblocking state.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Net.Sockets.NetworkStream.Close(System.Int32)" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public NetworkStream (System.Net.Sockets.Socket socket, System.IO.FileAccess access);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Net.Sockets.Socket socket, valuetype System.IO.FileAccess access) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.#ctor(System.Net.Sockets.Socket,System.IO.FileAccess)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; NetworkStream(System::Net::Sockets::Socket ^ socket, System::IO::FileAccess access);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="socket" Type="System.Net.Sockets.Socket" />
+        <Parameter Name="access" Type="System.IO.FileAccess" />
+      </Parameters>
+      <Docs>
+        <param name="socket">
+          <span data-ttu-id="dfefa-141">
+            <see cref="T:System.Net.Sockets.Socket" /> がデータの送受信に使用する <see cref="T:System.Net.Sockets.NetworkStream" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-141">The <see cref="T:System.Net.Sockets.Socket" /> that the <see cref="T:System.Net.Sockets.NetworkStream" /> will use to send and receive data.</span>
+          </span>
+        </param>
+        <param name="access">
+          <span data-ttu-id="dfefa-142">
+            <see cref="T:System.IO.FileAccess" /> 値のビットごとの組み合わせです。提供された <see cref="T:System.Net.Sockets.NetworkStream" /> に対する <see cref="T:System.Net.Sockets.Socket" /> に付与されているアクセス許可の種類を指定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-142">A bitwise combination of the <see cref="T:System.IO.FileAccess" /> values that specify the type of access given to the <see cref="T:System.Net.Sockets.NetworkStream" /> over the provided <see cref="T:System.Net.Sockets.Socket" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-143">指定したアクセス権を持つ、指定した <see cref="T:System.Net.Sockets.NetworkStream" /> の <see cref="T:System.Net.Sockets.Socket" /> クラスの新しいインスタンスを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-143">Creates a new instance of the <see cref="T:System.Net.Sockets.NetworkStream" /> class for the specified <see cref="T:System.Net.Sockets.Socket" /> with the specified access rights.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-144"><xref:System.Net.Sockets.NetworkStream>を指定した指定したアクセスで作成された<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-144">The <xref:System.Net.Sockets.NetworkStream> is created with the specified access to the specified <xref:System.Net.Sockets.Socket>.</span></span> <span data-ttu-id="dfefa-145">このコンス トラクターを持つ、<xref:System.Net.Sockets.NetworkStream>が、基になるを所有していない<xref:System.Net.Sockets.Socket>を呼び出すので、<xref:System.Net.Sockets.NetworkStream.Close%2A>メソッドは、基になるを閉じられません<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-145">With this constructor, the <xref:System.Net.Sockets.NetworkStream> does not own the underlying <xref:System.Net.Sockets.Socket>, so calling the <xref:System.Net.Sockets.NetworkStream.Close%2A> method does not close the underlying <xref:System.Net.Sockets.Socket>.</span></span>  
+  
+ <span data-ttu-id="dfefa-146">`access`パラメーター セット、<xref:System.Net.Sockets.NetworkStream.CanRead%2A>と<xref:System.Net.Sockets.NetworkStream.CanWrite%2A>のプロパティ、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-146">The `access` parameter sets the <xref:System.Net.Sockets.NetworkStream.CanRead%2A> and <xref:System.Net.Sockets.NetworkStream.CanWrite%2A> properties of the <xref:System.Net.Sockets.NetworkStream>.</span></span> <span data-ttu-id="dfefa-147">指定した場合<xref:System.IO.FileAccess.Write>、<xref:System.Net.Sockets.NetworkStream>への呼び出しにより、<xref:System.Net.Sockets.NetworkStream.Write%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-147">If you specify <xref:System.IO.FileAccess.Write>, then the <xref:System.Net.Sockets.NetworkStream> allows calls to the <xref:System.Net.Sockets.NetworkStream.Write%2A> method.</span></span> <span data-ttu-id="dfefa-148">指定した場合<xref:System.IO.FileAccess.Read>、<xref:System.Net.Sockets.NetworkStream>への呼び出しにより、<xref:System.Net.Sockets.NetworkStream.Read%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-148">If you specify <xref:System.IO.FileAccess.Read>, then the <xref:System.Net.Sockets.NetworkStream> allows calls to the <xref:System.Net.Sockets.NetworkStream.Read%2A> method.</span></span> <span data-ttu-id="dfefa-149">指定した場合<xref:System.IO.FileAccess.ReadWrite>、両方のメソッド呼び出しが許可されます。</span><span class="sxs-lookup"><span data-stu-id="dfefa-149">If you specify <xref:System.IO.FileAccess.ReadWrite>, both method calls are allowed.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-150">次のコード例を作成、<xref:System.Net.Sockets.NetworkStream>を読み書きする機能を<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-150">The following code example creates a <xref:System.Net.Sockets.NetworkStream> with the ability to read and write to the <xref:System.Net.Sockets.Socket>.</span></span>  
+  
+ [!code-cpp[NetworkStream_Async_SendAndReceive#1](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CPP/source.cpp#1)]
+ [!code-csharp[NetworkStream_Async_SendAndReceive#1](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CS/source.cs#1)]
+ [!code-vb[NetworkStream_Async_SendAndReceive#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="dfefa-151">
+            <paramref name="socket" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-151">The <paramref name="socket" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-152">
+            <paramref name="socket" /> パラメーターが接続されていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-152">The <paramref name="socket" /> parameter is not connected.</span>
+          </span>
+          <span data-ttu-id="dfefa-153">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-153">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-154">
+            <paramref name="socket" /> パラメーターの <see cref="P:System.Net.Sockets.Socket.SocketType" /> プロパティが <see cref="F:System.Net.Sockets.SocketType.Stream" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-154">the <see cref="P:System.Net.Sockets.Socket.SocketType" /> property of the <paramref name="socket" /> parameter is not <see cref="F:System.Net.Sockets.SocketType.Stream" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-155">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-155">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-156">
+            <paramref name="socket" /> パラメーターが非ブロック状態です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-156">the <paramref name="socket" /> parameter is in a nonblocking state.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.IO.FileAccess" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.CanRead" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.CanWrite" />
+        <altmember cref="M:System.Net.Sockets.NetworkStream.Read(System.Byte[],System.Int32,System.Int32)" />
+        <altmember cref="M:System.Net.Sockets.NetworkStream.Write(System.Byte[],System.Int32,System.Int32)" />
+        <altmember cref="M:System.Net.Sockets.NetworkStream.Close(System.Int32)" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public NetworkStream (System.Net.Sockets.Socket socket, System.IO.FileAccess access, bool ownsSocket);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Net.Sockets.Socket socket, valuetype System.IO.FileAccess access, bool ownsSocket) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.#ctor(System.Net.Sockets.Socket,System.IO.FileAccess,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; NetworkStream(System::Net::Sockets::Socket ^ socket, System::IO::FileAccess access, bool ownsSocket);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="socket" Type="System.Net.Sockets.Socket" />
+        <Parameter Name="access" Type="System.IO.FileAccess" />
+        <Parameter Name="ownsSocket" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="socket">
+          <span data-ttu-id="dfefa-157">
+            <see cref="T:System.Net.Sockets.Socket" /> がデータの送受信に使用する <see cref="T:System.Net.Sockets.NetworkStream" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-157">The <see cref="T:System.Net.Sockets.Socket" /> that the <see cref="T:System.Net.Sockets.NetworkStream" /> will use to send and receive data.</span>
+          </span>
+        </param>
+        <param name="access">
+          <span data-ttu-id="dfefa-158">
+            <see cref="T:System.IO.FileAccess" /> 値のビットごとの組み合わせです。提供された <see cref="T:System.Net.Sockets.NetworkStream" /> に対する <see cref="T:System.Net.Sockets.Socket" /> に付与されているアクセス許可の種類を指定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-158">A bitwise combination of the <see cref="T:System.IO.FileAccess" /> values that specifies the type of access given to the <see cref="T:System.Net.Sockets.NetworkStream" /> over the provided <see cref="T:System.Net.Sockets.Socket" />.</span>
+          </span>
+        </param>
+        <param name="ownsSocket">
+          <span data-ttu-id="dfefa-159">
+            <see langword="true" /> に設定すると、<see cref="T:System.Net.Sockets.NetworkStream" /> が <see cref="T:System.Net.Sockets.Socket" /> の所有権を取得することを示します。それ以外の場合は <see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-159">Set to <see langword="true" /> to indicate that the <see cref="T:System.Net.Sockets.NetworkStream" /> will take ownership of the <see cref="T:System.Net.Sockets.Socket" />; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-160">指定したアクセス権と指定した <see cref="T:System.Net.Sockets.NetworkStream" /> 所有権で、指定した <see cref="T:System.Net.Sockets.Socket" /> の <see cref="T:System.Net.Sockets.Socket" /> クラスの新しいインスタンスを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-160">Creates a new instance of the <see cref="T:System.Net.Sockets.NetworkStream" /> class for the specified <see cref="T:System.Net.Sockets.Socket" /> with the specified access rights and the specified <see cref="T:System.Net.Sockets.Socket" /> ownership.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-161"><xref:System.Net.Sockets.NetworkStream>を指定された読み取り/書き込みアクセスで作成された<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-161">The <xref:System.Net.Sockets.NetworkStream> is created with read/write access to the specified <xref:System.Net.Sockets.Socket>.</span></span> <span data-ttu-id="dfefa-162">場合の値、`ownsSocket`パラメーターが`true`、<xref:System.Net.Sockets.NetworkStream>所有権を基になる<xref:System.Net.Sockets.Socket>を呼び出すと、<xref:System.Net.Sockets.NetworkStream.Close%2A>メソッドも閉じられます、基になる<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-162">If the value of the `ownsSocket` parameter is `true`, the <xref:System.Net.Sockets.NetworkStream> takes ownership of the underlying <xref:System.Net.Sockets.Socket>, and calling the <xref:System.Net.Sockets.NetworkStream.Close%2A> method also closes the underlying <xref:System.Net.Sockets.Socket>.</span></span>  
+  
+ <span data-ttu-id="dfefa-163">`access`パラメーター セット、<xref:System.Net.Sockets.NetworkStream.CanRead%2A>と<xref:System.Net.Sockets.NetworkStream.CanWrite%2A>のプロパティ、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-163">The `access` parameter sets the <xref:System.Net.Sockets.NetworkStream.CanRead%2A> and <xref:System.Net.Sockets.NetworkStream.CanWrite%2A> properties of the <xref:System.Net.Sockets.NetworkStream>.</span></span> <span data-ttu-id="dfefa-164">指定した場合<xref:System.IO.FileAccess.Write>、<xref:System.Net.Sockets.NetworkStream>への呼び出しにより、<xref:System.Net.Sockets.NetworkStream.Write%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-164">If you specify <xref:System.IO.FileAccess.Write>, then the <xref:System.Net.Sockets.NetworkStream> allows calls to the <xref:System.Net.Sockets.NetworkStream.Write%2A> method.</span></span> <span data-ttu-id="dfefa-165">指定した場合<xref:System.IO.FileAccess.Read>、<xref:System.Net.Sockets.NetworkStream>への呼び出しにより、<xref:System.Net.Sockets.NetworkStream.Read%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-165">If you specify <xref:System.IO.FileAccess.Read>, then the <xref:System.Net.Sockets.NetworkStream> allows calls to the <xref:System.Net.Sockets.NetworkStream.Read%2A> method.</span></span> <span data-ttu-id="dfefa-166">指定した場合<xref:System.IO.FileAccess.ReadWrite>、両方のメソッド呼び出しが許可されます。</span><span class="sxs-lookup"><span data-stu-id="dfefa-166">If you specify <xref:System.IO.FileAccess.ReadWrite>, both method calls are allowed.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-167">次のコード例を作成、<xref:System.Net.Sockets.NetworkStream>を読み書きする機能を<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-167">The following code example creates a <xref:System.Net.Sockets.NetworkStream> with the ability to read and write to the <xref:System.Net.Sockets.Socket>.</span></span> <span data-ttu-id="dfefa-168">所有権、<xref:System.Net.Sockets.Socket>がこれに与えられます<xref:System.Net.Sockets.NetworkStream>を指定して`true`の`ownsSocket`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="dfefa-168">Ownership of the <xref:System.Net.Sockets.Socket> is given to this <xref:System.Net.Sockets.NetworkStream> by specifying `true` for the `ownsSocket` parameter.</span></span>  
+  
+ [!code-cpp[NetworkStream_Async_SendAndReceive#1](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CPP/source.cpp#1)]
+ [!code-csharp[NetworkStream_Async_SendAndReceive#1](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CS/source.cs#1)]
+ [!code-vb[NetworkStream_Async_SendAndReceive#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="dfefa-169">
+            <paramref name="socket" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-169">The <paramref name="socket" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-170">
+            <paramref name="socket" /> パラメーターが接続されていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-170">The <paramref name="socket" /> parameter is not connected.</span>
+          </span>
+          <span data-ttu-id="dfefa-171">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-171">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-172">
+            <paramref name="socket" /> パラメーターの <see cref="P:System.Net.Sockets.Socket.SocketType" /> プロパティが <see cref="F:System.Net.Sockets.SocketType.Stream" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-172">The <see cref="P:System.Net.Sockets.Socket.SocketType" /> property of the <paramref name="socket" /> parameter is not <see cref="F:System.Net.Sockets.SocketType.Stream" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-173">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-173">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-174">
+            <paramref name="socket" /> パラメーターが非ブロック状態です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-174">The <paramref name="socket" /> parameter is in a nonblocking state.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.IO.FileAccess" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.CanRead" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.CanWrite" />
+        <altmember cref="M:System.Net.Sockets.NetworkStream.Close(System.Int32)" />
+        <altmember cref="M:System.Net.Sockets.NetworkStream.Read(System.Byte[],System.Int32,System.Int32)" />
+        <altmember cref="M:System.Net.Sockets.NetworkStream.Write(System.Byte[],System.Int32,System.Int32)" />
+      </Docs>
+    </Member>
+    <Member MemberName="BeginRead">
+      <MemberSignature Language="C#" Value="public override IAsyncResult BeginRead (byte[] buffer, int offset, int size, AsyncCallback callback, object state);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.IAsyncResult BeginRead(unsigned int8[] buffer, int32 offset, int32 size, class System.AsyncCallback callback, object state) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function BeginRead (buffer As Byte(), offset As Integer, size As Integer, callback As AsyncCallback, state As Object) As IAsyncResult" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override IAsyncResult ^ BeginRead(cli::array &lt;System::Byte&gt; ^ buffer, int offset, int size, AsyncCallback ^ callback, System::Object ^ state);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IAsyncResult</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Byte[]" />
+        <Parameter Name="offset" Type="System.Int32" />
+        <Parameter Name="size" Type="System.Int32" />
+        <Parameter Name="callback" Type="System.AsyncCallback" />
+        <Parameter Name="state" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">
+          <span data-ttu-id="dfefa-175">
+            <see cref="T:System.Byte" /> 型の配列。<see cref="T:System.Net.Sockets.NetworkStream" /> から読み取られたデータを格納するメモリ内の場所です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-175">An array of type <see cref="T:System.Byte" /> that is the location in memory to store data read from the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </param>
+        <param name="offset">
+          <span data-ttu-id="dfefa-176">データの格納を開始する <c>buffer</c> 内の場所。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-176">The location in <c>buffer</c> to begin storing the data.</span>
+          </span>
+        </param>
+        <param name="size">
+          <span data-ttu-id="dfefa-177">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> から読み取るバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-177">The number of bytes to read from the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </param>
+        <param name="callback">
+          <span data-ttu-id="dfefa-178">
+            <see cref="T:System.AsyncCallback" /> の完了時に実行される <see cref="M:System.Net.Sockets.NetworkStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" /> デリゲート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-178">The <see cref="T:System.AsyncCallback" /> delegate that is executed when <see cref="M:System.Net.Sockets.NetworkStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" /> completes.</span>
+          </span>
+        </param>
+        <param name="state">
+          <span data-ttu-id="dfefa-179">追加のユーザー定義のデータを格納するオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-179">An object that contains any additional user-defined data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-180">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> からの非同期の読み取りを開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-180">Begins an asynchronous read from the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="dfefa-181">非同期呼び出しを表す <see cref="T:System.IAsyncResult" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-181">An <see cref="T:System.IAsyncResult" /> that represents the asynchronous call.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-182"><xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドが入力方向のネットワーク バッファーからデータを非同期的に読み取りを開始します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-182">The <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method starts asynchronously reading data from the incoming network buffers.</span></span> <span data-ttu-id="dfefa-183">呼び出す、<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドは、個別の実行スレッド内でデータを受信する機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-183">Calling the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method gives you the ability to receive data within a separate execution thread.</span></span>  
+  
+ <span data-ttu-id="dfefa-184">実装するコールバック メソッドを作成する必要があります、<xref:System.AsyncCallback>を委任し、その名前を渡す、<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-184">You must create a callback method that implements the <xref:System.AsyncCallback> delegate and pass its name to the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method.</span></span> <span data-ttu-id="dfefa-185">少なくとも、`state`パラメーターを含める必要があります、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-185">At the very minimum, your `state` parameter must contain the <xref:System.Net.Sockets.NetworkStream>.</span></span> <span data-ttu-id="dfefa-186">コールバック メソッド内で受信したデータを取得するための小さなクラスまたは読み取りバッファーおよびその他の有用な情報を保持する構造体を作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="dfefa-186">Because you will want to obtain the received data within your callback method, you should create a small class or structure to hold a read buffer and any other useful information.</span></span> <span data-ttu-id="dfefa-187">構造体またはクラス インスタンスを渡す、<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドによって、`state`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="dfefa-187">Pass the structure or class instance to the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method through the `state` parameter.</span></span>  
+  
+ <span data-ttu-id="dfefa-188">コールバック メソッドを呼び出す必要があります、<xref:System.Net.Sockets.NetworkStream.EndRead%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-188">Your callback method should call the <xref:System.Net.Sockets.NetworkStream.EndRead%2A> method.</span></span> <span data-ttu-id="dfefa-189">アプリケーションを呼び出すと<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>、まで、データが受信またはエラーが発生して、システムが指定されたコールバック メソッド、および ブロックの実行に別のスレッドを使用し、システムが待機<xref:System.Net.Sockets.NetworkStream.EndRead%2A>まで、提供された<xref:System.Net.Sockets.NetworkStream>データを読み取るか例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-189">When your application calls <xref:System.Net.Sockets.NetworkStream.BeginRead%2A>, the system will wait until data is received or an error occurs, and then the system will use a separate thread to execute the specified callback method, and blocks on <xref:System.Net.Sockets.NetworkStream.EndRead%2A> until the provided <xref:System.Net.Sockets.NetworkStream> reads data or throws an exception.</span></span> <span data-ttu-id="dfefa-190">場合は、元のスレッドをブロックを呼び出した後、<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドを使用して、<xref:System.Threading.WaitHandle.WaitOne%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-190">If you want the original thread to block after you call the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method, use the <xref:System.Threading.WaitHandle.WaitOne%2A> method.</span></span> <span data-ttu-id="dfefa-191">呼び出す<xref:System.Threading.EventWaitHandle.Set%2A>元のスレッドに実行を継続する場合は、コールバック メソッドにします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-191">Call <xref:System.Threading.EventWaitHandle.Set%2A> in the callback method when you want the original thread to continue executing.</span></span> <span data-ttu-id="dfefa-192">コールバック メソッドの記述に関する詳細については、次を参照してください。[コールバック メソッドとしてのデリゲートをマーシャ リング](~/docs/framework/interop/marshaling-a-delegate-as-a-callback-method.md)です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-192">For additional information about writing callback methods, see [Marshaling a Delegate as a Callback Method](~/docs/framework/interop/marshaling-a-delegate-as-a-callback-method.md).</span></span>  
+  
+ <span data-ttu-id="dfefa-193"><xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドで指定したバイトの数までの使用可能な限りデータを読み込みます、`size`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="dfefa-193">The <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method reads as much data as is available, up to the number of bytes specified by the `size` parameter.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-194">表示された場合、 <xref:System.IO.IOException>、確認、<xref:System.Exception.InnerException%2A>プロパティのかどうかが原因で、<xref:System.Net.Sockets.SocketException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-194">If you receive an <xref:System.IO.IOException>, check the <xref:System.Exception.InnerException%2A> property to determine if it was caused by a <xref:System.Net.Sockets.SocketException>.</span></span> <span data-ttu-id="dfefa-195">場合は、使用、<xref:System.Net.Sockets.SocketException.ErrorCode%2A>プロパティを特定のエラー コードを取得し、Windows ソケット バージョン 2 API エラー コードのドキュメントに MSDN でエラーの詳細についてを参照してください。</span><span class="sxs-lookup"><span data-stu-id="dfefa-195">If so, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A> property to obtain the specific error code, and refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.</span></span>  
+  
+ <span data-ttu-id="dfefa-196">読み取りし、書き込み操作は、のインスタンスで同時に実行することができます、<xref:System.Net.Sockets.NetworkStream>クラス同期の必要がない場合。</span><span class="sxs-lookup"><span data-stu-id="dfefa-196">Read and write operations can be performed simultaneously on an instance of the <xref:System.Net.Sockets.NetworkStream> class without the need for synchronization.</span></span> <span data-ttu-id="dfefa-197">書き込み操作のための 1 つの一意のスレッドと読み取り操作の 1 つの一意なスレッドがある限りは行われません間のインターフェイス間での読み取りと書き込みスレッドとは同期されませんが必要です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-197">As long as there is one unique thread for the write operations and one unique thread for the read operations, there will be no cross-interference between read and write threads and no synchronization is required.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-198">次のコード例では<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>をネットワーク ストリームから非同期的にデータを読み取る。</span><span class="sxs-lookup"><span data-stu-id="dfefa-198">The following code example uses <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> to read data asynchronously from the network stream.</span></span> <span data-ttu-id="dfefa-199">`myReadCallBack`メソッドを実装して、<xref:System.AsyncCallback>を委任し、システムによって呼び出されるときに<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>を返します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-199">The `myReadCallBack` method implements the <xref:System.AsyncCallback> delegate and is called by the system when <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> returns.</span></span>  
+  
+ [!code-cpp[NetworkStream_Async_SendAndReceive#3](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CPP/source.cpp#3)]
+ [!code-csharp[NetworkStream_Async_SendAndReceive#3](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CS/source.cs#3)]
+ [!code-vb[NetworkStream_Async_SendAndReceive#3](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/VB/source.vb#3)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="dfefa-200">
+            <paramref name="buffer" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-200">The <paramref name="buffer" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="dfefa-201">
+            <paramref name="offset" /> パラメーターが 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-201">The <paramref name="offset" /> parameter is less than 0.</span>
+          </span>
+          <span data-ttu-id="dfefa-202">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-202">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-203">
+            <paramref name="offset" /> パラメーターが <paramref name="buffer" /> パラメーターの長さを超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-203">The <paramref name="offset" /> parameter is greater than the length of the <paramref name="buffer" /> paramater.</span>
+          </span>
+          <span data-ttu-id="dfefa-204">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-204">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-205">
+            <paramref name="size" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-205">The <paramref name="size" /> is less than 0.</span>
+          </span>
+          <span data-ttu-id="dfefa-206">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-206">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-207">
+            <paramref name="size" /> が、<paramref name="buffer" /> パラメーターの値を引いた <paramref name="offset" /> の長さを超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-207">The <paramref name="size" /> is greater than the length of <paramref name="buffer" /> minus the value of the <paramref name="offset" /> parameter.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-208">基になっている <see cref="T:System.Net.Sockets.Socket" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-208">The underlying <see cref="T:System.Net.Sockets.Socket" /> is closed.</span>
+          </span>
+          <span data-ttu-id="dfefa-209">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-209">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-210">ネットワークからの読み取り中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-210">There was a failure while reading from the network.</span>
+          </span>
+          <span data-ttu-id="dfefa-211">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-211">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-212">ソケットへのアクセス中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-212">An error occurred when accessing the socket.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="dfefa-213">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-213">The <see cref="T:System.Net.Sockets.NetworkStream" /> is closed.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Net.Sockets.NetworkStream.EndRead(System.IAsyncResult)" />
+      </Docs>
+    </Member>
+    <Member MemberName="BeginWrite">
+      <MemberSignature Language="C#" Value="public override IAsyncResult BeginWrite (byte[] buffer, int offset, int size, AsyncCallback callback, object state);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.IAsyncResult BeginWrite(unsigned int8[] buffer, int32 offset, int32 size, class System.AsyncCallback callback, object state) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function BeginWrite (buffer As Byte(), offset As Integer, size As Integer, callback As AsyncCallback, state As Object) As IAsyncResult" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override IAsyncResult ^ BeginWrite(cli::array &lt;System::Byte&gt; ^ buffer, int offset, int size, AsyncCallback ^ callback, System::Object ^ state);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IAsyncResult</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Byte[]" />
+        <Parameter Name="offset" Type="System.Int32" />
+        <Parameter Name="size" Type="System.Int32" />
+        <Parameter Name="callback" Type="System.AsyncCallback" />
+        <Parameter Name="state" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">
+          <span data-ttu-id="dfefa-214">
+            <see cref="T:System.Byte" /> に書き込むデータを格納する <see cref="T:System.Net.Sockets.NetworkStream" /> 型の配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-214">An array of type <see cref="T:System.Byte" /> that contains the data to write to the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </param>
+        <param name="offset">
+          <span data-ttu-id="dfefa-215">データの送信を開始する <c>buffer</c> 内の場所。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-215">The location in <c>buffer</c> to begin sending the data.</span>
+          </span>
+        </param>
+        <param name="size">
+          <span data-ttu-id="dfefa-216">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> に書き込むバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-216">The number of bytes to write to the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </param>
+        <param name="callback">
+          <span data-ttu-id="dfefa-217">
+            <see cref="T:System.AsyncCallback" /> の完了時に実行される <see cref="M:System.Net.Sockets.NetworkStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" /> デリゲート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-217">The <see cref="T:System.AsyncCallback" /> delegate that is executed when <see cref="M:System.Net.Sockets.NetworkStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" /> completes.</span>
+          </span>
+        </param>
+        <param name="state">
+          <span data-ttu-id="dfefa-218">追加のユーザー定義のデータを格納するオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-218">An object that contains any additional user-defined data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-219">ストリームへの非同期の書き込みを開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-219">Begins an asynchronous write to a stream.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="dfefa-220">非同期呼び出しを表す <see cref="T:System.IAsyncResult" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-220">An <see cref="T:System.IAsyncResult" /> that represents the asynchronous call.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-221"><xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>メソッドがリモート ホストへの非同期送信操作を開始します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-221">The <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> method starts an asynchronous send operation to the remote host.</span></span> <span data-ttu-id="dfefa-222">呼び出す、<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>メソッドは、個別の実行スレッド内でデータを送信する機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-222">Calling the <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> method gives you the ability to send data within a separate execution thread.</span></span>  
+  
+ <span data-ttu-id="dfefa-223">実装するコールバック メソッドを作成する必要があります、<xref:System.AsyncCallback>を委任し、その名前を渡す、<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-223">You must create a callback method that implements the <xref:System.AsyncCallback> delegate and pass its name to the <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> method.</span></span> <span data-ttu-id="dfefa-224">少なくとも、`state`パラメーターを含める必要があります、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-224">At the very minimum, your `state` parameter must contain the <xref:System.Net.Sockets.NetworkStream>.</span></span> <span data-ttu-id="dfefa-225">コールバックは、詳細を必要とする場合は、小さなクラスまたは構造体を作成することができます、<xref:System.Net.Sockets.NetworkStream>およびその他の必要な情報です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-225">If your callback needs more information, you can create a small class or structure to hold the <xref:System.Net.Sockets.NetworkStream> and the other required information.</span></span> <span data-ttu-id="dfefa-226">構造体またはクラス インスタンスを渡す、<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>メソッドによって、`state`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="dfefa-226">Pass the structure or class instance to the <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> method through the `state` parameter.</span></span>  
+  
+ <span data-ttu-id="dfefa-227">コールバック メソッドを実装する必要があります、<xref:System.Net.Sockets.NetworkStream.EndWrite%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-227">Your callback method should implement the <xref:System.Net.Sockets.NetworkStream.EndWrite%2A> method.</span></span> <span data-ttu-id="dfefa-228">アプリケーションを呼び出すと<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>、システムを別のスレッドを使用して、指定されたコールバック メソッドを実行してでブロック<xref:System.Net.Sockets.NetworkStream.EndWrite%2A>まで、<xref:System.Net.Sockets.NetworkStream>を要求したバイト数を送信または例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-228">When your application calls <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>, the system uses a separate thread to execute the specified callback method, and blocks on <xref:System.Net.Sockets.NetworkStream.EndWrite%2A> until the <xref:System.Net.Sockets.NetworkStream> sends the number of bytes requested or throws an exception.</span></span> <span data-ttu-id="dfefa-229">場合は、元のスレッドをブロックを呼び出した後、<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>メソッドを使用して、<xref:System.Threading.WaitHandle.WaitOne%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-229">If you want the original thread to block after you call the <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> method, use the <xref:System.Threading.WaitHandle.WaitOne%2A> method.</span></span> <span data-ttu-id="dfefa-230">呼び出す<xref:System.Threading.EventWaitHandle.Set%2A>元のスレッドに実行を継続する場合は、コールバック メソッドにします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-230">Call <xref:System.Threading.EventWaitHandle.Set%2A> in the callback method when you want the original thread to continue executing.</span></span> <span data-ttu-id="dfefa-231">コールバック メソッドの記述に関する詳細については、次を参照してください。[コールバック メソッドとしてのデリゲートをマーシャ リング](~/docs/framework/interop/marshaling-a-delegate-as-a-callback-method.md)です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-231">For additional information about writing callback methods, see [Marshaling a Delegate as a Callback Method](~/docs/framework/interop/marshaling-a-delegate-as-a-callback-method.md).</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-232">表示された場合、 <xref:System.IO.IOException>、確認、<xref:System.Exception.InnerException%2A>プロパティのかどうかが原因で、<xref:System.Net.Sockets.SocketException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-232">If you receive an <xref:System.IO.IOException>, check the <xref:System.Exception.InnerException%2A> property to determine if it was caused by a <xref:System.Net.Sockets.SocketException>.</span></span> <span data-ttu-id="dfefa-233">場合は、使用、<xref:System.Net.Sockets.SocketException.ErrorCode%2A>プロパティを特定のエラー コードを取得し、Windows ソケット バージョン 2 API エラー コードのドキュメントに MSDN でエラーの詳細についてを参照してください。</span><span class="sxs-lookup"><span data-stu-id="dfefa-233">If so, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A> property to obtain the specific error code, and refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.</span></span>  
+  
+ <span data-ttu-id="dfefa-234">読み取りし、書き込み操作は、のインスタンスで同時に実行することができます、<xref:System.Net.Sockets.NetworkStream>クラス同期の必要がない場合。</span><span class="sxs-lookup"><span data-stu-id="dfefa-234">Read and write operations can be performed simultaneously on an instance of the <xref:System.Net.Sockets.NetworkStream> class without the need for synchronization.</span></span> <span data-ttu-id="dfefa-235">書き込み操作のための 1 つの一意のスレッドと読み取り操作の 1 つの一意なスレッドがある限りは行われません間のインターフェイス間での読み取りと書き込みスレッドとは同期されませんが必要です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-235">As long as there is one unique thread for the write operations and one unique thread for the read operations, there will be no cross-interference between read and write threads and no synchronization is required.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-236">次のコード例では<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>ネットワーク ストリームに非同期的にデータを書き込む。</span><span class="sxs-lookup"><span data-stu-id="dfefa-236">The following code example uses <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> to write data asynchronously to a network stream.</span></span> <span data-ttu-id="dfefa-237">`myWriteCallBack`メソッドを実装して、<xref:System.AsyncCallback>を委任し、システムによって呼び出されるときに<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>を返します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-237">The `myWriteCallBack` method implements the <xref:System.AsyncCallback> delegate and is called by the system when <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> returns.</span></span>  
+  
+ [!code-cpp[NetworkStream_Async_SendAndReceive#2](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CPP/source.cpp#2)]
+ [!code-csharp[NetworkStream_Async_SendAndReceive#2](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CS/source.cs#2)]
+ [!code-vb[NetworkStream_Async_SendAndReceive#2](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/VB/source.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="dfefa-238">
+            <paramref name="buffer" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-238">The <paramref name="buffer" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="dfefa-239">
+            <paramref name="offset" /> パラメーターが 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-239">The <paramref name="offset" /> parameter is less than 0.</span>
+          </span>
+          <span data-ttu-id="dfefa-240">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-240">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-241">
+            <paramref name="offset" /> パラメーターが <paramref name="buffer" /> の長さを超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-241">The <paramref name="offset" /> parameter is greater than the length of <paramref name="buffer" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-242">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-242">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-243">
+            <paramref name="size" /> パラメーターが 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-243">The <paramref name="size" /> parameter is less than 0.</span>
+          </span>
+          <span data-ttu-id="dfefa-244">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-244">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-245">
+            <paramref name="size" /> パラメーターが、<paramref name="buffer" /> パラメーターの値を引いた <paramref name="offset" /> の長さを超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-245">The <paramref name="size" /> parameter is greater than the length of <paramref name="buffer" /> minus the value of the <paramref name="offset" /> parameter.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-246">基になっている <see cref="T:System.Net.Sockets.Socket" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-246">The underlying <see cref="T:System.Net.Sockets.Socket" /> is closed.</span>
+          </span>
+          <span data-ttu-id="dfefa-247">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-247">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-248">ネットワークへの書き込み中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-248">There was a failure while writing to the network.</span>
+          </span>
+          <span data-ttu-id="dfefa-249">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-249">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-250">ソケットへのアクセス中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-250">An error occurred when accessing the socket.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="dfefa-251">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-251">The <see cref="T:System.Net.Sockets.NetworkStream" /> is closed.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Net.Sockets.NetworkStream.EndWrite(System.IAsyncResult)" />
+      </Docs>
+    </Member>
+    <Member MemberName="CanRead">
+      <MemberSignature Language="C#" Value="public override bool CanRead { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool CanRead" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.CanRead" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property CanRead As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property bool CanRead { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-252">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が読み取りをサポートしているかどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-252">Gets a value that indicates whether the <see cref="T:System.Net.Sockets.NetworkStream" /> supports reading.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-253">ストリームからデータを読み取ることができる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-253">
+              <see langword="true" /> if data can be read from the stream; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-254">既定値は <see langword="true" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-254">The default value is <see langword="true" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-255">場合<xref:System.Net.Sockets.NetworkStream.CanRead%2A>は`true`、<xref:System.Net.Sockets.NetworkStream>への呼び出しにより、<xref:System.Net.Sockets.NetworkStream.Read%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-255">If <xref:System.Net.Sockets.NetworkStream.CanRead%2A> is `true`, <xref:System.Net.Sockets.NetworkStream> allows calls to the <xref:System.Net.Sockets.NetworkStream.Read%2A> method.</span></span> <span data-ttu-id="dfefa-256">適切な提供<xref:System.IO.FileAccess>読みやすさとの書き込みの許可を設定するコンス トラクター内の値を列挙、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-256">Provide the appropriate <xref:System.IO.FileAccess> enumerated value in the constructor to set the readability and writability of the <xref:System.Net.Sockets.NetworkStream>.</span></span> <span data-ttu-id="dfefa-257"><xref:System.Net.Sockets.NetworkStream.CanRead%2A>場合、プロパティが設定、<xref:System.Net.Sockets.NetworkStream>が初期化されています。</span><span class="sxs-lookup"><span data-stu-id="dfefa-257">The <xref:System.Net.Sockets.NetworkStream.CanRead%2A> property is set when the <xref:System.Net.Sockets.NetworkStream> is initialized.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-258">次のコード例のチェック<xref:System.Net.Sockets.NetworkStream.CanRead%2A>ことを確認する、<xref:System.Net.Sockets.NetworkStream>を読み取ることができます。</span><span class="sxs-lookup"><span data-stu-id="dfefa-258">The following code example checks <xref:System.Net.Sockets.NetworkStream.CanRead%2A> to verify that the <xref:System.Net.Sockets.NetworkStream> is readable.</span></span> <span data-ttu-id="dfefa-259">読み取り操作を実行し、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-259">It then performs a read operation on the <xref:System.Net.Sockets.NetworkStream>.</span></span>  
+  
+ [!code-cpp[NetworkStream_Synch_SendAndReceive#4](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CPP/source.cpp#4)]
+ [!code-csharp[NetworkStream_Synch_SendAndReceive#4](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CS/source.cs#4)]
+ [!code-vb[NetworkStream_Synch_SendAndReceive#4](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/VB/source.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Net.Sockets.NetworkStream.Readable" />
+        <altmember cref="T:System.IO.FileAccess" />
+      </Docs>
+    </Member>
+    <Member MemberName="CanSeek">
+      <MemberSignature Language="C#" Value="public override bool CanSeek { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool CanSeek" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.CanSeek" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property CanSeek As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property bool CanSeek { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-260">ストリームがシークをサポートしているかどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-260">Gets a value that indicates whether the stream supports seeking.</span>
+          </span>
+          <span data-ttu-id="dfefa-261">このプロパティは現在サポートされていません。このプロパティは常に <see langword="false" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-261">This property is not currently supported.This property always returns <see langword="false" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-262">常に、<see cref="T:System.Net.Sockets.NetworkStream" /> がストリームの特定の場所をシークできないことを示す <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-262">
+              <see langword="false" /> in all cases to indicate that <see cref="T:System.Net.Sockets.NetworkStream" /> cannot seek a specific location in the stream.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CanTimeout">
+      <MemberSignature Language="C#" Value="public override bool CanTimeout { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool CanTimeout" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.CanTimeout" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property CanTimeout As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property bool CanTimeout { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-263">タイムアウトのプロパティが <see cref="T:System.Net.Sockets.NetworkStream" /> で使用可能かどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-263">Indicates whether timeout properties are usable for <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-264">常に <see langword="true" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-264">
+              <see langword="true" /> in all cases.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-265">継承されているために、このプロパティは存在<xref:System.IO.Stream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-265">This property is present because it is inherited from <xref:System.IO.Stream>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CanWrite">
+      <MemberSignature Language="C#" Value="public override bool CanWrite { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool CanWrite" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.CanWrite" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property CanWrite As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property bool CanWrite { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-266">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が書き込みをサポートしているかどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-266">Gets a value that indicates whether the <see cref="T:System.Net.Sockets.NetworkStream" /> supports writing.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-267">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> にデータを書き込むことができる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-267">
+              <see langword="true" /> if data can be written to the <see cref="T:System.Net.Sockets.NetworkStream" />; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-268">既定値は <see langword="true" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-268">The default value is <see langword="true" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-269">場合<xref:System.Net.Sockets.NetworkStream.CanWrite%2A>は`true`、<xref:System.Net.Sockets.NetworkStream>への呼び出しにより、<xref:System.Net.Sockets.NetworkStream.Write%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-269">If <xref:System.Net.Sockets.NetworkStream.CanWrite%2A> is `true`, <xref:System.Net.Sockets.NetworkStream> allows calls to the <xref:System.Net.Sockets.NetworkStream.Write%2A> method.</span></span> <span data-ttu-id="dfefa-270">適切な提供<xref:System.IO.FileAccess>読みやすさとの書き込みの許可を設定するコンス トラクター内の値を列挙、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-270">Provide the appropriate <xref:System.IO.FileAccess> enumerated value in the constructor to set the readability and writability of the <xref:System.Net.Sockets.NetworkStream>.</span></span> <span data-ttu-id="dfefa-271"><xref:System.Net.Sockets.NetworkStream.CanWrite%2A>場合、プロパティが設定、<xref:System.Net.Sockets.NetworkStream>が初期化されています。</span><span class="sxs-lookup"><span data-stu-id="dfefa-271">The <xref:System.Net.Sockets.NetworkStream.CanWrite%2A> property is set when the <xref:System.Net.Sockets.NetworkStream> is initialized.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-272">次のコード例のチェック<xref:System.Net.Sockets.NetworkStream.CanWrite%2A>ことを確認する、<xref:System.Net.Sockets.NetworkStream>が書き込み可能です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-272">The following code example checks <xref:System.Net.Sockets.NetworkStream.CanWrite%2A> to verify that the <xref:System.Net.Sockets.NetworkStream> is writable.</span></span> <span data-ttu-id="dfefa-273">書き込み操作を実行し、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-273">It then performs a write operation on the <xref:System.Net.Sockets.NetworkStream>.</span></span>  
+  
+ [!code-cpp[NetworkStream_Synch_SendAndReceive#3](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CPP/source.cpp#3)]
+ [!code-csharp[NetworkStream_Synch_SendAndReceive#3](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CS/source.cs#3)]
+ [!code-vb[NetworkStream_Synch_SendAndReceive#3](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/VB/source.vb#3)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Net.Sockets.NetworkStream.Writeable" />
+        <altmember cref="T:System.IO.FileAccess" />
+      </Docs>
+    </Member>
+    <Member MemberName="Close">
+      <MemberSignature Language="C#" Value="public void Close (int timeout);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Close(int32 timeout) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.Close(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Close (timeout As Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Close(int timeout);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="timeout" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="timeout">
+          <span data-ttu-id="dfefa-274">閉じる前に、残りのデータを送信するために待機するミリ秒数を指定する 32 ビット符号付き整数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-274">A 32-bit signed integer that specifies the number of milliseconds to wait to send any remaining data before closing.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-275">指定した時間待機した後、<see cref="T:System.Net.Sockets.NetworkStream" /> を閉じて、データを送信できるようにします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-275">Closes the <see cref="T:System.Net.Sockets.NetworkStream" /> after waiting the specified time to allow data to be sent.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-276"><xref:System.Net.Sockets.NetworkStream.Close%2A>メソッドに関連付けられているアンマネージ コードとマネージの両方のリソースを解放、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-276">The <xref:System.Net.Sockets.NetworkStream.Close%2A> method frees both unmanaged and managed resources associated with the <xref:System.Net.Sockets.NetworkStream>.</span></span> <span data-ttu-id="dfefa-277">場合、 <xref:System.Net.Sockets.NetworkStream> 、基になるを所有している<xref:System.Net.Sockets.Socket>、閉じられているとします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-277">If the <xref:System.Net.Sockets.NetworkStream> owns the underlying <xref:System.Net.Sockets.Socket>, it is closed as well.</span></span>  
+  
+ <span data-ttu-id="dfefa-278">場合、<xref:System.Net.Sockets.NetworkStream>が関連付けられて、 <xref:System.Net.Sockets.TcpClient>、<xref:System.Net.Sockets.NetworkStream.Close%2A>メソッドは、TCP 接続を閉じますが、関連する置換<xref:System.Net.Sockets.TcpClient>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-278">If a <xref:System.Net.Sockets.NetworkStream> was associated with a <xref:System.Net.Sockets.TcpClient>, the <xref:System.Net.Sockets.NetworkStream.Close%2A> method will close the TCP connection, but not dispose of the associated <xref:System.Net.Sockets.TcpClient>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="dfefa-279">
+            <paramref name="timeout" /> パラメーターが -1 未満。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-279">The <paramref name="timeout" /> parameter is less than -1.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="DataAvailable">
+      <MemberSignature Language="C#" Value="public virtual bool DataAvailable { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool DataAvailable" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.DataAvailable" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable ReadOnly Property DataAvailable As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property bool DataAvailable { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-280">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> に読み取り対象のデータがあるかどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-280">Gets a value that indicates whether data is available on the <see cref="T:System.Net.Sockets.NetworkStream" /> to be read.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-281">ストリームからデータを読み取ることができる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-281">
+              <see langword="true" /> if data is available on the stream to be read; otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-282">使用して、<xref:System.Net.Sockets.NetworkStream.DataAvailable%2A>プロパティ データが読み取ることができるかを判断します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-282">Use the <xref:System.Net.Sockets.NetworkStream.DataAvailable%2A> property to determine if data is ready to be read.</span></span> <span data-ttu-id="dfefa-283">場合<xref:System.Net.Sockets.NetworkStream.DataAvailable%2A>は`true`への呼び出し<xref:System.Net.Sockets.NetworkStream.Read%2A>が直ちに返されます。</span><span class="sxs-lookup"><span data-stu-id="dfefa-283">If <xref:System.Net.Sockets.NetworkStream.DataAvailable%2A> is `true`, a call to <xref:System.Net.Sockets.NetworkStream.Read%2A> returns immediately.</span></span> <span data-ttu-id="dfefa-284">リモート ホストがシャット ダウン、または、接続を閉じる場合<xref:System.Net.Sockets.NetworkStream.DataAvailable%2A>スローする可能性があります、<xref:System.Net.Sockets.SocketException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-284">If the remote host shuts down or closes the connection, <xref:System.Net.Sockets.NetworkStream.DataAvailable%2A> may throw a <xref:System.Net.Sockets.SocketException>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-285">次のコード例を読み取り、<xref:System.Net.Sockets.NetworkStream>データが使用可能な限り、します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-285">The following code example reads from the <xref:System.Net.Sockets.NetworkStream> as long as data is available.</span></span>  
+  
+ [!code-cpp[NetworkStream_Synch_SendAndReceive#4](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CPP/source.cpp#4)]
+ [!code-csharp[NetworkStream_Synch_SendAndReceive#4](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CS/source.cs#4)]
+ [!code-vb[NetworkStream_Synch_SendAndReceive#4](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/VB/source.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="dfefa-286">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-286">The <see cref="T:System.Net.Sockets.NetworkStream" /> is closed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-287">基になっている <see cref="T:System.Net.Sockets.Socket" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-287">The underlying <see cref="T:System.Net.Sockets.Socket" /> is closed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Net.Sockets.SocketException">
+          <span data-ttu-id="dfefa-288">
+            <see cref="P:System.Net.Sockets.SocketException.ErrorCode" /> プロパティを使用して特定のエラー コードを取得してください。エラーの詳細については、MSDN で Windows Socket Version 2 API のエラー コードのドキュメントを参照してください。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-288">Use the <see cref="P:System.Net.Sockets.SocketException.ErrorCode" /> property to obtain the specific error code, and refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Net.Sockets.NetworkStream.Read(System.Byte[],System.Int32,System.Int32)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected override void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">
+          <span data-ttu-id="dfefa-289">マネージ リソースとアンマネージ リソースの両方を解放する場合は <see langword="true" />。アンマネージ リソースだけを解放する場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-289">
+              <see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-290">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> によって使用されているアンマネージ リソースを解放し、オプションでマネージ リソースも解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-290">Releases the unmanaged resources used by the <see cref="T:System.Net.Sockets.NetworkStream" /> and optionally releases the managed resources.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-291">このメソッドは、パブリック`Dispose`メソッドおよび<xref:System.Object.Finalize%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-291">This method is called by the public `Dispose` method and the <xref:System.Object.Finalize%2A> method.</span></span> <span data-ttu-id="dfefa-292">`Dispose` プロテクト呼び出します`Dispose(Boolean)`メソッドを`disposing`パラメーターに設定`true`です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-292">`Dispose` invokes the protected `Dispose(Boolean)` method with the `disposing` parameter set to `true`.</span></span> <span data-ttu-id="dfefa-293"><xref:System.Object.Finalize%2A> 呼び出す`Dispose`で`disposing`'éý'`false`です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-293"><xref:System.Object.Finalize%2A> invokes `Dispose` with `disposing` set to `false`.</span></span>  
+  
+ <span data-ttu-id="dfefa-294">`disposing` パラメーターが `true` の場合、このメソッドは、この <xref:System.Net.Sockets.NetworkStream> が参照しているすべてのマネージ オブジェクトによって保持されているリソースをすべて解放します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-294">When the `disposing` parameter is `true`, this method releases all resources held by any managed objects that this <xref:System.Net.Sockets.NetworkStream> references.</span></span> <span data-ttu-id="dfefa-295">このメソッドは、参照される各オブジェクトの `Dispose` メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-295">This method invokes the `Dispose` method of each referenced object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="dfefa-296">
+              <see langword="Dispose" /> は、他のオブジェクトから複数回呼び出すことができます。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="dfefa-296">
+                <see langword="Dispose" /> can be called multiple times by other objects.</span>
+            </span>
+            <span data-ttu-id="dfefa-297">
+              <see langword="Dispose(Boolean)" /> をオーバーライドする場合は、以前に <see langword="Dispose" /> を呼び出したときに破棄されたオブジェクトを参照しないように注意する必要があります。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="dfefa-297">When overriding <see langword="Dispose(Boolean)" />, be careful not to reference objects that have been previously disposed of in an earlier call to <see langword="Dispose" />.</span>
+            </span>
+            <span data-ttu-id="dfefa-298">実装する方法の詳細についての<see langword="Dispose(Boolean)" />を参照してください[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="dfefa-298">For more information about how to implement <see langword="Dispose(Boolean)" />, see [Implementing a Dispose Method](~/docs/standard/garbage-collection/implementing-dispose.md).</span>
+            </span>
+            <span data-ttu-id="dfefa-299">詳細については<see langword="Dispose" />と<see cref="M:System.Object.Finalize" />を参照してください[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)と[Finalize メソッドをオーバーライドする](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="dfefa-299">For more information about <see langword="Dispose" /> and <see cref="M:System.Object.Finalize" />, see [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md) and [Overriding the Finalize Method](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="EndRead">
+      <MemberSignature Language="C#" Value="public override int EndRead (IAsyncResult asyncResult);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 EndRead(class System.IAsyncResult asyncResult) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.EndRead(System.IAsyncResult)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function EndRead (asyncResult As IAsyncResult) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int EndRead(IAsyncResult ^ asyncResult);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="asyncResult" Type="System.IAsyncResult" />
+      </Parameters>
+      <Docs>
+        <param name="asyncResult">
+          <span data-ttu-id="dfefa-300">非同期呼び出しを表す <see cref="T:System.IAsyncResult" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-300">An <see cref="T:System.IAsyncResult" /> that represents an asynchronous call.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-301">非同期読み取りの終了を処理します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-301">Handles the end of an asynchronous read.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="dfefa-302">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> から読み取るバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-302">The number of bytes read from the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-303"><xref:System.Net.Sockets.NetworkStream.EndRead%2A>メソッドで開始された非同期の読み取り操作が完了すると、<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-303">The <xref:System.Net.Sockets.NetworkStream.EndRead%2A> method completes the asynchronous read operation started in the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method.</span></span>  
+  
+ <span data-ttu-id="dfefa-304">呼び出しの前に<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>を実装するコールバック メソッドを作成する必要があります、<xref:System.AsyncCallback>を委任します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-304">Before calling <xref:System.Net.Sockets.NetworkStream.BeginRead%2A>, you need to create a callback method that implements the <xref:System.AsyncCallback> delegate.</span></span> <span data-ttu-id="dfefa-305">このコールバック メソッドが別のスレッドで実行され、後にシステムによって呼び出される<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>を返します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-305">This callback method executes in a separate thread and is called by the system after <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> returns.</span></span> <span data-ttu-id="dfefa-306">コールバック メソッドに同意する必要があります、<xref:System.IAsyncResult>から返される、<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドのパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="dfefa-306">The callback method must accept the <xref:System.IAsyncResult> returned from the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method as a parameter.</span></span>  
+  
+ <span data-ttu-id="dfefa-307">コールバック メソッド内で、<xref:System.IAsyncResult.AsyncState%2A>のプロパティ、<xref:System.IAsyncResult>に渡される状態オブジェクトを取得する、<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-307">Within the callback method, call the <xref:System.IAsyncResult.AsyncState%2A> property of the <xref:System.IAsyncResult> to obtain the state object passed to the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method.</span></span> <span data-ttu-id="dfefa-308">受信側の抽出<xref:System.Net.Sockets.NetworkStream>この状態オブジェクトから。</span><span class="sxs-lookup"><span data-stu-id="dfefa-308">Extract the receiving <xref:System.Net.Sockets.NetworkStream> from this state object.</span></span> <span data-ttu-id="dfefa-309">取得した後に、 <xref:System.Net.Sockets.NetworkStream>、呼び出し、<xref:System.Net.Sockets.NetworkStream.EndRead%2A>メソッドを正常に読み取り操作を完了して、読み取られたバイト数を返します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-309">After obtaining the <xref:System.Net.Sockets.NetworkStream>, call the <xref:System.Net.Sockets.NetworkStream.EndRead%2A> method to successfully complete the read operation and return the number of bytes read.</span></span>  
+  
+ <span data-ttu-id="dfefa-310"><xref:System.Net.Sockets.NetworkStream.EndRead%2A>メソッドはデータがあるまでブロックします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-310">The <xref:System.Net.Sockets.NetworkStream.EndRead%2A> method blocks until data is available.</span></span> <span data-ttu-id="dfefa-311"><xref:System.Net.Sockets.NetworkStream.EndRead%2A>メソッドで指定されたバイトの数まで使用量のデータの読み取り、`size`のパラメーター、<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-311">The <xref:System.Net.Sockets.NetworkStream.EndRead%2A> method reads as much data as is available up to the number of bytes specified in the `size` parameter of the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method.</span></span> <span data-ttu-id="dfefa-312">リモート ホストがシャット ダウンした場合、<xref:System.Net.Sockets.Socket>接続と使用可能なすべてのデータを受信、<xref:System.Net.Sockets.NetworkStream.EndRead%2A>メソッドをすぐに完了し、0 バイトを返します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-312">If the remote host shuts down the <xref:System.Net.Sockets.Socket> connection and all available data has been received, the <xref:System.Net.Sockets.NetworkStream.EndRead%2A> method completes immediately and returns zero bytes.</span></span>  
+  
+ <span data-ttu-id="dfefa-313">受信したデータを取得する呼び出し、<xref:System.IAsyncResult.AsyncState%2A>のプロパティ、 <xref:System.IAsyncResult>、し、結果の状態オブジェクトに含まれているバッファーを抽出します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-313">To obtain the received data, call the <xref:System.IAsyncResult.AsyncState%2A> property of the <xref:System.IAsyncResult>, and extract the buffer contained in the resulting state object.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-314">表示された場合、 <xref:System.IO.IOException>、確認、<xref:System.Exception.InnerException%2A>プロパティのかどうかが原因で、<xref:System.Net.Sockets.SocketException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-314">If you receive an <xref:System.IO.IOException>, check the <xref:System.Exception.InnerException%2A> property to determine if it was caused by a <xref:System.Net.Sockets.SocketException>.</span></span> <span data-ttu-id="dfefa-315">場合は、使用、<xref:System.Net.Sockets.SocketException.ErrorCode%2A>プロパティを特定のエラー コードを取得し、Windows ソケット バージョン 2 API エラー コードのドキュメントに MSDN でエラーの詳細についてを参照してください。</span><span class="sxs-lookup"><span data-stu-id="dfefa-315">If so, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A> property to obtain the specific error code, and refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-316">次のコード例で`myReadCallback`に提供される<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>コールバック メソッドとして。</span><span class="sxs-lookup"><span data-stu-id="dfefa-316">In the following code example, `myReadCallback` is provided to <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> as the callback method.</span></span> <span data-ttu-id="dfefa-317"><xref:System.Net.Sockets.NetworkStream.EndRead%2A> 実装されて`myReadCallback`を非同期の完了によって開始された呼び出しを読み取る<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-317"><xref:System.Net.Sockets.NetworkStream.EndRead%2A> is implemented in `myReadCallback` to complete the asynchronous read call started by <xref:System.Net.Sockets.NetworkStream.BeginRead%2A>.</span></span>  
+  
+ [!code-cpp[NetworkStream_Async_SendAndReceive#5](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CPP/source.cpp#5)]
+ [!code-csharp[NetworkStream_Async_SendAndReceive#5](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CS/source.cs#5)]
+ [!code-vb[NetworkStream_Async_SendAndReceive#5](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/VB/source.vb#5)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="dfefa-318">
+            <paramref name="asyncResult" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-318">The <paramref name="asyncResult" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-319">基になっている <see cref="T:System.Net.Sockets.Socket" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-319">The underlying <see cref="T:System.Net.Sockets.Socket" /> is closed.</span>
+          </span>
+          <span data-ttu-id="dfefa-320">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-320">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-321">ソケットへのアクセス中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-321">An error occurred when accessing the socket.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="dfefa-322">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-322">The <see cref="T:System.Net.Sockets.NetworkStream" /> is closed.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Net.Sockets.NetworkStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" />
+      </Docs>
+    </Member>
+    <Member MemberName="EndWrite">
+      <MemberSignature Language="C#" Value="public override void EndWrite (IAsyncResult asyncResult);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void EndWrite(class System.IAsyncResult asyncResult) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.EndWrite(System.IAsyncResult)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub EndWrite (asyncResult As IAsyncResult)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void EndWrite(IAsyncResult ^ asyncResult);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="asyncResult" Type="System.IAsyncResult" />
+      </Parameters>
+      <Docs>
+        <param name="asyncResult">
+          <span data-ttu-id="dfefa-323">非同期呼び出しを表す <see cref="T:System.IAsyncResult" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-323">The <see cref="T:System.IAsyncResult" /> that represents the asynchronous call.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-324">非同期書き込みの終了を処理します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-324">Handles the end of an asynchronous write.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-325"><xref:System.Net.Sockets.NetworkStream.EndWrite%2A> 開始された非同期送信操作が完了した<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-325"><xref:System.Net.Sockets.NetworkStream.EndWrite%2A> completes the asynchronous send operation started in <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>.</span></span>  
+  
+ <span data-ttu-id="dfefa-326">呼び出しの前に<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>を実装するコールバック メソッドを作成する必要があります、<xref:System.AsyncCallback>を委任します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-326">Before calling <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>, you need to create a callback method that implements the <xref:System.AsyncCallback> delegate.</span></span> <span data-ttu-id="dfefa-327">このコールバック メソッドが別のスレッドで実行され、後にシステムによって呼び出される<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>を返します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-327">This callback method executes in a separate thread and is called by the system after <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> returns.</span></span> <span data-ttu-id="dfefa-328">コールバック メソッドに同意する必要があります、<xref:System.IAsyncResult>から返される、<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>メソッドのパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="dfefa-328">The callback method must accept the <xref:System.IAsyncResult> returned from the <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> method as a parameter.</span></span>  
+  
+ <span data-ttu-id="dfefa-329">コールバック メソッド内で、<xref:System.IAsyncResult.AsyncState%2A>のプロパティ、`IAsyncResult`を取得するパラメーター、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-329">Within the callback method, call the <xref:System.IAsyncResult.AsyncState%2A> property of the `IAsyncResult` parameter to obtain the <xref:System.Net.Sockets.NetworkStream>.</span></span> <span data-ttu-id="dfefa-330">取得した後に、 <xref:System.Net.Sockets.NetworkStream>、呼び出すことができます、<xref:System.Net.Sockets.NetworkStream.EndWrite%2A>を正常に送信操作を完了し、送信されたバイト数を返すメソッド。</span><span class="sxs-lookup"><span data-stu-id="dfefa-330">After obtaining the <xref:System.Net.Sockets.NetworkStream>, you can call the <xref:System.Net.Sockets.NetworkStream.EndWrite%2A> method to successfully complete the send operation and return the number of bytes sent.</span></span>  
+  
+ <span data-ttu-id="dfefa-331"><xref:System.Net.Sockets.NetworkStream.EndWrite%2A>メソッド、要求されたバイト数を送信するまでブロックします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-331">The <xref:System.Net.Sockets.NetworkStream.EndWrite%2A> method blocks until the requested number of bytes are sent.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-332">表示された場合、 <xref:System.IO.IOException>、確認、<xref:System.Exception.InnerException%2A>プロパティのかどうかが原因で、<xref:System.Net.Sockets.SocketException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-332">If you receive an <xref:System.IO.IOException>, check the <xref:System.Exception.InnerException%2A> property to determine if it was caused by a <xref:System.Net.Sockets.SocketException>.</span></span> <span data-ttu-id="dfefa-333">場合は、使用、<xref:System.Net.Sockets.SocketException.ErrorCode%2A>プロパティを特定のエラー コードを取得し、Windows ソケット バージョン 2 API エラー コードのドキュメントに MSDN でエラーの詳細についてを参照してください。</span><span class="sxs-lookup"><span data-stu-id="dfefa-333">If so, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A> property to obtain the specific error code, and refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-334">次のコード例で`myWriteCallback`に提供される<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>コールバック メソッドとして。</span><span class="sxs-lookup"><span data-stu-id="dfefa-334">In the following code example, `myWriteCallback` is provided to <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> as the callback method.</span></span> <span data-ttu-id="dfefa-335"><xref:System.Net.Sockets.NetworkStream.EndWrite%2A> 実装されて`myWriteCallback`によって開始された非同期の書き込み呼び出しを完了する<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-335"><xref:System.Net.Sockets.NetworkStream.EndWrite%2A> is implemented in `myWriteCallback` to complete the asynchronous write call started by <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>.</span></span>  
+  
+ [!code-cpp[NetworkStream_Async_SendAndReceive#4](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CPP/source.cpp#4)]
+ [!code-csharp[NetworkStream_Async_SendAndReceive#4](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/CS/source.cs#4)]
+ [!code-vb[NetworkStream_Async_SendAndReceive#4](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Async_SendAndReceive/VB/source.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="dfefa-336">
+            <paramref name="asyncResult" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-336">The <paramref name="asyncResult" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-337">基になっている <see cref="T:System.Net.Sockets.Socket" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-337">The underlying <see cref="T:System.Net.Sockets.Socket" /> is closed.</span>
+          </span>
+          <span data-ttu-id="dfefa-338">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-338">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-339">ネットワークへの書き込み中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-339">An error occurred while writing to the network.</span>
+          </span>
+          <span data-ttu-id="dfefa-340">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-340">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-341">ソケットへのアクセス中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-341">An error occurred when accessing the socket.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="dfefa-342">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-342">The <see cref="T:System.Net.Sockets.NetworkStream" /> is closed.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Net.Sockets.NetworkStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Finalize">
+      <MemberSignature Language="C#" Value="~NetworkStream ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Finalize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.Finalize" />
+      <MemberSignature Language="VB.NET" Value="Finalize ()" />
+      <MemberSignature Language="C++ CLI" Value="!NetworkStream ()" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-343">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> によって使用されているすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-343">Releases all resources used by the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-344">このメソッドは、<xref:System.Object.Finalize%2A?displayProperty=nameWithType> をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-344">This method overrides <xref:System.Object.Finalize%2A?displayProperty=nameWithType>.</span></span> <span data-ttu-id="dfefa-345">アプリケーション コードではこのメソッドを呼び出す必要がありますいません。オブジェクトの<xref:System.Object.Finalize%2A>への呼び出しによって、ガベージ コレクターによって終了処理が無効になっていない限り、ガベージ コレクション中にメソッドが自動的に起動、<xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-345">Application code should not call this method; an object's <xref:System.Object.Finalize%2A> method is automatically invoked during garbage collection, unless finalization by the garbage collector has been disabled by a call to the <xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ <span data-ttu-id="dfefa-346">詳細については、Finalize メソッドを使用して、次を参照してください。 [Finalize メソッドおよびデストラクター](http://msdn.microsoft.com/library/fd376774-1643-499b-869e-9546a3aeea70)、[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)、および[Finalize メソッドをオーバーライドする](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3)です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-346">For more information about using the Finalize method, see [Finalize Methods and Destructors](http://msdn.microsoft.com/library/fd376774-1643-499b-869e-9546a3aeea70), [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md), and [Overriding the Finalize Method](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Flush">
+      <MemberSignature Language="C#" Value="public override void Flush ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Flush() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.Flush" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub Flush ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void Flush();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-347">ストリームからデータをフラッシュします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-347">Flushes data from the stream.</span>
+          </span>
+          <span data-ttu-id="dfefa-348">このメソッドは将来使用するために予約されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-348">This method is reserved for future use.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-349"><xref:System.Net.Sockets.NetworkStream.Flush%2A>メソッドを実装して、<xref:System.IO.Stream.Flush%2A?displayProperty=nameWithType>メソッドです。 ただし、ため<xref:System.Net.Sockets.NetworkStream>がバッファリングされていない場合、その影響を与えませんネットワーク ストリームにします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-349">The <xref:System.Net.Sockets.NetworkStream.Flush%2A> method implements the <xref:System.IO.Stream.Flush%2A?displayProperty=nameWithType> method; however, because <xref:System.Net.Sockets.NetworkStream> is not buffered, it has no affect on network streams.</span></span> <span data-ttu-id="dfefa-350">呼び出す、<xref:System.Net.Sockets.NetworkStream.Flush%2A>メソッドが例外をスローしません。</span><span class="sxs-lookup"><span data-stu-id="dfefa-350">Calling the <xref:System.Net.Sockets.NetworkStream.Flush%2A> method does not throw an exception.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="FlushAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task FlushAsync (System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task FlushAsync(valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.FlushAsync(System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::Threading::Tasks::Task ^ FlushAsync(System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="cancellationToken">
+          <span data-ttu-id="dfefa-351">この操作を取り消す必要があることを示す通知を伝達するために使用するキャンセル トークン。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-351">A cancellation token used to propagate notification that this  operation should be canceled.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-352">非同期操作として、ストリームからデータをフラッシュします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-352">Flushes data from the stream as an asynchronous operation.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="dfefa-353">
+            <see cref="T:System.Threading.Tasks.Task" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-353">Returns <see cref="T:System.Threading.Tasks.Task" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-354">非同期操作を表すタスク オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-354">The task object representing the asynchronous operation.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-355">この操作はブロックされません。</span><span class="sxs-lookup"><span data-stu-id="dfefa-355">This operation will not block.</span></span> <span data-ttu-id="dfefa-356">返された<xref:System.Threading.Tasks.Task>オブジェクトは、ストリームからデータがフラッシュされた後に、完了、<xref:System.Net.Sockets.NetworkStream>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="dfefa-356">The returned <xref:System.Threading.Tasks.Task> object will complete after data has been flushed from the stream for the <xref:System.Net.Sockets.NetworkStream> instance.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Length">
+      <MemberSignature Language="C#" Value="public override long Length { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int64 Length" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.Length" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property Length As Long" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property long Length { long get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int64</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-357">ストリームで使用できるデータ長を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-357">Gets the length of the data available on the stream.</span>
+          </span>
+          <span data-ttu-id="dfefa-358">このプロパティは現在サポートされていないため、常に <see cref="T:System.NotSupportedException" /> をスローします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-358">This property is not currently supported and always throws a <see cref="T:System.NotSupportedException" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-359">ストリームで使用できるデータ長。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-359">The length of the data available on the stream.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="dfefa-360">このプロパティの使用。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-360">Any use of this property.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Position">
+      <MemberSignature Language="C#" Value="public override long Position { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int64 Position" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.Position" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property Position As Long" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property long Position { long get(); void set(long value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int64</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-361">ストリーム内の現在位置を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-361">Gets or sets the current position in the stream.</span>
+          </span>
+          <span data-ttu-id="dfefa-362">このプロパティは現在サポートされていないため、常に <see cref="T:System.NotSupportedException" /> をスローします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-362">This property is not currently supported and always throws a <see cref="T:System.NotSupportedException" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-363">ストリームの現在の位置。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-363">The current position in the stream.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="dfefa-364">このプロパティの使用。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-364">Any use of this property.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Read">
+      <MemberSignature Language="C#" Value="public override int Read (byte[] buffer, int offset, int size);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 Read([out] unsigned int8[] buffer, int32 offset, int32 size) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.Read(System.Byte[],System.Int32,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function Read (buffer As Byte(), offset As Integer, size As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int Read(cli::array &lt;System::Byte&gt; ^ buffer, int offset, int size);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Byte[]" />
+        <Parameter Name="offset" Type="System.Int32" />
+        <Parameter Name="size" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">
+          <span data-ttu-id="dfefa-365">
+            <see cref="T:System.Byte" /> 型の配列。<see cref="T:System.Net.Sockets.NetworkStream" /> から読み取られたデータを格納するメモリ内の場所です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-365">An array of type <see cref="T:System.Byte" /> that is the location in memory to store data read from the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </param>
+        <param name="offset">
+          <span data-ttu-id="dfefa-366">データの格納を開始する <c>buffer</c> 内の場所。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-366">The location in <c>buffer</c> to begin storing the data to.</span>
+          </span>
+        </param>
+        <param name="size">
+          <span data-ttu-id="dfefa-367">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> から読み取るバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-367">The number of bytes to read from the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-368">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> からデータを読み取ります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-368">Reads data from the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="dfefa-369">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> から読み取るバイト数。ソケットが閉じられている場合は 0。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-369">The number of bytes read from the <see cref="T:System.Net.Sockets.NetworkStream" />, or 0 if the socket is closed.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-370">このメソッドにデータを読み込みます、`buffer`パラメーターと正常に読み取られたバイト数を返します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-370">This method reads data into the `buffer` parameter and returns the number of bytes successfully read.</span></span> <span data-ttu-id="dfefa-371">ソケットが閉じられた場合、 <xref:System.Net.Sockets.NetworkStream.Read%2A> 0 が返されます。</span><span class="sxs-lookup"><span data-stu-id="dfefa-371">If the socket is closed, the <xref:System.Net.Sockets.NetworkStream.Read%2A> method returns 0.</span></span> <span data-ttu-id="dfefa-372"><xref:System.Net.Sockets.NetworkStream.Read%2A>操作で指定したバイトの数までの使用可能な多くのデータを読み取り、`size`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="dfefa-372">The <xref:System.Net.Sockets.NetworkStream.Read%2A> operation reads as much data as is available, up to the number of bytes specified by the `size` parameter.</span></span> <span data-ttu-id="dfefa-373">リモート ホストをシャット ダウン、接続し、使用可能なすべてのデータを受信すると場合、<xref:System.Net.Sockets.NetworkStream.Read%2A>メソッドはすぐに完了し、0 バイトを返します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-373">If the remote host shuts down the connection, and all available data has been received, the <xref:System.Net.Sockets.NetworkStream.Read%2A> method completes immediately and return zero bytes.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-374">かどうかをチェック、<xref:System.Net.Sockets.NetworkStream>は呼び出すことによって、読み取り可能な<xref:System.Net.Sockets.NetworkStream.CanRead%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-374">Check to see if the <xref:System.Net.Sockets.NetworkStream> is readable by calling the <xref:System.Net.Sockets.NetworkStream.CanRead%2A> property.</span></span> <span data-ttu-id="dfefa-375">読み取りを試行した場合、<xref:System.Net.Sockets.NetworkStream>を読み取ることができない、表示される、<xref:System.IO.IOException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-375">If you attempt to read from a <xref:System.Net.Sockets.NetworkStream> that is not readable, you will get an <xref:System.IO.IOException>.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-376">表示された場合、 <xref:System.IO.IOException>、確認、<xref:System.Exception.InnerException%2A>プロパティのかどうかが原因で、<xref:System.Net.Sockets.SocketException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-376">If you receive an <xref:System.IO.IOException>, check the <xref:System.Exception.InnerException%2A> property to determine if it was caused by a <xref:System.Net.Sockets.SocketException>.</span></span> <span data-ttu-id="dfefa-377">場合は、使用、<xref:System.Net.Sockets.SocketException.ErrorCode%2A>プロパティを特定のエラー コードを取得し、Windows ソケット バージョン 2 API エラー コードのドキュメントに MSDN でエラーの詳細についてを参照してください。</span><span class="sxs-lookup"><span data-stu-id="dfefa-377">If so, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A> property to obtain the specific error code, and refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-378">次のコード例では<xref:System.Net.Sockets.NetworkStream.DataAvailable%2A>データが読み取り可能かを判断します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-378">The following code example uses <xref:System.Net.Sockets.NetworkStream.DataAvailable%2A> to determine if data is available to be read.</span></span> <span data-ttu-id="dfefa-379">読み取るデータがある場合、<xref:System.Net.Sockets.NetworkStream>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-379">If data is available, it reads from the <xref:System.Net.Sockets.NetworkStream>.</span></span>  
+  
+ [!code-cpp[NetworkStream_Synch_SendAndReceive#4](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CPP/source.cpp#4)]
+ [!code-csharp[NetworkStream_Synch_SendAndReceive#4](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CS/source.cs#4)]
+ [!code-vb[NetworkStream_Synch_SendAndReceive#4](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/VB/source.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="dfefa-380">
+            <paramref name="buffer" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-380">The <paramref name="buffer" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="dfefa-381">
+            <paramref name="offset" /> パラメーターが 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-381">The <paramref name="offset" /> parameter is less than 0.</span>
+          </span>
+          <span data-ttu-id="dfefa-382">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-382">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-383">
+            <paramref name="offset" /> パラメーターが <paramref name="buffer" /> の長さを超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-383">The <paramref name="offset" /> parameter is greater than the length of <paramref name="buffer" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-384">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-384">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-385">
+            <paramref name="size" /> パラメーターが 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-385">The <paramref name="size" /> parameter is less than 0.</span>
+          </span>
+          <span data-ttu-id="dfefa-386">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-386">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-387">
+            <paramref name="size" /> パラメーターが、<paramref name="buffer" /> パラメーターの値を引いた <paramref name="offset" /> の長さを超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-387">The <paramref name="size" /> parameter is greater than the length of <paramref name="buffer" /> minus the value of the <paramref name="offset" /> parameter.</span>
+          </span>
+          <span data-ttu-id="dfefa-388">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-388">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-389">ソケットへのアクセス中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-389">An error occurred when accessing the socket.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-390">基になっている <see cref="T:System.Net.Sockets.Socket" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-390">The underlying <see cref="T:System.Net.Sockets.Socket" /> is closed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="dfefa-391">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-391">The <see cref="T:System.Net.Sockets.NetworkStream" /> is closed.</span>
+          </span>
+          <span data-ttu-id="dfefa-392">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-392">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-393">ネットワークからの読み取りでエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-393">There is a failure reading from the network.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Net.Sockets.Socket.Receive(System.Byte[],System.Int32,System.Net.Sockets.SocketFlags)" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.DataAvailable" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.CanRead" />
+      </Docs>
+    </Member>
+    <Member MemberName="Readable">
+      <MemberSignature Language="C#" Value="protected bool Readable { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool Readable" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.Readable" />
+      <MemberSignature Language="VB.NET" Value="Protected Property Readable As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; property bool Readable { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-394">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> を読み取ることができるかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-394">Gets or sets a value that indicates whether the <see cref="T:System.Net.Sockets.NetworkStream" /> can be read.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-395">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> を読み取ることができる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-395">
+              <see langword="true" /> to indicate that the <see cref="T:System.Net.Sockets.NetworkStream" /> can be read; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-396">既定値は <see langword="true" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-396">The default value is <see langword="true" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-397">派生する必要があります、<xref:System.Net.Sockets.NetworkStream>クラスを使用する、<xref:System.Net.Sockets.NetworkStream.Readable%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-397">You must derive from the <xref:System.Net.Sockets.NetworkStream> class to use the <xref:System.Net.Sockets.NetworkStream.Readable%2A> property.</span></span> <span data-ttu-id="dfefa-398">場合<xref:System.Net.Sockets.NetworkStream.Readable%2A>は`true`、<xref:System.Net.Sockets.NetworkStream>への呼び出しにより、<xref:System.Net.Sockets.NetworkStream.Read%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-398">If <xref:System.Net.Sockets.NetworkStream.Readable%2A> is `true`, <xref:System.Net.Sockets.NetworkStream> allows calls to the <xref:System.Net.Sockets.NetworkStream.Read%2A> method.</span></span> <span data-ttu-id="dfefa-399">確認することもかどうか、<xref:System.Net.Sockets.NetworkStream>チェック パブリックにアクセスして読み取ることが<xref:System.Net.Sockets.NetworkStream.CanRead%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-399">You can also determine whether a <xref:System.Net.Sockets.NetworkStream> is readable by checking the publicly accessible <xref:System.Net.Sockets.NetworkStream.CanRead%2A> property.</span></span>  
+  
+ <span data-ttu-id="dfefa-400"><xref:System.Net.Sockets.NetworkStream.Readable%2A>場合、プロパティが設定、<xref:System.Net.Sockets.NetworkStream>が初期化されています。</span><span class="sxs-lookup"><span data-stu-id="dfefa-400">The <xref:System.Net.Sockets.NetworkStream.Readable%2A> property is set when the <xref:System.Net.Sockets.NetworkStream> is initialized.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-401">次のコード例では、`CanCommunicate`プロパティのチェック、<xref:System.Net.Sockets.NetworkStream.Readable%2A>プロパティかどうかを<xref:System.Net.Sockets.NetworkStream>を読み取ることができます。</span><span class="sxs-lookup"><span data-stu-id="dfefa-401">In the following code example, the `CanCommunicate` property checks the <xref:System.Net.Sockets.NetworkStream.Readable%2A> property to determine if the <xref:System.Net.Sockets.NetworkStream> is readable.</span></span>  
+  
+ [!code-cpp[NetworkStream_Protected_Members#1](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Protected_Members/CPP/source.cpp#1)]
+ [!code-csharp[NetworkStream_Protected_Members#1](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Protected_Members/CS/source.cs#1)]
+ [!code-vb[NetworkStream_Protected_Members#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Protected_Members/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Net.Sockets.NetworkStream.CanRead" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.CanWrite" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.Writeable" />
+      </Docs>
+    </Member>
+    <Member MemberName="ReadAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;int&gt; ReadAsync (byte[] buffer, int offset, int size, System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;int32&gt; ReadAsync(unsigned int8[] buffer, int32 offset, int32 size, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::Threading::Tasks::Task&lt;int&gt; ^ ReadAsync(cli::array &lt;System::Byte&gt; ^ buffer, int offset, int size, System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Int32&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Byte[]" />
+        <Parameter Name="offset" Type="System.Int32" />
+        <Parameter Name="size" Type="System.Int32" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">To be added.</param>
+        <param name="offset">To be added.</param>
+        <param name="size">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadTimeout">
+      <MemberSignature Language="C#" Value="public override int ReadTimeout { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 ReadTimeout" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.ReadTimeout" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property ReadTimeout As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property int ReadTimeout { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-402">読み取り操作がデータを待機する時間を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-402">Gets or sets the amount of time that a read operation blocks waiting for data.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-403">読み取り操作が失敗するまでの経過時間 (ミリ秒単位) を指定する <see cref="T:System.Int32" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-403">A <see cref="T:System.Int32" /> that specifies the amount of time, in milliseconds, that will elapse before a read operation fails.</span>
+          </span>
+          <span data-ttu-id="dfefa-404">既定値は <see cref="F:System.Threading.Timeout.Infinite" /> で、読み取り操作がタイムアウトしないことを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-404">The default value, <see cref="F:System.Threading.Timeout.Infinite" />, specifies that the read operation does not time out.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-405">このプロパティによって指定された時間内で読み取り操作が完了しない場合、読み取り操作をスロー、<xref:System.IO.IOException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-405">If the read operation does not complete within the time specified by this property, the read operation throws an <xref:System.IO.IOException>.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-406">このプロパティは影響のみ同期読み取りを呼び出すことによって実行される、<xref:System.Net.Sockets.NetworkStream.Read%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-406">This property affects only synchronous reads performed by calling the <xref:System.Net.Sockets.NetworkStream.Read%2A> method.</span></span> <span data-ttu-id="dfefa-407">このプロパティでは呼び出すことによって実行される非同期の読み取りには影響しません、<xref:System.Net.Sockets.NetworkStream.BeginRead%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-407">This property does not affect asynchronous reads performed by calling the <xref:System.Net.Sockets.NetworkStream.BeginRead%2A> method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-408">次のコード例では、10 ミリ秒をネットワーク ストリームの読み取りのタイムアウトを設定します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-408">The following code example sets the read time-out for a network stream to 10 milliseconds.</span></span>  
+  
+ [!code-csharp[NCLTcpClientSync#2](~/samples/snippets/csharp/VS_Snippets_Remoting/NCLTcpClientSync/CS/tcpclient.cs#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="dfefa-409">指定した値が 0 以下のため <see cref="F:System.Threading.Timeout.Infinite" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-409">The value specified is less than or equal to zero and is not <see cref="F:System.Threading.Timeout.Infinite" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Seek">
+      <MemberSignature Language="C#" Value="public override long Seek (long offset, System.IO.SeekOrigin origin);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int64 Seek(int64 offset, valuetype System.IO.SeekOrigin origin) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.Seek(System.Int64,System.IO.SeekOrigin)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function Seek (offset As Long, origin As SeekOrigin) As Long" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override long Seek(long offset, System::IO::SeekOrigin origin);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int64</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="offset" Type="System.Int64" />
+        <Parameter Name="origin" Type="System.IO.SeekOrigin" />
+      </Parameters>
+      <Docs>
+        <param name="offset">
+          <span data-ttu-id="dfefa-410">このパラメーターは使用されません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-410">This parameter is not used.</span>
+          </span>
+        </param>
+        <param name="origin">
+          <span data-ttu-id="dfefa-411">このパラメーターは使用されません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-411">This parameter is not used.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-412">ストリームの現在位置を特定の値に設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-412">Sets the current position of the stream to the given value.</span>
+          </span>
+          <span data-ttu-id="dfefa-413">このメソッドは現在サポートされていないため、常に <see cref="T:System.NotSupportedException" /> をスローします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-413">This method is not currently supported and always throws a <see cref="T:System.NotSupportedException" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="dfefa-414">ストリーム内の位置。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-414">The position in the stream.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="dfefa-415">このプロパティの使用。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-415">Any use of this property.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="SetLength">
+      <MemberSignature Language="C#" Value="public override void SetLength (long value);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void SetLength(int64 value) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.SetLength(System.Int64)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub SetLength (value As Long)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void SetLength(long value);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="value" Type="System.Int64" />
+      </Parameters>
+      <Docs>
+        <param name="value">
+          <span data-ttu-id="dfefa-416">このパラメーターは使用されません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-416">This parameter is not used.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-417">ストリームの長さを設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-417">Sets the length of the stream.</span>
+          </span>
+          <span data-ttu-id="dfefa-418">このメソッドは、常に <see cref="T:System.NotSupportedException" /> をスローします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-418">This method always throws a <see cref="T:System.NotSupportedException" />.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="dfefa-419">このプロパティの使用。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-419">Any use of this property.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Socket">
+      <MemberSignature Language="C#" Value="protected System.Net.Sockets.Socket Socket { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Net.Sockets.Socket Socket" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.Socket" />
+      <MemberSignature Language="VB.NET" Value="Protected ReadOnly Property Socket As Socket" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; property System::Net::Sockets::Socket ^ Socket { System::Net::Sockets::Socket ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Net.Sockets.Socket</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-420">基になる <see cref="T:System.Net.Sockets.Socket" /> を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-420">Gets the underlying <see cref="T:System.Net.Sockets.Socket" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-421">基になるネットワーク接続を表す <see cref="T:System.Net.Sockets.Socket" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-421">A <see cref="T:System.Net.Sockets.Socket" /> that represents the underlying network connection.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-422">派生するクラス<xref:System.Net.Sockets.NetworkStream>、基になるため、このプロパティを使用できます<xref:System.Net.Sockets.Socket>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-422">Classes deriving from <xref:System.Net.Sockets.NetworkStream> can use this property to get the underlying <xref:System.Net.Sockets.Socket>.</span></span> <span data-ttu-id="dfefa-423">使用して、基になる<xref:System.Net.Sockets.Socket>から返される、<xref:System.Net.Sockets.NetworkStream.Socket%2A>をさらにアクセスが必要な場合は、プロパティ<xref:System.Net.Sockets.NetworkStream>を提供します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-423">Use the underlying <xref:System.Net.Sockets.Socket> returned from the <xref:System.Net.Sockets.NetworkStream.Socket%2A> property if you require access beyond that which <xref:System.Net.Sockets.NetworkStream> provides.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-424">このプロパティは、このクラスまたは派生クラスによってのみアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="dfefa-424">This property is accessible only through this class or a derived class.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-425">次のコード例を基になる取得<xref:System.Net.Sockets.Socket>をアクティブな接続を確認します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-425">The following code example retrieves the underlying <xref:System.Net.Sockets.Socket> to verify an active connection.</span></span>  
+  
+ [!code-cpp[NetworkStream_Protected_Members#1](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Protected_Members/CPP/source.cpp#1)]
+ [!code-csharp[NetworkStream_Protected_Members#1](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Protected_Members/CS/source.cs#1)]
+ [!code-vb[NetworkStream_Protected_Members#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Protected_Members/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Write">
+      <MemberSignature Language="C#" Value="public override void Write (byte[] buffer, int offset, int size);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Write(unsigned int8[] buffer, int32 offset, int32 size) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.Write(System.Byte[],System.Int32,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub Write (buffer As Byte(), offset As Integer, size As Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void Write(cli::array &lt;System::Byte&gt; ^ buffer, int offset, int size);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Byte[]" />
+        <Parameter Name="offset" Type="System.Int32" />
+        <Parameter Name="size" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">
+          <span data-ttu-id="dfefa-426">
+            <see cref="T:System.Byte" /> に書き込むデータを格納する <see cref="T:System.Net.Sockets.NetworkStream" /> 型の配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-426">An array of type <see cref="T:System.Byte" /> that contains the data to write to the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </param>
+        <param name="offset">
+          <span data-ttu-id="dfefa-427">データの書き込みを開始する <c>buffer</c> 内の場所。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-427">The location in <c>buffer</c> from which to start writing data.</span>
+          </span>
+        </param>
+        <param name="size">
+          <span data-ttu-id="dfefa-428">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> に書き込むバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-428">The number of bytes to write to the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="dfefa-429">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> にデータを書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-429">Writes data to the <see cref="T:System.Net.Sockets.NetworkStream" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-430"><xref:System.Net.Sockets.NetworkStream.Write%2A>メソッドを指定した開始`offset`送信`size`の内容からバイト`buffer`ネットワークにします。</span><span class="sxs-lookup"><span data-stu-id="dfefa-430">The <xref:System.Net.Sockets.NetworkStream.Write%2A> method starts at the specified `offset` and sends `size` bytes from the contents of `buffer` to the network.</span></span> <span data-ttu-id="dfefa-431"><xref:System.Net.Sockets.NetworkStream.Write%2A>メソッドは、要求されたバイト数が送信されるまで、ブロック<xref:System.Net.Sockets.SocketException>がスローされます。</span><span class="sxs-lookup"><span data-stu-id="dfefa-431">The <xref:System.Net.Sockets.NetworkStream.Write%2A> method blocks until the requested number of bytes is sent or a <xref:System.Net.Sockets.SocketException> is thrown.</span></span> <span data-ttu-id="dfefa-432">表示された場合、<xref:System.Net.Sockets.SocketException>を使用して、<xref:System.Net.Sockets.SocketException.ErrorCode%2A?displayProperty=nameWithType>プロパティを特定のエラー コードを取得し、Windows ソケット バージョン 2 API エラー コードのドキュメントに MSDN でエラーの詳細についてを参照してください。</span><span class="sxs-lookup"><span data-stu-id="dfefa-432">If you receive a <xref:System.Net.Sockets.SocketException>, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A?displayProperty=nameWithType> property to obtain the specific error code, and refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-433">かどうかをチェック、<xref:System.Net.Sockets.NetworkStream>にアクセスして書き込み可能である、<xref:System.Net.Sockets.NetworkStream.CanWrite%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-433">Check to see if the <xref:System.Net.Sockets.NetworkStream> is writable by accessing the <xref:System.Net.Sockets.NetworkStream.CanWrite%2A> property.</span></span> <span data-ttu-id="dfefa-434">書き込みを試行した場合、<xref:System.Net.Sockets.NetworkStream>外にある書き込み可能な表示される、<xref:System.IO.IOException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-434">If you attempt to write to a <xref:System.Net.Sockets.NetworkStream> that is not writable, you will get an <xref:System.IO.IOException>.</span></span> <span data-ttu-id="dfefa-435">表示された場合、 <xref:System.IO.IOException>、確認、<xref:System.Exception.InnerException%2A>プロパティのかどうかが原因で、<xref:System.Net.Sockets.SocketException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-435">If you receive an <xref:System.IO.IOException>, check the <xref:System.Exception.InnerException%2A> property to determine if it was caused by a <xref:System.Net.Sockets.SocketException>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-436">次のコード例を参照してくださいかどうか確認するかどうか、<xref:System.Net.Sockets.NetworkStream>が書き込み可能です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-436">The following code example checks to see whether the <xref:System.Net.Sockets.NetworkStream> is writable.</span></span> <span data-ttu-id="dfefa-437">場合は、<xref:System.Net.Sockets.NetworkStream.Write%2A>小さいメッセージを書き込むために使用します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-437">If it is, then <xref:System.Net.Sockets.NetworkStream.Write%2A> is used to write a small message.</span></span>  
+  
+ [!code-cpp[NetworkStream_Synch_SendAndReceive#3](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CPP/source.cpp#3)]
+ [!code-csharp[NetworkStream_Synch_SendAndReceive#3](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/CS/source.cs#3)]
+ [!code-vb[NetworkStream_Synch_SendAndReceive#3](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Synch_SendAndReceive/VB/source.vb#3)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="dfefa-438">
+            <paramref name="buffer" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-438">The <paramref name="buffer" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="dfefa-439">
+            <paramref name="offset" /> パラメーターが 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-439">The <paramref name="offset" /> parameter is less than 0.</span>
+          </span>
+          <span data-ttu-id="dfefa-440">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-440">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-441">
+            <paramref name="offset" /> パラメーターが <paramref name="buffer" /> の長さを超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-441">The <paramref name="offset" /> parameter is greater than the length of <paramref name="buffer" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-442">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-442">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-443">
+            <paramref name="size" /> パラメーターが 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-443">The <paramref name="size" /> parameter is less than 0.</span>
+          </span>
+          <span data-ttu-id="dfefa-444">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-444">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-445">
+            <paramref name="size" /> パラメーターが、<paramref name="buffer" /> パラメーターの値を引いた <paramref name="offset" /> の長さを超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-445">The <paramref name="size" /> parameter is greater than the length of <paramref name="buffer" /> minus the value of the <paramref name="offset" /> parameter.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="dfefa-446">ネットワークへの書き込み中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-446">There was a failure while writing to the network.</span>
+          </span>
+          <span data-ttu-id="dfefa-447">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-447">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-448">ソケットへのアクセス中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-448">An error occurred when accessing the socket.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="dfefa-449">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-449">The <see cref="T:System.Net.Sockets.NetworkStream" /> is closed.</span>
+          </span>
+          <span data-ttu-id="dfefa-450">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-450">-or-</span>
+          </span>
+          <span data-ttu-id="dfefa-451">ネットワークからの読み取りでエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-451">There was a failure reading from the network.</span>
+          </span>
+        </exception>
+        <altmember cref="P:System.Net.Sockets.NetworkStream.CanWrite" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.Writeable" />
+      </Docs>
+    </Member>
+    <Member MemberName="Writeable">
+      <MemberSignature Language="C#" Value="protected bool Writeable { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool Writeable" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.Writeable" />
+      <MemberSignature Language="VB.NET" Value="Protected Property Writeable As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; property bool Writeable { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-452">
+            <see cref="T:System.Net.Sockets.NetworkStream" /> が書き込み可能かどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-452">Gets a value that indicates whether the <see cref="T:System.Net.Sockets.NetworkStream" /> is writable.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-453">ストリームにデータを書き込むことができる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-453">
+              <see langword="true" /> if data can be written to the stream; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="dfefa-454">既定値は <see langword="true" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-454">The default value is <see langword="true" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-455">派生する必要があります、<xref:System.Net.Sockets.NetworkStream>クラスを使用する、<xref:System.Net.Sockets.NetworkStream.Writeable%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-455">You must derive from the <xref:System.Net.Sockets.NetworkStream> class to use the <xref:System.Net.Sockets.NetworkStream.Writeable%2A> property.</span></span> <span data-ttu-id="dfefa-456">場合<xref:System.Net.Sockets.NetworkStream.Writeable%2A>は`true`、<xref:System.Net.Sockets.NetworkStream>への呼び出しにより、<xref:System.Net.Sockets.NetworkStream.Write%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-456">If <xref:System.Net.Sockets.NetworkStream.Writeable%2A> is `true`, <xref:System.Net.Sockets.NetworkStream> allows calls to the <xref:System.Net.Sockets.NetworkStream.Write%2A> method.</span></span> <span data-ttu-id="dfefa-457">確認することもかどうか、<xref:System.Net.Sockets.NetworkStream>パブリックにアクセスできるをチェックして書き込み可能である<xref:System.Net.Sockets.NetworkStream.CanWrite%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-457">You can also determine whether a <xref:System.Net.Sockets.NetworkStream> is writable by checking the publicly accessible <xref:System.Net.Sockets.NetworkStream.CanWrite%2A> property.</span></span>  
+  
+ <span data-ttu-id="dfefa-458"><xref:System.Net.Sockets.NetworkStream.Writeable%2A>場合、プロパティが設定、<xref:System.Net.Sockets.NetworkStream>が初期化されています。</span><span class="sxs-lookup"><span data-stu-id="dfefa-458">The <xref:System.Net.Sockets.NetworkStream.Writeable%2A> property is set when the <xref:System.Net.Sockets.NetworkStream> is initialized.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-459">次のコード例では、`CanCommunicate`プロパティのチェック、<xref:System.Net.Sockets.NetworkStream.Writeable%2A>プロパティかどうかを<xref:System.Net.Sockets.NetworkStream>が書き込み可能です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-459">In the following code example, the `CanCommunicate` property checks the <xref:System.Net.Sockets.NetworkStream.Writeable%2A> property to determine if the <xref:System.Net.Sockets.NetworkStream> is writable.</span></span>  
+  
+ [!code-cpp[NetworkStream_Protected_Members#1](~/samples/snippets/cpp/VS_Snippets_Remoting/NetworkStream_Protected_Members/CPP/source.cpp#1)]
+ [!code-csharp[NetworkStream_Protected_Members#1](~/samples/snippets/csharp/VS_Snippets_Remoting/NetworkStream_Protected_Members/CS/source.cs#1)]
+ [!code-vb[NetworkStream_Protected_Members#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NetworkStream_Protected_Members/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Net.Sockets.NetworkStream.CanWrite" />
+        <altmember cref="P:System.Net.Sockets.NetworkStream.Readable" />
+      </Docs>
+    </Member>
+    <Member MemberName="WriteAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task WriteAsync (byte[] buffer, int offset, int size, System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task WriteAsync(unsigned int8[] buffer, int32 offset, int32 size, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Net.Sockets.NetworkStream.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::Threading::Tasks::Task ^ WriteAsync(cli::array &lt;System::Byte&gt; ^ buffer, int offset, int size, System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Byte[]" />
+        <Parameter Name="offset" Type="System.Int32" />
+        <Parameter Name="size" Type="System.Int32" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">To be added.</param>
+        <param name="offset">To be added.</param>
+        <param name="size">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="WriteTimeout">
+      <MemberSignature Language="C#" Value="public override int WriteTimeout { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 WriteTimeout" />
+      <MemberSignature Language="DocId" Value="P:System.Net.Sockets.NetworkStream.WriteTimeout" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property WriteTimeout As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property int WriteTimeout { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Net.Sockets</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="dfefa-460">書き込み操作がデータを待機する時間を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-460">Gets or sets the amount of time that a write operation blocks waiting for data.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="dfefa-461">書き込み操作が失敗するまでの経過時間 (ミリ秒単位) を指定する <see cref="T:System.Int32" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-461">A <see cref="T:System.Int32" /> that specifies the amount of time, in milliseconds, that will elapse before a write operation fails.</span>
+          </span>
+          <span data-ttu-id="dfefa-462">既定値は <see cref="F:System.Threading.Timeout.Infinite" /> で、書き込み操作がタイムアウトしないことを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-462">The default value, <see cref="F:System.Threading.Timeout.Infinite" />, specifies that the write operation does not time out.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="dfefa-463">このプロパティによって指定された時間内での書き込み操作が完了しない場合、書き込み操作をスロー、<xref:System.IO.IOException>です。</span><span class="sxs-lookup"><span data-stu-id="dfefa-463">If the write operation does not complete within the time specified by this property, the write operation throws a <xref:System.IO.IOException>.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="dfefa-464">このプロパティを呼び出して実行のみ同期書き込み操作の影響、<xref:System.Net.Sockets.NetworkStream.Write%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-464">This property affects only synchronous write operations performed by calling the <xref:System.Net.Sockets.NetworkStream.Write%2A> method.</span></span> <span data-ttu-id="dfefa-465">このプロパティでは呼び出すことによって実行される非同期の書き込みには影響しません、<xref:System.Net.Sockets.NetworkStream.BeginWrite%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="dfefa-465">This property does not affect asynchronous writes performed by calling the <xref:System.Net.Sockets.NetworkStream.BeginWrite%2A> method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="dfefa-466">次のコード例では、10 ミリ秒をネットワーク ストリームの書き込みのタイムアウトを設定します。</span><span class="sxs-lookup"><span data-stu-id="dfefa-466">The following code example sets the write time-out for a network stream to 10 milliseconds.</span></span>  
+  
+ [!code-cpp[NCLTcpServerSync#0](~/samples/snippets/cpp/VS_Snippets_Remoting/NclTcpServerSync/cpp/tcplistener.cpp#0)]
+ [!code-csharp[NCLTcpServerSync#0](~/samples/snippets/csharp/VS_Snippets_Remoting/NclTcpServerSync/CS/tcplistener.cs#0)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="dfefa-467">指定した値が 0 以下のため <see cref="F:System.Threading.Timeout.Infinite" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="dfefa-467">The value specified is less than or equal to zero and is not <see cref="F:System.Threading.Timeout.Infinite" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

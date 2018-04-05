@@ -1,0 +1,2778 @@
+<Type Name="StreamReader" FullName="System.IO.StreamReader">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="eaa27dae19046fabd638ca567a16e9b0c52a25ff" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class StreamReader : System.IO.TextReader" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit StreamReader extends System.IO.TextReader" />
+  <TypeSignature Language="DocId" Value="T:System.IO.StreamReader" />
+  <TypeSignature Language="VB.NET" Value="Public Class StreamReader&#xA;Inherits TextReader" />
+  <TypeSignature Language="C++ CLI" Value="public ref class StreamReader : System::IO::TextReader" />
+  <AssemblyInfo>
+    <AssemblyName>System.IO</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime.Extensions</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.IO.TextReader</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="27e91-101">特定のエンコーディングのバイト ストリームから文字を読み込む <see cref="T:System.IO.TextReader" /> を実装します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="27e91-101">Implements a <see cref="T:System.IO.TextReader" /> that reads characters from a byte stream in a particular encoding.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-102"><xref:System.IO.StreamReader> 特定のエンコーディングで文字の入力用に設計されていますが、<xref:System.IO.Stream>クラスがバイトの入力し、出力のように設計されています。</span><span class="sxs-lookup"><span data-stu-id="27e91-102"><xref:System.IO.StreamReader> is designed for character input in a particular encoding, whereas the <xref:System.IO.Stream> class is designed for byte input and output.</span></span> <span data-ttu-id="27e91-103">使用して<xref:System.IO.StreamReader>標準のテキスト ファイルから行の情報を読み取るためです。</span><span class="sxs-lookup"><span data-stu-id="27e91-103">Use <xref:System.IO.StreamReader> for reading lines of information from a standard text file.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="27e91-104">この型は、<xref:System.IDisposable>インターフェイスです。</span><span class="sxs-lookup"><span data-stu-id="27e91-104">This type implements the <xref:System.IDisposable> interface.</span></span> <span data-ttu-id="27e91-105">型を使用してが完了したらを直接的または間接的にその破棄する必要があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-105">When you have finished using the type, you should dispose of it either directly or indirectly.</span></span> <span data-ttu-id="27e91-106">型の直接 dispose を呼び出す、<xref:System.IDisposable.Dispose%2A>メソッドで、 `try` / `catch`ブロックします。</span><span class="sxs-lookup"><span data-stu-id="27e91-106">To dispose of the type directly, call its <xref:System.IDisposable.Dispose%2A> method in a `try`/`catch` block.</span></span> <span data-ttu-id="27e91-107">直接ことのない破棄する場合など、言語コンストラクトを使用して`using`(C# の場合) または`Using`(Visual Basic で)。</span><span class="sxs-lookup"><span data-stu-id="27e91-107">To dispose of it indirectly, use a language construct such as `using` (in C#) or `Using` (in Visual Basic).</span></span> <span data-ttu-id="27e91-108">詳細についてを参照してください"を使用して、オブジェクトを実装する IDisposable"、<xref:System.IDisposable>インターフェイスに関するトピック。</span><span class="sxs-lookup"><span data-stu-id="27e91-108">For more information, see the "Using an Object that Implements IDisposable" section in the <xref:System.IDisposable> interface topic.</span></span>  
+  
+ <span data-ttu-id="27e91-109"><xref:System.IO.StreamReader> utf-8 エンコードでの現在のシステム ANSI コード ページには、既定ではなく、それ以外の場合、指定しない限り、既定値です。</span><span class="sxs-lookup"><span data-stu-id="27e91-109"><xref:System.IO.StreamReader> defaults to UTF-8 encoding unless specified otherwise, instead of defaulting to the ANSI code page for the current system.</span></span> <span data-ttu-id="27e91-110">Utf-8 では、Unicode 文字を正しく処理し、オペレーティング システムのローカライズ版で一貫性のある結果を提供します。</span><span class="sxs-lookup"><span data-stu-id="27e91-110">UTF-8 handles Unicode characters correctly and provides consistent results on localized versions of the operating system.</span></span> <span data-ttu-id="27e91-111">現在の文字エンコーディングを使用して表示される場合、<xref:System.IO.StreamReader.CurrentEncoding%2A>プロパティ値は、信頼性の高いまで、最初より後<xref:System.IO.StreamReader.Read%2A>メソッド、最初の呼び出しまでエンコードの自動検出が実行されないため、<xref:System.IO.StreamReader.Read%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="27e91-111">If you get the current character encoding using the <xref:System.IO.StreamReader.CurrentEncoding%2A> property, the value is not reliable until after the first <xref:System.IO.StreamReader.Read%2A> method, since encoding auto detection is not done until the first call to a <xref:System.IO.StreamReader.Read%2A> method.</span></span>  
+  
+ <span data-ttu-id="27e91-112">既定では、<xref:System.IO.StreamReader>はスレッド セーフであります。</span><span class="sxs-lookup"><span data-stu-id="27e91-112">By default, a <xref:System.IO.StreamReader> is not thread safe.</span></span> <span data-ttu-id="27e91-113">参照してください<xref:System.IO.TextReader.Synchronized%2A?displayProperty=nameWithType>スレッド セーフ ラッパー。</span><span class="sxs-lookup"><span data-stu-id="27e91-113">See <xref:System.IO.TextReader.Synchronized%2A?displayProperty=nameWithType> for a thread-safe wrapper.</span></span>  
+  
+ <span data-ttu-id="27e91-114"><xref:System.IO.StreamReader.Read%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29>と<xref:System.IO.StreamWriter.Write%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29>メソッドのオーバー ロードによって指定された文字数の読み書き、`count`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="27e91-114">The <xref:System.IO.StreamReader.Read%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29> and <xref:System.IO.StreamWriter.Write%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29> method overloads read and write the number of characters specified by the `count` parameter.</span></span> <span data-ttu-id="27e91-115">これらと区別するのには、<xref:System.IO.BufferedStream.Read%2A?displayProperty=nameWithType>と<xref:System.IO.BufferedStream.Write%2A?displayProperty=nameWithType>、によって指定されたバイト数を読み書きする、`count`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="27e91-115">These are to be distinguished from <xref:System.IO.BufferedStream.Read%2A?displayProperty=nameWithType> and <xref:System.IO.BufferedStream.Write%2A?displayProperty=nameWithType>, which read and write the number of bytes specified by the `count` parameter.</span></span> <span data-ttu-id="27e91-116">使用して、<xref:System.IO.BufferedStream>のみの読み書きにバイトの整数の配列要素のメソッドです。</span><span class="sxs-lookup"><span data-stu-id="27e91-116">Use the <xref:System.IO.BufferedStream> methods only for reading and writing an integral number of byte array elements.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="27e91-117">読み取るときに、<xref:System.IO.Stream>ストリームの内部バッファーと同じサイズであるバッファーを使用する方が効率的です。</span><span class="sxs-lookup"><span data-stu-id="27e91-117">When reading from a <xref:System.IO.Stream>, it is more efficient to use a buffer that is the same size as the internal buffer of the stream.</span></span>  
+  
+ <span data-ttu-id="27e91-118">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-118">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-119">次の例のインスタンスを使用して<xref:System.IO.StreamReader>ファイルからテキストを読み取れません。</span><span class="sxs-lookup"><span data-stu-id="27e91-119">The following example uses an instance of <xref:System.IO.StreamReader> to read text from a file.</span></span> <span data-ttu-id="27e91-120">使用するこの例で使用するコンス トラクターはサポートされていません[!INCLUDE[win8_appstore_long](~/includes/win8-appstore-long-md.md)]アプリ。</span><span class="sxs-lookup"><span data-stu-id="27e91-120">The constructor used in this example is not supported for use in [!INCLUDE[win8_appstore_long](~/includes/win8-appstore-long-md.md)] Apps.</span></span>  
+  
+ [!code-cpp[readtextfile#1](~/samples/snippets/cpp/VS_Snippets_CLR/ReadTextFile/CPP/readtextfile.cpp#1)]
+ [!code-csharp[readtextfile#1](~/samples/snippets/csharp/VS_Snippets_CLR/ReadTextFile/CS/readtextfile.cs#1)]
+ [!code-vb[readtextfile#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/ReadTextFile/VB/readtextfile.vb#1)]  
+  
+ <span data-ttu-id="27e91-121">次の例のインスタンスを作成、<xref:System.IO.StreamReader>オブジェクトと呼び出しの<xref:System.IO.StreamReader.ReadAsync%2A>を非同期的にファイルを読み取る方法です。</span><span class="sxs-lookup"><span data-stu-id="27e91-121">The following example instantiates a <xref:System.IO.StreamReader> object and calls its <xref:System.IO.StreamReader.ReadAsync%2A> method to read a file asynchronously.</span></span>  
+  
+ [!code-csharp[System.IO.StreamReader#51](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/asyncex1.cs#51)]
+ [!code-vb[System.IO.StreamReader#51](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/asyncex1.vb#51)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Text.Encoding" />
+    <altmember cref="T:System.IO.Stream" />
+    <altmember cref="T:System.IO.StreamWriter" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-122">指定したストリーム用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-122">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified stream.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (System.IO.Stream stream);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.IO.Stream)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::IO::Stream ^ stream);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="27e91-123">読み込まれるストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-123">The stream to be read.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-124">指定したストリーム用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-124">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified stream.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-125">このコンス トラクターを初期化するエンコーディング<xref:System.Text.UTF8Encoding>、<xref:System.IO.StreamReader.BaseStream%2A>プロパティを使用して、`stream`パラメーター、および内部バッファー サイズを 1024 バイトです。</span><span class="sxs-lookup"><span data-stu-id="27e91-125">This constructor initializes the encoding to <xref:System.Text.UTF8Encoding>, the <xref:System.IO.StreamReader.BaseStream%2A> property using the `stream` parameter, and the internal buffer size to 1024 bytes.</span></span>  
+  
+ <span data-ttu-id="27e91-126"><xref:System.IO.StreamReader>オブジェクト呼び出し<xref:System.IO.Stream.Dispose>で提供されている<xref:System.IO.Stream>オブジェクトと<xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="27e91-126">The <xref:System.IO.StreamReader> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType> is called.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="27e91-127">文字のセットをコンパイル時に特定のカルチャ設定を同じ文字を別のカルチャ設定を取得する文字、解釈されないことし、例外をスローする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-127">When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.</span></span>  
+  
+ <span data-ttu-id="27e91-128">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-128">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-129">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-129">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[strmreader ctor1#1](~/samples/snippets/cpp/VS_Snippets_CLR/StrmReader Ctor1/CPP/strmreader ctor1.cpp#1)]
+ [!code-csharp[strmreader ctor1#1](~/samples/snippets/csharp/VS_Snippets_CLR/StrmReader Ctor1/CS/strmreader ctor1.cs#1)]
+ [!code-vb[strmreader ctor1#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StrmReader Ctor1/VB/strmreader ctor1.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-130">
+            <paramref name="stream" /> が読み取りをサポートしていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-130">
+              <paramref name="stream" /> does not support reading.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-131">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-131">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (string path);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string path) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (path As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::String ^ path);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="path">
+          <span data-ttu-id="27e91-132">読み込まれる完全なファイルパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-132">The complete file path to be read.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-133">指定したファイル名用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-133">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified file name.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-134">完全なファイル パスが指定された、`path`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="27e91-134">The complete file path is specified by the `path` parameter.</span></span> <span data-ttu-id="27e91-135">このコンス トラクターを初期化するエンコーディング<xref:System.Text.UTF8Encoding>とバッファー サイズが 1024 バイトにします。</span><span class="sxs-lookup"><span data-stu-id="27e91-135">This constructor initializes the encoding to <xref:System.Text.UTF8Encoding> and the buffer size to 1024 bytes.</span></span>  
+  
+ <span data-ttu-id="27e91-136">`path`パラメーターは、汎用名前付け規則 (UNC) 共有上のファイルを含む、ファイル名を指定できます。</span><span class="sxs-lookup"><span data-stu-id="27e91-136">The `path` parameter can be a file name, including a file on a Universal Naming Convention (UNC) share.</span></span>  
+  
+ <span data-ttu-id="27e91-137">`path`パラメーターは必要ありません、ディスクに格納されたファイル ストリームを使用してアクセスをサポートするシステムの一部であることができます。</span><span class="sxs-lookup"><span data-stu-id="27e91-137">The `path` parameter is not required to be a file stored on disk; it can be any part of a system that supports access using streams.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="27e91-138">文字のセットをコンパイル時に特定のカルチャ設定を同じ文字を別のカルチャ設定を取得する文字、解釈されないことし、例外をスローする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-138">When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.</span></span>  
+  
+ <span data-ttu-id="27e91-139">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-139">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-140">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-140">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[strmreader ctor2#1](~/samples/snippets/cpp/VS_Snippets_CLR/StrmReader Ctor2/CPP/strmreader ctor2.cpp#1)]
+ [!code-csharp[strmreader ctor2#1](~/samples/snippets/csharp/VS_Snippets_CLR/StrmReader Ctor2/CS/strmreader ctor2.cs#1)]
+ [!code-vb[strmreader ctor2#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StrmReader Ctor2/VB/strmreader ctor2.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-141">
+            <paramref name="path" /> が空の文字列 ("") です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-141">
+              <paramref name="path" /> is an empty string ("").</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-142">
+            <paramref name="path" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-142">
+              <paramref name="path" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.FileNotFoundException">
+          <span data-ttu-id="27e91-143">ファイルが見つかりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-143">The file cannot be found.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.DirectoryNotFoundException">
+          <span data-ttu-id="27e91-144">マップされていないドライブにあるなど、指定されたパスが無効です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-144">The specified path is invalid, such as being on an unmapped drive.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="27e91-145">
+            <paramref name="path" /> に、ファイル名、ディレクトリ名、またはボリューム ラベルとしては不正または無効な構文が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-145">
+              <paramref name="path" /> includes an incorrect or invalid syntax for file name, directory name, or volume label.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Text.Encoding" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (System.IO.Stream stream, bool detectEncodingFromByteOrderMarks);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, bool detectEncodingFromByteOrderMarks) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.IO.Stream,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::IO::Stream ^ stream, bool detectEncodingFromByteOrderMarks);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="detectEncodingFromByteOrderMarks" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="27e91-146">読み込まれるストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-146">The stream to be read.</span>
+          </span>
+        </param>
+        <param name="detectEncodingFromByteOrderMarks">
+          <span data-ttu-id="27e91-147">ファイルの先頭にあるバイト オーダー マークを検索するかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-147">Indicates whether to look for byte order marks at the beginning of the file.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-148">バイト順マーク検出オプションを設定して、指定したストリーム用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-148">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified stream, with the specified byte order mark detection option.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-149">このコンス トラクターを初期化するエンコーディング<xref:System.Text.UTF8Encoding>、<xref:System.IO.StreamReader.BaseStream%2A>プロパティを使用して、`stream`パラメーター、および内部バッファー サイズを 1024 バイトです。</span><span class="sxs-lookup"><span data-stu-id="27e91-149">This constructor initializes the encoding to <xref:System.Text.UTF8Encoding>, the <xref:System.IO.StreamReader.BaseStream%2A> property using the `stream` parameter, and the internal buffer size to 1024 bytes.</span></span>  
+  
+ <span data-ttu-id="27e91-150">`detectEncodingFromByteOrderMarks`パラメーターは、ストリームの最初の 3 バイトで確認して、エンコーディングを検出します。</span><span class="sxs-lookup"><span data-stu-id="27e91-150">The `detectEncodingFromByteOrderMarks` parameter detects the encoding by looking at the first three bytes of the stream.</span></span> <span data-ttu-id="27e91-151">Utf-8、リトル エンディアン Unicode が自動的に認識し、ビッグ エンディアン Unicode テキスト ファイルが、適切なバイト順で始まる場合をマークします。</span><span class="sxs-lookup"><span data-stu-id="27e91-151">It automatically recognizes UTF-8, little-endian Unicode, and big-endian Unicode text if the file starts with the appropriate byte order marks.</span></span> <span data-ttu-id="27e91-152">詳細については、<xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="27e91-152">See the <xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> method for more information.</span></span>  
+  
+ <span data-ttu-id="27e91-153"><xref:System.IO.StreamReader>オブジェクト呼び出し<xref:System.IO.Stream.Dispose>で提供されている<xref:System.IO.Stream>オブジェクトと<xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="27e91-153">The <xref:System.IO.StreamReader> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType> is called.</span></span>  
+  
+ <span data-ttu-id="27e91-154">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-154">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-155">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-155">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[System.IO.StreamReader#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.StreamReader/CPP/streamreadersample.cpp#2)]
+ [!code-csharp[System.IO.StreamReader#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/streamreadersample.cs#2)]
+ [!code-vb[System.IO.StreamReader#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/streamreadersample.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-156">
+            <paramref name="stream" /> が読み取りをサポートしていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-156">
+              <paramref name="stream" /> does not support reading.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-157">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-157">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (System.IO.Stream stream, System.Text.Encoding encoding);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, class System.Text.Encoding encoding) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.IO.Stream,System.Text.Encoding)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::IO::Stream ^ stream, System::Text::Encoding ^ encoding);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="encoding" Type="System.Text.Encoding" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="27e91-158">読み込まれるストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-158">The stream to be read.</span>
+          </span>
+        </param>
+        <param name="encoding">
+          <span data-ttu-id="27e91-159">使用する文字エンコーディング。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-159">The character encoding to use.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-160">文字エンコーディングを設定して、指定したストリーム用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-160">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified stream, with the specified character encoding.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-161">によって設定は、文字エンコーディング、`encoding`パラメーター、およびバッファー サイズが 1024 バイトに設定されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-161">The character encoding is set by the `encoding` parameter, and the buffer size is set to 1024 bytes.</span></span> <span data-ttu-id="27e91-162"><xref:System.IO.StreamReader>オブジェクトがストリームの最初の 3 バイトで確認して、エンコーディングの検出を試みます。</span><span class="sxs-lookup"><span data-stu-id="27e91-162">The <xref:System.IO.StreamReader> object attempts to  detect the encoding by looking at the first three bytes of the stream.</span></span> <span data-ttu-id="27e91-163">Utf-8、リトル エンディアン Unicode が自動的に認識し、ビッグ エンディアン Unicode テキスト ファイルが、適切なバイト順で始まる場合をマークします。</span><span class="sxs-lookup"><span data-stu-id="27e91-163">It automatically recognizes UTF-8, little-endian Unicode, and big-endian Unicode text if the file starts with the appropriate byte order marks.</span></span> <span data-ttu-id="27e91-164">それ以外の場合、ユーザー指定のエンコードが使用されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-164">Otherwise, the user-provided encoding is used.</span></span> <span data-ttu-id="27e91-165">詳細については、<xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="27e91-165">See the <xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> method for more information.</span></span>  
+  
+ <span data-ttu-id="27e91-166"><xref:System.IO.StreamReader>オブジェクト呼び出し<xref:System.IO.Stream.Dispose>で提供されている<xref:System.IO.Stream>オブジェクトと<xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="27e91-166">The <xref:System.IO.StreamReader> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType> is called.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="27e91-167">文字のセットをコンパイル時に特定のカルチャ設定を同じ文字を別のカルチャ設定を取得する文字、解釈されないことし、例外をスローする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-167">When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.</span></span>  
+  
+ <span data-ttu-id="27e91-168">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-168">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-169">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-169">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[System.IO.StreamReader#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.StreamReader/CPP/streamreadersample.cpp#2)]
+ [!code-csharp[System.IO.StreamReader#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/streamreadersample.cs#2)]
+ [!code-vb[System.IO.StreamReader#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/streamreadersample.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-170">
+            <paramref name="stream" /> が読み取りをサポートしていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-170">
+              <paramref name="stream" /> does not support reading.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-171">
+            <paramref name="stream" /> または <paramref name="encoding" /> が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-171">
+              <paramref name="stream" /> or <paramref name="encoding" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Text.Encoding" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (string path, bool detectEncodingFromByteOrderMarks);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string path, bool detectEncodingFromByteOrderMarks) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.String,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (path As String, detectEncodingFromByteOrderMarks As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::String ^ path, bool detectEncodingFromByteOrderMarks);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="detectEncodingFromByteOrderMarks" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="path">
+          <span data-ttu-id="27e91-172">読み込まれる完全なファイルパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-172">The complete file path to be read.</span>
+          </span>
+        </param>
+        <param name="detectEncodingFromByteOrderMarks">
+          <span data-ttu-id="27e91-173">ファイルの先頭にあるバイト オーダー マークを検索するかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-173">Indicates whether to look for byte order marks at the beginning of the file.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-174">指定したバイト順マーク検出オプションを使用して、指定したファイル名用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-174">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified file name, with the specified byte order mark detection option.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-175">このコンス トラクターを初期化するエンコーディング<xref:System.Text.UTF8Encoding>、<xref:System.IO.StreamReader.BaseStream%2A>プロパティを使用して、`stream`パラメーター、および内部バッファー サイズを 1024 バイトです。</span><span class="sxs-lookup"><span data-stu-id="27e91-175">This constructor initializes the encoding to <xref:System.Text.UTF8Encoding>, the <xref:System.IO.StreamReader.BaseStream%2A> property using the `stream` parameter, and the internal buffer size to 1024 bytes.</span></span>  
+  
+ <span data-ttu-id="27e91-176">`path`パラメーターは、汎用名前付け規則 (UNC) 共有上のファイルを含む、ファイル名を指定できます。</span><span class="sxs-lookup"><span data-stu-id="27e91-176">The `path` parameter can be a file name, including a file on a Universal Naming Convention (UNC) share.</span></span>  
+  
+ <span data-ttu-id="27e91-177">`path`パラメーターは必要ありません、ディスクに格納されたファイル ストリームを使用してアクセスをサポートするシステムの一部であることができます。</span><span class="sxs-lookup"><span data-stu-id="27e91-177">The `path` parameter is not required to be a file stored on disk; it can be any part of a system that supports access using streams.</span></span>  
+  
+ <span data-ttu-id="27e91-178">`detectEncodingFromByteOrderMarks`パラメーターは、ストリームの最初の 3 バイトで確認して、エンコーディングを検出します。</span><span class="sxs-lookup"><span data-stu-id="27e91-178">The `detectEncodingFromByteOrderMarks` parameter detects the encoding by looking at the first three bytes of the stream.</span></span> <span data-ttu-id="27e91-179">Utf-8、リトル エンディアン Unicode が自動的に認識し、ビッグ エンディアン Unicode テキスト ファイルが、適切なバイト順で始まる場合をマークします。</span><span class="sxs-lookup"><span data-stu-id="27e91-179">It automatically recognizes UTF-8, little-endian Unicode, and big-endian Unicode text if the file starts with the appropriate byte order marks.</span></span> <span data-ttu-id="27e91-180">それ以外の場合、<xref:System.Text.UTF8Encoding>を使用します。</span><span class="sxs-lookup"><span data-stu-id="27e91-180">Otherwise, the <xref:System.Text.UTF8Encoding> is used.</span></span> <span data-ttu-id="27e91-181">詳細については、<xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="27e91-181">See the <xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> method for more information.</span></span>  
+  
+ <span data-ttu-id="27e91-182">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-182">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-183">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-183">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[System.IO.StreamReader#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.StreamReader/CPP/streamreadersample.cpp#2)]
+ [!code-csharp[System.IO.StreamReader#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/streamreadersample.cs#2)]
+ [!code-vb[System.IO.StreamReader#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/streamreadersample.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-184">
+            <paramref name="path" /> が空の文字列 ("") です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-184">
+              <paramref name="path" /> is an empty string ("").</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-185">
+            <paramref name="path" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-185">
+              <paramref name="path" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.FileNotFoundException">
+          <span data-ttu-id="27e91-186">ファイルが見つかりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-186">The file cannot be found.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.DirectoryNotFoundException">
+          <span data-ttu-id="27e91-187">マップされていないドライブにあるなど、指定されたパスが無効です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-187">The specified path is invalid, such as being on an unmapped drive.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="27e91-188">
+            <paramref name="path" /> に、ファイル名、ディレクトリ名、またはボリューム ラベルとしては不正または無効な構文が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-188">
+              <paramref name="path" /> includes an incorrect or invalid syntax for file name, directory name, or volume label.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (string path, System.Text.Encoding encoding);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string path, class System.Text.Encoding encoding) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.String,System.Text.Encoding)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::String ^ path, System::Text::Encoding ^ encoding);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="encoding" Type="System.Text.Encoding" />
+      </Parameters>
+      <Docs>
+        <param name="path">
+          <span data-ttu-id="27e91-189">読み込まれる完全なファイルパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-189">The complete file path to be read.</span>
+          </span>
+        </param>
+        <param name="encoding">
+          <span data-ttu-id="27e91-190">使用する文字エンコーディング。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-190">The character encoding to use.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-191">文字エンコーディングを設定して、指定したファイル名用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-191">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified file name, with the specified character encoding.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-192">このコンス トラクターで指定されたエンコード、`encoding`パラメーター、および内部バッファー サイズを 1024 バイトです。</span><span class="sxs-lookup"><span data-stu-id="27e91-192">This constructor initializes the encoding as specified by the `encoding` parameter, and the internal buffer size to 1024 bytes.</span></span> <span data-ttu-id="27e91-193"><xref:System.IO.StreamReader>オブジェクトがストリームの最初の 3 バイトで確認して、エンコーディングの検出を試みます。</span><span class="sxs-lookup"><span data-stu-id="27e91-193">The <xref:System.IO.StreamReader> object attempts to  detect the encoding by looking at the first three bytes of the stream.</span></span> <span data-ttu-id="27e91-194">Utf-8、リトル エンディアン Unicode が自動的に認識し、ビッグ エンディアン Unicode テキスト ファイルが、適切なバイト順で始まる場合をマークします。</span><span class="sxs-lookup"><span data-stu-id="27e91-194">It automatically recognizes UTF-8, little-endian Unicode, and big-endian Unicode text if the file starts with the appropriate byte order marks.</span></span> <span data-ttu-id="27e91-195">それ以外の場合、ユーザー指定のエンコードが使用されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-195">Otherwise, the user-provided encoding is used.</span></span> <span data-ttu-id="27e91-196">詳細については、<xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="27e91-196">See the <xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> method for more information.</span></span>  
+  
+ <span data-ttu-id="27e91-197">`path`パラメーターは、汎用名前付け規則 (UNC) 共有上のファイルを含む、ファイル名を指定できます。</span><span class="sxs-lookup"><span data-stu-id="27e91-197">The `path` parameter can be a file name, including a file on a Universal Naming Convention (UNC) share.</span></span>  
+  
+ <span data-ttu-id="27e91-198">`path`パラメーターは必要ありません、ディスクに格納されたファイル ストリームを使用してアクセスをサポートするシステムの一部であることができます。</span><span class="sxs-lookup"><span data-stu-id="27e91-198">The `path` parameter is not required to be a file stored on disk; it can be any part of a system that supports access using streams.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="27e91-199">文字のセットをコンパイル時に特定のカルチャ設定を同じ文字を別のカルチャ設定を取得する文字、解釈されないことし、例外をスローする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-199">When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.</span></span>  
+  
+ <span data-ttu-id="27e91-200">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-200">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-201">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-201">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[System.IO.StreamReader#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.StreamReader/CPP/streamreadersample.cpp#2)]
+ [!code-csharp[System.IO.StreamReader#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/streamreadersample.cs#2)]
+ [!code-vb[System.IO.StreamReader#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/streamreadersample.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-202">
+            <paramref name="path" /> が空の文字列 ("") です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-202">
+              <paramref name="path" /> is an empty string ("").</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-203">
+            <paramref name="path" /> または <paramref name="encoding" /> が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-203">
+              <paramref name="path" /> or <paramref name="encoding" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.FileNotFoundException">
+          <span data-ttu-id="27e91-204">ファイルが見つかりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-204">The file cannot be found.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.DirectoryNotFoundException">
+          <span data-ttu-id="27e91-205">マップされていないドライブにあるなど、指定されたパスが無効です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-205">The specified path is invalid, such as being on an unmapped drive.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="27e91-206">
+            <paramref name="path" /> に、ファイル名、ディレクトリ名、またはボリューム ラベルとしては不正または無効な構文が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-206">
+              <paramref name="path" /> includes an incorrect or invalid syntax for file name, directory name, or volume label.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Text.Encoding" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (System.IO.Stream stream, System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, class System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.IO.Stream,System.Text.Encoding,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::IO::Stream ^ stream, System::Text::Encoding ^ encoding, bool detectEncodingFromByteOrderMarks);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="encoding" Type="System.Text.Encoding" />
+        <Parameter Name="detectEncodingFromByteOrderMarks" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="27e91-207">読み込まれるストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-207">The stream to be read.</span>
+          </span>
+        </param>
+        <param name="encoding">
+          <span data-ttu-id="27e91-208">使用する文字エンコーディング。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-208">The character encoding to use.</span>
+          </span>
+        </param>
+        <param name="detectEncodingFromByteOrderMarks">
+          <span data-ttu-id="27e91-209">ファイルの先頭にあるバイト オーダー マークを検索するかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-209">Indicates whether to look for byte order marks at the beginning of the file.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-210">文字エンコーディングとバイト順マーク検出オプションを設定して、指定したストリーム用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-210">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified stream, with the specified character encoding and byte order mark detection option.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-211">このコンス トラクターで指定されたエンコード、 `encoding` 、パラメーター、<xref:System.IO.StreamReader.BaseStream%2A>プロパティを使用して、`stream`パラメーター、および内部バッファー サイズを 1024 バイトです。</span><span class="sxs-lookup"><span data-stu-id="27e91-211">This constructor initializes the encoding as specified by the `encoding` parameter, the <xref:System.IO.StreamReader.BaseStream%2A> property using the `stream` parameter, and the internal buffer size to 1024 bytes.</span></span>  
+  
+ <span data-ttu-id="27e91-212">`detectEncodingFromByteOrderMarks`パラメーターは、ストリームの最初の 3 バイトで確認して、エンコーディングを検出します。</span><span class="sxs-lookup"><span data-stu-id="27e91-212">The `detectEncodingFromByteOrderMarks` parameter detects the encoding by looking at the first three bytes of the stream.</span></span> <span data-ttu-id="27e91-213">Utf-8、リトル エンディアン Unicode が自動的に認識し、ビッグ エンディアン Unicode テキスト ファイルが、適切なバイト順で始まる場合をマークします。</span><span class="sxs-lookup"><span data-stu-id="27e91-213">It automatically recognizes UTF-8, little-endian Unicode, and big-endian Unicode text if the file starts with the appropriate byte order marks.</span></span> <span data-ttu-id="27e91-214">それ以外の場合、ユーザー指定のエンコードが使用されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-214">Otherwise, the user-provided encoding is used.</span></span> <span data-ttu-id="27e91-215">詳細については、<xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="27e91-215">See the <xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> method for more information.</span></span>  
+  
+ <span data-ttu-id="27e91-216"><xref:System.IO.StreamReader>オブジェクト呼び出し<xref:System.IO.Stream.Dispose>で提供されている<xref:System.IO.Stream>オブジェクトと<xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="27e91-216">The <xref:System.IO.StreamReader> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType> is called.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="27e91-217">文字のセットをコンパイル時に特定のカルチャ設定を同じ文字を別のカルチャ設定を取得する文字、解釈されないことし、例外をスローする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-217">When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.</span></span>  
+  
+ <span data-ttu-id="27e91-218">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-218">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-219">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-219">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[System.IO.StreamReader#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.StreamReader/CPP/streamreadersample.cpp#2)]
+ [!code-csharp[System.IO.StreamReader#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/streamreadersample.cs#2)]
+ [!code-vb[System.IO.StreamReader#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/streamreadersample.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-220">
+            <paramref name="stream" /> が読み取りをサポートしていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-220">
+              <paramref name="stream" /> does not support reading.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-221">
+            <paramref name="stream" /> または <paramref name="encoding" /> が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-221">
+              <paramref name="stream" /> or <paramref name="encoding" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Text.Encoding" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (string path, System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string path, class System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.String,System.Text.Encoding,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::String ^ path, System::Text::Encoding ^ encoding, bool detectEncodingFromByteOrderMarks);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="encoding" Type="System.Text.Encoding" />
+        <Parameter Name="detectEncodingFromByteOrderMarks" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="path">
+          <span data-ttu-id="27e91-222">読み込まれる完全なファイルパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-222">The complete file path to be read.</span>
+          </span>
+        </param>
+        <param name="encoding">
+          <span data-ttu-id="27e91-223">使用する文字エンコーディング。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-223">The character encoding to use.</span>
+          </span>
+        </param>
+        <param name="detectEncodingFromByteOrderMarks">
+          <span data-ttu-id="27e91-224">ファイルの先頭にあるバイト オーダー マークを検索するかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-224">Indicates whether to look for byte order marks at the beginning of the file.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-225">文字エンコーディングとバイト順マーク検出オプションを設定して、指定したファイル名用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-225">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified file name, with the specified character encoding and byte order mark detection option.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-226">このコンス トラクターで指定されたエンコード、`encoding`パラメーター、および内部バッファー サイズを 1024 バイトです。</span><span class="sxs-lookup"><span data-stu-id="27e91-226">This constructor initializes the encoding as specified by the `encoding` parameter, and the internal buffer size to 1024 bytes.</span></span>  
+  
+ <span data-ttu-id="27e91-227">`detectEncodingFromByteOrderMarks`パラメーターは、ストリームの最初の 3 バイトで確認して、エンコーディングを検出します。</span><span class="sxs-lookup"><span data-stu-id="27e91-227">The `detectEncodingFromByteOrderMarks` parameter detects the encoding by looking at the first three bytes of the stream.</span></span> <span data-ttu-id="27e91-228">Utf-8、リトル エンディアン Unicode が自動的に認識し、ビッグ エンディアン Unicode テキスト ファイルが、適切なバイト順で始まる場合をマークします。</span><span class="sxs-lookup"><span data-stu-id="27e91-228">It automatically recognizes UTF-8, little-endian Unicode, and big-endian Unicode text if the file starts with the appropriate byte order marks.</span></span> <span data-ttu-id="27e91-229">それ以外の場合、ユーザー指定のエンコードが使用されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-229">Otherwise, the user-provided encoding is used.</span></span> <span data-ttu-id="27e91-230">詳細については、<xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="27e91-230">See the <xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> method for more information.</span></span>  
+  
+ <span data-ttu-id="27e91-231">`path`パラメーターは、汎用名前付け規則 (UNC) 共有上のファイルを含む、ファイル名を指定できます。</span><span class="sxs-lookup"><span data-stu-id="27e91-231">The `path` parameter can be a file name, including a file on a Universal Naming Convention (UNC) share.</span></span>  
+  
+ <span data-ttu-id="27e91-232">`path`パラメーターは必要ありません、ディスクに格納されたファイル ストリームを使用してアクセスをサポートするシステムの一部であることができます。</span><span class="sxs-lookup"><span data-stu-id="27e91-232">The `path` parameter is not required to be a file stored on disk; it can be any part of a system that supports access using streams.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="27e91-233">文字のセットをコンパイル時に特定のカルチャ設定を同じ文字を別のカルチャ設定を取得する文字、解釈されないことし、例外をスローする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-233">When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.</span></span>  
+  
+ <span data-ttu-id="27e91-234">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-234">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-235">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-235">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[System.IO.StreamReader#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.StreamReader/CPP/streamreadersample.cpp#2)]
+ [!code-csharp[System.IO.StreamReader#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/streamreadersample.cs#2)]
+ [!code-vb[System.IO.StreamReader#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/streamreadersample.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-236">
+            <paramref name="path" /> が空の文字列 ("") です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-236">
+              <paramref name="path" /> is an empty string ("").</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-237">
+            <paramref name="path" /> または <paramref name="encoding" /> が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-237">
+              <paramref name="path" /> or <paramref name="encoding" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.FileNotFoundException">
+          <span data-ttu-id="27e91-238">ファイルが見つかりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-238">The file cannot be found.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.DirectoryNotFoundException">
+          <span data-ttu-id="27e91-239">マップされていないドライブにあるなど、指定されたパスが無効です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-239">The specified path is invalid, such as being on an unmapped drive.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="27e91-240">
+            <paramref name="path" /> に、ファイル名、ディレクトリ名、またはボリューム ラベルとしては不正または無効な構文が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-240">
+              <paramref name="path" /> includes an incorrect or invalid syntax for file name, directory name, or volume label.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Text.Encoding" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (System.IO.Stream stream, System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, class System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks, int32 bufferSize) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.IO.Stream,System.Text.Encoding,System.Boolean,System.Int32)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::IO::Stream ^ stream, System::Text::Encoding ^ encoding, bool detectEncodingFromByteOrderMarks, int bufferSize);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="encoding" Type="System.Text.Encoding" />
+        <Parameter Name="detectEncodingFromByteOrderMarks" Type="System.Boolean" />
+        <Parameter Name="bufferSize" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="27e91-241">読み込まれるストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-241">The stream to be read.</span>
+          </span>
+        </param>
+        <param name="encoding">
+          <span data-ttu-id="27e91-242">使用する文字エンコーディング。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-242">The character encoding to use.</span>
+          </span>
+        </param>
+        <param name="detectEncodingFromByteOrderMarks">
+          <span data-ttu-id="27e91-243">ファイルの先頭にあるバイト オーダー マークを検索するかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-243">Indicates whether to look for byte order marks at the beginning of the file.</span>
+          </span>
+        </param>
+        <param name="bufferSize">
+          <span data-ttu-id="27e91-244">最小バッファー サイズ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-244">The minimum buffer size.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-245">文字エンコーディング、バイト順マーク検出オプション、およびバッファー サイズを設定して、指定したストリーム用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-245">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified stream, with the specified character encoding, byte order mark detection option, and buffer size.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-246">16 ビット文字数で、バッファー サイズを設定、`bufferSize`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="27e91-246">The buffer size, in number of 16-bit characters, is set by the `bufferSize` parameter.</span></span> <span data-ttu-id="27e91-247">場合`bufferSize`が小さい最小値の許容サイズ (128 文字) よりも、最小許容サイズを使用します。</span><span class="sxs-lookup"><span data-stu-id="27e91-247">If `bufferSize` is less than the minimum allowable size (128 characters), the minimum allowable size is used.</span></span>  
+  
+ <span data-ttu-id="27e91-248">このコンス トラクターでは、エンコードから読み取る最初の時間を変更することができます、<xref:System.IO.StreamReader>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="27e91-248">This constructor allows you to change the encoding the first time you read from the <xref:System.IO.StreamReader> object.</span></span> <span data-ttu-id="27e91-249">`detectEncodingFromByteOrderMarks`パラメーターは、ストリームの最初の 3 バイトで確認して、エンコーディングを検出します。</span><span class="sxs-lookup"><span data-stu-id="27e91-249">The `detectEncodingFromByteOrderMarks` parameter detects the encoding by looking at the first three bytes of the stream.</span></span> <span data-ttu-id="27e91-250">Utf-8、リトル エンディアン Unicode が自動的に認識し、ビッグ エンディアン Unicode テキスト ファイルが、適切なバイト順で始まる場合をマークします。</span><span class="sxs-lookup"><span data-stu-id="27e91-250">It automatically recognizes UTF-8, little-endian Unicode, and big-endian Unicode text if the file starts with the appropriate byte order marks.</span></span> <span data-ttu-id="27e91-251">それ以外の場合、ユーザー指定のエンコードが使用されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-251">Otherwise, the user-provided encoding is used.</span></span> <span data-ttu-id="27e91-252">詳細については、<xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="27e91-252">See the <xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> method for more information.</span></span>  
+  
+ <span data-ttu-id="27e91-253"><xref:System.IO.StreamReader>オブジェクト呼び出し<xref:System.IO.Stream.Dispose>で提供されている<xref:System.IO.Stream>オブジェクトと<xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="27e91-253">The <xref:System.IO.StreamReader> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType> is called.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="27e91-254">読み取るときに、<xref:System.IO.Stream>ストリームの内部バッファーと同じサイズであるバッファーを使用する方が効率的です。</span><span class="sxs-lookup"><span data-stu-id="27e91-254">When reading from a <xref:System.IO.Stream>, it is more efficient to use a buffer that is the same size as the internal buffer of the stream.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="27e91-255">文字のセットをコンパイル時に特定のカルチャ設定を同じ文字を別のカルチャ設定を取得する文字、解釈されないことし、例外をスローする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-255">When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.</span></span>  
+  
+ <span data-ttu-id="27e91-256">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-256">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-257">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-257">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[System.IO.StreamReader#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.StreamReader/CPP/streamreadersample.cpp#2)]
+ [!code-csharp[System.IO.StreamReader#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/streamreadersample.cs#2)]
+ [!code-vb[System.IO.StreamReader#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/streamreadersample.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-258">ストリームは読み取りをサポートしません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-258">The stream does not support reading.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-259">
+            <paramref name="stream" /> または <paramref name="encoding" /> が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-259">
+              <paramref name="stream" /> or <paramref name="encoding" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="27e91-260">
+            <paramref name="bufferSize" /> が 0 以下です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-260">
+              <paramref name="bufferSize" /> is less than or equal to zero.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Text.Encoding" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (string path, System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string path, class System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks, int32 bufferSize) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.String,System.Text.Encoding,System.Boolean,System.Int32)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::String ^ path, System::Text::Encoding ^ encoding, bool detectEncodingFromByteOrderMarks, int bufferSize);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="encoding" Type="System.Text.Encoding" />
+        <Parameter Name="detectEncodingFromByteOrderMarks" Type="System.Boolean" />
+        <Parameter Name="bufferSize" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="path">
+          <span data-ttu-id="27e91-261">読み込まれる完全なファイルパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-261">The complete file path to be read.</span>
+          </span>
+        </param>
+        <param name="encoding">
+          <span data-ttu-id="27e91-262">使用する文字エンコーディング。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-262">The character encoding to use.</span>
+          </span>
+        </param>
+        <param name="detectEncodingFromByteOrderMarks">
+          <span data-ttu-id="27e91-263">ファイルの先頭にあるバイト オーダー マークを検索するかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-263">Indicates whether to look for byte order marks at the beginning of the file.</span>
+          </span>
+        </param>
+        <param name="bufferSize">
+          <span data-ttu-id="27e91-264">最小バッファーサイズ。単位は、16 ビット文字数です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-264">The minimum buffer size, in number of 16-bit characters.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-265">文字エンコーディング、バイト順マーク検出オプション、およびバッファー サイズを設定して、指定したファイル名の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-265">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified file name, with the specified character encoding, byte order mark detection option, and buffer size.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-266">このコンス トラクターで指定されたエンコード、`encoding`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="27e91-266">This constructor initializes the encoding as specified by the `encoding` parameter.</span></span>  
+  
+ <span data-ttu-id="27e91-267">このコンス トラクターでは、エンコードから読み取る最初の時間を変更することができます、<xref:System.IO.StreamReader>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="27e91-267">This constructor allows you to change the encoding the first time you read from the <xref:System.IO.StreamReader> object.</span></span> <span data-ttu-id="27e91-268">`detectEncodingFromByteOrderMarks`パラメーターは、ストリームの最初の 3 バイトで確認して、エンコーディングを検出します。</span><span class="sxs-lookup"><span data-stu-id="27e91-268">The `detectEncodingFromByteOrderMarks` parameter detects the encoding by looking at the first three bytes of the stream.</span></span> <span data-ttu-id="27e91-269">Utf-8、リトル エンディアン Unicode が自動的に認識し、ビッグ エンディアン Unicode テキスト ファイルが、適切なバイト順で始まる場合をマークします。</span><span class="sxs-lookup"><span data-stu-id="27e91-269">It automatically recognizes UTF-8, little-endian Unicode, and big-endian Unicode text if the file starts with the appropriate byte order marks.</span></span> <span data-ttu-id="27e91-270">それ以外の場合、ユーザー指定のエンコードが使用されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-270">Otherwise, the user-provided encoding is used.</span></span> <span data-ttu-id="27e91-271">詳細については、<xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="27e91-271">See the <xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> method for more information.</span></span>  
+  
+ <span data-ttu-id="27e91-272">16 ビット文字数で、バッファー サイズを設定、`bufferSize`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="27e91-272">The buffer size, in number of 16-bit characters, is set by the `bufferSize` parameter.</span></span> <span data-ttu-id="27e91-273">場合`bufferSize`が小さい最小値の許容サイズ (128 文字) よりも、最小許容サイズを使用します。</span><span class="sxs-lookup"><span data-stu-id="27e91-273">If `bufferSize` is less than the minimum allowable size (128 characters), the minimum allowable size is used.</span></span>  
+  
+ <span data-ttu-id="27e91-274">`path`パラメーターは、汎用名前付け規則 (UNC) 共有上のファイルを含む、ファイル名を指定できます。</span><span class="sxs-lookup"><span data-stu-id="27e91-274">The `path` parameter can be a file name, including a file on a Universal Naming Convention (UNC) share.</span></span>  
+  
+ <span data-ttu-id="27e91-275">`path`パラメーターは必要ありません、ディスクに格納されたファイル ストリームを使用してアクセスをサポートするシステムの一部であることができます。</span><span class="sxs-lookup"><span data-stu-id="27e91-275">The `path` parameter is not required to be a file stored on disk; it can be any part of a system that supports access using streams.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="27e91-276">文字のセットをコンパイル時に特定のカルチャ設定を同じ文字を別のカルチャ設定を取得する文字、解釈されないことし、例外をスローする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-276">When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.</span></span>  
+  
+ <span data-ttu-id="27e91-277">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-277">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-278">次のコード例を示します<xref:System.IO.StreamReader>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="27e91-278">The following code example demonstrates this <xref:System.IO.StreamReader> constructor.</span></span>  
+  
+ [!code-cpp[System.IO.StreamReader#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.StreamReader/CPP/streamreadersample.cpp#2)]
+ [!code-csharp[System.IO.StreamReader#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/streamreadersample.cs#2)]
+ [!code-vb[System.IO.StreamReader#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/streamreadersample.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-279">
+            <paramref name="path" /> が空の文字列 ("") です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-279">
+              <paramref name="path" /> is an empty string ("").</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-280">
+            <paramref name="path" /> または <paramref name="encoding" /> が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-280">
+              <paramref name="path" /> or <paramref name="encoding" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.FileNotFoundException">
+          <span data-ttu-id="27e91-281">ファイルが見つかりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-281">The file cannot be found.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.DirectoryNotFoundException">
+          <span data-ttu-id="27e91-282">マップされていないドライブにあるなど、指定されたパスが無効です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-282">The specified path is invalid, such as being on an unmapped drive.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="27e91-283">
+            <paramref name="path" /> に、ファイル名、ディレクトリ名、またはボリューム ラベルとしては不正または無効な構文が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-283">
+              <paramref name="path" /> includes an incorrect or invalid syntax for file name, directory name, or volume label.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="27e91-284">
+            <paramref name="buffersize" /> が 0 以下です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-284">
+              <paramref name="buffersize" /> is less than or equal to zero.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Text.Encoding" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public StreamReader (System.IO.Stream stream, System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize, bool leaveOpen);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, class System.Text.Encoding encoding, bool detectEncodingFromByteOrderMarks, int32 bufferSize, bool leaveOpen) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.#ctor(System.IO.Stream,System.Text.Encoding,System.Boolean,System.Int32,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; StreamReader(System::IO::Stream ^ stream, System::Text::Encoding ^ encoding, bool detectEncodingFromByteOrderMarks, int bufferSize, bool leaveOpen);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="encoding" Type="System.Text.Encoding" />
+        <Parameter Name="detectEncodingFromByteOrderMarks" Type="System.Boolean" />
+        <Parameter Name="bufferSize" Type="System.Int32" />
+        <Parameter Name="leaveOpen" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="27e91-285">読み取るストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-285">The stream to read.</span>
+          </span>
+        </param>
+        <param name="encoding">
+          <span data-ttu-id="27e91-286">使用する文字エンコーディング。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-286">The character encoding to use.</span>
+          </span>
+        </param>
+        <param name="detectEncodingFromByteOrderMarks">
+          <span data-ttu-id="27e91-287">ファイルの先頭にあるバイト順序マークを検索する場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-287">
+              <see langword="true" /> to look for byte order marks at the beginning of the file; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <param name="bufferSize">
+          <span data-ttu-id="27e91-288">最小バッファー サイズ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-288">The minimum buffer size.</span>
+          </span>
+        </param>
+        <param name="leaveOpen">
+          <span data-ttu-id="27e91-289">
+            <see cref="T:System.IO.StreamReader" /> オブジェクトを破棄した後にストリームを開いたままにする場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-289">
+              <see langword="true" /> to leave the stream open after the <see cref="T:System.IO.StreamReader" /> object is disposed; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-290">指定した文字エンコーディング、バイト順マーク検出オプション、およびバッファー サイズに基づいて、指定したストリーム用の <see cref="T:System.IO.StreamReader" /> クラスの新しいインスタンスを初期化し、必要に応じて、ストリームを開いたままにします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-290">Initializes a new instance of the <see cref="T:System.IO.StreamReader" /> class for the specified stream based on the specified character encoding, byte order mark detection option, and buffer size, and optionally leaves the stream open.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-291">設定しない限り、`leaveOpen`パラメーターを`true`、<xref:System.IO.StreamReader>オブジェクトの呼び出し<xref:System.IO.Stream.Dispose>で提供されている<xref:System.IO.Stream>オブジェクトと<xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="27e91-291">Unless you set the `leaveOpen` parameter to `true`, the <xref:System.IO.StreamReader> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamReader.Dispose%2A?displayProperty=nameWithType> is called.</span></span>  
+  
+ <span data-ttu-id="27e91-292">16 ビット文字数で、バッファー サイズを設定、`bufferSize`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="27e91-292">The buffer size, in number of 16-bit characters, is set by the `bufferSize` parameter.</span></span> <span data-ttu-id="27e91-293">場合`bufferSize`が小さい最小値の許容サイズ (128 文字) よりも、最小許容サイズを使用します。</span><span class="sxs-lookup"><span data-stu-id="27e91-293">If `bufferSize` is less than the minimum allowable size (128 characters), the minimum allowable size is used.</span></span>  
+  
+ <span data-ttu-id="27e91-294">このコンス トラクターでは、エンコードから読み取る最初の時間を変更することができます、<xref:System.IO.StreamReader>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="27e91-294">This constructor enables you to change the encoding the first time you read from the <xref:System.IO.StreamReader> object.</span></span> <span data-ttu-id="27e91-295">場合、`detectEncodingFromByteOrderMarks`パラメーターは`true`、コンス トラクターは、ストリームの最初の 3 バイトを確認してエンコーディングを検出します。</span><span class="sxs-lookup"><span data-stu-id="27e91-295">If the `detectEncodingFromByteOrderMarks` parameter is `true`, the constructor detects the encoding by looking at the first three bytes of the stream.</span></span> <span data-ttu-id="27e91-296">Utf-8、リトル エンディアン Unicode が自動的に認識し、ビッグ エンディアン Unicode テキスト ファイルが、適切なバイト順で始まる場合をマークします。</span><span class="sxs-lookup"><span data-stu-id="27e91-296">It automatically recognizes UTF-8, little-endian Unicode, and big-endian Unicode text if the file starts with the appropriate byte order marks.</span></span> <span data-ttu-id="27e91-297">それ以外の場合、ユーザー指定のエンコードが使用されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-297">Otherwise, the user-provided encoding is used.</span></span> <span data-ttu-id="27e91-298">詳細については、<xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="27e91-298">See the <xref:System.Text.Encoding.GetPreamble%2A?displayProperty=nameWithType> method for more information.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="27e91-299">読み取るときに、<xref:System.IO.Stream>ストリームの内部バッファーと同じサイズであるバッファーを使用する方が効率的です。</span><span class="sxs-lookup"><span data-stu-id="27e91-299">When reading from a <xref:System.IO.Stream>, it is more efficient to use a buffer that is the same size as the internal buffer of the stream.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="27e91-300">文字のセットをコンパイル時に特定のカルチャ設定を同じ文字を別のカルチャ設定を取得するときに文字が正しく解釈されない可能性があり、例外をスローする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-300">When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpreted correctly, and could cause an exception to be thrown.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="BaseStream">
+      <MemberSignature Language="C#" Value="public virtual System.IO.Stream BaseStream { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.IO.Stream BaseStream" />
+      <MemberSignature Language="DocId" Value="P:System.IO.StreamReader.BaseStream" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable ReadOnly Property BaseStream As Stream" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::IO::Stream ^ BaseStream { System::IO::Stream ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IO.Stream</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-301">基になるストリームを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-301">Returns the underlying stream.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="27e91-302">基になるストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-302">The underlying stream.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-303">基になるストリームにアクセスするのにには、このプロパティを使用します。</span><span class="sxs-lookup"><span data-stu-id="27e91-303">You use this property to access the underlying stream.</span></span> <span data-ttu-id="27e91-304"><xref:System.IO.StreamReader>クラスのいずれかを呼び出すときの基になるストリームからの入力をバッファー、<xref:System.IO.StreamReader.Read%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="27e91-304">The <xref:System.IO.StreamReader> class buffers input from the underlying stream when you call one of the <xref:System.IO.StreamReader.Read%2A> methods.</span></span> <span data-ttu-id="27e91-305">バッファーにデータの読み取り後に、基になるストリームの位置を操作する場合、基になるストリームの位置は内部バッファーの位置と一致可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-305">If you manipulate the position of the underlying stream after reading data into the buffer, the position of the underlying stream might not match the position of the internal buffer.</span></span> <span data-ttu-id="27e91-306">内部バッファーをリセットするには、呼び出し、<xref:System.IO.StreamReader.DiscardBufferedData%2A>メソッドです。 ただし、このメソッドは、パフォーマンスが低下し、どうしても必要な場合にのみ呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-306">To reset the internal buffer, call the <xref:System.IO.StreamReader.DiscardBufferedData%2A> method; however, this method slows performance and should be called only when absolutely necessary.</span></span> <span data-ttu-id="27e91-307"><xref:System.IO.StreamReader>を持つコンス トラクター、`detectEncodingFromByteOrderMarks`パラメーターが初めてから読み取るエンコードを変更することができます、<xref:System.IO.StreamReader>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="27e91-307">The <xref:System.IO.StreamReader> constructors that have the `detectEncodingFromByteOrderMarks` parameter can change the encoding the first time you read from the <xref:System.IO.StreamReader> object.</span></span>  
+  
+ <span data-ttu-id="27e91-308">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-308">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Close">
+      <MemberSignature Language="C#" Value="public override void Close ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Close() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.Close" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub Close ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void Close();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-309">
+            <see cref="T:System.IO.StreamReader" /> オブジェクトと、その基になるストリームを閉じ、リーダーに関連付けられたすべてのシステム リソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-309">Closes the <see cref="T:System.IO.StreamReader" /> object and the underlying stream, and releases any system resources associated with the reader.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-310">このメソッドは、<xref:System.IO.TextWriter.Close%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="27e91-310">This method overrides the <xref:System.IO.TextWriter.Close%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ <span data-ttu-id="27e91-311">この実装<xref:System.IO.StreamReader.Close%2A>呼び出し、<xref:System.IO.StreamReader.Dispose%2A>メソッド、`true`値。</span><span class="sxs-lookup"><span data-stu-id="27e91-311">This implementation of <xref:System.IO.StreamReader.Close%2A> calls the <xref:System.IO.StreamReader.Dispose%2A> method passing a `true` value.</span></span>  
+  
+ <span data-ttu-id="27e91-312">明示的に呼び出す場合を除き、ストリームのフラッシュは、基になるエンコーダー フラッシュされません<xref:System.IO.StreamReader.Close%2A>です。</span><span class="sxs-lookup"><span data-stu-id="27e91-312">Flushing the stream will not flush its underlying encoder unless you explicitly call <xref:System.IO.StreamReader.Close%2A>.</span></span> <span data-ttu-id="27e91-313">設定<xref:System.IO.StreamWriter.AutoFlush%2A>に`true`に、ストリーム バッファーからデータがフラッシュされますが、エンコーダーの状態はフラッシュされないことを意味します。</span><span class="sxs-lookup"><span data-stu-id="27e91-313">Setting <xref:System.IO.StreamWriter.AutoFlush%2A> to `true` means that data will be flushed from the buffer to the stream, but the encoder state will not be flushed.</span></span> <span data-ttu-id="27e91-314">これにより、次の文字のブロックを正常にエンコードできるように (一部の文字) の状態を保持するエンコーダー。</span><span class="sxs-lookup"><span data-stu-id="27e91-314">This allows the encoder to keep its state (partial characters) so that it can encode the next block of characters correctly.</span></span> <span data-ttu-id="27e91-315">このシナリオでは、UTF8、UTF7、ここで、エンコーダーは、隣接する文字または文字列を受信した後にのみ特定の文字をエンコードすることができますに影響します。</span><span class="sxs-lookup"><span data-stu-id="27e91-315">This scenario affects UTF8 and UTF7, where certain characters can be encoded only after the encoder receives the adjacent character or characters.</span></span>  
+  
+ <span data-ttu-id="27e91-316">呼び出しに続く<xref:System.IO.StreamReader.Close%2A>リーダーの操作が例外を発生させる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-316">Following a call to <xref:System.IO.StreamReader.Close%2A>, any operations on the reader might raise exceptions.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CurrentEncoding">
+      <MemberSignature Language="C#" Value="public virtual System.Text.Encoding CurrentEncoding { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Text.Encoding CurrentEncoding" />
+      <MemberSignature Language="DocId" Value="P:System.IO.StreamReader.CurrentEncoding" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable ReadOnly Property CurrentEncoding As Encoding" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Text::Encoding ^ CurrentEncoding { System::Text::Encoding ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Text.Encoding</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-317">現在の <see cref="T:System.IO.StreamReader" /> オブジェクトが使用している現在の文字エンコーディングを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-317">Gets the current character encoding that the current <see cref="T:System.IO.StreamReader" /> object is using.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="27e91-318">現在のリーダーが使用している現在の文字エンコーディング。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-318">The current character encoding used by the current reader.</span>
+          </span>
+          <span data-ttu-id="27e91-319">
+            <see cref="T:System.IO.StreamReader" /> の <see cref="Overload:System.IO.StreamReader.Read" /> メソッドを最初に呼び出した後、現在の文字エンコーディングを示す値が異なる場合があります。これは、<see cref="Overload:System.IO.StreamReader.Read" /> メソッドの最初の呼び出しまでエンコードの自動検出が実行されないためです。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-319">The value can be different after the first call to any <see cref="Overload:System.IO.StreamReader.Read" /> method of <see cref="T:System.IO.StreamReader" />, since encoding autodetection is not done until the first call to a <see cref="Overload:System.IO.StreamReader.Read" /> method.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-320">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-320">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-321">次のコード例では、指定されたエンコーディングを取得<xref:System.IO.StreamReader>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="27e91-321">The following code example gets the encoding of the specified <xref:System.IO.StreamReader> object.</span></span>  
+  
+ [!code-cpp[strmreader currentencoding#1](~/samples/snippets/cpp/VS_Snippets_CLR/StrmReader CurrentEncoding/CPP/strmreader currentencoding.cpp#1)]
+ [!code-csharp[strmreader currentencoding#1](~/samples/snippets/csharp/VS_Snippets_CLR/StrmReader CurrentEncoding/CS/strmreader currentencoding.cs#1)]
+ [!code-vb[strmreader currentencoding#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StrmReader CurrentEncoding/VB/strmreader currentencoding.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="DiscardBufferedData">
+      <MemberSignature Language="C#" Value="public void DiscardBufferedData ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void DiscardBufferedData() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.DiscardBufferedData" />
+      <MemberSignature Language="VB.NET" Value="Public Sub DiscardBufferedData ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void DiscardBufferedData();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-322">内部バッファーをクリアします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-322">Clears the internal buffer.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-323">使用して、<xref:System.IO.StreamReader.DiscardBufferedData%2A>の内部バッファーを再設定する方法、<xref:System.IO.StreamReader>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="27e91-323">Use the <xref:System.IO.StreamReader.DiscardBufferedData%2A> method to reset the internal buffer for the <xref:System.IO.StreamReader> object.</span></span> <span data-ttu-id="27e91-324">このメソッドを呼び出す必要がある場合にのみ内部バッファーの位置と<xref:System.IO.StreamReader.BaseStream%2A>が一致しません。</span><span class="sxs-lookup"><span data-stu-id="27e91-324">You need to call this method only when the position of the internal buffer and the <xref:System.IO.StreamReader.BaseStream%2A> do not match.</span></span> <span data-ttu-id="27e91-325">バッファーにデータを読み取り、基になるストリーム内の新しい位置をシークすると、それらの位置は一致しないなります。</span><span class="sxs-lookup"><span data-stu-id="27e91-325">These positions can become mismatched when you read data into the buffer and then seek a new position in the underlying stream.</span></span> <span data-ttu-id="27e91-326">このメソッドは、パフォーマンスが低下し、読み取りの内容の一部にする場合など、どうしても必要な場合にのみ使用する必要があります、<xref:System.IO.StreamReader>オブジェクトも複数回です。</span><span class="sxs-lookup"><span data-stu-id="27e91-326">This method slows performance and should be used only when absolutely necessary, such as when you want to read a portion of the contents of a <xref:System.IO.StreamReader> object more than once.</span></span>  
+  
+ <span data-ttu-id="27e91-327">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-327">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-328">次の例は、シナリオを示しています。 ここで、<xref:System.IO.StreamReader.DiscardBufferedData%2A>内部バッファーと基になるストリームを同期するためにメソッドを呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-328">The following example shows a scenario where the <xref:System.IO.StreamReader.DiscardBufferedData%2A> method must be called to synchronize the internal buffer and the underlying stream.</span></span> <span data-ttu-id="27e91-329">例ではファイルが位置を示すために使用され、テキストから成る`abcdefghijklmnopqrstuvwxyz`です。</span><span class="sxs-lookup"><span data-stu-id="27e91-329">The file in the example is used to illustrate position and consists of the text `abcdefghijklmnopqrstuvwxyz`.</span></span> <span data-ttu-id="27e91-330">呼び出して<xref:System.IO.StreamReader.DiscardBufferedData%2A>データが読み取られた後に例では、正常に動作します。</span><span class="sxs-lookup"><span data-stu-id="27e91-330">By calling <xref:System.IO.StreamReader.DiscardBufferedData%2A> after the data is read, the example works as expected.</span></span> <span data-ttu-id="27e91-331">最初の 15 文字が読み取られ後の位置が 2 のオフセット値にリセットされ、残りのすべての文字が読み取られます。</span><span class="sxs-lookup"><span data-stu-id="27e91-331">After the first 15 characters are read, the position is reset to the offset value of 2 and all the remaining characters are read.</span></span> <span data-ttu-id="27e91-332">呼び出しを削除する場合<xref:System.IO.StreamReader.DiscardBufferedData%2A>例では、ときに、想定どおりに動作しません。</span><span class="sxs-lookup"><span data-stu-id="27e91-332">If you remove the call to <xref:System.IO.StreamReader.DiscardBufferedData%2A>, the example does not work as expected.</span></span> <span data-ttu-id="27e91-333">最初の 15 文字が読み取られ、ですが、基になるストリームの位置だけがリセットされます。</span><span class="sxs-lookup"><span data-stu-id="27e91-333">The first 15 characters are read, but only the position of the underlying stream is reset.</span></span> <span data-ttu-id="27e91-334">内部バッファー、<xref:System.IO.StreamReader>オブジェクトがまだ 16 番目の文字です。</span><span class="sxs-lookup"><span data-stu-id="27e91-334">The internal buffer of the <xref:System.IO.StreamReader> object is still on the 16th character.</span></span> <span data-ttu-id="27e91-335">したがって、<xref:System.IO.StreamReader.ReadToEnd%2A>バッファーとリセットの位置から基になるストリーム内の文字内のすべての文字を返します。</span><span class="sxs-lookup"><span data-stu-id="27e91-335">Therefore, <xref:System.IO.StreamReader.ReadToEnd%2A> returns all the characters in the buffer plus the characters in the underlying stream starting from the reset position.</span></span>  
+  
+ [!code-csharp[System.IO.StreamReader#30](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/program.cs#30)]
+ [!code-vb[System.IO.StreamReader#30](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/module1.vb#30)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected override void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">
+          <span data-ttu-id="27e91-336">マネージ リソースとアンマネージ リソースの両方を解放する場合は <see langword="true" />。アンマネージ リソースだけを解放する場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-336">
+              <see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-337">基になるストリームを閉じ、<see cref="T:System.IO.StreamReader" /> によって使用されているアンマネージ リソースを解放します。任意でマネージ リソースも解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-337">Closes the underlying stream, releases the unmanaged resources used by the <see cref="T:System.IO.StreamReader" />, and optionally releases the managed resources.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-338">このメソッドは、パブリック<xref:System.IDisposable.Dispose%2A>メソッドおよび<xref:System.Object.Finalize%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="27e91-338">This method is called by the public <xref:System.IDisposable.Dispose%2A> method and the <xref:System.Object.Finalize%2A> method.</span></span> <span data-ttu-id="27e91-339"><xref:System.IDisposable.Dispose%2A> プロテクト呼び出します<xref:System.IO.StreamReader.Dispose%2A>メソッドを`disposing`パラメーターが true に設定します。</span><span class="sxs-lookup"><span data-stu-id="27e91-339"><xref:System.IDisposable.Dispose%2A> invokes the protected <xref:System.IO.StreamReader.Dispose%2A> method with the `disposing` parameter set to true.</span></span> <span data-ttu-id="27e91-340"><xref:System.Object.Finalize%2A> 呼び出す<xref:System.IO.StreamReader.Dispose%2A>で`disposing`を false に設定します。</span><span class="sxs-lookup"><span data-stu-id="27e91-340"><xref:System.Object.Finalize%2A> invokes <xref:System.IO.StreamReader.Dispose%2A> with `disposing` set to false.</span></span>  
+  
+ <span data-ttu-id="27e91-341">ときに、`disposing`パラメーターは`true`、このオブジェクトをマネージ コードで保持されているすべてのリソース メソッドのリリース、<xref:System.IO.StreamReader>オブジェクトが参照されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-341">When the `disposing` parameter is `true`, this method releases all resources held by any managed objects that the <xref:System.IO.StreamReader> object references.</span></span> <span data-ttu-id="27e91-342">このメソッドは、参照される各オブジェクトの <xref:System.IDisposable.Dispose%2A> メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="27e91-342">This method invokes the <xref:System.IDisposable.Dispose%2A> method of each referenced object.</span></span>  
+  
+ <span data-ttu-id="27e91-343">である必要があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-343">.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="27e91-344">Dispose を他のオブジェクトから複数回呼び出すことができます。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="27e91-344">Dispose can be called multiple times by other objects.</span>
+            </span>
+            <span data-ttu-id="27e91-345">オーバーライドする場合<see cref="M:System.IO.StreamReader.Dispose(System.Boolean)" />の Dispose [cref、...] を以前の呼び出しで既に破棄されたオブジェクトを参照しないように注意、します。実装する方法の詳細についての<see cref="M:System.IO.StreamReader.Dispose(System.Boolean)" />を参照してください[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="27e91-345">When overriding <see cref="M:System.IO.StreamReader.Dispose(System.Boolean)" />, be careful not to reference objects that have been previously disposed of in an earlier call to Dispose[cref,...]. For more information about how to implement <see cref="M:System.IO.StreamReader.Dispose(System.Boolean)" /> see [Implementing a Dispose Method](~/docs/standard/garbage-collection/implementing-dispose.md).</span>
+            </span>
+            <span data-ttu-id="27e91-346">詳細については<see cref="M:System.IDisposable.Dispose" />と<see cref="M:System.Object.Finalize" />を参照してください[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="27e91-346">For more information about <see cref="M:System.IDisposable.Dispose" /> and <see cref="M:System.Object.Finalize" />, see [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md).</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="EndOfStream">
+      <MemberSignature Language="C#" Value="public bool EndOfStream { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool EndOfStream" />
+      <MemberSignature Language="DocId" Value="P:System.IO.StreamReader.EndOfStream" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property EndOfStream As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool EndOfStream { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-347">現在のストリームの位置がストリームの末尾かどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-347">Gets a value that indicates whether the current stream position is at the end of the stream.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="27e91-348">現在のストリームの位置がストリームの末尾の場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-348">
+              <see langword="true" /> if the current stream position is at the end of the stream; otherwise <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="27e91-349">基になるストリームが破棄されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-349">The underlying stream has been disposed.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Null">
+      <MemberSignature Language="C#" Value="public static readonly System.IO.StreamReader Null;" />
+      <MemberSignature Language="ILAsm" Value=".field public static initonly class System.IO.StreamReader Null" />
+      <MemberSignature Language="DocId" Value="F:System.IO.StreamReader.Null" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Null As StreamReader " />
+      <MemberSignature Language="C++ CLI" Value="public: static initonly System::IO::StreamReader ^ Null;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IO.StreamReader</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-350">空のストリームの <see cref="T:System.IO.StreamReader" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-350">A <see cref="T:System.IO.StreamReader" /> object around an empty stream.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-351">メソッドが呼び出されるを読み取るときに<xref:System.IO.StreamReader.Null>、常に 0 が返されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-351">When read methods are invoked on <xref:System.IO.StreamReader.Null>, zero is always returned.</span></span> <span data-ttu-id="27e91-352">ときに<xref:System.IO.StreamReader.ReadLine%2A>で呼び出される<xref:System.IO.StreamReader.Null>、`null`が返されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-352">When <xref:System.IO.StreamReader.ReadLine%2A> is invoked on <xref:System.IO.StreamReader.Null>, `null` is returned.</span></span>  
+  
+ <span data-ttu-id="27e91-353">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-353">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Peek">
+      <MemberSignature Language="C#" Value="public override int Peek ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 Peek() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.Peek" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function Peek () As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int Peek();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-354">使用可能な次の文字を返しますが、その文字は使用されません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-354">Returns the next available character but does not consume it.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-355">読み取り対象の次の文字を表す整数。読み取り対象の文字が存在しない場合またはストリームがシークをサポートしていない場合は -1。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-355">An integer representing the next character to be read, or -1 if there are no characters to be read or if the stream does not support seeking.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-356"><xref:System.IO.StreamReader.Peek%2A>メソッドは、ファイル、または別のエラーの終了が発生したかどうかを確認するために整数値を返します。</span><span class="sxs-lookup"><span data-stu-id="27e91-356">The <xref:System.IO.StreamReader.Peek%2A> method returns an integer value in order to determine whether the end of the file, or another error has occurred.</span></span> <span data-ttu-id="27e91-357">これにより、ユーザーをまず確認かどうか、返される値は-1 にキャストする前に、<xref:System.Char>型です。</span><span class="sxs-lookup"><span data-stu-id="27e91-357">This allows a user to first check if the returned value is -1 before casting it to a <xref:System.Char> type.</span></span>  
+  
+ <span data-ttu-id="27e91-358">このメソッドは、<xref:System.IO.TextReader.Peek%2A?displayProperty=nameWithType> をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="27e91-358">This method overrides <xref:System.IO.TextReader.Peek%2A?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="27e91-359">現在の位置、<xref:System.IO.StreamReader>によってオブジェクトが変更されていない<xref:System.IO.StreamReader.Peek%2A>です。</span><span class="sxs-lookup"><span data-stu-id="27e91-359">The current position of the <xref:System.IO.StreamReader> object is not changed by <xref:System.IO.StreamReader.Peek%2A>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-360">次のコード例では、ファイルの末尾に到達するまでに、ファイルから行を読み取ります。</span><span class="sxs-lookup"><span data-stu-id="27e91-360">The following code example reads lines from a file until the end of the file is reached.</span></span>  
+  
+ [!code-cpp[strmreader peek#1](~/samples/snippets/cpp/VS_Snippets_CLR/StrmReader Peek/CPP/strmreader peek.cpp#1)]
+ [!code-csharp[strmreader peek#1](~/samples/snippets/csharp/VS_Snippets_CLR/StrmReader Peek/CS/strmreader peek.cs#1)]
+ [!code-vb[strmreader peek#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StrmReader Peek/VB/strmreader peek.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="27e91-361">I/O エラーが発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-361">An I/O error occurs.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Read">
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-362">入力ストリームから次の文字または次の文字セットを読み込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-362">Reads the next character or next set of characters from the input stream.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Read">
+      <MemberSignature Language="C#" Value="public override int Read ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 Read() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.Read" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function Read () As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int Read();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-363">入力ストリームから次の文字を読み込み、1 文字分だけ文字位置を進めます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-363">Reads the next character from the input stream and advances the character position by one character.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-364">入力ストリームの次の文字を <see cref="T:System.Int32" /> オブジェクトで表した値。使用できる文字がない場合は -1。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-364">The next character from the input stream represented as an <see cref="T:System.Int32" /> object, or -1 if no more characters are available.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-365">このメソッドは、<xref:System.IO.TextReader.Read%2A?displayProperty=nameWithType> をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="27e91-365">This method overrides <xref:System.IO.TextReader.Read%2A?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="27e91-366">このメソッドは、ストリームの末尾に達している場合、-1 を返せるようにに整数を返します。</span><span class="sxs-lookup"><span data-stu-id="27e91-366">This method returns an integer so that it can return -1 if the end of the stream has been reached.</span></span> <span data-ttu-id="27e91-367">バッファーにデータの読み取り後に、基になるストリームの位置を操作する場合、基になるストリームの位置は内部バッファーの位置と一致可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-367">If you manipulate the position of the underlying stream after reading data into the buffer, the position of the underlying stream might not match the position of the internal buffer.</span></span> <span data-ttu-id="27e91-368">内部バッファーをリセットするには、呼び出し、<xref:System.IO.StreamReader.DiscardBufferedData%2A>メソッドです。 ただし、このメソッドは、パフォーマンスが低下し、どうしても必要な場合にのみ呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-368">To reset the internal buffer, call the <xref:System.IO.StreamReader.DiscardBufferedData%2A> method; however, this method slows performance and should be called only when absolutely necessary.</span></span>  
+  
+ <span data-ttu-id="27e91-369">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-369">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-370">次のコード例に示しますの単純な使用、<xref:System.IO.StreamReader.Read%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="27e91-370">The following code example demonstrates a simple use of the <xref:System.IO.StreamReader.Read%2A> method.</span></span>  
+  
+ [!code-cpp[strmreader read1#1](~/samples/snippets/cpp/VS_Snippets_CLR/StrmReader Read1/CPP/strmreader read1.cpp#1)]
+ [!code-csharp[strmreader read1#1](~/samples/snippets/csharp/VS_Snippets_CLR/StrmReader Read1/CS/strmreader read1.cs#1)]
+ [!code-vb[strmreader read1#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StrmReader Read1/VB/strmreader read1.vb#1)]  
+  
+ <span data-ttu-id="27e91-371">次のコード例に示しますを使用して、単一の文字を読み取り、<xref:System.IO.StreamReader.Read>メソッドのオーバー ロードを ASCII 整数が 10 進数および 16 進数として出力を書式設定します。</span><span class="sxs-lookup"><span data-stu-id="27e91-371">The following code example demonstrates reading a single character using the <xref:System.IO.StreamReader.Read> method overload, formatting the ASCII integer output as decimal and hexadecimal.</span></span>  
+  
+ [!code-cpp[StrmRdrRead#1](~/samples/snippets/cpp/VS_Snippets_CLR/StrmRdrRead/CPP/strmrdrread.cpp#1)]
+ [!code-csharp[StrmRdrRead#1](~/samples/snippets/csharp/VS_Snippets_CLR/StrmRdrRead/CS/strmrdrread.cs#1)]
+ [!code-vb[StrmRdrRead#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StrmRdrRead/VB/strmrdrread.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="27e91-372">I/O エラーが発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-372">An I/O error occurs.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Read">
+      <MemberSignature Language="C#" Value="public override int Read (Span&lt;char&gt; buffer);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 Read(valuetype System.Span`1&lt;char&gt; buffer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.Read(System.Span{System.Char})" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function Read (buffer As Span(Of Char)) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int Read(Span&lt;char&gt; buffer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Span&lt;System.Char&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Read">
+      <MemberSignature Language="C#" Value="public override int Read (char[] buffer, int index, int count);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 Read([out] char[] buffer, int32 index, int32 count) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.Read(System.Char[],System.Int32,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function Read (buffer As Char(), index As Integer, count As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int Read(cli::array &lt;char&gt; ^ buffer, int index, int count);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Char[]" />
+        <Parameter Name="index" Type="System.Int32" />
+        <Parameter Name="count" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">
+          <span data-ttu-id="27e91-373">このメソッドが返るときに、指定した文字配列のうち、インデックスから (<c>index</c> + <c>index + count - 1</c>) までの値を、現在のソースから読み取られた文字に置き換えられたものが含まれます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-373">When this method returns, contains the specified character array with the values between <c>index</c> and (<c>index + count - 1</c>) replaced by the characters read from the current source.</span>
+          </span>
+        </param>
+        <param name="index">
+          <span data-ttu-id="27e91-374">書き込みの開始位置を示す <c>buffer</c> のインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-374">The index of <c>buffer</c> at which to begin writing.</span>
+          </span>
+        </param>
+        <param name="count">
+          <span data-ttu-id="27e91-375">読み取り対象の最大文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-375">The maximum number of characters to read.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-376">指定したインデックスを開始位置として、現在のストリームから、指定された最大文字数をバッファー内に読み取ります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-376">Reads a specified maximum of characters from the current stream into a buffer, beginning at the specified index.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-377">読み込まれた文字数。ストリームの末尾でデータが読み込まれなかった場合は 0。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-377">The number of characters that have been read, or 0 if at the end of the stream and no data was read.</span>
+          </span>
+          <span data-ttu-id="27e91-378">この数値は、ストリーム内に使用できるデータがあるかどうかによって異なりますが、<paramref name="count" /> パラメーター以下の数値になります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-378">The number will be less than or equal to the <paramref name="count" /> parameter, depending on whether the data is available within the stream.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-379">このメソッドは、<xref:System.IO.TextReader.Read%2A?displayProperty=nameWithType> をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="27e91-379">This method overrides <xref:System.IO.TextReader.Read%2A?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="27e91-380">このメソッドは、ストリームの末尾に達している場合、0 を返せるようにに整数を返します。</span><span class="sxs-lookup"><span data-stu-id="27e91-380">This method returns an integer so that it can return 0 if the end of the stream has been reached.</span></span>  
+  
+ <span data-ttu-id="27e91-381">使用する場合、<xref:System.IO.StreamReader.Read%2A>メソッド内部バッファーが設定されている、目的のブロック サイズをストリームの内部バッファーと同じサイズであるバッファーを使用して常に読み取りのブロック サイズより小さい方が効率的です。</span><span class="sxs-lookup"><span data-stu-id="27e91-381">When using the <xref:System.IO.StreamReader.Read%2A> method, it is more efficient to use a buffer that is the same size as the internal buffer of the stream, where the internal buffer is set to your desired block size, and to always read less than the block size.</span></span> <span data-ttu-id="27e91-382">ストリームの構築時に内部バッファーのサイズを指定しなかった場合は、4 キロバイト (4096 バイト) は、既定値です。</span><span class="sxs-lookup"><span data-stu-id="27e91-382">If the size of the internal buffer was unspecified when the stream was constructed, its default size is 4 kilobytes (4096 bytes).</span></span> <span data-ttu-id="27e91-383">バッファーにデータの読み取り後に、基になるストリームの位置を操作する場合、基になるストリームの位置は内部バッファーの位置と一致可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-383">If you manipulate the position of the underlying stream after reading data into the buffer, the position of the underlying stream might not match the position of the internal buffer.</span></span> <span data-ttu-id="27e91-384">内部バッファーをリセットするには、呼び出し、<xref:System.IO.StreamReader.DiscardBufferedData%2A>メソッドです。 ただし、このメソッドは、パフォーマンスが低下し、どうしても必要な場合にのみ呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-384">To reset the internal buffer, call the <xref:System.IO.StreamReader.DiscardBufferedData%2A> method; however, this method slows performance and should be called only when absolutely necessary.</span></span>  
+  
+ <span data-ttu-id="27e91-385">このメソッドがどちらで指定された文字の数を返します、`count`パラメーターが読み取られ、またはファイルの末尾に到達します。</span><span class="sxs-lookup"><span data-stu-id="27e91-385">This method returns after either the number of characters specified by the `count` parameter are read, or the end of the file is reached.</span></span> <span data-ttu-id="27e91-386"><xref:System.IO.TextReader.ReadBlock%2A> ブロックしているバージョンの<xref:System.IO.StreamReader.Read%2A>します。</span><span class="sxs-lookup"><span data-stu-id="27e91-386"><xref:System.IO.TextReader.ReadBlock%2A> is a blocking version of <xref:System.IO.StreamReader.Read%2A>.</span></span>  
+  
+ <span data-ttu-id="27e91-387">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-387">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-388">次のコード例では、ファイルの末尾に到達するまで、一度に 5 つの文字を読み取ります。</span><span class="sxs-lookup"><span data-stu-id="27e91-388">The following code example reads five characters at a time until the end of the file is reached.</span></span>  
+  
+ [!code-cpp[strmreader read2#1](~/samples/snippets/cpp/VS_Snippets_CLR/StrmReader Read2/CPP/strmreader read2.cpp#1)]
+ [!code-csharp[strmreader read2#1](~/samples/snippets/csharp/VS_Snippets_CLR/StrmReader Read2/CS/strmreader read2.cs#1)]
+ [!code-vb[strmreader read2#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StrmReader Read2/VB/strmreader read2.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-389">バッファーの長さから <paramref name="index" /> を引いた値が <paramref name="count" /> 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-389">The buffer length minus <paramref name="index" /> is less than <paramref name="count" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-390">
+            <paramref name="buffer" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-390">
+              <paramref name="buffer" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="27e91-391">
+            <paramref name="index" /> または <paramref name="count" /> が負の値です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-391">
+              <paramref name="index" /> or <paramref name="count" /> is negative.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="27e91-392">ストリームが閉じているなど、I/O エラーが発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-392">An I/O error occurs, such as the stream is closed.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.ValueTask&lt;int&gt; ReadAsync (Memory&lt;char&gt; buffer, System.Threading.CancellationToken cancellationToken = null);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance valuetype System.Threading.Tasks.ValueTask`1&lt;int32&gt; ReadAsync(valuetype System.Memory`1&lt;char&gt; buffer, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadAsync(System.Memory{System.Char},System.Threading.CancellationToken)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.ValueTask&lt;System.Int32&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Memory&lt;System.Char&gt;" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;int&gt; ReadAsync (char[] buffer, int index, int count);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;int32&gt; ReadAsync(char[] buffer, int32 index, int32 count) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadAsync(System.Char[],System.Int32,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ReadAsync (buffer As Char(), index As Integer, count As Integer) As Task(Of Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::Threading::Tasks::Task&lt;int&gt; ^ ReadAsync(cli::array &lt;char&gt; ^ buffer, int index, int count);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Int32&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Char[]" />
+        <Parameter Name="index" Type="System.Int32" />
+        <Parameter Name="count" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">
+          <span data-ttu-id="27e91-393">このメソッドが返るときに、指定した文字配列のうち、<c>index</c> から (<c>index</c> + <c>count</c> - 1) までの値を、現在のソースから読み取られた文字に置き換えられたものが含まれます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-393">When this method returns, contains the specified character array with the values between <c>index</c> and (<c>index</c> + <c>count</c> - 1) replaced by the characters read from the current source.</span>
+          </span>
+        </param>
+        <param name="index">
+          <span data-ttu-id="27e91-394">書き込みを開始する <c>buffer</c> 内の位置。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-394">The position in <c>buffer</c> at which to begin writing.</span>
+          </span>
+        </param>
+        <param name="count">
+          <span data-ttu-id="27e91-395">読み取り対象の最大文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-395">The maximum number of characters to read.</span>
+          </span>
+          <span data-ttu-id="27e91-396">指定された文字数をバッファーに書き込む前にストリームの末尾に到達した場合は現在のメソッドが返ります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-396">If the end of the stream is reached before the specified number of characters is written into the buffer, the current method returns.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-397">指定した最大文字数を現在のストリームから非同期的に読み取り、バッファーの指定したインデックス位置にそのデータを書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-397">Reads a specified maximum number of characters from the current stream asynchronously and writes the data to a buffer, beginning at the specified index.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-398">非同期の読み取り操作を表すタスク。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-398">A task that represents the asynchronous read operation.</span>
+          </span>
+          <span data-ttu-id="27e91-399">
+            <paramref name="TResult" /> パラメーターの値には、バッファーに読み込まれる文字の合計数が含まれます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-399">The value of the <paramref name="TResult" /> parameter contains the total number of characters read into the buffer.</span>
+          </span>
+          <span data-ttu-id="27e91-400">現在使用できる文字数が要求した数より小さい場合、結果の値は要求した文字数より小さくなることがあります。また、ストリームの末尾に到達した場合は 0 になることがあります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-400">The result value can be less than the number of characters requested if the number of characters currently available is less than the requested number, or it can be 0 (zero) if the end of the stream has been reached.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-401">タスクが完了した後にいずれかで指定された文字の数、`count`パラメーターが読み取りまたはストリームの末尾に到達します。</span><span class="sxs-lookup"><span data-stu-id="27e91-401">The task completes after either the number of characters specified by the `count` parameter are read or the end of the stream is reached.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-402">次の例を使用して、ファイルのすべての文字を読み取る方法を示しています、<xref:System.IO.StreamReader.ReadAsync%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="27e91-402">The following example shows how to read all the characters in a file by using the <xref:System.IO.StreamReader.ReadAsync%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29> method.</span></span> <span data-ttu-id="27e91-403">インスタンスに文字を追加する前に、アルファベット、数字、または空白文字に各文字かどうかを確認、<xref:System.Text.StringBuilder>クラスです。</span><span class="sxs-lookup"><span data-stu-id="27e91-403">It checks whether each character is a letter, digit, or white space before adding the character to an instance of the <xref:System.Text.StringBuilder> class.</span></span>  
+  
+ [!code-csharp[System.IO.StreamReader#42](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/example42.cs#42)]
+ [!code-vb[System.IO.StreamReader#42](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/example42.vb#42)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-404">
+            <paramref name="buffer" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-404">
+              <paramref name="buffer" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="27e91-405">
+            <paramref name="index" /> または <paramref name="count" /> が負の値です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-405">
+              <paramref name="index" /> or <paramref name="count" /> is negative.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-406">
+            <paramref name="index" /> と <paramref name="count" /> の合計が、バッファーの長さよりも大きくなっています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-406">The sum of <paramref name="index" /> and <paramref name="count" /> is larger than the buffer length.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="27e91-407">ストリームは破棄されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-407">The stream has been disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="27e91-408">リーダーは、前の読み取り操作によって現在使用されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-408">The reader is currently in use by a previous read operation.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadBlock">
+      <MemberSignature Language="C#" Value="public override int ReadBlock (Span&lt;char&gt; buffer);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 ReadBlock(valuetype System.Span`1&lt;char&gt; buffer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadBlock(System.Span{System.Char})" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ReadBlock (buffer As Span(Of Char)) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int ReadBlock(Span&lt;char&gt; buffer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Span&lt;System.Char&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadBlock">
+      <MemberSignature Language="C#" Value="public override int ReadBlock (char[] buffer, int index, int count);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 ReadBlock([out] char[] buffer, int32 index, int32 count) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadBlock(System.Char[],System.Int32,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ReadBlock (buffer As Char(), index As Integer, count As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int ReadBlock(cli::array &lt;char&gt; ^ buffer, int index, int count);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Char[]" />
+        <Parameter Name="index" Type="System.Int32" />
+        <Parameter Name="count" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">
+          <span data-ttu-id="27e91-409">このメソッドが返るときに、指定した文字配列のうち、インデックスから (<c>index</c> + <c>index + count - 1</c>) までの値を、現在のソースから読み取られた文字に置き換えられたものが含まれます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-409">When this method returns, contains the specified character array with the values between <c>index</c> and (<c>index + count - 1</c>) replaced by the characters read from the current source.</span>
+          </span>
+        </param>
+        <param name="index">
+          <span data-ttu-id="27e91-410">書き込みを開始する <c>buffer</c> 内の位置。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-410">The position in <c>buffer</c> at which to begin writing.</span>
+          </span>
+        </param>
+        <param name="count">
+          <span data-ttu-id="27e91-411">読み取り対象の最大文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-411">The maximum number of characters to read.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-412">指定した最大文字数を現在のストリームから読み取り、バッファーの指定したインデックス位置にそのデータを書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-412">Reads a specified maximum number of characters from the current stream and writes the data to a buffer, beginning at the specified index.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-413">読み取られた文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-413">The number of characters that have been read.</span>
+          </span>
+          <span data-ttu-id="27e91-414">この数値は、すべての入力文字が読み取られたかどうかによって異なりますが、<paramref name="count" /> 以下の数値になります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-414">The number will be less than or equal to <paramref name="count" />, depending on whether all input characters have been read.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-415">基になるストリームの位置に読み取られた文字数による高度な`buffer`します。</span><span class="sxs-lookup"><span data-stu-id="27e91-415">The position of the underlying stream is advanced by the number of characters that were read into `buffer`.</span></span>  
+  
+ <span data-ttu-id="27e91-416">メソッド ブロックされるまで、`count`文字が読み取られ、または、ストリームの末尾に達しています。</span><span class="sxs-lookup"><span data-stu-id="27e91-416">The method blocks until either `count` characters are read, or the end of the stream has been reached.</span></span> <span data-ttu-id="27e91-417">これは、ブロックしているバージョンの<xref:System.IO.StreamReader.Read%2A>します。</span><span class="sxs-lookup"><span data-stu-id="27e91-417">This is a blocking version of <xref:System.IO.StreamReader.Read%2A>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-418">
+            <paramref name="buffer" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-418">
+              <paramref name="buffer" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-419">バッファーの長さから <paramref name="index" /> を引いた値が <paramref name="count" /> 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-419">The buffer length minus <paramref name="index" /> is less than <paramref name="count" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="27e91-420">
+            <paramref name="index" /> または <paramref name="count" /> が負の値です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-420">
+              <paramref name="index" /> or <paramref name="count" /> is negative.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="27e91-421">
+            <see cref="T:System.IO.StreamReader" /> が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-421">The <see cref="T:System.IO.StreamReader" /> is closed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="27e91-422">I/O エラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-422">An I/O error occurred.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadBlockAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.ValueTask&lt;int&gt; ReadBlockAsync (Memory&lt;char&gt; buffer, System.Threading.CancellationToken cancellationToken = null);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance valuetype System.Threading.Tasks.ValueTask`1&lt;int32&gt; ReadBlockAsync(valuetype System.Memory`1&lt;char&gt; buffer, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadBlockAsync(System.Memory{System.Char},System.Threading.CancellationToken)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.ValueTask&lt;System.Int32&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Memory&lt;System.Char&gt;" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadBlockAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;int&gt; ReadBlockAsync (char[] buffer, int index, int count);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;int32&gt; ReadBlockAsync(char[] buffer, int32 index, int32 count) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadBlockAsync(System.Char[],System.Int32,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ReadBlockAsync (buffer As Char(), index As Integer, count As Integer) As Task(Of Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::Threading::Tasks::Task&lt;int&gt; ^ ReadBlockAsync(cli::array &lt;char&gt; ^ buffer, int index, int count);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Int32&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="buffer" Type="System.Char[]" />
+        <Parameter Name="index" Type="System.Int32" />
+        <Parameter Name="count" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="buffer">
+          <span data-ttu-id="27e91-423">このメソッドが返るときに、指定した文字配列のうち、<c>index</c> から (<c>index</c> + <c>count</c> - 1) までの値を、現在のソースから読み取られた文字に置き換えられたものが含まれます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-423">When this method returns, contains the specified character array with the values between <c>index</c> and (<c>index</c> + <c>count</c> - 1) replaced by the characters read from the current source.</span>
+          </span>
+        </param>
+        <param name="index">
+          <span data-ttu-id="27e91-424">書き込みを開始する <c>buffer</c> 内の位置。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-424">The position in <c>buffer</c> at which to begin writing.</span>
+          </span>
+        </param>
+        <param name="count">
+          <span data-ttu-id="27e91-425">読み取り対象の最大文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-425">The maximum number of characters to read.</span>
+          </span>
+          <span data-ttu-id="27e91-426">指定された文字数をバッファーに書き込む前にストリームの末尾に到達した場合、メソッドは制御を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-426">If the end of the stream is reached before the specified number of characters is written into the buffer, the method returns.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="27e91-427">指定した最大文字数を現在のストリームから非同期的に読み取り、バッファーの指定したインデックス位置にそのデータを書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-427">Reads a specified maximum number of characters from the current stream asynchronously and writes the data to a buffer, beginning at the specified index.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-428">非同期の読み取り操作を表すタスク。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-428">A task that represents the asynchronous read operation.</span>
+          </span>
+          <span data-ttu-id="27e91-429">
+            <paramref name="TResult" /> パラメーターの値には、バッファーに読み込まれる文字の合計数が含まれます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-429">The value of the <paramref name="TResult" /> parameter contains the total number of characters read into the buffer.</span>
+          </span>
+          <span data-ttu-id="27e91-430">現在使用できる文字数が要求した数より小さい場合、結果の値は要求した文字数より小さくなることがあります。また、ストリームの末尾に到達した場合は 0 になることがあります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-430">The result value can be less than the number of characters requested if the number of characters currently available is less than the requested number, or it can be 0 (zero) if the end of the stream has been reached.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-431">タスクが完了しないかまでで指定された文字の数、`count`パラメーターが読み取られ、または、ストリームの末尾に達しています。</span><span class="sxs-lookup"><span data-stu-id="27e91-431">The task does not complete until either the number of characters specified by the `count` parameter are read, or the end of the stream has been reached.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="27e91-432">
+            <paramref name="buffer" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-432">
+              <paramref name="buffer" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="27e91-433">
+            <paramref name="index" /> または <paramref name="count" /> が負の値です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-433">
+              <paramref name="index" /> or <paramref name="count" /> is negative.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="27e91-434">
+            <paramref name="index" /> と <paramref name="count" /> の合計が、バッファーの長さよりも大きくなっています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-434">The sum of <paramref name="index" /> and <paramref name="count" /> is larger than the buffer length.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="27e91-435">ストリームは破棄されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-435">The stream has been disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="27e91-436">リーダーは、前の読み取り操作によって現在使用されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-436">The reader is currently in use by a previous read operation.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadLine">
+      <MemberSignature Language="C#" Value="public override string ReadLine ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ReadLine() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadLine" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ReadLine () As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::String ^ ReadLine();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-437">現在のストリームから 1 行分の文字を読み取り、そのデータを文字列として返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-437">Reads a line of characters from the current stream and returns the data as a string.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-438">入力ストリームからの次の行。入力ストリームの末尾に到達した場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-438">The next line from the input stream, or <see langword="null" /> if the end of the input stream is reached.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-439">行は、一連の文字とライン フィード ("\n")、キャリッジ リターン ("\r")、または行の直後にキャリッジ リターンが ("\r\n") をフィードとして定義されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-439">A line is defined as a sequence of characters followed by a line feed ("\n"), a carriage return ("\r"), or a carriage return immediately followed by a line feed ("\r\n").</span></span> <span data-ttu-id="27e91-440">返される文字列には、末尾にキャリッジ リターンとライン フィードが含まれていません。</span><span class="sxs-lookup"><span data-stu-id="27e91-440">The string that is returned does not contain the terminating carriage return or line feed.</span></span> <span data-ttu-id="27e91-441">返される値は`null`入力ストリームの末尾に達した場合。</span><span class="sxs-lookup"><span data-stu-id="27e91-441">The returned value is `null` if the end of the input stream is reached.</span></span>  
+  
+ <span data-ttu-id="27e91-442">このメソッドは、<xref:System.IO.TextReader.ReadLine%2A?displayProperty=nameWithType> をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="27e91-442">This method overrides <xref:System.IO.TextReader.ReadLine%2A?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="27e91-443">現在のメソッドがスローされた場合、 <xref:System.OutOfMemoryException>、基になるリーダーの位置<xref:System.IO.Stream>オブジェクトがこのメソッドは、読み込むことが文字が、内部に既に読み取られた文字の数で高度な<xref:System.IO.StreamReader.ReadLine%2A>バッファーは破棄されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-443">If the current method throws an <xref:System.OutOfMemoryException>, the reader's position in the underlying <xref:System.IO.Stream> object is advanced by the number of characters the method was able to read, but the characters already read into the internal <xref:System.IO.StreamReader.ReadLine%2A> buffer are discarded.</span></span> <span data-ttu-id="27e91-444">バッファーにデータの読み取り後に、基になるストリームの位置を操作する場合、基になるストリームの位置は内部バッファーの位置と一致可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-444">If you manipulate the position of the underlying stream after reading data into the buffer, the position of the underlying stream might not match the position of the internal buffer.</span></span> <span data-ttu-id="27e91-445">内部バッファーをリセットするには、呼び出し、<xref:System.IO.StreamReader.DiscardBufferedData%2A>メソッドです。 ただし、このメソッドは、パフォーマンスが低下し、どうしても必要な場合にのみ呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-445">To reset the internal buffer, call the <xref:System.IO.StreamReader.DiscardBufferedData%2A> method; however, this method slows performance and should be called only when absolutely necessary.</span></span>  
+  
+ <span data-ttu-id="27e91-446">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-446">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-447">次のコード例では、ファイルの末尾に到達するまでに、ファイルから行を読み取ります。</span><span class="sxs-lookup"><span data-stu-id="27e91-447">The following code example reads lines from a file until the end of the file is reached.</span></span>  
+  
+ [!code-cpp[strmreader readline#1](~/samples/snippets/cpp/VS_Snippets_CLR/StrmReader ReadLine/CPP/strmreader readline.cpp#1)]
+ [!code-csharp[strmreader readline#1](~/samples/snippets/csharp/VS_Snippets_CLR/StrmReader ReadLine/CS/strmreader readline.cs#1)]
+ [!code-vb[strmreader readline#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StrmReader ReadLine/VB/strmreader readline.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.OutOfMemoryException">
+          <span data-ttu-id="27e91-448">返却された文字列にバッファーを割り当てるには、メモリが不足しています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-448">There is insufficient memory to allocate a buffer for the returned string.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="27e91-449">I/O エラーが発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-449">An I/O error occurs.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadLineAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;string&gt; ReadLineAsync ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;string&gt; ReadLineAsync() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadLineAsync" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ReadLineAsync () As Task(Of String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::Threading::Tasks::Task&lt;System::String ^&gt; ^ ReadLineAsync();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-450">現在のストリームから非同期的に 1 行分の文字を読み取り、そのデータを文字列として返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-450">Reads a line of characters asynchronously from the current stream and returns the data as a string.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-451">非同期の読み取り操作を表すタスク。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-451">A task that represents the asynchronous read operation.</span>
+          </span>
+          <span data-ttu-id="27e91-452">
+            <paramref name="TResult" /> パラメーターの値には、ストリームの次の行が含まれます。または、すべての文字が読み取られた場合は <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-452">The value of the <paramref name="TResult" /> parameter contains the next line from the stream, or is <see langword="null" /> if all the characters have been read.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="27e91-453">次の例を使用して、ファイルの最初の行を読み取る方法を示しています、<xref:System.IO.StreamReader.ReadLineAsync>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="27e91-453">The following example shows how to read the first line of a file by using the <xref:System.IO.StreamReader.ReadLineAsync> method.</span></span>  
+  
+ [!code-csharp[System.IO.StreamReader#41](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/example41.cs#41)]
+ [!code-vb[System.IO.StreamReader#41](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/example41.vb#41)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="27e91-454">次の行の文字数が、<see cref="F:System.Int32.MaxValue" /> を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-454">The number of characters in the next line is larger than <see cref="F:System.Int32.MaxValue" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="27e91-455">ストリームは破棄されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-455">The stream has been disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="27e91-456">リーダーは、前の読み取り操作によって現在使用されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-456">The reader is currently in use by a previous read operation.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadToEnd">
+      <MemberSignature Language="C#" Value="public override string ReadToEnd ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ReadToEnd() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadToEnd" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ReadToEnd () As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::String ^ ReadToEnd();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-457">ストリームの現在位置から末尾までのすべての文字を読み込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-457">Reads all characters from the current position to the end of the stream.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-458">ストリームの現在位置から末尾までの残りの部分 (文字列)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-458">The rest of the stream as a string, from the current position to the end.</span>
+          </span>
+          <span data-ttu-id="27e91-459">現在の位置がストリームの末尾である場合は、空の文字列 ("") が返されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-459">If the current position is at the end of the stream, returns an empty string ("").</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="27e91-460">このメソッドは、<xref:System.IO.TextReader.ReadToEnd%2A?displayProperty=nameWithType> をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="27e91-460">This method overrides <xref:System.IO.TextReader.ReadToEnd%2A?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="27e91-461"><xref:System.IO.StreamReader.ReadToEnd%2A> 現在の位置からストリームの末尾に、すべての入力を読み取る必要がある場合は最適です。</span><span class="sxs-lookup"><span data-stu-id="27e91-461"><xref:System.IO.StreamReader.ReadToEnd%2A> works best when you need to read all the input from the current position to the end of the stream.</span></span> <span data-ttu-id="27e91-462">文字数が、ストリームから読み取ら経由で詳細に制御が必要な場合を使用して、<xref:System.IO.StreamReader.Read%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29>メソッド オーバー ロードには、パフォーマンスが向上します。</span><span class="sxs-lookup"><span data-stu-id="27e91-462">If more control is needed over how many characters are read from the stream, use the <xref:System.IO.StreamReader.Read%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29> method overload, which generally results in better performance.</span></span>  
+  
+ <span data-ttu-id="27e91-463"><xref:System.IO.StreamReader.ReadToEnd%2A> 末尾に到達したときに、ストリームを知っていることを前提とします。</span><span class="sxs-lookup"><span data-stu-id="27e91-463"><xref:System.IO.StreamReader.ReadToEnd%2A> assumes that the stream knows when it has reached an end.</span></span> <span data-ttu-id="27e91-464">対話型のプロトコルを要求して、接続を閉じない場合にのみ、サーバー データを送信<xref:System.IO.StreamReader.ReadToEnd%2A>末尾に到達しません避ける必要がありますが、無期限にブロックがあります。</span><span class="sxs-lookup"><span data-stu-id="27e91-464">For interactive protocols in which the server sends data only when you ask for it and does not close the connection, <xref:System.IO.StreamReader.ReadToEnd%2A> might block indefinitely because it does not reach an end, and should be avoided.</span></span>  
+  
+ <span data-ttu-id="27e91-465">使用すると、<xref:System.IO.StreamReader.Read%2A>手法は、ストリームの内部バッファーと同じサイズであるバッファーを使用する方が効率的です。</span><span class="sxs-lookup"><span data-stu-id="27e91-465">Note that when using the <xref:System.IO.StreamReader.Read%2A> method, it is more efficient to use a buffer that is the same size as the internal buffer of the stream.</span></span> <span data-ttu-id="27e91-466">ストリームが構築されている場合、バッファーのサイズを指定しなかった場合は、4 キロバイト (4096 バイト) は、既定値です。</span><span class="sxs-lookup"><span data-stu-id="27e91-466">If the size of the buffer was unspecified when the stream was constructed, its default size is 4 kilobytes (4096 bytes).</span></span>  
+  
+ <span data-ttu-id="27e91-467">現在のメソッドがスローされた場合、 <xref:System.OutOfMemoryException>、基になるリーダーの位置<xref:System.IO.Stream>オブジェクトがこのメソッドは、読み込むことが文字が、内部に既に読み取られた文字の数で高度な<xref:System.IO.StreamReader.ReadLine%2A>バッファーは破棄されます。</span><span class="sxs-lookup"><span data-stu-id="27e91-467">If the current method throws an <xref:System.OutOfMemoryException>, the reader's position in the underlying <xref:System.IO.Stream> object is advanced by the number of characters the method was able to read, but the characters already read into the internal <xref:System.IO.StreamReader.ReadLine%2A> buffer are discarded.</span></span> <span data-ttu-id="27e91-468">バッファーにデータの読み取り後に、基になるストリームの位置を操作する場合、基になるストリームの位置は内部バッファーの位置と一致可能性があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-468">If you manipulate the position of the underlying stream after reading data into the buffer, the position of the underlying stream might not match the position of the internal buffer.</span></span> <span data-ttu-id="27e91-469">内部バッファーをリセットするには、呼び出し、<xref:System.IO.StreamReader.DiscardBufferedData%2A>メソッドです。 ただし、このメソッドは、パフォーマンスが低下し、どうしても必要な場合にのみ呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="27e91-469">To reset the internal buffer, call the <xref:System.IO.StreamReader.DiscardBufferedData%2A> method; however, this method slows performance and should be called only when absolutely necessary.</span></span>  
+  
+ <span data-ttu-id="27e91-470">共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="27e91-470">For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="27e91-471">次のコード例は、1 つの操作でファイルの最後まで読み取ります。</span><span class="sxs-lookup"><span data-stu-id="27e91-471">The following code example reads all the way to the end of a file in one operation.</span></span>  
+  
+ [!code-cpp[strmreader readtoend#1](~/samples/snippets/cpp/VS_Snippets_CLR/StrmReader ReadToEnd/CPP/strmreader readtoend.cpp#1)]
+ [!code-csharp[strmreader readtoend#1](~/samples/snippets/csharp/VS_Snippets_CLR/StrmReader ReadToEnd/CS/strmreader readtoend.cs#1)]
+ [!code-vb[strmreader readtoend#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StrmReader ReadToEnd/VB/strmreader readtoend.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.OutOfMemoryException">
+          <span data-ttu-id="27e91-472">返却された文字列にバッファーを割り当てるには、メモリが不足しています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-472">There is insufficient memory to allocate a buffer for the returned string.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="27e91-473">I/O エラーが発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-473">An I/O error occurs.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadToEndAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;string&gt; ReadToEndAsync ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;string&gt; ReadToEndAsync() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.StreamReader.ReadToEndAsync" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ReadToEndAsync () As Task(Of String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::Threading::Tasks::Task&lt;System::String ^&gt; ^ ReadToEndAsync();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="27e91-474">現在位置からストリームの末尾まですべての文字を非同期的に読み取り、1 つの文字列として返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-474">Reads all characters from the current position to the end of the stream asynchronously and returns them as one string.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="27e91-475">非同期の読み取り操作を表すタスク。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-475">A task that represents the asynchronous read operation.</span>
+          </span>
+          <span data-ttu-id="27e91-476">
+            <paramref name="TResult" /> パラメーターの値には、現在位置からストリームの末尾までの文字から成る文字列が含まれます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-476">The value of the <paramref name="TResult" /> parameter contains a string with the characters from the current position to the end of the stream.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="27e91-477">次の例を使用して、ファイルの内容を読み取る方法を示しています、<xref:System.IO.StreamReader.ReadToEndAsync>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="27e91-477">The following example shows how to read the contents of a file by using the <xref:System.IO.StreamReader.ReadToEndAsync> method.</span></span>  
+  
+ [!code-csharp[System.IO.StreamReader#40](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/example40.cs#40)]
+ [!code-vb[System.IO.StreamReader#40](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/example40.vb#40)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="27e91-478">文字数が <see cref="F:System.Int32.MaxValue" /> を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-478">The number of characters is larger than <see cref="F:System.Int32.MaxValue" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="27e91-479">ストリームは破棄されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-479">The stream has been disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="27e91-480">リーダーは、前の読み取り操作によって現在使用されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="27e91-480">The reader is currently in use by a previous read operation.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
