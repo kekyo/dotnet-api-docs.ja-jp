@@ -1,0 +1,966 @@
+<Type Name="XamlSchemaContext" FullName="System.Xaml.XamlSchemaContext">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="c3cb020dadf6911a6184d7c73f01746771d9bdf1" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class XamlSchemaContext" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XamlSchemaContext extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Xaml.XamlSchemaContext" />
+  <TypeSignature Language="VB.NET" Value="Public Class XamlSchemaContext" />
+  <TypeSignature Language="C++ CLI" Value="public ref class XamlSchemaContext" />
+  <AssemblyInfo>
+    <AssemblyName>System.Xaml</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="14e39-101">XAML 型およびそれらの基になるアセンブリ内の型を解釈またはマッピングするために再利用できるコンテキストを定義します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="14e39-101">Defines a reusable context for interpreting or mapping XAML types, and the types in the assemblies that underlie them.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-102">XAML スキーマ コンテキストでは、スキーマまたは xaml でボキャブラリと特定のパーサー実装間で抽象化レイヤーを提供します。</span><span class="sxs-lookup"><span data-stu-id="14e39-102">A XAML schema context provides a layer of abstraction between a schema or vocabulary for XAML, and a specific parser implementation.</span></span> <span data-ttu-id="14e39-103">スキーマ コンテキストの概念を挿入してスキーマを別の XAML パーサーで使用できるし、スキーマ コンテキストが特定の XAML パーサーと対話するために必要な詳細を入力します。</span><span class="sxs-lookup"><span data-stu-id="14e39-103">By inserting the concept of a schema context, the schema can be used with different XAML parsers, and the schema context fills in the details that are needed to interact with a specific XAML parser.</span></span> <span data-ttu-id="14e39-104">たとえば、XAML スキーマ コンテキストは、クエリと CLR バインディングを指定し、XAML 型システムまたは XAML の概念に関連する Api を提供します。</span><span class="sxs-lookup"><span data-stu-id="14e39-104">For example, the XAML schema context provides query APIs that relate to XAML concepts or to the CLR binding to the XAML type system.</span></span> <span data-ttu-id="14e39-105">XAML スキーマ コンテキストは、バッキング型の XAML パーサーを検索する場所を定義する、読み込まれたアセンブリのアセンブリ リストを保守管理を担当もできます。</span><span class="sxs-lookup"><span data-stu-id="14e39-105">The XAML schema context is also responsible for maintaining the assembly list of loaded assemblies, which defines where a XAML parser looks for backing types.</span></span>  
+  
+ ]]></format>
+    </remarks>
+    <block subset="none" type="overrides">
+      <para>
+        <span data-ttu-id="14e39-106">
+          <see cref="T:System.AppDomain" />、<see cref="T:System.Xaml.XamlSchemaContext" />複数の呼び出し元は、両方を完全に含めると部分的に信頼された呼び出しの間で共有することができます。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-106">In an <see cref="T:System.AppDomain" />, a <see cref="T:System.Xaml.XamlSchemaContext" /> can be shared between multiple callers, which include both full and partial trust callers.</span>
+        </span>
+        <span data-ttu-id="14e39-107">このような状況は、部分的に信頼されたアクセスを提供する XAML を読み込み、WPF アプリケーションのモデルの部分の WPF などのフレームワークに存在します。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-107">This situation exists in frameworks such as WPF, which provide partial-trust access to XAML loading for portions of the WPF application model.</span>
+        </span>
+        <span data-ttu-id="14e39-108">既定値<see cref="T:System.Xaml.XamlSchemaContext" />実装は、変更できないプロパティと設定すべてを保つことによってこのシナリオでの保護を提供します。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-108">The default <see cref="T:System.Xaml.XamlSchemaContext" /> implementation provides safeguards in this scenario by keeping all its properties and settings immutable.</span>
+        </span>
+        <span data-ttu-id="14e39-109">派生実装は、次のプロパティの不変のこのモデルと XAML スキーマ コンテキストの設定も考慮する必要があります。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-109">Derived implementations should also consider following this model of immutability for properties and settings of a XAML schema context.</span>
+        </span>
+        <span data-ttu-id="14e39-110">
+          <see cref="T:System.Xaml.XamlSchemaContext" />基底クラスは参照には外部から見える副作用があるないように設計されています。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-110">The <see cref="T:System.Xaml.XamlSchemaContext" /> base class is designed so that lookups have no externally observable side effects.</span>
+        </span>
+        <span data-ttu-id="14e39-111">によって参照されている型<see cref="T:System.Xaml.XamlSchemaContext" />Api ベース クラスなど、<see cref="T:System.Xaml.XamlType" />または<see cref="T:System.Xaml.XamlMember" />、参照による副作用がまた生成されません。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-111">The types that are referenced by <see cref="T:System.Xaml.XamlSchemaContext" /> APIs in the base class, such as <see cref="T:System.Xaml.XamlType" /> or <see cref="T:System.Xaml.XamlMember" />, also produce no side effects from lookups.</span>
+        </span>
+        <span data-ttu-id="14e39-112">スキーマの決定を行うために必要なすべてのデータを構築との設定から使用可能にする必要があります、<see cref="T:System.AppDomain" />です。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-112">All data that is needed to make a schema determination should be available from the construction and settings of the <see cref="T:System.AppDomain" />.</span>
+        </span>
+        <span data-ttu-id="14e39-113">明示的に渡されたサービス; の検索 Api が依存していないことに注意してください。入力は、文字列の入力のみに依存します。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-113">Notice that no lookup APIs rely on explicitly passed-in services; their input relies on string input only.</span>
+        </span>
+        <span data-ttu-id="14e39-114">
+          <see cref="T:System.Xaml.XamlSchemaContext" />基底クラス、および<see cref="T:System.Xaml.XamlType" />と<see cref="T:System.Xaml.XamlMember" />すべてのスレッドをその基本実装でセーフです。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-114">The <see cref="T:System.Xaml.XamlSchemaContext" /> base class, and <see cref="T:System.Xaml.XamlType" /> and <see cref="T:System.Xaml.XamlMember" /> are all thread safe in their base implementations.</span>
+        </span>
+        <span data-ttu-id="14e39-115">派生した場合<see cref="T:System.Xaml.XamlSchemaContext" />など XAML 型システム クラスの派生または<see cref="T:System.Xaml.XamlType" />と<see cref="T:System.Xaml.XamlMember" />、スレッド セーフであると、クラスが動作するかどうかを選択できます。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="14e39-115">If you derive from <see cref="T:System.Xaml.XamlSchemaContext" /> or derive XAML type system classes such as <see cref="T:System.Xaml.XamlType" /> and <see cref="T:System.Xaml.XamlMember" /> , you can choose whether your classes will behave as thread safe.</span>
+        </span>
+      </para>
+    </block>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="14e39-116">
+            <see cref="T:System.Xaml.XamlSchemaContext" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-116">Initializes a new instance of the <see cref="T:System.Xaml.XamlSchemaContext" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XamlSchemaContext ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XamlSchemaContext();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="14e39-117">
+            <see cref="T:System.Xaml.XamlSchemaContext" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-117">Initializes a new instance of the <see cref="T:System.Xaml.XamlSchemaContext" /> class.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XamlSchemaContext (System.Collections.Generic.IEnumerable&lt;System.Reflection.Assembly&gt; referenceAssemblies);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Collections.Generic.IEnumerable`1&lt;class System.Reflection.Assembly&gt; referenceAssemblies) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.#ctor(System.Collections.Generic.IEnumerable{System.Reflection.Assembly})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (referenceAssemblies As IEnumerable(Of Assembly))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XamlSchemaContext(System::Collections::Generic::IEnumerable&lt;System::Reflection::Assembly ^&gt; ^ referenceAssemblies);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="referenceAssemblies" Type="System.Collections.Generic.IEnumerable&lt;System.Reflection.Assembly&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="referenceAssemblies">
+          <span data-ttu-id="14e39-118">アセンブリ情報項目の列挙可能なセット。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-118">An enumerable set of assembly information items.</span>
+          </span>
+          <span data-ttu-id="14e39-119">各アセンブリ情報項目は、<see cref="T:System.Reflection.Assembly" /> の値によって指定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-119">Each assembly information item is specified by an <see cref="T:System.Reflection.Assembly" /> value.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-120">参照アセンブリのセットに基づいて、<see cref="T:System.Xaml.XamlSchemaContext" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-120">Initializes a new instance of the <see cref="T:System.Xaml.XamlSchemaContext" /> class, based on a set of reference assemblies.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XamlSchemaContext (System.Xaml.XamlSchemaContextSettings settings);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Xaml.XamlSchemaContextSettings settings) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.#ctor(System.Xaml.XamlSchemaContextSettings)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (settings As XamlSchemaContextSettings)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XamlSchemaContext(System::Xaml::XamlSchemaContextSettings ^ settings);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="settings" Type="System.Xaml.XamlSchemaContextSettings" />
+      </Parameters>
+      <Docs>
+        <param name="settings">
+          <span data-ttu-id="14e39-121">
+            <see cref="T:System.Xaml.XamlSchemaContext" /> の構築に使用する設定オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-121">The settings object to use to construct the <see cref="T:System.Xaml.XamlSchemaContext" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-122">設定オブジェクトに基づいて、<see cref="T:System.Xaml.XamlSchemaContext" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-122">Initializes a new instance of the <see cref="T:System.Xaml.XamlSchemaContext" /> class, based on a settings object.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-123">設定オブジェクトは、コンバーターとスキーマ コンテキストのマークアップ拡張機能の詳細に関する情報を格納します。</span><span class="sxs-lookup"><span data-stu-id="14e39-123">The settings object stores information about text converter and markup extension specifics for the schema context.</span></span> <span data-ttu-id="14e39-124">詳細については、「<xref:System.Xaml.XamlSchemaContextSettings>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="14e39-124">For more information, see <xref:System.Xaml.XamlSchemaContextSettings>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XamlSchemaContext (System.Collections.Generic.IEnumerable&lt;System.Reflection.Assembly&gt; referenceAssemblies, System.Xaml.XamlSchemaContextSettings settings);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Collections.Generic.IEnumerable`1&lt;class System.Reflection.Assembly&gt; referenceAssemblies, class System.Xaml.XamlSchemaContextSettings settings) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.#ctor(System.Collections.Generic.IEnumerable{System.Reflection.Assembly},System.Xaml.XamlSchemaContextSettings)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (referenceAssemblies As IEnumerable(Of Assembly), settings As XamlSchemaContextSettings)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XamlSchemaContext(System::Collections::Generic::IEnumerable&lt;System::Reflection::Assembly ^&gt; ^ referenceAssemblies, System::Xaml::XamlSchemaContextSettings ^ settings);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="referenceAssemblies" Type="System.Collections.Generic.IEnumerable&lt;System.Reflection.Assembly&gt;" />
+        <Parameter Name="settings" Type="System.Xaml.XamlSchemaContextSettings" />
+      </Parameters>
+      <Docs>
+        <param name="referenceAssemblies">
+          <span data-ttu-id="14e39-125">アセンブリ情報の列挙可能なセット。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-125">An enumerable set of assembly information.</span>
+          </span>
+          <span data-ttu-id="14e39-126">各アセンブリ情報項目は、<see cref="T:System.Reflection.Assembly" /> の値によって指定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-126">Each assembly information item is specified by an <see cref="T:System.Reflection.Assembly" /> value.</span>
+          </span>
+        </param>
+        <param name="settings">
+          <span data-ttu-id="14e39-127">
+            <see cref="T:System.Xaml.XamlSchemaContext" /> の構築に使用する設定オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-127">The settings object to use to construct the <see cref="T:System.Xaml.XamlSchemaContext" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-128">参照アセンブリのセットおよび設定オブジェクトに基づいて、<see cref="T:System.Xaml.XamlSchemaContext" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-128">Initializes a new instance of the <see cref="T:System.Xaml.XamlSchemaContext" /> class, based on a set of reference assemblies and a settings object.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Finalize">
+      <MemberSignature Language="C#" Value="~XamlSchemaContext ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Finalize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.Finalize" />
+      <MemberSignature Language="VB.NET" Value="Finalize ()" />
+      <MemberSignature Language="C++ CLI" Value="!XamlSchemaContext ()" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="14e39-129">
+            <see langword="Finalize" /> が呼び出されない非標準の <see langword="Dispose" /> 実装を提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-129">Provides a nonstandard <see langword="Finalize" /> implementation that does not invoke <see langword="Dispose" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-130">自動ガベージ コレクションによって、または手動操作によって、XAML スキーマ コンテキストを破棄されなければなりません。</span><span class="sxs-lookup"><span data-stu-id="14e39-130">XAML schema contexts should not be disposed by automatic garbage collection or by manual operations.</span></span> <span data-ttu-id="14e39-131">XAML スキーマ コンテキストには、アンマネージ リソースがない<xref:System.Windows.Markup.XamlDeferLoadAttribute>プロパティがアクティブである可能性があり、関連する遅延読み込み操作に干渉することができますな XAML スキーマ コンテキストを破棄します。</span><span class="sxs-lookup"><span data-stu-id="14e39-131">Although XAML schema contexts  have no unmanaged resources, <xref:System.Windows.Markup.XamlDeferLoadAttribute> properties might still be active, and disposing a XAML schema context can interfere with the related defer-load operation.</span></span>  
+  
+ <span data-ttu-id="14e39-132"><xref:System.AppDomain.AssemblyLoad> この実装では、イベント ハンドラーは、弱い参照として内部的に接続されているがクリーンアップされます。</span><span class="sxs-lookup"><span data-stu-id="14e39-132"><xref:System.AppDomain.AssemblyLoad> event handlers, which are hooked internally as weak references, are cleaned up by this implementation.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="FullyQualifyAssemblyNamesInClrNamespaces">
+      <MemberSignature Language="C#" Value="public bool FullyQualifyAssemblyNamesInClrNamespaces { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool FullyQualifyAssemblyNamesInClrNamespaces" />
+      <MemberSignature Language="DocId" Value="P:System.Xaml.XamlSchemaContext.FullyQualifyAssemblyNamesInClrNamespaces" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property FullyQualifyAssemblyNamesInClrNamespaces As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool FullyQualifyAssemblyNamesInClrNamespaces { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="14e39-133">XAML スキーマとそのコンテキストで検索 API から返される値の完全修飾アセンブリ名を使用するかどうかを指定する値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-133">Gets a value that specifies whether a XAML schema and its context use fully qualified assembly names in the values that are returned by the lookup API.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="14e39-134">XAML スキーマとそのコンテキストで検索 API から返される値の完全修飾アセンブリ名を使用する場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-134">
+              <see langword="true" /> if a XAML schema and its context use fully qualified assembly names in the values that are returned by the lookup APIs; otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-135">このプロパティを返します、<xref:System.Xaml.XamlSchemaContextSettings.FullyQualifyAssemblyNamesInClrNamespaces%2A?displayProperty=nameWithType>値の設定で規定されている、<xref:System.Xaml.XamlSchemaContext.%23ctor%28System.Xaml.XamlSchemaContextSettings%29>コンス トラクターのシグネチャ。</span><span class="sxs-lookup"><span data-stu-id="14e39-135">This property returns the <xref:System.Xaml.XamlSchemaContextSettings.FullyQualifyAssemblyNamesInClrNamespaces%2A?displayProperty=nameWithType> value that is established in the settings for the <xref:System.Xaml.XamlSchemaContext.%23ctor%28System.Xaml.XamlSchemaContextSettings%29> constructor signature.</span></span> <span data-ttu-id="14e39-136">構築の他の署名に使用された場合、または場合<xref:System.Xaml.XamlSchemaContextSettings.FullyQualifyAssemblyNamesInClrNamespaces%2A?displayProperty=nameWithType>に特に設定されていない`true`、このプロパティの値が`false`です。</span><span class="sxs-lookup"><span data-stu-id="14e39-136">If other signatures were used for construction or if <xref:System.Xaml.XamlSchemaContextSettings.FullyQualifyAssemblyNamesInClrNamespaces%2A?displayProperty=nameWithType> is not specifically set to `true`, the value of this property is `false`.</span></span>  
+  
+ <span data-ttu-id="14e39-137">このプロパティの値によって返される文字列に影響を与えます<xref:System.Xaml.XamlSchemaContext.GetAllXamlNamespaces%2A>です。</span><span class="sxs-lookup"><span data-stu-id="14e39-137">The value of this property influences the strings that are returned by <xref:System.Xaml.XamlSchemaContext.GetAllXamlNamespaces%2A>.</span></span> <span data-ttu-id="14e39-138">場合<xref:System.Xaml.XamlSchemaContext.FullyQualifyAssemblyNamesInClrNamespaces%2A>は`true`、文字列のアセンブリ部分はレポートの該当するショートカットは、<xref:System.Reflection.Assembly.FullName%2A?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="14e39-138">If <xref:System.Xaml.XamlSchemaContext.FullyQualifyAssemblyNamesInClrNamespaces%2A> is `true`, the assembly portion of the string reports the equivalent of <xref:System.Reflection.Assembly.FullName%2A?displayProperty=nameWithType>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetAllXamlNamespaces">
+      <MemberSignature Language="C#" Value="public virtual System.Collections.Generic.IEnumerable&lt;string&gt; GetAllXamlNamespaces ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Collections.Generic.IEnumerable`1&lt;string&gt; GetAllXamlNamespaces() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.GetAllXamlNamespaces" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetAllXamlNamespaces () As IEnumerable(Of String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Collections::Generic::IEnumerable&lt;System::String ^&gt; ^ GetAllXamlNamespaces();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.IEnumerable&lt;System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="14e39-139">この <see cref="T:System.Xaml.XamlSchemaContext" /> が保持するアセンブリを検索し、名前空間のセットを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-139">Searches the assemblies that are held by this <see cref="T:System.Xaml.XamlSchemaContext" /> and returns a set of namespaces.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-140">名前空間の識別子の列挙可能なセット。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-140">An enumerable set of namespace identifiers.</span>
+          </span>
+          <span data-ttu-id="14e39-141">これらの識別子は文字列として提供されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-141">These identifiers are provided as strings.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-142">このメソッドは、構築またはプロパティの設定を通じて渡される場合にのみ参照アセンブリを検索します。</span><span class="sxs-lookup"><span data-stu-id="14e39-142">This method only searches the reference assemblies if they are passed in through construction or property setting.</span></span> <span data-ttu-id="14e39-143">このメソッドのロジックが読み込まれているすべてのアセンブリを調べ参照アセンブリとしてアセンブリが作成されていない場合、この<xref:System.Xaml.XamlSchemaContext>がアクティブです。</span><span class="sxs-lookup"><span data-stu-id="14e39-143">If no assemblies are established as reference assemblies, the logic of this method examines all loaded assemblies where this <xref:System.Xaml.XamlSchemaContext> is active.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetAllXamlTypes">
+      <MemberSignature Language="C#" Value="public virtual System.Collections.Generic.ICollection&lt;System.Xaml.XamlType&gt; GetAllXamlTypes (string xamlNamespace);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Collections.Generic.ICollection`1&lt;class System.Xaml.XamlType&gt; GetAllXamlTypes(string xamlNamespace) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.GetAllXamlTypes(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetAllXamlTypes (xamlNamespace As String) As ICollection(Of XamlType)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Collections::Generic::ICollection&lt;System::Xaml::XamlType ^&gt; ^ GetAllXamlTypes(System::String ^ xamlNamespace);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.ICollection&lt;System.Xaml.XamlType&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlNamespace" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="xamlNamespace">
+          <span data-ttu-id="14e39-144">返される型の XAML 名前空間。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-144">The XAML namespace to return types for.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-145">この <see cref="T:System.Xaml.XamlSchemaContext" /> が保持するアセンブリを検索し、指定された XAML 名前空間から型のセットを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-145">Searches the assemblies that are held by this <see cref="T:System.Xaml.XamlSchemaContext" /> and returns a set of types from the specified XAML namespace.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-146">XAML 型の列挙可能なセット。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-146">An enumerable set of XAML types.</span>
+          </span>
+          <span data-ttu-id="14e39-147">セット内の各 XAML 型は、<see cref="T:System.Xaml.XamlType" /> オブジェクトによって表されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-147">Each XAML type in the set is represented by a <see cref="T:System.Xaml.XamlType" /> object.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPreferredPrefix">
+      <MemberSignature Language="C#" Value="public virtual string GetPreferredPrefix (string xmlns);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance string GetPreferredPrefix(string xmlns) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.GetPreferredPrefix(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetPreferredPrefix (xmlns As String) As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::String ^ GetPreferredPrefix(System::String ^ xmlns);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xmlns" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="xmlns">
+          <span data-ttu-id="14e39-148">適切なプレフィックスを取得する XAML 名前空間。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-148">The XAML namespace to get the preferred prefix for.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-149">指定された XAML 名前空間を割り当てるときにコンシューマーが使用するのに適切なプレフィックスとして報告された文字列を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-149">Gets a string that is reported as the preferred prefix for consumers to use when they map the specified XAML namespace.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-150">マークアップで使用する指定された XAML 名前空間を割り当てるときにコンシューマーが使用する必要のある文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-150">A string that consumers should use when they map the specified XAML namespace for markup use.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-151">情報の最もイミディ エイトのコンシューマーは、XAML ライターでは通常です。</span><span class="sxs-lookup"><span data-stu-id="14e39-151">The most immediate consumer of the information is typically a XAML writer.</span></span> <span data-ttu-id="14e39-152">その他の間接的なコンシューマーには、デザイン ツールが含まれます。</span><span class="sxs-lookup"><span data-stu-id="14e39-152">Other indirect consumers include design tools.</span></span>  
+  
+ <span data-ttu-id="14e39-153">共通言語ランタイム (CLR) の XAML バインドの一部として、適用することでこの情報を指定できます<xref:System.Windows.Markup.XmlnsPrefixAttribute>アセンブリ レベルでします。</span><span class="sxs-lookup"><span data-stu-id="14e39-153">As part of the XAML binding for the common language runtime (CLR), you can specify this information by applying <xref:System.Windows.Markup.XmlnsPrefixAttribute> at the assembly level.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="14e39-154">
+            <paramref name="xmlns" /> が null です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-154">
+              <paramref name="xmlns" /> is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetValueConverter&lt;TConverterBase&gt;">
+      <MemberSignature Language="C#" Value="protected internal System.Xaml.Schema.XamlValueConverter&lt;TConverterBase&gt; GetValueConverter&lt;TConverterBase&gt; (Type converterType, System.Xaml.XamlType targetType) where TConverterBase : class;" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig instance class System.Xaml.Schema.XamlValueConverter`1&lt;!!TConverterBase&gt; GetValueConverter&lt;class TConverterBase&gt;(class System.Type converterType, class System.Xaml.XamlType targetType) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.GetValueConverter``1(System.Type,System.Xaml.XamlType)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Function GetValueConverter(Of TConverterBase As Class) (converterType As Type, targetType As XamlType) As XamlValueConverter(Of TConverterBase)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA;generic &lt;typename TConverterBase&gt;&#xA; where TConverterBase : class System::Xaml::Schema::XamlValueConverter&lt;TConverterBase&gt; ^ GetValueConverter(Type ^ converterType, System::Xaml::XamlType ^ targetType);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xaml.Schema.XamlValueConverter&lt;TConverterBase&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TConverterBase">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="converterType" Type="System.Type" />
+        <Parameter Name="targetType" Type="System.Xaml.XamlType" />
+      </Parameters>
+      <Docs>
+        <typeparam name="TConverterBase">
+          <span data-ttu-id="14e39-155">特定のコンバーター基本クラス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-155">The specific converter base class.</span>
+          </span>
+        </typeparam>
+        <param name="converterType">
+          <span data-ttu-id="14e39-156">コンバーター実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-156">The converter implementation.</span>
+          </span>
+        </param>
+        <param name="targetType">
+          <span data-ttu-id="14e39-157">コンバーターの目的の変換先の型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-157">The desired destination type for the converter.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-158">要求された <paramref name="targetType" /> への変換を行うことができる値コンバーターを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-158">Returns a value converter that can convert to the requested <paramref name="targetType" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-159">メソッドの呼び出し時に指定された制約と一致する制約がある <see cref="T:System.Xaml.Schema.XamlValueConverter`1" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-159">A <see cref="T:System.Xaml.Schema.XamlValueConverter`1" /> with a constraint that matches the constraint that is put on the method call.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetXamlDirective">
+      <MemberSignature Language="C#" Value="public virtual System.Xaml.XamlDirective GetXamlDirective (string xamlNamespace, string name);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Xaml.XamlDirective GetXamlDirective(string xamlNamespace, string name) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.GetXamlDirective(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetXamlDirective (xamlNamespace As String, name As String) As XamlDirective" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Xaml::XamlDirective ^ GetXamlDirective(System::String ^ xamlNamespace, System::String ^ name);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xaml.XamlDirective</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlNamespace" Type="System.String" />
+        <Parameter Name="name" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="xamlNamespace">
+          <span data-ttu-id="14e39-160">名前付きディレクティブが含まれている XAML 名前空間。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-160">The XAML namespace that contains the named directive.</span>
+          </span>
+        </param>
+        <param name="name">
+          <span data-ttu-id="14e39-161">取得するディレクティブの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-161">The name of the directive to obtain.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-162">XAML 言語または特定の実装のディレクティブを表す <see cref="T:System.Xaml.XamlDirective" /> 値を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-162">Returns a <see cref="T:System.Xaml.XamlDirective" /> value that represents a directive, either for the XAML language or for a particular implementation.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-163">要求されたディレクティブを表す <see cref="T:System.Xaml.XamlDirective" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-163">A <see cref="T:System.Xaml.XamlDirective" /> object that represents the requested directive.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-164">派生クラスを作成する場合は、このメソッドをオーバーライド<xref:System.Xaml.XamlDirective>XAML 型システムの拡張シナリオの一部として。</span><span class="sxs-lookup"><span data-stu-id="14e39-164">Override this method if you create a derived class from <xref:System.Xaml.XamlDirective> as part of a XAML type system extension scenario.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="14e39-165">
+            <paramref name="xamlNamespace" /> または <paramref name="name" /> が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-165">
+              <paramref name="xamlNamespace" /> or <paramref name="name" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="GetXamlType">
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="14e39-166">CLR または XAML のどちらかの型識別子に基づく <see cref="T:System.Xaml.XamlType" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-166">Returns a <see cref="T:System.Xaml.XamlType" /> that is based on either a CLR or XAML type identifier.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="GetXamlType">
+      <MemberSignature Language="C#" Value="public virtual System.Xaml.XamlType GetXamlType (Type type);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Xaml.XamlType GetXamlType(class System.Type type) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.GetXamlType(System.Type)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Xaml::XamlType ^ GetXamlType(Type ^ type);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xaml.XamlType</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="type" Type="System.Type" />
+      </Parameters>
+      <Docs>
+        <param name="type">
+          <span data-ttu-id="14e39-167">
+            <see cref="T:System.Xaml.XamlType" /> を取得する対象の型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-167">The type to get a <see cref="T:System.Xaml.XamlType" /> for.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-168">CLR 型識別子に基づく <see cref="T:System.Xaml.XamlType" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-168">Returns a <see cref="T:System.Xaml.XamlType" /> that is based on a CLR type identifier.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-169">入力された <paramref name="type" /> に一致する <see cref="T:System.Xaml.XamlType" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-169">The <see cref="T:System.Xaml.XamlType" /> that matches the input <paramref name="type" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-170">このオーバー ロードでは、バッキング型システムの CLR を使用していることを前提としています。</span><span class="sxs-lookup"><span data-stu-id="14e39-170">This overload assumes that you are using the CLR for the backing type system.</span></span> <span data-ttu-id="14e39-171">CLR 型システムを使用していない場合は使用<xref:System.Xaml.XamlSchemaContext.GetXamlType%28System.Xaml.Schema.XamlTypeName%29>です。</span><span class="sxs-lookup"><span data-stu-id="14e39-171">If you are not using the CLR type system, use <xref:System.Xaml.XamlSchemaContext.GetXamlType%28System.Xaml.Schema.XamlTypeName%29>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="14e39-172">
+            <paramref name="type" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-172">
+              <paramref name="type" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetXamlType">
+      <MemberSignature Language="C#" Value="public System.Xaml.XamlType GetXamlType (System.Xaml.Schema.XamlTypeName xamlTypeName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Xaml.XamlType GetXamlType(class System.Xaml.Schema.XamlTypeName xamlTypeName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.GetXamlType(System.Xaml.Schema.XamlTypeName)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Xaml::XamlType ^ GetXamlType(System::Xaml::Schema::XamlTypeName ^ xamlTypeName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xaml.XamlType</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlTypeName" Type="System.Xaml.Schema.XamlTypeName" />
+      </Parameters>
+      <Docs>
+        <param name="xamlTypeName">
+          <span data-ttu-id="14e39-173">
+            <see cref="T:System.Xaml.XamlType" /> を取得する対象の XAML 型名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-173">The XAML type name to get a <see cref="T:System.Xaml.XamlType" /> for.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-174">XAML システム型名に基づく <see cref="T:System.Xaml.XamlType" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-174">Returns a <see cref="T:System.Xaml.XamlType" /> that is based on a XAML system type name.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-175">入力された <paramref name="xamlTypeName" /> に一致する <see cref="T:System.Xaml.XamlType" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-175">The <see cref="T:System.Xaml.XamlType" /> that matches the input <paramref name="xamlTypeName" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="14e39-176">
+            <paramref name="xamlTypeName" /> のコンポーネント (<see cref="P:System.Xaml.Schema.XamlTypeName.Name" /> または <see cref="P:System.Xaml.Schema.XamlTypeName.Namespace" />) が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-176">A component of <paramref name="xamlTypeName" /> (<see cref="P:System.Xaml.Schema.XamlTypeName.Name" /> or <see cref="P:System.Xaml.Schema.XamlTypeName.Namespace" />) is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="14e39-177">
+            <paramref name="xamlTypeName" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-177">
+              <paramref name="xamlTypeName" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Xaml.Schema.XamlTypeName" />
+      </Docs>
+    </Member>
+    <Member MemberName="GetXamlType">
+      <MemberSignature Language="C#" Value="protected internal virtual System.Xaml.XamlType GetXamlType (string xamlNamespace, string name, params System.Xaml.XamlType[] typeArguments);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance class System.Xaml.XamlType GetXamlType(string xamlNamespace, string name, class System.Xaml.XamlType[] typeArguments) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.GetXamlType(System.String,System.String,System.Xaml.XamlType[])" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Function GetXamlType (xamlNamespace As String, name As String, ParamArray typeArguments As XamlType()) As XamlType" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual System::Xaml::XamlType ^ GetXamlType(System::String ^ xamlNamespace, System::String ^ name, ... cli::array &lt;System::Xaml::XamlType ^&gt; ^ typeArguments);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xaml.XamlType</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlNamespace" Type="System.String" />
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="typeArguments" Type="System.Xaml.XamlType[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="xamlNamespace">
+          <span data-ttu-id="14e39-178">目的の型が含まれている XAML 名前空間。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-178">The XAML namespace that contains the desired type.</span>
+          </span>
+        </param>
+        <param name="name">
+          <span data-ttu-id="14e39-179">目的の型の文字列名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-179">The string name of the desired type.</span>
+          </span>
+        </param>
+        <param name="typeArguments">
+          <span data-ttu-id="14e39-180">ジェネリック型の初期化型引数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-180">The initialization type arguments for a generic type.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-181">XAML 名前空間と型名の文字列に基づく <see cref="T:System.Xaml.XamlType" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-181">Returns a <see cref="T:System.Xaml.XamlType" /> that is based on a XAML namespace and a string for the type name.</span>
+          </span>
+          <span data-ttu-id="14e39-182">このシグネチャでは、目的の型がジェネリック型である場合は型引数を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-182">This signature can specify the type arguments for cases where the desired type is a generic type.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-183">入力された条件に一致する <see cref="T:System.Xaml.XamlType" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-183">The <see cref="T:System.Xaml.XamlType" /> that matches the input criteria.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnAssemblyResolve">
+      <MemberSignature Language="C#" Value="protected internal virtual System.Reflection.Assembly OnAssemblyResolve (string assemblyName);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance class System.Reflection.Assembly OnAssemblyResolve(string assemblyName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.OnAssemblyResolve(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Function OnAssemblyResolve (assemblyName As String) As Assembly" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual System::Reflection::Assembly ^ OnAssemblyResolve(System::String ^ assemblyName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Reflection.Assembly</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="assemblyName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="assemblyName">
+          <span data-ttu-id="14e39-184">読み込むアセンブリの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-184">The name of the assembly to load.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-185">包含されている XAML 名前空間の解決に必要なアセンブリを解決するために操作によってこのスキーマ コンテキストが使用される場合に呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-185">Called when operations use this schema context to resolve an assembly that is required in order to resolve the XAML namespaces that it contains.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-186">解決されたアセンブリ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-186">The resolved assembly.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-187">内部 API には、基になるアセンブリの解決方法に基づいて、アセンブリ名の別の文字列形式の組み込みの公差があると、<xref:System.Reflection.AssemblyName>構築動作します。</span><span class="sxs-lookup"><span data-stu-id="14e39-187">The underlying assembly resolution technique, which is an internal API, has built-in tolerances for different string forms of an assembly name as based on the <xref:System.Reflection.AssemblyName> construction behavior.</span></span>  
+  
+ <span data-ttu-id="14e39-188">この API の目的は、グローバル アセンブリ キャッシュに対するの代わりに、参照アセンブリなど、アセンブリの既知のセットに対する初回の解決を有効にします。</span><span class="sxs-lookup"><span data-stu-id="14e39-188">The purpose of this API is to enable first-opportunity resolution against known sets of assemblies, such as against reference assemblies instead of against a global assembly cache.</span></span> <span data-ttu-id="14e39-189">参照アセンブリの一覧が表示される場合、既知の参照アセンブリが既定の実装にアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="14e39-189">If the list of reference assemblies is populated, the default implementation can access the known reference assemblies.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ReferenceAssemblies">
+      <MemberSignature Language="C#" Value="public System.Collections.Generic.IList&lt;System.Reflection.Assembly&gt; ReferenceAssemblies { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.Generic.IList`1&lt;class System.Reflection.Assembly&gt; ReferenceAssemblies" />
+      <MemberSignature Language="DocId" Value="P:System.Xaml.XamlSchemaContext.ReferenceAssemblies" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property ReferenceAssemblies As IList(Of Assembly)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Collections::Generic::IList&lt;System::Reflection::Assembly ^&gt; ^ ReferenceAssemblies { System::Collections::Generic::IList&lt;System::Reflection::Assembly ^&gt; ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.IList&lt;System.Reflection.Assembly&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="14e39-190">XAML スキーマ コンテキストの参照アセンブリの列挙可能なセットを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-190">Gets an enumerable set of reference assemblies for the XAML schema context.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="14e39-191">スキーマ コンテキストの参照アセンブリの列挙可能なセット。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-191">An enumerable set of reference assemblies for the schema context.</span>
+          </span>
+          <span data-ttu-id="14e39-192">各アセンブリ情報項目は、<see cref="T:System.Reflection.Assembly" /> の値によって指定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-192">Each assembly information item is specified by an <see cref="T:System.Reflection.Assembly" /> value.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SupportMarkupExtensionsWithDuplicateArity">
+      <MemberSignature Language="C#" Value="public bool SupportMarkupExtensionsWithDuplicateArity { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool SupportMarkupExtensionsWithDuplicateArity" />
+      <MemberSignature Language="DocId" Value="P:System.Xaml.XamlSchemaContext.SupportMarkupExtensionsWithDuplicateArity" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property SupportMarkupExtensionsWithDuplicateArity As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool SupportMarkupExtensionsWithDuplicateArity { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="14e39-193">XAML スキーマとそのコンテキストで、アリティ (入力パラメーターの個数) が同じコンストラクターを 2 つ持つマークアップ拡張機能がサポートされるかどうかを指定する値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-193">Gets a value that specifies whether a XAML schema and its context support markup extensions that have two constructors with the same arity (number of input parameters).</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="14e39-194">スキーマ コンテキストで重複するアリティを持つマークアップ拡張が許可される場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-194">
+              <see langword="true" /> if the schema context permits markup extensions that have duplicate arity; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="14e39-195">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-195">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-196">このプロパティを返します、<xref:System.Xaml.XamlSchemaContextSettings.SupportMarkupExtensionsWithDuplicateArity%2A?displayProperty=nameWithType>値の設定で規定されている、<xref:System.Xaml.XamlSchemaContext.%23ctor%28System.Xaml.XamlSchemaContextSettings%29>コンス トラクターのシグネチャ。</span><span class="sxs-lookup"><span data-stu-id="14e39-196">This property returns the <xref:System.Xaml.XamlSchemaContextSettings.SupportMarkupExtensionsWithDuplicateArity%2A?displayProperty=nameWithType> value that is established in the settings for the <xref:System.Xaml.XamlSchemaContext.%23ctor%28System.Xaml.XamlSchemaContextSettings%29> constructor signature.</span></span> <span data-ttu-id="14e39-197">作成するための他の署名が使用されている場合、または場合<xref:System.Xaml.XamlSchemaContextSettings.SupportMarkupExtensionsWithDuplicateArity%2A?displayProperty=nameWithType>に特に設定されていない`true`、このプロパティの値が`false`です。</span><span class="sxs-lookup"><span data-stu-id="14e39-197">If other signatures are used for construction or if <xref:System.Xaml.XamlSchemaContextSettings.SupportMarkupExtensionsWithDuplicateArity%2A?displayProperty=nameWithType> is not specifically set to `true`, the value of this property is `false`.</span></span>  
+  
+ <span data-ttu-id="14e39-198">具体的には、マークアップ拡張機能の重複するアリティは XAML の仕様 [MS-XAML] セクション 6.6.7.2 で処理では対応できません。</span><span class="sxs-lookup"><span data-stu-id="14e39-198">Duplicate arity of markup extensions is not specifically addressed by the XAML specification [MS-XAML], section 6.6.7.2.</span></span> <span data-ttu-id="14e39-199">これは、マークアップ拡張機能の XAML 情報項目の形成がマークアップ拡張機能の実装に存在する重複するアリティに関係なく同じであるためです。</span><span class="sxs-lookup"><span data-stu-id="14e39-199">This is because formation of the XAML information item for a markup extension is identical regardless of duplicate arity that might exist in the markup extension implementation.</span></span> <span data-ttu-id="14e39-200">マークアップ拡張機能の実際の呼び出しだけと、その`ProvideValue`重複するアリティに関連する問題を公開します。</span><span class="sxs-lookup"><span data-stu-id="14e39-200">Only the actual invocation of the markup extension and its `ProvideValue` exposes any issues associated with duplicate arity.</span></span> <span data-ttu-id="14e39-201">重複するアリティの処理の動作は未定義しは、最大で各実装の XAML スキーマ コンテキストと XAML ライターとの統合されません。</span><span class="sxs-lookup"><span data-stu-id="14e39-201">Behavior for handling duplicate arity is thus undefined and is left up to each implementing XAML schema context and its XAML writer integration.</span></span> <span data-ttu-id="14e39-202">既定の XAML スキーマ コンテキスト .NET Framework XAML サービス操作に対して実装されるとは重複するアリティをサポートしていませんさまざまな .NET Framework XAML サービス Api には、基になる重複するアリティによるマークアップ拡張機能の使用を処理するときに例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="14e39-202">The default XAML schema context as implemented for .NET Framework XAML Services operations does not support duplicate arity; various .NET Framework XAML Services APIs will throw exceptions when processing markup extension usage with underlying duplicate arity.</span></span>  
+  
+ <span data-ttu-id="14e39-203">マークアップ拡張機能の定義の詳細については、次を参照してください。 [XAML の概要のマークアップ拡張機能](~/docs/framework/xaml-services/markup-extensions-for-xaml-overview.md)します。</span><span class="sxs-lookup"><span data-stu-id="14e39-203">For more information about defining markup extensions, see [Markup Extensions for XAML Overview](~/docs/framework/xaml-services/markup-extensions-for-xaml-overview.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryGetCompatibleXamlNamespace">
+      <MemberSignature Language="C#" Value="public virtual bool TryGetCompatibleXamlNamespace (string xamlNamespace, out string compatibleNamespace);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool TryGetCompatibleXamlNamespace(string xamlNamespace, [out] string&amp; compatibleNamespace) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlSchemaContext.TryGetCompatibleXamlNamespace(System.String,System.String@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function TryGetCompatibleXamlNamespace (xamlNamespace As String, ByRef compatibleNamespace As String) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool TryGetCompatibleXamlNamespace(System::String ^ xamlNamespace, [Runtime::InteropServices::Out] System::String ^ % compatibleNamespace);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlNamespace" Type="System.String" />
+        <Parameter Name="compatibleNamespace" Type="System.String&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="xamlNamespace">
+          <span data-ttu-id="14e39-204">互換性の結果を確認する対象の XAML 名前空間の <see langword="xmlns" /> 文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-204">The <see langword="xmlns" /> string for the XAML namespace to be checked for a compatible result.</span>
+          </span>
+        </param>
+        <param name="compatibleNamespace">
+          <span data-ttu-id="14e39-205">このメソッドから戻るときには、互換性のある XAML 名前空間要求の <see langword="xmlns" /> 文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-205">When this method returns, the <see langword="xmlns" /> string for a compatible XAML namespace request.</span>
+          </span>
+          <span data-ttu-id="14e39-206">メソッドが <see langword="false" /> を返す場合、これは <c>xamlNamespace</c> と同じである可能性があります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-206">This might be identical to <c>xamlNamespace</c> if the method returns <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="14e39-207">互換性のある XAML 名前空間に対する要求の成功または失敗を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-207">Returns the success or failure of a request for a compatible XAML namespace.</span>
+          </span>
+          <span data-ttu-id="14e39-208">成功した要求では、Out パラメーターとしてその XAML 名前空間が報告されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-208">A successful request reports that XAML namespace as an out parameter.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="14e39-209">
+            <paramref name="compatibleNamespace" /> に有効な結果が含まれている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-209">
+              <see langword="true" /> if <paramref name="compatibleNamespace" /> contains a usable result; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="14e39-210">内部的には、このメソッドは、次の検索順序を使用します。</span><span class="sxs-lookup"><span data-stu-id="14e39-210">Internally, this method uses the following lookup order:</span></span>  
+  
+1.  <span data-ttu-id="14e39-211">内部的に実装された互換性ディクショナリ以前の検索で作成された可能性があります。</span><span class="sxs-lookup"><span data-stu-id="14e39-211">An internally implemented compatibility dictionary, which may have been populated by an earlier lookup.</span></span>  
+  
+2.  <span data-ttu-id="14e39-212"><xref:System.Windows.Markup.XmlnsCompatibleWithAttribute>パラメーター評価します。</span><span class="sxs-lookup"><span data-stu-id="14e39-212">The <xref:System.Windows.Markup.XmlnsCompatibleWithAttribute> parameter evaluation.</span></span>  
+  
+ <span data-ttu-id="14e39-213">互換性のあるその他の名前空間が検出されないと、このメソッドが戻るかどうか`false`、`compatibleNamespace`パラメーターの出力と同じ値を持つ可能性があります、`xamlNamespace`入力します。</span><span class="sxs-lookup"><span data-stu-id="14e39-213">If no other compatible namespace is discovered and this method returns `false`, the `compatibleNamespace` parameter output might have the same value as the `xamlNamespace` input.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="14e39-214">
+            <paramref name="xamlNamespace" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="14e39-214">
+              <paramref name="xamlNamespace" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

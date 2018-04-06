@@ -1,0 +1,3146 @@
+<Type Name="XDocument" FullName="System.Xml.Linq.XDocument">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="d79ed174f5e5f1d678e11f3ea4857185ee811f59" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class XDocument : System.Xml.Linq.XContainer" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XDocument extends System.Xml.Linq.XContainer" />
+  <TypeSignature Language="DocId" Value="T:System.Xml.Linq.XDocument" />
+  <TypeSignature Language="VB.NET" Value="Public Class XDocument&#xA;Inherits XContainer" />
+  <TypeSignature Language="C++ CLI" Value="public ref class XDocument : System::Xml::Linq::XContainer" />
+  <AssemblyInfo>
+    <AssemblyName>System.Xml.XDocument</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Xml.Linq</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Xml.Linq.XContainer</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="f3139-101">XML ドキュメントを表します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="f3139-101">Represents an XML document.</span>
+      </span>
+      <span data-ttu-id="f3139-102">
+        <see cref="T:System.Xml.Linq.XDocument" /> オブジェクトのコンポーネントと使用方法については、「<see href="http://msdn.microsoft.com/library/90f78331-1be8-42fb-93e7-bd1325826467">XDocument クラスの概要</see>」をご覧ください。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="f3139-102">For the components and usage of an <see cref="T:System.Xml.Linq.XDocument" /> object, see <see href="http://msdn.microsoft.com/library/90f78331-1be8-42fb-93e7-bd1325826467">XDocument Class Overview</see>.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-103">有効なコンテンツの詳細について、<xref:System.Xml.Linq.XDocument>を参照してください[有効なコンテンツの XElement オブジェクトと XDocument オブジェクト](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-103">For details about the valid content of an <xref:System.Xml.Linq.XDocument>, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-104">次の例では、ドキュメントを作成し、それにコメントおよび要素を追加します。</span><span class="sxs-lookup"><span data-stu-id="f3139-104">The following example creates a document, and then adds a comment and an element to it.</span></span> <span data-ttu-id="f3139-105">クエリの結果を使用して別のドキュメントを作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-105">It then composes another document using the results of a query.</span></span>  
+  
+```csharp  
+XDocument srcTree = new XDocument(  
+    new XComment("This is a comment"),  
+    new XElement("Root",  
+        new XElement("Child1", "data1"),  
+        new XElement("Child2", "data2"),  
+        new XElement("Child3", "data3"),  
+        new XElement("Child2", "data4"),  
+        new XElement("Info5", "info5"),  
+        new XElement("Info6", "info6"),  
+        new XElement("Info7", "info7"),  
+        new XElement("Info8", "info8")  
+    )  
+);  
+  
+XDocument doc = new XDocument(  
+    new XComment("This is a comment"),  
+    new XElement("Root",  
+        from el in srcTree.Element("Root").Elements()  
+        where ((string)el).StartsWith("data")  
+        select el  
+    )  
+);  
+Console.WriteLine(doc);  
+```  
+  
+```vb  
+Dim srcTree As XDocument = _   
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+        <!--This is a comment-->  
+        <Root>  
+            <Child1>data1</Child1>  
+            <Child2>data2</Child2>  
+            <Child3>data3</Child3>  
+            <Child2>data4</Child2>  
+            <Info5>info5</Info5>  
+            <Info6>info6</Info6>  
+            <Info7>info7</Info7>  
+            <Info8>info8</Info8>  
+        </Root>  
+Dim doc As XDocument = _   
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+        <!--This is a comment-->  
+        <Root>  
+            <%= From el In srcTree.<Root>.Elements _  
+                Where CStr(el).StartsWith("data") _  
+                Select el %>  
+        </Root>  
+Console.WriteLine(doc)  
+```  
+  
+ <span data-ttu-id="f3139-106">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-106">This example produces the following output:</span></span>  
+  
+```xml  
+<!--This is a comment-->  
+<Root>  
+  <Child1>data1</Child1>  
+  <Child2>data2</Child2>  
+  <Child3>data3</Child3>  
+  <Child2>data4</Child2>  
+</Root>  
+```  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Xml.Linq.XNamespace" />
+    <altmember cref="T:System.Xml.Linq.XDeclaration" />
+    <altmember cref="T:System.Xml.Linq.XElement" />
+    <altmember cref="T:System.Xml.Linq.XNode" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f3139-107">
+            <see cref="T:System.Xml.Linq.XDocument" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-107">Initializes a new instance of the <see cref="T:System.Xml.Linq.XDocument" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-108">オーバー ロードされたコンス トラクターでは、新しい空を作成できます。 <xref:System.Xml.Linq.XDocument>; を作成、 <xref:System.Xml.Linq.XDocument> ; いくつかの指定した初期コンテンツを持つし、作成、<xref:System.Xml.Linq.XDocument>別のコピーとして<xref:System.Xml.Linq.XDocument>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="f3139-108">Overloaded constructors enable you to create a new empty <xref:System.Xml.Linq.XDocument>; to create an <xref:System.Xml.Linq.XDocument> with some specified initial content; and to create an <xref:System.Xml.Linq.XDocument> as a copy of another <xref:System.Xml.Linq.XDocument> object.</span></span>  
+  
+ <span data-ttu-id="f3139-109"><xref:System.Xml.Linq.XDocument> の作成が必要となるシナリオは多くありません。</span><span class="sxs-lookup"><span data-stu-id="f3139-109">There are not many scenarios that require you to create an <xref:System.Xml.Linq.XDocument>.</span></span> <span data-ttu-id="f3139-110">通常、その代わりに <xref:System.Xml.Linq.XElement> ルート ノードを使用して XML ツリーを作成できます。</span><span class="sxs-lookup"><span data-stu-id="f3139-110">Instead, you can usually create your XML trees with an <xref:System.Xml.Linq.XElement> root node.</span></span> <span data-ttu-id="f3139-111">ドキュメントを作成する要件 (処理命令とコメントを最上位に作成する必要がある、ドキュメント型をサポートする必要がある、など) が特にない限り、<xref:System.Xml.Linq.XElement> をルート ノードとして使用する方が便利です。</span><span class="sxs-lookup"><span data-stu-id="f3139-111">Unless you have a specific requirement to create a document (for example, because you have to create processing instructions and comments at the top level, or you have to support document types), it is often more convenient to use <xref:System.Xml.Linq.XElement> as your root node.</span></span>  
+  
+ <span data-ttu-id="f3139-112">有効なコンテンツの詳細について、<xref:System.Xml.Linq.XDocument>を参照してください[有効なコンテンツの XElement オブジェクトと XDocument オブジェクト](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-112">For details about the valid content of an <xref:System.Xml.Linq.XDocument>, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-113">次の例では、ドキュメントを作成し、それにコメントおよび要素を追加します。</span><span class="sxs-lookup"><span data-stu-id="f3139-113">The following example creates a document, and then adds a comment and an element to it.</span></span> <span data-ttu-id="f3139-114">クエリの結果を使用して別のドキュメントを作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-114">It then composes another document using the results of a query.</span></span>  
+  
+```csharp  
+XDocument srcTree = new XDocument(  
+    new XComment("This is a comment"),  
+    new XElement("Root",  
+        new XElement("Child1", "data1"),  
+        new XElement("Child2", "data2"),  
+        new XElement("Child3", "data3"),  
+        new XElement("Child2", "data4"),  
+        new XElement("Info5", "info5"),  
+        new XElement("Info6", "info6"),  
+        new XElement("Info7", "info7"),  
+        new XElement("Info8", "info8")  
+    )  
+);  
+  
+XDocument doc = new XDocument(  
+    new XComment("This is a comment"),  
+    new XElement("Root",  
+        from el in srcTree.Element("Root").Elements()  
+        where ((string)el).StartsWith("data")  
+        select el  
+    )  
+);  
+Console.WriteLine(doc);  
+```  
+  
+```vb  
+Dim srcTree As XDocument = _   
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+        <!--This is a comment-->  
+        <Root>  
+            <Child1>data1</Child1>  
+            <Child2>data2</Child2>  
+            <Child3>data3</Child3>  
+            <Child2>data4</Child2>  
+            <Info5>info5</Info5>  
+            <Info6>info6</Info6>  
+            <Info7>info7</Info7>  
+            <Info8>info8</Info8>  
+        </Root>  
+Dim doc As XDocument = _   
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+        <!--This is a comment-->  
+        <Root>  
+            <%= From el In srcTree.<Root>.Elements _  
+                Where CStr(el).StartsWith("data") _  
+                Select el %>  
+        </Root>  
+Console.WriteLine(doc)  
+```  
+  
+ <span data-ttu-id="f3139-115">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-115">This example produces the following output:</span></span>  
+  
+```xml  
+<!--This is a comment-->  
+<Root>  
+  <Child1>data1</Child1>  
+  <Child2>data2</Child2>  
+  <Child3>data3</Child3>  
+  <Child2>data4</Child2>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XDocument ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XDocument();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="f3139-116">
+            <see cref="T:System.Xml.Linq.XDocument" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-116">Initializes a new instance of the <see cref="T:System.Xml.Linq.XDocument" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-117"><xref:System.Xml.Linq.XDocument> の作成が必要となるシナリオは多くありません。</span><span class="sxs-lookup"><span data-stu-id="f3139-117">There are not many scenarios that require you to create an <xref:System.Xml.Linq.XDocument>.</span></span> <span data-ttu-id="f3139-118">通常、その代わりに <xref:System.Xml.Linq.XElement> ルート ノードを使用して XML ツリーを作成できます。</span><span class="sxs-lookup"><span data-stu-id="f3139-118">Instead, you can usually create your XML trees with an <xref:System.Xml.Linq.XElement> root node.</span></span> <span data-ttu-id="f3139-119">ドキュメントを作成する要件 (処理命令とコメントを最上位に作成する必要がある、ドキュメント型をサポートする必要がある、など) が特にない限り、<xref:System.Xml.Linq.XElement> をルート ノードとして使用する方が便利です。</span><span class="sxs-lookup"><span data-stu-id="f3139-119">Unless you have a specific requirement to create a document (for example, because you have to create processing instructions and comments at the top level, or you have to support document types), it is often more convenient to use <xref:System.Xml.Linq.XElement> as your root node.</span></span>  
+  
+ <span data-ttu-id="f3139-120">有効なコンテンツの詳細について、<xref:System.Xml.Linq.XDocument>を参照してください[有効なコンテンツの XElement オブジェクトと XDocument オブジェクト](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-120">For details about the valid content of an <xref:System.Xml.Linq.XDocument>, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-121">次の例では、新しい文書を作成し、それにコメントおよび要素を追加します。</span><span class="sxs-lookup"><span data-stu-id="f3139-121">The following example creates a new document, and then adds a comment and an element to it.</span></span>  
+  
+```csharp  
+XDocument doc = new XDocument();  
+doc.Add(new XComment("This is a comment"));  
+doc.Add(new XElement("Root", "content"));  
+Console.WriteLine(doc);  
+```  
+  
+```vb  
+Dim doc As XDocument = New XDocument()  
+doc.Add(<!--This is a comment-->)  
+doc.Add(<Root>content</Root>)  
+Console.WriteLine(doc)  
+```  
+  
+ <span data-ttu-id="f3139-122">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-122">This example produces the following output:</span></span>  
+  
+```xml  
+<!--This is a comment-->  
+<Root>content</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XDocument (params object[] content);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(object[] content) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.#ctor(System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (ParamArray content As Object())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XDocument(... cli::array &lt;System::Object ^&gt; ^ content);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="content" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="content">
+          <span data-ttu-id="f3139-123">このドキュメントに追加するコンテンツ オブジェクトのパラメーター リスト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-123">A parameter list of content objects to add to this document.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-124">指定した内容で、<see cref="T:System.Xml.Linq.XDocument" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-124">Initializes a new instance of the <see cref="T:System.Xml.Linq.XDocument" /> class with the specified content.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-125"><xref:System.Xml.Linq.XDocument> の作成が必要となるシナリオは多くありません。</span><span class="sxs-lookup"><span data-stu-id="f3139-125">There are not many scenarios that require you to create an <xref:System.Xml.Linq.XDocument>.</span></span> <span data-ttu-id="f3139-126">通常、その代わりに <xref:System.Xml.Linq.XElement> ルート ノードを使用して XML ツリーを作成できます。</span><span class="sxs-lookup"><span data-stu-id="f3139-126">Instead, you can usually create your XML trees with an <xref:System.Xml.Linq.XElement> root node.</span></span> <span data-ttu-id="f3139-127">ドキュメントを作成する要件 (処理命令とコメントを最上位に作成する必要がある、ドキュメント型をサポートする必要がある、など) が特にない限り、<xref:System.Xml.Linq.XElement> をルート ノードとして使用する方が便利です。</span><span class="sxs-lookup"><span data-stu-id="f3139-127">Unless you have a specific requirement to create a document (for example, because you have to create processing instructions and comments at the top level, or you have to support document types), it is often more convenient to use <xref:System.Xml.Linq.XElement> as your root node.</span></span>  
+  
+ <span data-ttu-id="f3139-128">有効なコンテンツの詳細について、<xref:System.Xml.Linq.XDocument>を参照してください[有効なコンテンツの XElement オブジェクトと XDocument オブジェクト](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-128">For details about the valid content of an <xref:System.Xml.Linq.XDocument>, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-129">次の例では、ドキュメントを作成し、それにコメントおよび要素を追加します。</span><span class="sxs-lookup"><span data-stu-id="f3139-129">The following example creates a document, and then adds a comment and an element to it.</span></span> <span data-ttu-id="f3139-130">クエリの結果を使用して別のドキュメントを作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-130">It then composes another document using the results of a query.</span></span>  
+  
+```csharp  
+XDocument srcTree = new XDocument(  
+    new XComment("This is a comment"),  
+    new XElement("Root",  
+        new XElement("Child1", "data1"),  
+        new XElement("Child2", "data2"),  
+        new XElement("Child3", "data3"),  
+        new XElement("Child2", "data4"),  
+        new XElement("Info5", "info5"),  
+        new XElement("Info6", "info6"),  
+        new XElement("Info7", "info7"),  
+        new XElement("Info8", "info8")  
+    )  
+);  
+  
+XDocument doc = new XDocument(  
+    new XComment("This is a comment"),  
+    new XElement("Root",  
+        from el in srcTree.Element("Root").Elements()  
+        where ((string)el).StartsWith("data")  
+        select el  
+    )  
+);  
+Console.WriteLine(doc);  
+```  
+  
+```vb  
+Dim srcTree As XDocument = _  
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+        <!--This is a comment-->  
+        <Root>  
+            <Child1>data1</Child1>  
+            <Child2>data2</Child2>  
+            <Child3>data3</Child3>  
+            <Child2>data4</Child2>  
+            <Info5>info5</Info5>  
+            <Info6>info6</Info6>  
+            <Info7>info7</Info7>  
+            <Info8>info8</Info8>  
+        </Root>  
+Dim doc As XDocument = _   
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+        <!--This is a comment-->  
+        <Root>  
+            <%= From el In srcTree.<Root>.Elements _  
+                Where CStr(el).StartsWith("data") _  
+                Select el %>  
+        </Root>  
+Console.WriteLine(doc)  
+```  
+  
+ <span data-ttu-id="f3139-131">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-131">This example produces the following output:</span></span>  
+  
+```xml  
+<!--This is a comment-->  
+<Root>  
+  <Child1>data1</Child1>  
+  <Child2>data2</Child2>  
+  <Child3>data3</Child3>  
+  <Child2>data4</Child2>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XDocument (System.Xml.Linq.XDocument other);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Xml.Linq.XDocument other) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.#ctor(System.Xml.Linq.XDocument)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (other As XDocument)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XDocument(System::Xml::Linq::XDocument ^ other);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="other" Type="System.Xml.Linq.XDocument" />
+      </Parameters>
+      <Docs>
+        <param name="other">
+          <span data-ttu-id="f3139-132">コピーされる <see cref="T:System.Xml.Linq.XDocument" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-132">The <see cref="T:System.Xml.Linq.XDocument" /> object that will be copied.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-133">既存の <see cref="T:System.Xml.Linq.XDocument" /> オブジェクトから <see cref="T:System.Xml.Linq.XDocument" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-133">Initializes a new instance of the <see cref="T:System.Xml.Linq.XDocument" /> class from an existing <see cref="T:System.Xml.Linq.XDocument" /> object.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-134">ディープ コピーを作成するこのコンス トラクターを使用する、<xref:System.Xml.Linq.XDocument>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-134">You use this constructor to make a deep copy of an <xref:System.Xml.Linq.XDocument>.</span></span>  
+  
+ <span data-ttu-id="f3139-135">このコンス トラクターは、すべてのノードおよび属性で指定されたドキュメントを通過する時間、`other`パラメーターが作成、新しく初期化されたすべてのノードのコピーを作成および<xref:System.Xml.Linq.XDocument>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-135">This constructor traverses all nodes and attributes in the document specified in the `other` parameter, and creates copies of all nodes as it assembles the newly initialized <xref:System.Xml.Linq.XDocument>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XDocument (System.Xml.Linq.XDeclaration declaration, params object[] content);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Xml.Linq.XDeclaration declaration, object[] content) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.#ctor(System.Xml.Linq.XDeclaration,System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (declaration As XDeclaration, ParamArray content As Object())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XDocument(System::Xml::Linq::XDeclaration ^ declaration, ... cli::array &lt;System::Object ^&gt; ^ content);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="declaration" Type="System.Xml.Linq.XDeclaration" />
+        <Parameter Name="content" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="declaration">
+          <span data-ttu-id="f3139-136">ドキュメントの <see cref="T:System.Xml.Linq.XDeclaration" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-136">An <see cref="T:System.Xml.Linq.XDeclaration" /> for the document.</span>
+          </span>
+        </param>
+        <param name="content">
+          <span data-ttu-id="f3139-137">ドキュメントの内容。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-137">The content of the document.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-138">指定した <see cref="T:System.Xml.Linq.XDeclaration" /> および内容を使用して、<see cref="T:System.Xml.Linq.XDocument" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-138">Initializes a new instance of the <see cref="T:System.Xml.Linq.XDocument" /> class with the specified <see cref="T:System.Xml.Linq.XDeclaration" /> and content.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-139"><xref:System.Xml.Linq.XDocument> の作成が必要となるシナリオは多くありません。</span><span class="sxs-lookup"><span data-stu-id="f3139-139">There are not many scenarios that require you to create an <xref:System.Xml.Linq.XDocument>.</span></span> <span data-ttu-id="f3139-140">通常、その代わりに <xref:System.Xml.Linq.XElement> ルート ノードを使用して XML ツリーを作成できます。</span><span class="sxs-lookup"><span data-stu-id="f3139-140">Instead, you can usually create your XML trees with an <xref:System.Xml.Linq.XElement> root node.</span></span> <span data-ttu-id="f3139-141">ドキュメントを作成する要件 (処理命令とコメントを最上位に作成する必要がある、ドキュメント型をサポートする必要がある、など) が特にない限り、<xref:System.Xml.Linq.XElement> をルート ノードとして使用する方が便利です。</span><span class="sxs-lookup"><span data-stu-id="f3139-141">Unless you have a specific requirement to create a document (for example, because you have to create processing instructions and comments at the top level, or you have to support document types), it is often more convenient to use <xref:System.Xml.Linq.XElement> as your root node.</span></span>  
+  
+ <span data-ttu-id="f3139-142">有効なコンテンツの詳細について、<xref:System.Xml.Linq.XDocument>を参照してください[有効なコンテンツの XElement オブジェクトと XDocument オブジェクト](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-142">For details about the valid content of an <xref:System.Xml.Linq.XDocument>, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-143">次の例では、このコンス トラクターを使用して、ドキュメントを作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-143">The following example uses this constructor to create a document.</span></span>  
+  
+```csharp  
+XDocument srcTree = new XDocument(  
+    new XComment("This is a comment"),  
+    new XElement("Root",  
+        new XElement("Child1", "data1"),  
+        new XElement("Child2", "data2"),  
+        new XElement("Child3", "data3"),  
+        new XElement("Child2", "data4"),  
+        new XElement("Info5", "info5"),  
+        new XElement("Info6", "info6"),  
+        new XElement("Info7", "info7"),  
+        new XElement("Info8", "info8")  
+    )  
+);  
+  
+XDocument doc = new XDocument(  
+    new XDeclaration("1.0", "utf-8", "yes"),  
+    new XComment("This is a new comment"),  
+    new XElement("Root",  
+        from el in srcTree.Element("Root").Elements()  
+        where ((string)el).StartsWith("data")  
+        select el  
+    )  
+);  
+doc.Save("Test.xml");  
+Console.WriteLine(File.ReadAllText("Test.xml"));  
+```  
+  
+```vb  
+Dim srcTree As XDocument = _   
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+        <!--This is a comment-->  
+        <Root>  
+            <Child1>data1</Child1>  
+            <Child2>data2</Child2>  
+            <Child3>data3</Child3>  
+            <Child2>data4</Child2>  
+            <Info5>info5</Info5>  
+            <Info6>info6</Info6>  
+            <Info7>info7</Info7>  
+            <Info8>info8</Info8>  
+        </Root>  
+Dim doc As XDocument = _   
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+        <!--This is a new comment-->  
+        <Root>  
+            <%= From el In srcTree.<Root>.Elements _  
+                Where CStr(el).StartsWith("data") _  
+                Select el %>  
+        </Root>  
+doc.Save("Test.xml")  
+Console.WriteLine(File.ReadAllText("Test.xml"))  
+```  
+  
+ <span data-ttu-id="f3139-144">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-144">This example produces the following output:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+<!--This is a new comment-->  
+<Root>  
+  <Child1>data1</Child1>  
+  <Child2>data2</Child2>  
+  <Child3>data3</Child3>  
+  <Child2>data4</Child2>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+      </Docs>
+    </Member>
+    <Member MemberName="Declaration">
+      <MemberSignature Language="C#" Value="public System.Xml.Linq.XDeclaration Declaration { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Xml.Linq.XDeclaration Declaration" />
+      <MemberSignature Language="DocId" Value="P:System.Xml.Linq.XDocument.Declaration" />
+      <MemberSignature Language="VB.NET" Value="Public Property Declaration As XDeclaration" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Xml::Linq::XDeclaration ^ Declaration { System::Xml::Linq::XDeclaration ^ get(); void set(System::Xml::Linq::XDeclaration ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDeclaration</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f3139-145">このドキュメントの XML 宣言を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-145">Gets or sets the XML declaration for this document.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="f3139-146">このドキュメントの XML 宣言を格納する <see cref="T:System.Xml.Linq.XDeclaration" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-146">An <see cref="T:System.Xml.Linq.XDeclaration" /> that contains the XML declaration for this document.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-147">ドキュメントの XML 宣言を作成する必要場合があります。</span><span class="sxs-lookup"><span data-stu-id="f3139-147">Sometimes you have to create an XML declaration for a document.</span></span> <span data-ttu-id="f3139-148">ドキュメントがスタンドアロンであることを示す場合は、このプロパティを使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="f3139-148">If you want to indicate that a document is standalone, you must use this property.</span></span> <span data-ttu-id="f3139-149">経由のエンコーディングを指定するにはエンコーディング utf-8 以外を使用したドキュメントをエンコードする場合、<xref:System.Xml.Linq.XDeclaration>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-149">If you want to encode your document with an encoding other than utf-8, you can specify an encoding through the <xref:System.Xml.Linq.XDeclaration>.</span></span> <span data-ttu-id="f3139-150">ドキュメントをエンコードするためのもう 1 つの方法がのエンコードを指定するには、<xref:System.Xml.XmlWriter>書き込みのため、LINQ to XML に渡します。</span><span class="sxs-lookup"><span data-stu-id="f3139-150">Another approach for encoding a document is to specify the encoding on an <xref:System.Xml.XmlWriter> that you pass to LINQ to XML for writing.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-151">次の例では、ドキュメントの XML 宣言を取得するのにこのプロパティを使用します。</span><span class="sxs-lookup"><span data-stu-id="f3139-151">The following example uses this property to retrieve the XML declaration of a document.</span></span>  
+  
+```csharp  
+XDocument doc = new XDocument(  
+    new XDeclaration("1.0", "utf-8", "yes"),  
+    new XComment("This is a comment"),  
+    new XElement("Root", "content")  
+);  
+  
+Console.WriteLine(doc.Declaration);  
+```  
+  
+```vb  
+Dim doc As XDocument = _  
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+        <!--This is a comment-->  
+        <Root>content</Root>  
+  
+Console.WriteLine(doc.Declaration)  
+```  
+  
+ <span data-ttu-id="f3139-152">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-152">This example produces the following output:</span></span>  
+  
+```  
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Xml.Linq.XDeclaration" />
+      </Docs>
+    </Member>
+    <Member MemberName="DocumentType">
+      <MemberSignature Language="C#" Value="public System.Xml.Linq.XDocumentType DocumentType { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Xml.Linq.XDocumentType DocumentType" />
+      <MemberSignature Language="DocId" Value="P:System.Xml.Linq.XDocument.DocumentType" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property DocumentType As XDocumentType" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Xml::Linq::XDocumentType ^ DocumentType { System::Xml::Linq::XDocumentType ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocumentType</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f3139-153">このドキュメントのドキュメント型定義 (DTD: Document Type Definition) の名前を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-153">Gets the Document Type Definition (DTD) for this document.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="f3139-154">このドキュメントの DTD を格納する <see cref="T:System.Xml.Linq.XDocumentType" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-154">A <see cref="T:System.Xml.Linq.XDocumentType" /> that contains the DTD for this document.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ [!INCLUDE[sqltecxlinq](~/includes/sqltecxlinq-md.md)]<span data-ttu-id="f3139-155"> Dtd の制限付きサポートを提供します。</span><span class="sxs-lookup"><span data-stu-id="f3139-155"> provides limited support for DTDs.</span></span>  
+  
+ <span data-ttu-id="f3139-156">DTD を含む XML ドキュメントを使用して XML ツリーを設定することができます。</span><span class="sxs-lookup"><span data-stu-id="f3139-156">You can populate an XML tree with an XML document that contains a DTD.</span></span> <span data-ttu-id="f3139-157">XML ツリーが含まれます、<xref:System.Xml.Linq.XDocument.DocumentType%2A>ノード。</span><span class="sxs-lookup"><span data-stu-id="f3139-157">The XML tree will then contain a <xref:System.Xml.Linq.XDocument.DocumentType%2A> node.</span></span> <span data-ttu-id="f3139-158">シリアル化またはツリーを保存するときに、DTD もシリアル化されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-158">When you serialize or save the tree, the DTD will also be serialized.</span></span> [!INCLUDE[sqltecxlinq](~/includes/sqltecxlinq-md.md)]<span data-ttu-id="f3139-159"> DTD 内のすべてのエンティティが展開されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-159"> will expand any entities in the DTD.</span></span> <span data-ttu-id="f3139-160">シリアル化または XML ツリーを保存するときに、エンティティ参照は保存されません。代わりに、ノードは、エンティティのテキストに置き換え、エンティティ参照と共に保存されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-160">When you serialize or save the XML tree, the entity references are not saved; instead, the nodes are saved with the entity references replaced by the text of the entity.</span></span>  
+  
+ <span data-ttu-id="f3139-161">DTD に既定の属性が含まれている場合、属性は、通常の属性として、XML ツリーに作成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-161">If the DTD contains default attributes, the attributes are created in the XML tree as ordinary attributes.</span></span>  
+  
+ <span data-ttu-id="f3139-162">既定では、 [!INCLUDE[sqltecxlinq](~/includes/sqltecxlinq-md.md)] DTD に基づいてドキュメントを検証しません。</span><span class="sxs-lookup"><span data-stu-id="f3139-162">By default, [!INCLUDE[sqltecxlinq](~/includes/sqltecxlinq-md.md)] does not validate a document based on its DTD.</span></span> <span data-ttu-id="f3139-163">Dtd を基準に基づくドキュメントを検証するには、作成、<xref:System.Xml.XmlReader>を検証する、DTD に基づいておりから XML ツリーを作成、<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-163">To validate a document based on a DTD, create an <xref:System.Xml.XmlReader> that will validate based on a DTD, and then create an XML tree from the <xref:System.Xml.XmlReader>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-164">次の例を含むドキュメントを作成、<xref:System.Xml.Linq.XDocumentType>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-164">The following example creates a document that contains an <xref:System.Xml.Linq.XDocumentType>.</span></span>  
+  
+ <span data-ttu-id="f3139-165">Visual Basic は、XML リテラル内のドキュメントの種類をサポートしていません。</span><span class="sxs-lookup"><span data-stu-id="f3139-165">Visual Basic does not support document types within XML literals.</span></span> <span data-ttu-id="f3139-166">ただし、まずを作成して XML リテラルを使用してドキュメントと作成し、追加ドキュメントの種類を含むドキュメントを作成することは、<xref:System.Xml.Linq.XDocumentType>適切な場所に、XML ツリー内のノードです。</span><span class="sxs-lookup"><span data-stu-id="f3139-166">However, it is possible to create a document that contains a document type by first creating the document using XML literals, and then creating and adding an <xref:System.Xml.Linq.XDocumentType> node in the appropriate place in the XML tree.</span></span>  
+  
+```csharp  
+string internalSubset = @"<!ELEMENT Pubs (Book+)>  
+<!ELEMENT Book (Title, Author)>  
+<!ELEMENT Title (#PCDATA)>  
+<!ELEMENT Author (#PCDATA)>";  
+  
+string target = "xml-stylesheet";  
+string data = "href='mystyle.css' title='Compact' type='text/css'";  
+  
+XDocument doc = new XDocument(  
+    new XComment("This is a comment."),  
+    new XProcessingInstruction(target, data),  
+    new XDocumentType("Pubs", null, null, internalSubset),  
+    new XElement("Pubs",   
+        new XElement("Book",  
+            new XElement("Title", "Artifacts of Roman Civilization"),  
+            new XElement("Author", "Moreno, Jordao")  
+        ),  
+        new XElement("Book",  
+            new XElement("Title", "Midieval Tools and Implements"),  
+            new XElement("Author", "Gazit, Inbar")  
+        )  
+    ),  
+    new XComment("This is another comment.")  
+);  
+doc.Declaration = new XDeclaration("1.0", "utf-8", "true");  
+Console.WriteLine(doc);  
+  
+doc.Save("test.xml");  
+```  
+  
+```vb  
+Dim internalSubset = _  
+        "<!ELEMENT Pubs (Book+)>" & Environment.NewLine & _  
+        "<!ELEMENT Book (Title, Author)>" & Environment.NewLine & _  
+        "<!ELEMENT Title (#PCDATA)>" & Environment.NewLine & _  
+        "<!ELEMENT Author (#PCDATA)>"  
+  
+Dim doc As XDocument = _  
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+    <!--This is a comment.-->  
+    <?xml-stylesheet href='mystyle.css' title='Compact' type='text/css'?>  
+    <Pubs>  
+        <Book>  
+            <Title>Artifacts of Roman Civilization</Title>  
+            <Author>Moreno, Jordao</Author>  
+        </Book>  
+        <Book>  
+            <Title>Midieval Tools and Implements</Title>  
+            <Author>Gazit, Inbar</Author>  
+        </Book>  
+    </Pubs>  
+    <!--This is another comment.-->  
+  
+doc.Nodes().Skip(1).First().AddAfterSelf(New XDocumentType("Pubs", Nothing, Nothing, internalSubset))  
+Console.WriteLine(doc)  
+```  
+  
+ <span data-ttu-id="f3139-167">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-167">This example produces the following output:</span></span>  
+  
+```xml  
+<!--This is a comment.-->  
+<?xml-stylesheet href='mystyle.css' title='Compact' type='text/css'?>  
+<!DOCTYPE Pubs [<!ELEMENT Pubs (Book+)>  
+<!ELEMENT Book (Title, Author)>  
+<!ELEMENT Title (#PCDATA)>  
+<!ELEMENT Author (#PCDATA)>]>  
+<Pubs>  
+  <Book>  
+    <Title>Artifacts of Roman Civilization</Title>  
+    <Author>Moreno, Jordao</Author>  
+  </Book>  
+  <Book>  
+    <Title>Midieval Tools and Implements</Title>  
+    <Author>Gazit, Inbar</Author>  
+  </Book>  
+</Pubs>  
+<!--This is another comment.-->  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Xml.Linq.XDocumentType" />
+        <altmember cref="P:System.Xml.Linq.XDocument.NodeType" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Load">
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f3139-168">URI で指定されたファイル、<see cref="T:System.IO.TextReader" />、または <see cref="T:System.Xml.XmlReader" /> から、新しい <see cref="T:System.Xml.Linq.XDocument" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-168">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> from a file specified by a URI, from an <see cref="T:System.IO.TextReader" />, or from an <see cref="T:System.Xml.XmlReader" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-169">このメソッドのオーバー ロードのいずれかを使用して、読み込むことができます、<xref:System.Xml.Linq.XDocument>ファイルから、 <xref:System.IO.TextReader>、または<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-169">Using one of the overloads of this method, you can load an <xref:System.Xml.Linq.XDocument> from a file, a <xref:System.IO.TextReader>, or an <xref:System.Xml.XmlReader>.</span></span>  
+  
+ <span data-ttu-id="f3139-170">作成する、<xref:System.Xml.Linq.XDocument>から XML を表す文字列を使用して<xref:System.Xml.Linq.XDocument.Parse%2A>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-170">To create an <xref:System.Xml.Linq.XDocument> from a string that contains XML, use <xref:System.Xml.Linq.XDocument.Parse%2A>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Load (System.IO.Stream stream);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Load(class System.IO.Stream stream) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Load(System.IO.Stream)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Load(System::IO::Stream ^ stream);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="f3139-171">XML データを格納しているストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-171">The stream that contains the XML data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-172">指定されたストリームを使用して新しい <see cref="T:System.Xml.Linq.XDocument" /> インスタンスを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-172">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> instance by using the specified stream.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-173">ストリームに格納されているデータを読み取る <see cref="T:System.Xml.Linq.XDocument" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-173">An <see cref="T:System.Xml.Linq.XDocument" /> object that reads the data that is contained in the stream.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-174">読み込みオプションを制御する場合は、使用、<xref:System.Xml.Linq.XDocument.Load%2A>を受け取るオーバー ロード<xref:System.Xml.Linq.LoadOptions>をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-174">If you want to control load options, use the <xref:System.Xml.Linq.XDocument.Load%2A> overload that takes <xref:System.Xml.Linq.LoadOptions> as a parameter.</span></span>  
+  
+ <span data-ttu-id="f3139-175">LINQ to XML の読み込み機能が基盤<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-175">The loading functionality of LINQ to XML is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-176">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-176">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+ <span data-ttu-id="f3139-177">変更しなければならない場合<xref:System.Xml.XmlReaderSettings>、これらの手順に従います。</span><span class="sxs-lookup"><span data-stu-id="f3139-177">If you have to modify <xref:System.Xml.XmlReaderSettings>, follow these steps:</span></span>  
+  
+1.  <span data-ttu-id="f3139-178">作成、<xref:System.Xml.XmlReader>のいずれかを呼び出すことによって、<xref:System.Xml.XmlReader.Create%2A>を受け取るオーバー ロード<xref:System.Xml.XmlReaderSettings>をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-178">Create an <xref:System.Xml.XmlReader> by calling one of the <xref:System.Xml.XmlReader.Create%2A> overloads that take <xref:System.Xml.XmlReaderSettings> as a parameter.</span></span>  
+  
+2.  <span data-ttu-id="f3139-179">渡す、<xref:System.Xml.XmlReader>のいずれかに、<xref:System.Xml.Linq.XDocument.Load%2A>のオーバー ロードが<xref:System.Xml.Linq.XDocument>を受け取る<xref:System.Xml.XmlReader>をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-179">Pass the <xref:System.Xml.XmlReader> to one of the <xref:System.Xml.Linq.XDocument.Load%2A> overloads of <xref:System.Xml.Linq.XDocument> that takes <xref:System.Xml.XmlReader> as a parameter.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Load (System.IO.TextReader textReader);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Load(class System.IO.TextReader textReader) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Load(System.IO.TextReader)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Load(System::IO::TextReader ^ textReader);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="textReader" Type="System.IO.TextReader" />
+      </Parameters>
+      <Docs>
+        <param name="textReader">
+          <span data-ttu-id="f3139-180">
+            <see cref="T:System.Xml.Linq.XDocument" /> の内容を格納している <see cref="T:System.IO.TextReader" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-180">A <see cref="T:System.IO.TextReader" /> that contains the content for the <see cref="T:System.Xml.Linq.XDocument" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-181">
+            <see cref="T:System.Xml.Linq.XDocument" /> から新しい <see cref="T:System.IO.TextReader" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-181">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> from a <see cref="T:System.IO.TextReader" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-182">指定した <see cref="T:System.IO.TextReader" /> の内容を格納している <see cref="T:System.Xml.Linq.XDocument" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-182">An <see cref="T:System.Xml.Linq.XDocument" /> that contains the contents of the specified <see cref="T:System.IO.TextReader" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-183">XML の読み込み機能への LINQ の基盤となって<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-183">LINQ to XML's loading functionality is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-184">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-184">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-185">次の例からドキュメントを作成、<xref:System.IO.StringReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-185">The following example creates a document from a <xref:System.IO.StringReader>.</span></span>  
+  
+```csharp  
+TextReader tr = new StringReader("<Root>Content</Root>");  
+XDocument doc = XDocument.Load(tr);  
+Console.WriteLine(doc);  
+```  
+  
+```vb  
+Dim tr As TextReader = New StringReader("<Root>Content</Root>")  
+Dim doc As XDocument = XDocument.Load(tr)  
+Console.WriteLine(doc)  
+```  
+  
+ <span data-ttu-id="f3139-186">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-186">This example produces the following output:</span></span>  
+  
+```xml  
+<Root>Content</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Load (string uri);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Load(string uri) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Load(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Load (uri As String) As XDocument" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Load(System::String ^ uri);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="uri" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="uri">
+          <span data-ttu-id="f3139-187">新しい <see cref="T:System.Xml.Linq.XDocument" /> に読み込むファイルを参照している URI 文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-187">A URI string that references the file to load into a new <see cref="T:System.Xml.Linq.XDocument" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-188">ファイルから新しい <see cref="T:System.Xml.Linq.XDocument" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-188">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> from a file.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-189">指定したファイルの内容を格納している <see cref="T:System.Xml.Linq.XDocument" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-189">An <see cref="T:System.Xml.Linq.XDocument" /> that contains the contents of the specified file.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-190">このメソッドは、基になる<xref:System.Xml.XmlReader>XML ツリーに XML を読み取ります。</span><span class="sxs-lookup"><span data-stu-id="f3139-190">This method uses an underlying <xref:System.Xml.XmlReader> to read the XML into an XML tree.</span></span>  
+  
+ <span data-ttu-id="f3139-191">使用して<xref:System.Xml.Linq.XDocument.Parse%2A>を作成する、 <xref:System.Xml.Linq.XDocument> XML を表す文字列から。</span><span class="sxs-lookup"><span data-stu-id="f3139-191">Use <xref:System.Xml.Linq.XDocument.Parse%2A> to create an <xref:System.Xml.Linq.XDocument> from a string that contains XML.</span></span>  
+  
+ <span data-ttu-id="f3139-192">XML の読み込み機能への LINQ の基盤となって<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-192">LINQ to XML's loading functionality is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-193">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-193">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-194">次の例を読み込む方法を示しています、<xref:System.Xml.Linq.XDocument>ファイルからです。</span><span class="sxs-lookup"><span data-stu-id="f3139-194">The following example shows how to load an <xref:System.Xml.Linq.XDocument> from a file.</span></span>  
+  
+ <span data-ttu-id="f3139-195">この例では、次の XML ドキュメントを使用します。</span><span class="sxs-lookup"><span data-stu-id="f3139-195">This example uses the following XML document:</span></span>  
+  
+ [<span data-ttu-id="f3139-196">サンプル XML ファイル: 一般的な購買発注書 (LINQ to XML)</span><span class="sxs-lookup"><span data-stu-id="f3139-196">Sample XML File: Typical Purchase Order (LINQ to XML)</span></span>](http://msdn.microsoft.com/library/0606c09f-6e43-4f8d-95c8-e8e2e08d2348)  
+  
+```csharp  
+XDocument doc = XDocument.Load("PurchaseOrder.xml");  
+Console.WriteLine(doc);  
+```  
+  
+```vb  
+Dim doc As XDocument = XDocument.Load("PurchaseOrder.xml")  
+Console.WriteLine(doc)  
+```  
+  
+ <span data-ttu-id="f3139-197">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-197">This example produces the following output:</span></span>  
+  
+```  
+<PurchaseOrder PurchaseOrderNumber="99503" OrderDate="1999-10-20">  
+  <Address Type="Shipping">  
+    <Name>Ellen Adams</Name>  
+    <Street>123 Maple Street</Street>  
+    <City>Mill Valley</City>  
+    <State>CA</State>  
+    <Zip>10999</Zip>  
+    <Country>USA</Country>  
+  </Address>  
+  <Address Type="Billing">  
+    <Name>Tai Yee</Name>  
+    <Street>8 Oak Avenue</Street>  
+    <City>Old Town</City>  
+    <State>PA</State>  
+    <Zip>95819</Zip>  
+    <Country>USA</Country>  
+  </Address>  
+  <DeliveryNotes>Please leave packages in shed by driveway.</DeliveryNotes>  
+  <Items>  
+    <Item PartNumber="872-AA">  
+      <ProductName>Lawnmower</ProductName>  
+      <Quantity>1</Quantity>  
+      <USPrice>148.95</USPrice>  
+      <Comment>Confirm this is electric</Comment>  
+    </Item>  
+    <Item PartNumber="926-AA">  
+      <ProductName>Baby Monitor</ProductName>  
+      <Quantity>2</Quantity>  
+      <USPrice>39.98</USPrice>  
+      <ShipDate>1999-05-21</ShipDate>  
+    </Item>  
+  </Items>  
+</PurchaseOrder>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Load (System.Xml.XmlReader reader);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Load(class System.Xml.XmlReader reader) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Load(System.Xml.XmlReader)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Load (reader As XmlReader) As XDocument" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Load(System::Xml::XmlReader ^ reader);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="reader" Type="System.Xml.XmlReader" />
+      </Parameters>
+      <Docs>
+        <param name="reader">
+          <span data-ttu-id="f3139-198">
+            <see cref="T:System.Xml.Linq.XDocument" /> の内容を格納している <see cref="T:System.Xml.XmlReader" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-198">A <see cref="T:System.Xml.XmlReader" /> that contains the content for the <see cref="T:System.Xml.Linq.XDocument" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-199">
+            <see cref="T:System.Xml.XmlReader" /> から新しい<see cref="T:System.Xml.Linq.XDocument" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-199">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> from an <see cref="T:System.Xml.XmlReader" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-200">指定した <see cref="T:System.Xml.XmlReader" /> の内容を格納している <see cref="T:System.Xml.Linq.XDocument" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-200">An <see cref="T:System.Xml.Linq.XDocument" /> that contains the contents of the specified <see cref="T:System.Xml.XmlReader" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-201">このメソッドの用途の 1 つでは、linq to XML ツリーに DOM ドキュメントのコピーを作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-201">One possible use for this method is to create a copy of a DOM document in a LINQ to XML tree.</span></span> <span data-ttu-id="f3139-202">これを行うには、作成する、 <xref:System.Xml.XmlNodeReader> DOM ドキュメントおよびしを使用してから、<xref:System.Xml.XmlNodeReader>を作成する、<xref:System.Xml.Linq.XDocument>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-202">To do this, you create an <xref:System.Xml.XmlNodeReader> from a DOM document, and then use the <xref:System.Xml.XmlNodeReader> to create an <xref:System.Xml.Linq.XDocument>.</span></span>  
+  
+ <span data-ttu-id="f3139-203">XML の読み込み機能への LINQ の基盤となって<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-203">LINQ to XML's loading functionality is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-204">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-204">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-205">次の例は、DOM ドキュメントを作成、作成、 <xref:System.Xml.XmlNodeReader> DOM ドキュメントの作成、<xref:System.Xml.Linq.XDocument>を使用して、<xref:System.Xml.XmlNodeReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-205">The following example creates a DOM document, creates an <xref:System.Xml.XmlNodeReader> from the DOM document, creates an <xref:System.Xml.Linq.XDocument> using the <xref:System.Xml.XmlNodeReader>.</span></span>  
+  
+```csharp  
+// Create a DOM document with some content.  
+XmlDocument doc = new XmlDocument();  
+XmlElement child = doc.CreateElement("Child");  
+child.InnerText = "child contents";  
+XmlElement root = doc.CreateElement("Root");  
+root.AppendChild(child);  
+doc.AppendChild(root);  
+  
+// create a reader and move to the content  
+using (XmlNodeReader nodeReader = new XmlNodeReader(doc)) {  
+    // the reader must be in the Interactive state in order to  
+    // create a LINQ to XML tree from it.  
+    nodeReader.MoveToContent();  
+  
+    XDocument xRoot = XDocument.Load(nodeReader);  
+    Console.WriteLine(xRoot);  
+}  
+```  
+  
+```vb  
+' Create a DOM document with some content.  
+Dim doc As XmlDocument = New XmlDocument()  
+Dim child As XmlElement = doc.CreateElement("Child")  
+child.InnerText = "child contents"  
+Dim root As XmlElement = doc.CreateElement("Root")  
+root.AppendChild(child)  
+doc.AppendChild(root)  
+  
+' create a reader and move to the content  
+Using nodeReader = New XmlNodeReader(doc)  
+    ' the reader must be in the Interactive state in order to  
+    ' create a LINQ to XML tree from it.  
+    nodeReader.MoveToContent()  
+  
+    Dim xRoot As XDocument = XDocument.Load(nodeReader)  
+    Console.WriteLine(xRoot)  
+End Using  
+```  
+  
+ <span data-ttu-id="f3139-206">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-206">This example produces the following output:</span></span>  
+  
+```xml  
+<Root>  
+  <Child>child contents</Child>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Load (System.IO.Stream stream, System.Xml.Linq.LoadOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Load(class System.IO.Stream stream, valuetype System.Xml.Linq.LoadOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Load(System.IO.Stream,System.Xml.Linq.LoadOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Load(System::IO::Stream ^ stream, System::Xml::Linq::LoadOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="options" Type="System.Xml.Linq.LoadOptions" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="f3139-207">XML データが含まれるストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-207">The stream containing the XML data.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="f3139-208">ベース URI と行情報を読み込むかどうかを指定する <see cref="T:System.Xml.Linq.LoadOptions" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-208">A <see cref="T:System.Xml.Linq.LoadOptions" /> that specifies whether to load base URI and line information.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-209">指定されたストリームを使用して新しい <see cref="T:System.Xml.Linq.XDocument" /> インスタンスを作成し、必要に応じて、空白の維持、ベース URI の設定、および行情報の保持を行います。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-209">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> instance by using the specified stream, optionally preserving white space, setting the base URI, and retaining line information.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-210">ストリームに格納されているデータを読み取る <see cref="T:System.Xml.Linq.XDocument" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-210">An <see cref="T:System.Xml.Linq.XDocument" /> object that reads the data that is contained in the stream.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-211">LINQ to XML の読み込み機能が基盤<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-211">The loading functionality of LINQ to XML is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-212">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-212">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+ <span data-ttu-id="f3139-213">変更しなければならない場合<xref:System.Xml.XmlReaderSettings>、これらの手順に従います。</span><span class="sxs-lookup"><span data-stu-id="f3139-213">If you have to modify <xref:System.Xml.XmlReaderSettings>, follow these steps:</span></span>  
+  
+1.  <span data-ttu-id="f3139-214">作成、<xref:System.Xml.XmlReader>のいずれかを呼び出すことによって、<xref:System.Xml.XmlReader.Create%2A>を取るオーバー ロード<xref:System.Xml.XmlReaderSettings>をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-214">Create an <xref:System.Xml.XmlReader> by calling one of the <xref:System.Xml.XmlReader.Create%2A> overloads that takes <xref:System.Xml.XmlReaderSettings> as a parameter.</span></span>  
+  
+2.  <span data-ttu-id="f3139-215">渡す、<xref:System.Xml.XmlReader>のいずれかに、<xref:System.Xml.Linq.XDocument.Load%2A>のオーバー ロードが<xref:System.Xml.Linq.XDocument>を受け取る<xref:System.Xml.XmlReader>をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-215">Pass the <xref:System.Xml.XmlReader> to one of the <xref:System.Xml.Linq.XDocument.Load%2A> overloads of <xref:System.Xml.Linq.XDocument> that takes <xref:System.Xml.XmlReader> as a parameter.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Load (System.IO.TextReader textReader, System.Xml.Linq.LoadOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Load(class System.IO.TextReader textReader, valuetype System.Xml.Linq.LoadOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Load(System.IO.TextReader,System.Xml.Linq.LoadOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Load(System::IO::TextReader ^ textReader, System::Xml::Linq::LoadOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="textReader" Type="System.IO.TextReader" />
+        <Parameter Name="options" Type="System.Xml.Linq.LoadOptions" />
+      </Parameters>
+      <Docs>
+        <param name="textReader">
+          <span data-ttu-id="f3139-216">
+            <see cref="T:System.Xml.Linq.XDocument" /> の内容を格納している <see cref="T:System.IO.TextReader" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-216">A <see cref="T:System.IO.TextReader" /> that contains the content for the <see cref="T:System.Xml.Linq.XDocument" />.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="f3139-217">空白に対する動作、およびベース URI と行情報を読み込むかどうかを指定する <see cref="T:System.Xml.Linq.LoadOptions" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-217">A <see cref="T:System.Xml.Linq.LoadOptions" /> that specifies white space behavior, and whether to load base URI and line information.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-218">
+            <see cref="T:System.IO.TextReader" /> から新しい <see cref="T:System.Xml.Linq.XDocument" /> を作成し、必要に応じて、空白の維持、ベース URI の設定、および行情報の保持を行います。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-218">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> from a <see cref="T:System.IO.TextReader" />, optionally preserving white space, setting the base URI, and retaining line information.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-219">指定した <see cref="T:System.IO.TextReader" /> から読み込まれた XML を格納している <see cref="T:System.Xml.Linq.XDocument" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-219">An <see cref="T:System.Xml.Linq.XDocument" /> that contains the XML that was read from the specified <see cref="T:System.IO.TextReader" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-220">ソース XML がインデントを設定できない場合は、設定、<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>にフラグが設定`options`により、ソース XML 内のすべての空白文字を読み取るリーダー。</span><span class="sxs-lookup"><span data-stu-id="f3139-220">If the source XML is indented, setting the <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> flag in `options` causes the reader to read all white space in the source XML.</span></span> <span data-ttu-id="f3139-221">型のノード<xref:System.Xml.Linq.XText>両方は、有意の空白スペースを作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-221">Nodes of type <xref:System.Xml.Linq.XText> are created for both significant and insignificant white space.</span></span>  
+  
+ <span data-ttu-id="f3139-222">設定しない場合は、ソース XML では、インデント、<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>にフラグが設定`options`ソース XML で意味のない空白をすべて無視するリーダーをによりします。</span><span class="sxs-lookup"><span data-stu-id="f3139-222">If the source XML is indented, not setting the <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> flag in `options` causes the reader to ignore all of the insignificant white space in the source XML.</span></span> <span data-ttu-id="f3139-223">意味のない空白のテキスト ノードなしは、XML ツリーが作成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-223">The XML tree is created without any text nodes for insignificant white space.</span></span>  
+  
+ <span data-ttu-id="f3139-224">XML ソースがインデントを設定できない場合は、設定、<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>フラグ`options`も何も起こりません。</span><span class="sxs-lookup"><span data-stu-id="f3139-224">If the source XML is not indented, setting the <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> flag in `options` has no effect.</span></span> <span data-ttu-id="f3139-225">有意の空白は維持され、全体にわたる複数の空白テキスト ノードの作成を引き起こす可能性のある意味のない空白はありません。</span><span class="sxs-lookup"><span data-stu-id="f3139-225">Significant white space is still preserved, and there are no spans of insignificant white space that could cause the creation of more white space text nodes.</span></span>  
+  
+ <span data-ttu-id="f3139-226">詳細については、次を参照してください。[読み込みまたは XML の解析中に空白を維持](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d)と[維持空白中にシリアル化する](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-226">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+ <span data-ttu-id="f3139-227">使用して<xref:System.Xml.Linq.XDocument.Parse%2A>を作成する、 <xref:System.Xml.Linq.XElement> XML を表す文字列から。</span><span class="sxs-lookup"><span data-stu-id="f3139-227">Use <xref:System.Xml.Linq.XDocument.Parse%2A> to create an <xref:System.Xml.Linq.XElement> from a string that contains XML.</span></span>  
+  
+ <span data-ttu-id="f3139-228">設定<xref:System.Xml.Linq.LoadOptions.SetBaseUri>からの読み込みのときは無効な<xref:System.IO.TextReader>します。</span><span class="sxs-lookup"><span data-stu-id="f3139-228">Setting <xref:System.Xml.Linq.LoadOptions.SetBaseUri> is not valid when loading from a <xref:System.IO.TextReader>.</span></span>  
+  
+ <span data-ttu-id="f3139-229">設定した場合は、パフォーマンスの低下、<xref:System.Xml.Linq.LoadOptions.SetLineInfo>フラグ。</span><span class="sxs-lookup"><span data-stu-id="f3139-229">There is a performance penalty if you set the <xref:System.Xml.Linq.LoadOptions.SetLineInfo> flag.</span></span>  
+  
+ <span data-ttu-id="f3139-230">行の情報は、XML ドキュメントの読み込み後すぐに正確です。</span><span class="sxs-lookup"><span data-stu-id="f3139-230">The line information is accurate immediately after loading the XML document.</span></span> <span data-ttu-id="f3139-231">ドキュメントの読み込み後、XML ツリーを変更する場合は、行の情報が無意味になる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="f3139-231">If you modify the XML tree after loading the document, the line information may become meaningless.</span></span>  
+  
+ <span data-ttu-id="f3139-232">XML の読み込み機能への LINQ の基盤となって<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-232">LINQ to XML's loading functionality is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-233">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-233">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-234">次の例からドキュメントを作成、<xref:System.IO.StringReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-234">The following example creates a document from a <xref:System.IO.StringReader>.</span></span>  
+  
+```csharp  
+TextReader sr;  
+int whiteSpaceNodes;  
+  
+sr = new StringReader("<Root> <Child> </Child> </Root>");  
+XDocument xmlTree1 = XDocument.Load(sr, LoadOptions.None);  
+sr.Close();  
+whiteSpaceNodes = xmlTree1  
+    .Element("Root")  
+    .DescendantNodesAndSelf()  
+    .OfType<XText>()  
+    .Where(tNode => tNode.ToString().Trim().Length == 0)  
+    .Count();  
+Console.WriteLine("Count of white space nodes (not preserving whitespace): {0}", whiteSpaceNodes);  
+  
+sr = new StringReader("<Root> <Child> </Child> </Root>");  
+XDocument xmlTree2 = XDocument.Load(sr, LoadOptions.PreserveWhitespace);  
+sr.Close();  
+whiteSpaceNodes = xmlTree2  
+    .Element("Root")  
+    .DescendantNodesAndSelf()  
+    .OfType<XText>()  
+    .Where(tNode => tNode.ToString().Trim().Length == 0)  
+    .Count();  
+Console.WriteLine("Count of white space nodes (preserving whitespace): {0}", whiteSpaceNodes);  
+```  
+  
+```vb  
+Dim sr As TextReader  
+Dim whiteSpaceNodes As Integer  
+  
+sr = New StringReader("<Root> <Child> </Child> </Root>")  
+Dim xmlTree1 As XDocument = XDocument.Load(sr, LoadOptions.None)  
+sr.Close()  
+whiteSpaceNodes = xmlTree1 _  
+              .Element("Root") _  
+              .DescendantNodesAndSelf() _  
+              .OfType(Of XText)() _  
+              .Where(Function(ByVal tNode As XNode) tNode. _  
+                  ToString().Trim().Length = 0).Count()  
+Console.WriteLine("Count of white space nodes (not preserving whitespace): {0}", whiteSpaceNodes)  
+  
+sr = New StringReader("<Root> <Child> </Child> </Root>")  
+Dim xmlTree2 As XDocument = XDocument.Load(sr, LoadOptions.PreserveWhitespace)  
+sr.Close()  
+whiteSpaceNodes = xmlTree2 _  
+              .Element("Root") _  
+              .DescendantNodesAndSelf() _  
+              .OfType(Of XText)() _  
+              .Where(Function(ByVal tNode As XNode) tNode. _  
+                  ToString().Trim().Length = 0).Count()  
+Console.WriteLine("Count of white space nodes (preserving whitespace): {0}", whiteSpaceNodes)  
+```  
+  
+ <span data-ttu-id="f3139-235">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-235">This example produces the following output:</span></span>  
+  
+```  
+Count of white space nodes (not preserving whitespace): 0  
+Count of white space nodes (preserving whitespace): 3  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Load (string uri, System.Xml.Linq.LoadOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Load(string uri, valuetype System.Xml.Linq.LoadOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Load(System.String,System.Xml.Linq.LoadOptions)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Load (uri As String, options As LoadOptions) As XDocument" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Load(System::String ^ uri, System::Xml::Linq::LoadOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="uri" Type="System.String" />
+        <Parameter Name="options" Type="System.Xml.Linq.LoadOptions" />
+      </Parameters>
+      <Docs>
+        <param name="uri">
+          <span data-ttu-id="f3139-236">新しい <see cref="T:System.Xml.Linq.XDocument" /> に読み込むファイルを参照している URI 文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-236">A URI string that references the file to load into a new <see cref="T:System.Xml.Linq.XDocument" />.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="f3139-237">空白に対する動作、およびベース URI と行情報を読み込むかどうかを指定する <see cref="T:System.Xml.Linq.LoadOptions" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-237">A <see cref="T:System.Xml.Linq.LoadOptions" /> that specifies white space behavior, and whether to load base URI and line information.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-238">ファイルから新しい <see cref="T:System.Xml.Linq.XDocument" /> を作成し、必要に応じて、空白の維持、ベース URI の設定、および行情報の保持を行います。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-238">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> from a file, optionally preserving white space, setting the base URI, and retaining line information.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-239">指定したファイルの内容を格納している <see cref="T:System.Xml.Linq.XDocument" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-239">An <see cref="T:System.Xml.Linq.XDocument" /> that contains the contents of the specified file.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-240">ソース XML がインデントを設定できない場合は、設定、<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>にフラグが設定`options`により、ソース XML 内のすべての空白文字を読み取るリーダー。</span><span class="sxs-lookup"><span data-stu-id="f3139-240">If the source XML is indented, setting the <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> flag in `options` causes the reader to read all white space in the source XML.</span></span> <span data-ttu-id="f3139-241">型のノード<xref:System.Xml.Linq.XText>両方は、有意の空白スペースを作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-241">Nodes of type <xref:System.Xml.Linq.XText> are created for both significant and insignificant white space.</span></span>  
+  
+ <span data-ttu-id="f3139-242">設定しない場合は、ソース XML では、インデント、<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>にフラグが設定`options`ソース XML で意味のない空白をすべて無視するリーダーをによりします。</span><span class="sxs-lookup"><span data-stu-id="f3139-242">If the source XML is indented, not setting the <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> flag in `options` causes the reader to ignore all of the insignificant white space in the source XML.</span></span> <span data-ttu-id="f3139-243">意味のない空白のテキスト ノードなしは、XML ツリーが作成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-243">The XML tree is created without any text nodes for insignificant white space.</span></span>  
+  
+ <span data-ttu-id="f3139-244">XML ソースがインデントを設定できない場合は、設定、<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>フラグ`options`も何も起こりません。</span><span class="sxs-lookup"><span data-stu-id="f3139-244">If the source XML is not indented, setting the <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> flag in `options` has no effect.</span></span> <span data-ttu-id="f3139-245">有意の空白は維持され、全体にわたる複数の空白テキスト ノードの作成を引き起こす可能性のある意味のない空白はありません。</span><span class="sxs-lookup"><span data-stu-id="f3139-245">Significant white space is still preserved, and there are no spans of insignificant white space that could cause the creation of more white space text nodes.</span></span>  
+  
+ <span data-ttu-id="f3139-246">詳細については、次を参照してください。[読み込みまたは XML の解析中に空白を維持](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d)と[維持空白中にシリアル化する](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-246">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+ <span data-ttu-id="f3139-247">使用して<xref:System.Xml.Linq.XDocument.Parse%2A>を作成する、 <xref:System.Xml.Linq.XDocument> XML を表す文字列から。</span><span class="sxs-lookup"><span data-stu-id="f3139-247">Use <xref:System.Xml.Linq.XDocument.Parse%2A> to create an <xref:System.Xml.Linq.XDocument> from a string that contains XML.</span></span>  
+  
+ <span data-ttu-id="f3139-248">設定した場合は、パフォーマンスの低下、<xref:System.Xml.Linq.LoadOptions.SetBaseUri>と<xref:System.Xml.Linq.LoadOptions.SetLineInfo>フラグ。</span><span class="sxs-lookup"><span data-stu-id="f3139-248">There is a performance penalty if you set the <xref:System.Xml.Linq.LoadOptions.SetBaseUri> and the <xref:System.Xml.Linq.LoadOptions.SetLineInfo> flags.</span></span>  
+  
+ <span data-ttu-id="f3139-249">ベース URI と行の情報は XML ドキュメントの読み込み後すぐに正確です。</span><span class="sxs-lookup"><span data-stu-id="f3139-249">The base URI and the line information are accurate immediately after loading the XML document.</span></span> <span data-ttu-id="f3139-250">ドキュメントの読み込み後、XML ツリーを変更する場合は、ベース URI および行の情報が無意味になる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="f3139-250">If you modify the XML tree after loading the document, the base URI and line information may become meaningless.</span></span>  
+  
+ <span data-ttu-id="f3139-251">XML の読み込み機能への LINQ の基盤となって<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-251">LINQ to XML's loading functionality is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-252">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-252">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-253">次の例を読み込む方法を示しています、<xref:System.Xml.Linq.XDocument>ファイルからです。</span><span class="sxs-lookup"><span data-stu-id="f3139-253">The following example shows how to load an <xref:System.Xml.Linq.XDocument> from a file.</span></span>  
+  
+ <span data-ttu-id="f3139-254">この例では、次の XML ドキュメントを使用します。</span><span class="sxs-lookup"><span data-stu-id="f3139-254">This example uses the following XML document:</span></span>  
+  
+ [<span data-ttu-id="f3139-255">サンプル XML ファイル: 一般的な購買発注書 (LINQ to XML)</span><span class="sxs-lookup"><span data-stu-id="f3139-255">Sample XML File: Typical Purchase Order (LINQ to XML)</span></span>](http://msdn.microsoft.com/library/0606c09f-6e43-4f8d-95c8-e8e2e08d2348)  
+  
+```csharp  
+XDocument doc1 = XDocument.Load("PurchaseOrder.xml", LoadOptions.None);  
+Console.WriteLine("nodes if not preserving whitespace: {0}", doc1.DescendantNodes().Count());  
+  
+XDocument doc2 = XDocument.Load("PurchaseOrder.xml", LoadOptions.PreserveWhitespace);  
+Console.WriteLine("nodes if preserving whitespace: {0}", doc2.DescendantNodes().Count());  
+```  
+  
+```vb  
+Dim doc1 As XDocument = XDocument.Load("PurchaseOrder.xml", LoadOptions.None)  
+Console.WriteLine("nodes if not preserving whitespace: {0}", doc1.DescendantNodes().Count())  
+  
+Dim doc2 As XDocument = XDocument.Load("PurchaseOrder.xml", LoadOptions.PreserveWhitespace)  
+Console.WriteLine("nodes if preserving whitespace: {0}", doc2.DescendantNodes().Count())  
+```  
+  
+ <span data-ttu-id="f3139-256">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-256">This example produces the following output:</span></span>  
+  
+```  
+nodes if not preserving whitespace: 48  
+nodes if preserving whitespace: 82  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Load (System.Xml.XmlReader reader, System.Xml.Linq.LoadOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Load(class System.Xml.XmlReader reader, valuetype System.Xml.Linq.LoadOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Load(System.Xml.XmlReader,System.Xml.Linq.LoadOptions)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Load (reader As XmlReader, options As LoadOptions) As XDocument" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Load(System::Xml::XmlReader ^ reader, System::Xml::Linq::LoadOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="reader" Type="System.Xml.XmlReader" />
+        <Parameter Name="options" Type="System.Xml.Linq.LoadOptions" />
+      </Parameters>
+      <Docs>
+        <param name="reader">
+          <span data-ttu-id="f3139-257">
+            <see cref="T:System.Xml.Linq.XDocument" /> の内容として読み込む <see cref="T:System.Xml.XmlReader" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-257">A <see cref="T:System.Xml.XmlReader" /> that will be read for the content of the <see cref="T:System.Xml.Linq.XDocument" />.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="f3139-258">ベース URI と行情報を読み込むかどうかを指定する <see cref="T:System.Xml.Linq.LoadOptions" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-258">A <see cref="T:System.Xml.Linq.LoadOptions" /> that specifies whether to load base URI and line information.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-259">
+            <see cref="T:System.Xml.XmlReader" /> から <see cref="T:System.Xml.Linq.XDocument" /> を読み込み、必要に応じて、ベース URI の設定および行情報の保持を行います。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-259">Loads an <see cref="T:System.Xml.Linq.XDocument" /> from an <see cref="T:System.Xml.XmlReader" />, optionally setting the base URI, and retaining line information.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-260">指定した <see cref="T:System.Xml.XmlReader" /> から読み込まれた XML を格納している <see cref="T:System.Xml.Linq.XDocument" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-260">An <see cref="T:System.Xml.Linq.XDocument" /> that contains the XML that was read from the specified <see cref="T:System.Xml.XmlReader" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-261">作成することで、 <xref:System.Xml.XmlNodeReader> DOM ドキュメントとしを使用してから、<xref:System.Xml.XmlNodeReader>を作成する、 <xref:System.Xml.Linq.XElement>、このメソッドは、linq to XML ツリーに DOM ドキュメントのコピーを作成するために使用できます。</span><span class="sxs-lookup"><span data-stu-id="f3139-261">By creating an <xref:System.Xml.XmlNodeReader> from a DOM document, and then using the <xref:System.Xml.XmlNodeReader> to create an <xref:System.Xml.Linq.XElement>, this method can be used to create a copy of a DOM document in a LINQ to XML tree.</span></span>  
+  
+ <span data-ttu-id="f3139-262">使用して<xref:System.Xml.Linq.XDocument.Parse%2A>を作成する、 <xref:System.Xml.Linq.XDocument> XML を表す文字列から。</span><span class="sxs-lookup"><span data-stu-id="f3139-262">Use <xref:System.Xml.Linq.XDocument.Parse%2A> to create an <xref:System.Xml.Linq.XDocument> from a string that contains XML.</span></span>  
+  
+ <span data-ttu-id="f3139-263">設定<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>からの読み込みのときは無効な<xref:System.Xml.XmlReader>します。</span><span class="sxs-lookup"><span data-stu-id="f3139-263">Setting <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> is not valid when loading from a <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-264"><xref:System.Xml.XmlReader>かどうか読み取りの空白に構成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-264">The <xref:System.Xml.XmlReader> will be configured to either read whitespace or not.</span></span> <span data-ttu-id="f3139-265">LINQ to XML ツリーに表示されます、空白ノードをリーダー サーフェスします。</span><span class="sxs-lookup"><span data-stu-id="f3139-265">The LINQ to XML tree will be populated with the whitespace nodes that the reader surfaces.</span></span> <span data-ttu-id="f3139-266">これはかどうかに関係なく動作になります<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>設定されているか。</span><span class="sxs-lookup"><span data-stu-id="f3139-266">This will be the behavior regardless of whether <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> is set or not.</span></span>  
+  
+ <span data-ttu-id="f3139-267"><xref:System.Xml.XmlReader>か、有効な基本 URI があります。</span><span class="sxs-lookup"><span data-stu-id="f3139-267">The <xref:System.Xml.XmlReader> may have a valid base URI or not.</span></span> <span data-ttu-id="f3139-268">設定した場合<xref:System.Xml.Linq.LoadOptions.SetBaseUri>、ベース URI は、によって報告されるベース URI から XML ツリーに設定されます、<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-268">If you set <xref:System.Xml.Linq.LoadOptions.SetBaseUri>, the base URI will be set in the XML tree from the base URI that is reported by the <xref:System.Xml.XmlReader>.</span></span>  
+  
+ <span data-ttu-id="f3139-269"><xref:System.Xml.XmlReader>か、有効なライン情報があります。</span><span class="sxs-lookup"><span data-stu-id="f3139-269">The <xref:System.Xml.XmlReader> may have a valid line information or not.</span></span> <span data-ttu-id="f3139-270">設定した場合<xref:System.Xml.Linq.LoadOptions.SetLineInfo>、行の情報は、によって報告される行の情報から、XML ツリーに設定されます、<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-270">If you set <xref:System.Xml.Linq.LoadOptions.SetLineInfo>, the line information will be set in the XML tree from the line information that is reported by the <xref:System.Xml.XmlReader>.</span></span>  
+  
+ <span data-ttu-id="f3139-271">設定した場合は、パフォーマンスの低下、<xref:System.Xml.Linq.LoadOptions.SetLineInfo>フラグ。</span><span class="sxs-lookup"><span data-stu-id="f3139-271">There is a performance penalty if you set the <xref:System.Xml.Linq.LoadOptions.SetLineInfo> flag.</span></span>  
+  
+ <span data-ttu-id="f3139-272">行の情報は、XML ドキュメントの読み込み後すぐに正確です。</span><span class="sxs-lookup"><span data-stu-id="f3139-272">The line information is accurate immediately after loading the XML document.</span></span> <span data-ttu-id="f3139-273">ドキュメントの読み込み後、XML ツリーを変更する場合は、行の情報が無意味になる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="f3139-273">If you modify the XML tree after loading the document, the line information may become meaningless.</span></span>  
+  
+ <span data-ttu-id="f3139-274">XML の読み込み機能への LINQ の基盤となって<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-274">LINQ to XML's loading functionality is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-275">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-275">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-276">次の例から読み込む行情報を読み込みます、<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-276">The following example loads the line information that it loads from the <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-277">行の情報が印刷されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-277">It then prints the line information.</span></span>  
+  
+```csharp  
+string markup =  
+@"<Root>  
+    <Child>  
+        <GrandChild/>  
+    </Child>  
+</Root>";  
+  
+// Create a reader and move to the content.  
+using (XmlReader nodeReader = XmlReader.Create(new StringReader(markup)))  
+{  
+    // the reader must be in the Interactive state in order to  
+    // Create a LINQ to XML tree from it.  
+    nodeReader.MoveToContent();  
+  
+    XDocument xRoot = XDocument.Load(nodeReader, LoadOptions.SetLineInfo);  
+    Console.WriteLine("{0}{1}{2}",  
+        "Element Name".PadRight(20),  
+        "Line".PadRight(5),  
+        "Position");  
+    Console.WriteLine("{0}{1}{2}",  
+        "------------".PadRight(20),  
+        "----".PadRight(5),  
+        "--------");  
+    foreach (XElement e in xRoot.Elements("Root").DescendantsAndSelf())  
+        Console.WriteLine("{0}{1}{2}",  
+            ("".PadRight(e.Ancestors().Count() * 2) + e.Name).PadRight(20),  
+            ((IXmlLineInfo)e).LineNumber.ToString().PadRight(5),  
+            ((IXmlLineInfo)e).LinePosition);  
+}  
+```  
+  
+```vb  
+Dim markup As String = _  
+    "<Root>" & Environment.NewLine & _  
+    "    <Child>" & Environment.NewLine & _  
+    "        <GrandChild/>" & Environment.NewLine & _  
+    "    </Child>" & Environment.NewLine & _  
+    "</Root>"  
+  
+' Create a reader and move to the content.  
+Using nodeReader As XmlReader = XmlReader.Create(New StringReader(markup))  
+  
+    ' The reader must be in the Interactive state in order to  
+    ' create a LINQ to XML tree from it.  
+    nodeReader.MoveToContent()  
+  
+    Dim xRoot As XDocument = XDocument.Load(nodeReader, LoadOptions.SetLineInfo)  
+    Console.WriteLine("{0}{1}{2}", _  
+        "Element Name".PadRight(20), _  
+        "Line".PadRight(5), _  
+        "Position")  
+    Console.WriteLine("{0}{1}{2}", _  
+        "------------".PadRight(20), _  
+        "----".PadRight(5), _  
+        "--------")  
+    For Each e As XElement In xRoot.Elements("Root").DescendantsAndSelf()  
+        Console.WriteLine("{0}{1}{2}", _  
+            ("".PadRight(e.Ancestors().Count() * 2) & e.Name.ToString()).PadRight(20), _  
+            (DirectCast(e, IXmlLineInfo)).LineNumber.ToString().PadRight(5), _  
+            (DirectCast(e, IXmlLineInfo)).LinePosition)  
+    Next  
+End Using  
+```  
+  
+ <span data-ttu-id="f3139-278">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-278">This example produces the following output:</span></span>  
+  
+```  
+Element Name        Line Position  
+------------        ---- --------  
+Root                1    2  
+  Child             2    6  
+    GrandChild      3    10  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+      </Docs>
+    </Member>
+    <Member MemberName="LoadAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;System.Xml.Linq.XDocument&gt; LoadAsync (System.IO.Stream stream, System.Xml.Linq.LoadOptions options, System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;class System.Xml.Linq.XDocument&gt; LoadAsync(class System.IO.Stream stream, valuetype System.Xml.Linq.LoadOptions options, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.LoadAsync(System.IO.Stream,System.Xml.Linq.LoadOptions,System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::Tasks::Task&lt;System::Xml::Linq::XDocument ^&gt; ^ LoadAsync(System::IO::Stream ^ stream, System::Xml::Linq::LoadOptions options, System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Xml.Linq.XDocument&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="options" Type="System.Xml.Linq.LoadOptions" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="stream">To be added.</param>
+        <param name="options">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LoadAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;System.Xml.Linq.XDocument&gt; LoadAsync (System.IO.TextReader textReader, System.Xml.Linq.LoadOptions options, System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;class System.Xml.Linq.XDocument&gt; LoadAsync(class System.IO.TextReader textReader, valuetype System.Xml.Linq.LoadOptions options, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.LoadAsync(System.IO.TextReader,System.Xml.Linq.LoadOptions,System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::Tasks::Task&lt;System::Xml::Linq::XDocument ^&gt; ^ LoadAsync(System::IO::TextReader ^ textReader, System::Xml::Linq::LoadOptions options, System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Xml.Linq.XDocument&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="textReader" Type="System.IO.TextReader" />
+        <Parameter Name="options" Type="System.Xml.Linq.LoadOptions" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="textReader">To be added.</param>
+        <param name="options">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LoadAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;System.Xml.Linq.XDocument&gt; LoadAsync (System.Xml.XmlReader reader, System.Xml.Linq.LoadOptions options, System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;class System.Xml.Linq.XDocument&gt; LoadAsync(class System.Xml.XmlReader reader, valuetype System.Xml.Linq.LoadOptions options, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.LoadAsync(System.Xml.XmlReader,System.Xml.Linq.LoadOptions,System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::Tasks::Task&lt;System::Xml::Linq::XDocument ^&gt; ^ LoadAsync(System::Xml::XmlReader ^ reader, System::Xml::Linq::LoadOptions options, System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Xml.Linq.XDocument&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="reader" Type="System.Xml.XmlReader" />
+        <Parameter Name="options" Type="System.Xml.Linq.LoadOptions" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="reader">To be added.</param>
+        <param name="options">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="NodeType">
+      <MemberSignature Language="C#" Value="public override System.Xml.XmlNodeType NodeType { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Xml.XmlNodeType NodeType" />
+      <MemberSignature Language="DocId" Value="P:System.Xml.Linq.XDocument.NodeType" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property NodeType As XmlNodeType" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Xml::XmlNodeType NodeType { System::Xml::XmlNodeType get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.XmlNodeType</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f3139-279">このノードのノード型を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-279">Gets the node type for this node.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="f3139-280">ノード型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-280">The node type.</span>
+          </span>
+          <span data-ttu-id="f3139-281">
+            <see cref="T:System.Xml.Linq.XDocument" /> オブジェクトでは、この値は <see cref="F:System.Xml.XmlNodeType.Document" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-281">For <see cref="T:System.Xml.Linq.XDocument" /> objects, this value is <see cref="F:System.Xml.XmlNodeType.Document" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-282">すべてのクラスから派生したため<xref:System.Xml.Linq.XObject>を含む、<xref:System.Xml.Linq.XObject.NodeType%2A>プロパティのサブクラスをそれぞれの型がここでは、オブジェクトのコレクションで動作するコードを記述することができます<xref:System.Xml.Linq.XObject>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-282">Because all classes that derive from <xref:System.Xml.Linq.XObject> contain a <xref:System.Xml.Linq.XObject.NodeType%2A> property, you can write code that operates on collections of objects where the type of each is a subclass of <xref:System.Xml.Linq.XObject>.</span></span> <span data-ttu-id="f3139-283">コードは、コレクション内の各オブジェクトのノード型をテストできます。</span><span class="sxs-lookup"><span data-stu-id="f3139-283">Your code can then test for the node type of each object in the collection.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-284">次の例では、このプロパティの使用を示します。</span><span class="sxs-lookup"><span data-stu-id="f3139-284">The following example shows the use of this property.</span></span>  
+  
+```csharp  
+// Note that this property uses XmlNodeType, which is in the System.Xml namespace.  
+XDocument xmlTree = new XDocument(  
+    new XDeclaration("1.0", "utf-8", "yes"),  
+    new XElement("Root", "content")  
+);  
+Console.WriteLine(xmlTree.NodeType);  
+```  
+  
+```vb  
+' Note that this property uses XmlNodeType, which is in the System.Xml namespace.  
+Dim xmlTree As XDocument = _  
+    <?xml version='1.0' encoding='utf-8' standalone='yes'?>  
+        <Root>content</Root>  
+Console.WriteLine("{0}", xmlTree.NodeType)  
+```  
+  
+ <span data-ttu-id="f3139-285">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-285">This example produces the following output:</span></span>  
+  
+```  
+Document  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Xml.XmlNodeType" />
+        <altmember cref="P:System.Xml.Linq.XDocument.DocumentType" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Parse">
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f3139-286">文字列から新しい <see cref="T:System.Xml.Linq.XDocument" /> を作成し、必要に応じて、空白の維持、ベース URI の設定、および行情報の保持を行います。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-286">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> from a string, optionally preserving white space, setting the base URI, and retaining line information.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-287">このメソッドは、文字列を解析し、XML ツリーを作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-287">This method parses a string and creates an XML tree.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-288">次の例では、XML を表す文字列を作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-288">The following example creates a string that contains XML.</span></span> <span data-ttu-id="f3139-289">文字列を解析し、<xref:System.Xml.Linq.XDocument>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-289">It then parses the string into an <xref:System.Xml.Linq.XDocument>.</span></span>  
+  
+```csharp  
+string str =  
+@"<?xml version=""1.0""?>  
+<!-- comment at the root level -->  
+<Root>  
+    <Child>Content</Child>  
+</Root>";  
+XDocument doc = XDocument.Parse(str);  
+Console.WriteLine(doc);  
+```  
+  
+```vb  
+Dim str As String = _  
+    "<?xml version= '1.0'?>" & _  
+    "<!-- comment at the root level -->" & _  
+    "<Root>" & _  
+    "  <Child>Content</Child>" & _  
+    "</Root>"  
+  
+Dim doc As XDocument = XDocument.Parse(str)  
+Console.WriteLine(doc)  
+```  
+  
+ <span data-ttu-id="f3139-290">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-290">This example produces the following output:</span></span>  
+  
+```xml  
+<!-- comment at the root level -->  
+<Root>  
+  <Child>Content</Child>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Parse">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Parse (string text);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Parse(string text) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Parse(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Parse (text As String) As XDocument" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Parse(System::String ^ text);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="text" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="text">
+          <span data-ttu-id="f3139-291">XML を格納している文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-291">A string that contains XML.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-292">文字列から新しい <see cref="T:System.Xml.Linq.XDocument" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-292">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> from a string.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-293">XML を格納した文字列から設定された <see cref="T:System.Xml.Linq.XDocument" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-293">An <see cref="T:System.Xml.Linq.XDocument" /> populated from the string that contains XML.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-294">このメソッドでは、空白文字は保持されません。</span><span class="sxs-lookup"><span data-stu-id="f3139-294">This method does not preserve white space.</span></span> <span data-ttu-id="f3139-295">XML ツリー内の空白を保持する場合は、オーバー ロードを使用して<xref:System.Xml.Linq.XDocument.Parse%2A>を受け取る<xref:System.Xml.Linq.LoadOptions>をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-295">If you want to preserve white space in the XML tree, use the overload of <xref:System.Xml.Linq.XDocument.Parse%2A> that takes <xref:System.Xml.Linq.LoadOptions> as a parameter.</span></span>  
+  
+ <span data-ttu-id="f3139-296">詳細については、次を参照してください。[読み込みまたは XML の解析中に空白を維持](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d)と[維持空白中にシリアル化する](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-296">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+ <span data-ttu-id="f3139-297">XML の読み込み機能への LINQ の基盤となって<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-297">LINQ to XML's loading functionality is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-298">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-298">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-299">次の例では、XML を表す文字列を作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-299">The following example creates a string that contains XML.</span></span> <span data-ttu-id="f3139-300">文字列を解析し、<xref:System.Xml.Linq.XDocument>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-300">It then parses the string into an <xref:System.Xml.Linq.XDocument>.</span></span>  
+  
+```csharp  
+string str =  
+@"<?xml version=""1.0""?>  
+<!-- comment at the root level -->  
+<Root>  
+    <Child>Content</Child>  
+</Root>";  
+XDocument doc = XDocument.Parse(str);  
+Console.WriteLine(doc);  
+```  
+  
+```vb  
+Dim str As String = _  
+    "<?xml version= '1.0'?>" & _  
+    "<!-- comment at the root level -->" & _  
+    "<Root>" & _  
+    "  <Child>Content</Child>" & _  
+    "</Root>"  
+  
+Dim doc As XDocument = XDocument.Parse(str)  
+Console.WriteLine(doc)  
+```  
+  
+ <span data-ttu-id="f3139-301">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-301">This example produces the following output:</span></span>  
+  
+```xml  
+<!-- comment at the root level -->  
+<Root>  
+  <Child>Content</Child>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Parse">
+      <MemberSignature Language="C#" Value="public static System.Xml.Linq.XDocument Parse (string text, System.Xml.Linq.LoadOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xml.Linq.XDocument Parse(string text, valuetype System.Xml.Linq.LoadOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Parse(System.String,System.Xml.Linq.LoadOptions)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Parse (text As String, options As LoadOptions) As XDocument" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xml::Linq::XDocument ^ Parse(System::String ^ text, System::Xml::Linq::LoadOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="text" Type="System.String" />
+        <Parameter Name="options" Type="System.Xml.Linq.LoadOptions" />
+      </Parameters>
+      <Docs>
+        <param name="text">
+          <span data-ttu-id="f3139-302">XML を格納している文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-302">A string that contains XML.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="f3139-303">空白に対する動作、およびベース URI と行情報を読み込むかどうかを指定する <see cref="T:System.Xml.Linq.LoadOptions" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-303">A <see cref="T:System.Xml.Linq.LoadOptions" /> that specifies white space behavior, and whether to load base URI and line information.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-304">文字列から新しい <see cref="T:System.Xml.Linq.XDocument" /> を作成し、必要に応じて、空白の維持、ベース URI の設定、および行情報の保持を行います。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-304">Creates a new <see cref="T:System.Xml.Linq.XDocument" /> from a string, optionally preserving white space, setting the base URI, and retaining line information.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f3139-305">XML を格納した文字列から設定された <see cref="T:System.Xml.Linq.XDocument" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-305">An <see cref="T:System.Xml.Linq.XDocument" /> populated from the string that contains XML.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-306">ソース XML がインデントを設定できない場合は、設定、<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>にフラグが設定`options`により、ソース XML 内のすべての空白文字を読み取るリーダー。</span><span class="sxs-lookup"><span data-stu-id="f3139-306">If the source XML is indented, setting the <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> flag in `options` causes the reader to read all white space in the source XML.</span></span> <span data-ttu-id="f3139-307">型のノード<xref:System.Xml.Linq.XText>両方は、有意の空白スペースを作成します。</span><span class="sxs-lookup"><span data-stu-id="f3139-307">Nodes of type <xref:System.Xml.Linq.XText> are created for both significant and insignificant white space.</span></span>  
+  
+ <span data-ttu-id="f3139-308">設定しない場合は、ソース XML では、インデント、<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>にフラグが設定`options`ソース XML で意味のない空白をすべて無視するリーダーをによりします。</span><span class="sxs-lookup"><span data-stu-id="f3139-308">If the source XML is indented, not setting the <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> flag in `options` causes the reader to ignore all of the insignificant white space in the source XML.</span></span> <span data-ttu-id="f3139-309">意味のない空白のテキスト ノードなしは、XML ツリーが作成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-309">The XML tree is created without any text nodes for insignificant white space.</span></span>  
+  
+ <span data-ttu-id="f3139-310">XML ソースがインデントを設定できない場合は、設定、<xref:System.Xml.Linq.LoadOptions.PreserveWhitespace>フラグ`options`も何も起こりません。</span><span class="sxs-lookup"><span data-stu-id="f3139-310">If the source XML is not indented, setting the <xref:System.Xml.Linq.LoadOptions.PreserveWhitespace> flag in `options` has no effect.</span></span> <span data-ttu-id="f3139-311">有意の空白は維持され、全体にわたる複数の空白テキスト ノードの作成を引き起こす可能性のある意味のない空白はありません。</span><span class="sxs-lookup"><span data-stu-id="f3139-311">Significant white space is still preserved, and there are no spans of insignificant white space that could cause the creation of more white space text nodes.</span></span>  
+  
+ <span data-ttu-id="f3139-312">詳細については、次を参照してください。[読み込みまたは XML の解析中に空白を維持](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d)と[維持空白中にシリアル化する](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-312">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+ <span data-ttu-id="f3139-313">設定<xref:System.Xml.Linq.LoadOptions.SetBaseUri>がから解析の際に無効な<xref:System.String>します。</span><span class="sxs-lookup"><span data-stu-id="f3139-313">Setting <xref:System.Xml.Linq.LoadOptions.SetBaseUri> is not valid when parsing from a <xref:System.String>.</span></span>  
+  
+ <span data-ttu-id="f3139-314">設定した場合は、パフォーマンスの低下、<xref:System.Xml.Linq.LoadOptions.SetLineInfo>フラグ。</span><span class="sxs-lookup"><span data-stu-id="f3139-314">There is a performance penalty if you set the <xref:System.Xml.Linq.LoadOptions.SetLineInfo> flag.</span></span>  
+  
+ <span data-ttu-id="f3139-315">行の情報は、XML ドキュメントの読み込み後すぐに正確です。</span><span class="sxs-lookup"><span data-stu-id="f3139-315">The line information is accurate immediately after loading the XML document.</span></span> <span data-ttu-id="f3139-316">ドキュメントの読み込み後、XML ツリーを変更する場合は、行の情報が無意味になる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="f3139-316">If you modify the XML tree after loading the document, the line information may become meaningless.</span></span>  
+  
+ <span data-ttu-id="f3139-317">XML の読み込み機能への LINQ の基盤となって<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-317">LINQ to XML's loading functionality is built upon <xref:System.Xml.XmlReader>.</span></span> <span data-ttu-id="f3139-318">によってスローされる例外をキャッチするため、<xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType>メソッドをオーバー ロードおよび<xref:System.Xml.XmlReader>を読み取り、ドキュメントを解析するメソッド。</span><span class="sxs-lookup"><span data-stu-id="f3139-318">Therefore, you might catch any exceptions that are thrown by the <xref:System.Xml.XmlReader.Create%2A?displayProperty=nameWithType> overload methods and the <xref:System.Xml.XmlReader> methods that read and parse the document.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-319">次の例に文字列を解析して、<xref:System.Xml.Linq.XDocument>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-319">The following example parses a string into an <xref:System.Xml.Linq.XDocument>.</span></span>  
+  
+```csharp  
+string str =  
+@"<?xml version=""1.0""?>  
+<!-- comment at the root level -->  
+<Root>  
+    <Child>Content</Child>  
+</Root>";  
+XDocument doc1 = XDocument.Parse(str, LoadOptions.PreserveWhitespace);  
+Console.WriteLine("nodes when preserving whitespace: {0}", doc1.DescendantNodes().Count());  
+XDocument doc2 = XDocument.Parse(str, LoadOptions.None);  
+Console.WriteLine("nodes when not preserving whitespace: {0}", doc2.DescendantNodes().Count());  
+```  
+  
+```vb  
+Dim str As String = _  
+"<?xml version= '1.0'?>" & Environment.NewLine & _  
+"<!-- comment at the root level -->" & Environment.NewLine & _  
+"<Root>" & Environment.NewLine & _  
+"    <Child>Content</Child>"  & Environment.NewLine & _  
+"</Root>"  
+  
+Dim doc1 As XDocument = XDocument.Parse(str, LoadOptions.PreserveWhitespace)  
+Console.WriteLine("nodes when preserving whitespace: {0}", doc1.DescendantNodes().Count())  
+Dim doc2 As XDocument = XDocument.Parse(str, LoadOptions.None)  
+Console.WriteLine("nodes when not preserving whitespace: {0}", doc2.DescendantNodes().Count())  
+```  
+  
+ <span data-ttu-id="f3139-320">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-320">This example produces the following output:</span></span>  
+  
+```  
+nodes when preserving whitespace: 8  
+nodes when not preserving whitespace: 4  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Root">
+      <MemberSignature Language="C#" Value="public System.Xml.Linq.XElement Root { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Xml.Linq.XElement Root" />
+      <MemberSignature Language="DocId" Value="P:System.Xml.Linq.XDocument.Root" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Root As XElement" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Xml::Linq::XElement ^ Root { System::Xml::Linq::XElement ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XElement</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f3139-321">このドキュメントの XML ツリーのルート要素を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-321">Gets the root element of the XML Tree for this document.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="f3139-322">XML ツリーのルート <see cref="T:System.Xml.Linq.XElement" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-322">The root <see cref="T:System.Xml.Linq.XElement" /> of the XML tree.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-323">このプロパティは、作成するときに便利です[!INCLUDE[sqltecxlinq](~/includes/sqltecxlinq-md.md)]ときをルートと、ツリーを構成することと同じコンテキスト内のクエリ<xref:System.Xml.Linq.XElement>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-323">This property is useful when you want to compose [!INCLUDE[sqltecxlinq](~/includes/sqltecxlinq-md.md)] queries in the same context as when composing them for a tree rooted in <xref:System.Xml.Linq.XElement>.</span></span> <span data-ttu-id="f3139-324">参照してください[XDocument vs のクエリを実行します。XElement のクエリ](http://msdn.microsoft.com/library/d266f58d-f2f3-4668-b661-e716e658d13a)詳細についてはします。</span><span class="sxs-lookup"><span data-stu-id="f3139-324">See [Querying an XDocument vs. Querying an XElement](http://msdn.microsoft.com/library/d266f58d-f2f3-4668-b661-e716e658d13a) for more details.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-325">次の例では、ドキュメントのルート要素を取得するのにこのプロパティを使用します。</span><span class="sxs-lookup"><span data-stu-id="f3139-325">The following example uses this property to get the root element of a document.</span></span>  
+  
+```csharp  
+XDocument doc = new XDocument(  
+    new XComment("This is a comment."),  
+    new XElement("Pubs",   
+        new XElement("Book",  
+            new XElement("Title", "Artifacts of Roman Civilization"),  
+            new XElement("Author", "Moreno, Jordao")  
+        ),  
+        new XElement("Book",  
+            new XElement("Title", "Midieval Tools and Implements"),  
+            new XElement("Author", "Gazit, Inbar")  
+        )  
+    ),  
+    new XComment("This is another comment.")  
+);  
+Console.WriteLine(doc.Root.Name.ToString());  
+```  
+  
+```vb  
+Dim doc As XDocument = _  
+    <?xml version="1.0" encoding="utf-8" standalone="yes"?>  
+    <!--This is a comment.-->  
+    <Pubs>  
+        <Book>  
+            <Title>Artifacts of Roman Civilization</Title>  
+            <Author>Moreno, Jordao</Author>  
+        </Book>  
+        <Book>  
+            <Title>Midieval Tools and Implements</Title>  
+            <Author>Gazit, Inbar</Author>  
+        </Book>  
+        <!--This is another comment.-->  
+    </Pubs>  
+  
+Console.WriteLine(doc.Root.Name.ToString())  
+```  
+  
+ <span data-ttu-id="f3139-326">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-326">This example produces the following output:</span></span>  
+  
+```  
+Pubs  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Save">
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f3139-327">この <see cref="T:System.Xml.Linq.XDocument" /> をシリアル化してファイル、<see cref="T:System.IO.TextWriter" />、または <see cref="T:System.Xml.XmlWriter" /> に書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-327">Serializes this <see cref="T:System.Xml.Linq.XDocument" /> to a file, a <see cref="T:System.IO.TextWriter" />, or an <see cref="T:System.Xml.XmlWriter" />.</span>
+          </span>
+        </summary>
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.IO.Stream stream);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.IO.Stream stream) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Save(System.IO.Stream)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::IO::Stream ^ stream);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="f3139-328">この <see cref="T:System.Xml.Linq.XDocument" /> の出力先のストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-328">The stream to output this <see cref="T:System.Xml.Linq.XDocument" /> to.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-329">この <see cref="T:System.Xml.Linq.XDocument" /> を指定した <see cref="T:System.IO.Stream" /> に出力します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-329">Outputs this <see cref="T:System.Xml.Linq.XDocument" /> to the specified <see cref="T:System.IO.Stream" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-330">シリアル化された XML はインデントされます。</span><span class="sxs-lookup"><span data-stu-id="f3139-330">The serialized XML will be indented.</span></span> <span data-ttu-id="f3139-331">すべての余分な空白は削除され、され、XML は適切なインデントにできるように、追加の空白文字が追加されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-331">All insignificant white space will be removed, and additional white space will be added so that the XML will be properly indented.</span></span> <span data-ttu-id="f3139-332">このメソッドの動作は、その意味のない空白は保持されません。</span><span class="sxs-lookup"><span data-stu-id="f3139-332">The behavior of this method is that insignificant white space will not be preserved.</span></span>  
+  
+ <span data-ttu-id="f3139-333">空白を制御する場合は、オーバー ロードを使用して<xref:System.Xml.Linq.XDocument.Save%2A>を受け取る<xref:System.Xml.Linq.SaveOptions>をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-333">If you want to control white space, use the overload of <xref:System.Xml.Linq.XDocument.Save%2A> that takes <xref:System.Xml.Linq.SaveOptions> as a parameter.</span></span> <span data-ttu-id="f3139-334">使用して、<xref:System.Xml.Linq.SaveOptions.DisableFormatting>インデントされていない XML を保存するオプションです。</span><span class="sxs-lookup"><span data-stu-id="f3139-334">Use the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> option to save unindented XML.</span></span> <span data-ttu-id="f3139-335">これにより、XML ツリーで表されるとおりにすべての空白文字を書き込むライター。</span><span class="sxs-lookup"><span data-stu-id="f3139-335">This will cause the writer to write all white spaces exactly as represented in the XML tree.</span></span>  
+  
+ <span data-ttu-id="f3139-336">使用して<xref:System.Xml.Linq.SaveOptions.OmitDuplicateNamespaces>重複する名前空間宣言を削除する場合はオプションです。</span><span class="sxs-lookup"><span data-stu-id="f3139-336">Use <xref:System.Xml.Linq.SaveOptions.OmitDuplicateNamespaces> option if you want to remove duplicate namespace declarations.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.IO.TextWriter textWriter);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.IO.TextWriter textWriter) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Save(System.IO.TextWriter)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::IO::TextWriter ^ textWriter);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="textWriter" Type="System.IO.TextWriter" />
+      </Parameters>
+      <Docs>
+        <param name="textWriter">
+          <span data-ttu-id="f3139-337">
+            <see cref="T:System.Xml.Linq.XDocument" /> の書き込み先の <see cref="T:System.IO.TextWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-337">A <see cref="T:System.IO.TextWriter" /> that the <see cref="T:System.Xml.Linq.XDocument" /> will be written to.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-338">この <see cref="T:System.Xml.Linq.XDocument" /> をシリアル化して <see cref="T:System.IO.TextWriter" /> に書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-338">Serialize this <see cref="T:System.Xml.Linq.XDocument" /> to a <see cref="T:System.IO.TextWriter" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-339">シリアル化された XML はインデントされます。</span><span class="sxs-lookup"><span data-stu-id="f3139-339">The serialized XML will be indented.</span></span> <span data-ttu-id="f3139-340">すべての余分な空白は削除され、され、XML は適切なインデントにできるように、追加の空白文字が追加されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-340">All insignificant white space will be removed, and additional white space will be added so that the XML will be properly indented.</span></span> <span data-ttu-id="f3139-341">このメソッドの動作は、その意味のない空白は保持されません。</span><span class="sxs-lookup"><span data-stu-id="f3139-341">The behavior of this method is that insignificant white space will not be preserved.</span></span>  
+  
+ <span data-ttu-id="f3139-342">空白を制御する場合は、オーバー ロードを使用して<xref:System.Xml.Linq.XDocument.Save%2A>を受け取る<xref:System.Xml.Linq.SaveOptions>をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-342">If you want to control white space, use the overload of <xref:System.Xml.Linq.XDocument.Save%2A> that takes <xref:System.Xml.Linq.SaveOptions> as a parameter.</span></span> <span data-ttu-id="f3139-343">詳細については、次を参照してください。[読み込みまたは XML の解析中に空白を維持](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d)と[維持空白中にシリアル化する](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-343">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-344">次の例を作成、<xref:System.Xml.Linq.XDocument>にドキュメントを保存、 <xref:System.IO.StringWriter>、し、コンソールに文字列を出力します。</span><span class="sxs-lookup"><span data-stu-id="f3139-344">The following example creates an <xref:System.Xml.Linq.XDocument>, saves the document to a <xref:System.IO.StringWriter>, and then prints the string to the console.</span></span>  
+  
+```csharp  
+StringBuilder sb = new StringBuilder();  
+  
+XDocument doc = new XDocument(  
+    new XElement("Root",  
+        new XElement("Child", "content")  
+    )  
+);  
+TextWriter tr = new StringWriter(sb);  
+doc.Save(tr);  
+Console.WriteLine(sb.ToString());  
+```  
+  
+```vb  
+Dim sb As StringBuilder = New StringBuilder()  
+  
+Dim doc As XDocument = _   
+    <?xml version="1.0" encoding="utf-8"?>  
+        <Root><Child>content</Child></Root>  
+  
+Dim tr As TextWriter = New StringWriter(sb)  
+doc.Save(tr)  
+Console.WriteLine(sb.ToString())  
+```  
+  
+ <span data-ttu-id="f3139-345">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-345">This example produces the following output:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-16"?>  
+<Root>  
+  <Child>content</Child>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (string fileName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(string fileName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Save(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Save (fileName As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::String ^ fileName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="fileName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="fileName">
+          <span data-ttu-id="f3139-346">ファイルの名前を格納する文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-346">A string that contains the name of the file.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-347">この <see cref="T:System.Xml.Linq.XDocument" /> をシリアル化してファイルに書き込み、既存のファイルを上書きします (存在する場合)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-347">Serialize this <see cref="T:System.Xml.Linq.XDocument" /> to a file, overwriting an existing file, if it exists.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-348">シリアル化された XML はインデントされます。</span><span class="sxs-lookup"><span data-stu-id="f3139-348">The serialized XML will be indented.</span></span> <span data-ttu-id="f3139-349">すべての余分な空白は削除され、され、XML は適切なインデントにできるように、追加の空白文字が追加されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-349">All insignificant white space will be removed, and additional white space will be added so that the XML will be properly indented.</span></span> <span data-ttu-id="f3139-350">このメソッドの動作は、その意味のない空白は保持されません。</span><span class="sxs-lookup"><span data-stu-id="f3139-350">The behavior of this method is that insignificant white space will not be preserved.</span></span>  
+  
+ <span data-ttu-id="f3139-351">空白を制御する場合は、オーバー ロードを使用して<xref:System.Xml.Linq.XDocument.Save%2A>を受け取る<xref:System.Xml.Linq.SaveOptions>をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-351">If you want to control white space, use the overload of <xref:System.Xml.Linq.XDocument.Save%2A> that takes <xref:System.Xml.Linq.SaveOptions> as a parameter.</span></span> <span data-ttu-id="f3139-352">詳細については、次を参照してください。[読み込みまたは XML の解析中に空白を維持](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d)と[維持空白中にシリアル化する](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-352">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-353">次の例を作成、<xref:System.Xml.Linq.XDocument>をファイルにドキュメントを保存、および、ファイルをコンソールに出力します。</span><span class="sxs-lookup"><span data-stu-id="f3139-353">The following example creates an <xref:System.Xml.Linq.XDocument>, saves the document to a file, and then prints the file to the console.</span></span>  
+  
+```csharp  
+XDocument doc = new XDocument(  
+    new XElement("Root",  
+        new XElement("Child", "content")  
+    )  
+);  
+doc.Save("Root.xml");  
+Console.WriteLine(File.ReadAllText("Root.xml"));  
+```  
+  
+```vb  
+Dim doc As XDocument = _   
+    <?xml version="1.0" encoding="utf-8"?>  
+        <Root><Child>content</Child></Root>  
+  
+doc.Save("Root.xml")  
+Console.WriteLine(File.ReadAllText("Root.xml"))  
+```  
+  
+ <span data-ttu-id="f3139-354">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-354">This example produces the following output:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-8"?>  
+<Root>  
+  <Child>content</Child>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.Xml.XmlWriter writer);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.Xml.XmlWriter writer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Save(System.Xml.XmlWriter)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Save (writer As XmlWriter)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::Xml::XmlWriter ^ writer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Xml.XmlWriter" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="f3139-355">
+            <see cref="T:System.Xml.Linq.XDocument" /> の書き込み先の <see cref="T:System.Xml.XmlWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-355">A <see cref="T:System.Xml.XmlWriter" /> that the <see cref="T:System.Xml.Linq.XDocument" /> will be written to.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-356">この <see cref="T:System.Xml.Linq.XDocument" /> をシリアル化して <see cref="T:System.Xml.XmlWriter" /> に書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-356">Serialize this <see cref="T:System.Xml.Linq.XDocument" /> to an <see cref="T:System.Xml.XmlWriter" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="f3139-357"><xref:System.Xml.Linq.XDocument> を <xref:System.Xml.XmlWriter> に保存する方法を次の例に示します。</span><span class="sxs-lookup"><span data-stu-id="f3139-357">The following example shows how to save an <xref:System.Xml.Linq.XDocument> to an <xref:System.Xml.XmlWriter>.</span></span>  
+  
+```csharp  
+StringBuilder sb = new StringBuilder();  
+XmlWriterSettings xws = new XmlWriterSettings();  
+xws.OmitXmlDeclaration = true;  
+xws.Indent = true;  
+  
+using (XmlWriter xw = XmlWriter.Create(sb, xws)) {  
+    XDocument doc = new XDocument(  
+        new XElement("Child",  
+            new XElement("GrandChild", "some content")  
+        )  
+    );  
+    doc.Save(xw);  
+}  
+  
+Console.WriteLine(sb.ToString());  
+```  
+  
+```vb  
+Dim sb As StringBuilder = New StringBuilder()  
+Dim xws As XmlWriterSettings = New XmlWriterSettings()  
+xws.OmitXmlDeclaration = True  
+xws.Indent = True  
+  
+Using xw = XmlWriter.Create(sb, xws)  
+    Dim doc As XDocument = New XDocument(<Child><GrandChild>some content</GrandChild></Child>)  
+    doc.Save(xw)  
+  
+End Using  
+  
+Console.WriteLine(sb.ToString())  
+```  
+  
+ <span data-ttu-id="f3139-358">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-358">This example produces the following output:</span></span>  
+  
+```xml  
+<Child>  
+  <GrandChild>some content</GrandChild>  
+</Child>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.IO.Stream stream, System.Xml.Linq.SaveOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.IO.Stream stream, valuetype System.Xml.Linq.SaveOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Save(System.IO.Stream,System.Xml.Linq.SaveOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::IO::Stream ^ stream, System::Xml::Linq::SaveOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="options" Type="System.Xml.Linq.SaveOptions" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="f3139-359">この <see cref="T:System.Xml.Linq.XDocument" /> の出力先のストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-359">The stream to output this <see cref="T:System.Xml.Linq.XDocument" /> to.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="f3139-360">書式設定の動作を指定する <see cref="T:System.Xml.Linq.SaveOptions" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-360">A <see cref="T:System.Xml.Linq.SaveOptions" /> that specifies formatting behavior.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-361">オプションで書式設定動作を指定して、指定した <see cref="T:System.IO.Stream" /> にこの <see cref="T:System.Xml.Linq.XDocument" /> を出力します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-361">Outputs this <see cref="T:System.Xml.Linq.XDocument" /> to the specified <see cref="T:System.IO.Stream" />, optionally specifying formatting behavior.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-362">既定では、`options`に設定されている<xref:System.Xml.Linq.SaveOptions.None>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-362">By default the `options` are set to <xref:System.Xml.Linq.SaveOptions.None>.</span></span> <span data-ttu-id="f3139-363">このオプションは無関係で意味のない空白はすべて削除し、XML が適切なインデントされないように、適切な意味のない空白を追加します。</span><span class="sxs-lookup"><span data-stu-id="f3139-363">This option will remove all extraneous insignificant white space, and add appropriate insignificant white space so that the XML is properly indented.</span></span>  
+  
+ <span data-ttu-id="f3139-364">インデントされていない XML を保存する場合は、指定、<xref:System.Xml.Linq.SaveOptions.DisableFormatting>を示すフラグ`options`です。</span><span class="sxs-lookup"><span data-stu-id="f3139-364">If you want to save unindented XML, specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="f3139-365">これにより、XML ツリーで表されるとおりにすべての空白文字を書き込むライター。</span><span class="sxs-lookup"><span data-stu-id="f3139-365">This will cause the writer to write all white spaces exactly as represented in the XML tree.</span></span>  
+  
+ <span data-ttu-id="f3139-366">使用して<xref:System.Xml.Linq.SaveOptions.OmitDuplicateNamespaces>重複する名前空間宣言を削除する場合はオプションです。</span><span class="sxs-lookup"><span data-stu-id="f3139-366">Use <xref:System.Xml.Linq.SaveOptions.OmitDuplicateNamespaces> option if you want to remove duplicate namespace declarations.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.IO.TextWriter textWriter, System.Xml.Linq.SaveOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.IO.TextWriter textWriter, valuetype System.Xml.Linq.SaveOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Save(System.IO.TextWriter,System.Xml.Linq.SaveOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::IO::TextWriter ^ textWriter, System::Xml::Linq::SaveOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="textWriter" Type="System.IO.TextWriter" />
+        <Parameter Name="options" Type="System.Xml.Linq.SaveOptions" />
+      </Parameters>
+      <Docs>
+        <param name="textWriter">
+          <span data-ttu-id="f3139-367">XML を出力する <see cref="T:System.IO.TextWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-367">The <see cref="T:System.IO.TextWriter" /> to output the XML to.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="f3139-368">書式設定の動作を指定する <see cref="T:System.Xml.Linq.SaveOptions" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-368">A <see cref="T:System.Xml.Linq.SaveOptions" /> that specifies formatting behavior.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-369">この <see cref="T:System.Xml.Linq.XDocument" /> をシリアル化して <see cref="T:System.IO.TextWriter" /> に書き込み、必要に応じて、書式設定を無効にします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-369">Serialize this <see cref="T:System.Xml.Linq.XDocument" /> to a <see cref="T:System.IO.TextWriter" />, optionally disabling formatting.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-370">インデントされていない XML を保存する場合は、指定、<xref:System.Xml.Linq.SaveOptions.DisableFormatting>を示すフラグ`options`です。</span><span class="sxs-lookup"><span data-stu-id="f3139-370">If you want to save unindented XML, specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="f3139-371">これにより、XML ツリーで表されるとおりにすべての空白文字を書き込むライター。</span><span class="sxs-lookup"><span data-stu-id="f3139-371">This will cause the writer to write all white space exactly as represented in the XML tree.</span></span>  
+  
+ <span data-ttu-id="f3139-372">インデントされた XML を保存する場合を指定しない、<xref:System.Xml.Linq.SaveOptions.DisableFormatting>を示すフラグ`options`です。</span><span class="sxs-lookup"><span data-stu-id="f3139-372">If you want to save indented XML, do not specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="f3139-373">これは、余分なで意味のない空白はすべてを削除し、XML が適切なインデントされないように、適切な意味のない空白を追加します。</span><span class="sxs-lookup"><span data-stu-id="f3139-373">This will remove all extraneous insignificant white space, and add appropriate insignificant white space so that the XML is properly indented.</span></span> <span data-ttu-id="f3139-374">これは、既定の動作とのオーバー ロードの動作、<xref:System.Xml.Linq.XDocument.Save%2A>を受け取らないメソッド`options`をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-374">This is the default behavior, and the behavior of the overloads of the <xref:System.Xml.Linq.XDocument.Save%2A> methods that do not take `options` as a parameter.</span></span>  
+  
+ <span data-ttu-id="f3139-375">詳細については、次を参照してください。[読み込みまたは XML の解析中に空白を維持](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d)と[維持空白中にシリアル化する](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-375">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-376">次の例では、このメソッドの 2 つの使用を示します。</span><span class="sxs-lookup"><span data-stu-id="f3139-376">The following example shows two uses of this method.</span></span> <span data-ttu-id="f3139-377">最初の使用をシリアル化、<xref:System.Xml.Linq.XDocument>書式を設定しています。</span><span class="sxs-lookup"><span data-stu-id="f3139-377">The first use serializes the <xref:System.Xml.Linq.XDocument> with formatting.</span></span> <span data-ttu-id="f3139-378">2 つ目は、空白を保存します。</span><span class="sxs-lookup"><span data-stu-id="f3139-378">The second preserves white space.</span></span> <span data-ttu-id="f3139-379">ドキュメントがあるないためホワイト スペースが構築されては、インデントは設定されません、XML を出力する空白を維持します。</span><span class="sxs-lookup"><span data-stu-id="f3139-379">Because the document has no white space in it as constructed, preserving white space outputs the XML without any indenting.</span></span>  
+  
+```csharp  
+XDocument doc = new XDocument(  
+    new XElement("Root",  
+        new XElement("Child", "content")  
+    )  
+);  
+StringBuilder sb1 = new StringBuilder();  
+using (StringWriter sr1 = new StringWriter(sb1)) {  
+    doc.Save(sr1, SaveOptions.None);  
+    Console.WriteLine(sb1.ToString());  
+}  
+  
+StringBuilder sb2 = new StringBuilder();  
+using (StringWriter sr2 = new StringWriter(sb2)) {  
+    doc.Save(sr2, SaveOptions.DisableFormatting);  
+    Console.WriteLine(sb2.ToString());  
+}  
+```  
+  
+```vb  
+Dim doc As XDocument = _   
+    <?xml version="1.0" encoding="utf-8"?>  
+        <Root><Child>content</Child></Root>  
+  
+Dim sb1 As StringBuilder = New StringBuilder()  
+  
+Using sr1 = New StringWriter(sb1)  
+    doc.Save(sr1, SaveOptions.None)  
+    Console.WriteLine(sb1.ToString())  
+End Using  
+  
+Dim sb2 As StringBuilder = New StringBuilder()  
+  
+Using sr2 = New StringWriter(sb2)  
+    doc.Save(sr2, SaveOptions.DisableFormatting)  
+    Console.WriteLine(sb2.ToString())  
+End Using  
+```  
+  
+ <span data-ttu-id="f3139-380">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-380">This example produces the following output:</span></span>  
+  
+```  
+<?xml version="1.0" encoding="utf-16"?>  
+<Root>  
+  <Child>content</Child>  
+</Root>  
+<?xml version="1.0" encoding="utf-16"?><Root><Child>content</Child></Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (string fileName, System.Xml.Linq.SaveOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(string fileName, valuetype System.Xml.Linq.SaveOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.Save(System.String,System.Xml.Linq.SaveOptions)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Save (fileName As String, options As SaveOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::String ^ fileName, System::Xml::Linq::SaveOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="fileName" Type="System.String" />
+        <Parameter Name="options" Type="System.Xml.Linq.SaveOptions" />
+      </Parameters>
+      <Docs>
+        <param name="fileName">
+          <span data-ttu-id="f3139-381">ファイルの名前を格納する文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-381">A string that contains the name of the file.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="f3139-382">書式設定の動作を指定する <see cref="T:System.Xml.Linq.SaveOptions" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-382">A <see cref="T:System.Xml.Linq.SaveOptions" /> that specifies formatting behavior.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-383">この <see cref="T:System.Xml.Linq.XDocument" /> をシリアル化してファイルに書き込み、必要に応じて、書式設定を無効にします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-383">Serialize this <see cref="T:System.Xml.Linq.XDocument" /> to a file, optionally disabling formatting.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f3139-384">インデントされていない XML を保存する場合は、指定、<xref:System.Xml.Linq.SaveOptions.DisableFormatting>を示すフラグ`options`です。</span><span class="sxs-lookup"><span data-stu-id="f3139-384">If you want to save unindented XML, specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="f3139-385">これにより、XML ツリーで表されるとおりにすべての空白文字を書き込むライター。</span><span class="sxs-lookup"><span data-stu-id="f3139-385">This will cause the writer to write all white space exactly as represented in the XML tree.</span></span>  
+  
+ <span data-ttu-id="f3139-386">インデントされた XML を保存する場合を指定しない、<xref:System.Xml.Linq.SaveOptions.DisableFormatting>を示すフラグ`options`です。</span><span class="sxs-lookup"><span data-stu-id="f3139-386">If you want to save indented XML, do not specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="f3139-387">これは、余分なで意味のない空白はすべてを削除し、XML が適切なインデントされないように、適切な意味のない空白を追加します。</span><span class="sxs-lookup"><span data-stu-id="f3139-387">This will remove all extraneous insignificant white space, and add appropriate insignificant white space so that the XML is properly indented.</span></span> <span data-ttu-id="f3139-388">これは、既定の動作とのオーバー ロードの動作、<xref:System.Xml.Linq.XDocument.Save%2A>を受け取らないメソッド`options`をパラメーターとして。</span><span class="sxs-lookup"><span data-stu-id="f3139-388">This is the default behavior, and the behavior of the overloads of the <xref:System.Xml.Linq.XDocument.Save%2A> methods that do not take `options` as a parameter.</span></span>  
+  
+ <span data-ttu-id="f3139-389">詳細については、次を参照してください。[読み込みまたは XML の解析中に空白を維持](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d)と[維持空白中にシリアル化する](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939)です。</span><span class="sxs-lookup"><span data-stu-id="f3139-389">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f3139-390">次の例では、このメソッドの 2 つの使用を示します。</span><span class="sxs-lookup"><span data-stu-id="f3139-390">The following example shows two uses of this method.</span></span> <span data-ttu-id="f3139-391">初めて使用するには、空白が維持されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-391">The first use preserves white space.</span></span> <span data-ttu-id="f3139-392">2 つ目のシリアル化、<xref:System.Xml.Linq.XDocument>インデントとします。</span><span class="sxs-lookup"><span data-stu-id="f3139-392">The second one serializes the <xref:System.Xml.Linq.XDocument> with indenting.</span></span>  
+  
+```csharp  
+XDocument doc = new XDocument(  
+    new XElement("Root",  
+        new XElement("Child", "content")  
+    )  
+);  
+doc.Save("Root1.xml", SaveOptions.DisableFormatting);  
+Console.WriteLine(File.ReadAllText("Root1.xml"));  
+doc.Save("Root2.xml", SaveOptions.None);  
+Console.WriteLine(File.ReadAllText("Root2.xml"));  
+```  
+  
+```vb  
+Dim doc As XDocument = _   
+    <?xml version="1.0" encoding="utf-8"?>  
+        <Root><Child>content</Child></Root>  
+  
+doc.Save("Root1.xml", SaveOptions.DisableFormatting)  
+Console.WriteLine(File.ReadAllText("Root1.xml"))  
+doc.Save("Root2.xml", SaveOptions.None)  
+Console.WriteLine(File.ReadAllText("Root2.xml"))  
+```  
+  
+ <span data-ttu-id="f3139-393">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-393">This example produces the following output:</span></span>  
+  
+```  
+<?xml version="1.0" encoding="utf-8"?><Root><Child>content</Child></Root>  
+<?xml version="1.0" encoding="utf-8"?>  
+<Root>  
+  <Child>content</Child>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+      </Docs>
+    </Member>
+    <Member MemberName="SaveAsync">
+      <MemberSignature Language="C#" Value="public System.Threading.Tasks.Task SaveAsync (System.Xml.XmlWriter writer, System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Threading.Tasks.Task SaveAsync(class System.Xml.XmlWriter writer, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.SaveAsync(System.Xml.XmlWriter,System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Threading::Tasks::Task ^ SaveAsync(System::Xml::XmlWriter ^ writer, System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Xml.XmlWriter" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="writer">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SaveAsync">
+      <MemberSignature Language="C#" Value="public System.Threading.Tasks.Task SaveAsync (System.IO.Stream stream, System.Xml.Linq.SaveOptions options, System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Threading.Tasks.Task SaveAsync(class System.IO.Stream stream, valuetype System.Xml.Linq.SaveOptions options, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.SaveAsync(System.IO.Stream,System.Xml.Linq.SaveOptions,System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Threading::Tasks::Task ^ SaveAsync(System::IO::Stream ^ stream, System::Xml::Linq::SaveOptions options, System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="options" Type="System.Xml.Linq.SaveOptions" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="stream">To be added.</param>
+        <param name="options">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SaveAsync">
+      <MemberSignature Language="C#" Value="public System.Threading.Tasks.Task SaveAsync (System.IO.TextWriter textWriter, System.Xml.Linq.SaveOptions options, System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Threading.Tasks.Task SaveAsync(class System.IO.TextWriter textWriter, valuetype System.Xml.Linq.SaveOptions options, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.SaveAsync(System.IO.TextWriter,System.Xml.Linq.SaveOptions,System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Threading::Tasks::Task ^ SaveAsync(System::IO::TextWriter ^ textWriter, System::Xml::Linq::SaveOptions options, System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="textWriter" Type="System.IO.TextWriter" />
+        <Parameter Name="options" Type="System.Xml.Linq.SaveOptions" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="textWriter">To be added.</param>
+        <param name="options">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="WriteTo">
+      <MemberSignature Language="C#" Value="public override void WriteTo (System.Xml.XmlWriter writer);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void WriteTo(class System.Xml.XmlWriter writer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.WriteTo(System.Xml.XmlWriter)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub WriteTo (writer As XmlWriter)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void WriteTo(System::Xml::XmlWriter ^ writer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Xml.XmlWriter" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="f3139-394">このメソッドの書き込み対象の <see cref="T:System.Xml.XmlWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-394">An <see cref="T:System.Xml.XmlWriter" /> into which this method will write.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f3139-395">このドキュメントを <see cref="T:System.Xml.XmlWriter" /> に書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f3139-395">Write this document to an <see cref="T:System.Xml.XmlWriter" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="f3139-396">次の例を記述する方法を示しています、<xref:System.Xml.Linq.XDocument>を<xref:System.Xml.XmlWriter>です。</span><span class="sxs-lookup"><span data-stu-id="f3139-396">The following example shows how to write an <xref:System.Xml.Linq.XDocument> to an <xref:System.Xml.XmlWriter>.</span></span> <span data-ttu-id="f3139-397">例が XML 宣言を作成していないことに注意してください。</span><span class="sxs-lookup"><span data-stu-id="f3139-397">Note that the example did not write an XML declaration.</span></span>  
+  
+```csharp  
+StringBuilder sb = new StringBuilder();  
+XmlWriterSettings xws = new XmlWriterSettings();  
+xws.OmitXmlDeclaration = true;  
+xws.Indent = true;  
+  
+using (XmlWriter xw = XmlWriter.Create(sb, xws))  
+{  
+    XDocument doc = new XDocument(  
+        new XElement("Child",  
+            new XElement("GrandChild", "some content")  
+        )  
+    );  
+    doc.WriteTo(xw);  
+}  
+  
+Console.WriteLine(sb.ToString());  
+```  
+  
+```vb  
+Dim sb As StringBuilder = New StringBuilder()  
+Dim xws As XmlWriterSettings = New XmlWriterSettings()  
+xws.OmitXmlDeclaration = True  
+xws.Indent = True  
+  
+Using xw = XmlWriter.Create(sb, xws)  
+    Dim doc As XDocument = New XDocument(<Child><GrandChild>some content</GrandChild></Child>)  
+    doc.WriteTo(xw)  
+End Using  
+  
+Console.WriteLine(sb.ToString())  
+```  
+  
+ <span data-ttu-id="f3139-398">この例を実行すると、次の出力が生成されます。</span><span class="sxs-lookup"><span data-stu-id="f3139-398">This example produces the following output:</span></span>  
+  
+```xml  
+<Child>  
+  <GrandChild>some content</GrandChild>  
+</Child>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Save" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Load" />
+        <altmember cref="Overload:System.Xml.Linq.XDocument.Parse" />
+      </Docs>
+    </Member>
+    <Member MemberName="WriteToAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task WriteToAsync (System.Xml.XmlWriter writer, System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task WriteToAsync(class System.Xml.XmlWriter writer, valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XDocument.WriteToAsync(System.Xml.XmlWriter,System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::Threading::Tasks::Task ^ WriteToAsync(System::Xml::XmlWriter ^ writer, System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Xml.XmlWriter" />
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="writer">To be added.</param>
+        <param name="cancellationToken">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
