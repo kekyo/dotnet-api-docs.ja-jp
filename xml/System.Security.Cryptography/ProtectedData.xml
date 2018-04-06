@@ -1,0 +1,279 @@
+<Type Name="ProtectedData" FullName="System.Security.Cryptography.ProtectedData">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="113fa7049e84e98a7de443e726e3f32bf66cafcc" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class ProtectedData" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit ProtectedData extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Security.Cryptography.ProtectedData" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class ProtectedData" />
+  <TypeSignature Language="C++ CLI" Value="public ref class ProtectedData sealed" />
+  <AssemblyInfo>
+    <AssemblyName>System.Security.Cryptography.ProtectedData</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.2.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Security</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="b4664-101">Provides methods for encrypting and decrypting data.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="b4664-101">Provides methods for encrypting and decrypting data.</span>
+      </span>
+      <span data-ttu-id="b4664-102">This class cannot be inherited.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="b4664-102">This class cannot be inherited.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b4664-103">このクラスは、データ保護 API (DPAPI) Microsoft Windows 2000 以降のオペレーティング システムで使用可能なにアクセスを提供します。</span><span class="sxs-lookup"><span data-stu-id="b4664-103">This class provides access to the Data Protection API (DPAPI) available in Microsoft Windows 2000 and later operating systems.</span></span> <span data-ttu-id="b4664-104">これは、サービスは、オペレーティング システムによって提供され、追加のライブラリが不要です。</span><span class="sxs-lookup"><span data-stu-id="b4664-104">This is a service that is provided by the operating system and does not require additional libraries.</span></span> <span data-ttu-id="b4664-105">暗号化またはデータの暗号化を解除するユーザーまたはコンピューターの資格情報を使用して保護を提供します。</span><span class="sxs-lookup"><span data-stu-id="b4664-105">It provides protection using the user or machine credentials to encrypt or decrypt data.</span></span>  
+  
+ <span data-ttu-id="b4664-106">クラスから成る 2 つのラッパー、アンマネージの DPAPI の<xref:System.Security.Cryptography.ProtectedData.Protect%2A>と<xref:System.Security.Cryptography.ProtectedData.Unprotect%2A>です。</span><span class="sxs-lookup"><span data-stu-id="b4664-106">The class consists of two wrappers for the unmanaged DPAPI, <xref:System.Security.Cryptography.ProtectedData.Protect%2A> and <xref:System.Security.Cryptography.ProtectedData.Unprotect%2A>.</span></span> <span data-ttu-id="b4664-107">これら 2 つのメソッドは、暗号化し、パスワード、キー、および接続文字列などのデータを復号化に使用できます。</span><span class="sxs-lookup"><span data-stu-id="b4664-107">These two methods can be used to encrypt and decrypt data such as passwords, keys, and connection strings.</span></span>  
+  
+ <span data-ttu-id="b4664-108">権限借用中にこれらのメソッドを使用する場合は、次のエラーを発生する可能性があります:「指定された状態で使用するキーは無効です」</span><span class="sxs-lookup"><span data-stu-id="b4664-108">If you use these methods during impersonation, you may receive the following error: "Key not valid for use in specified state."</span></span> <span data-ttu-id="b4664-109">これは、DPAPI がユーザー プロファイルで主要なデータを格納するために発生します。</span><span class="sxs-lookup"><span data-stu-id="b4664-109">This occurs because the DPAPI stores the key data in user profiles.</span></span> <span data-ttu-id="b4664-110">プロファイルが読み込まれていない場合は、DPAPI を復号化を実行することはできません。</span><span class="sxs-lookup"><span data-stu-id="b4664-110">If the profile is not loaded, DPAPI won’t be able to perform the decryption.</span></span> <span data-ttu-id="b4664-111">このエラーを回避するには、いずれかのメソッドを呼び出す前に権限を借用するユーザーのプロファイルを読み込みます。</span><span class="sxs-lookup"><span data-stu-id="b4664-111">To prevent this error, load the profile of the user you want to impersonate before calling either method.</span></span> <span data-ttu-id="b4664-112">権限借用で DPAPI を使用して重大な問題が発生する可能性し、慎重に設計の選択肢が必要です。</span><span class="sxs-lookup"><span data-stu-id="b4664-112">Using DPAPI with impersonation can incur significant complication and requires careful design choices.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b4664-113">次の例では、データ保護を使用する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="b4664-113">The following example shows how to use data protection.</span></span>  
+  
+ [!code-cpp[Cryptography.DataProtectionSample#1](~/samples/snippets/cpp/VS_Snippets_CLR/Cryptography.DataProtectionSample/CPP/dataprotectionsample.cpp#1)]
+ [!code-csharp[Cryptography.DataProtectionSample#1](~/samples/snippets/csharp/VS_Snippets_CLR/Cryptography.DataProtectionSample/CS/dataprotectionsample.cs#1)]
+ [!code-vb[Cryptography.DataProtectionSample#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Cryptography.DataProtectionSample/vb/dataprotectionsample.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="Protect">
+      <MemberSignature Language="C#" Value="public static byte[] Protect (byte[] userData, byte[] optionalEntropy, System.Security.Cryptography.DataProtectionScope scope);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig unsigned int8[] Protect(unsigned int8[] userData, unsigned int8[] optionalEntropy, valuetype System.Security.Cryptography.DataProtectionScope scope) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.ProtectedData.Protect(System.Byte[],System.Byte[],System.Security.Cryptography.DataProtectionScope)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Protect (userData As Byte(), optionalEntropy As Byte(), scope As DataProtectionScope) As Byte()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static cli::array &lt;System::Byte&gt; ^ Protect(cli::array &lt;System::Byte&gt; ^ userData, cli::array &lt;System::Byte&gt; ^ optionalEntropy, System::Security::Cryptography::DataProtectionScope scope);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.ProtectedData</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.2.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="userData" Type="System.Byte[]" />
+        <Parameter Name="optionalEntropy" Type="System.Byte[]" />
+        <Parameter Name="scope" Type="System.Security.Cryptography.DataProtectionScope" />
+      </Parameters>
+      <Docs>
+        <param name="userData">
+          <span data-ttu-id="b4664-114">A byte array that contains data to encrypt.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-114">A byte array that contains data to encrypt.</span>
+          </span>
+        </param>
+        <param name="optionalEntropy">
+          <span data-ttu-id="b4664-115">An optional additional byte array used to increase the complexity of the encryption, or <see langword="null" /> for no additional complexity.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-115">An optional additional byte array used to increase the complexity of the encryption, or <see langword="null" /> for no additional complexity.</span>
+          </span>
+        </param>
+        <param name="scope">
+          <span data-ttu-id="b4664-116">One of the enumeration values that specifies the scope of encryption.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-116">One of the enumeration values that specifies the scope of encryption.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b4664-117">Encrypts the data in a specified byte array and returns a byte array that contains the encrypted data.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-117">Encrypts the data in a specified byte array and returns a byte array that contains the encrypted data.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="b4664-118">A byte array representing the encrypted data.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-118">A byte array representing the encrypted data.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b4664-119">このメソッドは、パスワード、キー、または接続文字列などのデータの暗号化に使用できます。</span><span class="sxs-lookup"><span data-stu-id="b4664-119">This method can be used to encrypt data such as passwords, keys, or connection strings.</span></span> <span data-ttu-id="b4664-120">`optionalEntropy`パラメーターの暗号化の複雑性を向上させるデータを追加することができます。 指定`null`のない複雑さが増大します。</span><span class="sxs-lookup"><span data-stu-id="b4664-120">The `optionalEntropy` parameter enables you to add data to increase the complexity of the encryption; specify `null` for no additional complexity.</span></span> <span data-ttu-id="b4664-121">指定した場合、この情報も使わなければならないを使用してデータを復号化するときに、<xref:System.Security.Cryptography.ProtectedData.Unprotect%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="b4664-121">If provided, this information must also be used when decrypting the data using the <xref:System.Security.Cryptography.ProtectedData.Unprotect%2A> method.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="b4664-122">権限借用中にこのメソッドを使用する場合は、次のエラーを発生する可能性があります:「指定された状態で使用するキーは無効です」</span><span class="sxs-lookup"><span data-stu-id="b4664-122">If you use this method during impersonation, you may receive the following error: "Key not valid for use in specified state."</span></span> <span data-ttu-id="b4664-123">このエラーを回避するには、メソッドを呼び出す前に権限を借用するユーザーのプロファイルを読み込みます。</span><span class="sxs-lookup"><span data-stu-id="b4664-123">To prevent this error, load the profile of the user you want to impersonate before calling the method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b4664-124">次の例では、データ保護を使用する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="b4664-124">The following example shows how to use data protection.</span></span>  
+  
+ [!code-cpp[Cryptography.DataProtectionSample#1](~/samples/snippets/cpp/VS_Snippets_CLR/Cryptography.DataProtectionSample/CPP/dataprotectionsample.cpp#1)]
+ [!code-csharp[Cryptography.DataProtectionSample#1](~/samples/snippets/csharp/VS_Snippets_CLR/Cryptography.DataProtectionSample/CS/dataprotectionsample.cs#1)]
+ [!code-vb[Cryptography.DataProtectionSample#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Cryptography.DataProtectionSample/vb/dataprotectionsample.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="b4664-125">The <paramref name="userData" /> parameter is <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-125">The <paramref name="userData" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="b4664-126">The encryption failed.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-126">The encryption failed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="b4664-127">The operating system does not support this method.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-127">The operating system does not support this method.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.OutOfMemoryException">
+          <span data-ttu-id="b4664-128">The system ran out of memory while encrypting the data.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-128">The system ran out of memory while encrypting the data.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.DataProtectionPermission">
+          <span data-ttu-id="b4664-129">関連付けられている<see cref="P:System.Security.Permissions.DataProtectionPermissionAttribute.ProtectData" />データを保護するアクセス許可のフラグ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-129">with the associated <see cref="P:System.Security.Permissions.DataProtectionPermissionAttribute.ProtectData" /> flag for permission to protect data.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Unprotect">
+      <MemberSignature Language="C#" Value="public static byte[] Unprotect (byte[] encryptedData, byte[] optionalEntropy, System.Security.Cryptography.DataProtectionScope scope);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig unsigned int8[] Unprotect(unsigned int8[] encryptedData, unsigned int8[] optionalEntropy, valuetype System.Security.Cryptography.DataProtectionScope scope) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.ProtectedData.Unprotect(System.Byte[],System.Byte[],System.Security.Cryptography.DataProtectionScope)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Unprotect (encryptedData As Byte(), optionalEntropy As Byte(), scope As DataProtectionScope) As Byte()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static cli::array &lt;System::Byte&gt; ^ Unprotect(cli::array &lt;System::Byte&gt; ^ encryptedData, cli::array &lt;System::Byte&gt; ^ optionalEntropy, System::Security::Cryptography::DataProtectionScope scope);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.ProtectedData</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.2.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="encryptedData" Type="System.Byte[]" />
+        <Parameter Name="optionalEntropy" Type="System.Byte[]" />
+        <Parameter Name="scope" Type="System.Security.Cryptography.DataProtectionScope" />
+      </Parameters>
+      <Docs>
+        <param name="encryptedData">
+          <span data-ttu-id="b4664-130">A byte array containing data encrypted using the <see cref="M:System.Security.Cryptography.ProtectedData.Protect(System.Byte[],System.Byte[],System.Security.Cryptography.DataProtectionScope)" /> method.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-130">A byte array containing data encrypted using the <see cref="M:System.Security.Cryptography.ProtectedData.Protect(System.Byte[],System.Byte[],System.Security.Cryptography.DataProtectionScope)" /> method.</span>
+          </span>
+        </param>
+        <param name="optionalEntropy">
+          <span data-ttu-id="b4664-131">An optional additional byte array that was used to encrypt the data, or <see langword="null" /> if the additional byte array was not used.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-131">An optional additional byte array that was used to encrypt the data, or <see langword="null" /> if the additional byte array was not used.</span>
+          </span>
+        </param>
+        <param name="scope">
+          <span data-ttu-id="b4664-132">One of the enumeration values that specifies the scope of data protection that was used to encrypt the data.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-132">One of the enumeration values that specifies the scope of data protection that was used to encrypt the data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b4664-133">Decrypts the data in a specified byte array and returns a byte array that contains the decrypted data.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-133">Decrypts the data in a specified byte array and returns a byte array that contains the decrypted data.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="b4664-134">A byte array representing the decrypted data.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-134">A byte array representing the decrypted data.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b4664-135">このメソッドを使用して暗号化されたデータの保護を解除するために使用できます、<xref:System.Security.Cryptography.ProtectedData.Protect%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="b4664-135">This method can be used to unprotect data that was encrypted using the <xref:System.Security.Cryptography.ProtectedData.Protect%2A> method.</span></span> <span data-ttu-id="b4664-136">場合、`optionalEntropy`暗号化中に使用されたパラメーター、データの暗号化を解除することを指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="b4664-136">If the `optionalEntropy` parameter was used during encryption, it must be supplied to unencrypt the data.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="b4664-137">権限借用中にこのメソッドを使用する場合は、次のエラーを発生する可能性があります:「指定された状態で使用するキーは無効です」</span><span class="sxs-lookup"><span data-stu-id="b4664-137">If you use this method during impersonation, you may receive the following error: "Key not valid for use in specified state."</span></span> <span data-ttu-id="b4664-138">このエラーを回避するには、メソッドを呼び出す前に権限を借用するユーザーのプロファイルを読み込みます。</span><span class="sxs-lookup"><span data-stu-id="b4664-138">To prevent this error, load the profile of the user you want to impersonate before calling the method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b4664-139">次のコード例では、データ保護を使用する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="b4664-139">The following code example shows how to use data protection.</span></span>  
+  
+ [!code-cpp[Cryptography.DataProtectionSample#1](~/samples/snippets/cpp/VS_Snippets_CLR/Cryptography.DataProtectionSample/CPP/dataprotectionsample.cpp#1)]
+ [!code-csharp[Cryptography.DataProtectionSample#1](~/samples/snippets/csharp/VS_Snippets_CLR/Cryptography.DataProtectionSample/CS/dataprotectionsample.cs#1)]
+ [!code-vb[Cryptography.DataProtectionSample#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Cryptography.DataProtectionSample/vb/dataprotectionsample.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="b4664-140">The <paramref name="encryptedData" /> parameter is <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-140">The <paramref name="encryptedData" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="b4664-141">The decryption failed.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-141">The decryption failed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="b4664-142">The operating system does not support this method.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-142">The operating system does not support this method.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.OutOfMemoryException">
+          <span data-ttu-id="b4664-143">Out of memory.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-143">Out of memory.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.DataProtectionPermission">
+          <span data-ttu-id="b4664-144">関連付けられている<see cref="P:System.Security.Permissions.DataProtectionPermissionAttribute.UnprotectData" />データの保護を解除するアクセス許可のフラグ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b4664-144">with the associated <see cref="P:System.Security.Permissions.DataProtectionPermissionAttribute.UnprotectData" /> flag for permission to unprotect data.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

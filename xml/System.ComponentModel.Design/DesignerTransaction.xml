@@ -1,0 +1,875 @@
+<Type Name="DesignerTransaction" FullName="System.ComponentModel.Design.DesignerTransaction">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="a10ea87c932e1b46f152fe7e78e29f3ce8ffc4a7" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class DesignerTransaction : IDisposable" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit DesignerTransaction extends System.Object implements class System.IDisposable" />
+  <TypeSignature Language="DocId" Value="T:System.ComponentModel.Design.DesignerTransaction" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class DesignerTransaction&#xA;Implements IDisposable" />
+  <TypeSignature Language="C++ CLI" Value="public ref class DesignerTransaction abstract : IDisposable" />
+  <AssemblyInfo>
+    <AssemblyName>System</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.IDisposable</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="c22d7-101">Provides a way to group a series of design-time actions to improve performance and enable most types of changes to be undone.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c22d7-101">Provides a way to group a series of design-time actions to improve performance and enable most types of changes to be undone.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-102">トランザクションは、ことのできる完了した後で操作を追跡できます。</span><span class="sxs-lookup"><span data-stu-id="c22d7-102">Transactions can track actions that can be undone later.</span></span> <span data-ttu-id="c22d7-103">前の変更の値に変更された各プロパティを設定して各変更を破棄しようとして自動的にトランザクションをキャンセルして、トランザクション中に行われた変更を取り消すことができます。</span><span class="sxs-lookup"><span data-stu-id="c22d7-103">Changes made during a transaction can be reversed by canceling a transaction, which automatically attempts to reverse each change by setting each changed property to its pre-change value.</span></span> <span data-ttu-id="c22d7-104">トランザクションのトランザクションが完了するまで画面への更新を遅らせることで、一連の操作中にパフォーマンスを改善できます。</span><span class="sxs-lookup"><span data-stu-id="c22d7-104">Transactions can also improve performance during a series of operations by deferring updates to the display until the completion of the transaction.</span></span>  
+  
+ <span data-ttu-id="c22d7-105">一部のコンポーネントを聞くことにより、トランザクションが完了するまで、その処理を遅延トランザクションが実行中のときに、<xref:System.ComponentModel.Design.IDesignerHost.TransactionOpening>と<xref:System.ComponentModel.Design.IDesignerHost.TransactionClosed>イベント。</span><span class="sxs-lookup"><span data-stu-id="c22d7-105">When a transaction is in progress, some components defer their processing until the transaction has completed by listening to the <xref:System.ComponentModel.Design.IDesignerHost.TransactionOpening> and <xref:System.ComponentModel.Design.IDesignerHost.TransactionClosed> events.</span></span> <span data-ttu-id="c22d7-106">[プロパティ] ウィンドウは更新されませんの表示が、トランザクションが閉じられるまで、トランザクションが開いた後。</span><span class="sxs-lookup"><span data-stu-id="c22d7-106">The Properties window, for example, does not update its display after a transaction has opened until the transaction has closed.</span></span>  
+  
+ <span data-ttu-id="c22d7-107">可逆または複数の操作のトランザクションを使用するには、作成、デザイナーを持つ、<xref:System.ComponentModel.Design.DesignerTransaction>の各操作または一連の操作を元に戻すことがあります。</span><span class="sxs-lookup"><span data-stu-id="c22d7-107">To use transactions for reversible or multiple operations, have your designer create a <xref:System.ComponentModel.Design.DesignerTransaction> for each operation or series of operations which should be reversible.</span></span> <span data-ttu-id="c22d7-108">元に戻すイベントのシーケンスが正常に完了するを妨げる可能性があるトランザクションの外部アクションを実行しないように注意します。</span><span class="sxs-lookup"><span data-stu-id="c22d7-108">Be careful not to perform actions outside the transactions that might prevent a sequence of undo events from completing successfully.</span></span>  
+  
+ <span data-ttu-id="c22d7-109">新しいを取得する<xref:System.ComponentModel.Design.DesignerTransaction>を呼び出して、<xref:System.ComponentModel.Design.IDesignerHost.CreateTransaction%2A>のメソッド、<xref:System.ComponentModel.Design.IDesignerHost>です。</span><span class="sxs-lookup"><span data-stu-id="c22d7-109">You can obtain a new <xref:System.ComponentModel.Design.DesignerTransaction> by calling the <xref:System.ComponentModel.Design.IDesignerHost.CreateTransaction%2A> method of an <xref:System.ComponentModel.Design.IDesignerHost>.</span></span> <span data-ttu-id="c22d7-110">各を入手してください<xref:System.ComponentModel.Design.DesignerTransaction>アクティブから<xref:System.ComponentModel.Design.IDesignerHost>新たに作成するのではなく、処理メカニズムでは、デザイナーのトランザクションを正しく統合するために<xref:System.ComponentModel.Design.DesignerTransaction>直接です。</span><span class="sxs-lookup"><span data-stu-id="c22d7-110">Be sure to obtain each <xref:System.ComponentModel.Design.DesignerTransaction> from the active <xref:System.ComponentModel.Design.IDesignerHost> in order to correctly integrate with the designer transaction processing mechanism, rather than creating a new <xref:System.ComponentModel.Design.DesignerTransaction> directly.</span></span>  
+  
+ <span data-ttu-id="c22d7-111">トランザクション内でアクションを実行するには、まずにトランザクションを作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c22d7-111">To perform an action within a transaction, you must first create a transaction.</span></span> <span data-ttu-id="c22d7-112">呼び出す必要があります、<xref:System.ComponentModel.Design.IComponentChangeService.OnComponentChanging%2A>メソッドのそれぞれの変更または変更のセットが発生すると、前に、<xref:System.ComponentModel.Design.IComponentChangeService.OnComponentChanged%2A>メソッド各変更または一連の変更した後に発生します。</span><span class="sxs-lookup"><span data-stu-id="c22d7-112">Then you must call the <xref:System.ComponentModel.Design.IComponentChangeService.OnComponentChanging%2A> method before each change or set of changes occurs, and the <xref:System.ComponentModel.Design.IComponentChangeService.OnComponentChanged%2A> method after each change or set of changes occur.</span></span> <span data-ttu-id="c22d7-113">最後に完了しを呼び出して、トランザクションを終了、<xref:System.ComponentModel.Design.DesignerTransaction.Commit%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c22d7-113">Finally, complete and close the transaction by calling the <xref:System.ComponentModel.Design.DesignerTransaction.Commit%2A> method.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="c22d7-114">プロパティの値に変更を加える際に使用、<xref:System.ComponentModel.PropertyDescriptor.SetValue%2A>のメソッド、<xref:System.ComponentModel.PropertyDescriptor>のコンポーネントの変更メソッドを呼び出しますが、<xref:System.ComponentModel.Design.IComponentChangeService>を作成し、<xref:System.ComponentModel.Design.DesignerTransaction>自動的に変更を表すです。</span><span class="sxs-lookup"><span data-stu-id="c22d7-114">When making changes to property values, use the <xref:System.ComponentModel.PropertyDescriptor.SetValue%2A> method of a <xref:System.ComponentModel.PropertyDescriptor>, which calls the component change methods of the <xref:System.ComponentModel.Design.IComponentChangeService> and creates a <xref:System.ComponentModel.Design.DesignerTransaction> representing the change automatically.</span></span>  
+  
+ <span data-ttu-id="c22d7-115">トランザクションを実行するには、次の手順を実行します。</span><span class="sxs-lookup"><span data-stu-id="c22d7-115">To perform a transaction, complete the following steps:</span></span>  
+  
+1.  <span data-ttu-id="c22d7-116">呼び出す<xref:System.ComponentModel.Design.IDesignerHost.CreateTransaction%2A>を取得する、<xref:System.ComponentModel.Design.DesignerTransaction>を使用して、トランザクションを制御できます。</span><span class="sxs-lookup"><span data-stu-id="c22d7-116">Call <xref:System.ComponentModel.Design.IDesignerHost.CreateTransaction%2A> to obtain a <xref:System.ComponentModel.Design.DesignerTransaction> that can be used to control the transaction.</span></span>  
+  
+2.  <span data-ttu-id="c22d7-117">内で、`try`で追跡するアクションごとに、ブロック、 <xref:System.ComponentModel.Design.DesignerTransaction>、呼び出し、<xref:System.ComponentModel.Design.IComponentChangeService.OnComponentChanging%2A>メソッドを呼び出すし、変更または変更、<xref:System.ComponentModel.Design.IComponentChangeService.OnComponentChanged%2A>変更または変更が行われたことを通知するメソッド。</span><span class="sxs-lookup"><span data-stu-id="c22d7-117">Within a `try` block, for each action that you want to track with a <xref:System.ComponentModel.Design.DesignerTransaction>, call the <xref:System.ComponentModel.Design.IComponentChangeService.OnComponentChanging%2A> method, make the change or changes, then call the <xref:System.ComponentModel.Design.IComponentChangeService.OnComponentChanged%2A> method to signal that the change or changes have been made.</span></span>  
+  
+3.  <span data-ttu-id="c22d7-118">トランザクションを完了するには、呼び出す<xref:System.ComponentModel.Design.DesignerTransaction.Commit%2A>内から、`finally`ブロックします。</span><span class="sxs-lookup"><span data-stu-id="c22d7-118">To complete the transaction, call <xref:System.ComponentModel.Design.DesignerTransaction.Commit%2A> from within a `finally` block.</span></span>  
+  
+ <span data-ttu-id="c22d7-119">C# の場合は、使用することができます、`using`ステートメントではなく、`try/finally`ブロックする場合に、次の例のようにします。</span><span class="sxs-lookup"><span data-stu-id="c22d7-119">In C#, you can use the `using` statement rather than a `try/finally` block, such as in the following example.</span></span>  
+  
+```  
+using (host.CreateTransaction() {  
+// Insert your code here.  
+}  
+```  
+  
+ <span data-ttu-id="c22d7-120">[キャンセル] を前に、コミットされたトランザクションをロールバックしようとしています。 は、呼び出し、<xref:System.ComponentModel.Design.DesignerTransaction.Cancel%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c22d7-120">To cancel and attempt to roll back a transaction before it has been committed, call the <xref:System.ComponentModel.Design.DesignerTransaction.Cancel%2A> method.</span></span> <span data-ttu-id="c22d7-121">ときに、<xref:System.ComponentModel.Design.DesignerTransaction.Cancel%2A>メソッドが呼び出され、アクションがによって追跡、<xref:System.ComponentModel.Design.DesignerTransaction>が逆に、変更をロールバックしようとします。</span><span class="sxs-lookup"><span data-stu-id="c22d7-121">When the <xref:System.ComponentModel.Design.DesignerTransaction.Cancel%2A> method is invoked, the actions tracked by the <xref:System.ComponentModel.Design.DesignerTransaction> are reversed to attempt to roll back the changes.</span></span> <span data-ttu-id="c22d7-122">以前のトランザクションの一部として発生したアクションを元に戻すには、開発環境で提供元に戻すコマンドを使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c22d7-122">To undo actions that occurred as part of earlier transactions, you must use the undo command provided by the development environment.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c22d7-123">次のコード例のプログラムを作成する方法を示しています、<xref:System.ComponentModel.Design.DesignerTransaction>デザイナーから。</span><span class="sxs-lookup"><span data-stu-id="c22d7-123">The following code example program demonstrates how to create a <xref:System.ComponentModel.Design.DesignerTransaction> from a designer.</span></span> <span data-ttu-id="c22d7-124">このサンプルを実行するには、ソース コードをコンパイルしてクラス ライブラリです。</span><span class="sxs-lookup"><span data-stu-id="c22d7-124">To run this sample, compile the source code into a class library.</span></span> <span data-ttu-id="c22d7-125">System.Design アセンブリへの参照を追加する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c22d7-125">You must add a reference to the System.Design assembly.</span></span> <span data-ttu-id="c22d7-126">新しいプロジェクトにコンパイル済み DLL への参照を追加してライブラリでは、コンポーネントを追加、**ツールボックス**です。</span><span class="sxs-lookup"><span data-stu-id="c22d7-126">In a new project, add a reference to the compiled DLL and add the component in the library to the **Toolbox**.</span></span>  
+  
+ <span data-ttu-id="c22d7-127">Visual Studio では、この機能の広範なサポートがあります。</span><span class="sxs-lookup"><span data-stu-id="c22d7-127">There is extensive support for this feature in Visual Studio.</span></span>  
+  
+ <span data-ttu-id="c22d7-128">参照してください[チュートリアル: カスタム コンポーネントを使用して、ツールボックスが自動的に入力](http://msdn.microsoft.com/library/fw694kde\(v=vs.110\).aspx)です。</span><span class="sxs-lookup"><span data-stu-id="c22d7-128">Also see [Walkthrough: Automatically Populating the Toolbox with Custom Components](http://msdn.microsoft.com/library/fw694kde\(v=vs.110\).aspx).</span></span>  
+  
+ <span data-ttu-id="c22d7-129">デザイナーは、デザイナーのトランザクションのイベントに関する通知を必要に応じて表示できます。</span><span class="sxs-lookup"><span data-stu-id="c22d7-129">The designer can optionally display notifications about designer transaction events.</span></span> <span data-ttu-id="c22d7-130">インスタンスを追加する場合、`DTComponent`フォームをデザイン モードでは、メッセージ ボックスが表示されますかを確認するデザイナー トランザクションのイベント通知を受信するかどうか。</span><span class="sxs-lookup"><span data-stu-id="c22d7-130">If you add an instance of the `DTComponent` to a form while in design mode, a message box appears asking whether you would like to receive designer transaction event notifications.</span></span> <span data-ttu-id="c22d7-131">インスタンスを右クリックしたときに表示されるショートカット メニューを使用してこれらの通知を切り替えることが、`DTComponent`です。</span><span class="sxs-lookup"><span data-stu-id="c22d7-131">You may toggle these notifications using the shortcut menu that appears when you right-click an instance of the `DTComponent`.</span></span> <span data-ttu-id="c22d7-132">[プロパティ] ウィンドウを使用して値を変更すると、トランザクションが作成されます。</span><span class="sxs-lookup"><span data-stu-id="c22d7-132">Transactions are created when you change values using the Properties window.</span></span> <span data-ttu-id="c22d7-133">クリックして、トランザクションを実行するデザイナーを用意することも**トランザクション例を実行**コンポーネントのショートカット メニューの します。</span><span class="sxs-lookup"><span data-stu-id="c22d7-133">You can also have the designer perform a transaction by clicking **Perform Example Transaction** on the shortcut menu for the component.</span></span>  
+  
+ [!code-cpp[DesignerTransaction Sample#1](~/samples/snippets/cpp/VS_Snippets_Winforms/DesignerTransaction Sample/CPP/source.cpp#1)]
+ [!code-csharp[DesignerTransaction Sample#1](~/samples/snippets/csharp/VS_Snippets_Winforms/DesignerTransaction Sample/CS/source.cs#1)]
+ [!code-vb[DesignerTransaction Sample#1](~/samples/snippets/visualbasic/VS_Snippets_Winforms/DesignerTransaction Sample/VB/source.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <permission cref="T:System.Security.NamedPermissionSet">
+      <span data-ttu-id="c22d7-134">システム リソースへのフル アクセスできます。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c22d7-134">for full access to system resources.</span>
+      </span>
+      <span data-ttu-id="c22d7-135">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c22d7-135">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+      </span>
+      <span data-ttu-id="c22d7-136">関連付けられた状態。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c22d7-136">Associated state:</span>
+      </span>
+    </permission>
+    <altmember cref="T:System.ComponentModel.Design.IDesignerHost" />
+    <altmember cref="T:System.ComponentModel.Design.IComponentChangeService" />
+    <altmember cref="T:System.ComponentModel.PropertyDescriptor" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-137">Initializes a new instance of the <see cref="T:System.ComponentModel.Design.DesignerTransaction" /> class.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-137">Initializes a new instance of the <see cref="T:System.ComponentModel.Design.DesignerTransaction" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected DesignerTransaction ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Design.DesignerTransaction.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; DesignerTransaction();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-138">Initializes a new instance of the <see cref="T:System.ComponentModel.Design.DesignerTransaction" /> class with no description.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-138">Initializes a new instance of the <see cref="T:System.ComponentModel.Design.DesignerTransaction" /> class with no description.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-139">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-139">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-140">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-140">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-141">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-141">Associated state:</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected DesignerTransaction (string description);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor(string description) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Design.DesignerTransaction.#ctor(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New (description As String)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; DesignerTransaction(System::String ^ description);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="description" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="description">
+          <span data-ttu-id="c22d7-142">A description for this transaction.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-142">A description for this transaction.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c22d7-143">Initializes a new instance of the <see cref="T:System.ComponentModel.Design.DesignerTransaction" /> class using the specified transaction description.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-143">Initializes a new instance of the <see cref="T:System.ComponentModel.Design.DesignerTransaction" /> class using the specified transaction description.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-144">このコンス トラクターは、指定された説明を使用してトランザクションを初期化します。</span><span class="sxs-lookup"><span data-stu-id="c22d7-144">This constructor initializes the transaction with the specified description.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-145">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-145">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-146">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-146">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-147">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-147">Associated state:</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Cancel">
+      <MemberSignature Language="C#" Value="public void Cancel ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Cancel() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Design.DesignerTransaction.Cancel" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Cancel ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Cancel();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-148">Cancels the transaction and attempts to roll back the changes made by the events of the transaction.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-148">Cancels the transaction and attempts to roll back the changes made by the events of the transaction.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-149">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-149">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-150">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-150">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-151">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-151">Associated state:</span>
+          </span>
+        </permission>
+        <altmember cref="M:System.ComponentModel.Design.DesignerTransaction.OnCancel" />
+      </Docs>
+    </Member>
+    <Member MemberName="Canceled">
+      <MemberSignature Language="C#" Value="public bool Canceled { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool Canceled" />
+      <MemberSignature Language="DocId" Value="P:System.ComponentModel.Design.DesignerTransaction.Canceled" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Canceled As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool Canceled { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-152">Gets a value indicating whether the transaction was canceled.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-152">Gets a value indicating whether the transaction was canceled.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c22d7-153">トランザクションがキャンセルされた場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-153">
+              <see langword="true" /> if the transaction was canceled; otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-154">デザイナーのトランザクションが取り消されると、トランザクション処理機構は、トランザクションでこれまでに行われた変更をロールバックしようとします。</span><span class="sxs-lookup"><span data-stu-id="c22d7-154">When a designer transaction is canceled, the transaction processing mechanism attempts to roll back the changes that have been made so far in the transaction.</span></span> <span data-ttu-id="c22d7-155">これが成功したかどうかは、干渉して関連するコードの状態のいずれかの他の操作かどうかと、一連の必要な操作を完了できなかったかどうか、各操作の種類などの要因によって異なります。</span><span class="sxs-lookup"><span data-stu-id="c22d7-155">Whether this succeeds is dependent upon such factors as the type of each operation, whether other operations interfered with any of the involved code's state, and whether a sequence of expected operations failed to complete.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-156">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-156">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-157">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-157">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-158">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-158">Associated state:</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Commit">
+      <MemberSignature Language="C#" Value="public void Commit ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Commit() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Design.DesignerTransaction.Commit" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Commit ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Commit();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-159">Commits this transaction.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-159">Commits this transaction.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-160">デザイナーのトランザクションがコミットされると、トランザクションが完了したと見なす詳細の変更は追跡されません。</span><span class="sxs-lookup"><span data-stu-id="c22d7-160">When a designer transaction is committed, the transaction is considered complete and does not track further changes.</span></span>  
+  
+ <span data-ttu-id="c22d7-161">トランザクションがコミットされた後さらにこのメソッドの呼び出しを何もありません。</span><span class="sxs-lookup"><span data-stu-id="c22d7-161">Once a transaction has been committed, further calls to this method do nothing.</span></span> <span data-ttu-id="c22d7-162">常に、トランザクションが正常に閉じることを確認するトランザクションの作成後にこのメソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c22d7-162">Always call this method after creating a transaction to ensure that the transaction closes properly.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-163">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-163">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-164">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-164">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-165">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-165">Associated state:</span>
+          </span>
+        </permission>
+        <altmember cref="M:System.ComponentModel.Design.DesignerTransaction.OnCommit" />
+      </Docs>
+    </Member>
+    <Member MemberName="Committed">
+      <MemberSignature Language="C#" Value="public bool Committed { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool Committed" />
+      <MemberSignature Language="DocId" Value="P:System.ComponentModel.Design.DesignerTransaction.Committed" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Committed As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool Committed { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-166">Gets a value indicating whether the transaction was committed.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-166">Gets a value indicating whether the transaction was committed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c22d7-167">トランザクションがコミットされた場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-167">
+              <see langword="true" /> if the transaction was committed; otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-168">デザイナーのトランザクションがコミットされると、トランザクションが完了したと見なす詳細の変更は追跡されません。</span><span class="sxs-lookup"><span data-stu-id="c22d7-168">When a designer transaction is committed, the transaction is considered complete and does not track further changes.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-169">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-169">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-170">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-170">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-171">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-171">Associated state:</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Description">
+      <MemberSignature Language="C#" Value="public string Description { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Description" />
+      <MemberSignature Language="DocId" Value="P:System.ComponentModel.Design.DesignerTransaction.Description" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Description As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Description { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-172">Gets a description for the transaction.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-172">Gets a description for the transaction.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c22d7-173">トランザクションの説明。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-173">A description for the transaction.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-174">トランザクションは、操作の性質を特定するに役に立つ説明を持つことができます。</span><span class="sxs-lookup"><span data-stu-id="c22d7-174">A transaction can have a description that is useful in identifying the nature of the operation or operations.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-175">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-175">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-176">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-176">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-177">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-177">Associated state:</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected virtual void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Design.DesignerTransaction.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">
+          <span data-ttu-id="c22d7-178">
+            <see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-178">
+              <see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c22d7-179">Releases the unmanaged resources used by the <see cref="T:System.ComponentModel.Design.DesignerTransaction" /> and optionally releases the managed resources.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-179">Releases the unmanaged resources used by the <see cref="T:System.ComponentModel.Design.DesignerTransaction" /> and optionally releases the managed resources.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-180">このメソッドは、パブリック`Dispose()`メソッドおよび<xref:System.Object.Finalize%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c22d7-180">This method is called by the public `Dispose()` method and the <xref:System.Object.Finalize%2A> method.</span></span> <span data-ttu-id="c22d7-181">`Dispose()` プロテクト呼び出します`Dispose(Boolean)`メソッドを`disposing`パラメーターに設定`true`です。</span><span class="sxs-lookup"><span data-stu-id="c22d7-181">`Dispose()` invokes the protected `Dispose(Boolean)` method with the `disposing` parameter set to `true`.</span></span> <span data-ttu-id="c22d7-182"><xref:System.Object.Finalize%2A> 呼び出す`Dispose`で`disposing`'éý'`false`です。</span><span class="sxs-lookup"><span data-stu-id="c22d7-182"><xref:System.Object.Finalize%2A> invokes `Dispose` with `disposing` set to `false`.</span></span>  
+  
+ <span data-ttu-id="c22d7-183">`disposing` パラメーターが `true` の場合、このメソッドは、この <xref:System.ComponentModel.Design.DesignerTransaction> が参照しているすべてのマネージ オブジェクトによって保持されているリソースをすべて解放します。</span><span class="sxs-lookup"><span data-stu-id="c22d7-183">When the `disposing` parameter is `true`, this method releases all resources held by any managed objects that this <xref:System.ComponentModel.Design.DesignerTransaction> references.</span></span> <span data-ttu-id="c22d7-184">このメソッドは、参照される各オブジェクトの `Dispose()` メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c22d7-184">This method invokes the `Dispose()` method of each referenced object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-185">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-185">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-186">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-186">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-187">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-187">Associated state:</span>
+          </span>
+        </permission>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="c22d7-188">
+              <see langword="Dispose" /> は、他のオブジェクトから複数回呼び出すことができます。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c22d7-188">
+                <see langword="Dispose" /> can be called multiple times by other objects.</span>
+            </span>
+            <span data-ttu-id="c22d7-189">
+              <see langword="Dispose(Boolean)" /> をオーバーライドする場合は、以前に <see langword="Dispose" /> を呼び出したときに破棄されたオブジェクトを参照しないように注意する必要があります。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c22d7-189">When overriding <see langword="Dispose(Boolean)" />, be careful not to reference objects that have been previously disposed of in an earlier call to <see langword="Dispose" />.</span>
+            </span>
+            <span data-ttu-id="c22d7-190">実装する方法の詳細についての<see langword="Dispose(Boolean)" />を参照してください[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c22d7-190">For more information about how to implement <see langword="Dispose(Boolean)" />, see [Implementing a Dispose Method](~/docs/standard/garbage-collection/implementing-dispose.md).</span>
+            </span>
+            <span data-ttu-id="c22d7-191">詳細については<see langword="Dispose" />と<see cref="M:System.Object.Finalize" />を参照してください[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)と[Finalize メソッドをオーバーライドする](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c22d7-191">For more information about <see langword="Dispose" /> and <see cref="M:System.Object.Finalize" />, see [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md) and [Overriding the Finalize Method](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="Finalize">
+      <MemberSignature Language="C#" Value="~DesignerTransaction ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Finalize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Design.DesignerTransaction.Finalize" />
+      <MemberSignature Language="VB.NET" Value="Finalize ()" />
+      <MemberSignature Language="C++ CLI" Value="!DesignerTransaction ()" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-192">Releases the resources associated with this object.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-192">Releases the resources associated with this object.</span>
+          </span>
+          <span data-ttu-id="c22d7-193">This override commits this transaction if it was not already committed.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-193">This override commits this transaction if it was not already committed.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-194">このメソッドは<xref:System.Object.Finalize%2A?displayProperty=nameWithType>を呼び出してリソースをクリーンアップし、`Dispose(false)`です。</span><span class="sxs-lookup"><span data-stu-id="c22d7-194">This method overrides <xref:System.Object.Finalize%2A?displayProperty=nameWithType> and cleans up resources by calling `Dispose(false)`.</span></span> <span data-ttu-id="c22d7-195">`Dispose(Boolean)` をオーバーライドしてクリーンアップをカスタマイズします。</span><span class="sxs-lookup"><span data-stu-id="c22d7-195">Override `Dispose(Boolean)` to customize the cleanup.</span></span>  
+  
+ <span data-ttu-id="c22d7-196">アプリケーション コードではこのメソッドを呼び出す必要がありますいません。オブジェクトの`Finalize`への呼び出しによって、ガベージ コレクターによって終了処理が無効になっていない限り、ガベージ コレクション中にメソッドが自動的に起動、<xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c22d7-196">Application code should not call this method; an object's `Finalize` method is automatically invoked during garbage collection, unless finalization by the garbage collector has been disabled by a call to the <xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ <span data-ttu-id="c22d7-197">詳細については、次を参照してください。 [Finalize メソッドおよびデストラクター](http://msdn.microsoft.com/library/fd376774-1643-499b-869e-9546a3aeea70)、[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)、および[Finalize メソッドをオーバーライドする](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3)です。</span><span class="sxs-lookup"><span data-stu-id="c22d7-197">For more information, see [Finalize Methods and Destructors](http://msdn.microsoft.com/library/fd376774-1643-499b-869e-9546a3aeea70), [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md), and [Overriding the Finalize Method](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-198">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-198">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-199">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-199">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-200">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-200">Associated state:</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="OnCancel">
+      <MemberSignature Language="C#" Value="protected abstract void OnCancel ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnCancel() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Design.DesignerTransaction.OnCancel" />
+      <MemberSignature Language="VB.NET" Value="Protected MustOverride Sub OnCancel ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract void OnCancel();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-201">Raises the <see langword="Cancel" /> event.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-201">Raises the <see langword="Cancel" /> event.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-202">デザイナーのトランザクションが取り消されると、トランザクション処理機構は、トランザクションでこれまでに行われた変更をロールバックしようとします。</span><span class="sxs-lookup"><span data-stu-id="c22d7-202">When a designer transaction is canceled, the transaction processing mechanism attempts to roll back the changes that have been made so far in the transaction.</span></span> <span data-ttu-id="c22d7-203">これが成功したかどうかは、干渉して関連するコードの状態のいずれかの他の操作かどうかと、一連の必要な操作を完了できなかったかどうか、各操作の種類などの要因によって異なります。</span><span class="sxs-lookup"><span data-stu-id="c22d7-203">Whether this succeeds is dependent upon such factors as the type of each operation, whether other operations interfered with any of the involved code's state, and whether a sequence of expected operations failed to complete.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-204">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-204">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-205">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-205">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-206">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-206">Associated state:</span>
+          </span>
+        </permission>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="c22d7-207">派生クラスで実装された場合、このメソッドは、トランザクションをキャンセルします。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c22d7-207">When implemented in a derived class, this method cancels a transaction.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="M:System.ComponentModel.Design.DesignerTransaction.Cancel" />
+      </Docs>
+    </Member>
+    <Member MemberName="OnCommit">
+      <MemberSignature Language="C#" Value="protected abstract void OnCommit ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnCommit() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Design.DesignerTransaction.OnCommit" />
+      <MemberSignature Language="VB.NET" Value="Protected MustOverride Sub OnCommit ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract void OnCommit();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-208">Performs the actual work of committing a transaction.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-208">Performs the actual work of committing a transaction.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-209">デザイナーのトランザクションがコミットされると、トランザクションが完了したと見なす詳細の変更は追跡されません。</span><span class="sxs-lookup"><span data-stu-id="c22d7-209">When a designer transaction is committed, the transaction is considered complete and does not track further changes.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-210">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-210">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-211">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-211">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-212">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-212">Associated state:</span>
+          </span>
+        </permission>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="c22d7-213">派生クラスで実装された場合、このメソッドは、トランザクションの処理に関連付けられている作業を実行します。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c22d7-213">When implemented in a derived class, this method performs work associated with processing the transaction.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="M:System.ComponentModel.Design.DesignerTransaction.Commit" />
+      </Docs>
+    </Member>
+    <Member MemberName="System.IDisposable.Dispose">
+      <MemberSignature Language="C#" Value="void IDisposable.Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance void System.IDisposable.Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Design.DesignerTransaction.System#IDisposable#Dispose" />
+      <MemberSignature Language="VB.NET" Value="Sub Dispose () Implements IDisposable.Dispose" />
+      <MemberSignature Language="C++ CLI" Value=" virtual void System.IDisposable.Dispose() = IDisposable::Dispose;" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.IDisposable.Dispose</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.TypeConverter</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c22d7-214">Releases all resources used by the <see cref="T:System.ComponentModel.Design.DesignerTransaction" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-214">Releases all resources used by the <see cref="T:System.ComponentModel.Design.DesignerTransaction" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c22d7-215">トランザクションが破棄されると、それがコミットされます。</span><span class="sxs-lookup"><span data-stu-id="c22d7-215">When a transaction is disposed, it is committed.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="T:System.Security.NamedPermissionSet">
+          <span data-ttu-id="c22d7-216">システム リソースへのフル アクセスできます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-216">for full access to system resources.</span>
+          </span>
+          <span data-ttu-id="c22d7-217">要求値:<see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-217">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand" />.</span>
+          </span>
+          <span data-ttu-id="c22d7-218">関連付けられた状態。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c22d7-218">Associated state:</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
