@@ -1,0 +1,1108 @@
+<Type Name="PersonalizationProvider" FullName="System.Web.UI.WebControls.WebParts.PersonalizationProvider">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="e6b4385b1e11acc80b4dbe543f5244ffb8f83df9" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class PersonalizationProvider : System.Configuration.Provider.ProviderBase" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit PersonalizationProvider extends System.Configuration.Provider.ProviderBase" />
+  <TypeSignature Language="DocId" Value="T:System.Web.UI.WebControls.WebParts.PersonalizationProvider" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class PersonalizationProvider&#xA;Inherits ProviderBase" />
+  <TypeSignature Language="C++ CLI" Value="public ref class PersonalizationProvider abstract : System::Configuration::Provider::ProviderBase" />
+  <AssemblyInfo>
+    <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Configuration.Provider.ProviderBase</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="3bbf6-101">パーソナル化プロバイダーの基本機能を実装します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="3bbf6-101">Implements the basic functionality for a personalization provider.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-102">これは、パーソナル化プロバイダーに必要な機能を定義する抽象基本クラスです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-102">This is the abstract base class that defines the required functionality of a personalization provider.</span></span> <span data-ttu-id="3bbf6-103">パーソナル化プロバイダーを読み込み、両方の代わりにパーソナル化データを格納、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-103">A personalization provider both loads and stores personalization data on behalf of a <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization> instance.</span></span>  
+  
+ <span data-ttu-id="3bbf6-104">多くのメソッドに対して標準の動作を定義する基底クラス具体的には、基になるデータ ストアを処理するメソッドのみを抽象にマークされます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-104">The base class defines standard behavior for a number of methods; only those methods that specifically deal with the underlying data store are marked abstract.</span></span> <span data-ttu-id="3bbf6-105">これにより、開発者によって使用される標準的な機能を再実装しなくても、特定のデータ ストアと対話するカスタム プロバイダーを作成する、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization>クラスです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-105">This allows a developer to write a custom provider to interact with a specific data store, without needing to re-implement standard functionality used by the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization> class.</span></span>  
+  
+ ]]></format>
+    </remarks>
+    <block subset="none" type="overrides">
+      <para>
+        <span data-ttu-id="3bbf6-106">派生できます<see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationProvider" />し、このクラスで定義されている抽象メソッドのみの実装を提供します。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="3bbf6-106">You can derive from <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationProvider" /> and provide implementations for only the abstract methods defined in this class.</span>
+        </span>
+        <span data-ttu-id="3bbf6-107">抽象メソッドは、具体的には保存と物理データ ストアへのデータの読み込みとデータ ストアの管理を処理します。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="3bbf6-107">The abstract methods deal specifically with saving and loading data to a physical data store, and with data store administration.</span>
+        </span>
+        <span data-ttu-id="3bbf6-108">カスタム プロバイダーは、パーソナル化情報と区別する方法で操作するための対応する必要があります<see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared" />からデータを<see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.User" />データ。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="3bbf6-108">A custom provider must be capable of manipulating personalization information in a manner that distinguishes <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared" /> data from <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.User" /> data.</span>
+        </span>
+        <span data-ttu-id="3bbf6-109">さらに、プロバイダーは、およびアプリケーション ページでに、パーソナル化データをセグメント化する必要があります。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="3bbf6-109">Furthermore, a provider must segment personalization data by page as well as by application.</span>
+        </span>
+        <span data-ttu-id="3bbf6-110">実装<see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationProvider" />の実装に密接に結び付いている<see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" />いくつかのパーソナル化プロバイダー メソッドは、のインスタンスを返すため<see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" />-クラスを派生します。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="3bbf6-110">Implementations of <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationProvider" /> are tightly coupled to implementations of <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" /> because some personalization provider methods return instances of <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" />-derived classes.</span>
+        </span>
+        <span data-ttu-id="3bbf6-111">カスタムのプロバイダーの開発を容易にする、<see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationProvider" />基底クラスには、パーソナル化ロジックと直接によって使用されるシリアル化または逆シリアル化ロジックの既定の実装が含まれています、<see cref="T:System.Web.UI.WebControls.WebParts.WebPartPersonalization" />クラスです。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="3bbf6-111">To ease development of custom providers, the <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationProvider" /> base class includes a default implementation of the personalization logic and serialization/deserialization logic that is used directly by the <see cref="T:System.Web.UI.WebControls.WebParts.WebPartPersonalization" /> class.</span>
+        </span>
+        <span data-ttu-id="3bbf6-112">その結果、作成するカスタム プロバイダーを別のデータ ストアで作業するためだけのみが必要です次の抽象メソッドの実装。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="3bbf6-112">As a result, authoring a custom provider solely for the purpose of working with a different data store only requires implementation of the following abstract methods:</span>
+        </span>  
+  
+-   <span data-ttu-id="3bbf6-113"><see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.GetCountOfState(System.Web.UI.WebControls.WebParts.PersonalizationScope,System.Web.UI.WebControls.WebParts.PersonalizationStateQuery)" /> -このメソッドは、指定されたクエリ パラメーターに対して、データベース内のパーソナル化データの行の数をカウントすることである必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-113"><see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.GetCountOfState(System.Web.UI.WebControls.WebParts.PersonalizationScope,System.Web.UI.WebControls.WebParts.PersonalizationStateQuery)" /> - This method needs to be able to count the number of rows of personalization data in the database for the supplied query parameters.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-114"><see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationBlobs(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String,System.Byte[]@,System.Byte[]@)" /> -指定するパスとユーザー名と、このメソッド バイナリ ラージ オブジェクト (Blob) の 2 つのデータベースから読み込みます。 共有データとユーザー データのいずれか 1 つの BLOB。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-114"><see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationBlobs(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String,System.Byte[]@,System.Byte[]@)" /> - Given the path and user name, this method loads two binary large objects (BLOBs) from the database: one BLOB for shared data and one for user data.</span></span><span data-ttu-id="3bbf6-115">ユーザー名とパスを指定するかどうかは、必要としない、<see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />ユーザー名/パス情報を提供するページの情報にアクセスを制御します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-115">If you supply the user name and path, then you do not need the <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> control to access the page information that can provide the user name/path information.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-116"><see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetPersonalizationBlob(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String)" /> -指定するパスとユーザー名と、このメソッドは、データベース内の対応する行を削除します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-116"><see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetPersonalizationBlob(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String)" /> - Given the path and user name, this method deletes the corresponding row in the database.</span></span><span data-ttu-id="3bbf6-117">ユーザー名とパスを指定するかどうかは、必要としない、<see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />ユーザー名/パス情報を提供するページの情報にアクセスを制御します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-117">If you supply the user name and path, then you do not need the <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> control to access the page information that can provide the user name/path information.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-118"><see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.SavePersonalizationBlob(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String,System.Byte[])" /> -指定するパスとユーザー名と、このメソッドは、データベースに指定された BLOB を保存します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-118"><see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.SavePersonalizationBlob(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String,System.Byte[])" /> - Given the path and user name, this method saves the supplied BLOB to the database.</span></span><span data-ttu-id="3bbf6-119">ユーザー名とパスを指定するかどうかは、必要としない、<see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />ユーザー名/パス情報を提供するページの情報にアクセスを制御します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-119">If you supply the user name and path, then you do not need the <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> control to access the page information that can provide the user name/path information.</span></span><span data-ttu-id="3bbf6-120">これらのメソッドのすべてのパスを指定すると、専用の場合を示すページの共有パーソナル化データが有効になってです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-120">In all of these methods, if only a path is supplied, that indicates the shared personalization data for the page is being operated upon.</span></span><span data-ttu-id="3bbf6-121">パスと、ユーザー名の両方がメソッドに渡された場合に、ページのユーザーのパーソナル化データが対応する必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-121">If both a path and a username are passed to a method, then the user personalization data for the page should be acted upon.</span></span><span data-ttu-id="3bbf6-122">場合、 <see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationBlobs(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String,System.Byte[]@,System.Byte[]@)" />、常に、指定されたパスの共有のデータは読み込まれて、および必要に応じて、ユーザーのパーソナル化データのパスも読み込む場合は、ユーザー名がない<see langword="null" />です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-122">In the case of <see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationBlobs(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String,System.Byte[]@,System.Byte[]@)" />, the shared data for the specified path should always be loaded, and optionally the user personalization data for the path should also be loaded if the username is not <see langword="null" />.</span></span><span data-ttu-id="3bbf6-123">他のすべての抽象メソッドでは、管理アプリケーションでのみ使用するものではされ、実行時に、Web パーツのインフラストラクチャによって使用されません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-123">All other abstract methods are intended for use only in administrative applications and are not used by the Web Parts infrastructure at run time.</span></span><span data-ttu-id="3bbf6-124">パーソナル化プロバイダー実装の例は、次を参照してください。、<see cref="T:System.Web.UI.WebControls.WebParts.SqlPersonalizationProvider" />クラスです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-124">For an example of an implementation of a personalization provider, see the <see cref="T:System.Web.UI.WebControls.WebParts.SqlPersonalizationProvider" /> class.</span></span></para>
+    </block>
+    <altmember cref="T:System.Web.UI.WebControls.WebParts.SqlPersonalizationProvider" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected PersonalizationProvider ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; PersonalizationProvider();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="3bbf6-125">
+            <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationProvider" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-125">Initializes a new instance of the <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationProvider" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-126">これは抽象クラスのコンス トラクターであるため、このクラスから継承するクラスのインスタンスを作成するには、このメソッドをオーバーライドする必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-126">Because this is a constructor for an abstract class, you must override this method to create an instance of a class that inherits from this class.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ApplicationName">
+      <MemberSignature Language="C#" Value="public abstract string ApplicationName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ApplicationName" />
+      <MemberSignature Language="DocId" Value="P:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Property ApplicationName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract property System::String ^ ApplicationName { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3bbf6-127">派生クラスでオーバーライドされると、プロバイダーに対して構成されたアプリケーションの名前を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-127">When overridden in a derived class, gets or sets the name of the application configured for the provider.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="3bbf6-128">パーソナル化プロバイダーに対して構成されたアプリケーション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-128">The application configured for the personalization provider.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-129">構成ファイルを使用して、アプリケーション名が指定されていない場合、[プロバイダー要素 (ASP.NET 設定スキーマ) の web パーツのパーソナル化の](http://msdn.microsoft.com/library/51363b49-eafa-4b9c-b9d0-80086b385195)属性の値、<xref:System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath%2A>プロパティを使用します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-129">If an application name is not specified in the configuration file using the [providers Element for personalization for webParts (ASP.NET Settings Schema)](http://msdn.microsoft.com/library/51363b49-eafa-4b9c-b9d0-80086b385195) attribute, the value of the <xref:System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath%2A> property is used.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="3bbf6-130">1 つの既定のパーソナル化プロバイダー インスタンスで処理されたすべての要求が使用されるため、<xref:System.Web.HttpApplication>オブジェクト、複数の要求を設定しようとしてそれぞれを同時に、実行することができます、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A>プロパティの値。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-130">Because a single, default personalization provider instance is used for all the requests served by an <xref:System.Web.HttpApplication> object, you can have multiple requests executing concurrently, each attempting to set the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A> property value.</span></span> <span data-ttu-id="3bbf6-131"><xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A>プロパティはスレッド セーフである複数の書き込みでは、変更して、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A>プロパティの値は、アプリケーションの複数のユーザーに対して予期しない動作になります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-131">The <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A> property is not thread-safe for multiple writes, and changing the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A> property value can result in unexpected behavior for multiple users of an application.</span></span> <span data-ttu-id="3bbf6-132">ユーザーが設定できるようにコードを避けることをお勧めしますが、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A>プロパティに必要な場合を除き、します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-132">It is recommended that you avoid code allowing users to set the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A> property unless required.</span></span> <span data-ttu-id="3bbf6-133">設定、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A>プロパティなど、複数のアプリケーションのパーソナル化データを管理する管理アプリケーションで、必要な場合があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-133">Setting the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ApplicationName%2A> property might be required, for example, in an administrative application that manages personalization data for multiple applications.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateSupportedUserCapabilities">
+      <MemberSignature Language="C#" Value="protected virtual System.Collections.IList CreateSupportedUserCapabilities ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class System.Collections.IList CreateSupportedUserCapabilities() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.CreateSupportedUserCapabilities" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Function CreateSupportedUserCapabilities () As IList" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual System::Collections::IList ^ CreateSupportedUserCapabilities();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.IList</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="3bbf6-134">Web パーツ コントロール セットによって使用される一連の既知の機能を表す <see cref="T:System.Web.UI.WebControls.WebParts.WebPartUserCapability" /> オブジェクトのリストを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-134">Returns a list of <see cref="T:System.Web.UI.WebControls.WebParts.WebPartUserCapability" /> objects that represent the set of known capabilities used by the Web Parts control set.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3bbf6-135">Web パーツ コントロール セットによって使用される一連の既知の機能を表す <see cref="T:System.Collections.IList" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-135">An <see cref="T:System.Collections.IList" /> that represents the set of known capabilities used by the Web Parts control set.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-136">現時点では、このメソッドが 2 つの機能を含む一覧を返します:<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.EnterSharedScopeUserCapability>と<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.ModifyStateUserCapability>です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-136">Currently, this method returns a list containing two capabilities: <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.EnterSharedScopeUserCapability> and <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.ModifyStateUserCapability>.</span></span> <span data-ttu-id="3bbf6-137">これらは、既定の機能で定義できる、[承認要素 (ASP.NET 設定スキーマ) の web パーツのパーソナル化を](http://msdn.microsoft.com/library/d190d4ff-1445-4ee1-88eb-9737c7aa1434)内の要素、 [(ASP.NET 設定スキーマ) の web パーツのパーソナル化要素](http://msdn.microsoft.com/library/3d77da55-73ce-46ce-97cf-7d2abcaada09)の要素、[要素 (ASP.NET 設定スキーマ) の web パーツ](http://msdn.microsoft.com/library/90af5acc-5a80-4b39-bba7-74afd06b167c)構成セクション。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-137">These are the default capabilities that can be defined in the [authorization Element for personalization for webParts (ASP.NET Settings Schema)](http://msdn.microsoft.com/library/d190d4ff-1445-4ee1-88eb-9737c7aa1434) element within the [personalization Element for webParts (ASP.NET Settings Schema)](http://msdn.microsoft.com/library/3d77da55-73ce-46ce-97cf-7d2abcaada09) element of the[webParts Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/library/90af5acc-5a80-4b39-bba7-74afd06b167c) configuration section.</span></span> <span data-ttu-id="3bbf6-138">カスタムのパーソナル化インフラストラクチャを実装する場合は、このメソッドをオーバーライドし、独自の一連のユーザーの承認に関連する機能を定義できます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-138">If you choose to implement a custom personalization infrastructure, you can override this method and define your own set of authorization-related user capabilities.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="DetermineInitialScope">
+      <MemberSignature Language="C#" Value="public virtual System.Web.UI.WebControls.WebParts.PersonalizationScope DetermineInitialScope (System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, System.Web.UI.WebControls.WebParts.PersonalizationState loadedState);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance valuetype System.Web.UI.WebControls.WebParts.PersonalizationScope DetermineInitialScope(class System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, class System.Web.UI.WebControls.WebParts.PersonalizationState loadedState) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.DetermineInitialScope(System.Web.UI.WebControls.WebParts.WebPartManager,System.Web.UI.WebControls.WebParts.PersonalizationState)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Web::UI::WebControls::WebParts::PersonalizationScope DetermineInitialScope(System::Web::UI::WebControls::WebParts::WebPartManager ^ webPartManager, System::Web::UI::WebControls::WebParts::PersonalizationState ^ loadedState);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.UI.WebControls.WebParts.PersonalizationScope</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="webPartManager" Type="System.Web.UI.WebControls.WebParts.WebPartManager" />
+        <Parameter Name="loadedState" Type="System.Web.UI.WebControls.WebParts.PersonalizationState" />
+      </Parameters>
+      <Docs>
+        <param name="webPartManager">
+          <span data-ttu-id="3bbf6-139">パーソナル化情報を管理する <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-139">The <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> that manages the personalization information.</span>
+          </span>
+        </param>
+        <param name="loadedState">
+          <span data-ttu-id="3bbf6-140">パーソナル化状態情報。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-140">The personalization state information.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-141">初期パーソナル化スコープが、<see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared" /> スコープと <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.User" /> スコープのどちらであるかを判断します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-141">Determines whether the initial personalization scope should be <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared" /> or <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.User" /> scope.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3bbf6-142">現在のパーソナル化スコープが <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationScope" /> と <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.User" /> のどちらであるかを示す <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-142">A <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationScope" /> indicating whether the current personalization scope is <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.User" /> or <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-143">このメソッドは、現在のスコープができるかどうかを判断<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>または<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>への参照を与え、<xref:System.Web.UI.WebControls.WebParts.WebPartManager>コントロールとパーソナル化状態がまだ読み込まれてから、パーソナル化ライフ サイクルの前半の情報です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-143">This method determines whether the current scope should be <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> or <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>, given a reference to a <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control and the personalization state information that has already been loaded from earlier in the personalization life cycle.</span></span> <span data-ttu-id="3bbf6-144">この情報を使用して、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization>のパーソナル化に関連するタスクのインスタンス。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-144">This information is used by a <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization> instance for subsequent personalization-related tasks.</span></span>  
+  
+ <span data-ttu-id="3bbf6-145">次の規則は、パーソナル化スコープの決定に使用されます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-145">The following rules are used to determine personalization scope:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-146">スコープが想定する初期<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-146">Scope is assumed initially to be <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-147">現在実行中のユーザー アカウントが認証されていない場合、スコープに設定されている<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-147">If the currently executing user account is not authenticated, the scope is set to <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-148">現在実行中のユーザー アカウントが認証されると、優先順位の順序で追加の処理が発生します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-148">If the currently executing user account is authenticated, additional processing occurs in order of precedence:</span></span>  
+  
+    -   <span data-ttu-id="3bbf6-149">ページがポストバック モードの場合、ページ要求には、ページのレンダリングを前のスコープ情報が含まれています。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-149">If the page is in postback mode, the page request contains scope information from a previous rendering of the page.</span></span> <span data-ttu-id="3bbf6-150">そのスコープ情報が示す場合<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>スコープを使用しているし、スコープが指す<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-150">If that scope information indicates that <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> scope was used, then the scope evaluates to <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>.</span></span>  
+  
+    -   <span data-ttu-id="3bbf6-151">現在実行中のページが別のページから転送コントロールを持っているかどうか (呼び出しのための制御の転送が発生した場合など、<xref:System.Web.HttpServerUtility.Transfer%2A>メソッド以外のページ間ポスティングのこの特定のチェックが発生しないことに注意してください)、し、以前に実行中のページが含まれていた、<xref:System.Web.UI.WebControls.WebParts.WebPartManager>インスタンス、スコープは、の値に設定されて、 `Personalization.Scope` 、前のプロパティ<xref:System.Web.UI.WebControls.WebParts.WebPartManager>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-151">If the currently executing page had control transferred to it from another page (for example, if the transfer of control occurred due to calling the <xref:System.Web.HttpServerUtility.Transfer%2A> method; note that this specific check does not occur for cross-page posting), and if the previously executing page had a <xref:System.Web.UI.WebControls.WebParts.WebPartManager> instance, the scope is set to the value of the `Personalization.Scope` property from the previous <xref:System.Web.UI.WebControls.WebParts.WebPartManager> instance.</span></span>  
+  
+    -   <span data-ttu-id="3bbf6-152">上記の条件が満たされていないかどうかは、値に評価されるスコープ、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.InitialScope%2A>現在のプロパティ<xref:System.Web.UI.WebControls.WebParts.WebPartManager>コントロール。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-152">If the previous criteria are not met, then the scope evaluates to the value of the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.InitialScope%2A> property for the current <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control.</span></span>  
+  
+ <span data-ttu-id="3bbf6-153">以前の評価が完了したらとに評価されると、スコープ<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>スコープの場合、次の処理が行われます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-153">After the previous evaluations have been made, and if the scope evaluates to <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> scope, the following processing occurs:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-154">現在実行中のユーザー アカウントがある場合、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.EnterSharedScopeUserCapability>機能、スコープの設定には、<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-154">If the currently executing user account has the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.EnterSharedScopeUserCapability> capability, the scope remains set to <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-155">現在実行中のユーザー アカウントがない場合、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.EnterSharedScopeUserCapability>にリセットし、機能、スコープ<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-155">If the currently executing user account does not have the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.EnterSharedScopeUserCapability> capability, then the scope is reset to <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-156">以前のすべてのスコープの評価の結果は場合<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>、この結果は、現在実行中のページで非表示フィールドとして格納されます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-156">If the result of all previous scope evaluations is <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>, this result is stored as a hidden field on the currently executing page.</span></span> <span data-ttu-id="3bbf6-157">これは、ページが以降のポストバック時にスコープの評価を再生するためのメカニズムです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-157">This is the mechanism whereby a page can replay the scope evaluation during subsequent postbacks.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="3bbf6-158">
+            <paramref name="webPartManager" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-158">
+              <paramref name="webPartManager" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="3bbf6-159">
+            <paramref name="webPartManager" /> に関連付けられているページが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-159">The page associated with <paramref name="webPartManager" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="DetermineUserCapabilities">
+      <MemberSignature Language="C#" Value="public virtual System.Collections.IDictionary DetermineUserCapabilities (System.Web.UI.WebControls.WebParts.WebPartManager webPartManager);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Collections.IDictionary DetermineUserCapabilities(class System.Web.UI.WebControls.WebParts.WebPartManager webPartManager) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.DetermineUserCapabilities(System.Web.UI.WebControls.WebParts.WebPartManager)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Collections::IDictionary ^ DetermineUserCapabilities(System::Web::UI::WebControls::WebParts::WebPartManager ^ webPartManager);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.IDictionary</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="webPartManager" Type="System.Web.UI.WebControls.WebParts.WebPartManager" />
+      </Parameters>
+      <Docs>
+        <param name="webPartManager">
+          <span data-ttu-id="3bbf6-160">パーソナル化情報を管理している <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-160">The <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> managing the personalization information.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-161">現在実行中のユーザー アカウントのパーソナル化関連機能を表す <see cref="T:System.Web.UI.WebControls.WebParts.WebPartUserCapability" /> のインスタンスが含まれているディクショナリを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-161">Returns a dictionary containing <see cref="T:System.Web.UI.WebControls.WebParts.WebPartUserCapability" /> instances that represent the personalization-related capabilities of the currently executing user account.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3bbf6-162">ユーザー アカウントが認証されている場合は、0 個以上の <see cref="T:System.Collections.IDictionary" /> のインスタンスが含まれている <see cref="T:System.Web.UI.WebControls.WebParts.WebPartUserCapability" /> を返します。実行中のユーザー アカウントが認証されていない場合は、<see langword="null" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-162">An <see cref="T:System.Collections.IDictionary" /> containing zero or more <see cref="T:System.Web.UI.WebControls.WebParts.WebPartUserCapability" /> instances if the user account is authenticated, or <see langword="null" /> if the executing user account is not authenticated.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-163">このメソッドの既定の実装内の情報を使用する、[承認要素 (ASP.NET 設定スキーマ) の web パーツのパーソナル化を](http://msdn.microsoft.com/library/d190d4ff-1445-4ee1-88eb-9737c7aa1434)内の要素、 [(ASP.NET 設定スキーマ) の web パーツのパーソナル化要素](http://msdn.microsoft.com/library/3d77da55-73ce-46ce-97cf-7d2abcaada09)の要素、[要素 (ASP.NET 設定スキーマ) の web パーツ](http://msdn.microsoft.com/library/90af5acc-5a80-4b39-bba7-74afd06b167c)Machine.config または Web.config ファイルを調べて、ユーザーの構成」の機能を許可します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-163">The default implementation of this method consumes the information in the [authorization Element for personalization for webParts (ASP.NET Settings Schema)](http://msdn.microsoft.com/library/d190d4ff-1445-4ee1-88eb-9737c7aa1434) element within the [personalization Element for webParts (ASP.NET Settings Schema)](http://msdn.microsoft.com/library/3d77da55-73ce-46ce-97cf-7d2abcaada09) element of the[webParts Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/library/90af5acc-5a80-4b39-bba7-74afd06b167c) configuration section in the Machine.config or Web.config file to determine a user's authorized capabilities.</span></span>  
+  
+ <span data-ttu-id="3bbf6-164">ディクショナリ内での機能のメンバーとなる、<xref:System.Collections.IList>によって返されるオブジェクト、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.CreateSupportedUserCapabilities%2A>に登録されているメソッド、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.EnterSharedScopeUserCapability>機能および<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.ModifyStateUserCapability>機能します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-164">The capabilities in the dictionary will be members of the <xref:System.Collections.IList> object returned by the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.CreateSupportedUserCapabilities%2A> method, which currently include the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.EnterSharedScopeUserCapability> capability and the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.ModifyStateUserCapability> capability.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="3bbf6-165">
+            <paramref name="webPartManager" /> に関連付けられているページが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-165">The page associated with <paramref name="webPartManager" /> is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="3bbf6-166">\- または</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-166">\- or -</span>
+          </span>
+          <span data-ttu-id="3bbf6-167">ページに関連付けられている要求が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-167">The request associated with the page is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="3bbf6-168">
+            <paramref name="webPartManager" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-168">
+              <paramref name="webPartManager" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="FindState">
+      <MemberSignature Language="C#" Value="public abstract System.Web.UI.WebControls.WebParts.PersonalizationStateInfoCollection FindState (System.Web.UI.WebControls.WebParts.PersonalizationScope scope, System.Web.UI.WebControls.WebParts.PersonalizationStateQuery query, int pageIndex, int pageSize, out int totalRecords);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Web.UI.WebControls.WebParts.PersonalizationStateInfoCollection FindState(valuetype System.Web.UI.WebControls.WebParts.PersonalizationScope scope, class System.Web.UI.WebControls.WebParts.PersonalizationStateQuery query, int32 pageIndex, int32 pageSize, [out] int32&amp; totalRecords) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.FindState(System.Web.UI.WebControls.WebParts.PersonalizationScope,System.Web.UI.WebControls.WebParts.PersonalizationStateQuery,System.Int32,System.Int32,System.Int32@)" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function FindState (scope As PersonalizationScope, query As PersonalizationStateQuery, pageIndex As Integer, pageSize As Integer, ByRef totalRecords As Integer) As PersonalizationStateInfoCollection" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract System::Web::UI::WebControls::WebParts::PersonalizationStateInfoCollection ^ FindState(System::Web::UI::WebControls::WebParts::PersonalizationScope scope, System::Web::UI::WebControls::WebParts::PersonalizationStateQuery ^ query, int pageIndex, int pageSize, [Runtime::InteropServices::Out] int % totalRecords);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.UI.WebControls.WebParts.PersonalizationStateInfoCollection</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="scope" Type="System.Web.UI.WebControls.WebParts.PersonalizationScope" />
+        <Parameter Name="query" Type="System.Web.UI.WebControls.WebParts.PersonalizationStateQuery" />
+        <Parameter Name="pageIndex" Type="System.Int32" />
+        <Parameter Name="pageSize" Type="System.Int32" />
+        <Parameter Name="totalRecords" Type="System.Int32&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="scope">
+          <span data-ttu-id="3bbf6-169">クエリされるパーソナル化情報が存在する <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationScope" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-169">A <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationScope" /> with the personalization information to be queried.</span>
+          </span>
+          <span data-ttu-id="3bbf6-170">この値を <see langword="null" /> にすることはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-170">This value cannot be <see langword="null" />.</span>
+          </span>
+        </param>
+        <param name="query">
+          <span data-ttu-id="3bbf6-171">クエリを含んでいる <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-171">A <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery" /> containing a query.</span>
+          </span>
+          <span data-ttu-id="3bbf6-172">この値は、<see langword="null" /> の場合もあります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-172">This value can be <see langword="null" />.</span>
+          </span>
+        </param>
+        <param name="pageIndex">
+          <span data-ttu-id="3bbf6-173">クエリが開始される位置。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-173">The location where the query starts.</span>
+          </span>
+        </param>
+        <param name="pageSize">
+          <span data-ttu-id="3bbf6-174">返されるレコードの数です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-174">The number of records to return.</span>
+          </span>
+        </param>
+        <param name="totalRecords">
+          <span data-ttu-id="3bbf6-175">レコード数の合計。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-175">The total number of records available.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-176">派生クラスでオーバーライドされると、スコープおよび固有のクエリ パラメーターに基づき 0 個以上の <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateInfo" /> 派生オブジェクトが含まれているコレクションを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-176">When overridden in a derived class, returns a collection containing zero or more <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateInfo" />-derived objects based on scope and specific query parameters.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3bbf6-177">0 個以上の <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateInfoCollection" /> 派生オブジェクトを含んでいる <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateInfo" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-177">A <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateInfoCollection" /> containing zero or more <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateInfo" />-derived objects.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-178">このメソッドは、パーソナル化データを照会するための管理メソッドの抽象定義です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-178">This method is the abstract definition of an administrative method for querying personalization data.</span></span> <span data-ttu-id="3bbf6-179">派生実装では、以下に示すロジックを従う必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-179">Derived implementations should follow the logic described below.</span></span>  
+  
+ <span data-ttu-id="3bbf6-180">によって返される項目のセットを制限、`pageIndex`と`pageSize`パラメーター、場所`pageSize`返されるレコードの数を設定し、`pageIndex`どのレコードを返すを設定します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-180">The set of returned items is constrained by the `pageIndex` and `pageSize` parameters, where `pageSize` sets the number of records to return and `pageIndex` sets which records to return.</span></span> <span data-ttu-id="3bbf6-181">など、 `pageIndex` 0 と`pageSize`25 は、最初の 25 個の出現回数を返します中に、 `pageIndex` 1 のと`pageSize`25 が戻り値の 26 ~ 50 回の出現します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-181">For example, a `pageIndex` of 0 and a `pageSize` of 25 would return the first 25 occurrences, while a `pageIndex` of 1 and a `pageSize` of 25 would return occurrences 26-50.</span></span> <span data-ttu-id="3bbf6-182">使用可能なすべてのレコードを取得する場合は、設定`pageIndex`0 と`pageSize`に<xref:System.Int32.MaxValue>です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-182">If you want to retrieve all available records, set `pageIndex` to 0 and `pageSize` to <xref:System.Int32.MaxValue>.</span></span>  
+  
+ <span data-ttu-id="3bbf6-183"><xref:System.Web.UI.WebControls.WebParts.PersonalizationStateInfo>-派生オブジェクトをアルファベット順に返され、の組み合わせによって並べ替えられて、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateInfo.Path%2A>と<xref:System.Web.UI.WebControls.WebParts.UserPersonalizationStateInfo.Username%2A>プロパティ値は、両方で昇順に並べ替えます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-183">The <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateInfo>-derived objects are returned in alphabetical order and sorted by a combination of their <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateInfo.Path%2A> and <xref:System.Web.UI.WebControls.WebParts.UserPersonalizationStateInfo.Username%2A> property values, both in ascending order.</span></span>  
+  
+ <span data-ttu-id="3bbf6-184">このメソッドは、基になるデータ ストアにクエリでワイルドカード文字を渡します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-184">This method passes query wildcard characters to the underlying data store.</span></span> <span data-ttu-id="3bbf6-185">ワイルドカード文字のサポートは、各プロバイダーが、アスタリスク (\*)、パーセント記号 (%)、またはアンダー スコア (_) などの文字を処理する方法に依存します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-185">Support for wildcard characters is currently dependent on how each provider handles characters such as an asterisk (\*), a percent symbol (%), or an underscore (_).</span></span>  
+  
+ <span data-ttu-id="3bbf6-186">通常、SQL 準拠のデータ ストアで実行できるワイルドカード検索部分パスでワイルドカード文字が先頭、末尾、または検索文字列のテキストの中央に表示される、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-186">Normally, for SQL-compliant data stores, you can perform a wildcard search on a partial path with the wildcard character appearing at the beginning, the end, or the middle of the search string text in the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> property.</span></span> <span data-ttu-id="3bbf6-187">たとえば、"~/vdir"で始まるすべてのパスを検索するため、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>プロパティを"~/vdir%"に設定するとします。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-187">For example, to find all paths that start with "~/vdir", the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> property would be set to "~/vdir%".</span></span>  
+  
+ <span data-ttu-id="3bbf6-188">同様に、部分的なユーザー名にワイルドカード検索が表示のテキスト文字列のどの時点でも、ワイルドカード文字を持つ可能性があります、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-188">Likewise, a wildcard search on a partial user name could have the wildcard character appear at any point in the text string of the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A> property.</span></span> <span data-ttu-id="3bbf6-189">たとえば、"John"で始まるすべてのユーザー名を検索するため、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>パラメーターは「John %」のようになります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-189">For example, to find all user names that start with "John", the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A> parameter would look like "John%".</span></span>  
+  
+ <span data-ttu-id="3bbf6-190">次のクエリの制約が適用されます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-190">The following query constraints apply:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-191">だけの場合`scope`が提供される、および`query`は`null`またはすべてのプロパティを`query`いずれかを返す`null`または既定の値を指定された一致するすべてのレコード`scope`パラメーターが返されます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-191">If only `scope` is provided, and `query` is `null` or all the properties on `query` return either `null` or default values, then all records matching the indicated `scope` parameter are returned.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-192">場合、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>プロパティは使用されません`null`、返されたレコードは一致するフィルター選択されたに基づいてパスでも、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>値。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-192">If the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> property is not `null`, the returned records are also filtered based on paths that match the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> value.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-193">場合、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>プロパティは使用されません`null`、返されたレコードは一致するフィルター選択されたに基づいてユーザー名でも、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>プロパティの値。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-193">If the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A> property is not `null`, the returned records are also filtered based on user names that match the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A> property value.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-194">場合、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A>プロパティは等しくありません<xref:System.DateTime.MaxValue>、返されたレコードはアクティブでないユーザーに関連付けられているレコードだけを返すもフィルター処理し、します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-194">If the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A> property is not equal to <xref:System.DateTime.MaxValue>, then the returned records are also filtered to return only those records associated with inactive users.</span></span> <span data-ttu-id="3bbf6-195">比較には、レコードが含まれています。 ここで、<xref:System.Web.UI.WebControls.WebParts.UserPersonalizationStateInfo.LastActivityDate%2A>プロパティは、以下に、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-195">The comparison includes records where the <xref:System.Web.UI.WebControls.WebParts.UserPersonalizationStateInfo.LastActivityDate%2A> property is less than or equal to the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A> property.</span></span>  
+  
+ <span data-ttu-id="3bbf6-196">このメソッドがクエリ パラメーターの組み合わせを検証できませんに注意してください。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-196">Note that this method does not validate combinations of query parameters.</span></span> <span data-ttu-id="3bbf6-197">たとえば、コードでは、共有のスコープ内の特定のユーザー名に関連付けられたパーソナル化状態レコードのセットを要求できます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-197">For example, code can request a set of personalization state records associated with a specific user name in the shared scope.</span></span> <span data-ttu-id="3bbf6-198">ユーザー名が共有の情報に関連付けられていないために、返されるコレクションは空になります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-198">Because user names are not associated with shared information, the returned collection would be empty.</span></span>  
+  
+ <span data-ttu-id="3bbf6-199">空のコレクションを返す可能性のあるパラメーターの組み合わせは次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-199">Parameter combinations that have the potential to return a non-empty collection include:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-200"><xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> スコープと組み合わせて、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-200"><xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> scope in combination with the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> property.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-201"><xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> スコープの一部またはすべての値と組み合わせて、 <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>、 <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>、および<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-201"><xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> scope in combination with the values for any or all of the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>, <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>, and <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A> properties.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetCountOfState">
+      <MemberSignature Language="C#" Value="public abstract int GetCountOfState (System.Web.UI.WebControls.WebParts.PersonalizationScope scope, System.Web.UI.WebControls.WebParts.PersonalizationStateQuery query);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetCountOfState(valuetype System.Web.UI.WebControls.WebParts.PersonalizationScope scope, class System.Web.UI.WebControls.WebParts.PersonalizationStateQuery query) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.GetCountOfState(System.Web.UI.WebControls.WebParts.PersonalizationScope,System.Web.UI.WebControls.WebParts.PersonalizationStateQuery)" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function GetCountOfState (scope As PersonalizationScope, query As PersonalizationStateQuery) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract int GetCountOfState(System::Web::UI::WebControls::WebParts::PersonalizationScope scope, System::Web::UI::WebControls::WebParts::PersonalizationStateQuery ^ query);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="scope" Type="System.Web.UI.WebControls.WebParts.PersonalizationScope" />
+        <Parameter Name="query" Type="System.Web.UI.WebControls.WebParts.PersonalizationStateQuery" />
+      </Parameters>
+      <Docs>
+        <param name="scope">
+          <span data-ttu-id="3bbf6-202">クエリされるパーソナル化情報の <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationScope" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-202">A <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationScope" /> of the personalization information to be queried.</span>
+          </span>
+          <span data-ttu-id="3bbf6-203">この値を <see langword="null" /> にすることはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-203">This value cannot be <see langword="null" />.</span>
+          </span>
+        </param>
+        <param name="query">
+          <span data-ttu-id="3bbf6-204">クエリを含んでいる <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-204">A <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery" /> containing a query.</span>
+          </span>
+          <span data-ttu-id="3bbf6-205">この値は、<see langword="null" /> の場合もあります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-205">This value can be <see langword="null" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-206">派生クラスでオーバーライドされると、指定したスコープ内に存在する基になるデータ ストア内の行数を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-206">When overridden in a derived class, returns the number of rows in the underlying data store that exist within the specified scope.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3bbf6-207">指定した <paramref name="scope" /> パラメーターに存在する、基になるデータ ストア内の行数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-207">The number of rows in the underlying data store that exist for the specified <paramref name="scope" /> parameter.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-208">このメソッドは、パーソナル化データの数を取得するための管理メソッドの抽象定義です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-208">This method is the abstract definition of an administrative method for retrieving counts of personalization data.</span></span> <span data-ttu-id="3bbf6-209">派生実装では、以下に示すロジックを従う必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-209">Derived implementations should follow the logic described below.</span></span>  
+  
+ <span data-ttu-id="3bbf6-210">このメソッドは、基になるデータ ストアにクエリでワイルドカード文字を渡します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-210">This method passes query wildcard characters to the underlying data store.</span></span> <span data-ttu-id="3bbf6-211">ワイルドカード文字のサポートは、各プロバイダーが、アスタリスク (\*)、パーセント記号 (%)、またはアンダー スコア (_) などの文字を処理する方法に依存します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-211">Support for wildcard characters is currently dependent on how each provider handles characters such as an asterisk (\*), a percent symbol (%), or an underscore (_).</span></span>  
+  
+ <span data-ttu-id="3bbf6-212">通常、SQL 準拠のデータ ストアで実行できるワイルドカード検索部分パスでワイルドカード文字が先頭、末尾、または検索文字列のテキストの中央に表示される、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-212">Normally, for SQL-compliant data stores, you can perform a wildcard search on a partial path with the wildcard character appearing at the beginning, the end, or the middle of the search string text in the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> property.</span></span> <span data-ttu-id="3bbf6-213">たとえば、"~/vdir"で始まるすべてのパスを検索するため、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>プロパティを"~/vdir%"に設定するとします。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-213">For example, to find all paths that start with "~/vdir", the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> property would be set to "~/vdir%".</span></span>  
+  
+ <span data-ttu-id="3bbf6-214">同様に、部分的なユーザー名にワイルドカード検索が表示のテキスト文字列のどの時点でも、ワイルドカード文字を持つ可能性があります、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-214">Likewise, a wildcard search on a partial user name could have the wildcard character appear at any point in the text string of the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A> property.</span></span> <span data-ttu-id="3bbf6-215">たとえば、"John"で始まるすべてのユーザー名を検索するため、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>パラメーターは「John %」のようになります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-215">For example, to find all user names that start with "John", the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A> parameter would look like "John%".</span></span>  
+  
+ <span data-ttu-id="3bbf6-216">次のクエリの制約が適用されます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-216">The following query constraints apply:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-217">だけの場合`scope`が提供される、および`query`は`null`またはすべてのプロパティを`query`いずれかを返す`null`または既定の値を指定された一致するすべてのレコード`scope`パラメーターがカウントされます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-217">If only `scope` is provided, and `query` is `null` or all the properties on `query` return either `null` or default values, then all records matching the indicated `scope` parameter are counted.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-218">場合、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>プロパティは使用されません`null`、カウント対象のレコードが一致するフィルター選択されたに基づいてパスではまた、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>値。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-218">If the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> property is not `null`, the counted records are also filtered based on paths that match the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> value.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-219">場合、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>プロパティは使用されません`null`、カウントのレコードが一致するフィルター選択されたに基づいてユーザー名ではまた、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>プロパティの値。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-219">If the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A> property is not `null`, the counted records are also filtered based on user names that match the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A> property value.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-220">場合、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A>プロパティは等しくありません<xref:System.DateTime.MaxValue>、カウント対象のレコードがアクティブでないユーザーに関連付けられているレコードだけを返すもフィルター処理し、します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-220">If the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A> property is not equal to <xref:System.DateTime.MaxValue>, then the counted records are also filtered to return only those records associated with inactive users.</span></span> <span data-ttu-id="3bbf6-221">比較には、レコードが含まれています。 ここで、<xref:System.Web.UI.WebControls.WebParts.UserPersonalizationStateInfo.LastActivityDate%2A>プロパティは、以下に、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-221">The comparison includes records where the <xref:System.Web.UI.WebControls.WebParts.UserPersonalizationStateInfo.LastActivityDate%2A> property is less than or equal to the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A> property.</span></span>  
+  
+ <span data-ttu-id="3bbf6-222">このメソッドがクエリ パラメーターの組み合わせを検証できませんに注意してください。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-222">Note that this method does not validate combinations of query parameters.</span></span> <span data-ttu-id="3bbf6-223">たとえば、コードでは、共有のスコープ内の特定のユーザー名に関連付けられたパーソナル化状態レコードの数を要求できます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-223">For example, code can request a count of personalization state records associated with a specific user name in the shared scope.</span></span> <span data-ttu-id="3bbf6-224">ユーザー名が共有の情報に関連付けられていないため、返されるカウントが 0 になります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-224">Because user names are not associated with shared information, the returned count would be zero.</span></span>  
+  
+ <span data-ttu-id="3bbf6-225">0 以外の数を返す可能性のあるパラメーターの組み合わせは次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-225">Parameter combinations that have the potential to return a non-zero count include:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-226"><xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> スコープと組み合わせて、<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-226"><xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> scope in combination with the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A> property.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-227"><xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> スコープの一部またはすべての値と組み合わせて、 <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>、 <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>、および<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-227"><xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> scope in combination with the values for any or all of the <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.PathToMatch%2A>, <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UsernameToMatch%2A>, and <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A> properties.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LoadPersonalizationBlobs">
+      <MemberSignature Language="C#" Value="protected abstract void LoadPersonalizationBlobs (System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, string path, string userName, ref byte[] sharedDataBlob, ref byte[] userDataBlob);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void LoadPersonalizationBlobs(class System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, string path, string userName, unsigned int8[]&amp; sharedDataBlob, unsigned int8[]&amp; userDataBlob) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationBlobs(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String,System.Byte[]@,System.Byte[]@)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract void LoadPersonalizationBlobs(System::Web::UI::WebControls::WebParts::WebPartManager ^ webPartManager, System::String ^ path, System::String ^ userName, cli::array &lt;System::Byte&gt; ^ % sharedDataBlob, cli::array &lt;System::Byte&gt; ^ % userDataBlob);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="webPartManager" Type="System.Web.UI.WebControls.WebParts.WebPartManager" />
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="userName" Type="System.String" />
+        <Parameter Name="sharedDataBlob" Type="System.Byte[]&amp;" RefType="ref" />
+        <Parameter Name="userDataBlob" Type="System.Byte[]&amp;" RefType="ref" />
+      </Parameters>
+      <Docs>
+        <param name="webPartManager">
+          <span data-ttu-id="3bbf6-228">パーソナル化データを管理している <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-228">The <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> managing the personalization data.</span>
+          </span>
+        </param>
+        <param name="path">
+          <span data-ttu-id="3bbf6-229">取得キーとして使用されるパーソナル化情報のパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-229">The path for personalization information to be used as the retrieval key.</span>
+          </span>
+        </param>
+        <param name="userName">
+          <span data-ttu-id="3bbf6-230">取得キーとして使用されるパーソナル化情報のユーザー名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-230">The user name for personalization information to be used as the retrieval key.</span>
+          </span>
+        </param>
+        <param name="sharedDataBlob">
+          <span data-ttu-id="3bbf6-231">
+            <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared" /> スコープに返されたデータ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-231">The returned data for the <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared" /> scope.</span>
+          </span>
+        </param>
+        <param name="userDataBlob">
+          <span data-ttu-id="3bbf6-232">
+            <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.User" /> スコープに返されたデータ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-232">The returned data for the <see cref="F:System.Web.UI.WebControls.WebParts.PersonalizationScope.User" /> scope.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-233">派生クラス内でオーバーライドされると、基になるデータ ストアから生のパーソナル化データを読み込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-233">When overridden in a derived class, loads raw personalization data from the underlying data store.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-234">派生したクラス<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider>し、このメソッドを使用する必要がありますを実装、 `webPartManager`、 `path`、および`username`検索キーとして使用されるパラメーター。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-234">Classes that derive from <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider> and implement this method should use the `webPartManager`, `path`, and `username` parameters as retrieval keys.</span></span> <span data-ttu-id="3bbf6-235">どのようにデータのかに関係なく、データ ストアに格納 (一部のデータ ストアは、インテリジェントな記憶域のいくつかの型を行う可能性があります)、パーソナル化データを返す必要がある、パックされた 2 つの配列内のバイトのセットとして。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-235">Regardless of how the data is stored in the data store (some data stores might perform some type of intelligent storage), the personalization data must be returned as a packed set of bytes in two arrays.</span></span> <span data-ttu-id="3bbf6-236">返されるデータは、次の規則に従う必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-236">The returned data must conform to the following rules:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-237">データを<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>スコープは、常に返される必要があります、`sharedDataBlob`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-237">The data for the <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> scope must always be returned in the `sharedDataBlob` parameter.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-238">キーの値に応じて<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>データが返されます、`userDataBlob`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-238">Depending on the key values, <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> data is returned in the `userDataBlob` parameter.</span></span> <span data-ttu-id="3bbf6-239">以外`null`値を`userName`パラメーターが示す<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>データも取得する必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-239">A non-`null` value for the `userName` parameter indicates that <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> data should also be retrieved.</span></span>  
+  
+ <span data-ttu-id="3bbf6-240">派生するパーソナル化プロバイダー<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider>しを実装してこのメソッドことができます最適化、データ ストアとの対話、1 つのラウンド トリップでのすべてのパーソナル化データを取得することによってを取得する場合とは異なり<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>と<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>2 つの個別のラウンド トリップでのデータ。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-240">A personalization provider that derives from <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider> and implements this method can optimize interactions with its data store by retrieving all personalization data in one round trip, as opposed to retrieving <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> and <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> data in two separate round trips.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LoadPersonalizationState">
+      <MemberSignature Language="C#" Value="public virtual System.Web.UI.WebControls.WebParts.PersonalizationState LoadPersonalizationState (System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, bool ignoreCurrentUser);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Web.UI.WebControls.WebParts.PersonalizationState LoadPersonalizationState(class System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, bool ignoreCurrentUser) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationState(System.Web.UI.WebControls.WebParts.WebPartManager,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Web::UI::WebControls::WebParts::PersonalizationState ^ LoadPersonalizationState(System::Web::UI::WebControls::WebParts::WebPartManager ^ webPartManager, bool ignoreCurrentUser);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.UI.WebControls.WebParts.PersonalizationState</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="webPartManager" Type="System.Web.UI.WebControls.WebParts.WebPartManager" />
+        <Parameter Name="ignoreCurrentUser" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="webPartManager">
+          <span data-ttu-id="3bbf6-241">パーソナル化データを管理している <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-241">The <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> managing the personalization data.</span>
+          </span>
+        </param>
+        <param name="ignoreCurrentUser">
+          <span data-ttu-id="3bbf6-242">そのユーザー名がパーソナル化プロバイダーに渡される必要があるかどうかを示している <see cref="T:System.Boolean" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-242">A <see cref="T:System.Boolean" /> indicating whether the user name should be passed to the personalization provider.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-243">基になるデータ ストアから生のデータを読み込み、そのデータを <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" /> オブジェクトに変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-243">Loads the raw data from the underlying data store and converts that data into a <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" /> object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3bbf6-244">パーソナル化データを格納している <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-244">A <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" /> containing personalization data.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-245">この方法はメイン エントリ ポイントで使用される、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization>パーソナル化データをロードするクラス。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-245">This method is the main entry point used by the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization> class to load personalization data.</span></span> <span data-ttu-id="3bbf6-246">既定の実装は、基になるデータ ストアから生データを読み込みます (この機能は派生プロバイダー) に生データを変換し、<xref:System.Web.UI.WebControls.WebParts.PersonalizationState>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-246">The default implementation loads the raw data from the underlying data store (functionality is implemented in derived providers) and then converts the raw data into a <xref:System.Web.UI.WebControls.WebParts.PersonalizationState> instance.</span></span>  
+  
+ <span data-ttu-id="3bbf6-247">場合、`ignoreCurrentUser`パラメーターは`true`、ユーザー名が渡されない、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationBlobs%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-247">If the `ignoreCurrentUser` parameter is `true`, no user name is passed to the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationBlobs%2A> method.</span></span> <span data-ttu-id="3bbf6-248">パーソナル化プロバイダーはその唯一のパーソナル化状態での意味として解釈するを選択できます、<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>スコープは、基になるデータ ストアから取得する必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-248">A personalization provider can choose to interpret this as meaning that only personalization state with a <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> scope should be retrieved from the underlying data store.</span></span>  
+  
+ <span data-ttu-id="3bbf6-249">ときに、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.Load%2A>メソッドを実行して、呼び出し、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationState%2A>メソッド、3 種類の状態が読み込まれると発生する可能性が逆シリアル化エラーがあるとします。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-249">When the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization.Load%2A> method is executing, it calls the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationState%2A> method, and there are three types of deserialization errors that can occur as the state is being loaded.</span></span> <span data-ttu-id="3bbf6-250">これらの特定のエラーが発生する、例外はスローされず、正常性の監視機能によって、エラー イベントが代わりに記録されます (正常性状態の監視と、それによって作成されたログへのアクセスについては、次を参照してください。 [ASP.NET 正常性の監視の概要](http://msdn.microsoft.com/library/e003f224-70fe-4cd8-a71a-2dc81e2d7e4c))。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-250">When these specific errors occur, no exception is thrown, and the error events are logged instead by the Health Monitoring feature (for information on health monitoring and accessing the logs created by it, see [ASP.NET Health Monitoring Overview](http://msdn.microsoft.com/library/e003f224-70fe-4cd8-a71a-2dc81e2d7e4c)).</span></span> <span data-ttu-id="3bbf6-251">次の 3 つのシナリオの原因には、エラー イベントをログに書き込むが逆シリアル化します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-251">The following three scenarios cause deserialization error events to be written to the log:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-252">文字列を使用してプロパティの型を逆シリアル化に失敗した<xref:System.ComponentModel.TypeConverter>です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-252">A failed attempt to deserialize a property type that uses a string <xref:System.ComponentModel.TypeConverter>.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-253">バイナリ シリアル化を使用するプロパティの型を逆シリアル化に失敗します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-253">A failed attempt to deserialize a property type that uses binary serialization.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-254">型のインスタンスを作成できないために、プロパティの型を逆シリアル化に失敗します。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-254">A failed attempt to deserialize a property type because an instance of the type cannot be created.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="3bbf6-255">
+            <paramref name="webPartManager" /> が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-255">The <paramref name="webPartManager" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="3bbf6-256">
+            <paramref name="webPartManager" /> に関連付けられているページが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-256">The page associated with <paramref name="webPartManager" /> is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="3bbf6-257">\- または</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-257">\- or -</span>
+          </span>
+          <span data-ttu-id="3bbf6-258">ページに関連付けられている要求が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-258">The request associated with the page is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ResetPersonalizationBlob">
+      <MemberSignature Language="C#" Value="protected abstract void ResetPersonalizationBlob (System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, string path, string userName);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void ResetPersonalizationBlob(class System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, string path, string userName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetPersonalizationBlob(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract void ResetPersonalizationBlob(System::Web::UI::WebControls::WebParts::WebPartManager ^ webPartManager, System::String ^ path, System::String ^ userName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="webPartManager" Type="System.Web.UI.WebControls.WebParts.WebPartManager" />
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="userName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="webPartManager">
+          <span data-ttu-id="3bbf6-259">パーソナル化データを管理している <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-259">The <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> managing the personalization data.</span>
+          </span>
+        </param>
+        <param name="path">
+          <span data-ttu-id="3bbf6-260">データ ストア キーとして使用されるパーソナル化情報のパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-260">The path for personalization information to be used as the data store key.</span>
+          </span>
+        </param>
+        <param name="userName">
+          <span data-ttu-id="3bbf6-261">データ ストア キーとして使用されるパーソナル化情報のユーザー名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-261">The user name for personalization information to be used as the data store key.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-262">派生クラス内でオーバーライドされると、基になるデータ ストアから生のパーソナル化データを削除します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-262">When overridden in a derived class, deletes raw personalization data from the underlying data store.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-263">派生したクラス<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider>し、このメソッドを使用する必要がありますを実装、 `webPartManager`、 `path`、および`userName`記憶域のキーとして使用されるパラメーター。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-263">Classes that derive from <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider> and implement this method should use the `webPartManager`, `path`, and `userName` parameters as storage keys.</span></span> <span data-ttu-id="3bbf6-264">派生実装では、指定されたストレージ キーのパーソナル化データが実質的に削除されるように、データ ストアを変更する必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-264">Derived implementations must modify the data store so that personalization data for supplied storage keys is effectively deleted.</span></span> <span data-ttu-id="3bbf6-265">派生実装方法、物理的にこれを実現したりの責任です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-265">It is up to the derived implementations as to how they physically accomplish this.</span></span>  
+  
+ <span data-ttu-id="3bbf6-266">派生のパーソナル化プロバイダーは、ページごとの個人用設定データを区別できる必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-266">The derived personalization provider must be able to distinguish personalization data on a per-page basis.</span></span> <span data-ttu-id="3bbf6-267">さらに、特定のページの状態のパーソナル化プロバイダーできる必要がありますを区別する<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>と<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>データ スコープします。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-267">Furthermore, for a given page's state, the personalization provider must be able to distinguish between <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> and <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> scope data.</span></span> <span data-ttu-id="3bbf6-268">以外`null`ユーザー名を指定し、リセット操作に適用されます、<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>スコープです。 それ以外の場合、リセット操作の対象、<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>スコープ。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-268">If a non-`null` user name is provided, then the reset operation applies to the <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> scope; otherwise, the reset operation applies to the <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> scope.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ResetPersonalizationState">
+      <MemberSignature Language="C#" Value="public virtual void ResetPersonalizationState (System.Web.UI.WebControls.WebParts.WebPartManager webPartManager);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void ResetPersonalizationState(class System.Web.UI.WebControls.WebParts.WebPartManager webPartManager) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetPersonalizationState(System.Web.UI.WebControls.WebParts.WebPartManager)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void ResetPersonalizationState(System::Web::UI::WebControls::WebParts::WebPartManager ^ webPartManager);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="webPartManager" Type="System.Web.UI.WebControls.WebParts.WebPartManager" />
+      </Parameters>
+      <Docs>
+        <param name="webPartManager">
+          <span data-ttu-id="3bbf6-269">パーソナル化データを管理している <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-269">The <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> managing the personalization data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-270">パーソナル化データを基になるデータ ストアの状態にリセットします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-270">Resets personalization data to the underlying data store.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-271">この方法はメイン エントリ ポイントで使用される、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization>パーソナル化データをリセットするクラス。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-271">This method is the main entry point used by the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization> class to reset personalization data.</span></span> <span data-ttu-id="3bbf6-272">既定の実装を使用して、<xref:System.Web.UI.WebControls.WebParts.WebPartManager>をリセットするデータのパスとユーザー名を決定するコントロール。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-272">The default implementation uses the <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control to determine the path and user name for the data to be reset.</span></span> <span data-ttu-id="3bbf6-273">既定の実装し、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetPersonalizationBlob%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-273">The default implementation then calls the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetPersonalizationBlob%2A> method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="3bbf6-274">
+            <paramref name="webPartManager" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-274">
+              <paramref name="webPartManager" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="3bbf6-275">
+            <paramref name="webPartManager" /> がページに関連付けられていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-275">
+              <paramref name="webPartManager" /> is not associated with a page.</span>
+          </span>
+          <span data-ttu-id="3bbf6-276">\- または</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-276">\- or -</span>
+          </span>
+          <span data-ttu-id="3bbf6-277">このページは、実行中の <see cref="T:System.Web.HttpRequest" /> に関連付けられていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-277">The page is not associated with an in-progress <see cref="T:System.Web.HttpRequest" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ResetState">
+      <MemberSignature Language="C#" Value="public abstract int ResetState (System.Web.UI.WebControls.WebParts.PersonalizationScope scope, string[] paths, string[] usernames);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 ResetState(valuetype System.Web.UI.WebControls.WebParts.PersonalizationScope scope, string[] paths, string[] usernames) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetState(System.Web.UI.WebControls.WebParts.PersonalizationScope,System.String[],System.String[])" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function ResetState (scope As PersonalizationScope, paths As String(), usernames As String()) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract int ResetState(System::Web::UI::WebControls::WebParts::PersonalizationScope scope, cli::array &lt;System::String ^&gt; ^ paths, cli::array &lt;System::String ^&gt; ^ usernames);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="scope" Type="System.Web.UI.WebControls.WebParts.PersonalizationScope" />
+        <Parameter Name="paths" Type="System.String[]" />
+        <Parameter Name="usernames" Type="System.String[]" />
+      </Parameters>
+      <Docs>
+        <param name="scope">
+          <span data-ttu-id="3bbf6-278">リセットされるパーソナル化情報の <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationScope" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-278">A <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationScope" /> of the personalization information to be reset.</span>
+          </span>
+          <span data-ttu-id="3bbf6-279">この値を <see langword="null" /> にすることはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-279">This value cannot be <see langword="null" />.</span>
+          </span>
+        </param>
+        <param name="paths">
+          <span data-ttu-id="3bbf6-280">削除されるパーソナル化情報のパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-280">The paths for personalization information to be deleted.</span>
+          </span>
+        </param>
+        <param name="usernames">
+          <span data-ttu-id="3bbf6-281">削除されるパーソナル化情報のユーザー名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-281">The user names for personalization information to be deleted.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-282">派生クラス内でオーバーライドされると、指定したパラメーターに基づいて、基になるデータ ストアからパーソナル化状態が削除されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-282">When overridden in a derived class, deletes personalization state from the underlying data store based on the specified parameters.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3bbf6-283">削除された行数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-283">The number of rows deleted.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-284">このメソッドは、パーソナル化データを削除するための管理メソッドの抽象定義です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-284">This method is the abstract definition of an administrative method for deleting personalization data.</span></span> <span data-ttu-id="3bbf6-285">派生実装では、以下に示すロジックを従う必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-285">Derived implementations should follow the logic described below.</span></span>  
+  
+ <span data-ttu-id="3bbf6-286">このメソッドでは、ワイルドカード文字による検索はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-286">No wildcard character searches are supported by this method.</span></span> <span data-ttu-id="3bbf6-287">パーソナル化プロバイダーは、トランザクションに対応するデータ ストアからのデータを公開する場合、このメソッドは、1 つのアトミック トランザクションとその操作を実行する必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-287">If the personalization provider exposes data from a transaction-aware data store, this method should perform its operations as a single atomic transaction.</span></span>  
+  
+ <span data-ttu-id="3bbf6-288">次のパラメーターの組み合わせのみが使用できます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-288">Only the following combinations of parameters are allowed:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-289">`scope`パラメーターを設定すると、およびその他のすべてのパラメーターに設定されて`null`です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-289">The `scope` parameter is set, and all other parameters are set to `null`.</span></span> <span data-ttu-id="3bbf6-290">この組み合わせによって示されるパーソナル化スコープに関連付けられているすべての Web パーツのパーソナル化データを削除する`scope`です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-290">This combination deletes all Web Parts personalization data associated with the personalization scope indicated by `scope`.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-291">`scope`パラメーターを設定すると、および`paths`パラメーターには、少なくとも 1 つの値が含まれています。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-291">The `scope` parameter is set, and the `paths` parameter contains at least one value.</span></span> <span data-ttu-id="3bbf6-292">この組み合わせは、指定されたパスまたはパスによって示されるパーソナル化スコープ内のすべての Web パーツのパーソナル化データを削除`scope`です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-292">This combination deletes all Web Parts personalization data for the specified path or paths in the personalization scope indicated by `scope`.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-293">`scope`にパラメーターが設定されている<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>、`paths`パラメーターが設定されているし、1 つの値が含まれています、`usernames`パラメーターには、少なくとも 1 つの値が含まれています。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-293">The `scope` parameter is set to <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>, the `paths` parameter is set and contains only one value, and the `usernames` parameter contains at least one value.</span></span> <span data-ttu-id="3bbf6-294">この組み合わせは、すべてユーザーの個人用設定に含まれているユーザーに関連付けられている指定されたパスの Web パーツのデータを削除`usernames`です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-294">This combination deletes all user personalization Web Parts data for the given path that is associated with the user or users contained in `usernames`.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-295">`scope`にパラメーターが設定されている<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>、`paths`にパラメーターが設定されている`null`、および`usernames`パラメーターには、少なくとも 1 つの値が含まれています。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-295">The `scope` parameter is set to <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>, the `paths` parameter is set to `null`, and the `usernames` parameter contains at least one value.</span></span> <span data-ttu-id="3bbf6-296">この組み合わせに含まれているユーザーに関連付けられているすべてのパスの間でのすべてのユーザーごとの個人用設定、Web パーツのデータの削除`usernames`です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-296">This combination deletes all per-user personalization Web Parts data, across all paths, associated with the user or users contained in `usernames`.</span></span>  
+  
+ <span data-ttu-id="3bbf6-297">その他のパラメーター値の組み合わせは無効でありがスローされます、<xref:System.ArgumentException>例外。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-297">Any other combination of parameter values is invalid and will throw an <xref:System.ArgumentException> exception.</span></span> <span data-ttu-id="3bbf6-298">具体的には、次の 2 つの組み合わせは許可されていません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-298">Specifically, the following two combinations are not allowed:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-299">`usernames`時にパラメーターを指定することはできません`scope`に設定されている<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-299">The `usernames` parameter cannot be provided when `scope` is set to <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-300">`paths`パラメーターが 1 つ以上のエントリを含めることはできませんと、`usernames`パラメーターではありません`null`です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-300">The `paths` parameter cannot contain more than one entry when the `usernames` parameter is not `null`.</span></span>  
+  
+ <span data-ttu-id="3bbf6-301">どの`paths`と`usernames`それぞれの配列内に含まれるパラメーター値は、次の検証規則を満たす必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-301">Any `paths` and `usernames` parameter values contained within the respective arrays must meet the following validation rules.</span></span> <span data-ttu-id="3bbf6-302">パラメーター配列のメンバーはすべての規則が失敗した場合、<xref:System.ArgumentException>例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-302">If any validation rules fail for any member of the parameter arrays, an <xref:System.ArgumentException> exception is thrown.</span></span> <span data-ttu-id="3bbf6-303">検証規則は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-303">The validation rules are:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-304">`null` 値を指定することはできません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-304">`null` values are not allowed.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-305">空の文字列 ("") は許可されていません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-305">An empty string ("") is not allowed.</span></span> <span data-ttu-id="3bbf6-306">空の文字列チェックを実行する前にパラメーターが省略される必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-306">Parameters should be trimmed prior to performing an empty string check.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-307">`usernames`パラメーターはコンマ (,) を含めることはできません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-307">The `usernames` parameter cannot contain commas (,).</span></span>  
+  
+-   <span data-ttu-id="3bbf6-308">長さ、`paths`パラメーターは、SQL データベースは、256 文字を超えることはできません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-308">The length of the `paths` parameter cannot be greater than 256 characters for a SQL database.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-309">長さ、`usernames`パラメーターは、SQL データベースは、256 文字を超えることはできません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-309">The length of the `usernames` parameter cannot be greater than 256 characters for a SQL database.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ResetUserState">
+      <MemberSignature Language="C#" Value="public abstract int ResetUserState (string path, DateTime userInactiveSinceDate);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 ResetUserState(string path, valuetype System.DateTime userInactiveSinceDate) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetUserState(System.String,System.DateTime)" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function ResetUserState (path As String, userInactiveSinceDate As DateTime) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract int ResetUserState(System::String ^ path, DateTime userInactiveSinceDate);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="userInactiveSinceDate" Type="System.DateTime" />
+      </Parameters>
+      <Docs>
+        <param name="path">
+          <span data-ttu-id="3bbf6-310">削除されるパーソナル化データのパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-310">The path of the personalization data to be deleted.</span>
+          </span>
+          <span data-ttu-id="3bbf6-311">この値に <see langword="null" /> は使用できますが、空の文字列 ("") は使用できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-311">This value can be <see langword="null" /> but cannot be an empty string ("").</span>
+          </span>
+        </param>
+        <param name="userInactiveSinceDate">
+          <span data-ttu-id="3bbf6-312">Web サイトのユーザーがパーソナル化データを最後に変更した日付。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-312">The date indicating the last time a Web site user changed personalization data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-313">派生クラス内でオーバーライドされると、指定したパラメーターに基づいて、Web パーツ パーソナル化データが基になるデータ ストアから削除されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-313">When overridden in a derived class, deletes Web Parts personalization data from the underlying data store based on the specified parameters.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3bbf6-314">基になるデータ ストアから削除された行数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-314">The number of rows deleted from the underlying data store.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-315">このメソッドは、パーソナル化データを削除するための管理メソッドの抽象定義です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-315">This method is the abstract definition of an administrative method for deleting personalization data.</span></span> <span data-ttu-id="3bbf6-316">ユーザー パーソナル化データと共有しないデータのみにこのメソッドが決まることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-316">Note that this method affects only user personalization data, and not shared data.</span></span>  
+  
+ <span data-ttu-id="3bbf6-317">派生実装では、次に示すロジックを従う必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-317">Derived implementations should follow the logic described below:</span></span>  
+  
+-   <span data-ttu-id="3bbf6-318">`path`パラメーターは、ワイルドカード文字を含めることはできません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-318">The `path` parameter cannot contain wildcard characters.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-319">プロバイダーは、トランザクションに対応するデータ ストアからのデータを公開する場合、このメソッドは、単一のアトミック トランザクションで操作を実行する必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-319">If the provider exposes data from a transaction-aware data store, this method should perform its operations in a single atomic transaction.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-320">場合、`path`パラメーターは非`null`、唯一のユーザーごとのパーソナル化レコードに関連付けられているし、`path`は削除されます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-320">If the `path` parameter is non-`null`, then only per-user personalization records associated with `path` will be deleted.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-321">ユーザーごとのパーソナル化レコードのみをユーザーに示されている日から非アクティブと見なされるに関連付けられた、`userInactiveSinceDate`パラメーターが削除されます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-321">Only per-user personalization records associated with users that are considered inactive since the date indicated in the `userInactiveSinceDate` parameter will be deleted.</span></span> <span data-ttu-id="3bbf6-322">具体的には、レコードを<xref:System.Web.UI.WebControls.WebParts.UserPersonalizationStateInfo.LastActivityDate%2A>と同じかそれよりも少ない<xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A>は削除されます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-322">Specifically, records where <xref:System.Web.UI.WebControls.WebParts.UserPersonalizationStateInfo.LastActivityDate%2A> is less than or equal to <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A> are deleted.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-323">両方のパラメーターを指定すると、両方の制約に一致するレコードが削除されます。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-323">If both parameters are provided, then records that match both constraints are deleted.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-324">`path`パラメーターを指定できます`null`です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-324">The `path` parameter can be `null`.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-325">`path`パラメーターが空の文字列にすることはできません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-325">The `path` parameter cannot be an empty string.</span></span> <span data-ttu-id="3bbf6-326">このチェックを実行する前にこれが省略される必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-326">It should be trimmed prior to performing this check.</span></span>  
+  
+-   <span data-ttu-id="3bbf6-327"><xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A> プロパティを `null` にすることはできません。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-327">The <xref:System.Web.UI.WebControls.WebParts.PersonalizationStateQuery.UserInactiveSinceDate%2A> property cannot be `null`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SavePersonalizationBlob">
+      <MemberSignature Language="C#" Value="protected abstract void SavePersonalizationBlob (System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, string path, string userName, byte[] dataBlob);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void SavePersonalizationBlob(class System.Web.UI.WebControls.WebParts.WebPartManager webPartManager, string path, string userName, unsigned int8[] dataBlob) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.SavePersonalizationBlob(System.Web.UI.WebControls.WebParts.WebPartManager,System.String,System.String,System.Byte[])" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract void SavePersonalizationBlob(System::Web::UI::WebControls::WebParts::WebPartManager ^ webPartManager, System::String ^ path, System::String ^ userName, cli::array &lt;System::Byte&gt; ^ dataBlob);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="webPartManager" Type="System.Web.UI.WebControls.WebParts.WebPartManager" />
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="userName" Type="System.String" />
+        <Parameter Name="dataBlob" Type="System.Byte[]" />
+      </Parameters>
+      <Docs>
+        <param name="webPartManager">
+          <span data-ttu-id="3bbf6-328">パーソナル化データを管理している <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-328">The <see cref="T:System.Web.UI.WebControls.WebParts.WebPartManager" /> managing the personalization data.</span>
+          </span>
+        </param>
+        <param name="path">
+          <span data-ttu-id="3bbf6-329">データ ストア キーとして使用されるパーソナル化情報のパス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-329">The path for personalization information to be used as the data store key.</span>
+          </span>
+        </param>
+        <param name="userName">
+          <span data-ttu-id="3bbf6-330">キーとして使用されるパーソナル化情報のユーザー名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-330">The user name for personalization information to be used as the key.</span>
+          </span>
+        </param>
+        <param name="dataBlob">
+          <span data-ttu-id="3bbf6-331">保存されるバイト配列のデータ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-331">The byte array of data to be saved.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-332">派生クラス内でオーバーライドされると、基になるデータ ストアに生のパーソナル化データを保存します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-332">When overridden in a derived class, saves raw personalization data to the underlying data store.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-333">このメソッドは、生のパーソナル化データを基になるデータ ストアに保存するときに使用するメソッドの抽象定義です。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-333">This method is the abstract definition of the method used for saving raw personalization data to the underlying data store.</span></span>  
+  
+ <span data-ttu-id="3bbf6-334">派生実装を使用する必要があります、 `webPartManager`、 `path`、および`userName`記憶域のキーとして使用されるパラメーター。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-334">Derived implementations should use the `webPartManager`, `path`, and `userName` parameters as storage keys.</span></span> <span data-ttu-id="3bbf6-335">派生のパーソナル化プロバイダーは、ページごとの個人用設定データを区別できる必要があります。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-335">The derived personalization provider must be able to distinguish personalization data on a per-page basis.</span></span> <span data-ttu-id="3bbf6-336">さらに、特定のページの状態のプロバイダーできる必要がありますを区別する<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>と<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>スコープ。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-336">Furthermore, for a given page's state, the provider must be able to distinguish between <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> and <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> scope.</span></span> <span data-ttu-id="3bbf6-337">以外`null`ユーザー名を指定すると、`dataBlob`パラメーターが、<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User>スコープです。 それ以外の場合、`dataBlob`パラメーターがであると見なさ<xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared>スコープ。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-337">If a non-`null` user name is provided, then the `dataBlob` parameter is in <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.User> scope; otherwise, the `dataBlob` parameter is assumed to be in <xref:System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared> scope.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SavePersonalizationState">
+      <MemberSignature Language="C#" Value="public virtual void SavePersonalizationState (System.Web.UI.WebControls.WebParts.PersonalizationState state);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void SavePersonalizationState(class System.Web.UI.WebControls.WebParts.PersonalizationState state) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.SavePersonalizationState(System.Web.UI.WebControls.WebParts.PersonalizationState)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Sub SavePersonalizationState (state As PersonalizationState)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void SavePersonalizationState(System::Web::UI::WebControls::WebParts::PersonalizationState ^ state);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="state" Type="System.Web.UI.WebControls.WebParts.PersonalizationState" />
+      </Parameters>
+      <Docs>
+        <param name="state">
+          <span data-ttu-id="3bbf6-338">保存されるパーソナル化データを格納している <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-338">A <see cref="T:System.Web.UI.WebControls.WebParts.PersonalizationState" /> containing personalization data to be saved.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3bbf6-339">パーソナル化データをデータ ストアに保存します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-339">Saves personalization data to a data store.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3bbf6-340">この方法はメイン エントリ ポイントで使用される、<xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization>パーソナル化データを保存するクラス。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-340">This method is the main entry point used by the <xref:System.Web.UI.WebControls.WebParts.WebPartPersonalization> class to save personalization data.</span></span>  
+  
+ <span data-ttu-id="3bbf6-341">このメソッドの既定の実装の内部実装のメソッドを使用して<xref:System.Web.UI.WebControls.WebParts.PersonalizationState>バイト配列にパーソナル化データをパックします。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-341">The default implementation of this method uses the methods of an internal implementation of <xref:System.Web.UI.WebControls.WebParts.PersonalizationState> to pack personalization data into a byte array.</span></span> <span data-ttu-id="3bbf6-342">この梱包の結果が空のバイトを作成する場合は、配列 (プロパティ抽出結果、パーソナル化データはありません) のための既定の実装、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetPersonalizationBlob%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-342">If the results of this packing create an empty byte array (because property extraction resulted in no personalization data), the default implementation calls the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.ResetPersonalizationBlob%2A> method.</span></span> <span data-ttu-id="3bbf6-343">それ以外の場合、既定の実装を呼び出す、<xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.SavePersonalizationBlob%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="3bbf6-343">Otherwise, the default implementation calls the <xref:System.Web.UI.WebControls.WebParts.PersonalizationProvider.SavePersonalizationBlob%2A> method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="3bbf6-344">
+            <paramref name="state" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-344">
+              <paramref name="state" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="3bbf6-345">保存される <paramref name="state" /> オブジェクトの型が、<see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationState(System.Web.UI.WebControls.WebParts.WebPartManager,System.Boolean)" /> メソッドから返された <paramref name="state" /> オブジェクトと異なります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3bbf6-345">The <paramref name="state" /> object being saved has a different type from the <paramref name="state" /> object that was returned by the <see cref="M:System.Web.UI.WebControls.WebParts.PersonalizationProvider.LoadPersonalizationState(System.Web.UI.WebControls.WebParts.WebPartManager,System.Boolean)" /> method.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

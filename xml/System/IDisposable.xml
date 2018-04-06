@@ -1,0 +1,223 @@
+<Type Name="IDisposable" FullName="System.IDisposable">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="0f129b9e6cc6b4ce4a818f23df9a72208cdccc21" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public interface IDisposable" />
+  <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IDisposable" />
+  <TypeSignature Language="DocId" Value="T:System.IDisposable" />
+  <TypeSignature Language="VB.NET" Value="Public Interface IDisposable" />
+  <TypeSignature Language="C++ CLI" Value="public interface class IDisposable" />
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.0.20.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="8718f-101">アンマネージ リソースを解放するためのメカニズムを提供します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="8718f-101">Provides a mechanism for releasing unmanaged resources.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8718f-102">このインターフェイスの主な用途では、アンマネージ リソースを解放します。</span><span class="sxs-lookup"><span data-stu-id="8718f-102">The primary use of this interface is to release unmanaged resources.</span></span> <span data-ttu-id="8718f-103">ガベージ コレクターは、自動的にそのオブジェクトを使用できなくする場合は、マネージ オブジェクトに割り当てられたメモリを解放します。</span><span class="sxs-lookup"><span data-stu-id="8718f-103">The garbage collector automatically releases the memory allocated to a managed object when that object is no longer used.</span></span> <span data-ttu-id="8718f-104">ただし、ガベージ コレクションが行われるタイミングを予想することはできません。</span><span class="sxs-lookup"><span data-stu-id="8718f-104">However, it is not possible to predict when garbage collection will occur.</span></span> <span data-ttu-id="8718f-105">さらに、ガベージ コレクターは、ウィンドウ ハンドルなどのアンマネージ リソースの知識がないか、ファイルおよびストリームを開きます。</span><span class="sxs-lookup"><span data-stu-id="8718f-105">Furthermore, the garbage collector has no knowledge of unmanaged resources such as window handles, or open files and streams.</span></span>  
+  
+ <span data-ttu-id="8718f-106">使用して、<xref:System.IDisposable.Dispose%2A>ガベージ コレクターにアンマネージ リソースを明示的に解放するには、このインターフェイスのメソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-106">Use the <xref:System.IDisposable.Dispose%2A> method of this interface to explicitly release unmanaged resources in conjunction with the garbage collector.</span></span> <span data-ttu-id="8718f-107">オブジェクトのコンシューマーは、オブジェクトが不要になったとき、このメソッドを呼び出すことができます。</span><span class="sxs-lookup"><span data-stu-id="8718f-107">The consumer of an object can call this method when the object is no longer needed.</span></span>  
+  
+> [!WARNING]
+>  <span data-ttu-id="8718f-108">重大な変更を追加するのには、<xref:System.IDisposable>既存のクラスへのインターフェイスです。</span><span class="sxs-lookup"><span data-stu-id="8718f-108">It is a breaking change to add the <xref:System.IDisposable> interface to an existing class.</span></span> <span data-ttu-id="8718f-109">型の既存のコンシューマーが呼び出すことはできませんので<xref:System.IDisposable.Dispose%2A>、特定の種類によって保持されているアンマネージ リソースを解放することをすることはできません。</span><span class="sxs-lookup"><span data-stu-id="8718f-109">Because pre-existing consumers of your type cannot call <xref:System.IDisposable.Dispose%2A>, you cannot be certain that unmanaged resources held by your type will be released.</span></span>  
+  
+ <span data-ttu-id="8718f-110"><xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>インスタンスによって所有されているリソースは不要になったときに、型のコンシューマーによって実装が呼び出されるで管理されているオブジェクトをラップする必要がありますか、 <xref:System.Runtime.InteropServices.SafeHandle> (、推奨される代替手段)、またはオーバーライドする必要があります<xref:System.Object.Finalize%2A?displayProperty=nameWithType>イベントで呼び出しを忘れた場合は、コンシューマーは、アンマネージ リソースを解放する<xref:System.IDisposable.Dispose%2A>です。</span><span class="sxs-lookup"><span data-stu-id="8718f-110">Because the <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> implementation is called by the consumer of a type when the resources owned by an instance are no longer needed, you should either wrap the managed object in a <xref:System.Runtime.InteropServices.SafeHandle> (the recommended alternative), or you should override <xref:System.Object.Finalize%2A?displayProperty=nameWithType> to free unmanaged resources in the event that the consumer forgets to call <xref:System.IDisposable.Dispose%2A>.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="8718f-111">.NET Framework で、C++ コンパイラがリソースの確定的な破棄をサポートしの直接の実装はできません、<xref:System.IDisposable.Dispose%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-111">In the .NET Framework, the C++ compiler supports deterministic disposal of resources and does not allow direct implementation of the <xref:System.IDisposable.Dispose%2A> method.</span></span>  
+  
+ <span data-ttu-id="8718f-112">方法の詳細についてはこのインターフェイスと<xref:System.Object.Finalize%2A?displayProperty=nameWithType>メソッドを使用するを参照してください、[ガベージ コレクション](http://msdn.microsoft.com/library/22b6cb97-0c80-4eeb-a2cf-5ed7655e37f9)と[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)トピックです。</span><span class="sxs-lookup"><span data-stu-id="8718f-112">For a detailed discussion about how this interface and the <xref:System.Object.Finalize%2A?displayProperty=nameWithType> method are used, see the [Garbage Collection](http://msdn.microsoft.com/library/22b6cb97-0c80-4eeb-a2cf-5ed7655e37f9) and [Implementing a Dispose Method](~/docs/standard/garbage-collection/implementing-dispose.md) topics.</span></span>  
+  
+## <a name="using-an-object-that-implements-idisposable"></a><span data-ttu-id="8718f-113">IDisposable を実装するオブジェクトを使用します。</span><span class="sxs-lookup"><span data-stu-id="8718f-113">Using an object that implements IDisposable</span></span>  
+ <span data-ttu-id="8718f-114">アプリは単に実装するオブジェクトを使用する場合、<xref:System.IDisposable>インターフェイス、オブジェクトを呼び出す必要があります<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>その使用が終了した場合に実装します。</span><span class="sxs-lookup"><span data-stu-id="8718f-114">If your app simply uses an object that implements the <xref:System.IDisposable> interface, you should call the object's <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> implementation when you are finished using it.</span></span> <span data-ttu-id="8718f-115">プログラミング言語によっては、2 つの方法のいずれかでこれを行うことができます。</span><span class="sxs-lookup"><span data-stu-id="8718f-115">Depending on your programming language, you can do this in one of two ways:</span></span>  
+  
+-   <span data-ttu-id="8718f-116">言語を使用して構築など、 `using` c# および Visual Basic でのステートメント。</span><span class="sxs-lookup"><span data-stu-id="8718f-116">By using a language construct such as the `using` statement in C# and Visual Basic.</span></span>  
+  
+-   <span data-ttu-id="8718f-117">呼び出しをラップすることによって、<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>での実装、 `try` / `finally`ブロックします。</span><span class="sxs-lookup"><span data-stu-id="8718f-117">By wrapping the call to the <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> implementation in a `try`/`finally` block.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="8718f-118">ドキュメント型を実装する<xref:System.IDisposable>そのことに注意してくださいし、アラームを呼び出してその<xref:System.IDisposable.Dispose%2A>実装します。</span><span class="sxs-lookup"><span data-stu-id="8718f-118">Documentation for types that implement <xref:System.IDisposable> note that fact and include a reminder to call its <xref:System.IDisposable.Dispose%2A> implementation.</span></span>  
+  
+<a name="Using"></a>   
+### <a name="the-c-and-visual-basic-using-statement"></a><span data-ttu-id="8718f-119">C# および Visual Basic を使用してステートメント</span><span class="sxs-lookup"><span data-stu-id="8718f-119">The C# and Visual Basic Using statement</span></span>  
+ <span data-ttu-id="8718f-120">など、言語にコンストラクトがサポートしている場合、[を使用して](~/docs/csharp/language-reference/keywords/using.md)(C#) ステートメントと[Using](~/docs/visual-basic/language-reference/statements/using-statement.md) Visual Basic でのステートメントを使用する明示的に呼び出す代わりに<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>自分でします。</span><span class="sxs-lookup"><span data-stu-id="8718f-120">If your language supports a construct such as the [using](~/docs/csharp/language-reference/keywords/using.md) statement in C# and the [Using](~/docs/visual-basic/language-reference/statements/using-statement.md) statement in Visual Basic, you can use it instead of explicitly calling <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> yourself.</span></span> <span data-ttu-id="8718f-121">次の例では、この方法を定義する、`WordCount`ファイルとその中の単語の数に関する情報を保持するクラス。</span><span class="sxs-lookup"><span data-stu-id="8718f-121">The following example uses this approach in defining a `WordCount` class that preserves information about a file and the number of words in it.</span></span>  
+  
+ [!code-csharp[System.IDisposable#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.idisposable/cs/calling1.cs#1)]
+ [!code-vb[System.IDisposable#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.idisposable/vb/calling1.vb#1)]  
+  
+ <span data-ttu-id="8718f-122">`using`ステートメントは構文上の便利な実際にします。</span><span class="sxs-lookup"><span data-stu-id="8718f-122">The `using` statement is actually a syntactic convenience.</span></span> <span data-ttu-id="8718f-123">コンパイル時に、言語コンパイラを実装する中間言語 (IL) の`try` / `finally`ブロックします。</span><span class="sxs-lookup"><span data-stu-id="8718f-123">At compile time, the language compiler implements the intermediate language (IL) for a `try`/`finally` block.</span></span>  
+  
+ <span data-ttu-id="8718f-124">詳細については、`using`ステートメントを参照してください、 [Using ステートメント](~/docs/visual-basic/language-reference/statements/using-statement.md)または[ステートメントを使用して](~/docs/csharp/language-reference/keywords/using-statement.md)トピックです。</span><span class="sxs-lookup"><span data-stu-id="8718f-124">For more information about the `using` statement, see the [Using Statement](~/docs/visual-basic/language-reference/statements/using-statement.md) or [using Statement](~/docs/csharp/language-reference/keywords/using-statement.md) topics.</span></span>  
+  
+### <a name="the-tryfinally-block"></a><span data-ttu-id="8718f-125">Try/finally ブロック</span><span class="sxs-lookup"><span data-stu-id="8718f-125">The Try/Finally block</span></span>  
+ <span data-ttu-id="8718f-126">使用するプログラミング言語がのようなコンストラクトをサポートしないかどうか、 `using` c# または Visual Basic では、ステートメントで呼び出すか、またはそれを使用しないようにする場合、<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>実装から、`finally`のブロック、 `try` / `finally`ステートメントです。</span><span class="sxs-lookup"><span data-stu-id="8718f-126">If your programming language does not support a construct like the `using` statement in C# or Visual Basic, or if you prefer not to use it, you can call the <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> implementation from the `finally` block of a `try`/`finally` statement.</span></span> <span data-ttu-id="8718f-127">次の例が置き換えられます、`using`と前の例ではブロック、 `try` / `finally`ブロックします。</span><span class="sxs-lookup"><span data-stu-id="8718f-127">The following example replaces the `using` block in the previous example with a `try`/`finally` block.</span></span>  
+  
+ [!code-csharp[System.IDisposable#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.idisposable/cs/calling2.cs#2)]
+ [!code-vb[System.IDisposable#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.idisposable/vb/calling2.vb#2)]  
+  
+ <span data-ttu-id="8718f-128">詳細については、 `try` / `finally`パターンは、「[を再試行してください.キャッチしてください.Finally ステートメント](~/docs/visual-basic/language-reference/statements/try-catch-finally-statement.md)、 [、try-finally](~/docs/csharp/language-reference/keywords/try-finally.md)、または[try-finally ステートメント](http://msdn.microsoft.com/library/514400c1-c322-4bf3-9e48-3047240b8a82)です。</span><span class="sxs-lookup"><span data-stu-id="8718f-128">For more information about the `try`/`finally` pattern, see [Try...Catch...Finally Statement](~/docs/visual-basic/language-reference/statements/try-catch-finally-statement.md), [try-finally](~/docs/csharp/language-reference/keywords/try-finally.md), or [try-finally Statement](http://msdn.microsoft.com/library/514400c1-c322-4bf3-9e48-3047240b8a82).</span></span>  
+  
+## <a name="implementing-idisposable"></a><span data-ttu-id="8718f-129">IDisposable の実装</span><span class="sxs-lookup"><span data-stu-id="8718f-129">Implementing IDisposable</span></span>  
+ <span data-ttu-id="8718f-130">実装する必要があります<xref:System.IDisposable>の種類のアンマネージ リソースを直接使用する場合にのみです。</span><span class="sxs-lookup"><span data-stu-id="8718f-130">You should implement <xref:System.IDisposable> only if your type uses unmanaged resources directly.</span></span> <span data-ttu-id="8718f-131">型のコンシューマーが呼び出すことができます、<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>実装のインスタンスが不要になったときにリソースを解放します。</span><span class="sxs-lookup"><span data-stu-id="8718f-131">The consumers of your type can call your <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> implementation to free resources when the instance is no longer needed.</span></span> <span data-ttu-id="8718f-132">呼び出しに失敗した場合を処理するために<xref:System.IDisposable.Dispose%2A>、いずれかから派生したクラスを使用する必要があります<xref:System.Runtime.InteropServices.SafeHandle>するか、アンマネージ リソースをラップする必要がありますオーバーライド、<xref:System.Object.Finalize%2A?displayProperty=nameWithType>参照型のメソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-132">To handle cases in which they fail to call <xref:System.IDisposable.Dispose%2A>, you should either use a class derived from <xref:System.Runtime.InteropServices.SafeHandle> to wrap the unmanaged resources, or you should override the <xref:System.Object.Finalize%2A?displayProperty=nameWithType> method for a reference type.</span></span> <span data-ttu-id="8718f-133">使用するいずれの場合、<xref:System.IDisposable.Dispose%2A>解放、リリース、またはアンマネージ リソースをリセットするなど、アンマネージ リソースを使用した後、必要なクリーンアップ処理をすべてを実行するメソッド。</span><span class="sxs-lookup"><span data-stu-id="8718f-133">In either case, you use the <xref:System.IDisposable.Dispose%2A> method to perform whatever cleanup is necessary after using the unmanaged resources, such as freeing, releasing, or resetting the unmanaged resources.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="8718f-134">基本クラスを定義する場合はアンマネージ リソースを使用する、またはのいずれかが傾向があります、サブクラスは破棄されなければなりません、実装する必要があります、<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>メソッドの 2 番目のオーバー ロードを提供および`Dispose`、次のセクションで説明したようにします。</span><span class="sxs-lookup"><span data-stu-id="8718f-134">If you are defining a base class that uses unmanaged resources and that either has, or is likely to have, subclasses that should be disposed, you should implement the <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> method and provide a second overload of `Dispose`, as discussed in the next section.</span></span>  
+  
+<a name="BaseClasses"></a>   
+## <a name="idisposable-and-the-inheritance-hierarchy"></a><span data-ttu-id="8718f-135">IDisposable および継承階層</span><span class="sxs-lookup"><span data-stu-id="8718f-135">IDisposable and the inheritance hierarchy</span></span>  
+ <span data-ttu-id="8718f-136">破棄可能にする必要のあるサブクラスを持つ基本クラスを実装する必要があります<xref:System.IDisposable>次のようにします。</span><span class="sxs-lookup"><span data-stu-id="8718f-136">A base class with subclasses that should be disposable must implement <xref:System.IDisposable> as follows.</span></span> <span data-ttu-id="8718f-137">実装するときに、このパターンを使用する必要があります<xref:System.IDisposable>任意の型にはない`sealed`(`NotInheritable` Visual Basic で)。</span><span class="sxs-lookup"><span data-stu-id="8718f-137">You should use this pattern whenever you implement <xref:System.IDisposable> on any type that isn't `sealed` (`NotInheritable` in Visual Basic).</span></span>  
+  
+-   <span data-ttu-id="8718f-138">1 つのパブリック非仮想を指定しなければなりません<xref:System.IDisposable.Dispose>メソッドとプロテクト仮想`Dispose(Boolean disposing)`メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-138">It should provide one public, non-virtual <xref:System.IDisposable.Dispose> method and a protected virtual `Dispose(Boolean disposing)` method.</span></span>  
+  
+-   <span data-ttu-id="8718f-139"><xref:System.IDisposable.Dispose>メソッドを呼び出す必要があります`Dispose(true)`パフォーマンスの終了処理を抑制する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8718f-139">The <xref:System.IDisposable.Dispose> method must call `Dispose(true)` and should suppress finalization for performance.</span></span>  
+  
+-   <span data-ttu-id="8718f-140">基本型はファイナライザーを含めることはできません。</span><span class="sxs-lookup"><span data-stu-id="8718f-140">The base type should not include any finalizers.</span></span>  
+  
+ <span data-ttu-id="8718f-141">次のコード フラグメントでは、基本クラスで dispose パターンを反映しています。</span><span class="sxs-lookup"><span data-stu-id="8718f-141">The following code fragment reflects the dispose pattern for base classes.</span></span> <span data-ttu-id="8718f-142">種類をオーバーライドしないことを想定しています、<xref:System.Object.Finalize%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-142">It assumes that your type does not override the <xref:System.Object.Finalize%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ [!code-csharp[System.IDisposable#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.idisposable/cs/base1.cs#3)]
+ [!code-vb[System.IDisposable#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.idisposable/vb/base1.vb#3)]  
+  
+ <span data-ttu-id="8718f-143">オーバーライドする場合、<xref:System.Object.Finalize%2A?displayProperty=nameWithType>メソッド、クラスは、次のパターンを実装する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8718f-143">If you do override the <xref:System.Object.Finalize%2A?displayProperty=nameWithType> method, your class should implement the following pattern.</span></span>  
+  
+ [!code-csharp[System.IDisposable#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.idisposable/cs/base2.cs#5)]
+ [!code-vb[System.IDisposable#5](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.idisposable/vb/base2.vb#5)]  
+  
+ <span data-ttu-id="8718f-144">サブクラスは破棄可能なパターンを次のように実装する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8718f-144">Subclasses should implement the disposable pattern as follows:</span></span>  
+  
+-   <span data-ttu-id="8718f-145">これらは `Dispose(Boolean)` をオーバーライドし、基底クラスの `Dispose(Boolean)` の実装を呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="8718f-145">They must override `Dispose(Boolean)` and call the base class `Dispose(Boolean)` implementation.</span></span>  
+  
+-   <span data-ttu-id="8718f-146">必要な場合にはファイナライザーを提供します。</span><span class="sxs-lookup"><span data-stu-id="8718f-146">They can provide a finalizer if needed.</span></span> <span data-ttu-id="8718f-147">ファイナライザーは `Dispose(false)` を呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="8718f-147">The finalizer must call `Dispose(false)`.</span></span>  
+  
+ <span data-ttu-id="8718f-148">派生クラスは実装しないこと自体に注意してください、<xref:System.IDisposable>インターフェイスし、パラメーターなしを含めないでください<xref:System.IDisposable.Dispose%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-148">Note that derived classes do not themselves implement the <xref:System.IDisposable> interface and do not include a parameterless <xref:System.IDisposable.Dispose%2A> method.</span></span> <span data-ttu-id="8718f-149">のみ、基本クラスをオーバーライドする`Dispose(Boolean)`メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-149">They only override the base class `Dispose(Boolean)` method.</span></span>  
+  
+ <span data-ttu-id="8718f-150">次のコード フラグメントでは、派生クラスで dispose パターンを反映しています。</span><span class="sxs-lookup"><span data-stu-id="8718f-150">The following code fragment reflects the dispose pattern for derived classes.</span></span> <span data-ttu-id="8718f-151">種類をオーバーライドしないことを想定しています、<xref:System.Object.Finalize%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-151">It assumes that your type does not override the <xref:System.Object.Finalize%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ [!code-csharp[System.IDisposable#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.idisposable/cs/derived1.cs#4)]
+ [!code-vb[System.IDisposable#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.idisposable/vb/derived1.vb#4)]  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8718f-152">次の例は、リソースを実装するクラスを作成する方法を示します、<xref:System.IDisposable>インターフェイスです。</span><span class="sxs-lookup"><span data-stu-id="8718f-152">The following example demonstrates how to create a resource class that implements the <xref:System.IDisposable> interface.</span></span>  
+  
+ [!code-cpp[System.IDisposable.Dispose Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IDisposable.Dispose Example/CPP/idisposabledispose.cpp#1)]
+ [!code-csharp[System.IDisposable.Dispose Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IDisposable.Dispose Example/CS/idisposabledispose.cs#1)]
+ [!code-vb[System.IDisposable.Dispose Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IDisposable.Dispose Example/VB/idisposabledispose.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:Microsoft.Win32.SafeHandles.SafeFileHandle" />
+  </Docs>
+  <Members>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="public void Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IDisposable.Dispose" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Dispose ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Dispose();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.0.20.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="8718f-153">アンマネージ リソースの解放またはリセットに関連付けられているアプリケーション定義のタスクを実行します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8718f-153">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8718f-154">このメソッドを使用して、閉じるか、ファイル、ストリームは、このインターフェイスを実装するクラスのインスタンスによって保持されているハンドルなどのアンマネージ リソースを解放します。</span><span class="sxs-lookup"><span data-stu-id="8718f-154">Use this method to close or release unmanaged resources such as files, streams, and handles held by an instance of the class that implements this interface.</span></span> <span data-ttu-id="8718f-155">規則では、このメソッドは、オブジェクトによって保持されているリソースの解放に関連するすべてのタスクの使用や再利用するため、オブジェクトを準備します。</span><span class="sxs-lookup"><span data-stu-id="8718f-155">By convention, this method is used for all tasks associated with freeing resources held by an object, or preparing an object for reuse.</span></span>  
+  
+> [!WARNING]
+>  <span data-ttu-id="8718f-156">実装するクラスを使用している場合、<xref:System.IDisposable>インターフェイスを呼び出す必要があります、<xref:System.IDisposable.Dispose%2A>クラスの使用が終了した場合に実装します。</span><span class="sxs-lookup"><span data-stu-id="8718f-156">If you are using a class that implements the <xref:System.IDisposable> interface, you should call its <xref:System.IDisposable.Dispose%2A> implementation when you are finished using the class.</span></span> <span data-ttu-id="8718f-157">詳細については、「IDisposable を実装するオブジェクトを使用して」のセクションを参照して、<xref:System.IDisposable>トピックです。</span><span class="sxs-lookup"><span data-stu-id="8718f-157">For more information, see the "Using an object that implements IDisposable" section in the <xref:System.IDisposable> topic.</span></span>  
+  
+ <span data-ttu-id="8718f-158">このメソッドを実装する場合は、すべて保持しているリソースは、包含階層からの呼び出しに適用して解放を確認します。</span><span class="sxs-lookup"><span data-stu-id="8718f-158">When implementing this method, ensure that all held resources are freed by propagating the call through the containment hierarchy.</span></span> <span data-ttu-id="8718f-159">たとえば、オブジェクト A がオブジェクト B を割り当て、オブジェクト B オブジェクトを割り当てます、C、A からの<xref:System.IDisposable.Dispose%2A>実装を呼び出す必要があります<xref:System.IDisposable.Dispose%2A>B を呼び出す必要がありますに<xref:System.IDisposable.Dispose%2A>C 上</span><span class="sxs-lookup"><span data-stu-id="8718f-159">For example, if an object A allocates an object B, and object B allocates an object C, then A's <xref:System.IDisposable.Dispose%2A> implementation must call <xref:System.IDisposable.Dispose%2A> on B, which must in turn call <xref:System.IDisposable.Dispose%2A> on C.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="8718f-160">C++ コンパイラがリソースの確定的な破棄をサポートしているし、直接実装を許可しない、<xref:System.IDisposable.Dispose%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-160">The C++ compiler supports deterministic disposal of resources and does not allow direct implementation of the <xref:System.IDisposable.Dispose%2A> method.</span></span>  
+  
+ <span data-ttu-id="8718f-161">オブジェクトを呼び出す必要がありますも、<xref:System.IDisposable.Dispose%2A>基底クラスを実装する場合、基底クラスのメソッド<xref:System.IDisposable>です。</span><span class="sxs-lookup"><span data-stu-id="8718f-161">An object must also call the <xref:System.IDisposable.Dispose%2A> method of its base class if the base class implements <xref:System.IDisposable>.</span></span> <span data-ttu-id="8718f-162">実装の詳細については<xref:System.IDisposable>基底クラスとそのサブクラスでは、「IDisposable と継承の階層構造」のセクションを参照してください、<xref:System.IDisposable>トピックです。</span><span class="sxs-lookup"><span data-stu-id="8718f-162">For more information about implementing <xref:System.IDisposable> on a base class and its subclasses, see the "IDisposable and the inheritance hierarchy" section in the <xref:System.IDisposable> topic.</span></span>  
+  
+ <span data-ttu-id="8718f-163">オブジェクトの<xref:System.IDisposable.Dispose%2A>メソッドが複数回呼び出されると、オブジェクトは、最初の 1 つ後のすべての呼び出しを無視する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8718f-163">If an object's <xref:System.IDisposable.Dispose%2A> method is called more than once, the object must ignore all calls after the first one.</span></span> <span data-ttu-id="8718f-164">場合、オブジェクトが例外をスローする必要があります、<xref:System.IDisposable.Dispose%2A>メソッドには複数回は呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="8718f-164">The object must not throw an exception if its <xref:System.IDisposable.Dispose%2A> method is called multiple times.</span></span> <span data-ttu-id="8718f-165">インスタンス メソッド以外の<xref:System.IDisposable.Dispose%2A>スローすることができます、<xref:System.ObjectDisposedException>リソースは既に破棄されています。</span><span class="sxs-lookup"><span data-stu-id="8718f-165">Instance methods other than <xref:System.IDisposable.Dispose%2A> can throw an <xref:System.ObjectDisposedException> when resources are already disposed.</span></span>  
+  
+ <span data-ttu-id="8718f-166">ユーザーは、解放されている状態と割り当てられた状態を示すために特別な規則を使用するリソースの種類と思ったかもしれません。</span><span class="sxs-lookup"><span data-stu-id="8718f-166">Users might expect a resource type to use a particular convention to denote an allocated state versus a freed state.</span></span> <span data-ttu-id="8718f-167">この例は、従来から開くと考えるまたは終了するストリーム クラスです。</span><span class="sxs-lookup"><span data-stu-id="8718f-167">An example of this is stream classes, which are traditionally thought of as open or closed.</span></span> <span data-ttu-id="8718f-168">など、カスタマイズされた名前のパブリック メソッドを実装するこのような規則を持つクラスの実装側こともできます`Close`、その呼び出し、<xref:System.IDisposable.Dispose%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-168">The implementer of a class that has such a convention might choose to implement a public method with a customized name, such as `Close`, that calls the <xref:System.IDisposable.Dispose%2A> method.</span></span>  
+  
+ <span data-ttu-id="8718f-169"><xref:System.IDisposable.Dispose%2A>メソッドを明示的に呼び出す必要があります、常にアンマネージ リソースに含まれない危険性があるオブジェクトのコンシューマーが呼び出しに失敗したため、解放、<xref:System.IDisposable.Dispose%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-169">Because the <xref:System.IDisposable.Dispose%2A> method must be called explicitly, there is always a danger that the unmanaged resources will not be released, because the consumer of an object fails to call its <xref:System.IDisposable.Dispose%2A> method.</span></span> <span data-ttu-id="8718f-170">これにはこれを回避する 2 つの方法があります。</span><span class="sxs-lookup"><span data-stu-id="8718f-170">There are two ways to avoid this:</span></span>  
+  
+-   <span data-ttu-id="8718f-171">派生したオブジェクトでマネージ リソースをラップ<xref:System.Runtime.InteropServices.SafeHandle?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="8718f-171">Wrap the managed resource in an object derived from <xref:System.Runtime.InteropServices.SafeHandle?displayProperty=nameWithType>.</span></span> <span data-ttu-id="8718f-172"><xref:System.IDisposable.Dispose%2A>実装し、<xref:System.IDisposable.Dispose%2A>のメソッド、<xref:System.Runtime.InteropServices.SafeHandle?displayProperty=nameWithType>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="8718f-172">Your <xref:System.IDisposable.Dispose%2A> implementation then calls the <xref:System.IDisposable.Dispose%2A> method of the <xref:System.Runtime.InteropServices.SafeHandle?displayProperty=nameWithType> instances.</span></span> <span data-ttu-id="8718f-173">詳細については、「SafeHandle 代わりに、」セクションを参照して、<xref:System.Object.Finalize%2A?displayProperty=nameWithType>トピックです。</span><span class="sxs-lookup"><span data-stu-id="8718f-173">For more information, see "The SafeHandle alternative" section in the <xref:System.Object.Finalize%2A?displayProperty=nameWithType> topic.</span></span>  
+  
+-   <span data-ttu-id="8718f-174">リソースを解放するファイナライザーを実装するときに<xref:System.IDisposable.Dispose%2A>は呼び出されません。</span><span class="sxs-lookup"><span data-stu-id="8718f-174">Implement a finalizer to free resources when <xref:System.IDisposable.Dispose%2A> is not called.</span></span> <span data-ttu-id="8718f-175">既定では、ガベージ コレクターによって、そのメモリを解放する前に、オブジェクトのファイナライザーが自動的に呼び出します。</span><span class="sxs-lookup"><span data-stu-id="8718f-175">By default, the garbage collector automatically calls an object's finalizer before reclaiming its memory.</span></span> <span data-ttu-id="8718f-176">ただし場合、<xref:System.IDisposable.Dispose%2A>メソッドがされた呼び出されると、その必要はありません通常ガベージ コレクターが破棄されたオブジェクトのファイナライザーを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="8718f-176">However, if the <xref:System.IDisposable.Dispose%2A> method has been called, it is typically unnecessary for the garbage collector to call the disposed object's finalizer.</span></span> <span data-ttu-id="8718f-177">自動終了処理を防ぐために<xref:System.IDisposable.Dispose%2A>実装を呼び出すことができます、<xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-177">To prevent automatic finalization, <xref:System.IDisposable.Dispose%2A> implementations can call the <xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ <span data-ttu-id="8718f-178">など、アンマネージ リソースにアクセスできるオブジェクトを使用すると、<xref:System.IO.StreamWriter>を使用して、インスタンスを作成することをお勧めは、`using`ステートメントです。</span><span class="sxs-lookup"><span data-stu-id="8718f-178">When you use an object that accesses unmanaged resources, such as a <xref:System.IO.StreamWriter>, a good practice is to create the instance with a `using` statement.</span></span> <span data-ttu-id="8718f-179">`using`ステートメントは、ストリームと呼び出しに自動的に閉じる<xref:System.IDisposable.Dispose%2A>オブジェクトによって使用されているコードが完了したときにします。</span><span class="sxs-lookup"><span data-stu-id="8718f-179">The `using` statement automatically closes the stream and calls <xref:System.IDisposable.Dispose%2A> on the object when the code that is using it has completed.</span></span> <span data-ttu-id="8718f-180">例については、次を参照してください。、<xref:System.IO.StreamWriter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="8718f-180">For an example, see the <xref:System.IO.StreamWriter> class.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8718f-181">次の例は、実装する方法を示しています、<xref:System.IDisposable.Dispose%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="8718f-181">The following example shows how you can implement the <xref:System.IDisposable.Dispose%2A> method.</span></span>  
+  
+ [!code-cpp[System.IDisposable.Dispose Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IDisposable.Dispose Example/CPP/idisposabledispose.cpp#1)]
+ [!code-csharp[System.IDisposable.Dispose Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IDisposable.Dispose Example/CS/idisposabledispose.cs#1)]
+ [!code-vb[System.IDisposable.Dispose Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IDisposable.Dispose Example/VB/idisposabledispose.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

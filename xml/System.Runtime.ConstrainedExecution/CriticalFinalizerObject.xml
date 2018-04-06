@@ -1,0 +1,204 @@
+<Type Name="CriticalFinalizerObject" FullName="System.Runtime.ConstrainedExecution.CriticalFinalizerObject">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="f1d2facb08d43ad654cb2b085fefa826d0c99cd7" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class CriticalFinalizerObject" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit CriticalFinalizerObject extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Runtime.ConstrainedExecution.CriticalFinalizerObject" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class CriticalFinalizerObject" />
+  <TypeSignature Language="C++ CLI" Value="public ref class CriticalFinalizerObject abstract" />
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="691c5-101">派生クラスのすべての終了コードが確実に重大であるとマークされるようにします。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="691c5-101">Ensures that all finalization code in derived classes is marked as critical.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="691c5-102">派生するクラス、<xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject>クラスは暗黙的に制約された実行領域 (CER) として扱われます。</span><span class="sxs-lookup"><span data-stu-id="691c5-102">Classes deriving from the <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject> class are implicitly treated as a constrained execution region (CER).</span></span>  <span data-ttu-id="691c5-103">これには、のみ強力な信頼性のコントラクトにコードを呼び出すファイナライザーでコードが必要です。</span><span class="sxs-lookup"><span data-stu-id="691c5-103">This requires code in the finalizer to only call code with a strong reliability contract.</span></span> <span data-ttu-id="691c5-104">Cer の詳細については、次を参照してください。、<xref:System.Runtime.ConstrainedExecution>名前空間。</span><span class="sxs-lookup"><span data-stu-id="691c5-104">For more information about CERs, see the <xref:System.Runtime.ConstrainedExecution> namespace.</span></span>  
+  
+ <span data-ttu-id="691c5-105">派生したクラスで、<xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject>いるすべての重要な終了コードは機会が与え実行するにはファイナライザーを CLR に強制的にアプリケーション ドメインをアンロードしたり中止したり、スレッドの場合であっても、CER の規則に従っていれば、クラス、共通言語ランタイム (CLR) 保証します。</span><span class="sxs-lookup"><span data-stu-id="691c5-105">In classes derived from the <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject> class, the common language runtime (CLR) guarantees that all critical finalization code will be given the opportunity to execute, provided the finalizer follows the rules for a CER, even in situations where the CLR forcibly unloads an application domain or aborts a thread.</span></span> <span data-ttu-id="691c5-106">ファイナライザー CER の規則に違反する場合に可能性がありますが正常に実行されません。</span><span class="sxs-lookup"><span data-stu-id="691c5-106">If a finalizer violates the rules for a CER, it might not successfully execute.</span></span> <span data-ttu-id="691c5-107">さらに、CLR は通常の動作と重要なファイナライザー間弱い順序付けを確立します。 クリティカル ファイナライザーのいずれかの前に、同時にガベージ コレクションによって回収されるオブジェクトのすべての重要でないファイナライザーが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="691c5-107">In addition, the CLR establishes a weak ordering among normal and critical finalizers: for objects reclaimed by garbage collection at the same time, all the noncritical finalizers are called before any of the critical finalizers.</span></span> <span data-ttu-id="691c5-108">などのクラスなど、 <xref:System.IO.FileStream>、内のデータを保持する、<xref:System.Runtime.InteropServices.SafeHandle>から派生したクラスを<xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject>、バッファー内の既存のデータをフラッシュする標準のファイナライザーを実行できます。</span><span class="sxs-lookup"><span data-stu-id="691c5-108">For example, a class such as <xref:System.IO.FileStream>, which holds data in the <xref:System.Runtime.InteropServices.SafeHandle> class that is derived from <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject>, can run a standard finalizer to flush out existing buffered data.</span></span>  
+  
+ <span data-ttu-id="691c5-109">ほとんどの場合はから派生するクラスを記述する必要はありません、<xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject>クラスです。</span><span class="sxs-lookup"><span data-stu-id="691c5-109">In most cases, you do not need to write classes that derive from the <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject> class.</span></span> <span data-ttu-id="691c5-110">.NET Framework クラス ライブラリには、2 つのクラスが用意されています<xref:System.Runtime.InteropServices.SafeHandle>と<xref:System.Runtime.InteropServices.CriticalHandle>、ハンドル リソースの重要な終了処理の機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="691c5-110">The .NET Framework class library provides two classes, <xref:System.Runtime.InteropServices.SafeHandle> and <xref:System.Runtime.InteropServices.CriticalHandle>, that provide critical finalization functionality for handle resources.</span></span> <span data-ttu-id="691c5-111">さらに、.NET Framework がから派生したクラスの定義済みのセットを提供、<xref:System.Runtime.InteropServices.SafeHandle>クラス、およびこのセットにある、<xref:Microsoft.Win32.SafeHandles>名前空間。</span><span class="sxs-lookup"><span data-stu-id="691c5-111">Furthermore, the .NET Framework provides a set of prewritten classes derived from the <xref:System.Runtime.InteropServices.SafeHandle> class, and this set is located in the <xref:Microsoft.Win32.SafeHandles> namespace.</span></span> <span data-ttu-id="691c5-112">これらのクラスは、ファイルとオペレーティング システム ハンドルをサポートするための共通の機能を提供する設計されています。</span><span class="sxs-lookup"><span data-stu-id="691c5-112">These classes are designed to provide common functionality for supporting file and operating system handles.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="691c5-113">次のコード例の使用を示しています、<xref:Microsoft.Win32.SafeHandles.SafeFileHandle>標準入力と出力ストリームに重大な終了処理を提供するクラス。</span><span class="sxs-lookup"><span data-stu-id="691c5-113">The following code example shows the use of the <xref:Microsoft.Win32.SafeHandles.SafeFileHandle> class to provide critical finalization for the standard input and output streams.</span></span> <span data-ttu-id="691c5-114"><xref:Microsoft.Win32.SafeHandles.SafeFileHandle>から派生した、<xref:System.Runtime.InteropServices.SafeHandle>クラス、ファイル ストリームに渡される、<xref:System.IO.FileStream>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="691c5-114">The <xref:Microsoft.Win32.SafeHandles.SafeFileHandle>, derived from the <xref:System.Runtime.InteropServices.SafeHandle> class, is passed to the file stream in the <xref:System.IO.FileStream> constructor.</span></span>  
+  
+ [!code-csharp[SafeHandle.SafeFileHandle#1](~/samples/snippets/csharp/VS_Snippets_CLR/SafeHandle.SafeFileHandle/CS/program.cs#1)]
+ [!code-vb[SafeHandle.SafeFileHandle#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/SafeHandle.SafeFileHandle/vb/program.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <permission cref="T:System.Security.Permissions.SecurityPermission">
+      <span data-ttu-id="691c5-115">アンマネージ コードを呼び出すアクセス許可。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="691c5-115">for permission to call unmanaged code.</span>
+      </span>
+      <span data-ttu-id="691c5-116">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="691c5-116">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+      </span>
+      <span data-ttu-id="691c5-117">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+      <span class="sxs-lookup">
+        <span data-stu-id="691c5-117">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+      </span>
+    </permission>
+    <permission cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand">
+      <span data-ttu-id="691c5-118">継承時の完全な信頼。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="691c5-118">for full trust for inheritors.</span>
+      </span>
+      <span data-ttu-id="691c5-119">このクラスは、部分的に信頼されたコードでは使用できません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="691c5-119">This class cannot be used by partially trusted code.</span>
+      </span>
+    </permission>
+    <altmember cref="T:System.Runtime.InteropServices.SafeHandle" />
+    <altmember cref="T:System.Runtime.InteropServices.CriticalHandle" />
+    <altmember cref="N:Microsoft.Win32.SafeHandles" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected CriticalFinalizerObject ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.ConstrainedExecution.CriticalFinalizerObject.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; CriticalFinalizerObject();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.MayFail)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="691c5-120">
+            <see cref="T:System.Runtime.ConstrainedExecution.CriticalFinalizerObject" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="691c5-120">Initializes a new instance of the <see cref="T:System.Runtime.ConstrainedExecution.CriticalFinalizerObject" /> class.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="691c5-121">アンマネージ コードを呼び出すアクセス許可。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="691c5-121">for permission to call unmanaged code.</span>
+          </span>
+          <span data-ttu-id="691c5-122">セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="691c5-122">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+          <span data-ttu-id="691c5-123">関連する列挙。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="691c5-123">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></span>
+          </span>
+        </permission>
+        <permission cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand">
+          <span data-ttu-id="691c5-124">継承時の完全な信頼。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="691c5-124">for full trust for inheritors.</span>
+          </span>
+          <span data-ttu-id="691c5-125">このクラスは、部分的に信頼されたコードでは使用できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="691c5-125">This class cannot be used by partially trusted code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Finalize">
+      <MemberSignature Language="C#" Value="~CriticalFinalizerObject ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Finalize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.ConstrainedExecution.CriticalFinalizerObject.Finalize" />
+      <MemberSignature Language="VB.NET" Value="Finalize ()" />
+      <MemberSignature Language="C++ CLI" Value="!CriticalFinalizerObject ()" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="691c5-126">
+            <see cref="T:System.Runtime.ConstrainedExecution.CriticalFinalizerObject" /> クラスによって使用されているすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="691c5-126">Releases all the resources used by the <see cref="T:System.Runtime.ConstrainedExecution.CriticalFinalizerObject" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="691c5-127">派生する任意の型のファイナライザーを<xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject>する機会が与えられますを実行しは中断できない、ファイナライザーは、制約された実行領域 (CER) の規則を正しくに従いと仮定するとします。</span><span class="sxs-lookup"><span data-stu-id="691c5-127">The finalizer for any types deriving from <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject> is given the opportunity to execute and will not be aborted, assuming the finalizer correctly follows the rules for a constrained execution region (CER).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

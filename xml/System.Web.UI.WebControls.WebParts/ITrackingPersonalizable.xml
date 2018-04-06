@@ -1,0 +1,266 @@
+<Type Name="ITrackingPersonalizable" FullName="System.Web.UI.WebControls.WebParts.ITrackingPersonalizable">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="cde885d7996dfa9cae4eb493b6d2917c09131058" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public interface ITrackingPersonalizable" />
+  <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract ITrackingPersonalizable" />
+  <TypeSignature Language="DocId" Value="T:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable" />
+  <TypeSignature Language="VB.NET" Value="Public Interface ITrackingPersonalizable" />
+  <TypeSignature Language="C++ CLI" Value="public interface class ITrackingPersonalizable" />
+  <AssemblyInfo>
+    <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="046ea-101">Web パーツ コントロールで、パーソナル化の読み込みプロセスと保存プロセスの特定のフェーズを追跡できるようにします。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="046ea-101">Allows Web Parts controls to track the specific phases of the personalization load and save process.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="046ea-102">このインターフェイスには、パーソナル化ライフ サイクルは、パーソナル化データの保存や読み込みをなどのさまざまなフェーズを追跡するためにコントロールの開発者ができます。</span><span class="sxs-lookup"><span data-stu-id="046ea-102">This interface allows control developers to track different phases of the personalization life cycle, including the loading and saving of personalization data.</span></span> <span data-ttu-id="046ea-103">ほとんどの場合、このインターフェイスを使用すると作成するカスタム<xref:System.Web.UI.WebControls.WebParts.WebPart>または<xref:System.Web.UI.WebControls.WebParts.WebPartManager>をこのインターフェイスを実装します。</span><span class="sxs-lookup"><span data-stu-id="046ea-103">In most cases, to use this interface you would create a custom <xref:System.Web.UI.WebControls.WebParts.WebPart> or <xref:System.Web.UI.WebControls.WebParts.WebPartManager> and implement this interface.</span></span> <span data-ttu-id="046ea-104">さらに、独自の変更 (「ダーティ」) の追跡を管理する必要があるコントロールでは、このインターフェイスを実装する必要があります。</span><span class="sxs-lookup"><span data-stu-id="046ea-104">Additionally, controls that need to manage their own change ("dirty") tracking should implement this interface.</span></span> <span data-ttu-id="046ea-105">独自の変更の追跡を管理するコントロールを返す必要があります`true`から、<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.TracksChanges%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="046ea-105">Controls that manage their own change tracking should return `true` from the <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.TracksChanges%2A> property.</span></span>  
+  
+ <span data-ttu-id="046ea-106">場合`false`値が返された、保存されたプロパティ情報を使用して読み込まプロパティ情報を比較することによって変更内容を決定するため、ASP.NET が担当します。</span><span class="sxs-lookup"><span data-stu-id="046ea-106">If `false` is returned, then ASP.NET is responsible for determining changes by comparing the property information loaded with the property information that was saved.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="046ea-107">次のコード例では、使用方法を示します<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable>読み込みと保存のパーソナル化情報を追跡するメソッドとプロパティ。</span><span class="sxs-lookup"><span data-stu-id="046ea-107">The following code example demonstrates using <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable> methods and properties to track the loading and saving of personalization information.</span></span> <span data-ttu-id="046ea-108">この例は、2 つの部分、.aspx ページおよびファイルを App_Code サブディレクトリに配置する必要がありますで構成されます。</span><span class="sxs-lookup"><span data-stu-id="046ea-108">The example consists of two parts, an .aspx page and a file that should be placed in an App_Code subdirectory.</span></span>  
+  
+ <span data-ttu-id="046ea-109">次のコード例では、ユーザーが URL の情報を入力することができ、ユーザーのこの情報を保存する Web パーツ コントロールを作成します。</span><span class="sxs-lookup"><span data-stu-id="046ea-109">The following code example creates a Web Parts control that allows a user to enter URL information and saves this information for the user.</span></span>  
+  
+ [!code-csharp[WebParts_IPersonalizable#9](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IPersonalizable/CS/persdict.cs#9)]
+ [!code-vb[WebParts_IPersonalizable#9](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IPersonalizable/VB/persdict.vb#9)]  
+  
+ <span data-ttu-id="046ea-110">.Aspx ページを次では、Web パーツ ゾーンを作成し、ゾーンにコントロールを追加します。</span><span class="sxs-lookup"><span data-stu-id="046ea-110">The following .aspx page creates a Web Parts zone and adds the control to the zone.</span></span> <span data-ttu-id="046ea-111">ページには、個人用設定を適用できるように、個々 のユーザーをログオンに使用するログイン コントロールも参照します。</span><span class="sxs-lookup"><span data-stu-id="046ea-111">The page also references a login control that you should use to log on individual users so that personalization can be applied.</span></span>  
+  
+ [!code-aspx-csharp[WebParts_IPersonalizable#10](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IPersonalizable/CS/defaultcs.aspx#10)]
+ [!code-aspx-vb[WebParts_IPersonalizable#10](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IPersonalizable/VB/Defaultvb.aspx#10)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="BeginLoad">
+      <MemberSignature Language="C#" Value="public void BeginLoad ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void BeginLoad() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.BeginLoad" />
+      <MemberSignature Language="VB.NET" Value="Public Sub BeginLoad ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void BeginLoad();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="046ea-112">パーソナル化情報の読み込みフェーズの先頭を表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="046ea-112">Represents the beginning of the load phase for personalization information.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="046ea-113">Web パーツ コントロール セットは、パーソナル化データを適用する前に、このメソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="046ea-113">The Web Parts control set calls this method prior to applying personalization data.</span></span> <span data-ttu-id="046ea-114">独自の状態の変更を追跡するコントロールは、このメソッドを使用してプロパティを呼び出す必要がありますいないことを示す内部フラグを設定する必要があります<xref:System.Web.UI.WebControls.WebParts.WebPart.SetPersonalizationDirty%2A>です。</span><span class="sxs-lookup"><span data-stu-id="046ea-114">A control that tracks its own change state should use this method to set an internal flag indicating that properties should not call <xref:System.Web.UI.WebControls.WebParts.WebPart.SetPersonalizationDirty%2A>.</span></span> <span data-ttu-id="046ea-115">これは、アプリケーションへの呼び出し後のパーソナル化データの中にプロパティの設定方法を呼び出すことができるため<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.BeginLoad%2A>です。</span><span class="sxs-lookup"><span data-stu-id="046ea-115">This is because property-setting methods can be called during the application of personalization data, subsequent to the call to <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.BeginLoad%2A>.</span></span> <span data-ttu-id="046ea-116">ほとんどのシナリオで、コントロールは見なされません (「ダーティ」) だけのパーソナル化可能なプロパティが設定されているために基づいて、基になるデータ ストアから読み込まれたデータを変更します。</span><span class="sxs-lookup"><span data-stu-id="046ea-116">In most scenarios, a control should not be considered changed ("dirty") just because its personalizable properties have been set based on data loaded from the underlying data store.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="046ea-117">パーソナル化データは、Web パーツ コントロールのインポート後に適用されるときに、このメソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="046ea-117">This method is also called when personalization data is applied after importing a Web Parts control.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="046ea-118">次のコード例では、使用方法を示します、<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.BeginLoad%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="046ea-118">The following code example demonstrates using the <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.BeginLoad%2A> method.</span></span> <span data-ttu-id="046ea-119">コントロールと .aspx ページで構成される、作業の完全なコード例は、次を参照してください。、<xref:System.Web.UI.WebControls.WebParts.IPersonalizable>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="046ea-119">For a complete, working code example that consists of a control and an .aspx page, see the <xref:System.Web.UI.WebControls.WebParts.IPersonalizable> class overview topic.</span></span>  
+  
+ [!code-csharp[WebParts_IPersonalizable#4](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IPersonalizable/CS/persdict.cs#4)]
+ [!code-vb[WebParts_IPersonalizable#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IPersonalizable/VB/persdict.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="BeginSave">
+      <MemberSignature Language="C#" Value="public void BeginSave ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void BeginSave() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.BeginSave" />
+      <MemberSignature Language="VB.NET" Value="Public Sub BeginSave ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void BeginSave();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="046ea-120">コントロールからパーソナル化データを抽出する前のフェーズを表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="046ea-120">Represents the phase prior to extracting personalization data from a control.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="046ea-121">Web パーツ コントロール セットでは、コントロールからパーソナル化データを抽出する前にこのメソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="046ea-121">The Web Parts control set calls this method prior to extracting personalization data from the control.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="046ea-122">次のコード例では、使用方法を示します、<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.BeginSave%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="046ea-122">The following code example demonstrates using the <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.BeginSave%2A> method.</span></span> <span data-ttu-id="046ea-123">コントロールと .aspx ページで構成される、作業の完全なコード例は、次を参照してください。、<xref:System.Web.UI.WebControls.WebParts.IPersonalizable>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="046ea-123">For a complete, working code example that consists of a control and an .aspx page, see the <xref:System.Web.UI.WebControls.WebParts.IPersonalizable> class overview topic.</span></span>  
+  
+ [!code-csharp[WebParts_IPersonalizable#5](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IPersonalizable/CS/persdict.cs#5)]
+ [!code-vb[WebParts_IPersonalizable#5](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IPersonalizable/VB/persdict.vb#5)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="EndLoad">
+      <MemberSignature Language="C#" Value="public void EndLoad ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void EndLoad() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.EndLoad" />
+      <MemberSignature Language="VB.NET" Value="Public Sub EndLoad ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void EndLoad();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="046ea-124">パーソナル化データがコントロールに適用された後のフェーズを表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="046ea-124">Represents the phase after personalization data has been applied to a control.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="046ea-125">Web パーツ コントロールは、コントロールに適用されたパーソナル化データ後には、このメソッドの呼び出しを設定します。</span><span class="sxs-lookup"><span data-stu-id="046ea-125">The Web Parts control set calls this method after personalization data has been applied to the control.</span></span> <span data-ttu-id="046ea-126">その状態の変更を追跡するコントロールは、このメソッドを使用して後続のプロパティ設定メソッドを呼び出す必要がありますを示すためには、次の内部状態をリセットする必要があります<xref:System.Web.UI.WebControls.WebParts.WebPart.SetPersonalizationDirty%2A>です。</span><span class="sxs-lookup"><span data-stu-id="046ea-126">A control that tracks its change state should use this method to reset its internal state to indicate that subsequent property-setting methods should call <xref:System.Web.UI.WebControls.WebParts.WebPart.SetPersonalizationDirty%2A>.</span></span> <span data-ttu-id="046ea-127">時間によって、<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.EndLoad%2A>メソッドが呼び出されると、Web パーツ コントロール セットには、パーソナル化データのコントロールのすべてのアプリケーションが完了しました。</span><span class="sxs-lookup"><span data-stu-id="046ea-127">By the time the <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.EndLoad%2A> method is called, the Web Parts control set has completed any application of personalization data to the control.</span></span> <span data-ttu-id="046ea-128">その結果、後続の変更、コントロールの状態を見なす必要があります、コントロールが変更を有効なインジケーター (は「ダーティ」) です。</span><span class="sxs-lookup"><span data-stu-id="046ea-128">As a result, subsequent changes to the control's state should be considered valid indicators that the control has changed (is "dirty").</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="046ea-129">パーソナル化データは、Web パーツ コントロールのインポート後に適用されるときに、このメソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="046ea-129">This method is also called when personalization data is applied after importing a Web Parts control.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="046ea-130">次のコード例では、使用方法を示します、<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.EndLoad%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="046ea-130">The following code example demonstrates using the <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.EndLoad%2A> method.</span></span> <span data-ttu-id="046ea-131">コントロールと .aspx ページで構成される、作業の完全なコード例は、次を参照してください。、<xref:System.Web.UI.WebControls.WebParts.IPersonalizable>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="046ea-131">For a complete, working code example that consists of a control and an .aspx page, see the <xref:System.Web.UI.WebControls.WebParts.IPersonalizable> class overview topic.</span></span>  
+  
+ [!code-csharp[WebParts_IPersonalizable#6](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IPersonalizable/CS/persdict.cs#6)]
+ [!code-vb[WebParts_IPersonalizable#6](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IPersonalizable/VB/persdict.vb#6)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="EndSave">
+      <MemberSignature Language="C#" Value="public void EndSave ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void EndSave() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.EndSave" />
+      <MemberSignature Language="VB.NET" Value="Public Sub EndSave ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void EndSave();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="046ea-132">パーソナル化データがコントロールから抽出された後のフェーズを表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="046ea-132">Represents the phase after personalization data has been extracted from a control.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="046ea-133">Web パーツ コントロールは、コントロールから抽出されたパーソナル化データ後には、このメソッドの呼び出しを設定します。</span><span class="sxs-lookup"><span data-stu-id="046ea-133">The Web Parts control set calls this method after personalization data has been extracted from the control.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="046ea-134">次のコード例では、使用方法を示します、<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.EndSave%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="046ea-134">The following code example demonstrates using the <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.EndSave%2A> method.</span></span> <span data-ttu-id="046ea-135">コントロールと .aspx ページで構成される、作業の完全なコード例は、次を参照してください。、<xref:System.Web.UI.WebControls.WebParts.IPersonalizable>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="046ea-135">For a complete, working code example that consists of a control and an .aspx page, see the <xref:System.Web.UI.WebControls.WebParts.IPersonalizable> class overview topic.</span></span>  
+  
+ [!code-csharp[WebParts_IPersonalizable#7](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IPersonalizable/CS/persdict.cs#7)]
+ [!code-vb[WebParts_IPersonalizable#7](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IPersonalizable/VB/persdict.vb#7)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TracksChanges">
+      <MemberSignature Language="C#" Value="public bool TracksChanges { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool TracksChanges" />
+      <MemberSignature Language="DocId" Value="P:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.TracksChanges" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property TracksChanges As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool TracksChanges { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="046ea-136">コントロールが、それ自体の変更のステータスを追跡するかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="046ea-136">Indicates whether the control tracks the status of its changes.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="046ea-137">コントロールが変更された ("ダーティ") と見なされるタイミングを Web パーツ コントロールが判断する場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="046ea-137">
+              <see langword="true" /> if the Web Parts control is responsible for determining when the control is considered changed ("dirty"); otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="046ea-138">コントロールを返す場合`true`このプロパティからは、Web パーツ コントロールの適切に組み込んだ場合自体「ダーティ」を決定</span><span class="sxs-lookup"><span data-stu-id="046ea-138">If a control returns `true` from this property, then it is the Web Parts control's responsibility to determine when it considers itself "dirty."</span></span> <span data-ttu-id="046ea-139">コントロールが変更されたことを決定する場合 (「ダーティ」が)、コントロールを呼び出す必要があります<xref:System.Web.UI.WebControls.WebParts.WebPart.SetPersonalizationDirty%2A>自体にします。</span><span class="sxs-lookup"><span data-stu-id="046ea-139">If a control determines that it has changed (is "dirty"), that control must call <xref:System.Web.UI.WebControls.WebParts.WebPart.SetPersonalizationDirty%2A> on itself.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="046ea-140">次のコード例は、設定を示します、<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.TracksChanges%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="046ea-140">The following code example demonstrates setting the <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable.TracksChanges%2A> property.</span></span> <span data-ttu-id="046ea-141">コントロールと .aspx ページで構成される、作業の完全なコード例は、次を参照してください。、<xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="046ea-141">For a complete, working code example that consists of a control and an .aspx page, see the <xref:System.Web.UI.WebControls.WebParts.ITrackingPersonalizable> class overview topic.</span></span>  
+  
+ [!code-csharp[WebParts_IPersonalizable#8](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IPersonalizable/CS/persdict.cs#8)]
+ [!code-vb[WebParts_IPersonalizable#8](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IPersonalizable/VB/persdict.vb#8)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

@@ -1,0 +1,1772 @@
+<Type Name="Visual" FullName="System.Windows.Media.Visual">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="3e9ff5e020c2a0b40cc9f1a9cf79c83b9cddf495" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class Visual : System.Windows.DependencyObject" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit Visual extends System.Windows.DependencyObject" />
+  <TypeSignature Language="DocId" Value="T:System.Windows.Media.Visual" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class Visual&#xA;Inherits DependencyObject" />
+  <TypeSignature Language="C++ CLI" Value="public ref class Visual abstract : System::Windows::DependencyObject" />
+  <AssemblyInfo>
+    <AssemblyName>PresentationCore</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Windows.DependencyObject</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="7e447-101">WPF でヒット テスト、座標変換、境界ボックス計算などの描画をサポートします。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="7e447-101">Provides rendering support in WPF, which includes hit testing, coordinate transformation, and bounding box calculations.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-102"><xref:System.Windows.Media.Visual>クラスは、元の基本抽象化すべて<xref:System.Windows.FrameworkElement>オブジェクトが派生します。</span><span class="sxs-lookup"><span data-stu-id="7e447-102">The <xref:System.Windows.Media.Visual> class is the basic abstraction from which every <xref:System.Windows.FrameworkElement> object derives.</span></span> <span data-ttu-id="7e447-103">新しいコントロールを作成するためのエントリ ポイントとしても機能している[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]、し、さまざまな方法ではようなもののウィンドウ ハンドル (HWND) と同等で、[!INCLUDE[TLA#tla_win32](~/includes/tlasharptla-win32-md.md)]アプリケーション モデルです。</span><span class="sxs-lookup"><span data-stu-id="7e447-103">It also serves as the entry point for writing new controls in [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], and in many ways can be thought of as an equivalent of a window handle (HWND) in the [!INCLUDE[TLA#tla_win32](~/includes/tlasharptla-win32-md.md)] application model.</span></span>  
+  
+ <span data-ttu-id="7e447-104"><xref:System.Windows.Media.Visual>オブジェクトは、コア[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]プライマリ ロールがあるレンダリング サポートを提供するオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7e447-104">The <xref:System.Windows.Media.Visual> object is a core [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] object, whose primary role is to provide rendering support.</span></span> <span data-ttu-id="7e447-105">などのユーザー インターフェイス コントロール<xref:System.Windows.Controls.Button>と<xref:System.Windows.Controls.TextBox>から派生して、<xref:System.Windows.Media.Visual>クラス、しを使用して、<xref:System.Windows.Media.Visual>をその表示データを保持するためのプロパティを定義します。</span><span class="sxs-lookup"><span data-stu-id="7e447-105">User interface controls, such as <xref:System.Windows.Controls.Button> and <xref:System.Windows.Controls.TextBox>, derive from the <xref:System.Windows.Media.Visual> class, and use the <xref:System.Windows.Media.Visual> defined properties for persisting their rendering data.</span></span> <span data-ttu-id="7e447-106"><xref:System.Windows.Media.Visual>オブジェクトは、次のサポートを提供します。</span><span class="sxs-lookup"><span data-stu-id="7e447-106">The <xref:System.Windows.Media.Visual> object provides support for the following:</span></span>  
+  
+-   <span data-ttu-id="7e447-107">出力表示: ビジュアルの、シリアル化された永続的な描画内容をレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="7e447-107">Output display: Rendering the persisted, serialized drawing content of a visual.</span></span>  
+  
+-   <span data-ttu-id="7e447-108">変換: は、ビジュアルで変換を実行します。</span><span class="sxs-lookup"><span data-stu-id="7e447-108">Transformations: Performing transformations on a visual.</span></span>  
+  
+-   <span data-ttu-id="7e447-109">クリッピング: ビジュアルのクリッピング領域をサポートします。</span><span class="sxs-lookup"><span data-stu-id="7e447-109">Clipping: Providing clipping region support for a visual.</span></span>  
+  
+-   <span data-ttu-id="7e447-110">ヒット テスト: 指定された座標 (ポイント) またはジオメトリがビジュアルの境界内に含まれるかどうかを決定します。</span><span class="sxs-lookup"><span data-stu-id="7e447-110">Hit testing: Determining whether a specified coordinate (point) or geometry is contained within the bounds of a visual.</span></span>  
+  
+-   <span data-ttu-id="7e447-111">境界ボックスの計算: ビジュアルの四角形領域を決定します。</span><span class="sxs-lookup"><span data-stu-id="7e447-111">Bounding box calculations: Determining the bounding rectangle of a visual.</span></span>  
+  
+ <span data-ttu-id="7e447-112">アーキテクチャ上、<xref:System.Windows.Media.Visual>オブジェクトでは、その他のアプリケーションの開発要件のサポートは含まれません/[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]のレンダリングでは、次のようにすぐに関連付けられていない機能。</span><span class="sxs-lookup"><span data-stu-id="7e447-112">Architecturally, the <xref:System.Windows.Media.Visual> object does not include support for other application development requirements / [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] features that are not immediately related to its rendering, such as the following:</span></span>  
+  
+-   <span data-ttu-id="7e447-113">イベント処理</span><span class="sxs-lookup"><span data-stu-id="7e447-113">Event handling</span></span>  
+  
+-   <span data-ttu-id="7e447-114">レイアウト</span><span class="sxs-lookup"><span data-stu-id="7e447-114">Layout</span></span>  
+  
+-   <span data-ttu-id="7e447-115">スタイル</span><span class="sxs-lookup"><span data-stu-id="7e447-115">Styles</span></span>  
+  
+-   <span data-ttu-id="7e447-116">データ バインディング</span><span class="sxs-lookup"><span data-stu-id="7e447-116">Data binding</span></span>  
+  
+-   <span data-ttu-id="7e447-117">グローバリゼーション</span><span class="sxs-lookup"><span data-stu-id="7e447-117">Globalization</span></span>  
+  
+ <span data-ttu-id="7e447-118"><xref:System.Windows.Media.Visual> 元のさらにクラスを導出するパブリックの抽象クラスとして提供されます。</span><span class="sxs-lookup"><span data-stu-id="7e447-118"><xref:System.Windows.Media.Visual> is provided as a public abstract class from which further classes can be derived.</span></span> <span data-ttu-id="7e447-119">次の図は、既存の visual オブジェクトで定義されている階層、[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]アーキテクチャ。</span><span class="sxs-lookup"><span data-stu-id="7e447-119">The following illustration shows the hierarchy of the existing visual objects that are defined in the [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] architecture.</span></span>  
+  
+ <span data-ttu-id="7e447-120">![Visual オブジェクトから派生したクラスのダイアグラム](~/add/media/visualclass01.png "Visual オブジェクトから派生したクラスのダイアグラム")</span><span class="sxs-lookup"><span data-stu-id="7e447-120">![Diagram of classes derived from the Visual object](~/add/media/visualclass01.png "Diagram of classes derived from the Visual object")</span></span>  
+<span data-ttu-id="7e447-121">Visual クラスの階層構造</span><span class="sxs-lookup"><span data-stu-id="7e447-121">Visual class hierarchy</span></span>  
+  
+ <span data-ttu-id="7e447-122">場合によっては、として定義されているメンバーの保護で<xref:System.Windows.Media.Visual>類似した名前の派生でより簡単にアクセス可能なメンバーとして公開される<xref:System.Windows.UIElement>クラスです。</span><span class="sxs-lookup"><span data-stu-id="7e447-122">In some cases, members that are defined as protected in <xref:System.Windows.Media.Visual> are exposed as more readily accessible members with similar names in the derived <xref:System.Windows.UIElement> class.</span></span>  
+  
+ <span data-ttu-id="7e447-123">詳しくは、「[WPF グラフィックス レンダリングの概要](~/docs/framework/wpf/graphics-multimedia/wpf-graphics-rendering-overview.md)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="7e447-123">For more information, see [WPF Graphics Rendering Overview](~/docs/framework/wpf/graphics-multimedia/wpf-graphics-rendering-overview.md).</span></span>  
+  
+ <span data-ttu-id="7e447-124">A<xref:System.Windows.Media.Visual>は限られた数のレベルです。</span><span class="sxs-lookup"><span data-stu-id="7e447-124">A <xref:System.Windows.Media.Visual> has a limited number of levels.</span></span> <span data-ttu-id="7e447-125">.NET Framework の以前のバージョンでは、この最大の深さは、255 をでした。</span><span class="sxs-lookup"><span data-stu-id="7e447-125">In previous versions of the .NET Framework, this maximum depth was 255.</span></span> <span data-ttu-id="7e447-126">この制限は、ビジュアル ツリー内の多くのレベルがあるいくつかのレイアウトで適切ではありません。</span><span class="sxs-lookup"><span data-stu-id="7e447-126">This limit is inadequate for some layouts that have many levels in the visual tree.</span></span>  
+  
+ <span data-ttu-id="7e447-127">[!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)]の最大の深さ、<xref:System.Windows.Media.Visual>は、値の 2047。 これにより、より深くのビジュアル ツリー。</span><span class="sxs-lookup"><span data-stu-id="7e447-127">In [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], the maximum depth of a <xref:System.Windows.Media.Visual> is 2047, which enables much deeper visual trees.</span></span> <span data-ttu-id="7e447-128">ほとんどのアプリケーションで十分なスタック領域が非常に多くのレベルを走査して、結果は、<xref:System.StackOverflowException>レイアウト時にします。</span><span class="sxs-lookup"><span data-stu-id="7e447-128">In most applications, there is not enough stack space to traverse so many levels, and the result is a <xref:System.StackOverflowException> during layout.</span></span> <span data-ttu-id="7e447-129">既定のスタック サイズのツリーの深さが約 800、入れ子になった 190 約に対応する場合にこの例外はスロー通常<xref:System.Windows.Controls.TreeViewItem>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7e447-129">For the default stack size, this exception is usually thrown when the tree depth is approximately 800, which corresponds to about 190 nested <xref:System.Windows.Controls.TreeViewItem> objects.</span></span>  
+  
+ <span data-ttu-id="7e447-130">この例外は、アプリケーションと、ビジュアル ツリーを深くしておく必要は、アプリケーションのスタック サイズを増やすことができます。</span><span class="sxs-lookup"><span data-stu-id="7e447-130">If this exception is thrown by your application and you need to have a deeper visual tree, you can increase the application's stack size.</span></span> <span data-ttu-id="7e447-131">コンパイル時に/STACK オプションを使用して、または EDITBIN ユーティリティを使用してスタックのサイズを増やすことができます。</span><span class="sxs-lookup"><span data-stu-id="7e447-131">You can increase the size of the stack by using the /STACK option at compile time or by using the EDITBIN utility.</span></span> <span data-ttu-id="7e447-132">スタック サイズを増やすと、アプリケーションのパフォーマンスに影響します。</span><span class="sxs-lookup"><span data-stu-id="7e447-132">Increasing the stack size may affect your application's performance.</span></span> <span data-ttu-id="7e447-133">詳細については、次を参照してください。[スタック割り当て](http://go.microsoft.com/fwlink/?LinkId=165510)と[EDITBIN オプション](http://go.microsoft.com/fwlink/?LinkId=165511)です。</span><span class="sxs-lookup"><span data-stu-id="7e447-133">For more information, see [Stack Allocations](http://go.microsoft.com/fwlink/?LinkId=165510) and [EDITBIN Options](http://go.microsoft.com/fwlink/?LinkId=165511).</span></span>  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Windows.Media.VisualCollection" />
+    <altmember cref="T:System.Windows.Media.VisualTreeHelper" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected Visual ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; Visual();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-134">
+            <see cref="T:System.Windows.Media.Visual" /> クラスから派生したオブジェクトの基本の初期化を行います。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-134">Provides the base initialization for objects derived from the <see cref="T:System.Windows.Media.Visual" /> class.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="AddVisualChild">
+      <MemberSignature Language="C#" Value="protected void AddVisualChild (System.Windows.Media.Visual child);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig instance void AddVisualChild(class System.Windows.Media.Visual child) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.AddVisualChild(System.Windows.Media.Visual)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub AddVisualChild (child As Visual)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; void AddVisualChild(System::Windows::Media::Visual ^ child);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="child" Type="System.Windows.Media.Visual" />
+      </Parameters>
+      <Docs>
+        <param name="child">
+          <span data-ttu-id="7e447-135">親ビジュアルに追加するビジュアル子オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-135">The child visual object to add to parent visual.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-136">2 つのビジュアル間の親子リレーションシップを定義します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-136">Defines the parent-child relationship between two visuals.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-137"><xref:System.Windows.Media.Visual.AddVisualChild%2A>メソッドが 2 つのビジュアル オブジェクト間の親子関係を設定します。</span><span class="sxs-lookup"><span data-stu-id="7e447-137">The <xref:System.Windows.Media.Visual.AddVisualChild%2A> method sets up the parent-child relationship between two visual objects.</span></span> <span data-ttu-id="7e447-138">詳細な低レベルの visual の子オブジェクトの基になる記憶域実装制御する必要がある場合、このメソッドを使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7e447-138">This method must be used when you need greater low-level control over the underlying storage implementation of visual child objects.</span></span> <span data-ttu-id="7e447-139"><xref:System.Windows.Media.VisualCollection> 子オブジェクトを格納するため、既定の実装として使用できます。</span><span class="sxs-lookup"><span data-stu-id="7e447-139"><xref:System.Windows.Media.VisualCollection> can be used as a default implementation for storing child objects.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7e447-140">次の例では、ビジュアルの子のカスタムのストレージ要件を定義する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="7e447-140">The following example shows how to define custom storage requirements for a visual child.</span></span> <span data-ttu-id="7e447-141">この例では、<xref:System.Windows.Media.Visual.AddVisualChild%2A>と<xref:System.Windows.Media.Visual.RemoveVisualChild%2A>親のビジュアル間の親子リレーションシップを設定する方法と`child`です。</span><span class="sxs-lookup"><span data-stu-id="7e447-141">The example uses the <xref:System.Windows.Media.Visual.AddVisualChild%2A> and <xref:System.Windows.Media.Visual.RemoveVisualChild%2A> methods to sets up the parent-child relationship between the parent visual and `child`.</span></span> <span data-ttu-id="7e447-142">ビジュアル ツリーを正しく列挙するためには、例でのオーバーライドされた実装を提供、<xref:System.Windows.Media.Visual.GetVisualChild%2A>メソッドおよび<xref:System.Windows.Media.Visual.VisualChildrenCount%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="7e447-142">In order for the visual tree to be enumerated correctly, the example provides overridden implementations of the <xref:System.Windows.Media.Visual.GetVisualChild%2A> method and <xref:System.Windows.Media.Visual.VisualChildrenCount%2A> property.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="7e447-143">使用することはできますが<xref:System.Windows.Media.VisualCollection>親子 visual オブジェクト間のリレーションシップを作成するには 1 つだけの子が親にリンクされている場合に、独自のカスタムのストレージの実装を提供する方が効率的です。</span><span class="sxs-lookup"><span data-stu-id="7e447-143">Although it is possible to use <xref:System.Windows.Media.VisualCollection> to create parent-child relationships between visual objects, it is more efficient to provide your own custom storage implementation when only one child is linked to a parent.</span></span>  
+  
+ [!code-csharp[AddVisualChild#AddVisualChild01](~/samples/snippets/csharp/VS_Snippets_Wpf/AddVisualChild/CSharp/Window1.xaml.cs#addvisualchild01)]
+ [!code-vb[AddVisualChild#AddVisualChild01](~/samples/snippets/visualbasic/VS_Snippets_Wpf/AddVisualChild/visualbasic/window1.xaml.vb#addvisualchild01)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Windows.Media.VisualCollection" />
+      </Docs>
+    </Member>
+    <Member MemberName="FindCommonVisualAncestor">
+      <MemberSignature Language="C#" Value="public System.Windows.DependencyObject FindCommonVisualAncestor (System.Windows.DependencyObject otherVisual);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.DependencyObject FindCommonVisualAncestor(class System.Windows.DependencyObject otherVisual) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.FindCommonVisualAncestor(System.Windows.DependencyObject)" />
+      <MemberSignature Language="VB.NET" Value="Public Function FindCommonVisualAncestor (otherVisual As DependencyObject) As DependencyObject" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::DependencyObject ^ FindCommonVisualAncestor(System::Windows::DependencyObject ^ otherVisual);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.DependencyObject</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="otherVisual" Type="System.Windows.DependencyObject" />
+      </Parameters>
+      <Docs>
+        <param name="otherVisual">
+          <span data-ttu-id="7e447-144">
+            <see cref="T:System.Windows.DependencyObject" /> 型のビジュアル オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-144">A visual object of type <see cref="T:System.Windows.DependencyObject" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-145">2 つのビジュアル オブジェクトの共通の先祖を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-145">Returns the common ancestor of two visual objects.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-146">ビジュアル オブジェクトと <paramref name="otherVisual" /> との間に共通する先祖が存在する場合は、その共通の先祖。それ以外の場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-146">The common ancestor of the visual object and <paramref name="otherVisual" /> if one exists; otherwise, <see langword="null" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-147">2D および 3D 保持できるオブジェクトが共通の visual の先祖を渡すことであるため、<xref:System.Windows.Media.Media3D.Visual3D>の`otherVisual`します。</span><span class="sxs-lookup"><span data-stu-id="7e447-147">2D and 3D objects can have common visual ancestors, so it is possible to pass a <xref:System.Windows.Media.Media3D.Visual3D> for `otherVisual`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetVisualChild">
+      <MemberSignature Language="C#" Value="protected virtual System.Windows.Media.Visual GetVisualChild (int index);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class System.Windows.Media.Visual GetVisualChild(int32 index) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.GetVisualChild(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Function GetVisualChild (index As Integer) As Visual" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual System::Windows::Media::Visual ^ GetVisualChild(int index);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.Visual</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="index" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="index">
+          <span data-ttu-id="7e447-148">
+            <see cref="T:System.Windows.Media.VisualCollection" /> 内のビジュアル オブジェクトのインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-148">The index of the visual object in the <see cref="T:System.Windows.Media.VisualCollection" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-149">親 <see cref="T:System.Windows.Media.Visual" /> 内の指定した <see cref="T:System.Windows.Media.VisualCollection" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-149">Returns the specified <see cref="T:System.Windows.Media.Visual" /> in the parent <see cref="T:System.Windows.Media.VisualCollection" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-150">指定した <paramref name="index" /> 値にある <see cref="T:System.Windows.Media.VisualCollection" /> 内の子。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-150">The child in the <see cref="T:System.Windows.Media.VisualCollection" /> at the specified <paramref name="index" /> value.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-151">既定では、<xref:System.Windows.Media.Visual>子を持っていません。</span><span class="sxs-lookup"><span data-stu-id="7e447-151">By default, a <xref:System.Windows.Media.Visual> has no children.</span></span> <span data-ttu-id="7e447-152">したがって、既定の実装を常にスロー、<xref:System.ArgumentOutOfRangeException>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-152">Therefore, the default implementation always throws an <xref:System.ArgumentOutOfRangeException>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7e447-153">次の例のオーバーライドされた実装を定義する<xref:System.Windows.Media.Visual.GetVisualChild%2A>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-153">The following example defines an overridden implementation of <xref:System.Windows.Media.Visual.GetVisualChild%2A>.</span></span>  
+  
+ [!code-csharp[DrawingVisualSample#102b](~/samples/snippets/csharp/VS_Snippets_Wpf/DrawingVisualSample/CSharp/Window1.xaml.cs#102b)]
+ [!code-vb[DrawingVisualSample#102b](~/samples/snippets/visualbasic/VS_Snippets_Wpf/DrawingVisualSample/visualbasic/window1.xaml.vb#102b)]  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7e447-154">派生したクラス<see cref="T:System.Windows.Media.Visual" />このメソッドをオーバーライドする必要があります、さらに、<see cref="P:System.Windows.Media.Visual.VisualChildrenCount" />ビジュアル ツリーを正しく列挙するためのプロパティです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7e447-154">A class that derives from <see cref="T:System.Windows.Media.Visual" /> must override this method, and also the <see cref="P:System.Windows.Media.Visual.VisualChildrenCount" /> property, for the visual tree to be enumerated correctly.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="HitTestCore">
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-155">点またはジオメトリ値がビジュアル オブジェクトの境界内にあるかどうかを判断します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-155">Determines whether a point or geometry value is within the bounds of the visual object.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="HitTestCore">
+      <MemberSignature Language="C#" Value="protected virtual System.Windows.Media.GeometryHitTestResult HitTestCore (System.Windows.Media.GeometryHitTestParameters hitTestParameters);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class System.Windows.Media.GeometryHitTestResult HitTestCore(class System.Windows.Media.GeometryHitTestParameters hitTestParameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.HitTestCore(System.Windows.Media.GeometryHitTestParameters)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Function HitTestCore (hitTestParameters As GeometryHitTestParameters) As GeometryHitTestResult" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual System::Windows::Media::GeometryHitTestResult ^ HitTestCore(System::Windows::Media::GeometryHitTestParameters ^ hitTestParameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.GeometryHitTestResult</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="hitTestParameters" Type="System.Windows.Media.GeometryHitTestParameters" />
+      </Parameters>
+      <Docs>
+        <param name="hitTestParameters">
+          <span data-ttu-id="7e447-156">ヒット テストの対象となる <see cref="T:System.Windows.Media.GeometryHitTestParameters" /> を指定する <see cref="T:System.Windows.Media.Geometry" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-156">A <see cref="T:System.Windows.Media.GeometryHitTestParameters" /> object that specifies the <see cref="T:System.Windows.Media.Geometry" /> to hit test against.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-157">ジオメトリ値がビジュアル オブジェクトの境界内にあるかどうかを判断します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-157">Determines whether a geometry value is within the bounds of the visual object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-158">ヒット テストの結果を表す <see cref="T:System.Windows.Media.GeometryHitTestResult" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-158">A <see cref="T:System.Windows.Media.GeometryHitTestResult" /> that represents the result of the hit test.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-159">既定のヒットしてビジュアル オブジェクトのサポートをオーバーライドすることでテストをオーバーライドすることができます、<xref:System.Windows.Media.Visual.HitTestCore%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7e447-159">You can override default hit testing support for a visual object by overriding the <xref:System.Windows.Media.Visual.HitTestCore%2A> method.</span></span> <span data-ttu-id="7e447-160">つまりを呼び出すときは、<xref:System.Windows.Media.VisualTreeHelper.HitTest%2A>メソッドは、のオーバーライドされた実装<xref:System.Windows.Media.Visual.HitTestCore%2A>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="7e447-160">This means that when you invoke the <xref:System.Windows.Media.VisualTreeHelper.HitTest%2A> method, your overridden implementation of <xref:System.Windows.Media.Visual.HitTestCore%2A> is called.</span></span> <span data-ttu-id="7e447-161">ビジュアル オブジェクトのジオメトリの座標が含まれていない場合でも、ビジュアル オブジェクトの外接する四角形内でヒット テストが実行されると、オーバーライドされたメソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="7e447-161">Your overridden method is called when a hit test falls within the bounding rectangle of the visual object, even if the coordinate falls outside the geometry of the visual object.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7e447-162"><xref:System.Windows.Media.Visual.HitTestCore%28System.Windows.Media.GeometryHitTestParameters%29> メソッドをオーバーライドする方法を次の例に示します。</span><span class="sxs-lookup"><span data-stu-id="7e447-162">The following example shows how to override the <xref:System.Windows.Media.Visual.HitTestCore%28System.Windows.Media.GeometryHitTestParameters%29> method.</span></span> <span data-ttu-id="7e447-163">このメソッドをオーバーライドする 1 つの理由は、ヒット テスト プロセス中に追加の機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="7e447-163">One reason you might want to override this method is to provide additional functionality during the hit testing process.</span></span>  
+  
+ [!code-csharp[HitTestingOverview#HitTestingOverviewSnippet13](~/samples/snippets/csharp/VS_Snippets_Wpf/HitTestingOverview/CSharp/GeometryHitTest.cs#hittestingoverviewsnippet13)]
+ [!code-vb[HitTestingOverview#HitTestingOverviewSnippet13](~/samples/snippets/visualbasic/VS_Snippets_Wpf/HitTestingOverview/visualbasic/geometryhittest.vb#hittestingoverviewsnippet13)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="HitTestCore">
+      <MemberSignature Language="C#" Value="protected virtual System.Windows.Media.HitTestResult HitTestCore (System.Windows.Media.PointHitTestParameters hitTestParameters);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class System.Windows.Media.HitTestResult HitTestCore(class System.Windows.Media.PointHitTestParameters hitTestParameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.HitTestCore(System.Windows.Media.PointHitTestParameters)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Function HitTestCore (hitTestParameters As PointHitTestParameters) As HitTestResult" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual System::Windows::Media::HitTestResult ^ HitTestCore(System::Windows::Media::PointHitTestParameters ^ hitTestParameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.HitTestResult</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="hitTestParameters" Type="System.Windows.Media.PointHitTestParameters" />
+      </Parameters>
+      <Docs>
+        <param name="hitTestParameters">
+          <span data-ttu-id="7e447-164">ヒット テストの対象となる <see cref="T:System.Windows.Media.PointHitTestParameters" /> を指定する <see cref="T:System.Windows.Point" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-164">A <see cref="T:System.Windows.Media.PointHitTestParameters" /> object that specifies the <see cref="T:System.Windows.Point" /> to hit test against.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-165">点の座標値がビジュアル オブジェクトの境界内にあるかどうかを判断します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-165">Determines whether a point coordinate value is within the bounds of the visual object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-166">ヒット テストから返される <see cref="T:System.Windows.Media.HitTestResult" /> を表す <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-166">A <see cref="T:System.Windows.Media.HitTestResult" /> that represents the <see cref="T:System.Windows.Media.Visual" /> that is returned from a hit test.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-167">既定のヒットをオーバーライドすることによってビジュアル オブジェクトに対するサポートをテストをオーバーライドすることができます、<xref:System.Windows.Media.Visual.HitTestCore%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7e447-167">You can override the default hit testing support on visual objects by overriding the <xref:System.Windows.Media.Visual.HitTestCore%2A> method.</span></span> <span data-ttu-id="7e447-168">つまりを呼び出すときは、<xref:System.Windows.Media.VisualTreeHelper.HitTest%2A>メソッドは、のオーバーライドされた実装<xref:System.Windows.Media.Visual.HitTestCore%2A>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="7e447-168">This means that when you invoke the <xref:System.Windows.Media.VisualTreeHelper.HitTest%2A> method, your overridden implementation of <xref:System.Windows.Media.Visual.HitTestCore%2A> is called.</span></span> <span data-ttu-id="7e447-169">ビジュアル オブジェクトのジオメトリの座標が含まれていない場合でも、ビジュアル オブジェクトの外接する四角形内でヒット テストが実行されると、オーバーライドされたメソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="7e447-169">Your overridden method is called when a hit test falls within the bounding rectangle of the visual object, even if the coordinate falls outside the geometry of the visual object.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7e447-170"><xref:System.Windows.Media.Visual.HitTestCore%28System.Windows.Media.PointHitTestParameters%29> メソッドをオーバーライドする方法を次の例に示します。</span><span class="sxs-lookup"><span data-stu-id="7e447-170">The following example shows how to override the <xref:System.Windows.Media.Visual.HitTestCore%28System.Windows.Media.PointHitTestParameters%29> method.</span></span> <span data-ttu-id="7e447-171">このメソッドをオーバーライドする 1 つの理由は、ヒット テスト プロセス中に追加の機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="7e447-171">One reason you might want to override this method is to provide additional functionality during the hit testing process.</span></span>  
+  
+ [!code-csharp[HitTestingOverview#107](~/samples/snippets/csharp/VS_Snippets_Wpf/HitTestingOverview/CSharp/Window1.xaml.cs#107)]
+ [!code-vb[HitTestingOverview#107](~/samples/snippets/visualbasic/VS_Snippets_Wpf/HitTestingOverview/visualbasic/window1.xaml.vb#107)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsAncestorOf">
+      <MemberSignature Language="C#" Value="public bool IsAncestorOf (System.Windows.DependencyObject descendant);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool IsAncestorOf(class System.Windows.DependencyObject descendant) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.IsAncestorOf(System.Windows.DependencyObject)" />
+      <MemberSignature Language="VB.NET" Value="Public Function IsAncestorOf (descendant As DependencyObject) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool IsAncestorOf(System::Windows::DependencyObject ^ descendant);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="descendant" Type="System.Windows.DependencyObject" />
+      </Parameters>
+      <Docs>
+        <param name="descendant">
+          <span data-ttu-id="7e447-172">
+            <see cref="T:System.Windows.DependencyObject" /> 型の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-172">A value of type <see cref="T:System.Windows.DependencyObject" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-173">ビジュアル オブジェクトが、指定した子孫ビジュアル オブジェクトの先祖かどうかを判定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-173">Determines whether the visual object is an ancestor of the descendant visual object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-174">ビジュアル オブジェクトが <paramref name="descendant" /> の先祖である場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-174">
+              <see langword="true" /> if the visual object is an ancestor of <paramref name="descendant" />; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsDescendantOf">
+      <MemberSignature Language="C#" Value="public bool IsDescendantOf (System.Windows.DependencyObject ancestor);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool IsDescendantOf(class System.Windows.DependencyObject ancestor) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.IsDescendantOf(System.Windows.DependencyObject)" />
+      <MemberSignature Language="VB.NET" Value="Public Function IsDescendantOf (ancestor As DependencyObject) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool IsDescendantOf(System::Windows::DependencyObject ^ ancestor);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="ancestor" Type="System.Windows.DependencyObject" />
+      </Parameters>
+      <Docs>
+        <param name="ancestor">
+          <span data-ttu-id="7e447-175">
+            <see cref="T:System.Windows.DependencyObject" /> 型の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-175">A value of type <see cref="T:System.Windows.DependencyObject" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-176">ビジュアル オブジェクトが、指定した先祖ビジュアル オブジェクトの子孫かどうかを判定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-176">Determines whether the visual object is a descendant of the ancestor visual object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-177">ビジュアル オブジェクトが <paramref name="ancestor" /> の子孫である場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-177">
+              <see langword="true" /> if the visual object is a descendant of <paramref name="ancestor" />; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnDpiChanged">
+      <MemberSignature Language="C#" Value="protected virtual void OnDpiChanged (System.Windows.DpiScale oldDpi, System.Windows.DpiScale newDpi);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnDpiChanged(valuetype System.Windows.DpiScale oldDpi, valuetype System.Windows.DpiScale newDpi) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.OnDpiChanged(System.Windows.DpiScale,System.Windows.DpiScale)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub OnDpiChanged (oldDpi As DpiScale, newDpi As DpiScale)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void OnDpiChanged(System::Windows::DpiScale oldDpi, System::Windows::DpiScale newDpi);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="oldDpi" Type="System.Windows.DpiScale" />
+        <Parameter Name="newDpi" Type="System.Windows.DpiScale" />
+      </Parameters>
+      <Docs>
+        <param name="oldDpi">
+          <span data-ttu-id="7e447-178">以前の DPI スケール設定。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-178">The previous DPI scale setting.</span>
+          </span>
+        </param>
+        <param name="newDpi">
+          <span data-ttu-id="7e447-179">新規の DPI スケール設定。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-179">The new DPI scale setting.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-180">このビューが表示される DPI が変更するときに呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-180">Called when the DPI at which this View is rendered changes.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnVisualChildrenChanged">
+      <MemberSignature Language="C#" Value="protected internal virtual void OnVisualChildrenChanged (System.Windows.DependencyObject visualAdded, System.Windows.DependencyObject visualRemoved);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void OnVisualChildrenChanged(class System.Windows.DependencyObject visualAdded, class System.Windows.DependencyObject visualRemoved) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.OnVisualChildrenChanged(System.Windows.DependencyObject,System.Windows.DependencyObject)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub OnVisualChildrenChanged (visualAdded As DependencyObject, visualRemoved As DependencyObject)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void OnVisualChildrenChanged(System::Windows::DependencyObject ^ visualAdded, System::Windows::DependencyObject ^ visualRemoved);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="visualAdded" Type="System.Windows.DependencyObject" />
+        <Parameter Name="visualRemoved" Type="System.Windows.DependencyObject" />
+      </Parameters>
+      <Docs>
+        <param name="visualAdded">
+          <span data-ttu-id="7e447-181">コレクションに追加された <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-181">The <see cref="T:System.Windows.Media.Visual" /> that was added to the collection</span>
+          </span>
+        </param>
+        <param name="visualRemoved">
+          <span data-ttu-id="7e447-182">コレクションから削除された <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-182">The <see cref="T:System.Windows.Media.Visual" /> that was removed from the collection</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-183">ビジュアル オブジェクトの <see cref="T:System.Windows.Media.VisualCollection" /> が変更されると呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-183">Called when the <see cref="T:System.Windows.Media.VisualCollection" /> of the visual object is modified.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnVisualParentChanged">
+      <MemberSignature Language="C#" Value="protected internal virtual void OnVisualParentChanged (System.Windows.DependencyObject oldParent);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void OnVisualParentChanged(class System.Windows.DependencyObject oldParent) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.OnVisualParentChanged(System.Windows.DependencyObject)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub OnVisualParentChanged (oldParent As DependencyObject)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void OnVisualParentChanged(System::Windows::DependencyObject ^ oldParent);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="oldParent" Type="System.Windows.DependencyObject" />
+      </Parameters>
+      <Docs>
+        <param name="oldParent">
+          <span data-ttu-id="7e447-184">
+            <see cref="T:System.Windows.DependencyObject" /> オブジェクトの直前の親を表す <see cref="T:System.Windows.Media.Visual" /> 型の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-184">A value of type <see cref="T:System.Windows.DependencyObject" /> that represents the previous parent of the <see cref="T:System.Windows.Media.Visual" /> object.</span>
+          </span>
+          <span data-ttu-id="7e447-185">
+            <see cref="T:System.Windows.Media.Visual" /> オブジェクトの直前の親がなかった場合、パラメーターの値は <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-185">If the <see cref="T:System.Windows.Media.Visual" /> object did not have a previous parent, the value of the parameter is <see langword="null" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-186">ビジュアル オブジェクトの親が変更されると呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-186">Called when the parent of the visual object is changed.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-187">派生したクラス<xref:System.Windows.Media.Visual>このメソッドをオーバーライドすることもできます。</span><span class="sxs-lookup"><span data-stu-id="7e447-187">A class that derives from <xref:System.Windows.Media.Visual> can choose to override this method.</span></span>  
+  
+ <span data-ttu-id="7e447-188">インスタンスにこの変更を報告する指定された"VisualParentChanged"のイベントはありません。</span><span class="sxs-lookup"><span data-stu-id="7e447-188">There is no "VisualParentChanged" event provided that reports this change to instances.</span></span> <span data-ttu-id="7e447-189">したがって、通知シナリオを処理し、シナリオの一部である場合は、通知のインスタンスのバージョンを提供するには、このメソッドをオーバーライドする必要があります。</span><span class="sxs-lookup"><span data-stu-id="7e447-189">Therefore, you must override this method to handle notification scenarios and provide an instance version of the notification if that is part of your scenario.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7e447-190">次の例のオーバーライドされた実装を定義する<xref:System.Windows.Media.Visual.OnVisualParentChanged%2A>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-190">The following example defines an overridden implementation of <xref:System.Windows.Media.Visual.OnVisualParentChanged%2A>.</span></span>  
+  
+ [!code-csharp[VisualSnippets#VisualSnippet10](~/samples/snippets/csharp/VS_Snippets_Wpf/VisualSnippets/CSharp/Window1.xaml.cs#visualsnippet10)]
+ [!code-vb[VisualSnippets#VisualSnippet10](~/samples/snippets/visualbasic/VS_Snippets_Wpf/VisualSnippets/visualbasic/window1.xaml.vb#visualsnippet10)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Windows.Media.Visual.VisualParent" />
+      </Docs>
+    </Member>
+    <Member MemberName="PointFromScreen">
+      <MemberSignature Language="C#" Value="public System.Windows.Point PointFromScreen (System.Windows.Point point);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance valuetype System.Windows.Point PointFromScreen(valuetype System.Windows.Point point) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.PointFromScreen(System.Windows.Point)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Point PointFromScreen(System::Windows::Point point);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Point</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="point" Type="System.Windows.Point" />
+      </Parameters>
+      <Docs>
+        <param name="point">
+          <span data-ttu-id="7e447-191">画面座標における <see cref="T:System.Windows.Point" /> の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-191">The <see cref="T:System.Windows.Point" /> value in screen coordinates.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-192">画面座標における <see cref="T:System.Windows.Point" /> を、<see cref="T:System.Windows.Point" /> の現在の座標系を表す <see cref="T:System.Windows.Media.Visual" /> に変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-192">Converts a <see cref="T:System.Windows.Point" /> in screen coordinates into a <see cref="T:System.Windows.Point" /> that represents the current coordinate system of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-193">
+            <see cref="T:System.Windows.Point" /> の現在の座標系を表す変換後の <see cref="T:System.Windows.Media.Visual" /> の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-193">The converted <see cref="T:System.Windows.Point" /> value that represents the current coordinate system of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-194">使用して、<xref:System.Windows.Media.Visual.PointToScreen%2A>に変換する方法、<xref:System.Windows.Point>の現在の座標システムを表す、<xref:System.Windows.Media.Visual>に、<xref:System.Windows.Point>画面座標でします。</span><span class="sxs-lookup"><span data-stu-id="7e447-194">Use the <xref:System.Windows.Media.Visual.PointToScreen%2A> method to convert a <xref:System.Windows.Point> that represents the current coordinate system of the <xref:System.Windows.Media.Visual> into a <xref:System.Windows.Point> in screen coordinates.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="PointToScreen">
+      <MemberSignature Language="C#" Value="public System.Windows.Point PointToScreen (System.Windows.Point point);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance valuetype System.Windows.Point PointToScreen(valuetype System.Windows.Point point) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.PointToScreen(System.Windows.Point)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Point PointToScreen(System::Windows::Point point);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Point</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="point" Type="System.Windows.Point" />
+      </Parameters>
+      <Docs>
+        <param name="point">
+          <span data-ttu-id="7e447-195">
+            <see cref="T:System.Windows.Point" /> の現在の座標系を表す <see cref="T:System.Windows.Media.Visual" /> の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-195">The <see cref="T:System.Windows.Point" /> value that represents the current coordinate system of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-196">
+            <see cref="T:System.Windows.Point" /> の現在の座標系を表す <see cref="T:System.Windows.Media.Visual" /> を、画面座標における <see cref="T:System.Windows.Point" /> に変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-196">Converts a <see cref="T:System.Windows.Point" /> that represents the current coordinate system of the <see cref="T:System.Windows.Media.Visual" /> into a <see cref="T:System.Windows.Point" /> in screen coordinates.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-197">画面座標に変換された <see cref="T:System.Windows.Point" /> の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-197">The converted <see cref="T:System.Windows.Point" /> value in screen coordinates.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-198">使用して、<xref:System.Windows.Media.Visual.PointFromScreen%2A>に変換する方法、<xref:System.Windows.Point>を画面座標で、<xref:System.Windows.Point>の現在の座標システムを表す、<xref:System.Windows.Media.Visual>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-198">Use the <xref:System.Windows.Media.Visual.PointFromScreen%2A> method to convert a <xref:System.Windows.Point> in screen coordinates into a <xref:System.Windows.Point> that represents the current coordinate system of the <xref:System.Windows.Media.Visual>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RemoveVisualChild">
+      <MemberSignature Language="C#" Value="protected void RemoveVisualChild (System.Windows.Media.Visual child);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig instance void RemoveVisualChild(class System.Windows.Media.Visual child) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.RemoveVisualChild(System.Windows.Media.Visual)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub RemoveVisualChild (child As Visual)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; void RemoveVisualChild(System::Windows::Media::Visual ^ child);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="child" Type="System.Windows.Media.Visual" />
+      </Parameters>
+      <Docs>
+        <param name="child">
+          <span data-ttu-id="7e447-199">親ビジュアルから削除するビジュアル子オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-199">The child visual object to remove from the parent visual.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-200">2 つのビジュアル間の親子リレーションシップを削除します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-200">Removes the parent-child relationship between two visuals.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-201"><xref:System.Windows.Media.Visual.RemoveVisualChild%2A>メソッドは 2 つのビジュアル間の親子リレーションシップを削除します。</span><span class="sxs-lookup"><span data-stu-id="7e447-201">The <xref:System.Windows.Media.Visual.RemoveVisualChild%2A> method removes the parent-child relationship between two visuals.</span></span> <span data-ttu-id="7e447-202">このメソッドと共に、 <xref:System.Windows.Media.Visual.AddVisualChild%2A> visual の子オブジェクトの基になる記憶域実装低レベルより詳細に制御する必要がある場合、メソッドを使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7e447-202">This method, along with the <xref:System.Windows.Media.Visual.AddVisualChild%2A> method, must be used when you need greater low-level control over the underlying storage implementation of visual child objects.</span></span> <span data-ttu-id="7e447-203"><xref:System.Windows.Media.VisualCollection> 子オブジェクトを格納するため、既定の実装として使用できます。</span><span class="sxs-lookup"><span data-stu-id="7e447-203"><xref:System.Windows.Media.VisualCollection> can be used as a default implementation for storing child objects.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7e447-204">次の例では、ビジュアルの子のカスタムのストレージ要件を定義する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="7e447-204">The following example shows how to define custom storage requirements for a visual child.</span></span> <span data-ttu-id="7e447-205">この例では、<xref:System.Windows.Media.Visual.AddVisualChild%2A>と<xref:System.Windows.Media.Visual.RemoveVisualChild%2A>親のビジュアル間の親子リレーションシップを設定する方法と`child`です。</span><span class="sxs-lookup"><span data-stu-id="7e447-205">The example uses the <xref:System.Windows.Media.Visual.AddVisualChild%2A> and <xref:System.Windows.Media.Visual.RemoveVisualChild%2A> methods to sets up the parent-child relationship between the parent visual and `child`.</span></span> <span data-ttu-id="7e447-206">ビジュアル ツリーを正しく列挙するためには、例でのオーバーライドされた実装を提供、<xref:System.Windows.Media.Visual.GetVisualChild%2A>メソッドおよび<xref:System.Windows.Media.Visual.VisualChildrenCount%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="7e447-206">In order for the visual tree to be enumerated correctly, the example provides overridden implementations of the <xref:System.Windows.Media.Visual.GetVisualChild%2A> method and <xref:System.Windows.Media.Visual.VisualChildrenCount%2A> property.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="7e447-207">使用することはできますが<xref:System.Windows.Media.VisualCollection>親子 visual オブジェクト間のリレーションシップを作成するには 1 つだけの子が親にリンクされている場合に、独自のカスタムのストレージの実装を提供する方が効率的です。</span><span class="sxs-lookup"><span data-stu-id="7e447-207">Although it is possible to use <xref:System.Windows.Media.VisualCollection> to create parent-child relationships between visual objects, it is more efficient to provide your own custom storage implementation when only one child is linked to a parent.</span></span>  
+  
+ [!code-csharp[AddVisualChild#AddVisualChild01](~/samples/snippets/csharp/VS_Snippets_Wpf/AddVisualChild/CSharp/Window1.xaml.cs#addvisualchild01)]
+ [!code-vb[AddVisualChild#AddVisualChild01](~/samples/snippets/visualbasic/VS_Snippets_Wpf/AddVisualChild/visualbasic/window1.xaml.vb#addvisualchild01)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Windows.Media.VisualCollection" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="TransformToAncestor">
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-208">
+            <see cref="T:System.Windows.Media.Visual" /> から指定したビジュアル オブジェクトの先祖に座標を変換するために使用できる変換を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-208">Returns a transform that can be used to transform coordinates from the <see cref="T:System.Windows.Media.Visual" /> to the specified ancestor of the visual object.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="TransformToAncestor">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.Media3D.GeneralTransform2DTo3D TransformToAncestor (System.Windows.Media.Media3D.Visual3D ancestor);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Media.Media3D.GeneralTransform2DTo3D TransformToAncestor(class System.Windows.Media.Media3D.Visual3D ancestor) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.TransformToAncestor(System.Windows.Media.Media3D.Visual3D)" />
+      <MemberSignature Language="VB.NET" Value="Public Function TransformToAncestor (ancestor As Visual3D) As GeneralTransform2DTo3D" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Media::Media3D::GeneralTransform2DTo3D ^ TransformToAncestor(System::Windows::Media::Media3D::Visual3D ^ ancestor);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.Media3D.GeneralTransform2DTo3D</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="ancestor" Type="System.Windows.Media.Media3D.Visual3D" />
+      </Parameters>
+      <Docs>
+        <param name="ancestor">
+          <span data-ttu-id="7e447-209">座標の変換先となる <see cref="T:System.Windows.Media.Media3D.Visual3D" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-209">The <see cref="T:System.Windows.Media.Media3D.Visual3D" /> to which the coordinates are transformed.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-210">
+            <see cref="T:System.Windows.Media.Visual" /> からビジュアル オブジェクトの指定した <see cref="T:System.Windows.Media.Media3D.Visual3D" /> の先祖に座標を変換するために使用できる変換を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-210">Returns a transform that can be used to transform coordinates from the <see cref="T:System.Windows.Media.Visual" /> to the specified <see cref="T:System.Windows.Media.Media3D.Visual3D" /> ancestor of the visual object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-211">
+            <see cref="T:System.Windows.Media.Visual" /> からビジュアル オブジェクトの指定した <see cref="T:System.Windows.Media.Media3D.Visual3D" /> の先祖に座標を変換するために使用できる変換。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-211">A transform that can be used to transform coordinates from the <see cref="T:System.Windows.Media.Visual" /> to the specified <see cref="T:System.Windows.Media.Media3D.Visual3D" /> ancestor of the visual object.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TransformToAncestor">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.GeneralTransform TransformToAncestor (System.Windows.Media.Visual ancestor);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Media.GeneralTransform TransformToAncestor(class System.Windows.Media.Visual ancestor) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.TransformToAncestor(System.Windows.Media.Visual)" />
+      <MemberSignature Language="VB.NET" Value="Public Function TransformToAncestor (ancestor As Visual) As GeneralTransform" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Media::GeneralTransform ^ TransformToAncestor(System::Windows::Media::Visual ^ ancestor);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.GeneralTransform</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="ancestor" Type="System.Windows.Media.Visual" />
+      </Parameters>
+      <Docs>
+        <param name="ancestor">
+          <span data-ttu-id="7e447-212">座標の変換先となる <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-212">The <see cref="T:System.Windows.Media.Visual" /> to which the coordinates are transformed.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-213">
+            <see cref="T:System.Windows.Media.Visual" /> からビジュアル オブジェクトの指定した <see cref="T:System.Windows.Media.Visual" /> の先祖に座標を変換するために使用できる変換を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-213">Returns a transform that can be used to transform coordinates from the <see cref="T:System.Windows.Media.Visual" /> to the specified <see cref="T:System.Windows.Media.Visual" /> ancestor of the visual object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-214">
+            <see cref="T:System.Windows.Media.GeneralTransform" /> 型の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-214">A value of type <see cref="T:System.Windows.Media.GeneralTransform" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-215">また、使用することができます、<xref:System.Windows.Media.VisualTreeHelper.GetOffset%2A?displayProperty=nameWithType>その親のビジュアル オブジェクトのオフセットを取得します。</span><span class="sxs-lookup"><span data-stu-id="7e447-215">Alternatively, you can use the <xref:System.Windows.Media.VisualTreeHelper.GetOffset%2A?displayProperty=nameWithType> method to retrieve the offset of a visual object relative to its parent.</span></span> <span data-ttu-id="7e447-216">オフセット値が含まれている、返された内<xref:System.Windows.Vector>値。</span><span class="sxs-lookup"><span data-stu-id="7e447-216">The offset values are contained within the returned <xref:System.Windows.Vector> value.</span></span>  
+  
+ [!code-csharp[VisualSnippets#VisualSnippet2](~/samples/snippets/csharp/VS_Snippets_Wpf/VisualSnippets/CSharp/Window1.xaml.cs#visualsnippet2)]
+ [!code-vb[VisualSnippets#VisualSnippet2](~/samples/snippets/visualbasic/VS_Snippets_Wpf/VisualSnippets/visualbasic/window1.xaml.vb#visualsnippet2)]  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7e447-217">次のマークアップの例は、 <xref:System.Windows.Controls.TextBlock> 2 内で入れ子になっている<xref:System.Windows.Controls.StackPanel>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7e447-217">The following markup example shows a <xref:System.Windows.Controls.TextBlock> that is nested within two <xref:System.Windows.Controls.StackPanel> objects.</span></span>  
+  
+ [!code-xaml[VisualSnippets#VisualSnippet7](~/samples/snippets/csharp/VS_Snippets_Wpf/VisualSnippets/CSharp/Window2.xaml#visualsnippet7)]  
+  
+ <span data-ttu-id="7e447-218">次のコード例を使用する方法を示しています、<xref:System.Windows.Media.Visual.TransformToAncestor%2A>のオフセットを取得する方法を<xref:System.Windows.Controls.TextBlock>を含む、に対して相対的<xref:System.Windows.Window>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-218">The following code example shows how to use the <xref:System.Windows.Media.Visual.TransformToAncestor%2A> method to retrieve the offset of the <xref:System.Windows.Controls.TextBlock> relative to the containing <xref:System.Windows.Window>.</span></span> <span data-ttu-id="7e447-219">オフセット値が含まれている、返された<xref:System.Windows.Media.GeneralTransform>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-219">The offset values are contained in the returned <xref:System.Windows.Media.GeneralTransform>.</span></span>  
+  
+ [!code-csharp[VisualSnippets#VisualSnippet5](~/samples/snippets/csharp/VS_Snippets_Wpf/VisualSnippets/CSharp/Window1.xaml.cs#visualsnippet5)]
+ [!code-vb[VisualSnippets#VisualSnippet5](~/samples/snippets/visualbasic/VS_Snippets_Wpf/VisualSnippets/visualbasic/window1.xaml.vb#visualsnippet5)]  
+  
+ <span data-ttu-id="7e447-220">オフセットは考慮に入れて、<xref:System.Windows.FrameworkElement.Margin%2A>を含む、すべてのオブジェクトの値<xref:System.Windows.Window>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-220">The offset takes into account the <xref:System.Windows.FrameworkElement.Margin%2A> values for all objects within the containing <xref:System.Windows.Window>.</span></span> <span data-ttu-id="7e447-221">この場合、 <xref:System.Windows.Vector.X%2A> 28、および<xref:System.Windows.Vector.Y%2A>は 28 です。</span><span class="sxs-lookup"><span data-stu-id="7e447-221">In this case, <xref:System.Windows.Vector.X%2A> is 28, and <xref:System.Windows.Vector.Y%2A> is 28.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="7e447-222">
+            <paramref name="ancestor" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-222">
+              <paramref name="ancestor" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="7e447-223">
+            <paramref name="ancestor" /> は、ビジュアルの先祖ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-223">
+              <paramref name="ancestor" /> is not an ancestor of the visual.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="7e447-224">ビジュアル オブジェクトは相対的ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-224">The visual objects are not related.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TransformToDescendant">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.GeneralTransform TransformToDescendant (System.Windows.Media.Visual descendant);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Media.GeneralTransform TransformToDescendant(class System.Windows.Media.Visual descendant) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.TransformToDescendant(System.Windows.Media.Visual)" />
+      <MemberSignature Language="VB.NET" Value="Public Function TransformToDescendant (descendant As Visual) As GeneralTransform" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Media::GeneralTransform ^ TransformToDescendant(System::Windows::Media::Visual ^ descendant);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.GeneralTransform</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="descendant" Type="System.Windows.Media.Visual" />
+      </Parameters>
+      <Docs>
+        <param name="descendant">
+          <span data-ttu-id="7e447-225">座標の変換先となる <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-225">The <see cref="T:System.Windows.Media.Visual" /> to which the coordinates are transformed.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-226">
+            <see cref="T:System.Windows.Media.Visual" /> から指定したビジュアル オブジェクトの子孫に座標を変換するために使用できる変換を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-226">Returns a transform that can be used to transform coordinates from the <see cref="T:System.Windows.Media.Visual" /> to the specified visual object descendant.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-227">
+            <see cref="T:System.Windows.Media.GeneralTransform" /> 型の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-227">A value of type <see cref="T:System.Windows.Media.GeneralTransform" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="7e447-228">マークアップ例を次に、<xref:System.Windows.Controls.TextBlock>内に含まれているが、<xref:System.Windows.Controls.StackPanel>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7e447-228">The following markup example shows a <xref:System.Windows.Controls.TextBlock> that is contained within a <xref:System.Windows.Controls.StackPanel> object.</span></span>  
+  
+ [!code-xaml[VisualSnippets#VisualSnippet4](~/samples/snippets/csharp/VS_Snippets_Wpf/VisualSnippets/CSharp/Window1.xaml#visualsnippet4)]  
+  
+ <span data-ttu-id="7e447-229">次のコード例を使用する方法を示しています、<xref:System.Windows.Media.Visual.TransformToDescendant%2A>のオフセットを取得する方法を<xref:System.Windows.Controls.StackPanel>その子の基準とした<xref:System.Windows.Controls.TextBlock>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-229">The following code example shows how to use the <xref:System.Windows.Media.Visual.TransformToDescendant%2A> method to retrieve the offset of the <xref:System.Windows.Controls.StackPanel> relative to its child <xref:System.Windows.Controls.TextBlock>.</span></span> <span data-ttu-id="7e447-230">オフセット値が含まれている、返された内<xref:System.Windows.Media.GeneralTransform>値。</span><span class="sxs-lookup"><span data-stu-id="7e447-230">The offset values are contained within the returned <xref:System.Windows.Media.GeneralTransform> value.</span></span>  
+  
+ [!code-csharp[VisualSnippets#VisualSnippet9](~/samples/snippets/csharp/VS_Snippets_Wpf/VisualSnippets/CSharp/Window1.xaml.cs#visualsnippet9)]
+ [!code-vb[VisualSnippets#VisualSnippet9](~/samples/snippets/visualbasic/VS_Snippets_Wpf/VisualSnippets/visualbasic/window1.xaml.vb#visualsnippet9)]  
+  
+ <span data-ttu-id="7e447-231">オフセットは考慮に入れて、<xref:System.Windows.FrameworkElement.Margin%2A>すべてのオブジェクトの値。</span><span class="sxs-lookup"><span data-stu-id="7e447-231">The offset takes into account the <xref:System.Windows.FrameworkElement.Margin%2A> values for all objects.</span></span> <span data-ttu-id="7e447-232">この場合、 <xref:System.Windows.Vector.X%2A> -4、および<xref:System.Windows.Vector.Y%2A>-4 です。</span><span class="sxs-lookup"><span data-stu-id="7e447-232">In this case, <xref:System.Windows.Vector.X%2A> is -4, and <xref:System.Windows.Vector.Y%2A> is -4.</span></span> <span data-ttu-id="7e447-233">親オブジェクトは、子オブジェクトに対してオフセット悪影響を及ぼすので、オフセット値は負の値を使用します。</span><span class="sxs-lookup"><span data-stu-id="7e447-233">The offset values are negative values because the parent object is negatively offset relative to its child object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="7e447-234">
+            <paramref name="descendant" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-234">
+              <paramref name="descendant" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="7e447-235">ビジュアルは、<paramref name="descendant" /> ビジュアルの先祖ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-235">The visual is not an ancestor of the <paramref name="descendant" /> visual.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="7e447-236">ビジュアル オブジェクトは相対的ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-236">The visual objects are not related.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TransformToVisual">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.GeneralTransform TransformToVisual (System.Windows.Media.Visual visual);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Media.GeneralTransform TransformToVisual(class System.Windows.Media.Visual visual) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Media.Visual.TransformToVisual(System.Windows.Media.Visual)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Media::GeneralTransform ^ TransformToVisual(System::Windows::Media::Visual ^ visual);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.GeneralTransform</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="visual" Type="System.Windows.Media.Visual" />
+      </Parameters>
+      <Docs>
+        <param name="visual">
+          <span data-ttu-id="7e447-237">座標の変換先となる <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-237">The <see cref="T:System.Windows.Media.Visual" /> to which the coordinates are transformed.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7e447-238">
+            <see cref="T:System.Windows.Media.Visual" /> から指定したビジュアル オブジェクトに座標を変換するために使用できる変換を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-238">Returns a transform that can be used to transform coordinates from the <see cref="T:System.Windows.Media.Visual" /> to the specified visual object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7e447-239">
+            <see cref="T:System.Windows.Media.GeneralTransform" /> 型の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-239">A value of type <see cref="T:System.Windows.Media.GeneralTransform" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-240"><xref:System.Windows.Media.Visual.TransformToAncestor%2A>と<xref:System.Windows.Media.Visual.TransformToDescendant%2A>方法は、ビジュアル オブジェクトの変換を返すにも使用できます。</span><span class="sxs-lookup"><span data-stu-id="7e447-240">The <xref:System.Windows.Media.Visual.TransformToAncestor%2A> and <xref:System.Windows.Media.Visual.TransformToDescendant%2A> methods can also be used to return a transform for a visual object.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7e447-241">マークアップ例を次に、<xref:System.Windows.Controls.TextBlock>内に含まれているが、<xref:System.Windows.Controls.StackPanel>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7e447-241">The following markup example shows a <xref:System.Windows.Controls.TextBlock> that is contained within a <xref:System.Windows.Controls.StackPanel> object.</span></span>  
+  
+ [!code-xaml[VisualSnippets#VisualSnippet4](~/samples/snippets/csharp/VS_Snippets_Wpf/VisualSnippets/CSharp/Window1.xaml#visualsnippet4)]  
+  
+ <span data-ttu-id="7e447-242">次のコード例を使用する方法を示しています、<xref:System.Windows.Media.Visual.TransformToVisual%2A>のオフセットを取得する方法を<xref:System.Windows.Controls.StackPanel>その子の基準とした<xref:System.Windows.Controls.TextBlock>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-242">The following code example shows how to use the <xref:System.Windows.Media.Visual.TransformToVisual%2A> method to retrieve the offset of the <xref:System.Windows.Controls.StackPanel> relative to its child <xref:System.Windows.Controls.TextBlock>.</span></span> <span data-ttu-id="7e447-243">オフセット値が含まれている、返された内<xref:System.Windows.Media.GeneralTransform>値。</span><span class="sxs-lookup"><span data-stu-id="7e447-243">The offset values are contained within the returned <xref:System.Windows.Media.GeneralTransform> value.</span></span>  
+  
+ [!code-csharp[VisualSnippets#VisualSnippet8](~/samples/snippets/csharp/VS_Snippets_Wpf/VisualSnippets/CSharp/Window1.xaml.cs#visualsnippet8)]
+ [!code-vb[VisualSnippets#VisualSnippet8](~/samples/snippets/visualbasic/VS_Snippets_Wpf/VisualSnippets/visualbasic/window1.xaml.vb#visualsnippet8)]  
+  
+ <span data-ttu-id="7e447-244">オフセットは考慮に入れて、<xref:System.Windows.FrameworkElement.Margin%2A>すべてのオブジェクトの値。</span><span class="sxs-lookup"><span data-stu-id="7e447-244">The offset takes into account the <xref:System.Windows.FrameworkElement.Margin%2A> values for all objects.</span></span> <span data-ttu-id="7e447-245">この場合、 <xref:System.Windows.Vector.X%2A> -4、および<xref:System.Windows.Vector.Y%2A>-4 です。</span><span class="sxs-lookup"><span data-stu-id="7e447-245">In this case, <xref:System.Windows.Vector.X%2A> is -4, and <xref:System.Windows.Vector.Y%2A> is -4.</span></span> <span data-ttu-id="7e447-246">親オブジェクトは、子オブジェクトに対してオフセット悪影響を及ぼすので、オフセット値は負の値を使用します。</span><span class="sxs-lookup"><span data-stu-id="7e447-246">The offset values are negative values because the parent object is negatively offset relative to its child object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="7e447-247">
+            <paramref name="visual" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-247">
+              <paramref name="visual" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="7e447-248">ビジュアル オブジェクトは相対的ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-248">The visual objects are not related.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualBitmapEffect">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.Effects.BitmapEffect VisualBitmapEffect { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Media.Effects.BitmapEffect VisualBitmapEffect" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualBitmapEffect" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualBitmapEffect As BitmapEffect" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::Effects::BitmapEffect ^ VisualBitmapEffect {  protected public:&#xA;System::Windows::Media::Effects::BitmapEffect ^ get(); protected:&#xA; void set(System::Windows::Media::Effects::BitmapEffect ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete("BitmapEffects are deprecated and no longer function.  Consider using Effects where appropriate instead.")</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.Effects.BitmapEffect</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-249">
+            <see cref="T:System.Windows.Media.Effects.BitmapEffect" /> の <see cref="T:System.Windows.Media.Visual" /> 値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-249">Gets or sets the <see cref="T:System.Windows.Media.Effects.BitmapEffect" /> value for the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-250">このビジュアル オブジェクトのビットマップ効果。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-250">The bitmap effect for this visual object.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <altmember cref="P:System.Windows.UIElement.BitmapEffect" />
+      </Docs>
+    </Member>
+    <Member MemberName="VisualBitmapEffectInput">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.Effects.BitmapEffectInput VisualBitmapEffectInput { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Media.Effects.BitmapEffectInput VisualBitmapEffectInput" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualBitmapEffectInput" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualBitmapEffectInput As BitmapEffectInput" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::Effects::BitmapEffectInput ^ VisualBitmapEffectInput {  protected public:&#xA;System::Windows::Media::Effects::BitmapEffectInput ^ get(); protected:&#xA; void set(System::Windows::Media::Effects::BitmapEffectInput ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete("BitmapEffects are deprecated and no longer function.  Consider using Effects where appropriate instead.")</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.Effects.BitmapEffectInput</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-251">
+            <see cref="T:System.Windows.Media.Effects.BitmapEffectInput" /> の <see cref="T:System.Windows.Media.Visual" /> 値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-251">Gets or sets the <see cref="T:System.Windows.Media.Effects.BitmapEffectInput" /> value for the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-252">このビジュアル オブジェクトのビットマップ効果の入力値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-252">The bitmap effect input value for this visual object.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <altmember cref="P:System.Windows.UIElement.BitmapEffectInput" />
+      </Docs>
+    </Member>
+    <Member MemberName="VisualBitmapScalingMode">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.BitmapScalingMode VisualBitmapScalingMode { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Windows.Media.BitmapScalingMode VisualBitmapScalingMode" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualBitmapScalingMode" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualBitmapScalingMode As BitmapScalingMode" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::BitmapScalingMode VisualBitmapScalingMode {  protected public:&#xA;System::Windows::Media::BitmapScalingMode get(); protected:&#xA; void set(System::Windows::Media::BitmapScalingMode value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.BitmapScalingMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-253">
+            <see cref="T:System.Windows.Media.BitmapScalingMode" /> の <see cref="T:System.Windows.Media.Visual" /> を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-253">Gets or sets the <see cref="T:System.Windows.Media.BitmapScalingMode" /> for the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-254">の <see cref="T:System.Windows.Media.BitmapScalingMode" /> の値 <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-254">The <see cref="T:System.Windows.Media.BitmapScalingMode" /> value for the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualCacheMode">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.CacheMode VisualCacheMode { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Media.CacheMode VisualCacheMode" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualCacheMode" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualCacheMode As CacheMode" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::CacheMode ^ VisualCacheMode {  protected public:&#xA;System::Windows::Media::CacheMode ^ get(); protected:&#xA; void set(System::Windows::Media::CacheMode ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.CacheMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-255">
+            <see cref="T:System.Windows.Media.Visual" /> のキャッシュされた表現を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-255">Gets or sets a cached representation of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-256">
+            <see cref="T:System.Windows.Media.CacheMode" /> のキャッシュされた表現を保持する <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-256">A <see cref="T:System.Windows.Media.CacheMode" /> that holds a cached representation of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-257">設定、<xref:System.Windows.Media.Visual.VisualCacheMode%2A>プロパティを表示するために時間がかかる場合がコンテンツのパフォーマンスを向上させる必要がある場合。</span><span class="sxs-lookup"><span data-stu-id="7e447-257">Set the <xref:System.Windows.Media.Visual.VisualCacheMode%2A> property when you need to increase performance for content that is time-consuming to render.</span></span> <span data-ttu-id="7e447-258">詳細については、「<xref:System.Windows.Media.BitmapCache>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="7e447-258">For more information, see <xref:System.Windows.Media.BitmapCache>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Windows.UIElement.CacheMode" />
+        <altmember cref="P:System.Windows.Media.ContainerVisual.CacheMode" />
+        <altmember cref="T:System.Windows.Media.BitmapCache" />
+        <altmember cref="T:System.Windows.Media.BitmapCacheBrush" />
+      </Docs>
+    </Member>
+    <Member MemberName="VisualChildrenCount">
+      <MemberSignature Language="C#" Value="protected virtual int VisualChildrenCount { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 VisualChildrenCount" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualChildrenCount" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable ReadOnly Property VisualChildrenCount As Integer" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual property int VisualChildrenCount { int get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-259">
+            <see cref="T:System.Windows.Media.Visual" /> の子要素の数を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-259">Gets the number of child elements for the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-260">子要素の数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-260">The number of child elements.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-261">既定では、<xref:System.Windows.Media.Visual>子を持っていません。</span><span class="sxs-lookup"><span data-stu-id="7e447-261">By default, a <xref:System.Windows.Media.Visual> has no children.</span></span> <span data-ttu-id="7e447-262">したがって、既定の実装を常に 0 を返します。</span><span class="sxs-lookup"><span data-stu-id="7e447-262">Therefore, the default implementation always returns 0.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7e447-263">次の例のオーバーライドされた実装を定義する<xref:System.Windows.Media.Visual.VisualChildrenCount%2A>です。</span><span class="sxs-lookup"><span data-stu-id="7e447-263">The following example defines an overridden implementation of <xref:System.Windows.Media.Visual.VisualChildrenCount%2A>.</span></span>  
+  
+ [!code-csharp[DrawingVisualSample#102a](~/samples/snippets/csharp/VS_Snippets_Wpf/DrawingVisualSample/CSharp/Window1.xaml.cs#102a)]
+ [!code-vb[DrawingVisualSample#102a](~/samples/snippets/visualbasic/VS_Snippets_Wpf/DrawingVisualSample/visualbasic/window1.xaml.vb#102a)]  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7e447-264">派生したクラス<see cref="T:System.Windows.Media.Visual" />このプロパティをオーバーライドする必要があります、さらに、<see cref="M:System.Windows.Media.Visual.GetVisualChild(System.Int32)" />ビジュアル ツリーを正しく列挙するためのメソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7e447-264">A class that derives from <see cref="T:System.Windows.Media.Visual" /> must override this property, and also the <see cref="M:System.Windows.Media.Visual.GetVisualChild(System.Int32)" /> method, for the visual tree to be enumerated correctly.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualClearTypeHint">
+      <MemberSignature Language="C#" Value="protected internal System.Windows.Media.ClearTypeHint VisualClearTypeHint { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Windows.Media.ClearTypeHint VisualClearTypeHint" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualClearTypeHint" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Property VisualClearTypeHint As ClearTypeHint" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; property System::Windows::Media::ClearTypeHint VisualClearTypeHint { System::Windows::Media::ClearTypeHint get(); void set(System::Windows::Media::ClearTypeHint value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.ClearTypeHint</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-265">
+            <see cref="T:System.Windows.Media.ClearTypeHint" /> での ClearType のレンダリング方法を決定する <see cref="T:System.Windows.Media.Visual" /> を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-265">Gets or sets the <see cref="T:System.Windows.Media.ClearTypeHint" /> that determines how ClearType is rendered in the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-266">
+            <see cref="T:System.Windows.Media.ClearTypeHint" /> の <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-266">A <see cref="T:System.Windows.Media.ClearTypeHint" /> of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualClip">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.Geometry VisualClip { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Media.Geometry VisualClip" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualClip" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualClip As Geometry" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::Geometry ^ VisualClip {  protected public:&#xA;System::Windows::Media::Geometry ^ get(); protected:&#xA; void set(System::Windows::Media::Geometry ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.Geometry</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-267">
+            <see cref="T:System.Windows.Media.Visual" /> 値としての <see cref="T:System.Windows.Media.Geometry" /> のクリップ領域を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-267">Gets or sets the clip region of the <see cref="T:System.Windows.Media.Visual" /> as a <see cref="T:System.Windows.Media.Geometry" /> value.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-268">
+            <see cref="T:System.Windows.Media.Geometry" /> 型としてのビジュアルのクリップ領域値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-268">The clip region value of the visual as a <see cref="T:System.Windows.Media.Geometry" /> type.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualEdgeMode">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.EdgeMode VisualEdgeMode { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Windows.Media.EdgeMode VisualEdgeMode" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualEdgeMode" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualEdgeMode As EdgeMode" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::EdgeMode VisualEdgeMode {  protected public:&#xA;System::Windows::Media::EdgeMode get(); protected:&#xA; void set(System::Windows::Media::EdgeMode value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.EdgeMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-269">
+            <see cref="T:System.Windows.Media.Visual" /> のエッジ モードを <see cref="T:System.Windows.Media.EdgeMode" /> 値として取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-269">Gets or sets the edge mode of the <see cref="T:System.Windows.Media.Visual" /> as an <see cref="T:System.Windows.Media.EdgeMode" /> value.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-270">ビジュアルの <see cref="T:System.Windows.Media.EdgeMode" /> 値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-270">The <see cref="T:System.Windows.Media.EdgeMode" /> value of the visual.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualEffect">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.Effects.Effect VisualEffect { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Media.Effects.Effect VisualEffect" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualEffect" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualEffect As Effect" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::Effects::Effect ^ VisualEffect {  protected public:&#xA;System::Windows::Media::Effects::Effect ^ get(); protected:&#xA; void set(System::Windows::Media::Effects::Effect ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.Effects.Effect</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-271">
+            <see cref="T:System.Windows.Media.Visual" /> に適用するビットマップ効果を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-271">Gets or sets the bitmap effect to apply to the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-272">ビットマップ効果を表す <see cref="T:System.Windows.Media.Effects.Effect" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-272">An <see cref="T:System.Windows.Media.Effects.Effect" /> that represents the bitmap effect.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <altmember cref="T:System.Windows.Media.Effects.Effect" />
+        <altmember cref="T:System.Windows.Media.Effects.ShaderEffect" />
+      </Docs>
+    </Member>
+    <Member MemberName="VisualOffset">
+      <MemberSignature Language="C#" Value="public System.Windows.Vector VisualOffset { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Windows.Vector VisualOffset" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualOffset" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualOffset As Vector" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Vector VisualOffset {  protected public:&#xA;System::Windows::Vector get(); protected:&#xA; void set(System::Windows::Vector value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Vector</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-273">ビジュアル オブジェクトのオフセット値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-273">Gets or sets the offset value of the visual object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-274">オフセット値を指定する <see cref="T:System.Windows.Vector" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-274">A <see cref="T:System.Windows.Vector" /> that specifies the offset value.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualOpacity">
+      <MemberSignature Language="C#" Value="public double VisualOpacity { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance float64 VisualOpacity" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualOpacity" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualOpacity As Double" />
+      <MemberSignature Language="C++ CLI" Value="public:  property double VisualOpacity {  protected public:&#xA;double get(); protected:&#xA; void set(double value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Double</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-275">
+            <see cref="T:System.Windows.Media.Visual" /> の不透明度を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-275">Gets or sets the opacity of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-276">ビジュアルの不透明度の値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-276">The opacity value of the visual.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-277">不透明度の値、 <xref:System.Windows.Media.Visual> 0 ~ 1 の値として表されます。</span><span class="sxs-lookup"><span data-stu-id="7e447-277">The value of the opacity of the <xref:System.Windows.Media.Visual> is expressed as a value between 0 and 1.</span></span> <span data-ttu-id="7e447-278">値 0 は、要素が 1 の値は、要素が完全に不透明であることを示しますが、完全に透明であることを示します。</span><span class="sxs-lookup"><span data-stu-id="7e447-278">A value of 0 indicates that the element is completely transparent, whereas a value of 1 indicates that the element is completely opaque.</span></span> <span data-ttu-id="7e447-279">値 0.5 の要素が 50% 不透明であることを示します。</span><span class="sxs-lookup"><span data-stu-id="7e447-279">A value of 0.5 indicates that the element is 50 percent opaque.</span></span> <span data-ttu-id="7e447-280">0 より小さい値は 0 として扱われます1 より大きい値は 1 として扱われます。</span><span class="sxs-lookup"><span data-stu-id="7e447-280">Values that are less than 0 are treated as 0; values that are greater than 1 are treated as 1.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualOpacityMask">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.Brush VisualOpacityMask { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Media.Brush VisualOpacityMask" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualOpacityMask" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualOpacityMask As Brush" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::Brush ^ VisualOpacityMask {  protected public:&#xA;System::Windows::Media::Brush ^ get(); protected:&#xA; void set(System::Windows::Media::Brush ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.Brush</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-281">
+            <see cref="T:System.Windows.Media.Brush" /> の不透明マスクを表す <see cref="T:System.Windows.Media.Visual" /> 値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-281">Gets or sets the <see cref="T:System.Windows.Media.Brush" /> value that represents the opacity mask of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-282">ビジュアルの不透明マスクの値を表す <see cref="T:System.Windows.Media.Brush" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-282">A <see cref="T:System.Windows.Media.Brush" /> that represents the opacity mask value of the visual.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-283">不透明度マスクは、<xref:System.Windows.Media.Brush>このビジュアルの描画された内容の任意のアルファ チャンネル マスクに適用されています。</span><span class="sxs-lookup"><span data-stu-id="7e447-283">The opacity mask is a <xref:System.Windows.Media.Brush> that is applied to any alpha-channel masking for the rendered content of this visual.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualParent">
+      <MemberSignature Language="C#" Value="protected System.Windows.DependencyObject VisualParent { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.DependencyObject VisualParent" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualParent" />
+      <MemberSignature Language="VB.NET" Value="Protected ReadOnly Property VisualParent As DependencyObject" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; property System::Windows::DependencyObject ^ VisualParent { System::Windows::DependencyObject ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.DependencyObject</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-284">ビジュアル オブジェクトのビジュアル ツリーの親を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-284">Gets the visual tree parent of the visual object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-285">親 <see cref="T:System.Windows.Media.Visual" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-285">The <see cref="T:System.Windows.Media.Visual" /> parent.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <altmember cref="P:System.Windows.FrameworkContentElement.Parent" />
+        <altmember cref="T:System.Windows.Media.VisualTreeHelper" />
+      </Docs>
+    </Member>
+    <Member MemberName="VisualScrollableAreaClip">
+      <MemberSignature Language="C#" Value="public Nullable&lt;System.Windows.Rect&gt; VisualScrollableAreaClip { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Nullable`1&lt;valuetype System.Windows.Rect&gt; VisualScrollableAreaClip" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualScrollableAreaClip" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualScrollableAreaClip As Nullable(Of Rect)" />
+      <MemberSignature Language="C++ CLI" Value="public:  property Nullable&lt;System::Windows::Rect&gt; VisualScrollableAreaClip {  protected public:&#xA;Nullable&lt;System::Windows::Rect&gt; get(); protected:&#xA; void set(Nullable&lt;System::Windows::Rect&gt; value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Nullable&lt;System.Windows.Rect&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-286">
+            <see cref="T:System.Windows.Media.Visual" /> のクリップ対象のスクロール可能な領域を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-286">Gets or sets a clipped scrollable area for the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-287">スクロール可能なクリップ領域を表す <see cref="T:System.Windows.Rect" />。クリップ領域が割り当てられていない場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-287">A <see cref="T:System.Windows.Rect" /> that represents the scrollable clipping area, or <see langword="null" /> if no clipping area is assigned.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-288">設定、<xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A>ソフトウェアでレンダリング時のスクロールを有効にするプロパティが高速化します。</span><span class="sxs-lookup"><span data-stu-id="7e447-288">Set the <xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A> property to enable accelerated scrolling when rendering in software.</span></span> <span data-ttu-id="7e447-289">これは、リモート デスクトップを実行しているか、仮想マシンで実行するなど、リモートのレンダリングのシナリオで役に立ちます。</span><span class="sxs-lookup"><span data-stu-id="7e447-289">This is useful in remote rendering scenarios, such as running over Remote Desktop or running in a virtual machine.</span></span> <span data-ttu-id="7e447-290">親要素の子がスクロール可能では、このプロパティを設定します。</span><span class="sxs-lookup"><span data-stu-id="7e447-290">Set this property on the parent element whose children will be scrolled.</span></span> <span data-ttu-id="7e447-291">設定、<xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A>プロパティも何も起こりませんがハードウェア アクセラレータをレンダリングします。</span><span class="sxs-lookup"><span data-stu-id="7e447-291">Setting the <xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A> property has no effect when rendering is hardware accelerated.</span></span>  
+  
+ <span data-ttu-id="7e447-292"><xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A>プロパティが、特定の高度なシナリオを実現できます。</span><span class="sxs-lookup"><span data-stu-id="7e447-292">The <xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A> property enables specific, advanced scenarios.</span></span> <span data-ttu-id="7e447-293">次の一覧を使用するときに適用される際の注意点を示しています、<xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="7e447-293">The following list shows the caveats that apply when you use the <xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A> property.</span></span>  
+  
+-   <span data-ttu-id="7e447-294">スクロール領域の背景が不透明である必要があります。 または成果物のスクロールが発生します。</span><span class="sxs-lookup"><span data-stu-id="7e447-294">The background of the scrolled area must be opaque, or scrolling artifacts will occur.</span></span>  
+  
+-   <span data-ttu-id="7e447-295"><xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A>のみと WPF レンダリングのソフトウェアのスクロール プロパティが高速化します。</span><span class="sxs-lookup"><span data-stu-id="7e447-295">The <xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A> property accelerates scrolling only when WPF is rendering in software.</span></span> <span data-ttu-id="7e447-296">たとえば、アプリケーションがリモート デスクトップを実行している、または仮想マシン上でローカルで実行すると、このような状況が発生します。</span><span class="sxs-lookup"><span data-stu-id="7e447-296">For example, this situation occurs when the application is running over Remote Desktop or running locally in a virtual machine.</span></span>  
+  
+-   <span data-ttu-id="7e447-297">ハードウェアでレンダリングするときに、スクロール動作は変更されません。</span><span class="sxs-lookup"><span data-stu-id="7e447-297">The scrolling behavior is unchanged when rendering in hardware.</span></span> <span data-ttu-id="7e447-298">スクロール動作の相違を防ぐためには、おく必要があります、<xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A>プロパティをハードウェアとソフトウェアの両方を有効にします。</span><span class="sxs-lookup"><span data-stu-id="7e447-298">To prevent differences in scrolling behavior, you should keep the <xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A> property enabled for both hardware and software.</span></span>  
+  
+-   <span data-ttu-id="7e447-299">回転と傾斜の変換は、高速スクロールを無効にします。</span><span class="sxs-lookup"><span data-stu-id="7e447-299">Rotate and skew transforms disable accelerated scrolling.</span></span> <span data-ttu-id="7e447-300">スケールの変換およびスクロール領域上の水平または垂直の翻訳正常に動作し、スクロール アクセラレータを無効にしません。</span><span class="sxs-lookup"><span data-stu-id="7e447-300">Scale transforms and horizontal or vertical translations above the scrolled region work correctly and do not disable scrolling acceleration.</span></span>  
+  
+-   <span data-ttu-id="7e447-301">サブツリーを変更するか、アニメーションを使用して再描画するスクロール可能な領域の部分をトリガーする、期待どおりに動作しますが、再描画領域を高速スクロールの利点が失われます。</span><span class="sxs-lookup"><span data-stu-id="7e447-301">Changing the subtree or triggering parts of the scrollable area to redraw via animation behave as expected, but lose the benefit of accelerated scrolling for the redrawn area.</span></span> <span data-ttu-id="7e447-302">同じフレームの間に、スクロール領域を無効にするすべてのアニメーションでスクロールするには、この最適化の利点がなくなりますが発生します。</span><span class="sxs-lookup"><span data-stu-id="7e447-302">Any animation that invalidates the scrolled area during the same frame in which scrolling occurs eliminates the benefit of this optimization.</span></span>  
+  
+-   <span data-ttu-id="7e447-303"><xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A>四角形がピクセルに達するまで内側に向かってスナップされます。</span><span class="sxs-lookup"><span data-stu-id="7e447-303">The <xref:System.Windows.Media.Visual.VisualScrollableAreaClip%2A> rectangle snaps inward to pixels.</span></span> <span data-ttu-id="7e447-304">そのため、スクロールされる四角形の簡単な例のサイズは常に設定したサイズ以下です。</span><span class="sxs-lookup"><span data-stu-id="7e447-304">Therefore, the snapped size of the scrolling rectangle is always less than or equal to the size you have set.</span></span>  
+  
+-   <span data-ttu-id="7e447-305">下方向のオフセットがスナップされます。</span><span class="sxs-lookup"><span data-stu-id="7e447-305">Offsets snap downward.</span></span> <span data-ttu-id="7e447-306">これは、前の相違点のオフセットのスナップ、スナップの現在のオフセットは、ピクセル数は整数では常にことを意味します。</span><span class="sxs-lookup"><span data-stu-id="7e447-306">This means that the difference of the previous snapped offset and current snapped offset is always an integer number of pixels.</span></span>  
+  
+-   <span data-ttu-id="7e447-307">ヒット テストは、最大で 1 ピクセルでオフにできます。</span><span class="sxs-lookup"><span data-stu-id="7e447-307">Hit tests can be off by up to a pixel.</span></span>  
+  
+-   <span data-ttu-id="7e447-308">これにより、スクロール可能な領域との境界 ウィンドウのクライアント領域のエッジが、正しい配置ピクセルの境界にスナップされていることに、レイアウトの丸めをオンください。</span><span class="sxs-lookup"><span data-stu-id="7e447-308">Layout rounding should be turned on, because it ensures that the edges of scrollable areas and the boundary window client area are snapped to pixel boundaries, resulting in correct alignment.</span></span>  
+  
+-   <span data-ttu-id="7e447-309">レイヤード ウィンドウのスクロールの加速は機能しません。</span><span class="sxs-lookup"><span data-stu-id="7e447-309">Scrolling acceleration does not work on layered windows.</span></span> <span data-ttu-id="7e447-310">つまり、どの AllowTransparency で windows = = true の場合、window.windowstyle なし、= = し、などです。</span><span class="sxs-lookup"><span data-stu-id="7e447-310">This means windows in which AllowTransparency == true, window.windowstyle == none, and so on.</span></span>  
+  
+-   <span data-ttu-id="7e447-311">アクセラレータのスクロールは、フル ウィンドウのレンダリング中には発生しません。</span><span class="sxs-lookup"><span data-stu-id="7e447-311">Scrolling acceleration does not occur during full-window rendering.</span></span>  
+  
+-   <span data-ttu-id="7e447-312">アクセラレータをスクロールしても、ウィンドウが 2 つのモニターをまたがっている場合は機能しません。</span><span class="sxs-lookup"><span data-stu-id="7e447-312">Scrolling acceleration does not work when the window straddles two monitors.</span></span>  
+  
+-   <span data-ttu-id="7e447-313">アクセラレータのスクロールは、スクロールした要素の親チェーン内の中間レンダー ターゲットが存在する場合は機能しません。</span><span class="sxs-lookup"><span data-stu-id="7e447-313">Scrolling acceleration does not work in the presence of intermediate render targets in the parent chain of the scrolled element.</span></span> <span data-ttu-id="7e447-314">これらのいくつかの中間レンダー ターゲットを次に示します。</span><span class="sxs-lookup"><span data-stu-id="7e447-314">The following list shows some of these intermediate render targets.</span></span>  
+  
+    -   <span data-ttu-id="7e447-315">クリップ</span><span class="sxs-lookup"><span data-stu-id="7e447-315">Clips</span></span>  
+  
+    -   <span data-ttu-id="7e447-316">効果</span><span class="sxs-lookup"><span data-stu-id="7e447-316">Effects</span></span>  
+  
+    -   <span data-ttu-id="7e447-317">DrawingBrushes</span><span class="sxs-lookup"><span data-stu-id="7e447-317">DrawingBrushes</span></span>  
+  
+    -   <span data-ttu-id="7e447-318">VisualBrushes</span><span class="sxs-lookup"><span data-stu-id="7e447-318">VisualBrushes</span></span>  
+  
+    -   <span data-ttu-id="7e447-319">OpacityMasks</span><span class="sxs-lookup"><span data-stu-id="7e447-319">OpacityMasks</span></span>  
+  
+    -   <span data-ttu-id="7e447-320">Opacity</span><span class="sxs-lookup"><span data-stu-id="7e447-320">Opacity</span></span>  
+  
+-   <span data-ttu-id="7e447-321">フレームごとに 1 つだけの高速化されたスクロールに発生します。</span><span class="sxs-lookup"><span data-stu-id="7e447-321">Only one accelerated scroll can happen per frame.</span></span> <span data-ttu-id="7e447-322">複数の高速化されたスクロール領域があることができますが、それらの 1 つのみが、フレームの間に高速化されたスクロールを実行できます。</span><span class="sxs-lookup"><span data-stu-id="7e447-322">There can be multiple accelerated scroll areas, but only one of them can perform an accelerated scroll during a frame.</span></span> <span data-ttu-id="7e447-323">のどの領域がスクロールされる基準が不定になります。</span><span class="sxs-lookup"><span data-stu-id="7e447-323">Which area is scrolled is indeterminate.</span></span>  
+  
+-   <span data-ttu-id="7e447-324">アクセラレータをスクロールすると、他のコンテンツのスクロールされていません (z オーダー) 内のスクロール領域上のコンテンツがサポートしています。</span><span class="sxs-lookup"><span data-stu-id="7e447-324">Scrolling acceleration supports content above the scrolling region (in z-order) that is not scrolled with the rest of the content.</span></span> <span data-ttu-id="7e447-325">必要なすべてのダーティ領域が計算され、高速のスクロールが完了したが、画面上の正しい位置に意図せずにスクロールした部分に移動する、ネットワーク経由で追加のビットマップをいくつかのバックアップを送信します。</span><span class="sxs-lookup"><span data-stu-id="7e447-325">The system calculates all necessary dirty regions and completes the accelerated scroll, but it sends several additional bitmaps over the wire to move the unintentionally scrolled portion back to its correct position on screen.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualTextHintingMode">
+      <MemberSignature Language="C#" Value="protected internal System.Windows.Media.TextHintingMode VisualTextHintingMode { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Windows.Media.TextHintingMode VisualTextHintingMode" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualTextHintingMode" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Property VisualTextHintingMode As TextHintingMode" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; property System::Windows::Media::TextHintingMode VisualTextHintingMode { System::Windows::Media::TextHintingMode get(); void set(System::Windows::Media::TextHintingMode value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.TextHintingMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-326">
+            <see cref="T:System.Windows.Media.Visual" /> の <see cref="T:System.Windows.Media.TextHintingMode" /> を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-326">Gets or sets the <see cref="T:System.Windows.Media.TextHintingMode" /> of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-327">
+            <see cref="T:System.Windows.Media.Visual" /> に適用される <see cref="T:System.Windows.Media.TextHintingMode" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-327">The <see cref="T:System.Windows.Media.TextHintingMode" /> applied to the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualTextRenderingMode">
+      <MemberSignature Language="C#" Value="protected internal System.Windows.Media.TextRenderingMode VisualTextRenderingMode { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Windows.Media.TextRenderingMode VisualTextRenderingMode" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualTextRenderingMode" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Property VisualTextRenderingMode As TextRenderingMode" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; property System::Windows::Media::TextRenderingMode VisualTextRenderingMode { System::Windows::Media::TextRenderingMode get(); void set(System::Windows::Media::TextRenderingMode value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.TextRenderingMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-328">
+            <see cref="T:System.Windows.Media.Visual" /> の <see cref="T:System.Windows.Media.TextRenderingMode" /> を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-328">Gets or sets the <see cref="T:System.Windows.Media.TextRenderingMode" /> of the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-329">
+            <see cref="T:System.Windows.Media.Visual" /> に適用される <see cref="T:System.Windows.Media.TextRenderingMode" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-329">The <see cref="T:System.Windows.Media.TextRenderingMode" /> applied to the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualTransform">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.Transform VisualTransform { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Media.Transform VisualTransform" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualTransform" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualTransform As Transform" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::Transform ^ VisualTransform {  protected public:&#xA;System::Windows::Media::Transform ^ get(); protected:&#xA; void set(System::Windows::Media::Transform ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.Transform</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-330">
+            <see cref="T:System.Windows.Media.Transform" /> の <see cref="T:System.Windows.Media.Visual" /> 値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-330">Gets or sets the <see cref="T:System.Windows.Media.Transform" /> value for the <see cref="T:System.Windows.Media.Visual" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-331">ビジュアルの変換値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-331">The transform value of the visual.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="VisualXSnappingGuidelines">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.DoubleCollection VisualXSnappingGuidelines { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Media.DoubleCollection VisualXSnappingGuidelines" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualXSnappingGuidelines" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualXSnappingGuidelines As DoubleCollection" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::DoubleCollection ^ VisualXSnappingGuidelines {  protected public:&#xA;System::Windows::Media::DoubleCollection ^ get(); protected:&#xA; void set(System::Windows::Media::DoubleCollection ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.DoubleCollection</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-332">X 座標 (垂直) ガイドライン コレクションを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-332">Gets or sets the x-coordinate (vertical) guideline collection.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-333">ビジュアルの X 座標ガイドライン コレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-333">The x-coordinate guideline collection of the visual.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-334">ピクセル スナップは、プロセス オブジェクトのエッジがデバイスに固有のピクセル単位で表示できるようにのコンテンツのレイアウトは固定です。</span><span class="sxs-lookup"><span data-stu-id="7e447-334">Pixel snapping is the process in which content layout is fixed so that object edges are rendered on device-specific pixels.</span></span> <span data-ttu-id="7e447-335">[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] グラフィックス システムでは、デバイスに依存しない単位を使用して、解像度とデバイスの独立性を可能にします。</span><span class="sxs-lookup"><span data-stu-id="7e447-335">The [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] graphics system uses device-independent units to enable resolution and device independence.</span></span> <span data-ttu-id="7e447-336">システムのされた各デバイスに依存しないピクセルが自動的に拡大縮小[!INCLUDE[TLA#tla_dpi](~/includes/tlasharptla-dpi-md.md)]設定します。</span><span class="sxs-lookup"><span data-stu-id="7e447-336">Each device independent pixel automatically scales with the system's [!INCLUDE[TLA#tla_dpi](~/includes/tlasharptla-dpi-md.md)] setting.</span></span> <span data-ttu-id="7e447-337">これにより、異なる [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)] 設定に対して [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] アプリケーションに適切なスケーリングを提供し、アプリケーションを自動的に [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)] 対応にします。</span><span class="sxs-lookup"><span data-stu-id="7e447-337">This provides [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] applications proper scaling for different [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)] settings and makes the application automatically [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)]-aware.</span></span>  
+  
+ <span data-ttu-id="7e447-338">ただし、この[!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)]の独立性がアンチ エイリアス処理のための不規則なエッジ表示を作成できます。</span><span class="sxs-lookup"><span data-stu-id="7e447-338">However, this [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)] independence can create irregular edge rendering due to anti-aliasing.</span></span> <span data-ttu-id="7e447-339">これらの成果物がぼやけて、または「ソフト」のエッジとしても表示は、エッジ場所がデバイス ピクセルの間ではなく、デバイス ピクセル中央にあるときに発生します。</span><span class="sxs-lookup"><span data-stu-id="7e447-339">These artifacts, commonly seen as blurry or "soft" edges, can occur when the location of an edge falls in the middle of a device pixel rather than between device pixels.</span></span> <span data-ttu-id="7e447-340">この問題に対処[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]オブジェクト「スナップ」デバイス (ピクセル単位) をアンチ エイリアス処理によって生成される、ぼかしを排除するビジュアル ツリーの端を方法を提供します。</span><span class="sxs-lookup"><span data-stu-id="7e447-340">To address this issue, [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] provides a way for object edges in a visual tree to "snap" to device pixels, eliminating the soft edges produced by anti-aliasing.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Windows.Media.VisualTreeHelper.GetXSnappingGuidelines(System.Windows.Media.Visual)" />
+      </Docs>
+    </Member>
+    <Member MemberName="VisualYSnappingGuidelines">
+      <MemberSignature Language="C#" Value="public System.Windows.Media.DoubleCollection VisualYSnappingGuidelines { protected internal get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Media.DoubleCollection VisualYSnappingGuidelines" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Media.Visual.VisualYSnappingGuidelines" />
+      <MemberSignature Language="VB.NET" Value="Public Property VisualYSnappingGuidelines As DoubleCollection" />
+      <MemberSignature Language="C++ CLI" Value="public:  property System::Windows::Media::DoubleCollection ^ VisualYSnappingGuidelines {  protected public:&#xA;System::Windows::Media::DoubleCollection ^ get(); protected:&#xA; void set(System::Windows::Media::DoubleCollection ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Media.DoubleCollection</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7e447-341">Y 座標 (水平) ガイドライン コレクションを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-341">Gets or sets the y-coordinate (horizontal) guideline collection.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7e447-342">ビジュアルの Y 座標ガイドライン コレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7e447-342">The y-coordinate guideline collection of the visual.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7e447-343">ピクセル スナップは、プロセス オブジェクトのエッジがデバイスに固有のピクセル単位で表示できるようにのコンテンツのレイアウトは固定です。</span><span class="sxs-lookup"><span data-stu-id="7e447-343">Pixel snapping is the process in which content layout is fixed so that object edges are rendered on device-specific pixels.</span></span> <span data-ttu-id="7e447-344">[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] グラフィックス システムでは、デバイスに依存しない単位を使用して、解像度とデバイスの独立性を可能にします。</span><span class="sxs-lookup"><span data-stu-id="7e447-344">The [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] graphics system uses device-independent units to enable resolution and device independence.</span></span> <span data-ttu-id="7e447-345">システムのされた各デバイスに依存しないピクセルが自動的に拡大縮小[!INCLUDE[TLA#tla_dpi](~/includes/tlasharptla-dpi-md.md)]設定します。</span><span class="sxs-lookup"><span data-stu-id="7e447-345">Each device independent pixel automatically scales with the system's [!INCLUDE[TLA#tla_dpi](~/includes/tlasharptla-dpi-md.md)] setting.</span></span> <span data-ttu-id="7e447-346">これにより、異なる [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)] 設定に対して [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] アプリケーションに適切なスケーリングを提供し、アプリケーションを自動的に [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)] 対応にします。</span><span class="sxs-lookup"><span data-stu-id="7e447-346">This provides [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] applications proper scaling for different [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)] settings and makes the application automatically [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)]-aware.</span></span>  
+  
+ <span data-ttu-id="7e447-347">ただし、この[!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)]の独立性がアンチ エイリアス処理のための不規則なエッジ表示を作成できます。</span><span class="sxs-lookup"><span data-stu-id="7e447-347">However, this [!INCLUDE[TLA2#tla_dpi](~/includes/tla2sharptla-dpi-md.md)] independence can create irregular edge rendering due to anti-aliasing.</span></span> <span data-ttu-id="7e447-348">これらの成果物がぼやけていたり、か「ソフト」のエッジとしても表示は、エッジの場所がデバイス ピクセルの間ではなく、デバイスのピクセルの中央にあるときに発生します。</span><span class="sxs-lookup"><span data-stu-id="7e447-348">These artifacts, commonly seen as blurry, or "soft" edges, can occur when the location of an edge falls in the middle of a device pixel rather than between device pixels.</span></span> <span data-ttu-id="7e447-349">この問題に対処[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]オブジェクト「スナップ」デバイス (ピクセル単位) をアンチ エイリアス処理によって生成される、ぼかしを排除するビジュアル ツリーの端を方法を提供します。</span><span class="sxs-lookup"><span data-stu-id="7e447-349">To address this issue, [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] provides a way for object edges in a visual tree to "snap" to device pixels, eliminating the soft edges produced by anti-aliasing.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Windows.Media.VisualTreeHelper.GetYSnappingGuidelines(System.Windows.Media.Visual)" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

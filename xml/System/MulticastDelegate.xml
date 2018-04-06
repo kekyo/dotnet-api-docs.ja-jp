@@ -1,0 +1,930 @@
+<Type Name="MulticastDelegate" FullName="System.MulticastDelegate">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="68fe57d35963ff07229ce4e905392ba33a08e1b2" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class MulticastDelegate : Delegate" />
+  <TypeSignature Language="ILAsm" Value=".class public sequential ansi abstract serializable beforefieldinit MulticastDelegate extends System.Delegate" />
+  <TypeSignature Language="DocId" Value="T:System.MulticastDelegate" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class MulticastDelegate&#xA;Inherits Delegate" />
+  <TypeSignature Language="C++ CLI" Value="public ref class MulticastDelegate abstract : Delegate" />
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.0.20.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Delegate</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="86c35-101">マルチキャスト デリゲート、つまり呼び出しリストに複数の要素を組み込むことができるデリゲートを表します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="86c35-101">Represents a multicast delegate; that is, a delegate that can have more than one element in its invocation list.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="86c35-102"><xref:System.MulticastDelegate> 特殊なクラスです。</span><span class="sxs-lookup"><span data-stu-id="86c35-102"><xref:System.MulticastDelegate> is a special class.</span></span> <span data-ttu-id="86c35-103">コンパイラ、およびその他のツールは、このクラスから派生できますが、明示的にそこから派生させることはできません。</span><span class="sxs-lookup"><span data-stu-id="86c35-103">Compilers and other tools can derive from this class, but you cannot derive from it explicitly.</span></span> <span data-ttu-id="86c35-104">場合も、同様の<xref:System.Delegate>クラスです。</span><span class="sxs-lookup"><span data-stu-id="86c35-104">The same is true of the <xref:System.Delegate> class.</span></span>  
+  
+ <span data-ttu-id="86c35-105">継承のデリゲート型のメソッドに加えて<xref:System.MulticastDelegate>、共通言語ランタイムは、次の 2 つの特殊なメソッドを提供:`BeginInvoke`と`EndInvoke`です。</span><span class="sxs-lookup"><span data-stu-id="86c35-105">In addition to the methods that delegate types inherit from <xref:System.MulticastDelegate>, the common language runtime provides two special methods: `BeginInvoke` and `EndInvoke`.</span></span> <span data-ttu-id="86c35-106">これらのメソッドの詳細については、次を参照してください。[同期のメソッドを非同期に呼び出す](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)です。</span><span class="sxs-lookup"><span data-stu-id="86c35-106">For more information about these methods, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md).</span></span>  
+  
+ <span data-ttu-id="86c35-107">A<xref:System.MulticastDelegate>デリゲートの呼び出しリストと呼ばれる 1 つまたは複数の要素から成るリンク リストがあります。</span><span class="sxs-lookup"><span data-stu-id="86c35-107">A <xref:System.MulticastDelegate> has a linked list of delegates, called an invocation list, consisting of one or more elements.</span></span> <span data-ttu-id="86c35-108">マルチキャスト デリゲートが呼び出されたときに表示される順序に、呼び出しリストにデリゲートが同期的に呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="86c35-108">When a multicast delegate is invoked, the delegates in the invocation list are called synchronously in the order in which they appear.</span></span> <span data-ttu-id="86c35-109">一覧の実行中にエラーが発生した場合は、例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="86c35-109">If an error occurs during execution of the list then an exception is thrown.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="86c35-110">次の例では、クラス、`StringContainer`文字列のコレクションが含まれます。</span><span class="sxs-lookup"><span data-stu-id="86c35-110">The following example defines a class, `StringContainer`, which includes a collection of strings.</span></span> <span data-ttu-id="86c35-111">そのメンバーの 1 つは、`CheckAndDisplayDelegate`デリゲートに格納された文字列の表示に使用される、`StringContainer`特定の条件に適合するオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="86c35-111">One of its members is the `CheckAndDisplayDelegate` delegate, which is used to display strings stored in a `StringContainer` object that satisfy particular criteria.</span></span> <span data-ttu-id="86c35-112">デリゲートがパラメーターとして 1 つの文字列を受け取りを返す`void`(または、Visual basic では、`Sub`プロシージャ) です。</span><span class="sxs-lookup"><span data-stu-id="86c35-112">The delegate takes a single string as a parameter and returns `void` (or, in Visual Basic, it's a `Sub` procedure).</span></span> <span data-ttu-id="86c35-113">メソッドも含まれています。 `DisplayAllQualified`、1 つのパラメーターを持つ、`CheckAndDisplayDelegate`を委任します。</span><span class="sxs-lookup"><span data-stu-id="86c35-113">It also includes a method, `DisplayAllQualified`, that has a single parameter, a `CheckAndDisplayDelegate` delegate.</span></span> <span data-ttu-id="86c35-114">これにより、呼び出されるメソッドとデリゲートを含むメソッドに基づいてフィルター処理されている文字列のセットを表示します。</span><span class="sxs-lookup"><span data-stu-id="86c35-114">This allows the method to be called and to display a set of strings that are filtered based on the methods that the delegate contains.</span></span>  
+  
+ <span data-ttu-id="86c35-115">ユーティリティ クラスも定義`StringExtensions`、2 つのメソッドを持ちます。</span><span class="sxs-lookup"><span data-stu-id="86c35-115">The example also defines a utility class, `StringExtensions`, that has two methods:</span></span>  
+  
+-   <span data-ttu-id="86c35-116">`ConStart`、子音で始まる文字列が表示されます。</span><span class="sxs-lookup"><span data-stu-id="86c35-116">`ConStart`, which displays strings that begin with a consonant.</span></span>  
+  
+-   <span data-ttu-id="86c35-117">`VowelStart`、母音で始まる文字列が表示されます。</span><span class="sxs-lookup"><span data-stu-id="86c35-117">`VowelStart`, which displays strings that begin with a vowel.</span></span>  
+  
+ <span data-ttu-id="86c35-118">両方のメソッドが 1 つの文字列パラメーターを含めるし、返す注`void`です。</span><span class="sxs-lookup"><span data-stu-id="86c35-118">Note that both methods include a single string parameter and return `void`.</span></span> <span data-ttu-id="86c35-119">つまり、両方のメソッドに指定できます、`CheckAndDisplayDelegate`を委任します。</span><span class="sxs-lookup"><span data-stu-id="86c35-119">In other words, both methods can be assigned to the  `CheckAndDisplayDelegate` delegate.</span></span>  
+  
+ <span data-ttu-id="86c35-120">`Test.Main`メソッドは、アプリケーションのエントリ ポイントです。</span><span class="sxs-lookup"><span data-stu-id="86c35-120">The `Test.Main` method is the application entry point.</span></span> <span data-ttu-id="86c35-121">インスタンス化、`StringContainer`オブジェクト、文字列に設定し、2 つ作成されます`CheckAndDisplayDelegate`デリゲート、`conStart`と`vowelStart`、1 つのメソッドを呼び出すことです。</span><span class="sxs-lookup"><span data-stu-id="86c35-121">It instantiates a `StringContainer` object, populates it with strings, and creates two `CheckAndDisplayDelegate` delegates, `conStart` and `vowelStart`, that invoke a single method.</span></span> <span data-ttu-id="86c35-122">呼び出して、<xref:System.Delegate.Combine%2A?displayProperty=nameWithType>メソッドを作成、`multipleDelegates`デリゲート、これが最初に含まれています、`ConStart`と`VowelStart`デリゲート。</span><span class="sxs-lookup"><span data-stu-id="86c35-122">It then calls the <xref:System.Delegate.Combine%2A?displayProperty=nameWithType> method to create the `multipleDelegates` delegate, which initially contains the `ConStart` and  `VowelStart` delegates.</span></span> <span data-ttu-id="86c35-123">場合、`multipleDelegates`デリゲートが呼び出される、元の順序でコレクション内のすべての文字列が表示されます。</span><span class="sxs-lookup"><span data-stu-id="86c35-123">Note that when the `multipleDelegates` delegate is invoked, it displays all the strings in the collection in their original order.</span></span> <span data-ttu-id="86c35-124">これは、各文字を個別に各デリゲートに渡され、各文字が 2 つのデリゲートの 1 つだけのフィルター条件を満たしているためです。</span><span class="sxs-lookup"><span data-stu-id="86c35-124">This is because each letter is passed separately to each delegate, and each letter meets the filtering criteria of only one of the two delegates.</span></span> <span data-ttu-id="86c35-125">呼び出し後に最後に、<xref:System.Delegate.Remove%2A?displayProperty=nameWithType>と<xref:System.Delegate.Combine%2A?displayProperty=nameWithType>、`multipleDelegates`は 2 つ`conStart`デリゲート。</span><span class="sxs-lookup"><span data-stu-id="86c35-125">Finally, after calls to <xref:System.Delegate.Remove%2A?displayProperty=nameWithType> and <xref:System.Delegate.Combine%2A?displayProperty=nameWithType>, `multipleDelegates` contains two `conStart` delegates.</span></span> <span data-ttu-id="86c35-126">呼び出される場合、各文字列に、`StringContainer`オブジェクトが 2 回表示されます。</span><span class="sxs-lookup"><span data-stu-id="86c35-126">When it is invoked, each string in the `StringContainer` object is displayed twice.</span></span>  
+  
+ [!code-cpp[Multicast Delegate Introduction#1](~/samples/snippets/cpp/VS_Snippets_CLR/Multicast Delegate Introduction/CPP/delegatestring.cpp#1)]
+ [!code-csharp[Multicast Delegate Introduction#1](~/samples/snippets/csharp/VS_Snippets_CLR/Multicast Delegate Introduction/CS/delegatestring.cs#1)]
+ [!code-vb[Multicast Delegate Introduction#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Multicast Delegate Introduction/VB/delegatestring.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="86c35-127">
+            <see cref="T:System.MulticastDelegate" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-127">Initializes a new instance of the <see cref="T:System.MulticastDelegate" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected MulticastDelegate (object target, string method);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor(object target, string method) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.#ctor(System.Object,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New (target As Object, method As String)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; MulticastDelegate(System::Object ^ target, System::String ^ method);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="target" Type="System.Object" />
+        <Parameter Name="method" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="target">
+          <span data-ttu-id="86c35-128">
+            <c>method</c> が定義されたオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-128">The object on which <c>method</c> is defined.</span>
+          </span>
+        </param>
+        <param name="method">
+          <span data-ttu-id="86c35-129">デリゲートを作成するメソッドの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-129">The name of the method for which a delegate is created.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="86c35-130">
+            <see cref="T:System.MulticastDelegate" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-130">Initializes a new instance of the <see cref="T:System.MulticastDelegate" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="86c35-131">このコンス トラクターは、アプリケーション コードでは使用できません。</span><span class="sxs-lookup"><span data-stu-id="86c35-131">This constructor cannot be used in application code.</span></span> <span data-ttu-id="86c35-132">インスタンス メソッドの名前を指定することによって、デリゲートを作成するには、オーバー ロードを使用して、<xref:System.Delegate.CreateDelegate%2A?displayProperty=nameWithType>がメソッド名とターゲット オブジェクトを指定するメソッド。</span><span class="sxs-lookup"><span data-stu-id="86c35-132">To create a delegate by specifying the name of an instance method, use an overload of the <xref:System.Delegate.CreateDelegate%2A?displayProperty=nameWithType> method that specifies a method name and a target object.</span></span> <span data-ttu-id="86c35-133">たとえば、<xref:System.Delegate.CreateDelegate%28System.Type%2CSystem.Object%2CSystem.String%29?displayProperty=nameWithType>メソッド オーバー ロードは、指定した名前を持つインスタンス メソッドのデリゲートを作成します。</span><span class="sxs-lookup"><span data-stu-id="86c35-133">For example, the <xref:System.Delegate.CreateDelegate%28System.Type%2CSystem.Object%2CSystem.String%29?displayProperty=nameWithType> method overload creates a delegate for an instance method with a specified name.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-134">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-134">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.ReflectionPermission">
+          <span data-ttu-id="86c35-135">呼び出されたときに遅延バインディング メカニズムを通じてなど<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-135">when invoked late-bound through mechanisms such as <see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />.</span>
+          </span>
+          <span data-ttu-id="86c35-136">
+            <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /> (関連する列挙体)</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-136">Associated enumeration: <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" />.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected MulticastDelegate (Type target, string method);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor(class System.Type target, string method) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.#ctor(System.Type,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New (target As Type, method As String)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; MulticastDelegate(Type ^ target, System::String ^ method);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="target" Type="System.Type" />
+        <Parameter Name="method" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="target">
+          <span data-ttu-id="86c35-137">
+            <c>method</c> が定義されたオブジェクトの型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-137">The type of object on which <c>method</c> is defined.</span>
+          </span>
+        </param>
+        <param name="method">
+          <span data-ttu-id="86c35-138">デリゲートを作成する静的メソッドの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-138">The name of the static method for which a delegate is created.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="86c35-139">
+            <see cref="T:System.MulticastDelegate" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-139">Initializes a new instance of the <see cref="T:System.MulticastDelegate" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="86c35-140">このコンス トラクターは、アプリケーション コードでは使用できません。</span><span class="sxs-lookup"><span data-stu-id="86c35-140">This constructor cannot be used in application code.</span></span> <span data-ttu-id="86c35-141">静的メソッドの名前を指定することによって、デリゲートを作成するには、オーバー ロードを使用して、<xref:System.Delegate.CreateDelegate%2A?displayProperty=nameWithType>メソッドをメソッドの名前を指定しますが、ターゲット オブジェクトが指定されていません。</span><span class="sxs-lookup"><span data-stu-id="86c35-141">To create a delegate by specifying the name of a static method, use an overload of the <xref:System.Delegate.CreateDelegate%2A?displayProperty=nameWithType> method that specifies a method name but does not specify a target object.</span></span> <span data-ttu-id="86c35-142">たとえば、<xref:System.Delegate.CreateDelegate%28System.Type%2CSystem.Type%2CSystem.String%29?displayProperty=nameWithType>メソッド オーバー ロードは、指定した名前の静的メソッドのデリゲートを作成します。</span><span class="sxs-lookup"><span data-stu-id="86c35-142">For example, the <xref:System.Delegate.CreateDelegate%28System.Type%2CSystem.Type%2CSystem.String%29?displayProperty=nameWithType> method overload creates a static delegate for a method with a specified name.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-143">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-143">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.ReflectionPermission">
+          <span data-ttu-id="86c35-144">呼び出されたときに遅延バインディング メカニズムを通じてなど<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-144">when invoked late-bound through mechanisms such as <see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />.</span>
+          </span>
+          <span data-ttu-id="86c35-145">関連する列挙。 <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-145">Associated enumeration: <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="CombineImpl">
+      <MemberSignature Language="C#" Value="protected override sealed Delegate CombineImpl (Delegate follow);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.Delegate CombineImpl(class System.Delegate follow) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.CombineImpl(System.Delegate)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides NotOverridable Function CombineImpl (follow As Delegate) As Delegate" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override Delegate ^ CombineImpl(Delegate ^ follow);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Delegate</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="follow" Type="System.Delegate" />
+      </Parameters>
+      <Docs>
+        <param name="follow">
+          <span data-ttu-id="86c35-146">このデリゲートと組み合わせるデリゲート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-146">The delegate to combine with this delegate.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="86c35-147">新しいデリゲートを生成するために、指定した <see cref="T:System.Delegate" /> とこの <see cref="T:System.Delegate" /> を組み合わせます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-147">Combines this <see cref="T:System.Delegate" /> with the specified <see cref="T:System.Delegate" /> to form a new delegate.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="86c35-148">
+            <see cref="T:System.MulticastDelegate" /> 呼び出しリストの新しいルートとなるデリゲート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-148">A delegate that is the new root of the <see cref="T:System.MulticastDelegate" /> invocation list.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="86c35-149">
+            <paramref name="follow" /> には、このインスタンスと同じ型はありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-149">
+              <paramref name="follow" /> does not have the same type as this instance.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-150">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-150">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.ReflectionPermission">
+          <span data-ttu-id="86c35-151">呼び出されたときに遅延バインディング メカニズムを通じてなど<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-151">when invoked late-bound through mechanisms such as <see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />.</span>
+          </span>
+          <span data-ttu-id="86c35-152">関連する列挙。 <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-152">Associated enumeration: <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="DynamicInvokeImpl">
+      <MemberSignature Language="C#" Value="protected override sealed object DynamicInvokeImpl (object[] args);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance object DynamicInvokeImpl(object[] args) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.DynamicInvokeImpl(System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides NotOverridable Function DynamicInvokeImpl (args As Object()) As Object" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override System::Object ^ DynamicInvokeImpl(cli::array &lt;System::Object ^&gt; ^ args);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="args" Type="System.Object[]" />
+      </Parameters>
+      <Docs>
+        <param name="args">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Equals">
+      <MemberSignature Language="C#" Value="public override sealed bool Equals (object obj);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance bool Equals(object obj) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.Equals(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides NotOverridable Function Equals (obj As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override bool Equals(System::Object ^ obj);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.0.20.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="obj" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="obj">
+          <span data-ttu-id="86c35-153">このインスタンスと比較するオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-153">The object to compare with this instance.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="86c35-154">このマルチキャスト デリゲートと指定されたオブジェクトが等しいかどうかを確認します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-154">Determines whether this multicast delegate and the specified object are equal.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="86c35-155">
+            <paramref name="obj" /> と、このインスタンスの呼び出しリストが同じである場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-155">
+              <see langword="true" /> if <paramref name="obj" /> and this instance have the same invocation lists; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="86c35-156">2 つのデリゲートが等しくない場合は`null`は正確に同じ型のそれぞれの呼び出しリストには、同じ数要素にはが含まれてし、最初のデリゲートの呼び出しリスト内のすべての要素が 2 番目のデリゲートの呼び出しリスト内の対応する要素と等しい。</span><span class="sxs-lookup"><span data-stu-id="86c35-156">Two delegates are equal if they are not `null` and are of exactly the same type, their invocation lists contain the same number of elements, and every element in the invocation list of the first delegate is equal to the corresponding element in the invocation list of the second delegate.</span></span>  
+  
+ <span data-ttu-id="86c35-157">2 つの呼び出しリストの要素は、同じ対象インスタンス上の同じインスタンス メソッドを呼び出し、または同じ静的メソッドを呼び出し、します。</span><span class="sxs-lookup"><span data-stu-id="86c35-157">Two invocation list elements are equal if they invoke the same instance method on the same target instance, or they invoke the same static method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-158">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-158">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.ReflectionPermission">
+          <span data-ttu-id="86c35-159">呼び出されたときに遅延バインディング メカニズムを通じてなど<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-159">when invoked late-bound through mechanisms such as <see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />.</span>
+          </span>
+          <span data-ttu-id="86c35-160">関連する列挙。 <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-160">Associated enumeration: <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="GetHashCode">
+      <MemberSignature Language="C#" Value="public override sealed int GetHashCode ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 GetHashCode() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.GetHashCode" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides NotOverridable Function GetHashCode () As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int GetHashCode();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.0.20.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="86c35-161">このインスタンスのハッシュ コードを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-161">Returns the hash code for this instance.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="86c35-162">32 ビット符号付き整数ハッシュ コード。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-162">A 32-bit signed integer hash code.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-163">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-163">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.ReflectionPermission">
+          <span data-ttu-id="86c35-164">呼び出されたときに遅延バインディング メカニズムを通じてなど<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-164">when invoked late-bound through mechanisms such as <see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />.</span>
+          </span>
+          <span data-ttu-id="86c35-165">関連する列挙。 <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-165">Associated enumeration: <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="GetInvocationList">
+      <MemberSignature Language="C#" Value="public override sealed Delegate[] GetInvocationList ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Delegate[] GetInvocationList() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.GetInvocationList" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides NotOverridable Function GetInvocationList () As Delegate()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override cli::array &lt;Delegate ^&gt; ^ GetInvocationList();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.0.20.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Delegate[]</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="86c35-166">このマルチキャスト デリゲートの呼び出しリストを呼び出し順に返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-166">Returns the invocation list of this multicast delegate, in invocation order.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="86c35-167">対象のインスタンスの呼び出しリストと完全に一致する呼び出しリストを持つデリゲートの配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-167">An array of delegates whose invocation lists collectively match the invocation list of this instance.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="86c35-168">配列には、それぞれ 1 つのエントリの呼び出しリストに、デリゲートのセットが含まれています。</span><span class="sxs-lookup"><span data-stu-id="86c35-168">The array contains a set of delegates, each with an invocation list of one entry.</span></span> <span data-ttu-id="86c35-169">配列の順序で順番に、これらのデリゲートを呼び出すには、現在のインスタンスを呼び出すのと同じ結果が生成されます。</span><span class="sxs-lookup"><span data-stu-id="86c35-169">Invoking these delegates sequentially, in the order they appear in the array, produces the same results as invoking the current instance.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-170">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-170">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.ReflectionPermission">
+          <span data-ttu-id="86c35-171">呼び出されたときに遅延バインディング メカニズムを通じてなど<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-171">when invoked late-bound through mechanisms such as <see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />.</span>
+          </span>
+          <span data-ttu-id="86c35-172">関連する列挙。 <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-172">Associated enumeration: <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="GetMethodImpl">
+      <MemberSignature Language="C#" Value="protected override System.Reflection.MethodInfo GetMethodImpl ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.Reflection.MethodInfo GetMethodImpl() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.GetMethodImpl" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Function GetMethodImpl () As MethodInfo" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override System::Reflection::MethodInfo ^ GetMethodImpl();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Reflection.MethodInfo</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="86c35-173">現在の <see cref="T:System.MulticastDelegate" /> が表す静的メソッドを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-173">Returns a static method represented by the current <see cref="T:System.MulticastDelegate" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="86c35-174">現在の <see cref="T:System.MulticastDelegate" /> が表す静的メソッド。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-174">A static method represented by the current <see cref="T:System.MulticastDelegate" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="86c35-175">場合、<xref:System.MulticastDelegate>複数のメソッドを表す 1 つのメソッドが返されます。</span><span class="sxs-lookup"><span data-stu-id="86c35-175">If the <xref:System.MulticastDelegate> represents multiple methods, only one method is returned.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetObjectData">
+      <MemberSignature Language="C#" Value="public override void GetObjectData (System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void GetObjectData(class System.Runtime.Serialization.SerializationInfo info, valuetype System.Runtime.Serialization.StreamingContext context) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub GetObjectData (info As SerializationInfo, context As StreamingContext)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void GetObjectData(System::Runtime::Serialization::SerializationInfo ^ info, System::Runtime::Serialization::StreamingContext context);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="info" Type="System.Runtime.Serialization.SerializationInfo" />
+        <Parameter Name="context" Type="System.Runtime.Serialization.StreamingContext" />
+      </Parameters>
+      <Docs>
+        <param name="info">
+          <span data-ttu-id="86c35-176">このインスタンスのシリアル化または逆シリアル化に必要なすべてのデータを保持するオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-176">An object that holds all the data needed to serialize or deserialize this instance.</span>
+          </span>
+        </param>
+        <param name="context">
+          <span data-ttu-id="86c35-177">(予約済み) シリアル化データを格納および取得する位置。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-177">(Reserved) The location where serialized data is stored and retrieved.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="86c35-178">
+            <see cref="T:System.Runtime.Serialization.SerializationInfo" /> オブジェクトに、このインスタンスをシリアル化するために必要なデータをすべて格納します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-178">Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object with all the data needed to serialize this instance.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="86c35-179">このメソッド内のすべての情報を格納する`info`このインスタンスをシリアル化するために必要です。</span><span class="sxs-lookup"><span data-stu-id="86c35-179">This method stores all the information in `info` necessary to serialize this instance.</span></span>  
+  
+ <span data-ttu-id="86c35-180">`context`パラメーターは予約されており、このメソッドの実行で現在使用されていません。</span><span class="sxs-lookup"><span data-stu-id="86c35-180">The `context` parameter is reserved and is not currently used in the execution of this method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="86c35-181">
+            <paramref name="info" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-181">
+              <paramref name="info" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-182">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-182">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Runtime.Serialization.SerializationException">
+          <span data-ttu-id="86c35-183">シリアル化エラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-183">A serialization error occurred.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="86c35-184">直前の呼び出し元に対する完全な信頼が必要です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-184">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="86c35-185">このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-185">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+        <altmember cref="T:System.Object" />
+        <altmember cref="T:System.Runtime.Serialization.SerializationInfo" />
+      </Docs>
+    </Member>
+    <Member MemberName="op_Equality">
+      <MemberSignature Language="C#" Value="public static bool operator == (MulticastDelegate d1, MulticastDelegate d2);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname bool op_Equality(class System.MulticastDelegate d1, class System.MulticastDelegate d2) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.op_Equality(System.MulticastDelegate,System.MulticastDelegate)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Operator == (d1 As MulticastDelegate, d2 As MulticastDelegate) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool operator ==(MulticastDelegate ^ d1, MulticastDelegate ^ d2);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.0.20.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="d1" Type="System.MulticastDelegate" />
+        <Parameter Name="d2" Type="System.MulticastDelegate" />
+      </Parameters>
+      <Docs>
+        <param name="d1">
+          <span data-ttu-id="86c35-186">左オペランド。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-186">The left operand.</span>
+          </span>
+        </param>
+        <param name="d2">
+          <span data-ttu-id="86c35-187">右オペランド。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-187">The right operand.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="86c35-188">2 つの <see cref="T:System.MulticastDelegate" /> オブジェクトが等しいかどうかを判断します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-188">Determines whether two <see cref="T:System.MulticastDelegate" /> objects are equal.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="86c35-189">
+            <paramref name="d1" /> と <paramref name="d2" /> の呼び出しリストが同じである場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-189">
+              <see langword="true" /> if <paramref name="d1" /> and <paramref name="d2" /> have the same invocation lists; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="86c35-190">2 つのデリゲートが等しくない場合は`null`は正確に同じ型のそれぞれの呼び出しリストには、同じ数要素にはが含まれてし、最初のデリゲートの呼び出しリスト内のすべての要素が 2 番目のデリゲートの呼び出しリスト内の対応する要素と等しい。</span><span class="sxs-lookup"><span data-stu-id="86c35-190">Two delegates are equal if they are not `null` and are of exactly the same type, their invocation lists contain the same number of elements, and every element in the invocation list of the first delegate is equal to the corresponding element in the invocation list of the second delegate.</span></span>  
+  
+ <span data-ttu-id="86c35-191">2 つの呼び出しリストの要素は、同じ対象インスタンス上の同じインスタンス メソッドを呼び出し、または同じ静的メソッドを呼び出し、します。</span><span class="sxs-lookup"><span data-stu-id="86c35-191">Two invocation list elements are equal if they invoke the same instance method on the same target instance, or they invoke the same static method.</span></span>  
+  
+ <span data-ttu-id="86c35-192">この演算子を同等の方法は、します。 <xref:System.MulticastDelegate.Equals%28System.Object%29?displayProperty=nameWithType></span><span class="sxs-lookup"><span data-stu-id="86c35-192">The equivalent method for this operator is <xref:System.MulticastDelegate.Equals%28System.Object%29?displayProperty=nameWithType></span></span>]]></format>
+        </remarks>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-193">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-193">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.ReflectionPermission">
+          <span data-ttu-id="86c35-194">呼び出されたときに遅延バインディング メカニズムを通じてなど<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-194">when invoked late-bound through mechanisms such as <see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />.</span>
+          </span>
+          <span data-ttu-id="86c35-195">関連する列挙。 <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-195">Associated enumeration: <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="op_Inequality">
+      <MemberSignature Language="C#" Value="public static bool operator != (MulticastDelegate d1, MulticastDelegate d2);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname bool op_Inequality(class System.MulticastDelegate d1, class System.MulticastDelegate d2) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.op_Inequality(System.MulticastDelegate,System.MulticastDelegate)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Operator != (d1 As MulticastDelegate, d2 As MulticastDelegate) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool operator !=(MulticastDelegate ^ d1, MulticastDelegate ^ d2);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.0.20.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="d1" Type="System.MulticastDelegate" />
+        <Parameter Name="d2" Type="System.MulticastDelegate" />
+      </Parameters>
+      <Docs>
+        <param name="d1">
+          <span data-ttu-id="86c35-196">左オペランド。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-196">The left operand.</span>
+          </span>
+        </param>
+        <param name="d2">
+          <span data-ttu-id="86c35-197">右オペランド。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-197">The right operand.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="86c35-198">2 つの <see cref="T:System.MulticastDelegate" /> オブジェクトが等しくないかどうかを判断します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-198">Determines whether two <see cref="T:System.MulticastDelegate" /> objects are not equal.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="86c35-199">
+            <paramref name="d1" /> と <paramref name="d2" /> の呼び出しリストが異なる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-199">
+              <see langword="true" /> if <paramref name="d1" /> and <paramref name="d2" /> do not have the same invocation lists; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="86c35-200">2 つのデリゲートが等しくない場合は`null`は正確に同じ型のそれぞれの呼び出しリストには、同じ数要素にはが含まれてし、最初のデリゲートの呼び出しリスト内のすべての要素が 2 番目のデリゲートの呼び出しリスト内の対応する要素と等しい。</span><span class="sxs-lookup"><span data-stu-id="86c35-200">Two delegates are equal if they are not `null` and are of exactly the same type, their invocation lists contain the same number of elements, and every element in the invocation list of the first delegate is equal to the corresponding element in the invocation list of the second delegate.</span></span>  
+  
+ <span data-ttu-id="86c35-201">2 つの呼び出しリストの要素は、同じ対象インスタンス上の同じインスタンス メソッドを呼び出し、または同じ静的メソッドを呼び出し、します。</span><span class="sxs-lookup"><span data-stu-id="86c35-201">Two invocation list elements are equal if they invoke the same instance method on the same target instance, or they invoke the same static method.</span></span>  
+  
+ <span data-ttu-id="86c35-202">この演算子を同等の方法は、します。 <xref:System.MulticastDelegate.Equals%28System.Object%29?displayProperty=nameWithType></span><span class="sxs-lookup"><span data-stu-id="86c35-202">The equivalent method for this operator is <xref:System.MulticastDelegate.Equals%28System.Object%29?displayProperty=nameWithType></span></span>]]></format>
+        </remarks>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-203">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-203">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.ReflectionPermission">
+          <span data-ttu-id="86c35-204">呼び出されたときに遅延バインディング メカニズムを通じてなど<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-204">when invoked late-bound through mechanisms such as <see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />.</span>
+          </span>
+          <span data-ttu-id="86c35-205">関連する列挙。 <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-205">Associated enumeration: <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="RemoveImpl">
+      <MemberSignature Language="C#" Value="protected override sealed Delegate RemoveImpl (Delegate value);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.Delegate RemoveImpl(class System.Delegate value) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.MulticastDelegate.RemoveImpl(System.Delegate)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides NotOverridable Function RemoveImpl (value As Delegate) As Delegate" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override Delegate ^ RemoveImpl(Delegate ^ value);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Delegate</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="value" Type="System.Delegate" />
+      </Parameters>
+      <Docs>
+        <param name="value">
+          <span data-ttu-id="86c35-206">呼び出しリストで検索するデリゲート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-206">The delegate to search for in the invocation list.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="86c35-207">対象の <see cref="T:System.MulticastDelegate" /> の呼び出しリストから、指定したデリゲートと等しい要素を削除します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-207">Removes an element from the invocation list of this <see cref="T:System.MulticastDelegate" /> that is equal to the specified delegate.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="86c35-208">対象のインスタンスの呼び出しリスト内で <paramref name="value" /> が見つかった場合は、<paramref name="value" /> が含まれない呼び出しリストを持つ新しい <see cref="T:System.Delegate" />。それ以外の場合は、元の呼び出しリストを持つ対象のインスタンス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-208">If <paramref name="value" /> is found in the invocation list for this instance, then a new <see cref="T:System.Delegate" /> without <paramref name="value" /> in its invocation list; otherwise, this instance with its original invocation list.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.MemberAccessException">
+          <span data-ttu-id="86c35-209">抽象クラスのインスタンスを作成することができないか、またはこのメンバーは遅延バインド メカニズムで呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-209">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.ReflectionPermission">
+          <span data-ttu-id="86c35-210">呼び出されたときに遅延バインディング メカニズムを通じてなど<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-210">when invoked late-bound through mechanisms such as <see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" />.</span>
+          </span>
+          <span data-ttu-id="86c35-211">関連する列挙。 <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="86c35-211">Associated enumeration: <see cref="F:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess" /></span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

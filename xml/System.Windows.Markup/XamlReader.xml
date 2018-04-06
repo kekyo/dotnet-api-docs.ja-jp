@@ -1,0 +1,789 @@
+<Type Name="XamlReader" FullName="System.Windows.Markup.XamlReader">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="cb6251512dd75740e1b01a33ceb7e3470f3a68d1" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class XamlReader" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XamlReader extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Windows.Markup.XamlReader" />
+  <TypeSignature Language="VB.NET" Value="Public Class XamlReader" />
+  <TypeSignature Language="C++ CLI" Value="public ref class XamlReader" />
+  <AssemblyInfo>
+    <AssemblyName>PresentationFramework</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="d5d27-101">WPF の既定の XAML リーダーおよび関連付けられている XAML オブジェクト ライターを使用して、XAML 入力を読み取り、オブジェクト グラフを作成します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="d5d27-101">Reads XAML input and creates an object graph, using the WPF default XAML reader and an associated XAML object writer.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5d27-102">同期<xref:System.Windows.Markup.XamlReader.Load%2A>メソッドは静的では、非同期<xref:System.Windows.Markup.XamlReader.LoadAsync%2A>メソッドが静的ではないのインスタンスを必要と、<xref:System.Windows.Markup.XamlReader>クラスを使用します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-102">The synchronous <xref:System.Windows.Markup.XamlReader.Load%2A> methods are static, but the asynchronous <xref:System.Windows.Markup.XamlReader.LoadAsync%2A> methods are not static and require an instance of the <xref:System.Windows.Markup.XamlReader> class to use.</span></span>  
+  
+ <span data-ttu-id="d5d27-103">出力、`Load`メソッドは、作成されたオブジェクト ツリーやオブジェクト グラフのルート オブジェクトを表す 1 つのオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="d5d27-103">The output of the `Load` methods is a single object, which represents the root object of a created object tree or object graph.</span></span> <span data-ttu-id="d5d27-104">オブジェクトによって作成されるグラフ<xref:System.Windows.Markup.XamlReader>通常実行時に WPF アプリケーションの既存のオブジェクト ツリーに追加します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-104">Object graphs that are created by <xref:System.Windows.Markup.XamlReader> are typically added to the existing object tree of a WPF application at run time.</span></span> <span data-ttu-id="d5d27-105">それ以外の場合、新しいオブジェクト グラフは、WPF アプリケーション モデルのため切断されたと見なされます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-105">Otherwise the new object graph is considered disconnected for purposes of the WPF application model.</span></span> <span data-ttu-id="d5d27-106">つまり、表示できない、WPF アプリケーションの主要なオブジェクトのツリーに適用手法のいずれかのオブジェクト ツリーとしてアクセスを使用することはできません (Api など、 <xref:System.Windows.FrameworkElement.FindName%2A>、 <xref:System.Windows.LogicalTreeHelper>、 <xref:System.Windows.Media.VisualTreeHelper>)。</span><span class="sxs-lookup"><span data-stu-id="d5d27-106">This means that it does not render, and cannot be accessed using any of the object tree techniques as applied to the WPF application's main object tree (for example, the APIs <xref:System.Windows.FrameworkElement.FindName%2A>, <xref:System.Windows.LogicalTreeHelper>, <xref:System.Windows.Media.VisualTreeHelper>).</span></span> <span data-ttu-id="d5d27-107">オブジェクト ツリーの概念の詳細については、次を参照してください。 [wpf ツリー](~/docs/framework/wpf/advanced/trees-in-wpf.md)です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-107">For more information on object tree concepts, see [Trees in WPF](~/docs/framework/wpf/advanced/trees-in-wpf.md).</span></span>  
+  
+ <span data-ttu-id="d5d27-108"><xref:System.Windows.Markup.XamlReader> 次の主なシナリオをサポートしています。</span><span class="sxs-lookup"><span data-stu-id="d5d27-108"><xref:System.Windows.Markup.XamlReader> supports the following primary scenarios:</span></span>  
+  
+-   <span data-ttu-id="d5d27-109">**複製/オブジェクト ファクトリ**: せず、その他の機構は参照型一般に含めることができません WPF オブジェクト ツリーで 2 つ以上の位置。</span><span class="sxs-lookup"><span data-stu-id="d5d27-109">**Cloning/object factory**: Without additional mechanisms, a reference type generally cannot be included in more than one position in a WPF object tree.</span></span> <span data-ttu-id="d5d27-110">(共有のサポートを提供または WPF で再利用できる追加のメカニズムのようなオブジェクトに基づく<xref:System.Windows.Freezable>などの一般的な共有可能なオブジェクトのサポートまたは<xref:System.Windows.Media.Brush>からアイテムとして参照されている、 <xref:System.Windows.ResourceDictionary>)。使用してオブジェクトをシリアル化するになっているオブジェクトのクローンを作成する方法の 1 つのオブジェクト ツリーは<xref:System.Windows.Markup.XamlWriter.Save%2A?displayProperty=nameWithType>します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-110">(Examples of additional mechanisms that offer support for sharing or re-use in WPF include objects that are based on <xref:System.Windows.Freezable>, or support for commonly shareable objects such as <xref:System.Windows.Media.Brush> that are referenced as an item from a <xref:System.Windows.ResourceDictionary>.) One way to clone an object that is already in the object tree is to serialize the object using <xref:System.Windows.Markup.XamlWriter.Save%2A?displayProperty=nameWithType>.</span></span> <span data-ttu-id="d5d27-111">使用するシリアル化された文字列の入力としてへの呼び出しの<xref:System.Windows.Markup.XamlReader.Load%2A>、ストリームをまたは<xref:System.Xml.XmlReader>媒介手段として。</span><span class="sxs-lookup"><span data-stu-id="d5d27-111">You then use the serialized string as input for a call to <xref:System.Windows.Markup.XamlReader.Load%2A>, with a stream or <xref:System.Xml.XmlReader> as an intermediary.</span></span>  
+  
+-   <span data-ttu-id="d5d27-112">**・ イン タイムの情報に基づくオブジェクトを構築する**: は多くの場合、遅延バインディングまたはユーザー指定の入力が既存のオブジェクトの状態を変更して他の方法があります。</span><span class="sxs-lookup"><span data-stu-id="d5d27-112">**Constructing objects based on just-in-time information**: There are often other ways to have late-binding or user-supplied input change the state of existing objects.</span></span> <span data-ttu-id="d5d27-113">たとえば、1 つ以上のプロパティを設定する同じ値を使用またはデータ バインディングを使用できます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-113">For example you could use the same value to set more than one property, or use data binding.</span></span> <span data-ttu-id="d5d27-114">シナリオを作成するオブジェクトの種類でもだけ確定実行時に、またはユーザーの操作で使用していれば、し、オブジェクトを作成するなどの文字列を構築してが<xref:System.Windows.Markup.XamlReader.Load%2A>入力が便利な手法では多くの場合。</span><span class="sxs-lookup"><span data-stu-id="d5d27-114">But if you have a scenario where even the type of object to create is only determinable at run time or with user interaction, then creating such an object by building up a string for <xref:System.Windows.Markup.XamlReader.Load%2A> input is often a useful technique.</span></span>  
+  
+-   <span data-ttu-id="d5d27-115">**既存のリソースの手法を使用して**:<xref:System.IO.Stream>型が頻繁にまたはで使用される他のフレームワークまたはテクノロジ アプリケーション境界を越えるデータまたはオブジェクトを転送するためのような状況です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-115">**Using existing resource techniques**: The <xref:System.IO.Stream> type is used frequently in other frameworks or technologies for transferring data or objects across application boundaries or for similar situations.</span></span> <span data-ttu-id="d5d27-116">使用してできます、<xref:System.IO.Stream>最終的に、アプリケーションの一部としてオブジェクトの作成に使用する XAML の書式設定データを取得または保存する手法です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-116">You can then use the <xref:System.IO.Stream> techniques to store or obtain XAML-formatted data that you eventually use to create an object as part of your application.</span></span>  
+  
+-   <span data-ttu-id="d5d27-117">**ドキュメントを固定:**アプリケーション UI、WPF アプリケーションのオブジェクト ツリーに含めることのローカルまたはダウンロード済みの XPS ドキュメントを読み込むことができます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-117">**Fixed documents:** Your application might load local or downloaded XPS documents for inclusion in a WPF application object tree and UI.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="d5d27-118">場合によって、このドキュメントでは、オブジェクト ツリーではなく、オブジェクト グラフについて説明します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-118">This documentation sometimes describes an object graph, as opposed to an object tree.</span></span> <span data-ttu-id="d5d27-119">厳密な親子リレーションシップが常にありません、実行時の WPF アプリケーションの実行時のオブジェクトのリレーションシップのため、オブジェクト グラフをより幅広く適用できる用語。</span><span class="sxs-lookup"><span data-stu-id="d5d27-119">A strict parent-child relationship does not always exist in the run time object relationships of a run time WPF application, so an object graph is a more widely applicable terminology.</span></span> <span data-ttu-id="d5d27-120">ただし、WPF には、次の 2 つの別のツリーの概念の Api も含まれているため (<xref:System.Windows.LogicalTreeHelper>、 <xref:System.Windows.Media.VisualTreeHelper>) WPF では、ほとんどの現実の場合に、ツリーの比喩を適切にも該当します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-120">However, because WPF also includes two different tree conceptualization APIs (<xref:System.Windows.LogicalTreeHelper>, <xref:System.Windows.Media.VisualTreeHelper>) the tree metaphor still applies adequately to most real-world cases in WPF.</span></span> <span data-ttu-id="d5d27-121">XAML 言語の観点から、オブジェクト グラフが多くの場合について検討する XAML を外のオブジェクトを作成する方法、XAML 言語そのものは必ずしも指定しないので、リレーションシップをツリー構造に再度表示ヘルパー クラスの方法論最善の方法です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-121">From the XAML language perspective however, the object graph is often the best way to think about how objects are created out of XAML, because the XAML language itself does not necessarily specify helper class methodologies that bring the relationships more into a tree structure again.</span></span>  
+  
+## <a name="code-access-security-loose-xaml-and-xamlreader"></a><span data-ttu-id="d5d27-122">コード アクセス セキュリティ、Loose XAML、および XamlReader</span><span class="sxs-lookup"><span data-stu-id="d5d27-122">Code Access Security, Loose XAML, and XamlReader</span></span>  
+ <span data-ttu-id="d5d27-123">XAML は、直接オブジェクト インスタンスの作成と実行を表すマークアップ言語です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-123">XAML is a markup language that directly represents object instantiation and execution.</span></span> <span data-ttu-id="d5d27-124">したがって、XAML で作成された要素機能があります、同じを生成した同等のシステム リソース (ネットワーク アクセス、ファイル システムの入出力など) と対話するコードです。</span><span class="sxs-lookup"><span data-stu-id="d5d27-124">Therefore, elements created in XAML have the same ability to interact with system resources (network access, file system IO, for example) as the equivalent generated code does.</span></span>  
+  
+ [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]<span data-ttu-id="d5d27-125"> サポートしている、[!INCLUDE[TLA2#tla_net](~/includes/tla2sharptla-net-md.md)]セキュリティ フレームワーク[!INCLUDE[TLA#tla_cas](~/includes/tlasharptla-cas-md.md)]です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-125"> supports the [!INCLUDE[TLA2#tla_net](~/includes/tla2sharptla-net-md.md)] security framework [!INCLUDE[TLA#tla_cas](~/includes/tlasharptla-cas-md.md)].</span></span> <span data-ttu-id="d5d27-126">つまり、[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]インターネット ゾーンで実行されているコンテンツの実行権限が少なくなっています。</span><span class="sxs-lookup"><span data-stu-id="d5d27-126">This means that [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] content running in the internet zone has reduced execution permissions.</span></span> <span data-ttu-id="d5d27-127">"Loose XAML"(コンパイルされていない XAML のページと解釈の読み込み時に XAML ビューアーで) と[!INCLUDE[TLA#tla_xbap](~/includes/tlasharptla-xbap-md.md)]このインターネット ゾーンでは、通常実行して、同じアクセス許可セットを使用します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-127">"Loose XAML" (pages of noncompiled XAML interpreted at load time by a XAML viewer) and [!INCLUDE[TLA#tla_xbap](~/includes/tlasharptla-xbap-md.md)] are usually run in this internet zone and use the same permission set.</span></span>  <span data-ttu-id="d5d27-128">ただし、XAML を完全に信頼されたアプリケーションでロードでは、ホスト アプリケーションのようにシステム リソースへのアクセス権があります。</span><span class="sxs-lookup"><span data-stu-id="d5d27-128">However, XAML loaded in to a fully trusted application has the same access to the system resources as the hosting application does.</span></span> <span data-ttu-id="d5d27-129">詳細については、次を参照してください。 [WPF 部分信頼セキュリティ](~/docs/framework/wpf/wpf-partial-trust-security.md)です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-129">For more information, see [WPF Partial Trust Security](~/docs/framework/wpf/wpf-partial-trust-security.md).</span></span>  
+  
+ <span data-ttu-id="d5d27-130">これらのステートメントの影響<xref:System.Windows.Markup.XamlReader>こと、アプリケーションの設計する必要があります信頼方法に関する意思決定、XAML をロードする場合は。</span><span class="sxs-lookup"><span data-stu-id="d5d27-130">The implications of these statements for <xref:System.Windows.Markup.XamlReader> is that your application design must make trust decisions about the XAML you decide to load.</span></span> <span data-ttu-id="d5d27-131">信頼されていない XAML をロードする場合は、生成されたオブジェクト グラフを読み込む方法について、独自のサンド ボックス化手法を実装することを検討してください。</span><span class="sxs-lookup"><span data-stu-id="d5d27-131">If you are loading XAML that is not trusted, consider implementing your own sandboxing technique for how you load the resulting object graph.</span></span>  
+  
+ <span data-ttu-id="d5d27-132"><xref:System.Windows.Markup.XamlReader> 部分信頼コードから呼び出すこともできます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-132"><xref:System.Windows.Markup.XamlReader> can also be called by partial trust code.</span></span> <span data-ttu-id="d5d27-133">この例では、インターネットのセキュリティ ゾーンは、コード アクセス セキュリティに対して適用されます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-133">In this case, Internet security zone is applied for code access security.</span></span> <span data-ttu-id="d5d27-134">読み込まれた XAML では何も情報がインターネット セキュリティ ゾーンで有効でない場合は、XAML の解析例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-134">If anything in the loaded XAML is invalid under Internet security zone, a XAML parse exception is thrown.</span></span> <span data-ttu-id="d5d27-135">XBAP およびその他のプラットフォーム レベルでは、部分信頼であるケースの下で<xref:System.Windows.Markup.XamlReader>一部である、実行の明示的な部分信頼の呼び出しと同様、同じ例外動作を取得します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-135">Under XBAP and other cases that are partial trust at the platform level, where <xref:System.Windows.Markup.XamlReader> is part of the execution, you get the same exception behavior as with explicit partial trust calls.</span></span>  
+  
+## <a name="wpf-xaml-xaml-readerswriters-and-xaml-language-versioning"></a><span data-ttu-id="d5d27-136">XAML の WPF、XAML リーダー/ライター、および XAML 言語のバージョン管理</span><span class="sxs-lookup"><span data-stu-id="d5d27-136">WPF XAML, XAML Readers/Writers, and XAML Language Versioning</span></span>  
+ [!INCLUDE[xaml2009](~/includes/xaml2009-md.md)]<span data-ttu-id="d5d27-137"> などの言語の機能が含まれているとします。</span><span class="sxs-lookup"><span data-stu-id="d5d27-137"> includes language features such as  and .</span></span> <span data-ttu-id="d5d27-138">署名を使用することができます`Load`または`Parse`をこれらの機能を使用する XAML を読み込みます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-138">You can use signatures of `Load` or `Parse` to load XAML that uses these features.</span></span> <span data-ttu-id="d5d27-139">ただし、これらの言語機能は、xaml マークアップ コンパイルする必要がありますにサポートされていません (の XAML など、**ページ**ビルド アクションでは、WPF アプリケーションの場合、または任意の XAML のビルド アクションにマークアップ コンパイル タスクを含む)。</span><span class="sxs-lookup"><span data-stu-id="d5d27-139">However, those language features are not supported for XAML that needs to be markup compiled (such as XAML for the **Page** build action in a WPF application, or any XAML that involves the markup compile task in the build actions).</span></span>  
+  
+ <span data-ttu-id="d5d27-140">WPF 型と WPF テクノロジ一般 WPF の内部構造へのアクセスに依存している概念がサポートします。</span><span class="sxs-lookup"><span data-stu-id="d5d27-140">WPF types and the WPF technology in general support concepts that rely on access to WPF internals.</span></span> <span data-ttu-id="d5d27-141">たとえば、WPF が依存関係プロパティを実装する方法は、効率的な型メンバーの参照を内部の手法に依存します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-141">For instance, how WPF implements dependency properties relies on internal techniques for efficient type-member lookup.</span></span> <span data-ttu-id="d5d27-142">XAML の読み取りと書き込みで提供される Api でこれらの内部構造へのアクセスが有効になっている<xref:System.Windows.Markup.XamlWriter>と<xref:System.Windows.Markup.XamlReader>から、<xref:System.Windows.Markup>名前空間および PresentationFramework アセンブリにします。</span><span class="sxs-lookup"><span data-stu-id="d5d27-142">Access to these internals is enabled by the XAML reading and writing APIs provided in <xref:System.Windows.Markup.XamlWriter> and <xref:System.Windows.Markup.XamlReader> from the <xref:System.Windows.Markup> namespace and PresentationFramework assembly.</span></span> <span data-ttu-id="d5d27-143">ただし、下位レベルの XAML リーダーと XAML ライター System.Xaml アセンブリから (クラスがに基づいて<xref:System.Xaml.XamlReader?displayProperty=nameWithType>、 <xref:System.Xaml.XamlWriter?displayProperty=nameWithType>) WPF の内部構造へのアクセスはありません。</span><span class="sxs-lookup"><span data-stu-id="d5d27-143">However, the lower-level XAML readers and XAML writers from the System.Xaml assembly (classes based on <xref:System.Xaml.XamlReader?displayProperty=nameWithType>, <xref:System.Xaml.XamlWriter?displayProperty=nameWithType>) do not have access to the WPF internals.</span></span> <span data-ttu-id="d5d27-144">任意の特定の WPF アセンブリ System.Xaml からの依存関係はありません。</span><span class="sxs-lookup"><span data-stu-id="d5d27-144">There is no dependency from System.Xaml to any WPF-specific assembly.</span></span> <span data-ttu-id="d5d27-145">WPF の内部構造にアクセスできなければ、System.Xaml リーダーとライターに正常に読み込むことができませんまたは型、または型で WPF 型に基づくすべての WPF 保存します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-145">Without access to the WPF internals, System.Xaml readers and writers cannot correctly load or save all WPF types, or types based on WPF types.</span></span> <span data-ttu-id="d5d27-146">具体的には、System.Xaml リーダーとライター理解できません、依存関係プロパティのバッキング ストアのプロパティ、またはスタイル、リソース ディクショナリ、およびテンプレートの WPF の使用のすべての詳細などの概念。</span><span class="sxs-lookup"><span data-stu-id="d5d27-146">In particular, the System.Xaml readers and writers do not understand concepts such as the WPF dependency property backing property store, or all the specifics of how WPF uses styles, resource dictionaries and templates.</span></span> <span data-ttu-id="d5d27-147">そのため、選択することがあります。</span><span class="sxs-lookup"><span data-stu-id="d5d27-147">Therefore you have a choice to make:</span></span>  
+  
+-   <span data-ttu-id="d5d27-148">WPF 型を読み込むの BAML 形式は任意の方法で XAML を使用している場合は、PresentationFramework XAML リーダーと XAML ライターを使用します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-148">If you are loading WPF types, and/or you are using XAML in BAML form in any way, use the PresentationFramework XAML readers and XAML writers.</span></span>  
+  
+-   <span data-ttu-id="d5d27-149">任意の WPF 型、または、XAML の BAML 形式は、に対してせず、し、フレームワークに固有の理由から特定のテクノロジの別の XAML リーダーまたは XAML ライターの実装を使用しない場合は、System.Xaml の XAML リーダーと XAML ライターを使用します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-149">If you are not relying on any WPF types or the BAML form of XAML, and are not using another specific technology's XAML reader or XAML writer implementation for reasons that are specific to that framework, use the System.Xaml XAML readers and XAML writers.</span></span>  
+  
+## <a name="systemxaml-backing-implementation-in-net-4"></a><span data-ttu-id="d5d27-150">System.Xaml 実装が .NET 4 でのバックアップ</span><span class="sxs-lookup"><span data-stu-id="d5d27-150">System.Xaml Backing Implementation in .NET 4</span></span>  
+ <span data-ttu-id="d5d27-151"><xref:System.Windows.Markup.XamlReader> WPF フレームワーク レベルの XAML パーサーの呼び出し可能な API サーフェイスです。</span><span class="sxs-lookup"><span data-stu-id="d5d27-151"><xref:System.Windows.Markup.XamlReader> is the callable API surface for the WPF framework-level XAML parser.</span></span> <span data-ttu-id="d5d27-152">同じ基になる XAML パーサーは、実行時の XAML を読み込み、対象とする WPF アプリケーションの解析もを実行します。[!INCLUDE[net_v30_short](~/includes/net-v30-short-md.md)]と[!INCLUDE[net_v35_short](~/includes/net-v35-short-md.md)]です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-152">The same underlying XAML parser also performs the run-time XAML loading and parsing for WPF applications that target [!INCLUDE[net_v30_short](~/includes/net-v30-short-md.md)] and [!INCLUDE[net_v35_short](~/includes/net-v35-short-md.md)].</span></span>  
+  
+ <span data-ttu-id="d5d27-153">対象としている場合[!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)]、外部の API、同じですが、実装の部分に組み込まれて、 [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)] XAML の解析の技術的およびレポートの側面の多くが向上 System.Xaml アセンブリに標準の XAML 実装します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-153">If you are targeting [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], the external API is the same, but parts of the implementation are built on the [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)] general XAML implementation in the System.Xaml assembly, which improves many of the technical and reporting aspects of parsing XAML.</span></span> <span data-ttu-id="d5d27-154">対象とする[!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)]など System.Xaml 実装の詳細と、参照 System.Xaml 由来例外を報告する場合などが必要ですが、型を定義されているとは限りません。</span><span class="sxs-lookup"><span data-stu-id="d5d27-154">Targeting [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)] necessarily entails including System.Xaml as a reference, and details of implementation such as the exceptions reported may come from System.Xaml defined types.</span></span>  
+  
+## Examples  
+ <span data-ttu-id="d5d27-155">次の例では、変換、<xref:System.Windows.Controls.Button>を使用して文字列に、<xref:System.Windows.Markup.XamlWriter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="d5d27-155">The following example converts a <xref:System.Windows.Controls.Button> into a string using the <xref:System.Windows.Markup.XamlWriter> class.</span></span>  <span data-ttu-id="d5d27-156">文字列はし、再度読み込んで、<xref:System.Windows.Controls.Button>静的<xref:System.Windows.Markup.XamlReader.Load%2A>メソッドを<xref:System.Windows.Markup.XamlReader>クラスです。</span><span class="sxs-lookup"><span data-stu-id="d5d27-156">The string is then loaded back into a <xref:System.Windows.Controls.Button> using the static <xref:System.Windows.Markup.XamlReader.Load%2A> method on the <xref:System.Windows.Markup.XamlReader> class.</span></span>  
+  
+ [!code-csharp[xamlreaderwritersnippets#XamlReaderLoadXmlReader](~/samples/snippets/csharp/VS_Snippets_Wpf/XamlReaderWriterSnippets/CSharp/Window1.xaml.cs#xamlreaderloadxmlreader)]
+ [!code-vb[xamlreaderwritersnippets#XamlReaderLoadXmlReader](~/samples/snippets/visualbasic/VS_Snippets_Wpf/XamlReaderWriterSnippets/visualbasic/window1.xaml.vb#xamlreaderloadxmlreader)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Windows.Markup.XamlWriter" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XamlReader ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XamlReader();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="d5d27-157">
+            <see cref="T:System.Windows.Markup.XamlReader" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-157">Initializes a new instance of the <see cref="T:System.Windows.Markup.XamlReader" /> class.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CancelAsync">
+      <MemberSignature Language="C#" Value="public void CancelAsync ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void CancelAsync() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.CancelAsync" />
+      <MemberSignature Language="VB.NET" Value="Public Sub CancelAsync ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void CancelAsync();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="d5d27-158">非同期読み込み操作が保留中である場合、現在の非同期読み込み操作を中止します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-158">Aborts the current asynchronous load operation, if there is an asynchronous load operation pending.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5d27-159"><xref:System.Windows.Markup.XamlReader.CancelAsync%2A> 非同期操作です。そのため、いくつかの読み込み中に、操作を中止する前に発生します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-159"><xref:System.Windows.Markup.XamlReader.CancelAsync%2A> is an asynchronous operation; therefore, some loading may occur before the operation is aborted.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetWpfSchemaContext">
+      <MemberSignature Language="C#" Value="public static System.Xaml.XamlSchemaContext GetWpfSchemaContext ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Xaml.XamlSchemaContext GetWpfSchemaContext() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.GetWpfSchemaContext" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetWpfSchemaContext () As XamlSchemaContext" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Xaml::XamlSchemaContext ^ GetWpfSchemaContext();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xaml.XamlSchemaContext</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="d5d27-160">
+            <see cref="T:System.Xaml.XamlSchemaContext" /> の WPF スキーマ コンテキスト設定を表す <see cref="T:System.Windows.Markup.XamlReader" /> オブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-160">Returns a <see cref="T:System.Xaml.XamlSchemaContext" /> object that represents the WPF schema context settings for a <see cref="T:System.Windows.Markup.XamlReader" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-161">
+            <see cref="T:System.Xaml.XamlSchemaContext" /> の WPF スキーマ コンテキスト設定を表す <see cref="T:System.Windows.Markup.XamlReader" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-161">A <see cref="T:System.Xaml.XamlSchemaContext" /> object that represents the WPF schema context settings for a <see cref="T:System.Windows.Markup.XamlReader" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Load">
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="d5d27-162">XAML 入力を読み取り、対応するオブジェクト ツリーのルートを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-162">Reads XAML input and returns the root of the corresponding object tree.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static object Load (System.IO.Stream stream);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Load(class System.IO.Stream stream) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.Load(System.IO.Stream)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Load(System::IO::Stream ^ stream);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="d5d27-163">ストリーム形式の読み込む XAML。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-163">The XAML to load, in stream form.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d5d27-164">指定した <see cref="T:System.IO.Stream" /> 内の XAML 入力を読み取り、対応するオブジェクト ツリーのルートである <see cref="T:System.Object" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-164">Reads the XAML input in the specified <see cref="T:System.IO.Stream" /> and returns an <see cref="T:System.Object" /> that is the root of the corresponding object tree.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-165">作成されたオブジェクト ツリーのルートのオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-165">The object at the root of the created object tree.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="d5d27-166">次の例では保存、<xref:System.Windows.Controls.Button>に、<xref:System.IO.MemoryStream>を使用して、<xref:System.Windows.Markup.XamlWriter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="d5d27-166">The following example saves a <xref:System.Windows.Controls.Button> into a <xref:System.IO.MemoryStream> using the <xref:System.Windows.Markup.XamlWriter> class.</span></span> <span data-ttu-id="d5d27-167">ストリームは、再度読み込んで、<xref:System.Windows.Controls.Button>静的<xref:System.Windows.Markup.XamlReader.Load%2A>メソッドを<xref:System.Windows.Markup.XamlReader>クラスです。</span><span class="sxs-lookup"><span data-stu-id="d5d27-167">The stream is then loaded back into a <xref:System.Windows.Controls.Button> using the static <xref:System.Windows.Markup.XamlReader.Load%2A> method on the <xref:System.Windows.Markup.XamlReader> class.</span></span>  
+  
+ [!code-csharp[XamlReaderWriterSnippets#XamlReaderLoadXmlReader](~/samples/snippets/csharp/VS_Snippets_Wpf/XamlReaderWriterSnippets/CSharp/Window1.xaml.cs#xamlreaderloadxmlreader)]
+ [!code-vb[XamlReaderWriterSnippets#XamlReaderLoadXmlReader](~/samples/snippets/visualbasic/VS_Snippets_Wpf/XamlReaderWriterSnippets/visualbasic/window1.xaml.vb#xamlreaderloadxmlreader)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d5d27-168">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-168">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Windows.Markup.XamlWriter" />
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static object Load (System.Xaml.XamlReader reader);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Load(class System.Xaml.XamlReader reader) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.Load(System.Xaml.XamlReader)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Load (reader As XamlReader) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Load(System::Xaml::XamlReader ^ reader);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="reader" Type="System.Xaml.XamlReader" />
+      </Parameters>
+      <Docs>
+        <param name="reader">
+          <span data-ttu-id="d5d27-169">
+            <see cref="T:System.Xaml.XamlReader" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-169">A <see cref="T:System.Xaml.XamlReader" /> object.</span>
+          </span>
+          <span data-ttu-id="d5d27-170">入力 XAML で初期化されていることが求められます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-170">This is expected to be initialized with input XAML.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d5d27-171">指定した <see cref="T:System.Xaml.XamlReader" /> を使用して XAML 入力を読み取り、対応するオブジェクト ツリーのルートであるオブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-171">Reads the XAML input through a provided <see cref="T:System.Xaml.XamlReader" /> and returns an object that is the root of the corresponding object tree.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-172">作成されたオブジェクト ツリーのルートとなるオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-172">The object that is the root of the created object tree.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5d27-173">入力<xref:System.Xaml.XamlReader>できます<xref:System.Windows.Baml2006.Baml2006Reader>です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-173">The input <xref:System.Xaml.XamlReader> can be <xref:System.Windows.Baml2006.Baml2006Reader>.</span></span> <span data-ttu-id="d5d27-174">これは、実行時に、またはローカリゼーション ツール目的のために BAML をロードします。</span><span class="sxs-lookup"><span data-stu-id="d5d27-174">This is how you can load BAML at run time, or for localization tool purposes.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d5d27-175">
+            <paramref name="reader" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-175">
+              <paramref name="reader" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static object Load (System.Xml.XmlReader reader);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Load(class System.Xml.XmlReader reader) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.Load(System.Xml.XmlReader)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Load (reader As XmlReader) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Load(System::Xml::XmlReader ^ reader);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="reader" Type="System.Xml.XmlReader" />
+      </Parameters>
+      <Docs>
+        <param name="reader">
+          <span data-ttu-id="d5d27-176">XAML 入力を既に XML 形式で読み込んでいる <see cref="T:System.Xml.XmlReader" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-176">The <see cref="T:System.Xml.XmlReader" /> that has already loaded the XAML input to load in XML form.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d5d27-177">指定した <see cref="T:System.Xml.XmlReader" /> 内の XAML 入力を読み取り、対応するオブジェクト ツリーのルートであるオブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-177">Reads the XAML input in the specified <see cref="T:System.Xml.XmlReader" /> and returns an object that is the root of the corresponding object tree.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-178">作成されたオブジェクト ツリーのルートとなるオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-178">The object that is the root of the created object tree.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="d5d27-179">次の例では、変換、<xref:System.Windows.Controls.Button>を使用して文字列に、<xref:System.Windows.Markup.XamlWriter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="d5d27-179">The following example converts a <xref:System.Windows.Controls.Button> into a string using the <xref:System.Windows.Markup.XamlWriter> class.</span></span>  <span data-ttu-id="d5d27-180">文字列はし、再度読み込んで、<xref:System.Windows.Controls.Button>静的<xref:System.Windows.Markup.XamlReader.Load%2A>メソッドを<xref:System.Windows.Markup.XamlReader>クラスです。</span><span class="sxs-lookup"><span data-stu-id="d5d27-180">The string is then loaded back into a <xref:System.Windows.Controls.Button> using the static <xref:System.Windows.Markup.XamlReader.Load%2A> method on the <xref:System.Windows.Markup.XamlReader> class.</span></span>  
+  
+ [!code-csharp[XamlReaderWriterSnippets#XamlReaderLoadXmlReader](~/samples/snippets/csharp/VS_Snippets_Wpf/XamlReaderWriterSnippets/CSharp/Window1.xaml.cs#xamlreaderloadxmlreader)]
+ [!code-vb[XamlReaderWriterSnippets#XamlReaderLoadXmlReader](~/samples/snippets/visualbasic/VS_Snippets_Wpf/XamlReaderWriterSnippets/visualbasic/window1.xaml.vb#xamlreaderloadxmlreader)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d5d27-181">
+            <paramref name="reader" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-181">
+              <paramref name="reader" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Windows.Markup.XamlWriter" />
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static object Load (System.IO.Stream stream, System.Windows.Markup.ParserContext parserContext);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Load(class System.IO.Stream stream, class System.Windows.Markup.ParserContext parserContext) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.Load(System.IO.Stream,System.Windows.Markup.ParserContext)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Load(System::IO::Stream ^ stream, System::Windows::Markup::ParserContext ^ parserContext);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="parserContext" Type="System.Windows.Markup.ParserContext" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="d5d27-182">読み込む XAML 入力を格納しているストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-182">The stream that contains the XAML input to load.</span>
+          </span>
+        </param>
+        <param name="parserContext">
+          <span data-ttu-id="d5d27-183">パーサーで使用するコンテキスト情報。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-183">Context information used by the parser.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d5d27-184">指定した <see cref="T:System.IO.Stream" /> 内の XAML 入力を読み取り、対応するオブジェクト ツリーのルートであるオブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-184">Reads the XAML input in the specified <see cref="T:System.IO.Stream" /> and returns an object that is the root of the corresponding object tree.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-185">作成されたオブジェクト ツリーのルートとなるオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-185">The object that is the root of the created object tree.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d5d27-186">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-186">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="d5d27-187">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-187">-or-</span>
+          </span>
+          <span data-ttu-id="d5d27-188">
+            <paramref name="parserContext" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-188">
+              <paramref name="parserContext" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Windows.Markup.XamlWriter" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="LoadAsync">
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="d5d27-189">XAML マークアップを読み取り、指定したマークアップのルートに対応するオブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-189">Reads XAML markup and returns an object that corresponds to the root of the specified markup.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="LoadAsync">
+      <MemberSignature Language="C#" Value="public object LoadAsync (System.IO.Stream stream);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object LoadAsync(class System.IO.Stream stream) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.LoadAsync(System.IO.Stream)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ LoadAsync(System::IO::Stream ^ stream);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="d5d27-190">読み込む XAML 入力を格納しているストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-190">The stream containing the XAML input to load.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d5d27-191">指定した <see cref="T:System.IO.Stream" /> 内の XAML 入力を読み取り、対応するオブジェクト ツリーのルートを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-191">Reads the XAML input in the specified <see cref="T:System.IO.Stream" /> and returns the root of the corresponding object tree.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-192">作成されたオブジェクト ツリーのルートとなるオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-192">The object that is the root of the created object tree.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5d27-193">XAML の非同期ロード操作は、純粋にルート オブジェクトであるオブジェクト最初に戻ります。</span><span class="sxs-lookup"><span data-stu-id="d5d27-193">An asynchronous XAML load operation will initially return an object that is purely the root object.</span></span> <span data-ttu-id="d5d27-194">、非同期的に XAML を解析し、が引き続き発生して、子オブジェクトは、ルートの下に入力されます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-194">Asynchronously, XAML parsing then continues, and any child objects are filled in under the root.</span></span> <span data-ttu-id="d5d27-195">これは、一般的な WPF による XAML 処理の動作と WPF の概念オブジェクトの有効期間との相互作用とは対照的です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-195">This is in contrast to the typical WPF XAML processing behavior and its interaction with WPF concepts of object lifetime.</span></span> <span data-ttu-id="d5d27-196">一般的な (非 async) の相互作用要素を返すと、読み込みであることを報告する前にすべての子コレクションを含むオブジェクトのすべてのプロパティが読み込まれます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-196">In the typical (non-async) interaction, all properties of an object including all child collections are filled before returning an element and reporting it as loaded.</span></span> <span data-ttu-id="d5d27-197">この動作は、ルート オブジェクトの使用可能になる最後のオブジェクト ツリーを作成するためのボトムアップ方式に相当します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-197">That behavior equates to a bottom-up methodology for creating the tree where the root object is the last object to become available.</span></span>  
+  
+ <span data-ttu-id="d5d27-198">通常、WPF アプリケーションのオブジェクト ツリー内のある場所に返されるオブジェクトを割り当てますが、コンテンツがまだ入力されるおよび全体のコンテンツは、UI の一部として公開されている場合にインクリメンタル レイアウトの更新が発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="d5d27-198">You typically would assign the returned object to some location in your WPF application's object tree, with the knowledge that content might still be filling in and might cause incremental layout updates if the entire content is exposed as part of the UI.</span></span> <span data-ttu-id="d5d27-199">この理由は、分離または XAML から、非同期的に読み込まれたオブジェクトの仮想化をするときに通知するアプリケーション固有のロジックまたはアプリケーションの状態を使用して一般的な<xref:System.Windows.Markup.XamlReader.LoadCompleted>処理されます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-199">For this reason it is typical to isolate or virtualize any asynchronously loaded objects from XAML, and to use application-specific logic or application state to notify when <xref:System.Windows.Markup.XamlReader.LoadCompleted> is handled.</span></span>  
+  
+ <span data-ttu-id="d5d27-200">順序で<xref:System.Windows.Markup.XamlReader.LoadAsync%2A>属性と値の XAML 入力を非同期的を読み込むには、入力 XAML のルート要素があります`x:SynchronousMode="Async"`です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-200">In order for <xref:System.Windows.Markup.XamlReader.LoadAsync%2A> to load XAML input asynchronously, the root element in the XAML input must contain the attribute and value `x:SynchronousMode="Async"`.</span></span> <span data-ttu-id="d5d27-201">値は、小文字の区別が処理します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-201">The value is treated as case sensitive.</span></span> <span data-ttu-id="d5d27-202">XAML 入力ルートが含まれていない場合`x:SynchronousMode="Async"`、例外はスローされず、および同期負荷として処理される呼び出しは、(を参照してください<xref:System.Windows.Markup.XamlReader.Load%28System.IO.Stream%29>)。</span><span class="sxs-lookup"><span data-stu-id="d5d27-202">If the XAML input root does not contain `x:SynchronousMode="Async"`, no exception is thrown, and the call is processed as a synchronous load (see <xref:System.Windows.Markup.XamlReader.Load%28System.IO.Stream%29>).</span></span>  
+  
+ <span data-ttu-id="d5d27-203">インスタンスごとに 1 つだけの非同期ロード操作、<xref:System.Windows.Markup.XamlReader>クラスは、一度に実行できます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-203">Only one asynchronous load operation per instance of the <xref:System.Windows.Markup.XamlReader> class can be performed at a time.</span></span>  <span data-ttu-id="d5d27-204">同じインスタンスで 1 つ以上の非同期操作がしようとしたかどうか、<xref:System.Windows.Markup.XamlReader>クラス、<xref:System.InvalidOperationException>がスローされます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-204">If more than one asynchronous operation is attempted on the same instance of the <xref:System.Windows.Markup.XamlReader> class an <xref:System.InvalidOperationException> is thrown.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d5d27-205">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-205">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="d5d27-206">1 つの <see cref="T:System.Windows.Markup.XamlReader" /> で、複数の読み込み操作が同時に保留になります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-206">Multiple load operations are pending concurrently with the same <see cref="T:System.Windows.Markup.XamlReader" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Windows.Markup.XamlWriter" />
+      </Docs>
+    </Member>
+    <Member MemberName="LoadAsync">
+      <MemberSignature Language="C#" Value="public object LoadAsync (System.Xml.XmlReader reader);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object LoadAsync(class System.Xml.XmlReader reader) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.LoadAsync(System.Xml.XmlReader)" />
+      <MemberSignature Language="VB.NET" Value="Public Function LoadAsync (reader As XmlReader) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ LoadAsync(System::Xml::XmlReader ^ reader);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="reader" Type="System.Xml.XmlReader" />
+      </Parameters>
+      <Docs>
+        <param name="reader">
+          <span data-ttu-id="d5d27-207">XAML 入力を既に読み込んでいる (読み取っている) 既存の <see cref="T:System.Xml.XmlReader" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-207">An existing  <see cref="T:System.Xml.XmlReader" /> that has already loaded/read the XAML input.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d5d27-208">指定した <see cref="T:System.Xml.XmlReader" /> 内の XAML 入力を読み取り、対応するオブジェクト ツリーのルートを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-208">Reads the XAML input in the specified <see cref="T:System.Xml.XmlReader" /> and returns the root of the corresponding object tree.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-209">作成されたオブジェクト ツリーのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-209">The root of the created object tree.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5d27-210">XAML の非同期ロード操作は、純粋にルート オブジェクトであるオブジェクト最初に戻ります。</span><span class="sxs-lookup"><span data-stu-id="d5d27-210">An asynchronous XAML load operation will initially return an object that is purely the root object.</span></span> <span data-ttu-id="d5d27-211">、非同期的に XAML を解析し、が引き続き発生して、子オブジェクトは、ルートの下に入力されます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-211">Asynchronously, XAML parsing then continues, and any child objects are filled in under the root.</span></span> <span data-ttu-id="d5d27-212">これは、一般的な WPF による XAML 処理の動作と WPF の概念オブジェクトの有効期間との相互作用とは対照的です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-212">This is in contrast to the typical WPF XAML processing behavior and its interaction with WPF concepts of object lifetime.</span></span> <span data-ttu-id="d5d27-213">一般的な (非 async) の相互作用要素を返すと、読み込みであることを報告する前にすべての子コレクションを含むオブジェクトのすべてのプロパティが読み込まれます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-213">In the typical (non-async) interaction, all properties of an object including all child collections are filled before returning an element and reporting it as loaded.</span></span> <span data-ttu-id="d5d27-214">この動作は、ルート オブジェクトの使用可能になる最後のオブジェクト ツリーを作成するためのボトムアップ方式に相当します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-214">That behavior equates to a bottom-up methodology for creating the tree where the root object is the last object to become available.</span></span>  
+  
+ <span data-ttu-id="d5d27-215">返されたオブジェクト割り当てられる通常<xref:System.Windows.Markup.XamlReader.LoadAsync%2A>アプリケーションのオブジェクト ツリー内のある場所にコンテンツの知識を持つ可能性がありますまだ入力され、全体のコンテンツは、UI の一部として公開されている場合にインクリメンタル レイアウトの更新が発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="d5d27-215">You typically would assign the returned object from <xref:System.Windows.Markup.XamlReader.LoadAsync%2A> to some location in your application's object tree, with the knowledge that content might still be filling in and might cause incremental layout updates if the entire content is exposed as part of the UI.</span></span> <span data-ttu-id="d5d27-216">この理由は、分離または XAML から、非同期的に読み込まれたオブジェクトの仮想化をするときに通知するアプリケーション固有のロジックまたはアプリケーションの状態を使用して一般的な<xref:System.Windows.Markup.XamlReader.LoadCompleted>処理されます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-216">For this reason it is typical to isolate or virtualize any asynchronously loaded objects from XAML, and to use application-specific logic or application state to notify when <xref:System.Windows.Markup.XamlReader.LoadCompleted> is handled.</span></span>  
+  
+ <span data-ttu-id="d5d27-217">順序で<xref:System.Windows.Markup.XamlReader.LoadAsync%2A>属性と値の XAML 入力を非同期的を読み込むには、XAML マークアップのルート要素があります`x:SynchronousMode="Async"`です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-217">In order for <xref:System.Windows.Markup.XamlReader.LoadAsync%2A> to load XAML input asynchronously, the root element in the XAML markup must contain the attribute and value `x:SynchronousMode="Async"`.</span></span> <span data-ttu-id="d5d27-218">値は、小文字の区別が処理します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-218">The value is treated as case sensitive.</span></span> <span data-ttu-id="d5d27-219">XAML マークアップのルートが含まれていない場合`x:SynchronousMode="Async"`、例外はスローされず、および同期負荷として処理される代わりに、呼び出し (を参照してください<xref:System.Windows.Markup.XamlReader.Load%28System.Xml.XmlReader%29>)。</span><span class="sxs-lookup"><span data-stu-id="d5d27-219">If the XAML markup root does not contain `x:SynchronousMode="Async"`, no exception is thrown, and the call is instead processed as a synchronous load (see <xref:System.Windows.Markup.XamlReader.Load%28System.Xml.XmlReader%29>).</span></span>  
+  
+ <span data-ttu-id="d5d27-220">インスタンスごとに 1 つだけの非同期ロード操作、<xref:System.Windows.Markup.XamlReader>クラスは、一度に実行できます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-220">Only one asynchronous load operation per instance of the <xref:System.Windows.Markup.XamlReader> class can be performed at a time.</span></span>  <span data-ttu-id="d5d27-221">同じインスタンスで 1 つ以上の非同期操作がしようとしたかどうか、<xref:System.Windows.Markup.XamlReader>クラス、<xref:System.InvalidOperationException>がスローされます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-221">If more than one asynchronous operation is attempted on the same instance of the <xref:System.Windows.Markup.XamlReader> class an <xref:System.InvalidOperationException> is thrown.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d5d27-222">
+            <paramref name="reader" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-222">
+              <paramref name="reader" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="d5d27-223">1 つの <see cref="T:System.Windows.Markup.XamlReader" /> で、複数の読み込み操作が同時に実行されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-223">Multiple load operations are performed concurrently with the same <see cref="T:System.Windows.Markup.XamlReader" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Windows.Markup.XamlWriter" />
+      </Docs>
+    </Member>
+    <Member MemberName="LoadAsync">
+      <MemberSignature Language="C#" Value="public object LoadAsync (System.IO.Stream stream, System.Windows.Markup.ParserContext parserContext);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object LoadAsync(class System.IO.Stream stream, class System.Windows.Markup.ParserContext parserContext) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.LoadAsync(System.IO.Stream,System.Windows.Markup.ParserContext)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ LoadAsync(System::IO::Stream ^ stream, System::Windows::Markup::ParserContext ^ parserContext);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="parserContext" Type="System.Windows.Markup.ParserContext" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="d5d27-224">読み込む XAML 入力を格納しているストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-224">A stream containing the XAML input to load.</span>
+          </span>
+        </param>
+        <param name="parserContext">
+          <span data-ttu-id="d5d27-225">パーサーで使用するコンテキスト情報。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-225">Context information used by the parser.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d5d27-226">指定した <see cref="T:System.IO.Stream" /> 内の XAML 入力を読み取り、対応するオブジェクト ツリーのルートを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-226">Reads the XAML input in the specified <see cref="T:System.IO.Stream" /> and returns the root of the corresponding object tree.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-227">作成されたオブジェクト ツリーのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-227">The root of the created object tree.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5d27-228">XAML の非同期ロード操作は、純粋にルート オブジェクトであるオブジェクト最初に戻ります。</span><span class="sxs-lookup"><span data-stu-id="d5d27-228">An asynchronous XAML load operation will initially return an object that is purely the root object.</span></span> <span data-ttu-id="d5d27-229">、非同期的に XAML を解析し、が引き続き発生して、子オブジェクトは、ルートの下に入力されます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-229">Asynchronously, XAML parsing then continues, and any child objects are filled in under the root.</span></span> <span data-ttu-id="d5d27-230">これは、一般的な WPF による XAML 処理の動作と WPF の概念オブジェクトの有効期間との相互作用とは対照的です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-230">This is in contrast to the typical WPF XAML processing behavior and its interaction with WPF concepts of object lifetime.</span></span> <span data-ttu-id="d5d27-231">一般的な (非 async) の相互作用要素を返すと、読み込みであることを報告する前にすべての子コレクションを含むオブジェクトのすべてのプロパティが読み込まれます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-231">In the typical (non-async) interaction, all properties of an object including all child collections are filled before returning an element and reporting it as loaded.</span></span> <span data-ttu-id="d5d27-232">この動作は、ルート オブジェクトの使用可能になる最後のオブジェクト ツリーを作成するためのボトムアップ方式に相当します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-232">That behavior equates to a bottom-up methodology for creating the tree where the root object is the last object to become available.</span></span>  
+  
+ <span data-ttu-id="d5d27-233">通常、アプリケーションのオブジェクト ツリー内のある場所に返されるオブジェクトを割り当てますが、コンテンツがまだ入力されるおよび全体のコンテンツは、UI の一部として公開されている場合にインクリメンタル レイアウトの更新が発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="d5d27-233">You typically would assign the returned object to some location in your application's object tree, with the knowledge that content might still be filling in and might cause incremental layout updates if the entire content is exposed as part of the UI.</span></span> <span data-ttu-id="d5d27-234">この理由は、分離または XAML から、非同期的に読み込まれたオブジェクトの仮想化をするときに通知するアプリケーション固有のロジックまたはアプリケーションの状態を使用して一般的な<xref:System.Windows.Markup.XamlReader.LoadCompleted>処理されます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-234">For this reason it is typical to isolate or virtualize any asynchronously loaded objects from XAML, and to use application-specific logic or application state to notify when <xref:System.Windows.Markup.XamlReader.LoadCompleted> is handled.</span></span>  
+  
+ <span data-ttu-id="d5d27-235">順序で<xref:System.Windows.Markup.XamlReader.LoadAsync%2A>属性と値のマークアップを非同期的に読み込むには、XAML マークアップのルート要素があります`x:SynchronousMode="Async"`です。</span><span class="sxs-lookup"><span data-stu-id="d5d27-235">In order for <xref:System.Windows.Markup.XamlReader.LoadAsync%2A> to load markup asynchronously, the root element in the XAML markup must contain the attribute and value `x:SynchronousMode="Async"`.</span></span> <span data-ttu-id="d5d27-236">値は、小文字の区別が処理します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-236">The value is treated as case sensitive.</span></span> <span data-ttu-id="d5d27-237">XAML マークアップのルートが含まれていない場合`x:SynchronousMode="Async"`、例外はスローされず、および同期負荷として処理される呼び出しは、(を参照してください<xref:System.Windows.Markup.XamlReader.Load%28System.IO.Stream%2CSystem.Windows.Markup.ParserContext%29>)。</span><span class="sxs-lookup"><span data-stu-id="d5d27-237">If the XAML markup root does not contain `x:SynchronousMode="Async"`, no exception is thrown, and the call is processed as a synchronous load (see <xref:System.Windows.Markup.XamlReader.Load%28System.IO.Stream%2CSystem.Windows.Markup.ParserContext%29>).</span></span>  
+  
+ <span data-ttu-id="d5d27-238">インスタンスごとに 1 つだけの非同期ロード操作、<xref:System.Windows.Markup.XamlReader>クラスは、一度に実行できます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-238">Only one asynchronous load operation per instance of the <xref:System.Windows.Markup.XamlReader> class can be performed at a time.</span></span>  <span data-ttu-id="d5d27-239">同じインスタンスで 1 つ以上の非同期操作がしようとしたかどうか、<xref:System.Windows.Markup.XamlReader>クラス、<xref:System.InvalidOperationException>がスローされます。</span><span class="sxs-lookup"><span data-stu-id="d5d27-239">If more than one asynchronous operation is attempted on the same instance of the <xref:System.Windows.Markup.XamlReader> class an <xref:System.InvalidOperationException> is thrown.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d5d27-240">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-240">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="d5d27-241">1 つの <see cref="T:System.Windows.Markup.XamlReader" /> で、複数の読み込み操作が同時に実行されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-241">Multiple load operations are performed concurrently with the same <see cref="T:System.Windows.Markup.XamlReader" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Windows.Markup.XamlWriter" />
+      </Docs>
+    </Member>
+    <Member MemberName="LoadCompleted">
+      <MemberSignature Language="C#" Value="public event System.ComponentModel.AsyncCompletedEventHandler LoadCompleted;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.ComponentModel.AsyncCompletedEventHandler LoadCompleted" />
+      <MemberSignature Language="DocId" Value="E:System.Windows.Markup.XamlReader.LoadCompleted" />
+      <MemberSignature Language="VB.NET" Value="Public Event LoadCompleted As AsyncCompletedEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event System::ComponentModel::AsyncCompletedEventHandler ^ LoadCompleted;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.AsyncCompletedEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="d5d27-242">非同期の読み込み操作の完了時に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-242">Occurs when an asynchronous load operation completes.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5d27-243"><xref:System.Windows.Markup.XamlReader.LoadCompleted> 非同期ロード操作が中断された場合も発生します。</span><span class="sxs-lookup"><span data-stu-id="d5d27-243"><xref:System.Windows.Markup.XamlReader.LoadCompleted> is also raised when an asynchronous load operation aborts.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.ComponentModel.AsyncCompletedEventHandler" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Parse">
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="d5d27-244">指定したテキスト文字列内のマークアップを読み取り、指定したマークアップのルートに対応するオブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-244">Reads the markup in the specified text string and returns an object that corresponds to the root of the specified markup.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Parse">
+      <MemberSignature Language="C#" Value="public static object Parse (string xamlText);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Parse(string xamlText) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.Parse(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Parse (xamlText As String) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Parse(System::String ^ xamlText);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlText" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="xamlText">
+          <span data-ttu-id="d5d27-245">単一のテキスト文字列としての入力 XAML。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-245">The input XAML, as a single text string.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d5d27-246">指定したテキスト文字列内の XAML 入力を読み取り、指定したマークアップのルートに対応するオブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-246">Reads the XAML input in the specified text string and returns an object that corresponds to the root of the specified markup.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-247">作成されたオブジェクト ツリーのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-247">The root of the created object tree.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5d27-248">実装の呼び出し<xref:System.Windows.Markup.XamlReader.Load%2A>文字列からストリームの作成後に、内部的にします。</span><span class="sxs-lookup"><span data-stu-id="d5d27-248">The implementation calls <xref:System.Windows.Markup.XamlReader.Load%2A> internally after creating a stream from the string.</span></span> <span data-ttu-id="d5d27-249">参照してください<xref:System.Windows.Markup.XamlReader.Load%2A>可能性のある例外などの追加情報をします。</span><span class="sxs-lookup"><span data-stu-id="d5d27-249">See <xref:System.Windows.Markup.XamlReader.Load%2A> for additional information such as possible exceptions.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Parse">
+      <MemberSignature Language="C#" Value="public static object Parse (string xamlText, System.Windows.Markup.ParserContext parserContext);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Parse(string xamlText, class System.Windows.Markup.ParserContext parserContext) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Markup.XamlReader.Parse(System.String,System.Windows.Markup.ParserContext)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Parse(System::String ^ xamlText, System::Windows::Markup::ParserContext ^ parserContext);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlText" Type="System.String" />
+        <Parameter Name="parserContext" Type="System.Windows.Markup.ParserContext" />
+      </Parameters>
+      <Docs>
+        <param name="xamlText">
+          <span data-ttu-id="d5d27-250">単一のテキスト文字列としての入力 XAML。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-250">The input XAML, as a single text string.</span>
+          </span>
+        </param>
+        <param name="parserContext">
+          <span data-ttu-id="d5d27-251">パーサーで使用するコンテキスト情報。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-251">Context information used by the parser.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d5d27-252">指定したテキスト文字列 (指定した <see cref="T:System.Windows.Markup.ParserContext" /> を使用) 内の XAML マークアップを読み取り、指定したマークアップのルートに対応するオブジェクトを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-252">Reads the XAML markup in the specified text string (using a specified <see cref="T:System.Windows.Markup.ParserContext" />) and returns an object that corresponds to the root of the specified markup.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d5d27-253">作成されたオブジェクト ツリーのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5d27-253">The root of the created object tree.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5d27-254">実装の呼び出し<xref:System.Windows.Markup.XamlReader.Load%2A>文字列からストリームの作成後に、内部的にします。</span><span class="sxs-lookup"><span data-stu-id="d5d27-254">The implementation calls <xref:System.Windows.Markup.XamlReader.Load%2A> internally after creating a stream from the string.</span></span> <span data-ttu-id="d5d27-255">参照してください<xref:System.Windows.Markup.XamlReader.Load%2A>可能性のある例外などの追加情報をします。</span><span class="sxs-lookup"><span data-stu-id="d5d27-255">See <xref:System.Windows.Markup.XamlReader.Load%2A> for additional information such as possible exceptions.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
