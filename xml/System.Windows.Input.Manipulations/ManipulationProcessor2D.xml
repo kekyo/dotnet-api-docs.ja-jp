@@ -1,0 +1,493 @@
+<Type Name="ManipulationProcessor2D" FullName="System.Windows.Input.Manipulations.ManipulationProcessor2D">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="207cfdc7a7781ff58f5452017d90e2e60e0df7b7" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class ManipulationProcessor2D" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit ManipulationProcessor2D extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Windows.Input.Manipulations.ManipulationProcessor2D" />
+  <TypeSignature Language="VB.NET" Value="Public Class ManipulationProcessor2D" />
+  <TypeSignature Language="C++ CLI" Value="public ref class ManipulationProcessor2D" />
+  <AssemblyInfo>
+    <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="40ece-101">共有座標空間での 2 次元 (2-D) 変換を行う、複数の入力および単一の出力を持つコンポジターを実装します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="40ece-101">Implements a multiple-input, single-output compositor for two-dimensional (2-D) transformations in a shared coordinate space.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="40ece-102">A<xref:System.Windows.Input.Manipulations.ManipulationProcessor2D>オブジェクト、マニピュレーターのコレクションを複合オブジェクトとして扱われます。</span><span class="sxs-lookup"><span data-stu-id="40ece-102">A <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D> object treats a collection of manipulators as a composite object.</span></span> <span data-ttu-id="40ece-103">アプリケーションは、追跡、および個々 のマニピュレーターを管理する必要はありませんが解放されます。</span><span class="sxs-lookup"><span data-stu-id="40ece-103">Your application is then freed from the necessity of tracking and managing individual manipulators.</span></span>  
+  
+ <span data-ttu-id="40ece-104">単独で操作プロセッサには、要素の移動は行われません。</span><span class="sxs-lookup"><span data-stu-id="40ece-104">A manipulation processor by itself does not cause an element to move.</span></span> <span data-ttu-id="40ece-105">アプリケーションが、必要に応じて操作を開始しを聞くことにより操作プロセッサから情報を受信、 <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Started>、<xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Delta>と<xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Completed>イベント。</span><span class="sxs-lookup"><span data-stu-id="40ece-105">Your application begins a manipulation as necessary, and then receives information from a manipulation processor by listening to the <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Started>, <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Delta> and <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Completed> events.</span></span> <span data-ttu-id="40ece-106">これらのイベント経由で受信した値には、場所、サイズ、または必要に応じて要素の向きを変更することができます。</span><span class="sxs-lookup"><span data-stu-id="40ece-106">The values received via these events enable you to change the location, size or orientation of an element as needed.</span></span>  
+  
+ <span data-ttu-id="40ece-107">操作の種類が許可されている操作プロセッサに通知する (翻訳、拡大縮小、回転) を設定して、<xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.SupportedManipulations%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="40ece-107">You inform a manipulation processor which types of manipulations are allowed (translate, scale, rotate) by setting the <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.SupportedManipulations%2A> property.</span></span> <span data-ttu-id="40ece-108">操作中、要素の変換に非条件付きロジックを提供できます。</span><span class="sxs-lookup"><span data-stu-id="40ece-108">You can then provide non-conditional logic to the transformation of the element that is being manipulated.</span></span> <span data-ttu-id="40ece-109">たとえば、要素の向きを変更する前に回転が有効になっているかを確認するには、代わりに無条件で適用できます操作プロセッサ; から受信した回転率回転が有効でない場合、回転の変更が発生していない操作プロセッサが報告されます。</span><span class="sxs-lookup"><span data-stu-id="40ece-109">For instance, instead of checking if rotation is enabled before changing the orientation of an element, you can unconditionally apply the rotation factor received from the manipulation processor; if rotation is not enabled, the manipulation processor will report that no rotational change has occurred.</span></span>  
+  
+ <span data-ttu-id="40ece-110">操作する要素がリリースされたとき (すべてのマニピュレーターは削除されます) 摩擦をシミュレートし、徐々 に停止する前にその動作を遅く要素に慣性の処理を行うこともできます。</span><span class="sxs-lookup"><span data-stu-id="40ece-110">When an element that is being manipulated is released (all manipulators are removed), you can use inertia processing to simulate friction and cause the element to gradually slow its movements before coming to a stop.</span></span> <span data-ttu-id="40ece-111">詳細については、<xref:System.Windows.Input.Manipulations.InertiaProcessor2D> クラスを参照してください。</span><span class="sxs-lookup"><span data-stu-id="40ece-111">For more information see the <xref:System.Windows.Input.Manipulations.InertiaProcessor2D> class.</span></span>  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="40ece-112">新しい <see cref="T:System.Windows.Input.Manipulations.ManipulationProcessor2D" /> オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-112">Creates a new <see cref="T:System.Windows.Input.Manipulations.ManipulationProcessor2D" /> object.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ManipulationProcessor2D (System.Windows.Input.Manipulations.Manipulations2D supportedManipulations);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.Windows.Input.Manipulations.Manipulations2D supportedManipulations) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Input.Manipulations.ManipulationProcessor2D.#ctor(System.Windows.Input.Manipulations.Manipulations2D)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (supportedManipulations As Manipulations2D)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; ManipulationProcessor2D(System::Windows::Input::Manipulations::Manipulations2D supportedManipulations);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="supportedManipulations" Type="System.Windows.Input.Manipulations.Manipulations2D" />
+      </Parameters>
+      <Docs>
+        <param name="supportedManipulations">
+          <span data-ttu-id="40ece-113">サポートされている操作の初期セット。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-113">The initial set of supported manipulations.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="40ece-114">新しい <see cref="T:System.Windows.Input.Manipulations.ManipulationProcessor2D" /> オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-114">Creates a new <see cref="T:System.Windows.Input.Manipulations.ManipulationProcessor2D" /> object.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="40ece-115">
+            <paramref name="supportedManipulations" /> パラメーターが、<see cref="T:System.Windows.Input.Manipulations.Manipulations2D" /> 列挙値の有効な組み合わせではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-115">The <paramref name="supportedManipulations" /> parameter is not a valid combination of the <see cref="T:System.Windows.Input.Manipulations.Manipulations2D" /> enumeration values.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ManipulationProcessor2D (System.Windows.Input.Manipulations.Manipulations2D supportedManipulations, System.Windows.Input.Manipulations.ManipulationPivot2D pivot);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.Windows.Input.Manipulations.Manipulations2D supportedManipulations, class System.Windows.Input.Manipulations.ManipulationPivot2D pivot) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Input.Manipulations.ManipulationProcessor2D.#ctor(System.Windows.Input.Manipulations.Manipulations2D,System.Windows.Input.Manipulations.ManipulationPivot2D)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (supportedManipulations As Manipulations2D, pivot As ManipulationPivot2D)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; ManipulationProcessor2D(System::Windows::Input::Manipulations::Manipulations2D supportedManipulations, System::Windows::Input::Manipulations::ManipulationPivot2D ^ pivot);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="supportedManipulations" Type="System.Windows.Input.Manipulations.Manipulations2D" />
+        <Parameter Name="pivot" Type="System.Windows.Input.Manipulations.ManipulationPivot2D" />
+      </Parameters>
+      <Docs>
+        <param name="supportedManipulations">
+          <span data-ttu-id="40ece-116">サポートされている操作の初期セット。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-116">The initial set of supported manipulations.</span>
+          </span>
+        </param>
+        <param name="pivot">
+          <span data-ttu-id="40ece-117">単一マニピュレーターの回転のピボット情報。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-117">Pivot information for single-manipulator rotations.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="40ece-118">新しい <see cref="T:System.Windows.Input.Manipulations.ManipulationProcessor2D" /> オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-118">Creates a new <see cref="T:System.Windows.Input.Manipulations.ManipulationProcessor2D" /> object.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="40ece-119">
+            <paramref name="supportedManipulations" /> パラメーターが、<see cref="T:System.Windows.Input.Manipulations.Manipulations2D" /> 列挙値の有効な組み合わせではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-119">The <paramref name="supportedManipulations" /> parameter is not a valid combination of the <see cref="T:System.Windows.Input.Manipulations.Manipulations2D" /> enumeration values.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Completed">
+      <MemberSignature Language="C#" Value="public event EventHandler&lt;System.Windows.Input.Manipulations.Manipulation2DCompletedEventArgs&gt; Completed;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.EventHandler`1&lt;class System.Windows.Input.Manipulations.Manipulation2DCompletedEventArgs&gt; Completed" />
+      <MemberSignature Language="DocId" Value="E:System.Windows.Input.Manipulations.ManipulationProcessor2D.Completed" />
+      <MemberSignature Language="VB.NET" Value="Public Event Completed As EventHandler(Of Manipulation2DCompletedEventArgs) " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event EventHandler&lt;System::Windows::Input::Manipulations::Manipulation2DCompletedEventArgs ^&gt; ^ Completed;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.EventHandler&lt;System.Windows.Input.Manipulations.Manipulation2DCompletedEventArgs&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="40ece-120">操作の完了時に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-120">Occurs when a manipulation has competed.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CompleteManipulation">
+      <MemberSignature Language="C#" Value="public void CompleteManipulation (long timestamp);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void CompleteManipulation(int64 timestamp) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Input.Manipulations.ManipulationProcessor2D.CompleteManipulation(System.Int64)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub CompleteManipulation (timestamp As Long)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void CompleteManipulation(long timestamp);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="timestamp" Type="System.Int64" />
+      </Parameters>
+      <Docs>
+        <param name="timestamp">
+          <span data-ttu-id="40ece-121">操作を完了する 100 ナノ秒単位のタイムスタンプ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-121">The timestamp to complete the manipulation, in 100-nanosecond ticks.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="40ece-122">現在の操作を強制的に完了し、<see cref="E:System.Windows.Input.Manipulations.ManipulationProcessor2D.Completed" /> イベントを発生させます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-122">Forces the current manipulation to complete and raises the <see cref="E:System.Windows.Input.Manipulations.ManipulationProcessor2D.Completed" /> event.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="40ece-123">タイムスタンプは、現在の操作の前のタイムスタンプより小さいです。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-123">The timestamp is less than the previous timestamp for the current manipulation.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Delta">
+      <MemberSignature Language="C#" Value="public event EventHandler&lt;System.Windows.Input.Manipulations.Manipulation2DDeltaEventArgs&gt; Delta;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.EventHandler`1&lt;class System.Windows.Input.Manipulations.Manipulation2DDeltaEventArgs&gt; Delta" />
+      <MemberSignature Language="DocId" Value="E:System.Windows.Input.Manipulations.ManipulationProcessor2D.Delta" />
+      <MemberSignature Language="VB.NET" Value="Public Event Delta As EventHandler(Of Manipulation2DDeltaEventArgs) " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event EventHandler&lt;System::Windows::Input::Manipulations::Manipulation2DDeltaEventArgs ^&gt; ^ Delta;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.EventHandler&lt;System.Windows.Input.Manipulations.Manipulation2DDeltaEventArgs&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="40ece-124">操作の起点が変更された場合や、変換、拡大と縮小、または回転が行われた場合に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-124">Occurs when the manipulation origin has changed or when translation, scaling, or rotation have occurred.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="40ece-125"><xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Delta?displayProperty=nameWithType>イベントおよび<xref:System.Windows.Input.Manipulations.InertiaProcessor2D.Delta?displayProperty=nameWithType>イベントは、同じ型です。</span><span class="sxs-lookup"><span data-stu-id="40ece-125">The <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Delta?displayProperty=nameWithType> event and the <xref:System.Windows.Input.Manipulations.InertiaProcessor2D.Delta?displayProperty=nameWithType> event are the same type.</span></span> <span data-ttu-id="40ece-126">通常、両方のイベントの同じイベント ハンドラーを使用することができます。</span><span class="sxs-lookup"><span data-stu-id="40ece-126">Typically, you can use the same event handler for both events.</span></span>  
+  
+   
+  
+## Examples  
+ [!code-csharp[ManipulationAPI#_ManipulationItem_OnManipulationOrInertiaDelta](~/samples/snippets/csharp/VS_Snippets_Misc/manipulationapi/cs/manipulationitem.xaml.cs#_manipulationitem_onmanipulationorinertiadelta)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="MinimumScaleRotateRadius">
+      <MemberSignature Language="C#" Value="public float MinimumScaleRotateRadius { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance float32 MinimumScaleRotateRadius" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Input.Manipulations.ManipulationProcessor2D.MinimumScaleRotateRadius" />
+      <MemberSignature Language="VB.NET" Value="Public Property MinimumScaleRotateRadius As Single" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property float MinimumScaleRotateRadius { float get(); void set(float value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Single</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="40ece-127">マニピュレーターが拡大と縮小および回転に参加するために必要な座標単位の最小半径を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-127">Gets or sets the minimum radius, in coordinate units, necessary for a manipulator to participate in scaling and rotation.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="40ece-128">マニピュレーターが拡大と縮小および回転に参加するために必要な座標単位の最小半径。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-128">The minimum radius, in coordinate units, necessary for a manipulator to participate in scaling and rotation.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="40ece-129">マニピュレーターは、現在処理中、マニピュレーターの重心の近くに非常には、マニピュレーターが非常に小さなモーション回転やスケーリングに非常に大きな変更になります。</span><span class="sxs-lookup"><span data-stu-id="40ece-129">If a manipulator is extremely close to the center of mass of the manipulators currently being processed, a very small manipulator motion can become a very large change to rotation or scaling.</span></span> <span data-ttu-id="40ece-130">この問題を避けるためには、次のように設定します。 <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.MinimumScaleRotateRadius%2A> 0 より大きい値にします。</span><span class="sxs-lookup"><span data-stu-id="40ece-130">To avoid this problem, set <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.MinimumScaleRotateRadius%2A> to something greater than zero.</span></span> <span data-ttu-id="40ece-131">その距離より近く of 質量中心にあるすべてのマニピュレーターは、回転やスケーリングの操作には含まれません。</span><span class="sxs-lookup"><span data-stu-id="40ece-131">Any manipulator that is closer than that distance to the center of mass will not be included in rotation and scaling operations.</span></span>  
+  
+ <span data-ttu-id="40ece-132">使用する一般的な値は、マニピュレーター「偶発的な」運動のありそうな大きさに基づく必要があります。</span><span class="sxs-lookup"><span data-stu-id="40ece-132">A typical value to use should be based on the likely magnitude of "accidental" motions of the manipulators.</span></span> <span data-ttu-id="40ece-133">たとえば、マニピュレーターが画面に接触ヒューマン指の場合は、センチメートルなどに対応する radius が適しています。</span><span class="sxs-lookup"><span data-stu-id="40ece-133">For example, if the manipulator is a human finger touching a screen, a radius corresponding to a centimeter or so might be appropriate.</span></span>  
+  
+ <span data-ttu-id="40ece-134">値は、<xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.MinimumScaleRotateRadius%2A>有限の正の数値を指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="40ece-134">The value for <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.MinimumScaleRotateRadius%2A> must be a finite, non-negative number.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Pivot">
+      <MemberSignature Language="C#" Value="public System.Windows.Input.Manipulations.ManipulationPivot2D Pivot { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Input.Manipulations.ManipulationPivot2D Pivot" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Input.Manipulations.ManipulationProcessor2D.Pivot" />
+      <MemberSignature Language="VB.NET" Value="Public Property Pivot As ManipulationPivot2D" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Windows::Input::Manipulations::ManipulationPivot2D ^ Pivot { System::Windows::Input::Manipulations::ManipulationPivot2D ^ get(); void set(System::Windows::Input::Manipulations::ManipulationPivot2D ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Input.Manipulations.ManipulationPivot2D</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="40ece-135">操作プロセッサのピボット情報を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-135">Gets or sets the pivot information for the manipulation processor.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="40ece-136">操作プロセッサのピボット情報。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-136">The pivot information for the manipulation processor.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="40ece-137"><xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Pivot%2A>プロパティを使用する単一マニピュレーターの回転のピボット情報を指定します。</span><span class="sxs-lookup"><span data-stu-id="40ece-137">The <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Pivot%2A> property is used to provide pivot information for single-manipulator rotations.</span></span> <span data-ttu-id="40ece-138">このプロパティを null に設定すると、単一マニピュレーターの回転が無効にします。</span><span class="sxs-lookup"><span data-stu-id="40ece-138">Setting this property to null disables single-manipulator rotations.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ProcessManipulators">
+      <MemberSignature Language="C#" Value="public void ProcessManipulators (long timestamp, System.Collections.Generic.IEnumerable&lt;System.Windows.Input.Manipulations.Manipulator2D&gt; manipulators);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void ProcessManipulators(int64 timestamp, class System.Collections.Generic.IEnumerable`1&lt;valuetype System.Windows.Input.Manipulations.Manipulator2D&gt; manipulators) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Input.Manipulations.ManipulationProcessor2D.ProcessManipulators(System.Int64,System.Collections.Generic.IEnumerable{System.Windows.Input.Manipulations.Manipulator2D})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub ProcessManipulators (timestamp As Long, manipulators As IEnumerable(Of Manipulator2D))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void ProcessManipulators(long timestamp, System::Collections::Generic::IEnumerable&lt;System::Windows::Input::Manipulations::Manipulator2D&gt; ^ manipulators);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="timestamp" Type="System.Int64" />
+        <Parameter Name="manipulators" Type="System.Collections.Generic.IEnumerable&lt;System.Windows.Input.Manipulations.Manipulator2D&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="timestamp">
+          <span data-ttu-id="40ece-139">100 ナノ秒単位のバッチのタイムスタンプ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-139">The timestamp for the batch, in 100-nanosecond ticks.</span>
+          </span>
+        </param>
+        <param name="manipulators">
+          <span data-ttu-id="40ece-140">現在スコープ内にあるマニピュレーターのセット。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-140">The set of manipulators that are currently in scope.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="40ece-141">指定されたマニピュレーターを単一のバッチ操作として処理します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-141">Processes the specified manipulators as a single batch action.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="40ece-142">パラメーター`manipulators`リストが空または null にすることがあります。</span><span class="sxs-lookup"><span data-stu-id="40ece-142">The parameter `manipulators` may be an empty list or null.</span></span> <span data-ttu-id="40ece-143">この結果、0 に到達するマニピュレーターの数の場合、<xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Completed>イベントが発生します。</span><span class="sxs-lookup"><span data-stu-id="40ece-143">If this results in the number of manipulators reaching zero, the <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Completed> event is raised.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="40ece-144">次の例で、<xref:System.Windows.UIElement.OnLostMouseCapture%2A>のメソッド、<xref:System.Windows.UIElement>を呼び出すオブジェクトがオーバーライドされる、<xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.ProcessManipulators%2A>のリストを持つメソッド<xref:System.Windows.Input.Manipulations.Manipulator2D>オブジェクトを null に設定します。</span><span class="sxs-lookup"><span data-stu-id="40ece-144">In the following example, the <xref:System.Windows.UIElement.OnLostMouseCapture%2A> method of a <xref:System.Windows.UIElement> object is overridden to call the <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.ProcessManipulators%2A> method with the list of <xref:System.Windows.Input.Manipulations.Manipulator2D> objects set to null.</span></span>  
+  
+ [!code-csharp[ManipulationAPI#_ManipulationItem_OnLostMouseCapture](~/samples/snippets/csharp/VS_Snippets_Misc/manipulationapi/cs/manipulationitem.xaml.cs#_manipulationitem_onlostmousecapture)]  
+  
+ [!code-csharp[ManipulationAPI#_ManipulationItem_Timestamp](~/samples/snippets/csharp/VS_Snippets_Misc/manipulationapi/cs/manipulationitem.xaml.cs#_manipulationitem_timestamp)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="40ece-145">タイムスタンプは、現在の操作の前のタイムスタンプより小さいです。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-145">The timestamp is less than the previous timestamp for the current manipulation.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="SetParameters">
+      <MemberSignature Language="C#" Value="public void SetParameters (System.Windows.Input.Manipulations.ManipulationParameters2D parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void SetParameters(class System.Windows.Input.Manipulations.ManipulationParameters2D parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Windows.Input.Manipulations.ManipulationProcessor2D.SetParameters(System.Windows.Input.Manipulations.ManipulationParameters2D)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub SetParameters (parameters As ManipulationParameters2D)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetParameters(System::Windows::Input::Manipulations::ManipulationParameters2D ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.Windows.Input.Manipulations.ManipulationParameters2D" />
+      </Parameters>
+      <Docs>
+        <param name="parameters">
+          <span data-ttu-id="40ece-146">設定するパラメーター。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-146">Parameters to set.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="40ece-147">操作プロセッサのパラメーターを設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-147">Sets parameters on the manipulation processor.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Started">
+      <MemberSignature Language="C#" Value="public event EventHandler&lt;System.Windows.Input.Manipulations.Manipulation2DStartedEventArgs&gt; Started;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.EventHandler`1&lt;class System.Windows.Input.Manipulations.Manipulation2DStartedEventArgs&gt; Started" />
+      <MemberSignature Language="DocId" Value="E:System.Windows.Input.Manipulations.ManipulationProcessor2D.Started" />
+      <MemberSignature Language="VB.NET" Value="Public Event Started As EventHandler(Of Manipulation2DStartedEventArgs) " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event EventHandler&lt;System::Windows::Input::Manipulations::Manipulation2DStartedEventArgs ^&gt; ^ Started;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.EventHandler&lt;System.Windows.Input.Manipulations.Manipulation2DStartedEventArgs&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="40ece-148">新しい操作の開始時に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-148">Occurs when a new manipulation has started.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="40ece-149">次の例では、イベント ハンドラーを<xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Started>慣性の処理が実行されている場合と必要な場合は、表示するイベントのチェックを停止します。</span><span class="sxs-lookup"><span data-stu-id="40ece-149">In the following example, an event handler for the <xref:System.Windows.Input.Manipulations.ManipulationProcessor2D.Started> event checks to see if inertia processing is running and if so, stops it.</span></span>  
+  
+ [!code-csharp[ManipulationAPI#_ManipulationItem_OnManipulationStarted](~/samples/snippets/csharp/VS_Snippets_Misc/manipulationapi/cs/manipulationitem.xaml.cs#_manipulationitem_onmanipulationstarted)]  
+  
+ [!code-csharp[ManipulationAPI#_ManipulationItem_Timestamp](~/samples/snippets/csharp/VS_Snippets_Misc/manipulationapi/cs/manipulationitem.xaml.cs#_manipulationitem_timestamp)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SupportedManipulations">
+      <MemberSignature Language="C#" Value="public System.Windows.Input.Manipulations.Manipulations2D SupportedManipulations { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Windows.Input.Manipulations.Manipulations2D SupportedManipulations" />
+      <MemberSignature Language="DocId" Value="P:System.Windows.Input.Manipulations.ManipulationProcessor2D.SupportedManipulations" />
+      <MemberSignature Language="VB.NET" Value="Public Property SupportedManipulations As Manipulations2D" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Windows::Input::Manipulations::Manipulations2D SupportedManipulations { System::Windows::Input::Manipulations::Manipulations2D get(); void set(System::Windows::Input::Manipulations::Manipulations2D value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Windows.Input.Manipulations</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Windows.Input.Manipulations.Manipulations2D</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="40ece-150">サポートされている操作の現在のセットを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-150">Gets or sets the current set of supported manipulations.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="40ece-151">サポートされている操作の現在のセット。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-151">The current set of supported manipulations.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="40ece-152">このプロパティは、<see cref="T:System.Windows.Input.Manipulations.Manipulations2D" /> の有効な組み合わせではない値への設定を試みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-152">The property tries to set a value that is not a valid combination of the <see cref="T:System.Windows.Input.Manipulations.Manipulations2D" /></span>
+          </span>
+          <span data-ttu-id="40ece-153">列挙値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="40ece-153">enumeration values.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
