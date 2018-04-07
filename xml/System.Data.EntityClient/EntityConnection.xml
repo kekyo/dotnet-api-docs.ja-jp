@@ -1,0 +1,1156 @@
+<Type Name="EntityConnection" FullName="System.Data.EntityClient.EntityConnection">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="2557d2efc39630312e6ecad5c404b619418a26c9" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class EntityConnection : System.Data.Common.DbConnection" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit EntityConnection extends System.Data.Common.DbConnection" />
+  <TypeSignature Language="DocId" Value="T:System.Data.EntityClient.EntityConnection" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class EntityConnection&#xA;Inherits DbConnection" />
+  <TypeSignature Language="C++ CLI" Value="public ref class EntityConnection sealed : System::Data::Common::DbConnection" />
+  <AssemblyInfo>
+    <AssemblyName>System.Data.Entity</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Data.Common.DbConnection</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="21cc7-101">概念モデルおよびデータ ソース接続への参照が含まれます。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="21cc7-101">Contains a reference to a conceptual model and a data source connection.</span>
+      </span>
+      <span data-ttu-id="21cc7-102">このクラスは継承できません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="21cc7-102">This class cannot be inherited.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-103"><xref:System.Data.Common.CommandTrees> や <xref:System.Data.Objects.ObjectContext> などのオブジェクトが不注意でメタデータと同期しなくなるのを防ぐため、<xref:System.Data.EntityClient.EntityConnection> でそのメタデータをロックする必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-103">To avoid inadvertently putting objects such as <xref:System.Data.Common.CommandTrees> and <xref:System.Data.Objects.ObjectContext> out of sync with their metadata, <xref:System.Data.EntityClient.EntityConnection> must lock its metadata.</span></span> <span data-ttu-id="21cc7-104">メタデータがロックされると、接続文字列に変更を加えることができなくなります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-104">No changes to the connection string are allowed after the metadata is locked.</span></span> <span data-ttu-id="21cc7-105">メタデータがロックされる 2 つのシナリオを次に示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-105">The following are two scenarios in which metadata is locked:</span></span>  
+  
+-   <span data-ttu-id="21cc7-106">既定のコンストラクター、または接続文字列を受け入れる <xref:System.Data.EntityClient.EntityConnection> コンストラクターによって <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-106">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the default constructor, or through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> constructor, which accepts a connection string.</span></span> <span data-ttu-id="21cc7-107">いずれの場合も、接続が開かれる前に接続文字列が複数回変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-107">In either case the connection string might be changed multiple times before the connection is opened.</span></span> <span data-ttu-id="21cc7-108"><xref:System.Data.EntityClient.EntityConnection.Open%2A> または <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> を呼び出すと、メタデータがロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-108">Calling <xref:System.Data.EntityClient.EntityConnection.Open%2A> or <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> locks the metadata.</span></span>  
+  
+-   <span data-ttu-id="21cc7-109"><xref:System.Data.EntityClient.EntityConnection> と <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> を受け入れる <xref:System.Data.Metadata.Edm.MetadataWorkspace> コンストラクターによって、<xref:System.Data.Common.DbConnection> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-109">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> constructor, which accepts a <xref:System.Data.Metadata.Edm.MetadataWorkspace> and a <xref:System.Data.Common.DbConnection>.</span></span> <span data-ttu-id="21cc7-110">この場合、メタデータは構築時にロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-110">In this case, the metadata is locked at construction time.</span></span> <span data-ttu-id="21cc7-111">接続文字列に変更を加えることはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-111">No changes to the connection string are ever allowed.</span></span>  
+  
+ <span data-ttu-id="21cc7-112">メタデータが読み込まれると、<xref:System.Data.EntityClient.EntityConnection> は、概念モデル、ストレージ モデル、およびマッピング ファイルがすべて存在することを確認します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-112">When metadata is loaded, the <xref:System.Data.EntityClient.EntityConnection> verifies that the conceptual model, the storage model, and the mapping file are all present.</span></span>  
+  
+ <span data-ttu-id="21cc7-113">コード例については、次を参照してください。 [EntityClient 扱う](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5)です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-113">For code examples, see [Working with EntityClient](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5).</span></span>  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-114">
+            <see cref="T:System.Data.EntityClient.EntityConnection" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-114">Initializes a new instance of the <see cref="T:System.Data.EntityClient.EntityConnection" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-115"><xref:System.Data.Common.CommandTrees> や <xref:System.Data.Objects.ObjectContext> などのオブジェクトが不注意でメタデータと同期しなくなるのを防ぐため、<xref:System.Data.EntityClient.EntityConnection> でそのメタデータをロックする必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-115">To avoid inadvertently putting objects such as <xref:System.Data.Common.CommandTrees> and <xref:System.Data.Objects.ObjectContext> out of sync with their metadata, <xref:System.Data.EntityClient.EntityConnection> must lock its metadata.</span></span> <span data-ttu-id="21cc7-116">メタデータがロックされると、接続文字列に変更を加えることができなくなります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-116">No changes to the connection string are allowed after the metadata is locked.</span></span> <span data-ttu-id="21cc7-117">メタデータがロックされる 2 つのシナリオを次に示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-117">The following are two scenarios in which metadata is locked:</span></span>  
+  
+-   <span data-ttu-id="21cc7-118">既定のコンストラクター、または接続文字列を受け入れる <xref:System.Data.EntityClient.EntityConnection> コンストラクターによって <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-118">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the default constructor, or through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> constructor, which accepts a connection string.</span></span> <span data-ttu-id="21cc7-119">いずれの場合も、接続が開かれる前に接続文字列が複数回変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-119">In either case the connection string might be changed multiple times before the connection is opened.</span></span> <span data-ttu-id="21cc7-120"><xref:System.Data.EntityClient.EntityConnection.Open%2A> または <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> を呼び出すと、メタデータがロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-120">Calling <xref:System.Data.EntityClient.EntityConnection.Open%2A> or <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> locks the metadata.</span></span>  
+  
+-   <span data-ttu-id="21cc7-121"><xref:System.Data.EntityClient.EntityConnection> と <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> を受け入れる <xref:System.Data.Metadata.Edm.MetadataWorkspace> コンストラクターによって、<xref:System.Data.Common.DbConnection> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-121">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> constructor, which accepts a <xref:System.Data.Metadata.Edm.MetadataWorkspace> and a <xref:System.Data.Common.DbConnection>.</span></span> <span data-ttu-id="21cc7-122">この場合、メタデータは構築時にロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-122">In this case the metadata is locked at construction time.</span></span> <span data-ttu-id="21cc7-123">接続文字列に変更を加えることはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-123">No changes to the connection string are ever allowed.</span></span>  
+  
+ <span data-ttu-id="21cc7-124">メタデータが読み込まれると、<xref:System.Data.EntityClient.EntityConnection> は、概念モデル、ストレージ モデル、およびマッピング ファイルがすべて存在することを確認します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-124">When metadata is loaded, the <xref:System.Data.EntityClient.EntityConnection> verifies that the conceptual model, the storage model, and the mapping file are all present.</span></span>  
+  
+ <span data-ttu-id="21cc7-125">コード例については、次を参照してください。 [EntityClient 扱う](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5)です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-125">For code examples, see [Working with EntityClient](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public EntityConnection ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; EntityConnection();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-126">
+            <see cref="T:System.Data.EntityClient.EntityConnection" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-126">Initializes a new instance of the <see cref="T:System.Data.EntityClient.EntityConnection" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-127"><xref:System.Data.Common.CommandTrees> や <xref:System.Data.Objects.ObjectContext> などのオブジェクトが不注意でメタデータと同期しなくなるのを防ぐため、<xref:System.Data.EntityClient.EntityConnection> でそのメタデータをロックする必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-127">To avoid inadvertently putting objects such as <xref:System.Data.Common.CommandTrees> and <xref:System.Data.Objects.ObjectContext> out of sync with their metadata, <xref:System.Data.EntityClient.EntityConnection> must lock its metadata.</span></span> <span data-ttu-id="21cc7-128">メタデータがロックされると、接続文字列に変更を加えることができなくなります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-128">No changes to the connection string are allowed after the metadata is locked.</span></span> <span data-ttu-id="21cc7-129">メタデータがロックされる 2 つのシナリオを次に示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-129">The following are two scenarios in which metadata is locked:</span></span>  
+  
+-   <span data-ttu-id="21cc7-130">既定のコンストラクター、または接続文字列を受け入れる <xref:System.Data.EntityClient.EntityConnection> コンストラクターによって <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-130">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the default constructor, or through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> constructor, which accepts a connection string.</span></span> <span data-ttu-id="21cc7-131">いずれの場合も、接続が開かれる前に接続文字列が複数回変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-131">In either case the connection string might be changed multiple times before the connection is opened.</span></span> <span data-ttu-id="21cc7-132"><xref:System.Data.EntityClient.EntityConnection.Open%2A> または <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> を呼び出すと、メタデータがロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-132">Calling <xref:System.Data.EntityClient.EntityConnection.Open%2A> or <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> locks the metadata.</span></span>  
+  
+-   <span data-ttu-id="21cc7-133"><xref:System.Data.EntityClient.EntityConnection> と <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> を受け入れる <xref:System.Data.Metadata.Edm.MetadataWorkspace> コンストラクターによって、<xref:System.Data.Common.DbConnection> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-133">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> constructor, which accepts a <xref:System.Data.Metadata.Edm.MetadataWorkspace> and a <xref:System.Data.Common.DbConnection>.</span></span> <span data-ttu-id="21cc7-134">この場合、メタデータは構築時にロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-134">In this case the metadata is locked at construction time.</span></span> <span data-ttu-id="21cc7-135">接続文字列に変更を加えることはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-135">No changes to the connection string are ever allowed.</span></span>  
+  
+ <span data-ttu-id="21cc7-136">メタデータが読み込まれると、<xref:System.Data.EntityClient.EntityConnection> は、概念モデル、ストレージ モデル、およびマッピング ファイルがすべて存在することを確認します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-136">When metadata is loaded, the <xref:System.Data.EntityClient.EntityConnection> verifies that the conceptual model, the storage model, and the mapping file are all present.</span></span>  
+  
+ <span data-ttu-id="21cc7-137">コード例については、次を参照してください。 [EntityClient 扱う](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5)です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-137">For code examples, see [Working with EntityClient](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public EntityConnection (string connectionString);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string connectionString) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.#ctor(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (connectionString As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; EntityConnection(System::String ^ connectionString);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="21cc7-138">プロバイダー固有の接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-138">The provider-specific connection string.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="21cc7-139">接続文字列に基づいて、<see cref="T:System.Data.EntityClient.EntityConnection" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-139">Initializes a new instance of the <see cref="T:System.Data.EntityClient.EntityConnection" /> class, based on the connection string.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-140">アプリケーションの構成ファイルに格納されている名前付き接続文字列を作成します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-140">The  generate a named connection string that is stored in the application's configuration file.</span></span> <span data-ttu-id="21cc7-141">代わりにこの名前付き接続文字列を指定することができます、`connectionString`パラメーターをインスタンス化するときに、<xref:System.Data.EntityClient.EntityConnection>クラスです。</span><span class="sxs-lookup"><span data-stu-id="21cc7-141">This named connection string can be supplied in place of the `connectionString` parameter when you instantiate the <xref:System.Data.EntityClient.EntityConnection> class.</span></span>  
+  
+ <span data-ttu-id="21cc7-142"><xref:System.Data.Common.CommandTrees> および <xref:System.Data.Objects.ObjectContext> のオブジェクトが不注意でメタデータと同期しなくなるのを防ぐため、<xref:System.Data.EntityClient.EntityConnection> でそのメタデータをロックする必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-142">To avoid inadvertently putting objects <xref:System.Data.Common.CommandTrees> and <xref:System.Data.Objects.ObjectContext> out of sync with their metadata, <xref:System.Data.EntityClient.EntityConnection> must lock its metadata.</span></span> <span data-ttu-id="21cc7-143">メタデータがロックされると、接続文字列に変更を加えることができなくなります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-143">No changes to the connection string are allowed after the metadata is locked.</span></span> <span data-ttu-id="21cc7-144">メタデータがロックされる 2 つのシナリオを次に示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-144">The following are two scenarios in which metadata is locked:</span></span>  
+  
+-   <span data-ttu-id="21cc7-145">既定のコンストラクター、または接続文字列を受け入れるこのコンストラクター (<xref:System.Data.EntityClient.EntityConnection>) によって <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> インスタンスが構築されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-145">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the default constructor, or through this constructor (<xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29>), which accepts a connection string.</span></span> <span data-ttu-id="21cc7-146">いずれの場合も、接続が開かれる前に接続文字列が複数回変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-146">In either case the connection string might be changed multiple times before the connection is opened.</span></span> <span data-ttu-id="21cc7-147"><xref:System.Data.EntityClient.EntityConnection.Open%2A> または <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> を呼び出すと、メタデータがロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-147">Calling <xref:System.Data.EntityClient.EntityConnection.Open%2A> or <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> locks the metadata.</span></span>  
+  
+-   <span data-ttu-id="21cc7-148"><xref:System.Data.EntityClient.EntityConnection> と <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> を受け入れる <xref:System.Data.Metadata.Edm.MetadataWorkspace> コンストラクターによって、<xref:System.Data.Common.DbConnection> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-148">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> constructor, which accepts a <xref:System.Data.Metadata.Edm.MetadataWorkspace> and a <xref:System.Data.Common.DbConnection>.</span></span> <span data-ttu-id="21cc7-149">この場合、メタデータは構築時にロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-149">In this case the metadata is locked at construction time.</span></span> <span data-ttu-id="21cc7-150">接続文字列に変更を加えることはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-150">No changes to the connection string are ever allowed.</span></span>  
+  
+ <span data-ttu-id="21cc7-151">メタデータが読み込まれると、<xref:System.Data.EntityClient.EntityConnection> は、概念モデル、ストレージ モデル、およびマッピング ファイルがすべて存在することを確認します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-151">When metadata is loaded, the <xref:System.Data.EntityClient.EntityConnection> verifies that the conceptual model, the storage model, and the mapping file are all present.</span></span>  
+  
+ <span data-ttu-id="21cc7-152">コード例については、次を参照してください。 [EntityClient 扱う](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5)です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-152">For code examples, see [Working with EntityClient](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="21cc7-153">無効な接続文字列キーワードが指定されたか、必要な接続文字列キーワードが指定されていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-153">An invalid connection string keyword has been provided, or a required connection string keyword has not been provided.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public EntityConnection (System.Data.Metadata.Edm.MetadataWorkspace workspace, System.Data.Common.DbConnection connection);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Data.Metadata.Edm.MetadataWorkspace workspace, class System.Data.Common.DbConnection connection) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.#ctor(System.Data.Metadata.Edm.MetadataWorkspace,System.Data.Common.DbConnection)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (workspace As MetadataWorkspace, connection As DbConnection)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; EntityConnection(System::Data::Metadata::Edm::MetadataWorkspace ^ workspace, System::Data::Common::DbConnection ^ connection);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="workspace" Type="System.Data.Metadata.Edm.MetadataWorkspace" />
+        <Parameter Name="connection" Type="System.Data.Common.DbConnection" />
+      </Parameters>
+      <Docs>
+        <param name="workspace">
+          <span data-ttu-id="21cc7-154">この <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> に関連付けられた <see cref="T:System.Data.EntityClient.EntityConnection" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-154">A <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> to be associated with this <see cref="T:System.Data.EntityClient.EntityConnection" />.</span>
+          </span>
+        </param>
+        <param name="connection">
+          <span data-ttu-id="21cc7-155">この <see cref="T:System.Data.EntityClient.EntityConnection" /> オブジェクトの基になるデータ ソース接続。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-155">The underlying data source connection for this <see cref="T:System.Data.EntityClient.EntityConnection" /> object.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="21cc7-156">指定した <see cref="T:System.Data.EntityClient.EntityConnection" /> および <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> を使用して、<see cref="T:System.Data.Common.DbConnection" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-156">Initializes a new instance of the <see cref="T:System.Data.EntityClient.EntityConnection" /> class with a specified <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> and <see cref="T:System.Data.Common.DbConnection" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-157">このコンストラクターを使用すると、ディスク上のファイル、またはアセンブリの埋め込みリソースからではないメタデータから <xref:System.Data.EntityClient.EntityConnection> を作成できます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-157">This constructor enables you to create an <xref:System.Data.EntityClient.EntityConnection> from metadata that is not from a file on a disk or from an embedded resource in an assembly.</span></span>  
+  
+ <span data-ttu-id="21cc7-158"><xref:System.Data.Common.CommandTrees> や <xref:System.Data.Objects.ObjectContext> などのオブジェクトが不注意でメタデータと同期しなくなるのを防ぐため、<xref:System.Data.EntityClient.EntityConnection> でそのメタデータをロックする必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-158">To avoid inadvertently putting objects such as <xref:System.Data.Common.CommandTrees> and <xref:System.Data.Objects.ObjectContext> out of sync with their metadata, the <xref:System.Data.EntityClient.EntityConnection> must lock its metadata.</span></span> <span data-ttu-id="21cc7-159">メタデータがロックされると、接続文字列に変更を加えることができなくなります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-159">No changes to the connection string are allowed after the metadata is locked.</span></span> <span data-ttu-id="21cc7-160">メタデータがロックされる 2 つのシナリオを次に示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-160">The following are two scenarios in which metadata is locked:</span></span>  
+  
+-   <span data-ttu-id="21cc7-161">既定のコンストラクター、または接続文字列を受け入れる <xref:System.Data.EntityClient.EntityConnection> コンストラクターによって <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-161">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the default constructor, or through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> constructor, which accepts a connection string.</span></span> <span data-ttu-id="21cc7-162">いずれの場合も、接続が開かれる前に接続文字列が複数回変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-162">In either case the connection string might be changed multiple times before the connection is opened.</span></span> <span data-ttu-id="21cc7-163"><xref:System.Data.EntityClient.EntityConnection.Open%2A> または <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> を呼び出すと、メタデータがロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-163">Calling <xref:System.Data.EntityClient.EntityConnection.Open%2A> or <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> locks the metadata.</span></span>  
+  
+-   <span data-ttu-id="21cc7-164"><xref:System.Data.EntityClient.EntityConnection> と <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> を受け入れるこのコンストラクター (<xref:System.Data.Metadata.Edm.MetadataWorkspace>) によって、<xref:System.Data.Common.DbConnection> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-164">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through this constructor (<xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29>), which accepts a <xref:System.Data.Metadata.Edm.MetadataWorkspace> and a <xref:System.Data.Common.DbConnection>.</span></span> <span data-ttu-id="21cc7-165">この場合、メタデータは構築時にロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-165">In this case the metadata is locked at construction time.</span></span> <span data-ttu-id="21cc7-166">接続文字列に変更を加えることはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-166">No changes to the connection string are ever allowed.</span></span>  
+  
+ <span data-ttu-id="21cc7-167">メタデータが読み込まれると、<xref:System.Data.EntityClient.EntityConnection> は、概念モデル、ストレージ モデル、およびマッピング ファイルがすべて存在することを確認します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-167">When metadata is loaded, the <xref:System.Data.EntityClient.EntityConnection> verifies that the conceptual model, the storage model, and the mapping file are all present.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="21cc7-168">
+            <paramref name="workspace" /> パラメーターまたは <paramref name="connection" /> パラメーターが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-168">The <paramref name="workspace" /> or <paramref name="connection" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="21cc7-169">概念モデルがワークスペースから見つかりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-169">The conceptual model is missing from the workspace.</span>
+          </span>
+          <span data-ttu-id="21cc7-170">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-170">-or-</span>
+          </span>
+          <span data-ttu-id="21cc7-171">マッピング ファイルがワークスペースから見つかりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-171">The mapping file is missing from the workspace.</span>
+          </span>
+          <span data-ttu-id="21cc7-172">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-172">-or-</span>
+          </span>
+          <span data-ttu-id="21cc7-173">ストレージ モデルがワークスペースから見つかりません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-173">The storage model is missing from the workspace.</span>
+          </span>
+          <span data-ttu-id="21cc7-174">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-174">-or-</span>
+          </span>
+          <span data-ttu-id="21cc7-175">
+            <paramref name="connection" /> が閉じた状態ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-175">The <paramref name="connection" /> is not in a closed state.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Data.ProviderIncompatibleException">
+          <span data-ttu-id="21cc7-176">
+            <paramref name="connection" /> が ADO.NET Entity Framework 互換のプロバイダーからのものではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-176">The <paramref name="connection" /> is not from an ADO.NET Entity Framework-compatible provider.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BeginDbTransaction">
+      <MemberSignature Language="C#" Value="protected override System.Data.Common.DbTransaction BeginDbTransaction (System.Data.IsolationLevel isolationLevel);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.Data.Common.DbTransaction BeginDbTransaction(valuetype System.Data.IsolationLevel isolationLevel) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.BeginDbTransaction(System.Data.IsolationLevel)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override System::Data::Common::DbTransaction ^ BeginDbTransaction(System::Data::IsolationLevel isolationLevel);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.Common.DbTransaction</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="isolationLevel" Type="System.Data.IsolationLevel" />
+      </Parameters>
+      <Docs>
+        <param name="isolationLevel">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="BeginTransaction">
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-177">データベース トランザクションを開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-177">Begins a database transaction.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="BeginTransaction">
+      <MemberSignature Language="C#" Value="public System.Data.EntityClient.EntityTransaction BeginTransaction ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Data.EntityClient.EntityTransaction BeginTransaction() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.BeginTransaction" />
+      <MemberSignature Language="VB.NET" Value="Public Function BeginTransaction () As EntityTransaction" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::EntityClient::EntityTransaction ^ BeginTransaction();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.EntityClient.EntityTransaction</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-178">基になるプロバイダーを使用してトランザクションを開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-178">Begins a transaction by using the underlying provider.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="21cc7-179">新しい <see cref="T:System.Data.EntityClient.EntityTransaction" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-179">A new <see cref="T:System.Data.EntityClient.EntityTransaction" />.</span>
+          </span>
+          <span data-ttu-id="21cc7-180">返される <see cref="T:System.Data.EntityClient.EntityTransaction" /> インスタンスを後で <see cref="T:System.Data.EntityClient.EntityCommand" /> と関連付けて、そのトランザクション内でコマンドを実行することができます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-180">The returned <see cref="T:System.Data.EntityClient.EntityTransaction" /> instance can later be associated with the <see cref="T:System.Data.EntityClient.EntityCommand" /> to execute the command under that transaction.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-181"><xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> メソッドは <xref:System.Data.IsolationLevel.Unspecified> トランザクション分離レベルを使用します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-181">The <xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> method uses the <xref:System.Data.IsolationLevel.Unspecified> transaction isolation level.</span></span> <span data-ttu-id="21cc7-182">別の分離レベルを指定する場合は、<xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-182">To specify a different isolation level, call <xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A>.</span></span> <span data-ttu-id="21cc7-183">この値は、基になるプロバイダーが変わると異なって解釈されることがあります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-183">This value might be interpreted differently by different underlying providers.</span></span> <span data-ttu-id="21cc7-184">複数のプロバイダーでアプリケーションを移植可能にするには、<xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> を呼び出して、トランザクション分離レベルを明示的に指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-184">If you want your application to be portable across multiple providers, it should explicitly specify the transaction isolation level by calling <xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A>.</span></span>  
+  
+ <span data-ttu-id="21cc7-185">いつでも、<xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> で作成されたアクティブなトランザクションが 2 つ以上存在することはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-185">At any particular moment there can be no more than one active transaction that was created through <xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A>.</span></span> <span data-ttu-id="21cc7-186">現在トランザクションが存在する <xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> に対して <xref:System.Data.EntityClient.EntityConnection> オーバーロードを呼び出そうとすると、<xref:System.InvalidOperationException> が発生します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-186">An attempt to call any of the <xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> overloads on an <xref:System.Data.EntityClient.EntityConnection> that already has a current transaction results in an <xref:System.InvalidOperationException>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-187">基になるプロバイダーが不明です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-187">The underlying provider is not known.</span>
+          </span>
+          <span data-ttu-id="21cc7-188">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-188">-or-</span>
+          </span>
+          <span data-ttu-id="21cc7-189">
+            <see cref="M:System.Data.EntityClient.EntityConnection.BeginTransaction" /> に対する呼び出しが、既に現在のトランザクションが存在する <see cref="T:System.Data.EntityClient.EntityConnection" /> に対して行われました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-189">The call to <see cref="M:System.Data.EntityClient.EntityConnection.BeginTransaction" /> was made on an <see cref="T:System.Data.EntityClient.EntityConnection" /> that already has a current transaction.</span>
+          </span>
+          <span data-ttu-id="21cc7-190">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-190">-or-</span>
+          </span>
+          <span data-ttu-id="21cc7-191">
+            <see cref="T:System.Data.EntityClient.EntityConnection" /> の状態が <see cref="F:System.Data.ConnectionState.Open" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-191">The state of the <see cref="T:System.Data.EntityClient.EntityConnection" /> is not <see cref="F:System.Data.ConnectionState.Open" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BeginTransaction">
+      <MemberSignature Language="C#" Value="public System.Data.EntityClient.EntityTransaction BeginTransaction (System.Data.IsolationLevel isolationLevel);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Data.EntityClient.EntityTransaction BeginTransaction(valuetype System.Data.IsolationLevel isolationLevel) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.BeginTransaction(System.Data.IsolationLevel)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::EntityClient::EntityTransaction ^ BeginTransaction(System::Data::IsolationLevel isolationLevel);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.EntityClient.EntityTransaction</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="isolationLevel" Type="System.Data.IsolationLevel" />
+      </Parameters>
+      <Docs>
+        <param name="isolationLevel">
+          <span data-ttu-id="21cc7-192">トランザクションの分離レベル。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-192">The isolation level of the transaction.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="21cc7-193">基になるプロバイダーを使用して、指定の分離レベルでトランザクションを開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-193">Begins a transaction with the specified isolation level by using the underlying provider.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="21cc7-194">新しい <see cref="T:System.Data.EntityClient.EntityTransaction" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-194">A new <see cref="T:System.Data.EntityClient.EntityTransaction" />.</span>
+          </span>
+          <span data-ttu-id="21cc7-195">返される <see cref="T:System.Data.EntityClient.EntityTransaction" /> インスタンスを後で <see cref="T:System.Data.EntityClient.EntityCommand" /> と関連付けて、そのトランザクション内でコマンドを実行することができます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-195">The returned <see cref="T:System.Data.EntityClient.EntityTransaction" /> instance can later be associated with the <see cref="T:System.Data.EntityClient.EntityCommand" /> to execute the command under that transaction.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-196">いつでも、<xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> で作成されたアクティブなトランザクションが 2 つ以上存在することはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-196">At any particular moment there can be no more than one active transaction that was created through <xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A>.</span></span> <span data-ttu-id="21cc7-197">現在トランザクションが存在する <xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> に対して <xref:System.Data.EntityClient.EntityConnection> オーバーロードを呼び出そうとすると、<xref:System.InvalidOperationException> が発生します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-197">An attempt to call any of the <xref:System.Data.EntityClient.EntityConnection.BeginTransaction%2A> overloads on an <xref:System.Data.EntityClient.EntityConnection> that already has a current transaction results in an <xref:System.InvalidOperationException>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-198">基になるプロバイダーが不明です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-198">The underlying provider is not known.</span>
+          </span>
+          <span data-ttu-id="21cc7-199">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-199">-or-</span>
+          </span>
+          <span data-ttu-id="21cc7-200">
+            <see cref="M:System.Data.EntityClient.EntityConnection.BeginTransaction" /> に対する呼び出しが、既に現在のトランザクションが存在する <see cref="T:System.Data.EntityClient.EntityConnection" /> に対して行われました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-200">The call to <see cref="M:System.Data.EntityClient.EntityConnection.BeginTransaction" /> was made on an <see cref="T:System.Data.EntityClient.EntityConnection" /> that already has a current transaction.</span>
+          </span>
+          <span data-ttu-id="21cc7-201">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-201">-or-</span>
+          </span>
+          <span data-ttu-id="21cc7-202">
+            <see cref="T:System.Data.EntityClient.EntityConnection" /> の状態が <see cref="F:System.Data.ConnectionState.Open" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-202">The state of the <see cref="T:System.Data.EntityClient.EntityConnection" /> is not <see cref="F:System.Data.ConnectionState.Open" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ChangeDatabase">
+      <MemberSignature Language="C#" Value="public override void ChangeDatabase (string databaseName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void ChangeDatabase(string databaseName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.ChangeDatabase(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub ChangeDatabase (databaseName As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void ChangeDatabase(System::String ^ databaseName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="databaseName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="databaseName">
+          <span data-ttu-id="21cc7-203">サポートされていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-203">Not supported.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="21cc7-204">サポートされていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-204">Not supported.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-205"><xref:System.Data.EntityClient.EntityConnection.ChangeDatabase%2A>から派生している場合、メソッドが必要な<xref:System.Data.Common.DbConnection>します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-205">The <xref:System.Data.EntityClient.EntityConnection.ChangeDatabase%2A> method is required when deriving from <xref:System.Data.Common.DbConnection>.</span></span> <span data-ttu-id="21cc7-206">このメソッドはサポートされていませんしが発生、<xref:System.NotSupportedException>です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-206">This method is not supported and will raise a <xref:System.NotSupportedException>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="21cc7-207">メソッドが呼び出された場合。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-207">When the method is called.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Close">
+      <MemberSignature Language="C#" Value="public override void Close ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Close() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.Close" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub Close ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void Close();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-208">データベースへの接続を閉じます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-208">Closes the connection to the database.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-209">基になるデータ プロバイダーが不明の場合、<xref:System.Data.EntityClient.EntityConnection.Close%2A> を呼び出しても何も行われません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-209">If the underlying data provider is not known, the call to <xref:System.Data.EntityClient.EntityConnection.Close%2A> does nothing.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-210">接続を閉じるときにエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-210">An error occurred when closing the connection.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ConnectionString">
+      <MemberSignature Language="C#" Value="public override string ConnectionString { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ConnectionString" />
+      <MemberSignature Language="DocId" Value="P:System.Data.EntityClient.EntityConnection.ConnectionString" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property ConnectionString As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ ConnectionString { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-211">
+            <see cref="T:System.Data.EntityClient.EntityConnection" /> 接続文字列を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-211">Gets or sets the <see cref="T:System.Data.EntityClient.EntityConnection" /> connection string.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="21cc7-212">データ ソースへの初期接続を確立するために必要な接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-212">The connection string required to establish the initial connection to a data source.</span>
+          </span>
+          <span data-ttu-id="21cc7-213">既定値は空の文字列です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-213">The default value is an empty string.</span>
+          </span>
+          <span data-ttu-id="21cc7-214">閉じている接続では、現在の設定値が返されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-214">On a closed connection, the currently set value is returned.</span>
+          </span>
+          <span data-ttu-id="21cc7-215">値が設定されていない場合は、空の文字列が返されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-215">If no value has been set, an empty string is returned.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-216">`EntityClient`キーワード/値パラメーターのペアのセミコロンで区切られた一連の接続文字列で構成されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-216">An `EntityClient` connection string consists of a sequence of keyword/value parameter pairs separated by semicolons.</span></span> <span data-ttu-id="21cc7-217">それぞれのキーワードと値の関連付けには、等号 (=) が使用されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-217">The equals sign (=) connects each keyword and its value.</span></span> <span data-ttu-id="21cc7-218"><xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A> のキーワード値に有効な名前を次の表に示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-218">The following table lists the valid names for keyword values in the <xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A>.</span></span>  
+  
+|<span data-ttu-id="21cc7-219">キーワード</span><span class="sxs-lookup"><span data-stu-id="21cc7-219">Keyword</span></span>|<span data-ttu-id="21cc7-220">説明</span><span class="sxs-lookup"><span data-stu-id="21cc7-220">Description</span></span>|  
+|-------------|-----------------|  
+|`Provider`|<span data-ttu-id="21cc7-221">`Name` キーワードが指定されていない場合に必要です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-221">Required if the `Name` keyword is not specified.</span></span> <span data-ttu-id="21cc7-222">基になるプロバイダーの <xref:System.Data.Common.DbProviderFactory> オブジェクトを取得するために使用されるプロバイダー名です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-222">The provider name, which is used to retrieve the <xref:System.Data.Common.DbProviderFactory> object for the underlying provider.</span></span> <span data-ttu-id="21cc7-223">この値は定数です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-223">This value is constant.</span></span><br /><br /> <span data-ttu-id="21cc7-224">ときに、`Name`キーワードが接続文字列を空でない値に含まれていない、`Provider`キーワードが必要です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-224">When the `Name` keyword is not included in the connection string, a non-empty value for the `Provider` keyword is required.</span></span> <span data-ttu-id="21cc7-225">このキーワードは `Name` キーワードと同時に指定できません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-225">This keyword is mutually exclusive with the `Name` keyword.</span></span>|  
+|`Provider Connection String`|<span data-ttu-id="21cc7-226">任意。</span><span class="sxs-lookup"><span data-stu-id="21cc7-226">Optional.</span></span> <span data-ttu-id="21cc7-227">基になるデータ ソースに渡される、プロバイダー固有の接続文字列を指定します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-227">Specifies the provider-specific connection string that is passed to the underlying data source.</span></span> <span data-ttu-id="21cc7-228">この接続文字列は、データ プロバイダーの有効なキーワード/値ペアを使用して表されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-228">This connection string is expressed by using valid keyword/value pairs for the data provider.</span></span> <span data-ttu-id="21cc7-229">無効な `Provider Connection String` がデータ ソースによって評価されると、ランタイム エラーが発生します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-229">An invalid `Provider Connection String` will cause a run-time error when it is evaluated by the data source.</span></span><br /><br /> <span data-ttu-id="21cc7-230">このキーワードは `Name` キーワードと同時に指定できません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-230">This keyword is mutually exclusive with the `Name` keyword.</span></span><br /><br /> <span data-ttu-id="21cc7-231">`Provider Connection String` の値は、引用符で囲む必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-231">The value of the `Provider Connection String` must be surrounded by quotes.</span></span> <span data-ttu-id="21cc7-232">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-232">The following is an example:</span></span><br /><br /> `Provider Connection String ="Server=serverName; User ID = userID";`<br /><br /> <span data-ttu-id="21cc7-233">次に誤った例を示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-233">The following example is not going to work:</span></span><br /><br /> `Provider Connection String =Server=serverName; User ID = userID`|  
+|`Metadata`|<span data-ttu-id="21cc7-234">`Name` キーワードが指定されていない場合に必要です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-234">Required if the `Name` keyword is not specified.</span></span> <span data-ttu-id="21cc7-235">ディレクトリ、ファイル、およびモデルとマッピング情報を検索するリソースの場所のパイプで区切られたリスト。</span><span class="sxs-lookup"><span data-stu-id="21cc7-235">A pipe-delimited list of directories, files, and resource locations in which to look for model and mapping information.</span></span> <span data-ttu-id="21cc7-236">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-236">The following is an example:</span></span><br /><br /> `Metadata=`<br /><br /> `c:\model &#124; c:\model\sql\mapping.msl;`<br /><br /> <span data-ttu-id="21cc7-237">パイプ区切り記号の両側の空白は無視されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-237">Blank spaces on each side of the pipe separator are ignored.</span></span><br /><br /> <span data-ttu-id="21cc7-238">このキーワードは `Name` キーワードと同時に指定できません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-238">This keyword is mutually exclusive with the `Name` keyword.</span></span>|  
+|`Name`|<span data-ttu-id="21cc7-239">アプリケーションは、オプションで、必要なキーワード/値接続文字列値を提供する接続名をアプリケーション構成ファイル内で指定できます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-239">The application can optionally specify the connection name in an application configuration file that provides the required keyword/value connection string values.</span></span> <span data-ttu-id="21cc7-240">その場合は、接続文字列内に値を直接記述することはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-240">In this case, you cannot supply them directly in the connection string.</span></span> <span data-ttu-id="21cc7-241">`Name` キーワードは、構成ファイル内で使用できません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-241">The `Name` keyword is not allowed in a configuration file.</span></span><br /><br /> <span data-ttu-id="21cc7-242">`Name` キーワードが接続文字列に含まれていない場合、Provider キーワードの空でない値が必要になります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-242">When the `Name` keyword is not included in the connection string, a non-empty values for Provider keyword is required.</span></span><br /><br /> <span data-ttu-id="21cc7-243">このキーワードは他のすべての接続文字列キーワードと同時に指定できません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-243">This keyword is mutually exclusive with all the other connection string keywords.</span></span>|  
+  
+ <span data-ttu-id="21cc7-244">アプリケーションで直接キーワード/値を指定できます、<xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A>プロパティ、またはそれには、値を指定できます、`Name`キーワード。</span><span class="sxs-lookup"><span data-stu-id="21cc7-244">The application can supply the keyword/values directly in the <xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A> property, or it can specify a value for the `Name` keyword.</span></span> <span data-ttu-id="21cc7-245">場合、`Name`キーワードが指定されている接続文字列キーワード/値が次のように、アプリケーション構成ファイルから取得されます場合、。</span><span class="sxs-lookup"><span data-stu-id="21cc7-245">If the `Name` keyword is specified, the connection string keyword/values are retrieved from an application configuration file, as follows:</span></span>  
+  
+ `Name=AdventureWorksEntities;`  
+  
+ <span data-ttu-id="21cc7-246">場合、`Name`でキーワードを使用、<xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A>プロパティ、その他のキーワードは許可されていません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-246">If the `Name` keyword is used in the <xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A> property, other keywords are not allowed.</span></span> <span data-ttu-id="21cc7-247">`Name`キーワードに格納されている名前付き接続文字列を指す、`connectionStrings`次の例で示すように、アプリケーション構成ファイル」の「します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-247">The `Name` keyword refers to a named connection string that is stored in the `connectionStrings` section in an application configuration file, as shown in the following example.</span></span> <span data-ttu-id="21cc7-248">`Provider`、 `Metadata`、および`Provider Connection String`値は、実行時に、構成ファイルから取得されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-248">The `Provider`, `Metadata`, and `Provider Connection String` values are retrieved from the configuration file at run time.</span></span>  
+  
+  
+  
+ <span data-ttu-id="21cc7-249">また、キーワード/値ペアは、次の例に示すように、<xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A> プロパティで直接指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-249">The keyword/value pairs can also be supplied directly in the <xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A> property, as shown in the following example.</span></span> <span data-ttu-id="21cc7-250">ここで、`Name`キーワードは使用されません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-250">In this case, the `Name` keyword is not used.</span></span>  
+  
+```  
+"Provider=System.Data.SqlClient;  
+Metadata=c:\metadata|c:\Metadata\Sql;  
+Provider Connection String= 'Data Source=localhost;  
+    Initial Catalog=AdventureWorks;Integrated Security=True;Connection Timeout=60' "  
+```  
+  
+ <span data-ttu-id="21cc7-251"><xref:System.Data.Common.CommandTrees> や <xref:System.Data.Objects.ObjectContext> などのオブジェクトが不注意でメタデータと同期しなくなるのを防ぐため、<xref:System.Data.EntityClient.EntityConnection> でそのメタデータをロックする必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-251">To avoid inadvertently putting objects such as <xref:System.Data.Common.CommandTrees> and <xref:System.Data.Objects.ObjectContext> out of sync with their metadata, <xref:System.Data.EntityClient.EntityConnection> must lock its metadata.</span></span> <span data-ttu-id="21cc7-252">メタデータがロックされると、接続文字列に変更を加えることができなくなります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-252">No changes to the connection string are allowed after the metadata is locked.</span></span> <span data-ttu-id="21cc7-253">メタデータがロックされる 2 つのシナリオを次に示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-253">The following are two scenarios in which metadata is locked:</span></span>  
+  
+-   <span data-ttu-id="21cc7-254">既定のコンストラクター、または接続文字列を受け入れる <xref:System.Data.EntityClient.EntityConnection> コンストラクターによって <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-254">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the default constructor, or through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> constructor, which accepts a connection string.</span></span> <span data-ttu-id="21cc7-255">いずれの場合も、接続が開かれる前に接続文字列が複数回変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-255">In either case the connection string might be changed multiple times before the connection is opened.</span></span> <span data-ttu-id="21cc7-256"><xref:System.Data.EntityClient.EntityConnection.Open%2A> または <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> を呼び出すと、メタデータがロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-256">Calling <xref:System.Data.EntityClient.EntityConnection.Open%2A> or <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> locks the metadata.</span></span>  
+  
+-   <span data-ttu-id="21cc7-257"><xref:System.Data.EntityClient.EntityConnection> と <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> を受け入れる <xref:System.Data.Metadata.Edm.MetadataWorkspace> コンストラクターによって、<xref:System.Data.Common.DbConnection> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-257">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> constructor, which accepts a <xref:System.Data.Metadata.Edm.MetadataWorkspace> and a <xref:System.Data.Common.DbConnection>.</span></span> <span data-ttu-id="21cc7-258">この場合、メタデータは構築時にロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-258">In this case the metadata is locked at construction time.</span></span> <span data-ttu-id="21cc7-259">接続文字列に変更を加えることはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-259">No changes to the connection string are ever allowed.</span></span>  
+  
+ <span data-ttu-id="21cc7-260">メタデータが読み込まれると、<xref:System.Data.EntityClient.EntityConnection> は、概念モデル、ストレージ モデル、およびマッピング ファイルがすべて存在することを確認します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-260">When metadata is loaded, the <xref:System.Data.EntityClient.EntityConnection> verifies that the conceptual model, the storage model, and the mapping file are all present.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="21cc7-261">次の例では、<xref:System.Data.EntityClient.EntityConnectionStringBuilder> と <xref:System.Data.SqlClient.SqlConnectionStringBuilder> を組み合わせて使用しています。</span><span class="sxs-lookup"><span data-stu-id="21cc7-261">The following example demonstrates how to use the <xref:System.Data.EntityClient.EntityConnectionStringBuilder> in conjunction with a <xref:System.Data.SqlClient.SqlConnectionStringBuilder>.</span></span> <span data-ttu-id="21cc7-262">コードのプロパティを設定する、`SqlConnectionStringBuilder`を作成する、<xref:System.Data.SqlClient.SqlConnection>を基になるプロバイダーの接続文字列の一部を提供する文字列。</span><span class="sxs-lookup"><span data-stu-id="21cc7-262">The code sets properties of a `SqlConnectionStringBuilder` to create a <xref:System.Data.SqlClient.SqlConnection> string that supplies part of the underlying provider connection string.</span></span> <span data-ttu-id="21cc7-263">なお、`Provider`を使用して名前を設定することはできません、`SqlConnectionStringBuilder`を使用していない無効なため、`SqlConnection`構文です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-263">Note that the `Provider` name cannot be set by using the `SqlConnectionStringBuilder`, because it does not use valid `SqlConnection` syntax.</span></span> <span data-ttu-id="21cc7-264">このコードを作成、<xref:System.Data.EntityClient.EntityConnection>設定によって文字列`EntityConnectionStringBuilder`プロパティです。</span><span class="sxs-lookup"><span data-stu-id="21cc7-264">The code creates the <xref:System.Data.EntityClient.EntityConnection> string by setting `EntityConnectionStringBuilder` properties.</span></span>  
+  
+ [!code-csharp[eSQLBasicExamples#BuildingConnectionStringWithEntityCommand](~/samples/snippets/csharp/VS_Snippets_Data/eSQLBasicExamples/CS/Program.cs#buildingconnectionstringwithentitycommand)]
+ [!code-vb[eSQLBasicExamples#BuildingConnectionStringWithEntityCommand](~/samples/snippets/visualbasic/VS_Snippets_Data/eSQLBasicExamples/VB/Program.vb#buildingconnectionstringwithentitycommand)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-265">
+            <see cref="P:System.Data.EntityClient.EntityConnection.ConnectionString" /> の <see cref="EntityConnection" /> を初期化した後に、<see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> プロパティを設定しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-265">An attempt was made to set the <see cref="P:System.Data.EntityClient.EntityConnection.ConnectionString" /> property after the <see cref="EntityConnection" />’s <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> was initialized.</span>
+          </span>
+          <span data-ttu-id="21cc7-266">
+            <see cref="MetadataWorkspace" /> が初期化されるのは、<see cref="EntityConnection" /> をパラメーターに取るオーバーロードから <see cref="MetadataWorkspace" /> インスタンスを構築した場合か、または <see cref="T:System.Data.EntityClient.EntityConnection" /> インスタンスが開かれた場合のいずれかです。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-266">The <see cref="MetadataWorkspace" /> is initialized either when the <see cref="EntityConnection" /> instance is constructed through the overload that takes a <see cref="MetadataWorkspace" /> as a parameter, or when the <see cref="T:System.Data.EntityClient.EntityConnection" /> instance has been opened.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="21cc7-267">無効な接続文字列キーワードが指定されたか、必要な接続文字列キーワードが指定されていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-267">An invalid connection string keyword has been provided or a required connection string keyword has not been provided.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ConnectionTimeout">
+      <MemberSignature Language="C#" Value="public override int ConnectionTimeout { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 ConnectionTimeout" />
+      <MemberSignature Language="DocId" Value="P:System.Data.EntityClient.EntityConnection.ConnectionTimeout" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property ConnectionTimeout As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property int ConnectionTimeout { int get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-268">接続を確立する際、試行を終了してエラーを生成するまでに待機する秒数を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-268">Gets the number of seconds to wait when attempting to establish a connection before ending the attempt and generating an error.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="21cc7-269">接続が開くのを待機する時間 (秒単位)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-269">The time (in seconds) to wait for a connection to open.</span>
+          </span>
+          <span data-ttu-id="21cc7-270">既定値は、基になるデータ プロバイダーの既定のタイムアウト値です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-270">The default value is the underlying data provider's default time-out.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-271">基になるデータ プロバイダーが不明の場合は 0 を返します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-271">Returns zero if the underlying data provider is not known.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="21cc7-272">0 より小さい値が設定されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-272">The value set is less than 0.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateCommand">
+      <MemberSignature Language="C#" Value="public System.Data.EntityClient.EntityCommand CreateCommand ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Data.EntityClient.EntityCommand CreateCommand() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.CreateCommand" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateCommand () As EntityCommand" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::EntityClient::EntityCommand ^ CreateCommand();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.EntityClient.EntityCommand</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-273">
+            <see cref="T:System.Data.EntityClient.EntityCommand" /> をこの <see cref="P:System.Data.EntityClient.EntityCommand.Connection" /> に設定して、<see cref="T:System.Data.EntityClient.EntityConnection" /> の新しいインスタンスを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-273">Creates a new instance of an <see cref="T:System.Data.EntityClient.EntityCommand" />, with the <see cref="P:System.Data.EntityClient.EntityCommand.Connection" /> set to this <see cref="T:System.Data.EntityClient.EntityConnection" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="21cc7-274">
+            <see cref="T:System.Data.EntityClient.EntityCommand" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-274">An <see cref="T:System.Data.EntityClient.EntityCommand" /> object.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-275">基になるデータ プロバイダーの名前が不明です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-275">The name of the underlying data provider is not known.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateDbCommand">
+      <MemberSignature Language="C#" Value="protected override System.Data.Common.DbCommand CreateDbCommand ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.Data.Common.DbCommand CreateDbCommand() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.CreateDbCommand" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Function CreateDbCommand () As DbCommand" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override System::Data::Common::DbCommand ^ CreateDbCommand();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.Common.DbCommand</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Database">
+      <MemberSignature Language="C#" Value="public override string Database { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Database" />
+      <MemberSignature Language="DocId" Value="P:System.Data.EntityClient.EntityConnection.Database" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property Database As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ Database { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-276">現在のデータベースの名前、または接続が開かれた後に使用されるデータベースの名前を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-276">Gets the name of the current database, or the database that will be used after a connection is opened.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="21cc7-277">基になるデータ プロバイダーの <see langword="Database" /> プロパティの値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-277">The value of the <see langword="Database" /> property of the underlying data provider.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-278">、特定のキーワードの値のように`Database`、にマップされる、<xref:System.Data.EntityClient.EntityConnection.Database%2A>プロパティを基になるデータ プロバイダーのマニュアルを参照してください。</span><span class="sxs-lookup"><span data-stu-id="21cc7-278">For the specific keyword value, such as `Database`, that maps to the <xref:System.Data.EntityClient.EntityConnection.Database%2A> property, see the documentation for the underlying data provider.</span></span> <span data-ttu-id="21cc7-279">[!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)] に相当するキーワードについては、<xref:System.Data.SqlClient.SqlConnection.ConnectionString%2A> プロパティのドキュメントを参照してください。</span><span class="sxs-lookup"><span data-stu-id="21cc7-279">For [!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)] equivalent keywords, see the documentation for the <xref:System.Data.SqlClient.SqlConnection.ConnectionString%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-280">基になるデータ プロバイダーが不明です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-280">The underlying data provider is not known.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="DataSource">
+      <MemberSignature Language="C#" Value="public override string DataSource { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string DataSource" />
+      <MemberSignature Language="DocId" Value="P:System.Data.EntityClient.EntityConnection.DataSource" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property DataSource As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ DataSource { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-281">接続先のデータ ソースの名前またはネットワーク アドレスを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-281">Gets the name or network address of the data source to connect to.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="21cc7-282">データ ソースの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-282">The name of the data source.</span>
+          </span>
+          <span data-ttu-id="21cc7-283">既定値は空の文字列です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-283">The default value is an empty string.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-284">、特定のキーワードの値のように`DataSource`、にマップされる、<xref:System.Data.EntityClient.EntityConnection.DataSource%2A>プロパティを基になるデータ プロバイダーのマニュアルを参照してください。</span><span class="sxs-lookup"><span data-stu-id="21cc7-284">For the specific keyword value, such as `DataSource`, that maps to the <xref:System.Data.EntityClient.EntityConnection.DataSource%2A> property, see the documentation for the underlying data provider.</span></span> <span data-ttu-id="21cc7-285">[!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)] に相当するキーワードについては、<xref:System.Data.SqlClient.SqlConnection.ConnectionString%2A> プロパティのドキュメントを参照してください。</span><span class="sxs-lookup"><span data-stu-id="21cc7-285">For [!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)] equivalent keywords, see the documentation for the <xref:System.Data.SqlClient.SqlConnection.ConnectionString%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-286">基になるデータ プロバイダーが不明です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-286">The underlying data provider is not known.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="DbProviderFactory">
+      <MemberSignature Language="C#" Value="protected override System.Data.Common.DbProviderFactory DbProviderFactory { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Data.Common.DbProviderFactory DbProviderFactory" />
+      <MemberSignature Language="DocId" Value="P:System.Data.EntityClient.EntityConnection.DbProviderFactory" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides ReadOnly Property DbProviderFactory As DbProviderFactory" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual property System::Data::Common::DbProviderFactory ^ DbProviderFactory { System::Data::Common::DbProviderFactory ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.Common.DbProviderFactory</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected override void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="EnlistTransaction">
+      <MemberSignature Language="C#" Value="public override void EnlistTransaction (System.Transactions.Transaction transaction);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void EnlistTransaction(class System.Transactions.Transaction transaction) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.EnlistTransaction(System.Transactions.Transaction)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void EnlistTransaction(System::Transactions::Transaction ^ transaction);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="transaction" Type="System.Transactions.Transaction" />
+      </Parameters>
+      <Docs>
+        <param name="transaction">
+          <span data-ttu-id="21cc7-287">登録先のトランザクション オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-287">The transaction object to enlist into.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="21cc7-288">この <see cref="T:System.Data.EntityClient.EntityConnection" /> を指定されたトランザクションに登録します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-288">Enlists this <see cref="T:System.Data.EntityClient.EntityConnection" /> in the specified transaction.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-289">このメソッドは、データ ソース接続呼び出しを転送して、渡される <xref:System.Transactions.Transaction> に明示的に参加させます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-289">This method forwards the call to the data source connection to explicitly enlist in the passed <xref:System.Transactions.Transaction>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-290">
+            <see cref="T:System.Data.EntityClient.EntityConnection" /> の状態が <see cref="F:System.Data.ConnectionState.Open" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-290">The state of the <see cref="T:System.Data.EntityClient.EntityConnection" /> is not <see cref="F:System.Data.ConnectionState.Open" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetMetadataWorkspace">
+      <MemberSignature Language="C#" Value="public System.Data.Metadata.Edm.MetadataWorkspace GetMetadataWorkspace ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Data.Metadata.Edm.MetadataWorkspace GetMetadataWorkspace() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetMetadataWorkspace () As MetadataWorkspace" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::Metadata::Edm::MetadataWorkspace ^ GetMetadataWorkspace();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.CLSCompliant(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Data.Metadata.Edm.MetadataWorkspace</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-291">この <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> に関連付けられている <see cref="T:System.Data.EntityClient.EntityConnection" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-291">Returns the <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> associated with this <see cref="T:System.Data.EntityClient.EntityConnection" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="21cc7-292">この <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> に関連付けられている <see cref="T:System.Data.EntityClient.EntityConnection" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-292">The <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace" /> associated with this <see cref="T:System.Data.EntityClient.EntityConnection" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-293"><xref:System.Data.Metadata.Edm.MetadataWorkspace> クラスが作成されると、<xref:System.Data.EntityClient.EntityConnection> が自動的に作成されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-293">A <xref:System.Data.Metadata.Edm.MetadataWorkspace> is automatically created when the <xref:System.Data.EntityClient.EntityConnection> class is created.</span></span> <span data-ttu-id="21cc7-294">作成プロセスで、メタデータ固有の例外がスローされることがあります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-294">The creation process might throw metadata-specific exceptions.</span></span> <span data-ttu-id="21cc7-295">メタデータがメモリに読み込まれると、Entity Data Model (EDM) アプリケーションは、そのメタデータを使用して、基になるデータ ソースに関する情報にアクセスします。</span><span class="sxs-lookup"><span data-stu-id="21cc7-295">Metadata is loaded into memory and an Entity Data Model (EDM) application uses that metadata to access information about the underlying data source.</span></span> <span data-ttu-id="21cc7-296">詳細については、次を参照してください。 [ADO.NET メタデータ](http://msdn.microsoft.com/library/196097a5-a791-4ac4-9e6a-805685d481d5)です。</span><span class="sxs-lookup"><span data-stu-id="21cc7-296">For more information, see [ADO.NET Metadata](http://msdn.microsoft.com/library/196097a5-a791-4ac4-9e6a-805685d481d5).</span></span>  
+  
+ <span data-ttu-id="21cc7-297"><xref:System.Data.Common.CommandTrees> や <xref:System.Data.Objects.ObjectContext> などのオブジェクトが不注意でメタデータと同期しなくなるのを防ぐため、<xref:System.Data.EntityClient.EntityConnection> でそのメタデータをロックする必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-297">To avoid inadvertently putting objects such as <xref:System.Data.Common.CommandTrees> and <xref:System.Data.Objects.ObjectContext> out of sync with their metadata, <xref:System.Data.EntityClient.EntityConnection> must lock its metadata.</span></span> <span data-ttu-id="21cc7-298">メタデータがロックされると、接続文字列に変更を加えることができなくなります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-298">No changes to the connection string are allowed after the metadata is locked.</span></span> <span data-ttu-id="21cc7-299">メタデータがロックされる 2 つのシナリオを次に示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-299">The following are two scenarios in which metadata is locked:</span></span>  
+  
+-   <span data-ttu-id="21cc7-300">既定のコンストラクター、または接続文字列を受け入れる <xref:System.Data.EntityClient.EntityConnection> コンストラクターによって <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-300">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the default constructor, or through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> constructor, which accepts a connection string.</span></span> <span data-ttu-id="21cc7-301">いずれの場合も、接続が開かれる前に接続文字列が複数回変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-301">In either case the connection string may be changed multiple times before the connection is opened.</span></span> <span data-ttu-id="21cc7-302"><xref:System.Data.EntityClient.EntityConnection.Open%2A> または <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> では、メタデータがロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-302"><xref:System.Data.EntityClient.EntityConnection.Open%2A> or <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> locks the metadata.</span></span>  
+  
+-   <span data-ttu-id="21cc7-303"><xref:System.Data.EntityClient.EntityConnection> と <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> を受け入れる <xref:System.Data.Metadata.Edm.MetadataWorkspace> コンストラクターによって、<xref:System.Data.Common.DbConnection> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-303">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> constructor, which accepts a <xref:System.Data.Metadata.Edm.MetadataWorkspace> and a <xref:System.Data.Common.DbConnection>.</span></span> <span data-ttu-id="21cc7-304">この場合、メタデータは構築時にロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-304">In this case the metadata is locked at construction time.</span></span> <span data-ttu-id="21cc7-305">接続文字列に変更を加えることはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-305">No changes to the connection string are ever allowed.</span></span>  
+  
+ <span data-ttu-id="21cc7-306">メタデータが読み込まれると、<xref:System.Data.EntityClient.EntityConnection> は、概念モデル、ストレージ モデル、およびマッピング ファイルがすべて存在することを確認します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-306">When metadata is loaded, the <xref:System.Data.EntityClient.EntityConnection> verifies that the conceptual model, the storage model, and the mapping file are all present.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Data.MetadataException">
+          <span data-ttu-id="21cc7-307">インライン接続文字列に無効な <see langword="Metadata" /> キーワード値が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-307">The inline connection string contains an invalid <see langword="Metadata" /> keyword value.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Open">
+      <MemberSignature Language="C#" Value="public override void Open ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Open() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.EntityClient.EntityConnection.Open" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub Open ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void Open();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-308">基になるデータ プロバイダーの <see langword="Open" /> メソッドを呼び出して、データ ソースへの接続を確立します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-308">Establishes a connection to the data source by calling the underlying data provider's <see langword="Open" /> method.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-309"><xref:System.Data.Common.CommandTrees> や <xref:System.Data.Objects.ObjectContext> などのオブジェクトが不注意でメタデータと同期しなくなるのを防ぐため、<xref:System.Data.EntityClient.EntityConnection> でそのメタデータをロックする必要があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-309">To avoid inadvertently putting objects such as <xref:System.Data.Common.CommandTrees> and <xref:System.Data.Objects.ObjectContext> out of sync with their metadata, <xref:System.Data.EntityClient.EntityConnection> must lock its metadata.</span></span> <span data-ttu-id="21cc7-310">メタデータがロックされると、接続文字列に変更を加えることができなくなります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-310">No changes to the connection string are allowed after the metadata is locked.</span></span> <span data-ttu-id="21cc7-311">メタデータがロックされる 2 つのシナリオを次に示します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-311">The following are two scenarios in which metadata is locked:</span></span>  
+  
+-   <span data-ttu-id="21cc7-312">既定のコンストラクター、または接続文字列を受け入れる <xref:System.Data.EntityClient.EntityConnection> コンストラクターによって <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-312">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the default constructor, or through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.String%29> constructor, which accepts a connection string.</span></span> <span data-ttu-id="21cc7-313">いずれの場合も、接続が開かれる前に接続文字列が複数回変更される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-313">In either case the connection string might be changed multiple times before the connection is opened.</span></span> <span data-ttu-id="21cc7-314"><xref:System.Data.EntityClient.EntityConnection.Open%2A> または <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> を呼び出すと、メタデータがロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-314">Calling <xref:System.Data.EntityClient.EntityConnection.Open%2A> or <xref:System.Data.EntityClient.EntityConnection.GetMetadataWorkspace%2A> locks the metadata.</span></span>  
+  
+-   <span data-ttu-id="21cc7-315"><xref:System.Data.EntityClient.EntityConnection> と <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> を受け入れる <xref:System.Data.Metadata.Edm.MetadataWorkspace> コンストラクターによって、<xref:System.Data.Common.DbConnection> インスタンスが構築された場合。</span><span class="sxs-lookup"><span data-stu-id="21cc7-315">The <xref:System.Data.EntityClient.EntityConnection> instance is constructed through the <xref:System.Data.EntityClient.EntityConnection.%23ctor%28System.Data.Metadata.Edm.MetadataWorkspace%2CSystem.Data.Common.DbConnection%29> constructor, which that accepts a <xref:System.Data.Metadata.Edm.MetadataWorkspace> and a <xref:System.Data.Common.DbConnection>.</span></span> <span data-ttu-id="21cc7-316">この場合、メタデータは構築時にロックされます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-316">In this case the metadata is locked at construction time.</span></span> <span data-ttu-id="21cc7-317">接続文字列に変更を加えることはできません。</span><span class="sxs-lookup"><span data-stu-id="21cc7-317">No changes to the connection string are ever allowed.</span></span>  
+  
+ <span data-ttu-id="21cc7-318">メタデータが読み込まれると、<xref:System.Data.EntityClient.EntityConnection> は、概念モデル、ストレージ モデル、およびマッピング ファイルがすべて存在することを確認します。</span><span class="sxs-lookup"><span data-stu-id="21cc7-318">When metadata is loaded, the <xref:System.Data.EntityClient.EntityConnection> verifies that the conceptual model, the storage model, and the mapping file are all present.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-319">接続が開いたときにエラーが発生したか、基になるデータ プロバイダーの名前が不明です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-319">An error occurs when you open the connection, or the name of the underlying data provider is not known.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Data.MetadataException">
+          <span data-ttu-id="21cc7-320">インライン接続文字列に無効な <see langword="Metadata" /> キーワード値が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-320">The inline connection string contains an invalid <see langword="Metadata" /> keyword value.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ServerVersion">
+      <MemberSignature Language="C#" Value="public override string ServerVersion { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ServerVersion" />
+      <MemberSignature Language="DocId" Value="P:System.Data.EntityClient.EntityConnection.ServerVersion" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property ServerVersion As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ ServerVersion { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-321">クライアントが接続されているデータ ソースのバージョンを含む文字列を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-321">Gets a string that contains the version of the data source to which the client is connected.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="21cc7-322">プロバイダー接続文字列に含まれるデータ ソースのバージョン。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-322">The version of the data source that is contained in the provider connection string.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="21cc7-323">接続が閉じています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-323">The connection is closed.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="State">
+      <MemberSignature Language="C#" Value="public override System.Data.ConnectionState State { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Data.ConnectionState State" />
+      <MemberSignature Language="DocId" Value="P:System.Data.EntityClient.EntityConnection.State" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property State As ConnectionState" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Data::ConnectionState State { System::Data::ConnectionState get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.ConnectionState</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-324">
+            <see cref="T:System.Data.ConnectionState" /> が開いている場合は、基になるプロバイダーの <see cref="T:System.Data.EntityClient.EntityConnection" /> プロパティを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-324">Gets the <see cref="T:System.Data.ConnectionState" /> property of the underlying provider if the <see cref="T:System.Data.EntityClient.EntityConnection" /> is open.</span>
+          </span>
+          <span data-ttu-id="21cc7-325">それ以外の場合、<see cref="F:System.Data.ConnectionState.Closed" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-325">Otherwise, returns <see cref="F:System.Data.ConnectionState.Closed" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="21cc7-326">
+            <see cref="F:System.Data.ConnectionState.Open" /> の内部状態と、基になるプロバイダーの <see cref="T:System.Data.EntityClient.EntityConnection" /> の両方が開いている場合にのみ <see cref="T:System.Data.ConnectionState" /> になります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-326">
+              <see cref="F:System.Data.ConnectionState.Open" />, if and only if both the <see cref="T:System.Data.EntityClient.EntityConnection" />’s internal state and the underlying provider's <see cref="T:System.Data.ConnectionState" /> are open.</span>
+          </span>
+          <span data-ttu-id="21cc7-327">
+            <see cref="T:System.Data.EntityClient.EntityConnection" /> の状態が開いていてもプロバイダーの <see cref="T:System.Data.ConnectionState" /> が閉じている場合、このプロパティは <see cref="F:System.Data.ConnectionState.Broken" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-327">If the <see cref="T:System.Data.EntityClient.EntityConnection" />’s state is open but the provider's <see cref="T:System.Data.ConnectionState" /> is closed, this property returns <see cref="F:System.Data.ConnectionState.Broken" />.</span>
+          </span>
+          <span data-ttu-id="21cc7-328">それ以外の場合は、<see cref="F:System.Data.ConnectionState.Closed" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-328">Otherwise, it returns <see cref="F:System.Data.ConnectionState.Closed" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="StoreConnection">
+      <MemberSignature Language="C#" Value="public System.Data.Common.DbConnection StoreConnection { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Data.Common.DbConnection StoreConnection" />
+      <MemberSignature Language="DocId" Value="P:System.Data.EntityClient.EntityConnection.StoreConnection" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property StoreConnection As DbConnection" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Data::Common::DbConnection ^ StoreConnection { System::Data::Common::DbConnection ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.Common.DbConnection</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="21cc7-329">
+            <see cref="T:System.Data.EntityClient.EntityConnection" /> オブジェクトで使用される、基になるデータ ソース接続へのアクセスを提供します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-329">Provides access to the underlying data source connection that is used by the <see cref="T:System.Data.EntityClient.EntityConnection" /> object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="21cc7-330">データ ソース接続の <see cref="T:System.Data.Common.DbConnection" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="21cc7-330">The <see cref="T:System.Data.Common.DbConnection" /> for the data source connection.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="21cc7-331"><xref:System.Data.EntityClient.EntityConnection> オブジェクトが閉じている場合、返されるデータ ソース接続は閉じられます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-331">If the <xref:System.Data.EntityClient.EntityConnection> object is closed, the returned data source connection will be closed.</span></span> <span data-ttu-id="21cc7-332">開いている場合は、開いているデータ ソース接続が返されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-332">If it is open, an open data source connection will be returned.</span></span> <span data-ttu-id="21cc7-333">データ ソース接続情報を設定すると、返される値は常に null 以外になります。</span><span class="sxs-lookup"><span data-stu-id="21cc7-333">If the data source connection information was set, the returned value is always non-null.</span></span> <span data-ttu-id="21cc7-334">データ ソース接続情報がない (たとえば既定のコンストラクターが使用されたために接続文字列が後で設定されなかったなどの) 場合は、null 参照が返されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-334">If there is no data source connection information (for example, if the default constructor was used and no connection string was set afterwards), then a null reference is returned.</span></span>  
+  
+ <span data-ttu-id="21cc7-335">Entity Framework で使用された同一のデータ ソース接続は、アプリケーションの他の部分と共有できます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-335">The same data source connection used by the Entity Framework can be shared with other parts of an application.</span></span> <span data-ttu-id="21cc7-336">データ ソース接続は、<xref:System.Data.Common.DbConnection> の <xref:System.Data.Objects.ObjectContext.Connection%2A> プロパティ、または <xref:System.Data.Objects.ObjectContext> の <xref:System.Data.EntityClient.EntityConnection.StoreConnection%2A> プロパティからの <xref:System.Data.EntityClient.EntityConnection> オブジェクトとして返されます。</span><span class="sxs-lookup"><span data-stu-id="21cc7-336">The data source connection is returned as a <xref:System.Data.Common.DbConnection> object from the <xref:System.Data.Objects.ObjectContext.Connection%2A> property of <xref:System.Data.Objects.ObjectContext>, or from the <xref:System.Data.EntityClient.EntityConnection.StoreConnection%2A> property of <xref:System.Data.EntityClient.EntityConnection>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

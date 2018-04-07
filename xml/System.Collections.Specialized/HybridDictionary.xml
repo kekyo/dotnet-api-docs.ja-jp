@@ -1,0 +1,1486 @@
+<Type Name="HybridDictionary" FullName="System.Collections.Specialized.HybridDictionary">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="92732dfbc835faf5c583b6f7670cdae667875b86" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class HybridDictionary : System.Collections.IDictionary" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit HybridDictionary extends System.Object implements class System.Collections.ICollection, class System.Collections.IDictionary, class System.Collections.IEnumerable" />
+  <TypeSignature Language="DocId" Value="T:System.Collections.Specialized.HybridDictionary" />
+  <TypeSignature Language="VB.NET" Value="Public Class HybridDictionary&#xA;Implements IDictionary" />
+  <TypeSignature Language="C++ CLI" Value="public ref class HybridDictionary : System::Collections::IDictionary" />
+  <AssemblyInfo>
+    <AssemblyName>System.Collections.Specialized</AssemblyName>
+    <AssemblyVersion>4.0.1.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.Collections.IDictionary</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="15efc-101">コレクションが小さいうちは <see cref="T:System.Collections.Specialized.ListDictionary" /> を使用し、コレクションが大きくなってきたら <see cref="T:System.Collections.Hashtable" /> に切り替える <see langword="IDictionary" /> を実装します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="15efc-101">Implements <see langword="IDictionary" /> by using a <see cref="T:System.Collections.Specialized.ListDictionary" /> while the collection is small, and then switching to a <see cref="T:System.Collections.Hashtable" /> when the collection gets large.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-102">ディクショナリの要素の数が不明の場合に、このクラスを使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="15efc-102">This class is recommended for cases where the number of elements in a dictionary is unknown.</span></span> <span data-ttu-id="15efc-103">パフォーマンスの向上を利用、<xref:System.Collections.Specialized.ListDictionary>コレクションへの切り替えの柔軟性を提供し、<xref:System.Collections.Hashtable>より大規模なコレクションを処理する<xref:System.Collections.Specialized.ListDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-103">It takes advantage of the improved performance of a <xref:System.Collections.Specialized.ListDictionary> with small collections, and offers the flexibility of switching to a <xref:System.Collections.Hashtable> which handles larger collections better than <xref:System.Collections.Specialized.ListDictionary>.</span></span>  
+  
+ <span data-ttu-id="15efc-104">コレクションの初期サイズが最適なサイズより大きいかどうか、<xref:System.Collections.Specialized.ListDictionary>にコレクションが格納されている、<xref:System.Collections.Hashtable>から要素のコピーのオーバーヘッドを避けるために、<xref:System.Collections.Specialized.ListDictionary>を<xref:System.Collections.Hashtable>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-104">If the initial size of the collection is greater than the optimal size for a <xref:System.Collections.Specialized.ListDictionary>, the collection is stored in a <xref:System.Collections.Hashtable> to avoid the overhead of copying elements from the <xref:System.Collections.Specialized.ListDictionary> to a <xref:System.Collections.Hashtable>.</span></span>  
+  
+ <span data-ttu-id="15efc-105">コンス トラクターは、により、ユーザーは、文字列を比較するときに、コレクションで大文字小文字を無視するかどうかを指定するブール型のパラメーターを受け取ります。</span><span class="sxs-lookup"><span data-stu-id="15efc-105">The constructor accepts a Boolean parameter that allows the user to specify whether the collection ignores the case when comparing strings.</span></span> <span data-ttu-id="15efc-106">キーの実装を使用して、コレクションが大文字の場合は、<xref:System.Object.GetHashCode%2A?displayProperty=nameWithType>と<xref:System.Object.Equals%2A?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-106">If the collection is case-sensitive, it uses the key's implementations of <xref:System.Object.GetHashCode%2A?displayProperty=nameWithType> and <xref:System.Object.Equals%2A?displayProperty=nameWithType>.</span></span> <span data-ttu-id="15efc-107">コレクションが大文字と小文字の場合は、単純な序数大文字と小文字は、のみインバリアント カルチャの大文字小文字の規則に従うを実行します。</span><span class="sxs-lookup"><span data-stu-id="15efc-107">If the collection is case-insensitive, it performs a simple ordinal case-insensitive comparison, which obeys the casing rules of the invariant culture only.</span></span> <span data-ttu-id="15efc-108">既定では、コレクションが大文字小文字を区別します。</span><span class="sxs-lookup"><span data-stu-id="15efc-108">By default, the collection is case-sensitive.</span></span> <span data-ttu-id="15efc-109">インバリアント カルチャの詳細については、次を参照してください。<xref:System.Globalization.CultureInfo?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-109">For more information on the invariant culture, see <xref:System.Globalization.CultureInfo?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="15efc-110">キーを null にすることはできませんが、値のことができます。</span><span class="sxs-lookup"><span data-stu-id="15efc-110">A key cannot be null, but a value can.</span></span>  
+  
+ <span data-ttu-id="15efc-111">`foreach` C# 言語のステートメント (`For Each` Visual Basic で)、コレクション内の要素の型のオブジェクトを返します。</span><span class="sxs-lookup"><span data-stu-id="15efc-111">The `foreach` statement of the C# language (`For Each` in Visual Basic) returns an object of the type of the elements in the collection.</span></span> <span data-ttu-id="15efc-112">以降の各要素、<xref:System.Collections.Specialized.HybridDictionary>キー/値ペアは、要素型は、キーの型または値の型ではありません。</span><span class="sxs-lookup"><span data-stu-id="15efc-112">Since each element of the <xref:System.Collections.Specialized.HybridDictionary> is a key/value pair, the element type is not the type of the key or the type of the value.</span></span> <span data-ttu-id="15efc-113">要素の型は、代わりに、<xref:System.Collections.DictionaryEntry>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-113">Instead, the element type is <xref:System.Collections.DictionaryEntry>.</span></span> <span data-ttu-id="15efc-114">例:</span><span class="sxs-lookup"><span data-stu-id="15efc-114">For example:</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary2#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CPP/source2.cpp#2)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary2#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CS/source2.cs#2)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary2#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/VB/source2.vb#2)]  
+  
+ <span data-ttu-id="15efc-115">`foreach`ステートメントがしか書き込まないことから、コレクションへの読み取りを許可する列挙子のラッパー。</span><span class="sxs-lookup"><span data-stu-id="15efc-115">The `foreach` statement is a wrapper around the enumerator, which only allows reading from, not writing to, the collection.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-116">次のコード例は、一部のプロパティとメソッドを示しています。<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-116">The following code example demonstrates several of the properties and methods of <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary2#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CPP/hybriddictionary.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary2#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CS/hybriddictionary.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary2#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/VB/hybriddictionary.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <threadsafe>
+      <span data-ttu-id="15efc-117">パブリック静的 (<see langword="Shared" /> Visual Basic で) この型のメンバーは、スレッド セーフであります。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="15efc-117">Public static (<see langword="Shared" /> in Visual Basic) members of this type are thread safe.</span>
+      </span>
+      <span data-ttu-id="15efc-118">インスタンス メンバーの場合は、スレッド セーフであるとは限りません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="15efc-118">Any instance members are not guaranteed to be thread safe.</span>
+      </span>
+      <span data-ttu-id="15efc-119">この実装は同期済みは提供されませんの (スレッド セーフな) ラッパー、 <see cref="T:System.Collections.Specialized.HybridDictionary" />、派生クラスは、独自の同期されたバージョンを作成できますが、<see cref="T:System.Collections.Specialized.HybridDictionary" />を使用して、<see cref="P:System.Collections.Specialized.HybridDictionary.SyncRoot" />プロパティです。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="15efc-119">This implementation does not provide a synchronized (thread safe) wrapper for a <see cref="T:System.Collections.Specialized.HybridDictionary" />, but derived classes can create their own synchronized versions of the <see cref="T:System.Collections.Specialized.HybridDictionary" /> using the <see cref="P:System.Collections.Specialized.HybridDictionary.SyncRoot" /> property.</span>
+      </span>
+      <span data-ttu-id="15efc-120">コレクションの列挙は、本質的にスレッド セーフなプロシージャではありません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="15efc-120">Enumerating through a collection is intrinsically not a thread-safe procedure.</span>
+      </span>
+      <span data-ttu-id="15efc-121">コレクションの同期がとられている場合でも、別のスレッドによってそのコレクションを変更できるため、変更の結果として列挙子は例外をスローします。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="15efc-121">Even when a collection is synchronized, other threads can still modify the collection, which causes the enumerator to throw an exception.</span>
+      </span>
+      <span data-ttu-id="15efc-122">列挙処理を確実にスレッド セーフに行うには、列挙中にコレクションをロックするか、他のスレッドによって行われた変更によってスローされる例外をキャッチします。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="15efc-122">To guarantee thread safety during enumeration, you can either lock the collection during the entire enumeration or catch the exceptions resulting from changes made by other threads.</span>
+      </span>
+    </threadsafe>
+    <altmember cref="T:System.Collections.IDictionary" />
+    <altmember cref="T:System.Collections.Specialized.ListDictionary" />
+    <altmember cref="T:System.Collections.Hashtable" />
+    <altmember cref="T:System.Collections.CaseInsensitiveHashCodeProvider" />
+    <altmember cref="M:System.Object.GetHashCode" />
+    <altmember cref="M:System.Object.Equals(System.Object)" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-123">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-123">Initializes a new instance of the <see cref="T:System.Collections.Specialized.HybridDictionary" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public HybridDictionary ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; HybridDictionary();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-124">大文字と小文字を区別する空の <see cref="T:System.Collections.Specialized.HybridDictionary" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-124">Creates an empty case-sensitive <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-125">既定では、コレクション大文字小文字が区別されのキーの実装を使用して<xref:System.Object.GetHashCode%2A?displayProperty=nameWithType>ハッシュ コード プロバイダーとのキーの実装として<xref:System.Object.Equals%2A?displayProperty=nameWithType>としての比較子。</span><span class="sxs-lookup"><span data-stu-id="15efc-125">By default, the collection is case-sensitive and uses the key's implementation of <xref:System.Object.GetHashCode%2A?displayProperty=nameWithType> as the hash code provider and the key's implementation of <xref:System.Object.Equals%2A?displayProperty=nameWithType> as the comparer.</span></span>  
+  
+ <span data-ttu-id="15efc-126">比較演算子は、2 つのキーが等しいかどうかを判断します。</span><span class="sxs-lookup"><span data-stu-id="15efc-126">The comparer determines whether two keys are equal.</span></span> <span data-ttu-id="15efc-127">内のすべてのキー、<xref:System.Collections.Specialized.HybridDictionary>一意である必要があります。</span><span class="sxs-lookup"><span data-stu-id="15efc-127">Every key in a <xref:System.Collections.Specialized.HybridDictionary> must be unique.</span></span>  
+  
+ <span data-ttu-id="15efc-128">このコンス トラクターは、o (1) 操作です。</span><span class="sxs-lookup"><span data-stu-id="15efc-128">This constructor is an O(1) operation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-129">次のコード例は、一部のプロパティとメソッドを示しています。<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-129">The following code example demonstrates several of the properties and methods of <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary2#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CPP/hybriddictionary.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary2#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CS/hybriddictionary.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary2#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/VB/hybriddictionary.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public HybridDictionary (bool caseInsensitive);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(bool caseInsensitive) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.#ctor(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (caseInsensitive As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; HybridDictionary(bool caseInsensitive);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="caseInsensitive" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="caseInsensitive">
+          <span data-ttu-id="15efc-130">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> で大文字小文字が区別されるかどうかを指定するブール値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-130">A Boolean that denotes whether the <see cref="T:System.Collections.Specialized.HybridDictionary" /> is case-insensitive.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="15efc-131">大文字と小文字の区別を指定して、空の <see cref="T:System.Collections.Specialized.HybridDictionary" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-131">Creates an empty <see cref="T:System.Collections.Specialized.HybridDictionary" /> with the specified case sensitivity.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-132">場合`caseInsensitive`は`false`、コレクションのキーの実装を使用して<xref:System.Object.GetHashCode%2A?displayProperty=nameWithType>と<xref:System.Object.Equals%2A?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-132">If `caseInsensitive` is `false`, the collection uses the key's implementations of <xref:System.Object.GetHashCode%2A?displayProperty=nameWithType> and <xref:System.Object.Equals%2A?displayProperty=nameWithType>.</span></span> <span data-ttu-id="15efc-133">場合`caseInsensitive`は`true`コレクション、単純な序数大文字と小文字の比較を実行のみインバリアント カルチャの大文字小文字の規則に従うをします。</span><span class="sxs-lookup"><span data-stu-id="15efc-133">If `caseInsensitive` is `true`, the collection performs a simple ordinal case-insensitive comparison, which obeys the casing rules of the invariant culture only.</span></span> <span data-ttu-id="15efc-134">インバリアント カルチャの詳細については、次を参照してください。<xref:System.Globalization.CultureInfo?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-134">For more information on the invariant culture, see <xref:System.Globalization.CultureInfo?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="15efc-135">このコンス トラクターは、o (1) 操作です。</span><span class="sxs-lookup"><span data-stu-id="15efc-135">This constructor is an O(1) operation.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public HybridDictionary (int initialSize);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(int32 initialSize) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.#ctor(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (initialSize As Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; HybridDictionary(int initialSize);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="initialSize" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="initialSize">
+          <span data-ttu-id="15efc-136">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> が初期状態で格納できるエントリの概数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-136">The approximate number of entries that the <see cref="T:System.Collections.Specialized.HybridDictionary" /> can initially contain.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="15efc-137">指定した初期サイズで、大文字と小文字を区別する <see cref="T:System.Collections.Specialized.HybridDictionary" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-137">Creates a case-sensitive <see cref="T:System.Collections.Specialized.HybridDictionary" /> with the specified initial size.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-138">コレクションの初期サイズが最適なサイズより大きいかどうか、<xref:System.Collections.Specialized.ListDictionary>にコレクションが格納されている、<xref:System.Collections.Hashtable>から要素のコピーのオーバーヘッドを避けるために、<xref:System.Collections.Specialized.ListDictionary>を<xref:System.Collections.Hashtable>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-138">If the initial size of the collection is greater than the optimal size for a <xref:System.Collections.Specialized.ListDictionary>, the collection is stored in a <xref:System.Collections.Hashtable> to avoid the overhead of copying elements from the <xref:System.Collections.Specialized.ListDictionary> to the <xref:System.Collections.Hashtable>.</span></span>  
+  
+ <span data-ttu-id="15efc-139">既定では、コレクション大文字小文字が区別されのキーの実装を使用して<xref:System.Object.GetHashCode%2A?displayProperty=nameWithType>ハッシュ コード プロバイダーとのキーの実装として<xref:System.Object.Equals%2A?displayProperty=nameWithType>としての比較子。</span><span class="sxs-lookup"><span data-stu-id="15efc-139">By default, the collection is case-sensitive and uses the key's implementation of <xref:System.Object.GetHashCode%2A?displayProperty=nameWithType> as the hash code provider and the key's implementation of <xref:System.Object.Equals%2A?displayProperty=nameWithType> as the comparer.</span></span>  
+  
+ <span data-ttu-id="15efc-140">比較演算子は、2 つのキーが等しいかどうかを判断します。</span><span class="sxs-lookup"><span data-stu-id="15efc-140">The comparer determines whether two keys are equal.</span></span> <span data-ttu-id="15efc-141">内のすべてのキー、<xref:System.Collections.Specialized.HybridDictionary>一意である必要があります。</span><span class="sxs-lookup"><span data-stu-id="15efc-141">Every key in a <xref:System.Collections.Specialized.HybridDictionary> must be unique.</span></span>  
+  
+ <span data-ttu-id="15efc-142">このコンス トラクターは、O (`n`) 操作では、ここで`n`は`initialSize`します。</span><span class="sxs-lookup"><span data-stu-id="15efc-142">This constructor is an O(`n`) operation, where `n` is `initialSize`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Collections.IComparer" />
+        <altmember cref="M:System.Object.Equals(System.Object)" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public HybridDictionary (int initialSize, bool caseInsensitive);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(int32 initialSize, bool caseInsensitive) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.#ctor(System.Int32,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (initialSize As Integer, caseInsensitive As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; HybridDictionary(int initialSize, bool caseInsensitive);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="initialSize" Type="System.Int32" />
+        <Parameter Name="caseInsensitive" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="initialSize">
+          <span data-ttu-id="15efc-143">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> が初期状態で格納できるエントリの概数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-143">The approximate number of entries that the <see cref="T:System.Collections.Specialized.HybridDictionary" /> can initially contain.</span>
+          </span>
+        </param>
+        <param name="caseInsensitive">
+          <span data-ttu-id="15efc-144">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> で大文字小文字が区別されるかどうかを指定するブール値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-144">A Boolean that denotes whether the <see cref="T:System.Collections.Specialized.HybridDictionary" /> is case-insensitive.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="15efc-145">初期サイズおよび大文字と小文字の区別を指定して、<see cref="T:System.Collections.Specialized.HybridDictionary" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-145">Creates a <see cref="T:System.Collections.Specialized.HybridDictionary" /> with the specified initial size and case sensitivity.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-146">コレクションの初期サイズが最適なサイズより大きいかどうか、<xref:System.Collections.Specialized.ListDictionary>にコレクションが格納されている、<xref:System.Collections.Hashtable>から要素のコピーのオーバーヘッドを避けるために、<xref:System.Collections.Specialized.ListDictionary>を<xref:System.Collections.Hashtable>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-146">If the initial size of the collection is greater than the optimal size for a <xref:System.Collections.Specialized.ListDictionary>, the collection is stored in a <xref:System.Collections.Hashtable> to avoid the overhead of copying elements from the <xref:System.Collections.Specialized.ListDictionary> to the <xref:System.Collections.Hashtable>.</span></span>  
+  
+ <span data-ttu-id="15efc-147">場合`caseInsensitive`は`false`、コレクションのキーの実装を使用して<xref:System.Object.GetHashCode%2A?displayProperty=nameWithType>と<xref:System.Object.Equals%2A?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-147">If `caseInsensitive` is `false`, the collection uses the key's implementations of <xref:System.Object.GetHashCode%2A?displayProperty=nameWithType> and <xref:System.Object.Equals%2A?displayProperty=nameWithType>.</span></span> <span data-ttu-id="15efc-148">場合`caseInsensitive`は`true`コレクション、単純な序数大文字と小文字の比較を実行のみインバリアント カルチャの大文字小文字の規則に従うをします。</span><span class="sxs-lookup"><span data-stu-id="15efc-148">If `caseInsensitive` is `true`, the collection performs a simple ordinal case-insensitive comparison, which obeys the casing rules of the invariant culture only.</span></span> <span data-ttu-id="15efc-149">インバリアント カルチャの詳細については、次を参照してください。<xref:System.Globalization.CultureInfo?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-149">For more information on the invariant culture, see <xref:System.Globalization.CultureInfo?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="15efc-150">このコンス トラクターは、O (`n`) 操作では、ここで`n`は`initialSize`します。</span><span class="sxs-lookup"><span data-stu-id="15efc-150">This constructor is an O(`n`) operation, where `n` is `initialSize`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Add">
+      <MemberSignature Language="C#" Value="public void Add (object key, object value);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Add(object key, object value) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.Add(System.Object,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Add (key As Object, value As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Add(System::Object ^ key, System::Object ^ value);" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Collections.IDictionary.Add(System.Object,System.Object)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="key" Type="System.Object" />
+        <Parameter Name="value" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="key">
+          <span data-ttu-id="15efc-151">追加するエントリのキー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-151">The key of the entry to add.</span>
+          </span>
+        </param>
+        <param name="value">
+          <span data-ttu-id="15efc-152">追加するエントリの値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-152">The value of the entry to add.</span>
+          </span>
+          <span data-ttu-id="15efc-153">値として <see langword="null" /> を指定できます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-153">The value can be <see langword="null" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="15efc-154">指定したキーおよび値を持つエントリを <see cref="T:System.Collections.Specialized.HybridDictionary" /> に追加します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-154">Adds an entry with the specified key and value into the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-155">オブジェクトの状態とそのハッシュ コード値間の相関関係を持たない必要があります通常されませんするキーとして使用します。</span><span class="sxs-lookup"><span data-stu-id="15efc-155">An object that has no correlation between its state and its hash code value should typically not be used as the key.</span></span> <span data-ttu-id="15efc-156">たとえば、文字列オブジェクトは、キーとして使用 StringBuilder オブジェクトよりも優れています。</span><span class="sxs-lookup"><span data-stu-id="15efc-156">For example, String objects are better than StringBuilder objects for use as keys.</span></span>  
+  
+ <span data-ttu-id="15efc-157">キーには`null`値のことができますが、します。</span><span class="sxs-lookup"><span data-stu-id="15efc-157">A key cannot be `null`, but a value can.</span></span>  
+  
+ <span data-ttu-id="15efc-158">使用することも、<xref:System.Collections.Specialized.HybridDictionary.Item%2A>にキーの値を設定して、新しい要素を追加するプロパティが存在しません、 <xref:System.Collections.Specialized.HybridDictionary>。 たとえば、`myCollection["myNonexistentKey"] = myValue`です。</span><span class="sxs-lookup"><span data-stu-id="15efc-158">You can also use the <xref:System.Collections.Specialized.HybridDictionary.Item%2A> property to add new elements by setting the value of a key that does not exist in the <xref:System.Collections.Specialized.HybridDictionary>; for example, `myCollection["myNonexistentKey"] = myValue`.</span></span> <span data-ttu-id="15efc-159">ただしで指定したキーが既に存在する場合、 <xref:System.Collections.Specialized.HybridDictionary>、設定、<xref:System.Collections.Specialized.HybridDictionary.Item%2A>プロパティに古い値が上書きされます。</span><span class="sxs-lookup"><span data-stu-id="15efc-159">However, if the specified key already exists in the <xref:System.Collections.Specialized.HybridDictionary>, setting the <xref:System.Collections.Specialized.HybridDictionary.Item%2A> property overwrites the old value.</span></span> <span data-ttu-id="15efc-160">これに対し、<xref:System.Collections.Specialized.HybridDictionary.Add%2A>メソッドでは、既存の要素は変更しません。</span><span class="sxs-lookup"><span data-stu-id="15efc-160">In contrast, the <xref:System.Collections.Specialized.HybridDictionary.Add%2A> method does not modify existing elements.</span></span>  
+  
+ <span data-ttu-id="15efc-161">要素の数が最適なサイズより大きくなると、 <xref:System.Collections.Specialized.ListDictionary>、要素のコピーから、<xref:System.Collections.Specialized.ListDictionary>を<xref:System.Collections.Hashtable>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-161">When the number of elements becomes greater than the optimal size for a <xref:System.Collections.Specialized.ListDictionary>, the elements are copied from the <xref:System.Collections.Specialized.ListDictionary> to a <xref:System.Collections.Hashtable>.</span></span> <span data-ttu-id="15efc-162">ただし、これだけは 1 回です。</span><span class="sxs-lookup"><span data-stu-id="15efc-162">However, this only happens once.</span></span> <span data-ttu-id="15efc-163">コレクションに既に格納されている場合、<xref:System.Collections.Hashtable>要素の数が最適なサイズを下回ると、<xref:System.Collections.Specialized.ListDictionary>でのコレクションが、<xref:System.Collections.Hashtable>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-163">If the collection is already stored in a <xref:System.Collections.Hashtable> and the number of elements falls below the optimal size for a <xref:System.Collections.Specialized.ListDictionary>, the collection remains in the <xref:System.Collections.Hashtable>.</span></span>  
+  
+ <span data-ttu-id="15efc-164">このメソッドは、o (1) 操作です。</span><span class="sxs-lookup"><span data-stu-id="15efc-164">This method is an O(1) operation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-165">次のコード例に追加しから要素を削除、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-165">The following code example adds to and removes elements from a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_AddRemove#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_AddRemove/CPP/hybriddictionary_addremove.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_AddRemove#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_AddRemove/CS/hybriddictionary_addremove.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_AddRemove#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_AddRemove/VB/hybriddictionary_addremove.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="15efc-166">
+            <paramref name="key" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-166">
+              <paramref name="key" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="15efc-167">同じキーを持つエントリが、<see cref="T:System.Collections.Specialized.HybridDictionary" /> に既に存在します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-167">An entry with the same key already exists in the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Collections.Specialized.HybridDictionary.Remove(System.Object)" />
+        <altmember cref="P:System.Collections.Specialized.HybridDictionary.Item(System.Object)" />
+        <altmember cref="M:System.Collections.IDictionary.Add(System.Object,System.Object)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Clear">
+      <MemberSignature Language="C#" Value="public void Clear ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Clear() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.Clear" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Clear ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Clear();" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Collections.IDictionary.Clear</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-168">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> からすべてのエントリを削除します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-168">Removes all entries from the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-169"><xref:System.Collections.Specialized.HybridDictionary.Count%2A> 0 に設定し、コレクションの要素から他のオブジェクトへの参照も解放します。</span><span class="sxs-lookup"><span data-stu-id="15efc-169"><xref:System.Collections.Specialized.HybridDictionary.Count%2A> is set to zero, and references to other objects from elements of the collection are also released.</span></span>  
+  
+ <span data-ttu-id="15efc-170">コレクションに既に格納されている場合、<xref:System.Collections.Hashtable>でのコレクションが、<xref:System.Collections.Hashtable>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-170">If the collection is already stored in a <xref:System.Collections.Hashtable>, the collection remains in the <xref:System.Collections.Hashtable>.</span></span>  
+  
+ <span data-ttu-id="15efc-171">このメソッドは、O (`n`) 操作では、ここで`n`は<xref:System.Collections.Specialized.HybridDictionary.Count%2A>します。</span><span class="sxs-lookup"><span data-stu-id="15efc-171">This method is an O(`n`) operation, where `n` is <xref:System.Collections.Specialized.HybridDictionary.Count%2A>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-172">次のコード例に追加しから要素を削除、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-172">The following code example adds to and removes elements from a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_AddRemove#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_AddRemove/CPP/hybriddictionary_addremove.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_AddRemove#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_AddRemove/CS/hybriddictionary_addremove.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_AddRemove#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_AddRemove/VB/hybriddictionary_addremove.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Collections.IDictionary.Clear" />
+      </Docs>
+    </Member>
+    <Member MemberName="Contains">
+      <MemberSignature Language="C#" Value="public bool Contains (object key);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool Contains(object key) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.Contains(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Function Contains (key As Object) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual bool Contains(System::Object ^ key);" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Collections.IDictionary.Contains(System.Object)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="key" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="key">
+          <span data-ttu-id="15efc-173">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> 内で検索されるキー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-173">The key to locate in the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="15efc-174">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> に特定のキーが格納されているかどうかを判断します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-174">Determines whether the <see cref="T:System.Collections.Specialized.HybridDictionary" /> contains a specific key.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="15efc-175">指定したキーを持つエントリが <see cref="T:System.Collections.Specialized.HybridDictionary" /> に格納されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-175">
+              <see langword="true" /> if the <see cref="T:System.Collections.Specialized.HybridDictionary" /> contains an entry with the specified key; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-176">このメソッドは、o (1) 操作です。</span><span class="sxs-lookup"><span data-stu-id="15efc-176">This method is an O(1) operation.</span></span>  
+  
+ <span data-ttu-id="15efc-177">以降、.NET Framework 2.0 では、このメソッドを使用して、コレクションのオブジェクトの<xref:System.Object.Equals%2A>と<xref:System.IComparable.CompareTo%2A>メソッド`key`を決定するかどうか`item`が存在します。</span><span class="sxs-lookup"><span data-stu-id="15efc-177">Starting with the .NET Framework 2.0, this method uses the collection’s objects’ <xref:System.Object.Equals%2A> and <xref:System.IComparable.CompareTo%2A> methods on `key` to determine whether `item` exists.</span></span> <span data-ttu-id="15efc-178">.NET Framework の以前のバージョンでは、この決定を使用して行われた、<xref:System.Object.Equals%2A>と<xref:System.IComparable.CompareTo%2A>のメソッド、`item`パラメーター コレクション内のオブジェクトにします。</span><span class="sxs-lookup"><span data-stu-id="15efc-178">In the earlier versions of the .NET Framework, this determination was made by using the <xref:System.Object.Equals%2A> and <xref:System.IComparable.CompareTo%2A> methods of the `item` parameter on the objects in the collection.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-179">次のコード内の要素の検索の例、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-179">The following code example searches for an element in a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_Contains#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Contains/CPP/hybriddictionary_contains.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_Contains#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Contains/CS/hybriddictionary_contains.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_Contains#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Contains/VB/hybriddictionary_contains.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="15efc-180">
+            <paramref name="key" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-180">
+              <paramref name="key" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Collections.IDictionary" />
+      </Docs>
+    </Member>
+    <Member MemberName="CopyTo">
+      <MemberSignature Language="C#" Value="public void CopyTo (Array array, int index);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void CopyTo(class System.Array array, int32 index) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.CopyTo(System.Array,System.Int32)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void CopyTo(Array ^ array, int index);" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Collections.ICollection.CopyTo(System.Array,System.Int32)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="array" Type="System.Array" />
+        <Parameter Name="index" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="array">
+          <span data-ttu-id="15efc-181">
+            <see cref="T:System.Array" /> から <see cref="T:System.Collections.DictionaryEntry" /> オブジェクトがコピーされる 1 次元の <see cref="T:System.Collections.Specialized.HybridDictionary" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-181">The one-dimensional <see cref="T:System.Array" /> that is the destination of the <see cref="T:System.Collections.DictionaryEntry" /> objects copied from <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+          <span data-ttu-id="15efc-182">
+            <see cref="T:System.Array" /> には、0 から始まるインデックス番号が必要です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-182">The <see cref="T:System.Array" /> must have zero-based indexing.</span>
+          </span>
+        </param>
+        <param name="index">
+          <span data-ttu-id="15efc-183">コピーの開始位置となる、<c>array</c> の 0 から始まるインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-183">The zero-based index in <c>array</c> at which copying begins.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="15efc-184">1 次元の <see cref="T:System.Array" /> インスタンスの指定したインデックスに <see cref="T:System.Collections.Specialized.HybridDictionary" /> のエントリをコピーします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-184">Copies the <see cref="T:System.Collections.Specialized.HybridDictionary" /> entries to a one-dimensional <see cref="T:System.Array" /> instance at the specified index.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-185">要素のコピー先は、<xref:System.Array>を列挙子が反復処理する順序と同じ順序で、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-185">The elements are copied to the <xref:System.Array> in the same order in which the enumerator iterates through the <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ <span data-ttu-id="15efc-186">内のキーのみをコピーする、<xref:System.Collections.Specialized.HybridDictionary>を使用して`HybridDictionary.Keys.CopyTo`です。</span><span class="sxs-lookup"><span data-stu-id="15efc-186">To copy only the keys in the <xref:System.Collections.Specialized.HybridDictionary>, use `HybridDictionary.Keys.CopyTo`.</span></span>  
+  
+ <span data-ttu-id="15efc-187">値だけをコピーする、<xref:System.Collections.Specialized.HybridDictionary>を使用して`HybridDictionary.Values.CopyTo`です。</span><span class="sxs-lookup"><span data-stu-id="15efc-187">To copy only the values in the <xref:System.Collections.Specialized.HybridDictionary>, use `HybridDictionary.Values.CopyTo`.</span></span>  
+  
+ <span data-ttu-id="15efc-188">このメソッドは、O (`n`) 操作では、ここで`n`は<xref:System.Collections.Specialized.HybridDictionary.Count%2A>します。</span><span class="sxs-lookup"><span data-stu-id="15efc-188">This method is an O(`n`) operation, where `n` is <xref:System.Collections.Specialized.HybridDictionary.Count%2A>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-189">次のコード例は、の要素をコピー、<xref:System.Collections.Specialized.HybridDictionary>を配列にします。</span><span class="sxs-lookup"><span data-stu-id="15efc-189">The following code example copies the elements of a <xref:System.Collections.Specialized.HybridDictionary> to an array.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_CopyTo#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_CopyTo/CPP/hybriddictionary_copyto.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_CopyTo#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_CopyTo/CS/hybriddictionary_copyto.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_CopyTo#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_CopyTo/VB/hybriddictionary_copyto.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="15efc-190">
+            <paramref name="array" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-190">
+              <paramref name="array" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="15efc-191">
+            <paramref name="index" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-191">
+              <paramref name="index" /> is less than zero.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="15efc-192">
+            <paramref name="array" /> が多次元です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-192">
+              <paramref name="array" /> is multidimensional.</span>
+          </span>
+          <span data-ttu-id="15efc-193">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-193">-or-</span>
+          </span>
+          <span data-ttu-id="15efc-194">コピー元の <see cref="T:System.Collections.Specialized.HybridDictionary" /> の要素数が、コピー先 <paramref name="array" /> の <paramref name="arrayIndex" /> から最後までの使用可能領域を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-194">The number of elements in the source <see cref="T:System.Collections.Specialized.HybridDictionary" /> is greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidCastException">
+          <span data-ttu-id="15efc-195">コピー元の <see cref="T:System.Collections.Specialized.HybridDictionary" /> の型をコピー先の <paramref name="array" /> の型に自動的にキャストすることはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-195">The type of the source <see cref="T:System.Collections.Specialized.HybridDictionary" /> cannot be cast automatically to the type of the destination <paramref name="array" />.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Array" />
+        <altmember cref="T:System.Collections.DictionaryEntry" />
+        <altmember cref="M:System.Collections.Specialized.HybridDictionary.GetEnumerator" />
+      </Docs>
+    </Member>
+    <Member MemberName="Count">
+      <MemberSignature Language="C#" Value="public int Count { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 Count" />
+      <MemberSignature Language="DocId" Value="P:System.Collections.Specialized.HybridDictionary.Count" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Count As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int Count { int get(); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Collections.ICollection.Count</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-196">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> に格納されているキー/値ペアの数を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-196">Gets the number of key/value pairs contained in the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="15efc-197">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> に格納されているキー/値ペアの数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-197">The number of key/value pairs contained in the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+          <span data-ttu-id="15efc-198">このプロパティ値を取得することは、O(1) 操作になります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-198">Retrieving the value of this property is an O(1) operation.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="15efc-199">次のコード例は、の要素を列挙、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-199">The following code example enumerates the elements of a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CPP/hybriddictionary_enumerator.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CS/hybriddictionary_enumerator.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/VB/hybriddictionary_enumerator.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetEnumerator">
+      <MemberSignature Language="C#" Value="public System.Collections.IDictionaryEnumerator GetEnumerator ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Collections.IDictionaryEnumerator GetEnumerator() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.GetEnumerator" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetEnumerator () As IDictionaryEnumerator" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Collections::IDictionaryEnumerator ^ GetEnumerator();" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Collections.IDictionary.GetEnumerator</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.IDictionaryEnumerator</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-200">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> を反復処理する <see cref="T:System.Collections.IDictionaryEnumerator" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-200">Returns an <see cref="T:System.Collections.IDictionaryEnumerator" /> that iterates through the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="15efc-201">
+            <see cref="T:System.Collections.IDictionaryEnumerator" /> の <see cref="T:System.Collections.Specialized.HybridDictionary" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-201">An <see cref="T:System.Collections.IDictionaryEnumerator" /> for the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-202">C# 言語の `foreach` ステートメント (Visual Basic の場合は `for each`) を使用することで列挙子の複雑さを回避できます。</span><span class="sxs-lookup"><span data-stu-id="15efc-202">The `foreach` statement of the C# language (`for each` in Visual Basic) hides the complexity of the enumerators.</span></span>  <span data-ttu-id="15efc-203">したがって、列挙子を直接操作するのではなく、`foreach` を使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="15efc-203">Therefore, using `foreach` is recommended, instead of directly manipulating the enumerator.</span></span>  
+  
+ <span data-ttu-id="15efc-204">列挙子を使用すると、コレクション内のデータを読み取ることができますが、基になるコレクションを変更することはできません。</span><span class="sxs-lookup"><span data-stu-id="15efc-204">Enumerators can be used to read the data in the collection, but they cannot be used to modify the underlying collection.</span></span>  
+  
+ <span data-ttu-id="15efc-205">最初に、列挙子はコレクション内の 1 番目の要素の前に位置付けられます。</span><span class="sxs-lookup"><span data-stu-id="15efc-205">Initially, the enumerator is positioned before the first element in the collection.</span></span> <span data-ttu-id="15efc-206"><xref:System.Collections.IEnumerator.Reset%2A> を実行した場合も、列挙子はこの位置に戻されます。</span><span class="sxs-lookup"><span data-stu-id="15efc-206"><xref:System.Collections.IEnumerator.Reset%2A> also brings the enumerator back to this position.</span></span>  <span data-ttu-id="15efc-207">この位置では、<xref:System.Collections.IEnumerator.Current%2A> が未定義です。</span><span class="sxs-lookup"><span data-stu-id="15efc-207">At this position, <xref:System.Collections.IEnumerator.Current%2A> is undefined.</span></span> <span data-ttu-id="15efc-208">そのため、<xref:System.Collections.IEnumerator.MoveNext%2A> の値を読み取る前に、<xref:System.Collections.IEnumerator.Current%2A> を呼び出して列挙子をコレクションの最初の要素に進める必要があります。</span><span class="sxs-lookup"><span data-stu-id="15efc-208">Therefore, you must call <xref:System.Collections.IEnumerator.MoveNext%2A> to advance the enumerator to the first element of the collection before reading the value of <xref:System.Collections.IEnumerator.Current%2A>.</span></span>  
+  
+ <span data-ttu-id="15efc-209"><xref:System.Collections.IEnumerator.Current%2A> は、<xref:System.Collections.IEnumerator.MoveNext%2A> または <xref:System.Collections.IEnumerator.Reset%2A> が呼び出されるまでは同じオブジェクトを返します。</span><span class="sxs-lookup"><span data-stu-id="15efc-209"><xref:System.Collections.IEnumerator.Current%2A> returns the same object until either <xref:System.Collections.IEnumerator.MoveNext%2A> or <xref:System.Collections.IEnumerator.Reset%2A> is called.</span></span> <span data-ttu-id="15efc-210"><xref:System.Collections.IEnumerator.MoveNext%2A> は、<xref:System.Collections.IEnumerator.Current%2A> を次の要素に設定します。</span><span class="sxs-lookup"><span data-stu-id="15efc-210"><xref:System.Collections.IEnumerator.MoveNext%2A> sets <xref:System.Collections.IEnumerator.Current%2A> to the next element.</span></span>  
+  
+ <span data-ttu-id="15efc-211">場合<xref:System.Collections.IEnumerator.MoveNext%2A>列挙子をコレクションの末尾が、コレクション内の最後の要素の後に配置されているパスと<xref:System.Collections.IEnumerator.MoveNext%2A>返します`false`です。</span><span class="sxs-lookup"><span data-stu-id="15efc-211">If <xref:System.Collections.IEnumerator.MoveNext%2A> passes the end of the collection, the enumerator is positioned after the last element in the collection and <xref:System.Collections.IEnumerator.MoveNext%2A> returns `false`.</span></span> <span data-ttu-id="15efc-212">列挙子がこの位置では、後続の呼び出しの場合<xref:System.Collections.IEnumerator.MoveNext%2A>を返すことも`false`します。</span><span class="sxs-lookup"><span data-stu-id="15efc-212">When the enumerator is at this position, subsequent calls to <xref:System.Collections.IEnumerator.MoveNext%2A> also return `false`.</span></span> <span data-ttu-id="15efc-213">最後の呼び出し場合<xref:System.Collections.IEnumerator.MoveNext%2A>返される`false`、<xref:System.Collections.IEnumerator.Current%2A>が定義されていません。</span><span class="sxs-lookup"><span data-stu-id="15efc-213">If the last call to <xref:System.Collections.IEnumerator.MoveNext%2A> returned `false`, <xref:System.Collections.IEnumerator.Current%2A> is undefined.</span></span> <span data-ttu-id="15efc-214"><xref:System.Collections.IEnumerator.Current%2A> をコレクションの最初の要素にもう一度設定するには、<xref:System.Collections.IEnumerator.Reset%2A> を呼び出してから <xref:System.Collections.IEnumerator.MoveNext%2A> を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="15efc-214">To set <xref:System.Collections.IEnumerator.Current%2A> to the first element of the collection again, you can call <xref:System.Collections.IEnumerator.Reset%2A> followed by <xref:System.Collections.IEnumerator.MoveNext%2A>.</span></span>  
+  
+ <span data-ttu-id="15efc-215">コレクションが変更されない限り、列挙子は有効です。</span><span class="sxs-lookup"><span data-stu-id="15efc-215">An enumerator remains valid as long as the collection remains unchanged.</span></span> <span data-ttu-id="15efc-216">コレクションに対して変更 (要素の追加、変更、削除など) が行われると、列挙子は回復不可能な無効状態になり、その動作は未定義になります。</span><span class="sxs-lookup"><span data-stu-id="15efc-216">If changes are made to the collection, such as adding, modifying, or deleting elements, the enumerator is irrecoverably invalidated and its behavior is undefined.</span></span>  
+  
+ <span data-ttu-id="15efc-217">列挙子にはコレクションへの排他アクセス権限はないため、コレクションの列挙処理は本質的にスレッド セーフな処理ではありません。</span><span class="sxs-lookup"><span data-stu-id="15efc-217">The enumerator does not have exclusive access to the collection; therefore, enumerating through a collection is intrinsically not a thread-safe procedure.</span></span>  <span data-ttu-id="15efc-218">列挙処理でスレッド セーフを確保するには、列挙処理が終わるまでコレクションをロックできます。</span><span class="sxs-lookup"><span data-stu-id="15efc-218">To guarantee thread safety during enumeration, you can lock the collection during the entire enumeration.</span></span>  <span data-ttu-id="15efc-219">コレクションに対し複数のスレッドがアクセスして読み取りや書き込みを行うことができるようにするには、独自に同期化を実装する必要があります。</span><span class="sxs-lookup"><span data-stu-id="15efc-219">To allow the collection to be accessed by multiple threads for reading and writing, you must implement your own synchronization.</span></span>  
+  
+ <span data-ttu-id="15efc-220">このメソッドは、o (1) 操作です。</span><span class="sxs-lookup"><span data-stu-id="15efc-220">This method is an O(1) operation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-221">次のコード例は、の要素を列挙、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-221">The following code example enumerates the elements of a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CPP/hybriddictionary_enumerator.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CS/hybriddictionary_enumerator.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/VB/hybriddictionary_enumerator.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Collections.IDictionaryEnumerator" />
+        <altmember cref="T:System.Collections.IEnumerator" />
+      </Docs>
+    </Member>
+    <Member MemberName="IsFixedSize">
+      <MemberSignature Language="C#" Value="public bool IsFixedSize { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsFixedSize" />
+      <MemberSignature Language="DocId" Value="P:System.Collections.Specialized.HybridDictionary.IsFixedSize" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property IsFixedSize As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool IsFixedSize { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Collections.IDictionary.IsFixedSize</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-222">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> が固定サイズかどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-222">Gets a value indicating whether the <see cref="T:System.Collections.Specialized.HybridDictionary" /> has a fixed size.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="15efc-223">このプロパティは常に <see langword="false" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-223">This property always returns <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-224"><xref:System.Collections.Specialized.HybridDictionary> 実装する、<xref:System.Collections.Specialized.HybridDictionary.IsFixedSize%2A>プロパティが必要としているため、<xref:System.Collections.IDictionary?displayProperty=nameWithType>インターフェイスです。</span><span class="sxs-lookup"><span data-stu-id="15efc-224"><xref:System.Collections.Specialized.HybridDictionary> implements the <xref:System.Collections.Specialized.HybridDictionary.IsFixedSize%2A> property because it is required by the <xref:System.Collections.IDictionary?displayProperty=nameWithType> interface.</span></span>  
+  
+ <span data-ttu-id="15efc-225">固定サイズのコレクションでは、コレクションの作成後に要素の追加または削除はできませんが、既存の要素の変更はできます。</span><span class="sxs-lookup"><span data-stu-id="15efc-225">A collection with a fixed size does not allow the addition or removal of elements after the collection is created, but it allows the modification of existing elements.</span></span>  
+  
+ <span data-ttu-id="15efc-226">固定サイズ コレクションが追加および削除する要素を防止するラッパーで単純なコレクションそのための追加または削除、要素を含む、基になるコレクションが変更された場合、固定サイズ コレクションにはそれらの変更が反映されます。</span><span class="sxs-lookup"><span data-stu-id="15efc-226">A collection with a fixed size is simply a collection with a wrapper that prevents adding and removing elements; therefore, if changes are made to the underlying collection, including the addition or removal of elements, the fixed-size collection reflects those changes.</span></span>  
+  
+ <span data-ttu-id="15efc-227">このプロパティ値を取得することは、O(1) 操作になります。</span><span class="sxs-lookup"><span data-stu-id="15efc-227">Retrieving the value of this property is an O(1) operation.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsReadOnly">
+      <MemberSignature Language="C#" Value="public bool IsReadOnly { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsReadOnly" />
+      <MemberSignature Language="DocId" Value="P:System.Collections.Specialized.HybridDictionary.IsReadOnly" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property IsReadOnly As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool IsReadOnly { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Collections.IDictionary.IsReadOnly</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-228">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> が読み取り専用かどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-228">Gets a value indicating whether the <see cref="T:System.Collections.Specialized.HybridDictionary" /> is read-only.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="15efc-229">このプロパティは常に <see langword="false" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-229">This property always returns <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-230"><xref:System.Collections.Specialized.HybridDictionary> 実装する、<xref:System.Collections.Specialized.HybridDictionary.IsReadOnly%2A>プロパティが必要としているため、<xref:System.Collections.IDictionary?displayProperty=nameWithType>インターフェイスです。</span><span class="sxs-lookup"><span data-stu-id="15efc-230"><xref:System.Collections.Specialized.HybridDictionary> implements the <xref:System.Collections.Specialized.HybridDictionary.IsReadOnly%2A> property because it is required by the <xref:System.Collections.IDictionary?displayProperty=nameWithType> interface.</span></span>  
+  
+ <span data-ttu-id="15efc-231">読み取り専用のコレクションでは、コレクション作成後に要素の追加、削除、または変更はできません。</span><span class="sxs-lookup"><span data-stu-id="15efc-231">A collection that is read-only does not allow the addition, removal, or modification of elements after the collection is created.</span></span>  
+  
+ <span data-ttu-id="15efc-232">読み取り専用であるコレクションは、コレクションのコレクションの変更を防止するラッパーです。そのため、基になるコレクションの変更が加えられた、読み取り専用コレクションはそれらの変更を反映します。</span><span class="sxs-lookup"><span data-stu-id="15efc-232">A collection that is read-only is simply a collection with a wrapper that prevents modifying the collection; therefore, if changes are made to the underlying collection, the read-only collection reflects those changes.</span></span>  
+  
+ <span data-ttu-id="15efc-233">このプロパティ値を取得することは、O(1) 操作になります。</span><span class="sxs-lookup"><span data-stu-id="15efc-233">Retrieving the value of this property is an O(1) operation.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsSynchronized">
+      <MemberSignature Language="C#" Value="public bool IsSynchronized { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsSynchronized" />
+      <MemberSignature Language="DocId" Value="P:System.Collections.Specialized.HybridDictionary.IsSynchronized" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property IsSynchronized As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool IsSynchronized { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Collections.ICollection.IsSynchronized</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-234">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> が同期されている (スレッド セーフである) かどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-234">Gets a value indicating whether the <see cref="T:System.Collections.Specialized.HybridDictionary" /> is synchronized (thread safe).</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="15efc-235">このプロパティは常に <see langword="false" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-235">This property always returns <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-236"><xref:System.Collections.Specialized.HybridDictionary> 実装する、<xref:System.Collections.Specialized.HybridDictionary.IsSynchronized%2A>プロパティが必要としているため、<xref:System.Collections.ICollection?displayProperty=nameWithType>インターフェイスです。</span><span class="sxs-lookup"><span data-stu-id="15efc-236"><xref:System.Collections.Specialized.HybridDictionary> implements the <xref:System.Collections.Specialized.HybridDictionary.IsSynchronized%2A> property because it is required by the <xref:System.Collections.ICollection?displayProperty=nameWithType> interface.</span></span>  
+  
+ <span data-ttu-id="15efc-237">派生クラスでの同期されたバージョンを提供できる、<xref:System.Collections.Specialized.HybridDictionary>を使用して、<xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="15efc-237">Derived classes can provide a synchronized version of the <xref:System.Collections.Specialized.HybridDictionary> using the <xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A> property.</span></span>  
+  
+ <span data-ttu-id="15efc-238">コレクションの列挙は、本質的にスレッド セーフなプロシージャではありません。</span><span class="sxs-lookup"><span data-stu-id="15efc-238">Enumerating through a collection is intrinsically not a thread-safe procedure.</span></span> <span data-ttu-id="15efc-239">コレクションの同期がとられている場合でも、別のスレッドによってそのコレクションを変更できるため、変更の結果として列挙子は例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="15efc-239">Even when a collection is synchronized, other threads can still modify the collection, which causes the enumerator to throw an exception.</span></span> <span data-ttu-id="15efc-240">列挙処理を確実にスレッド セーフに行うには、列挙中にコレクションをロックするか、他のスレッドによって行われた変更によってスローされる例外をキャッチします。</span><span class="sxs-lookup"><span data-stu-id="15efc-240">To guarantee thread safety during enumeration, you can either lock the collection during the entire enumeration or catch the exceptions resulting from changes made by other threads.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-241">次のコード例を使用してコレクションをロックする方法を示しています、<xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A>列挙中にします。</span><span class="sxs-lookup"><span data-stu-id="15efc-241">The following code example shows how to lock the collection using the <xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A> during the entire enumeration.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary2#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CPP/source2.cpp#3)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary2#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CS/source2.cs#3)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary2#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/VB/source2.vb#3)]  
+  
+ <span data-ttu-id="15efc-242">このプロパティ値を取得することは、O(1) 操作になります。</span><span class="sxs-lookup"><span data-stu-id="15efc-242">Retrieving the value of this property is an O(1) operation.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Collections.Specialized.HybridDictionary.SyncRoot" />
+      </Docs>
+    </Member>
+    <Member MemberName="Item">
+      <MemberSignature Language="C#" Value="public object this[object key] { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance object Item(object)" />
+      <MemberSignature Language="DocId" Value="P:System.Collections.Specialized.HybridDictionary.Item(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Default Public Property Item(key As Object) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Object ^ default[System::Object ^] { System::Object ^ get(System::Object ^ key); void set(System::Object ^ key, System::Object ^ value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Collections.IDictionary.Item(System.Object)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="key" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="key">
+          <span data-ttu-id="15efc-243">値を取得または設定する対象のキー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-243">The key whose value to get or set.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="15efc-244">指定されたキーに関連付けられている値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-244">Gets or sets the value associated with the specified key.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="15efc-245">指定されたキーに関連付けられている値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-245">The value associated with the specified key.</span>
+          </span>
+          <span data-ttu-id="15efc-246">指定したキーが見つからない場合、そのキーを取得しようとした場合は <see langword="null" /> が返され、そのキーを設定しようとした場合は、指定したキーを使用して新しいエントリが作成されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-246">If the specified key is not found, attempting to get it returns <see langword="null" />, and attempting to set it creates a new entry using the specified key.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-247">このプロパティでは、`myCollection[key]` という構文を使用して、コレクション内の特定の要素にアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="15efc-247">This property provides the ability to access a specific element in the collection by using the following syntax: `myCollection[key]`.</span></span>  
+  
+ <span data-ttu-id="15efc-248">使用することも、<xref:System.Collections.Specialized.HybridDictionary.Item%2A>にキーの値を設定して、新しい要素を追加するプロパティが存在しません、 <xref:System.Collections.Specialized.HybridDictionary>。 たとえば、`myCollection["myNonexistentKey"] = myValue`です。</span><span class="sxs-lookup"><span data-stu-id="15efc-248">You can also use the <xref:System.Collections.Specialized.HybridDictionary.Item%2A> property to add new elements by setting the value of a key that does not exist in the <xref:System.Collections.Specialized.HybridDictionary>; for example, `myCollection["myNonexistentKey"] = myValue`.</span></span> <span data-ttu-id="15efc-249">ただしで指定したキーが既に存在する場合、 <xref:System.Collections.Specialized.HybridDictionary>、設定、<xref:System.Collections.Specialized.HybridDictionary.Item%2A>プロパティに古い値が上書きされます。</span><span class="sxs-lookup"><span data-stu-id="15efc-249">However, if the specified key already exists in the <xref:System.Collections.Specialized.HybridDictionary>, setting the <xref:System.Collections.Specialized.HybridDictionary.Item%2A> property overwrites the old value.</span></span> <span data-ttu-id="15efc-250">これに対し、<xref:System.Collections.Specialized.HybridDictionary.Add%2A>メソッドでは、既存の要素は変更しません。</span><span class="sxs-lookup"><span data-stu-id="15efc-250">In contrast, the <xref:System.Collections.Specialized.HybridDictionary.Add%2A> method does not modify existing elements.</span></span>  
+  
+ <span data-ttu-id="15efc-251">キーには`null`値のことができますが、します。</span><span class="sxs-lookup"><span data-stu-id="15efc-251">A key cannot be `null`, but a value can.</span></span> <span data-ttu-id="15efc-252">区別するために`null`指定したキーが見つからないため、返されると`null`指定したキーの値が返される`null`を使用して、<xref:System.Collections.Specialized.HybridDictionary.Contains%2A>一覧で、キーが存在するかどうかを決定するメソッド。</span><span class="sxs-lookup"><span data-stu-id="15efc-252">To distinguish between `null` that is returned because the specified key is not found and `null` that is returned because the value of the specified key is `null`, use the <xref:System.Collections.Specialized.HybridDictionary.Contains%2A> method to determine if the key exists in the list.</span></span>  
+  
+ <span data-ttu-id="15efc-253">C# 言語キーワードを使用して実装する代わりに、インデクサーの定義、<xref:System.Collections.Specialized.HybridDictionary.Item%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="15efc-253">The C# language uses the  keyword to define the indexers instead of implementing the <xref:System.Collections.Specialized.HybridDictionary.Item%2A> property.</span></span> <span data-ttu-id="15efc-254">Visual Basic は、<xref:System.Collections.Specialized.HybridDictionary.Item%2A> を既定のプロパティとして実装しており、同様のインデックス機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="15efc-254">Visual Basic implements <xref:System.Collections.Specialized.HybridDictionary.Item%2A> as a default property, which provides the same indexing functionality.</span></span>  
+  
+ <span data-ttu-id="15efc-255">このプロパティの値を取得する場合は、o (1) 操作です。プロパティの設定は、o (1) 操作ではもです。</span><span class="sxs-lookup"><span data-stu-id="15efc-255">Retrieving the value of this property is an O(1) operation; setting the property is also an O(1) operation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-256">次のコード例は、の要素を列挙、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-256">The following code example enumerates the elements of a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CPP/hybriddictionary_enumerator.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CS/hybriddictionary_enumerator.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/VB/hybriddictionary_enumerator.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="15efc-257">
+            <paramref name="key" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-257">
+              <paramref name="key" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Collections.Specialized.HybridDictionary.Add(System.Object,System.Object)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Keys">
+      <MemberSignature Language="C#" Value="public System.Collections.ICollection Keys { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.ICollection Keys" />
+      <MemberSignature Language="DocId" Value="P:System.Collections.Specialized.HybridDictionary.Keys" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Keys As ICollection" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Collections::ICollection ^ Keys { System::Collections::ICollection ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Collections.IDictionary.Keys</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.ICollection</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-258">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> 内のキーを格納している <see cref="T:System.Collections.ICollection" /> を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-258">Gets an <see cref="T:System.Collections.ICollection" /> containing the keys in the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="15efc-259">
+            <see cref="T:System.Collections.ICollection" /> 内のキーを格納している <see cref="T:System.Collections.Specialized.HybridDictionary" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-259">An <see cref="T:System.Collections.ICollection" /> containing the keys in the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-260">内の値の順序、<xref:System.Collections.ICollection>は指定しませんが、関連付けられている値と同じ順序、<xref:System.Collections.ICollection>によって返される、<xref:System.Collections.Specialized.HybridDictionary.Values%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="15efc-260">The order of the values in the <xref:System.Collections.ICollection> is unspecified, but it is the same order as the associated values in the <xref:System.Collections.ICollection> returned by the <xref:System.Collections.Specialized.HybridDictionary.Values%2A> method.</span></span>  
+  
+ <span data-ttu-id="15efc-261">返された<xref:System.Collections.ICollection>静的コピーではありません。 代わりに、、<xref:System.Collections.ICollection>は元のキーを逆参照<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-261">The returned <xref:System.Collections.ICollection> is not a static copy; instead, the <xref:System.Collections.ICollection> refers back to the keys in the original <xref:System.Collections.Specialized.HybridDictionary>.</span></span> <span data-ttu-id="15efc-262">そのため、変更、<xref:System.Collections.Specialized.HybridDictionary>に反映されるまでに続行、<xref:System.Collections.ICollection>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-262">Therefore, changes to the <xref:System.Collections.Specialized.HybridDictionary> continue to be reflected in the <xref:System.Collections.ICollection>.</span></span>  
+  
+ <span data-ttu-id="15efc-263">このプロパティ値を取得することは、O(1) 操作になります。</span><span class="sxs-lookup"><span data-stu-id="15efc-263">Retrieving the value of this property is an O(1) operation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-264">次のコード例は、の要素を列挙、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-264">The following code example enumerates the elements of a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CPP/hybriddictionary_enumerator.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CS/hybriddictionary_enumerator.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/VB/hybriddictionary_enumerator.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Collections.ICollection" />
+        <altmember cref="P:System.Collections.Specialized.HybridDictionary.Values" />
+      </Docs>
+    </Member>
+    <Member MemberName="Remove">
+      <MemberSignature Language="C#" Value="public void Remove (object key);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Remove(object key) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.Remove(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Remove (key As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Remove(System::Object ^ key);" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Collections.IDictionary.Remove(System.Object)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="key" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="key">
+          <span data-ttu-id="15efc-265">削除するエントリのキー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-265">The key of the entry to remove.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="15efc-266">指定したキーを持つエントリを <see cref="T:System.Collections.Specialized.HybridDictionary" /> から削除します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-266">Removes the entry with the specified key from the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-267">場合、<xref:System.Collections.Specialized.HybridDictionary>指定のキーを持つ要素が含まれていない、<xref:System.Collections.Specialized.HybridDictionary>は変更されません。</span><span class="sxs-lookup"><span data-stu-id="15efc-267">If the <xref:System.Collections.Specialized.HybridDictionary> does not contain an element with the specified key, the <xref:System.Collections.Specialized.HybridDictionary> remains unchanged.</span></span> <span data-ttu-id="15efc-268">例外をスローすることはありません。</span><span class="sxs-lookup"><span data-stu-id="15efc-268">No exception is thrown.</span></span>  
+  
+ <span data-ttu-id="15efc-269">コレクションに既に格納されている場合、<xref:System.Collections.Hashtable>要素の数が最適なサイズを下回ると、<xref:System.Collections.Specialized.ListDictionary>でのコレクションが、<xref:System.Collections.Hashtable>から要素のコピーのオーバーヘッドを回避する、<xref:System.Collections.Hashtable>に戻す、<xref:System.Collections.Specialized.ListDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-269">If the collection is already stored in a <xref:System.Collections.Hashtable> and the number of elements falls below the optimal size for a <xref:System.Collections.Specialized.ListDictionary>, the collection remains in the <xref:System.Collections.Hashtable> to avoid the overhead of copying elements from the <xref:System.Collections.Hashtable> back to a <xref:System.Collections.Specialized.ListDictionary>.</span></span>  
+  
+ <span data-ttu-id="15efc-270">このメソッドは、o (1) 操作です。</span><span class="sxs-lookup"><span data-stu-id="15efc-270">This method is an O(1) operation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-271">次のコード例に追加しから要素を削除、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-271">The following code example adds to and removes elements from a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_AddRemove#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_AddRemove/CPP/hybriddictionary_addremove.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_AddRemove#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_AddRemove/CS/hybriddictionary_addremove.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_AddRemove#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_AddRemove/VB/hybriddictionary_addremove.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="15efc-272">
+            <paramref name="key" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-272">
+              <paramref name="key" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Collections.Specialized.HybridDictionary.Add(System.Object,System.Object)" />
+        <altmember cref="M:System.Collections.IDictionary.Remove(System.Object)" />
+      </Docs>
+    </Member>
+    <Member MemberName="SyncRoot">
+      <MemberSignature Language="C#" Value="public object SyncRoot { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance object SyncRoot" />
+      <MemberSignature Language="DocId" Value="P:System.Collections.Specialized.HybridDictionary.SyncRoot" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property SyncRoot As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Object ^ SyncRoot { System::Object ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Collections.ICollection.SyncRoot</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-273">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> へのアクセスを同期するために使用できるオブジェクトを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-273">Gets an object that can be used to synchronize access to the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="15efc-274">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> へのアクセスの同期に使用できるオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-274">An object that can be used to synchronize access to the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-275">派生クラスは、独自の同期されたバージョンを指定できます、<xref:System.Collections.Specialized.HybridDictionary>を使用して、<xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="15efc-275">Derived classes can provide their own synchronized version of the <xref:System.Collections.Specialized.HybridDictionary> using the <xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A> property.</span></span> <span data-ttu-id="15efc-276">同期されたコードで操作を実行する必要があります、<xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A>の<xref:System.Collections.Specialized.HybridDictionary>、上で直接、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-276">The synchronizing code must perform operations on the <xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A> of the <xref:System.Collections.Specialized.HybridDictionary>, not directly on the <xref:System.Collections.Specialized.HybridDictionary>.</span></span> <span data-ttu-id="15efc-277">これにより、他のオブジェクトから派生したコレクションを適切に操作できるようになります。</span><span class="sxs-lookup"><span data-stu-id="15efc-277">This ensures proper operation of collections that are derived from other objects.</span></span> <span data-ttu-id="15efc-278">具体的には、同時に変更する可能性がある別スレッドとの適切な同期を維持、<xref:System.Collections.Specialized.HybridDictionary>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="15efc-278">Specifically, it maintains proper synchronization with other threads that might be simultaneously modifying the <xref:System.Collections.Specialized.HybridDictionary> object.</span></span>  
+  
+ <span data-ttu-id="15efc-279">コレクションの列挙は、本質的にスレッド セーフなプロシージャではありません。</span><span class="sxs-lookup"><span data-stu-id="15efc-279">Enumerating through a collection is intrinsically not a thread-safe procedure.</span></span> <span data-ttu-id="15efc-280">コレクションの同期がとられている場合でも、別のスレッドによってそのコレクションを変更できるため、変更の結果として列挙子は例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="15efc-280">Even when a collection is synchronized, other threads can still modify the collection, which causes the enumerator to throw an exception.</span></span> <span data-ttu-id="15efc-281">列挙処理を確実にスレッド セーフに行うには、列挙中にコレクションをロックするか、他のスレッドによって行われた変更によってスローされる例外をキャッチします。</span><span class="sxs-lookup"><span data-stu-id="15efc-281">To guarantee thread safety during enumeration, you can either lock the collection during the entire enumeration or catch the exceptions resulting from changes made by other threads.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-282">次のコード例を使用してコレクションをロックする方法を示しています、<xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A>列挙中にします。</span><span class="sxs-lookup"><span data-stu-id="15efc-282">The following code example shows how to lock the collection using the <xref:System.Collections.Specialized.HybridDictionary.SyncRoot%2A> during the entire enumeration.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary2#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CPP/source2.cpp#3)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary2#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/CS/source2.cs#3)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary2#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary2/VB/source2.vb#3)]  
+  
+ <span data-ttu-id="15efc-283">このプロパティ値を取得することは、O(1) 操作になります。</span><span class="sxs-lookup"><span data-stu-id="15efc-283">Retrieving the value of this property is an O(1) operation.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Collections.Specialized.HybridDictionary.IsSynchronized" />
+      </Docs>
+    </Member>
+    <Member MemberName="System.Collections.IEnumerable.GetEnumerator">
+      <MemberSignature Language="C#" Value="System.Collections.IEnumerator IEnumerable.GetEnumerator ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Collections.Specialized.HybridDictionary.System#Collections#IEnumerable#GetEnumerator" />
+      <MemberSignature Language="VB.NET" Value="Function GetEnumerator () As IEnumerator Implements IEnumerable.GetEnumerator" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::Collections::IEnumerator ^ System.Collections.IEnumerable.GetEnumerator() = System::Collections::IEnumerable::GetEnumerator;" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Collections.IEnumerable.GetEnumerator</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.IEnumerator</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-284">
+            <see cref="T:System.Collections.Specialized.HybridDictionary" /> を反復処理する <see cref="T:System.Collections.IEnumerator" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-284">Returns an <see cref="T:System.Collections.IEnumerator" /> that iterates through the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="15efc-285">
+            <see cref="T:System.Collections.IEnumerator" /> の <see cref="T:System.Collections.Specialized.HybridDictionary" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-285">An <see cref="T:System.Collections.IEnumerator" /> for the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-286">C# 言語の `foreach` ステートメント (Visual Basic の場合は `for each`) を使用することで列挙子の複雑さを回避できます。</span><span class="sxs-lookup"><span data-stu-id="15efc-286">The `foreach` statement of the C# language (`for each` in Visual Basic) hides the complexity of the enumerators.</span></span>  <span data-ttu-id="15efc-287">したがって、列挙子を直接操作するのではなく、`foreach` を使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="15efc-287">Therefore, using `foreach` is recommended, instead of directly manipulating the enumerator.</span></span>  
+  
+ <span data-ttu-id="15efc-288">列挙子を使用すると、コレクション内のデータを読み取ることができますが、基になるコレクションを変更することはできません。</span><span class="sxs-lookup"><span data-stu-id="15efc-288">Enumerators can be used to read the data in the collection, but they cannot be used to modify the underlying collection.</span></span>  
+  
+ <span data-ttu-id="15efc-289">最初に、列挙子はコレクション内の 1 番目の要素の前に位置付けられます。</span><span class="sxs-lookup"><span data-stu-id="15efc-289">Initially, the enumerator is positioned before the first element in the collection.</span></span> <span data-ttu-id="15efc-290"><xref:System.Collections.IEnumerator.Reset%2A> を実行した場合も、列挙子はこの位置に戻されます。</span><span class="sxs-lookup"><span data-stu-id="15efc-290"><xref:System.Collections.IEnumerator.Reset%2A> also brings the enumerator back to this position.</span></span> <span data-ttu-id="15efc-291">この位置で、呼び出す<xref:System.Collections.IEnumerator.Current%2A>例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="15efc-291">At this position, calling <xref:System.Collections.IEnumerator.Current%2A> throws an exception.</span></span> <span data-ttu-id="15efc-292">そのため、<xref:System.Collections.IEnumerator.MoveNext%2A> の値を読み取る前に、<xref:System.Collections.IEnumerator.Current%2A> を呼び出して列挙子をコレクションの最初の要素に進める必要があります。</span><span class="sxs-lookup"><span data-stu-id="15efc-292">Therefore, you must call <xref:System.Collections.IEnumerator.MoveNext%2A> to advance the enumerator to the first element of the collection before reading the value of <xref:System.Collections.IEnumerator.Current%2A>.</span></span>  
+  
+ <span data-ttu-id="15efc-293"><xref:System.Collections.IEnumerator.Current%2A> は、<xref:System.Collections.IEnumerator.MoveNext%2A> または <xref:System.Collections.IEnumerator.Reset%2A> が呼び出されるまでは同じオブジェクトを返します。</span><span class="sxs-lookup"><span data-stu-id="15efc-293"><xref:System.Collections.IEnumerator.Current%2A> returns the same object until either <xref:System.Collections.IEnumerator.MoveNext%2A> or <xref:System.Collections.IEnumerator.Reset%2A> is called.</span></span> <span data-ttu-id="15efc-294"><xref:System.Collections.IEnumerator.MoveNext%2A> は、<xref:System.Collections.IEnumerator.Current%2A> を次の要素に設定します。</span><span class="sxs-lookup"><span data-stu-id="15efc-294"><xref:System.Collections.IEnumerator.MoveNext%2A> sets <xref:System.Collections.IEnumerator.Current%2A> to the next element.</span></span>  
+  
+ <span data-ttu-id="15efc-295">場合<xref:System.Collections.IEnumerator.MoveNext%2A>列挙子をコレクションの末尾が、コレクション内の最後の要素の後に配置されているパスと<xref:System.Collections.IEnumerator.MoveNext%2A>返します`false`です。</span><span class="sxs-lookup"><span data-stu-id="15efc-295">If <xref:System.Collections.IEnumerator.MoveNext%2A> passes the end of the collection, the enumerator is positioned after the last element in the collection and <xref:System.Collections.IEnumerator.MoveNext%2A> returns `false`.</span></span> <span data-ttu-id="15efc-296">列挙子がこの位置では、後続の呼び出しの場合<xref:System.Collections.IEnumerator.MoveNext%2A>を返すことも`false`します。</span><span class="sxs-lookup"><span data-stu-id="15efc-296">When the enumerator is at this position, subsequent calls to <xref:System.Collections.IEnumerator.MoveNext%2A> also return `false`.</span></span> <span data-ttu-id="15efc-297">場合は、最後の呼び出し<xref:System.Collections.IEnumerator.MoveNext%2A>返される`false`、呼び出し元<xref:System.Collections.IEnumerator.Current%2A>例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="15efc-297">If the last call to <xref:System.Collections.IEnumerator.MoveNext%2A> returned `false`, calling <xref:System.Collections.IEnumerator.Current%2A> throws an exception.</span></span> <span data-ttu-id="15efc-298"><xref:System.Collections.IEnumerator.Current%2A> をコレクションの最初の要素にもう一度設定するには、<xref:System.Collections.IEnumerator.Reset%2A> を呼び出してから <xref:System.Collections.IEnumerator.MoveNext%2A> を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="15efc-298">To set <xref:System.Collections.IEnumerator.Current%2A> to the first element of the collection again, you can call <xref:System.Collections.IEnumerator.Reset%2A> followed by <xref:System.Collections.IEnumerator.MoveNext%2A>.</span></span>  
+  
+ <span data-ttu-id="15efc-299">コレクションが変更されない限り、列挙子は有効です。</span><span class="sxs-lookup"><span data-stu-id="15efc-299">An enumerator remains valid as long as the collection remains unchanged.</span></span> <span data-ttu-id="15efc-300">無効になり、次の呼び出しに変更を追加するなど、コレクションを変更、または要素を削除するには、列挙子は回復不可能<xref:System.Collections.IEnumerator.MoveNext%2A>または<xref:System.Collections.IEnumerator.Reset%2A>スロー、<xref:System.InvalidOperationException>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-300">If changes are made to the collection, such as adding, modifying, or deleting elements, the enumerator is irrecoverably invalidated and the next call to <xref:System.Collections.IEnumerator.MoveNext%2A> or <xref:System.Collections.IEnumerator.Reset%2A> throws an <xref:System.InvalidOperationException>.</span></span> <span data-ttu-id="15efc-301">間で、コレクションが変更された場合<xref:System.Collections.IEnumerator.MoveNext%2A>と<xref:System.Collections.IEnumerator.Current%2A>、<xref:System.Collections.IEnumerator.Current%2A>列挙子が既に無効になっている場合でもに設定されている要素を返します。</span><span class="sxs-lookup"><span data-stu-id="15efc-301">If the collection is modified between <xref:System.Collections.IEnumerator.MoveNext%2A> and <xref:System.Collections.IEnumerator.Current%2A>, <xref:System.Collections.IEnumerator.Current%2A> returns the element that it is set to, even if the enumerator is already invalidated.</span></span>  
+  
+ <span data-ttu-id="15efc-302">列挙子にはコレクションへの排他アクセス権限はないため、コレクションの列挙処理は本質的にスレッド セーフな処理ではありません。</span><span class="sxs-lookup"><span data-stu-id="15efc-302">The enumerator does not have exclusive access to the collection; therefore, enumerating through a collection is intrinsically not a thread-safe procedure.</span></span> <span data-ttu-id="15efc-303">コレクションの同期がとられている場合でも、別のスレッドによってそのコレクションを変更できるため、変更の結果として列挙子は例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="15efc-303">Even when a collection is synchronized, other threads can still modify the collection, which causes the enumerator to throw an exception.</span></span> <span data-ttu-id="15efc-304">列挙処理を確実にスレッド セーフに行うには、列挙中にコレクションをロックするか、他のスレッドによって行われた変更によってスローされる例外をキャッチします。</span><span class="sxs-lookup"><span data-stu-id="15efc-304">To guarantee thread safety during enumeration, you can either lock the collection during the entire enumeration or catch the exceptions resulting from changes made by other threads.</span></span>  
+  
+ <span data-ttu-id="15efc-305">このメソッドは、o (1) 操作です。</span><span class="sxs-lookup"><span data-stu-id="15efc-305">This method is an O(1) operation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-306">次のコード例は、の要素を列挙、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-306">The following code example enumerates the elements of a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CPP/hybriddictionary_enumerator.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CS/hybriddictionary_enumerator.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/VB/hybriddictionary_enumerator.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Collections.IDictionaryEnumerator" />
+        <altmember cref="T:System.Collections.IEnumerator" />
+      </Docs>
+    </Member>
+    <Member MemberName="Values">
+      <MemberSignature Language="C#" Value="public System.Collections.ICollection Values { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.ICollection Values" />
+      <MemberSignature Language="DocId" Value="P:System.Collections.Specialized.HybridDictionary.Values" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Values As ICollection" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Collections::ICollection ^ Values { System::Collections::ICollection ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Collections.IDictionary.Values</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Collections.Specialized</AssemblyName>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.ICollection</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="15efc-307">
+            <see cref="T:System.Collections.ICollection" /> 内の値を格納している <see cref="T:System.Collections.Specialized.HybridDictionary" /> を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-307">Gets an <see cref="T:System.Collections.ICollection" /> containing the values in the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="15efc-308">
+            <see cref="T:System.Collections.ICollection" /> 内の値を格納している <see cref="T:System.Collections.Specialized.HybridDictionary" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="15efc-308">An <see cref="T:System.Collections.ICollection" /> containing the values in the <see cref="T:System.Collections.Specialized.HybridDictionary" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="15efc-309">内の値の順序、<xref:System.Collections.ICollection>は指定しませんが、関連付けられているキーと同じ順序、<xref:System.Collections.ICollection>によって返される、<xref:System.Collections.Specialized.HybridDictionary.Keys%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="15efc-309">The order of the values in the <xref:System.Collections.ICollection> is unspecified, but it is the same order as the associated keys in the <xref:System.Collections.ICollection> returned by the <xref:System.Collections.Specialized.HybridDictionary.Keys%2A> method.</span></span>  
+  
+ <span data-ttu-id="15efc-310">返された<xref:System.Collections.ICollection>静的コピーではありません。 代わりに、、<xref:System.Collections.ICollection>は元の値を逆参照<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-310">The returned <xref:System.Collections.ICollection> is not a static copy; instead, the <xref:System.Collections.ICollection> refers back to the values in the original <xref:System.Collections.Specialized.HybridDictionary>.</span></span> <span data-ttu-id="15efc-311">そのため、変更、<xref:System.Collections.Specialized.HybridDictionary>に反映されるまでに続行、<xref:System.Collections.ICollection>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-311">Therefore, changes to the <xref:System.Collections.Specialized.HybridDictionary> continue to be reflected in the <xref:System.Collections.ICollection>.</span></span>  
+  
+ <span data-ttu-id="15efc-312">このプロパティ値を取得することは、O(1) 操作になります。</span><span class="sxs-lookup"><span data-stu-id="15efc-312">Retrieving the value of this property is an O(1) operation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="15efc-313">次のコード例は、の要素を列挙、<xref:System.Collections.Specialized.HybridDictionary>です。</span><span class="sxs-lookup"><span data-stu-id="15efc-313">The following code example enumerates the elements of a <xref:System.Collections.Specialized.HybridDictionary>.</span></span>  
+  
+ [!code-cpp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CPP/hybriddictionary_enumerator.cpp#1)]
+ [!code-csharp[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/CS/hybriddictionary_enumerator.cs#1)]
+ [!code-vb[System.Collections.Specialized.HybridDictionary_Enumerator#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Collections.Specialized.HybridDictionary_Enumerator/VB/hybriddictionary_enumerator.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Collections.ICollection" />
+        <altmember cref="P:System.Collections.Specialized.HybridDictionary.Keys" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

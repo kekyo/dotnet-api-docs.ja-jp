@@ -1,0 +1,131 @@
+<Type Name="QueryActivatableWorkflowsCommand" FullName="System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="5776d029e5299694b291788bb65507b3d90bc842" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class QueryActivatableWorkflowsCommand : System.Runtime.DurableInstancing.InstancePersistenceCommand" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit QueryActivatableWorkflowsCommand extends System.Runtime.DurableInstancing.InstancePersistenceCommand" />
+  <TypeSignature Language="DocId" Value="T:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class QueryActivatableWorkflowsCommand&#xA;Inherits InstancePersistenceCommand" />
+  <TypeSignature Language="C++ CLI" Value="public ref class QueryActivatableWorkflowsCommand sealed : System::Runtime::DurableInstancing::InstancePersistenceCommand" />
+  <AssemblyInfo>
+    <AssemblyName>System.Activities</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Runtime.DurableInstancing.InstancePersistenceCommand</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="d5204-101">アクティブ化パラメーターを取得するために、汎用ホストがインスタンス ストアに対して実行するコマンドを表します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="d5204-101">Represents the command that a generic host executes against an instance store to retrieve activation parameters.</span>
+      </span>
+      <span data-ttu-id="d5204-102">汎用ホストは、これらのアクティブ化パラメーターを使用してワークフロー ホストを作成します。作成されたワークフロー ホストは、実行可能サービス インスタンスを読み込みます。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="d5204-102">The generic host uses these activation parameters to create a workflow host, which in turn loads a runnable service instance.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d5204-103">インスタンスが*アクティブ化可能な*を場合、その中断状態または完了状態ではなく、次の条件を満たします。</span><span class="sxs-lookup"><span data-stu-id="d5204-103">An instance is *activatable*, if it is not in the suspended state or the completed state and satisfies the following conditions:</span></span>  
+  
+-   <span data-ttu-id="d5204-104">インスタンスが*runnable*です。</span><span class="sxs-lookup"><span data-stu-id="d5204-104">The instance is *runnable*.</span></span> <span data-ttu-id="d5204-105">永続性データベースのインスタンスが次の条件を満たしている場合は、実行可能と見なされます。</span><span class="sxs-lookup"><span data-stu-id="d5204-105">An instance in the persistence database is considered as runnable if it satisfies the following conditions:</span></span>  
+  
+    -   <span data-ttu-id="d5204-106">インスタンスがロック解除されていて、保留タイマーの期限が切れている。</span><span class="sxs-lookup"><span data-stu-id="d5204-106">The instance is unlocked and has a pending timer that has expired.</span></span>  
+  
+    -   <span data-ttu-id="d5204-107">インスタンスのロックが解除されていると、その状態が**Executing**です。</span><span class="sxs-lookup"><span data-stu-id="d5204-107">The instance is unlocked and its status is **Executing**.</span></span>  
+  
+    -   <span data-ttu-id="d5204-108">インスタンスに期限切れのロックがある。</span><span class="sxs-lookup"><span data-stu-id="d5204-108">The instance has an expired lock on it.</span></span>  
+  
+-   <span data-ttu-id="d5204-109">ローカル コンピューターで実行されているインスタンスを読み込むことができるワークフロー ホストがない。</span><span class="sxs-lookup"><span data-stu-id="d5204-109">There is no workflow host capable of loading the instance is running on the local computer.</span></span>  
+  
+ <span data-ttu-id="d5204-110">インスタンス ストアは、そのストアを使用するワークフロー ホストに属しているアクティブ化可能なワークフロー インスタンスを定期的に検索します。</span><span class="sxs-lookup"><span data-stu-id="d5204-110">An instance store should periodically search for activatable workflow instances that belong to a workflow host that uses the store.</span></span> <span data-ttu-id="d5204-111">永続化ストアにアクティブ化可能なインスタンスが見つかると、<xref:System.Activities.DurableInstancing.HasActivatableWorkflowEvent> を発生させます。</span><span class="sxs-lookup"><span data-stu-id="d5204-111">It should raise the <xref:System.Activities.DurableInstancing.HasActivatableWorkflowEvent> when it finds an activatable instance in the persistence store.</span></span> <span data-ttu-id="d5204-112">永続化ストアにアクティブ化可能なインスタンスが見つからない場合は、永続化ストアでのアクティブ化可能なインスタンスの監視を続行します。</span><span class="sxs-lookup"><span data-stu-id="d5204-112">If the instance store does not find an activatable instance in the persistence store, it should continue to monitor the persistence store for any activatable instances.</span></span>  
+  
+ <span data-ttu-id="d5204-113">HasActivatableWorkflowEvent を発生させた場合は、<xref:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand> を受け取って実行するまで、永続化ストアでのアクティブ化可能なインスタンスの監視を停止します。</span><span class="sxs-lookup"><span data-stu-id="d5204-113">After raising the HasActivatableWorkflowEvent, the instance store should stop monitoring the persistence store for activatable instances until it receives and executes the <xref:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand>.</span></span> <span data-ttu-id="d5204-114">このコマンドを実行してもアクティブ化可能なワークフロー インスタンスが返されない場合のみ、監視を続行します。</span><span class="sxs-lookup"><span data-stu-id="d5204-114">The monitoring continues only if the command execution does not return any activatable workflow instances.</span></span>  
+  
+ <span data-ttu-id="d5204-115">このイベントを受け取った汎用ホストは、インスタンス ストアに対して <xref:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand> を実行して、ワークフロー ホストの作成に必要なアクティブ化パラメーターを取得します。</span><span class="sxs-lookup"><span data-stu-id="d5204-115">When a generic host receives this event, it executes the <xref:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand> against the instance store to obtain activation parameters required to create a workflow host.</span></span> <span data-ttu-id="d5204-116">これらのアクティブ化パラメーターを使用してワークフロー ホストを作成します。作成されたワークフロー ホストは、サービス インスタンスを読み込んで実行します。</span><span class="sxs-lookup"><span data-stu-id="d5204-116">The generic host uses these activation parameters to create a workflow host, which in turn loads and runs the service instance.</span></span> <span data-ttu-id="d5204-117">WAS アクティブ化型のアクティブ化パラメーターは、サイト名、(サイトを基準とする) アプリケーション パス、および (アプリケーションを基準とする) サービス パスです。</span><span class="sxs-lookup"><span data-stu-id="d5204-117">The activation parameters for the WAS activation type are: Site Name, Application Path (relative to the site), and Service Path (relative to the application).</span></span> <span data-ttu-id="d5204-118">インスタンス ストアは、これら 3 つのアクティブ化パラメーターの複数のセットを返すことがあります。</span><span class="sxs-lookup"><span data-stu-id="d5204-118">An instance store could return multiple sets of these three activation parameters.</span></span>  
+  
+ <span data-ttu-id="d5204-119">汎用ホストはという XName パラメーターを持つホスト**ActivationType**、これは、インスタンス ストアでサポートされる値に設定してください。</span><span class="sxs-lookup"><span data-stu-id="d5204-119">A generic host is a host that has an XName parameter named **ActivationType**, which should be set to a value supported by the instance store.</span></span> <span data-ttu-id="d5204-120">現時点では、SQL Workflow Instance Store は ActivationType パラメーターの値を設定した汎用ホストをサポートしています: **WAS**です。</span><span class="sxs-lookup"><span data-stu-id="d5204-120">Currently, the SQL Workflow Instance Store supports generic hosts with ActivationType parameter set to value: **WAS**.</span></span> <span data-ttu-id="d5204-121">ActivationType が設定されていない場合、そのホストは汎用ホストと見なされます。</span><span class="sxs-lookup"><span data-stu-id="d5204-121">If the ActivationType is not set at all, the SQL Workflow Instance Store treats the host as a generic host.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="d5204-122">ネーム"Dublin"(.NET 4.0 用アプリケーション サーバーの拡張) をコードに付属するワークフロー管理サービスが、ライセンス認証の種類に設定された汎用ホストは、 **WAS**です。</span><span class="sxs-lookup"><span data-stu-id="d5204-122">The Workflow Management Service that ships with the code named "Dublin" (Application Server Extensions for .NET 4.0) is a generic host that has the activation type set to **WAS**.</span></span>  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public QueryActivatableWorkflowsCommand ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; QueryActivatableWorkflowsCommand();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Activities</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="d5204-123">
+            <see cref="T:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand" /> クラスのインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d5204-123">Initializes an instance of the <see cref="T:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand" /> class.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsTransactionEnlistmentOptional">
+      <MemberSignature Language="C#" Value="protected internal override bool IsTransactionEnlistmentOptional { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsTransactionEnlistmentOptional" />
+      <MemberSignature Language="DocId" Value="P:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand.IsTransactionEnlistmentOptional" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overrides ReadOnly Property IsTransactionEnlistmentOptional As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual property bool IsTransactionEnlistmentOptional { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Activities</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Validate">
+      <MemberSignature Language="C#" Value="protected internal override void Validate (System.Runtime.DurableInstancing.InstanceView view);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig virtual instance void Validate(class System.Runtime.DurableInstancing.InstanceView view) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Activities.DurableInstancing.QueryActivatableWorkflowsCommand.Validate(System.Runtime.DurableInstancing.InstanceView)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overrides Sub Validate (view As InstanceView)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; override void Validate(System::Runtime::DurableInstancing::InstanceView ^ view);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Activities</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="view" Type="System.Runtime.DurableInstancing.InstanceView" />
+      </Parameters>
+      <Docs>
+        <param name="view">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

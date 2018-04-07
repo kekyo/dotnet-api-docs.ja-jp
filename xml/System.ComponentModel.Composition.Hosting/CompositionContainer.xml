@@ -1,0 +1,984 @@
+<Type Name="CompositionContainer" FullName="System.ComponentModel.Composition.Hosting.CompositionContainer">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="531be8b9445e82ab2acefc549474a24be1a166d3" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class CompositionContainer : System.ComponentModel.Composition.Hosting.ExportProvider, IDisposable, System.ComponentModel.Composition.ICompositionService" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit CompositionContainer extends System.ComponentModel.Composition.Hosting.ExportProvider implements class System.ComponentModel.Composition.ICompositionService, class System.IDisposable" />
+  <TypeSignature Language="DocId" Value="T:System.ComponentModel.Composition.Hosting.CompositionContainer" />
+  <TypeSignature Language="VB.NET" Value="Public Class CompositionContainer&#xA;Inherits ExportProvider&#xA;Implements ICompositionService, IDisposable" />
+  <TypeSignature Language="C++ CLI" Value="public ref class CompositionContainer : System::ComponentModel::Composition::Hosting::ExportProvider, IDisposable, System::ComponentModel::Composition::ICompositionService" />
+  <AssemblyInfo>
+    <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.ComponentModel.Composition.Hosting.ExportProvider</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.ComponentModel.Composition.ICompositionService</InterfaceName>
+    </Interface>
+    <Interface>
+      <InterfaceName>System.IDisposable</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="656da-101">パーツの合成を管理します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="656da-101">Manages the composition of parts.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="656da-102">A<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>オブジェクトは、アプリケーションで 2 つの主要な目的を提供します。</span><span class="sxs-lookup"><span data-stu-id="656da-102">A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object serves two major purposes in an application.</span></span> <span data-ttu-id="656da-103">最初に、その追跡コンポジションにのどの部分があり、その依存関係とは何かと、一連の使用可能な部分が変更されるたびに、合成を実行します。</span><span class="sxs-lookup"><span data-stu-id="656da-103">First, it keeps track of which parts are available for composition and what their dependencies are, and performs composition whenever the set of available parts changes.</span></span> <span data-ttu-id="656da-104">次に、アプリケーションをされたパーツのインスタンスを取得またはコンポーザブル パーツの依存関係を設定するメソッドを提供します。</span><span class="sxs-lookup"><span data-stu-id="656da-104">Second, it provides the methods by which the application gets instances of composed parts or fills the dependencies of a composable part.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="656da-105">この型は、<xref:System.IDisposable>インターフェイスです。</span><span class="sxs-lookup"><span data-stu-id="656da-105">This type implements the <xref:System.IDisposable> interface.</span></span> <span data-ttu-id="656da-106">型を使用してが完了したらを直接的または間接的にその破棄する必要があります。</span><span class="sxs-lookup"><span data-stu-id="656da-106">When you have finished using the type, you should dispose of it either directly or indirectly.</span></span> <span data-ttu-id="656da-107">型の直接 dispose を呼び出す、<xref:System.IDisposable.Dispose%2A>メソッドで、 `try` / `catch`ブロックします。</span><span class="sxs-lookup"><span data-stu-id="656da-107">To dispose of the type directly, call its <xref:System.IDisposable.Dispose%2A> method in a `try`/`catch` block.</span></span> <span data-ttu-id="656da-108">直接ことのない破棄する場合など、言語コンストラクトを使用して`using`(C# の場合) または`Using`(Visual Basic で)。</span><span class="sxs-lookup"><span data-stu-id="656da-108">To dispose of it indirectly, use a language construct such as `using` (in C#) or `Using` (in Visual Basic).</span></span> <span data-ttu-id="656da-109">詳細についてを参照してください"を使用して、オブジェクトを実装する IDisposable"、<xref:System.IDisposable>インターフェイスに関するトピック。</span><span class="sxs-lookup"><span data-stu-id="656da-109">For more information, see the "Using an Object that Implements IDisposable" section in the <xref:System.IDisposable> interface topic.</span></span>  
+  
+ <span data-ttu-id="656da-110">部分が利用できるコンテナーにするか、直接または、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="656da-110">Parts can be made available to the container either directly or through the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog%2A> property.</span></span> <span data-ttu-id="656da-111">この探索可能なすべての部分<xref:System.ComponentModel.Composition.Primitives.ComposablePartCatalog>と共にに直接追加するすべてのパートのインポートを満たすために、コンテナーに利用できます。</span><span class="sxs-lookup"><span data-stu-id="656da-111">All the parts discoverable in this <xref:System.ComponentModel.Composition.Primitives.ComposablePartCatalog> are available to the container to fulfill imports, along with any parts added directly.</span></span>  
+  
+ <span data-ttu-id="656da-112"><xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A>メソッドにより、既存のコンテナーに追加する部分をインスタンス化します。</span><span class="sxs-lookup"><span data-stu-id="656da-112">The <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A> method allows instantiated parts to be added to an existing container.</span></span> <span data-ttu-id="656da-113">合成が成功したと仮定した場合、これらのパートがコンテナーから取得したパーツで埋められたインポートあり、それらのエクスポートできるようにするその他の部分です。</span><span class="sxs-lookup"><span data-stu-id="656da-113">Assuming composition is successful, these parts will have their imports filled with parts retrieved from the container, and their exports will be available to other parts.</span></span> <span data-ttu-id="656da-114">再合成可能としてマークされているインポートは、再構成されるように登録されます。</span><span class="sxs-lookup"><span data-stu-id="656da-114">Imports marked as recomposable will be registered for recomposition.</span></span>  
+  
+ <span data-ttu-id="656da-115"><xref:System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce%2A>メソッドを使用して、そのインポートをコンテナーに追加しなくても入力部分。</span><span class="sxs-lookup"><span data-stu-id="656da-115">The <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce%2A> method allows a part to have its imports filled without being added to the container.</span></span> <span data-ttu-id="656da-116">合成が成功した場合は、そのパートのインポートがいっぱいになるが、パーツのエクスポートは他の部分を使用できず、再構成のインポートは登録されません。</span><span class="sxs-lookup"><span data-stu-id="656da-116">If the composition is successful, the part's imports will be filled, but the part's exports will not be available to other parts and no imports will be registered for recomposition.</span></span>  
+  
+ <span data-ttu-id="656da-117"><xref:System.ComponentModel.Composition.Hosting.CompositionContainer> オブジェクトを破棄することが常にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="656da-117"><xref:System.ComponentModel.Composition.Hosting.CompositionContainer> objects should always be disposed.</span></span> <span data-ttu-id="656da-118">ときに、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose%2A>メソッドが呼び出されると、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>オブジェクトが作成されるすべての部分を破棄します。</span><span class="sxs-lookup"><span data-stu-id="656da-118">When the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose%2A> method is called, the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object also disposes all the parts that it has created.</span></span>  
+  
+ <span data-ttu-id="656da-119">A<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>で複数のスレッドからアクセスできるオブジェクトを構築する必要があります、`isThreadSafe`パラメーターに設定`true`を使用して、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer.%23ctor%28System.ComponentModel.Composition.Primitives.ComposablePartCatalog%2CSystem.Boolean%2CSystem.ComponentModel.Composition.Hosting.ExportProvider%5B%5D%29>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="656da-119">A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object that can be accessed from multiple threads must be constructed with the `isThreadSafe` parameter set to `true`, using the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.%23ctor%28System.ComponentModel.Composition.Primitives.ComposablePartCatalog%2CSystem.Boolean%2CSystem.ComponentModel.Composition.Hosting.ExportProvider%5B%5D%29> constructor.</span></span> <span data-ttu-id="656da-120">パフォーマンスがわずかに低下時をする`isThreadSafe`は`true`ために、このパラメーターを設定することをお勧め、`false`シングル スレッドのシナリオでします。</span><span class="sxs-lookup"><span data-stu-id="656da-120">Performance will be slightly slower when `isThreadSafe` is `true`, so we recommend that you set this parameter to `false` in single-threaded scenarios.</span></span> <span data-ttu-id="656da-121">既定値は、`false` です。</span><span class="sxs-lookup"><span data-stu-id="656da-121">The default is `false`.</span></span>  
+  
+> [!WARNING]
+>  <span data-ttu-id="656da-122">A<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>自体、またはをへの参照を持つパートをインポートしないでください。</span><span class="sxs-lookup"><span data-stu-id="656da-122">A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> should never import itself, or a part that has a reference to it.</span></span> <span data-ttu-id="656da-123">このような参照は、アクセスするために、コンテナー内のすべての部分、信頼されていない部分を許可できます。</span><span class="sxs-lookup"><span data-stu-id="656da-123">Such a reference could allow an untrusted part to gain access all the parts in the container.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="656da-124">次の例で、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>オブジェクトがカタログに初期化され、パートのインポートの塗りつぶしに使用します。</span><span class="sxs-lookup"><span data-stu-id="656da-124">In the following example, a <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object is initialized with a catalog and is used to fill the imports of a part.</span></span> <span data-ttu-id="656da-125">この例では、属性付きプログラミング モデルを使用します。</span><span class="sxs-lookup"><span data-stu-id="656da-125">This example uses the Attributed Programming Model.</span></span>  
+  
+ [!code-csharp[Composition.CompositionContainer#1](~/samples/snippets/csharp/VS_Snippets_Misc/composition.compositioncontainer/cs/program.cs#1)]
+ [!code-vb[Composition.CompositionContainer#1](~/samples/snippets/visualbasic/VS_Snippets_Misc/composition.compositioncontainer/vb/module1.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="656da-126">
+            <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-126">Initializes a new instance of the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public CompositionContainer ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; CompositionContainer();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="656da-127">
+            <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-127">Initializes a new instance of the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> class.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public CompositionContainer (params System.ComponentModel.Composition.Hosting.ExportProvider[] providers);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.ComponentModel.Composition.Hosting.ExportProvider[] providers) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Hosting.ExportProvider[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (ParamArray providers As ExportProvider())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; CompositionContainer(... cli::array &lt;System::ComponentModel::Composition::Hosting::ExportProvider ^&gt; ^ providers);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="providers" Type="System.ComponentModel.Composition.Hosting.ExportProvider[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="providers">
+          <span data-ttu-id="656da-128">
+            <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> オブジェクトへの <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> アクセスを提供する <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトの配列。<see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> を空の <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> に設定する場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-128">An array of <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> objects that provide the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> access to <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects, or <see langword="null" /> to set <see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> to an empty <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-129">エクスポート プロバイダーを指定して、<see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-129">Initializes a new instance of the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> class with the specified export providers.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="656da-130">
+            <paramref name="providers" /> には <see langword="null" /> の要素が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-130">
+              <paramref name="providers" /> contains an element that is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public CompositionContainer (System.ComponentModel.Composition.Hosting.CompositionOptions compositionOptions, params System.ComponentModel.Composition.Hosting.ExportProvider[] providers);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.ComponentModel.Composition.Hosting.CompositionOptions compositionOptions, class System.ComponentModel.Composition.Hosting.ExportProvider[] providers) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Hosting.CompositionOptions,System.ComponentModel.Composition.Hosting.ExportProvider[])" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; CompositionContainer(System::ComponentModel::Composition::Hosting::CompositionOptions compositionOptions, ... cli::array &lt;System::ComponentModel::Composition::Hosting::ExportProvider ^&gt; ^ providers);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="compositionOptions" Type="System.ComponentModel.Composition.Hosting.CompositionOptions" />
+        <Parameter Name="providers" Type="System.ComponentModel.Composition.Hosting.ExportProvider[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="compositionOptions">
+          <span data-ttu-id="656da-131">このコンテナーの動作を指定するオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-131">An object that specifies the behavior of this container.</span>
+          </span>
+        </param>
+        <param name="providers">
+          <span data-ttu-id="656da-132">
+            <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> オブジェクトへの <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> アクセスを提供する <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトの配列。<see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> を空の <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> に設定する場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-132">An array of <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> objects that provide the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> access to <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects, or <see langword="null" /> to set <see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> to an empty <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-133">指定したエクスポート プロバイダーとオプションを使用して、<see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-133">Initializes a new instance of the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> class with the specified export providers and options.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="656da-134">
+            <paramref name="providers" /> には <see langword="null" /> の要素が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-134">
+              <paramref name="providers" /> contains an element that is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public CompositionContainer (System.ComponentModel.Composition.Primitives.ComposablePartCatalog catalog, params System.ComponentModel.Composition.Hosting.ExportProvider[] providers);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.ComponentModel.Composition.Primitives.ComposablePartCatalog catalog, class System.ComponentModel.Composition.Hosting.ExportProvider[] providers) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.ComponentModel.Composition.Hosting.ExportProvider[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (catalog As ComposablePartCatalog, ParamArray providers As ExportProvider())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; CompositionContainer(System::ComponentModel::Composition::Primitives::ComposablePartCatalog ^ catalog, ... cli::array &lt;System::ComponentModel::Composition::Hosting::ExportProvider ^&gt; ^ providers);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="catalog" Type="System.ComponentModel.Composition.Primitives.ComposablePartCatalog" />
+        <Parameter Name="providers" Type="System.ComponentModel.Composition.Hosting.ExportProvider[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="catalog">
+          <span data-ttu-id="656da-135">
+            <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> に <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> オブジェクトを提供するカタログ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-135">A catalog that provides <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects to the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" />.</span>
+          </span>
+        </param>
+        <param name="providers">
+          <span data-ttu-id="656da-136">
+            <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> オブジェクトへの <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> アクセスを提供する <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトの配列。<see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> を空の <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> に設定する場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-136">An array of <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> objects that provide the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> access to <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects, or <see langword="null" /> to set <see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> to an empty <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-137">カタログとエクスポート プロバイダーを指定して、<see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-137">Initializes a new instance of the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> class with the specified catalog and export providers.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="656da-138">
+            <paramref name="providers" /> には <see langword="null" /> の要素が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-138">
+              <paramref name="providers" /> contains an element that is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public CompositionContainer (System.ComponentModel.Composition.Primitives.ComposablePartCatalog catalog, bool isThreadSafe, params System.ComponentModel.Composition.Hosting.ExportProvider[] providers);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.ComponentModel.Composition.Primitives.ComposablePartCatalog catalog, bool isThreadSafe, class System.ComponentModel.Composition.Hosting.ExportProvider[] providers) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.Boolean,System.ComponentModel.Composition.Hosting.ExportProvider[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (catalog As ComposablePartCatalog, isThreadSafe As Boolean, ParamArray providers As ExportProvider())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; CompositionContainer(System::ComponentModel::Composition::Primitives::ComposablePartCatalog ^ catalog, bool isThreadSafe, ... cli::array &lt;System::ComponentModel::Composition::Hosting::ExportProvider ^&gt; ^ providers);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="catalog" Type="System.ComponentModel.Composition.Primitives.ComposablePartCatalog" />
+        <Parameter Name="isThreadSafe" Type="System.Boolean" />
+        <Parameter Name="providers" Type="System.ComponentModel.Composition.Hosting.ExportProvider[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="catalog">
+          <span data-ttu-id="656da-139">
+            <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> に <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> オブジェクトを提供するカタログ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-139">A catalog that provides <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects to the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" />.</span>
+          </span>
+        </param>
+        <param name="isThreadSafe">
+          <span data-ttu-id="656da-140">この <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> オブジェクトをスレッド セーフにする必要がある場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-140">
+              <see langword="true" /> if this <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> object must be thread-safe; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <param name="providers">
+          <span data-ttu-id="656da-141">
+            <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> オブジェクトへの <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> アクセスを提供する <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトの配列。<see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> プロパティを空の <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> に設定する場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-141">An array of <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> objects that provide the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> access to <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects, or <see langword="null" /> to set the <see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> property to an empty <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-142">カタログとエクスポート プロバイダーを指定して、スレッド セーフ モードで <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-142">Initializes a new instance of the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> class with the specified catalog, thread-safe mode, and export providers.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="656da-143">A<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>複数のスレッドからアクセスできるオブジェクトを設定する必要があります、`isThreadSafe`パラメーターを`true`です。</span><span class="sxs-lookup"><span data-stu-id="656da-143">A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object that can be accessed from multiple threads must set the `isThreadSafe` parameter to `true`.</span></span> <span data-ttu-id="656da-144">パフォーマンスがわずかに低下時をする`isThreadSafe`は`true`ために、このパラメーターを設定することをお勧め、`false`シングル スレッドのシナリオでします。</span><span class="sxs-lookup"><span data-stu-id="656da-144">Performance will be slightly slower when `isThreadSafe` is `true`, so we recommend that you set this parameter to `false` in single-threaded scenarios.</span></span> <span data-ttu-id="656da-145">既定値は、`false` です。</span><span class="sxs-lookup"><span data-stu-id="656da-145">The default is `false`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="656da-146">
+            <paramref name="providers" /> の 1 つ以上の要素が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-146">One or more elements of <paramref name="providers" /> are <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public CompositionContainer (System.ComponentModel.Composition.Primitives.ComposablePartCatalog catalog, System.ComponentModel.Composition.Hosting.CompositionOptions compositionOptions, params System.ComponentModel.Composition.Hosting.ExportProvider[] providers);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.ComponentModel.Composition.Primitives.ComposablePartCatalog catalog, valuetype System.ComponentModel.Composition.Hosting.CompositionOptions compositionOptions, class System.ComponentModel.Composition.Hosting.ExportProvider[] providers) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.ComponentModel.Composition.Hosting.CompositionOptions,System.ComponentModel.Composition.Hosting.ExportProvider[])" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; CompositionContainer(System::ComponentModel::Composition::Primitives::ComposablePartCatalog ^ catalog, System::ComponentModel::Composition::Hosting::CompositionOptions compositionOptions, ... cli::array &lt;System::ComponentModel::Composition::Hosting::ExportProvider ^&gt; ^ providers);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="catalog" Type="System.ComponentModel.Composition.Primitives.ComposablePartCatalog" />
+        <Parameter Name="compositionOptions" Type="System.ComponentModel.Composition.Hosting.CompositionOptions" />
+        <Parameter Name="providers" Type="System.ComponentModel.Composition.Hosting.ExportProvider[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="catalog">
+          <span data-ttu-id="656da-147">
+            <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> に <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> オブジェクトを提供するカタログ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-147">A catalog that provides <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects to the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" />.</span>
+          </span>
+        </param>
+        <param name="compositionOptions">
+          <span data-ttu-id="656da-148">コンテナーの動作に影響するオプションを指定するオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-148">An object that specifies options that affect the behavior of the container.</span>
+          </span>
+        </param>
+        <param name="providers">
+          <span data-ttu-id="656da-149">
+            <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> オブジェクトへの <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> アクセスを提供する <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトの配列。<see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> を空の <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> に設定する場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-149">An array of <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> objects that provide the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> access to <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects, or <see langword="null" /> to set <see cref="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" /> to an empty <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-150">指定したカタログ、オプション、およびエクスポート プロバイダーを使用して、<see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-150">Initializes a new instance of the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> class with the specified catalog, options, and export providers.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="656da-151">
+            <paramref name="providers" /> には <see langword="null" /> の要素が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-151">
+              <paramref name="providers" /> contains an element that is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Catalog">
+      <MemberSignature Language="C#" Value="public System.ComponentModel.Composition.Primitives.ComposablePartCatalog Catalog { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.ComponentModel.Composition.Primitives.ComposablePartCatalog Catalog" />
+      <MemberSignature Language="DocId" Value="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Catalog As ComposablePartCatalog" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::ComponentModel::Composition::Primitives::ComposablePartCatalog ^ Catalog { System::ComponentModel::Composition::Primitives::ComposablePartCatalog ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ComponentModel.Composition.Primitives.ComposablePartCatalog</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="656da-152">
+            <see cref="T:System.ComponentModel.Composition.Primitives.ComposablePartCatalog" /> オブジェクトへのコンテナー アクセスを提供する <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-152">Gets the <see cref="T:System.ComponentModel.Composition.Primitives.ComposablePartCatalog" /> that provides the container access to <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="656da-153">
+            <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> オブジェクトから生成されたエクスポートへの <see cref="T:System.ComponentModel.Composition.Primitives.ComposablePart" /> アクセスを提供するカタログ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-153">The catalog that provides the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> access to exports produced from <see cref="T:System.ComponentModel.Composition.Primitives.ComposablePart" /> objects.</span>
+          </span>
+          <span data-ttu-id="656da-154">既定値は、<see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-154">The default is <see langword="null" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="656da-155">
+            <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> オブジェクトは破棄されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-155">The <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> object has been disposed of.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Compose">
+      <MemberSignature Language="C#" Value="public void Compose (System.ComponentModel.Composition.Hosting.CompositionBatch batch);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Compose(class System.ComponentModel.Composition.Hosting.CompositionBatch batch) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose(System.ComponentModel.Composition.Hosting.CompositionBatch)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Compose (batch As CompositionBatch)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Compose(System::ComponentModel::Composition::Hosting::CompositionBatch ^ batch);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="batch" Type="System.ComponentModel.Composition.Hosting.CompositionBatch" />
+      </Parameters>
+      <Docs>
+        <param name="batch">
+          <span data-ttu-id="656da-156">合成時に含める <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> に対する変更。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-156">Changes to the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> to include during the composition.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-157">コンテナーで指定した <see cref="T:System.ComponentModel.Composition.Hosting.CompositionBatch" /> 内のパーツを追加または削除して、合成を実行します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-157">Adds or removes the parts in the specified <see cref="T:System.ComponentModel.Composition.Hosting.CompositionBatch" /> from the container and executes composition.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="656da-158">このメソッドは、直接追加またはコンテナーからパーツを削除する主な方法です。</span><span class="sxs-lookup"><span data-stu-id="656da-158">This method is the primary way of directly adding or removing parts from the container.</span></span> <span data-ttu-id="656da-159"><xref:System.ComponentModel.Composition.Hosting.CompositionContainer>安定性と構成の状態を常に維持します。</span><span class="sxs-lookup"><span data-stu-id="656da-159">The <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> will always maintain a stable, composed state.</span></span> <span data-ttu-id="656da-160">そのため、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A>空の<xref:System.ComponentModel.Composition.Hosting.CompositionBatch>コンポジションを開始する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="656da-160">Therefore, calling <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A> with an empty <xref:System.ComponentModel.Composition.Hosting.CompositionBatch> is never necessary to start composition.</span></span> <span data-ttu-id="656da-161">代わりを呼び出して、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A>メソッドの変更部分に使用可能にする必要がある場合、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>です。</span><span class="sxs-lookup"><span data-stu-id="656da-161">Instead, call the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A> method whenever you need to make changes to the parts available to the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer>.</span></span>  
+  
+ <span data-ttu-id="656da-162"><xref:System.ComponentModel.Composition.Hosting.CompositionBatch>パーツを追加して削除の部分で構成の両方を含めることができます。</span><span class="sxs-lookup"><span data-stu-id="656da-162">The <xref:System.ComponentModel.Composition.Hosting.CompositionBatch> can contain both parts to be added and parts to be removed.</span></span>  <span data-ttu-id="656da-163">再構成は呼び出しごとに 1 回だけ使用する場所になります<xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A>です。</span><span class="sxs-lookup"><span data-stu-id="656da-163">Recomposition will take place only once for each call to <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="656da-164">この単純な例では 3 つの部分が作成され追加する、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>インポートはすべての値が入力されていることを表示する 1 つの部分を取得します。</span><span class="sxs-lookup"><span data-stu-id="656da-164">In this simple example, three parts are created and added to the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer>, and one part is retrieved to show that all imports have been filled.</span></span> <span data-ttu-id="656da-165">この例では、属性付きプログラミング モデルを使用します。</span><span class="sxs-lookup"><span data-stu-id="656da-165">This example uses the Attributed Programming Model.</span></span>  
+  
+ [!code-csharp[Composition.CompositionContainer.Compose#1](~/samples/snippets/csharp/VS_Snippets_Misc/composition.compositioncontainer.compose/cs/program.cs#1)]
+ [!code-vb[Composition.CompositionContainer.Compose#1](~/samples/snippets/visualbasic/VS_Snippets_Misc/composition.compositioncontainer.compose/vb/module1.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Dispose">
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="656da-166">
+            <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> で使用したリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-166">Releases the resources used by the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" />.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="public void Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Dispose ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Dispose();" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.IDisposable.Dispose</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="656da-167">
+            <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> クラスの現在のインスタンスによって使用されているすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-167">Releases all resources used by the current instance of the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="656da-168">`Dispose` を使い終わったら <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="656da-168">Call `Dispose` when you are finished using the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer>.</span></span> <span data-ttu-id="656da-169">`Dispose` メソッドによって、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer> は使用不可の状態になります。</span><span class="sxs-lookup"><span data-stu-id="656da-169">The `Dispose` method leaves the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> in an unusable state.</span></span> <span data-ttu-id="656da-170">呼び出した後`Dispose`へのすべての参照を解放する必要があります、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>ガベージ コレクターがメモリを再利用できるようにする、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer>占有されていた。</span><span class="sxs-lookup"><span data-stu-id="656da-170">After calling `Dispose`, you must release all references to the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> so the garbage collector can reclaim the memory that the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> was occupying.</span></span>  
+  
+ <span data-ttu-id="656da-171">詳細については、次を参照してください。[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)と[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)です。</span><span class="sxs-lookup"><span data-stu-id="656da-171">For more information, see [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md) and [Implementing a Dispose Method](~/docs/standard/garbage-collection/implementing-dispose.md).</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="656da-172">`Dispose` への最後の参照を解放する前に、必ず <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> を呼び出してください。</span><span class="sxs-lookup"><span data-stu-id="656da-172">Always call `Dispose` before you release your last reference to the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer>.</span></span> <span data-ttu-id="656da-173">そうしないと、ガベージ コレクターが <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> オブジェクトの `Finalize` メソッドを呼び出すまで、使用されているリソースは解放されません。</span><span class="sxs-lookup"><span data-stu-id="656da-173">Otherwise, the resources it is using will not be freed until the garbage collector calls the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object's `Finalize` method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected virtual void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">
+          <span data-ttu-id="656da-174">マネージ リソースとアンマネージ リソースの両方を解放する場合は <see langword="true" />。アンマネージ リソースだけを解放する場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-174">
+              <see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-175">
+            <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> によって使用されているアンマネージ リソースを解放し、オプションでマネージ リソースも解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-175">Releases the unmanaged resources used by the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> and optionally releases the managed resources.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetExportsCore">
+      <MemberSignature Language="C#" Value="protected override System.Collections.Generic.IEnumerable&lt;System.ComponentModel.Composition.Primitives.Export&gt; GetExportsCore (System.ComponentModel.Composition.Primitives.ImportDefinition definition, System.ComponentModel.Composition.Hosting.AtomicComposition atomicComposition);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.Collections.Generic.IEnumerable`1&lt;class System.ComponentModel.Composition.Primitives.Export&gt; GetExportsCore(class System.ComponentModel.Composition.Primitives.ImportDefinition definition, class System.ComponentModel.Composition.Hosting.AtomicComposition atomicComposition) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.GetExportsCore(System.ComponentModel.Composition.Primitives.ImportDefinition,System.ComponentModel.Composition.Hosting.AtomicComposition)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override System::Collections::Generic::IEnumerable&lt;System::ComponentModel::Composition::Primitives::Export ^&gt; ^ GetExportsCore(System::ComponentModel::Composition::Primitives::ImportDefinition ^ definition, System::ComponentModel::Composition::Hosting::AtomicComposition ^ atomicComposition);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.IEnumerable&lt;System.ComponentModel.Composition.Primitives.Export&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="definition" Type="System.ComponentModel.Composition.Primitives.ImportDefinition" />
+        <Parameter Name="atomicComposition" Type="System.ComponentModel.Composition.Hosting.AtomicComposition" />
+      </Parameters>
+      <Docs>
+        <param name="definition">
+          <span data-ttu-id="656da-176">取得する <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトの条件を定義するオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-176">The object that defines the conditions of the <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects to get.</span>
+          </span>
+        </param>
+        <param name="atomicComposition">
+          <span data-ttu-id="656da-177">使用する合成トランザクション。トランザクション対応の合成を無効にする場合は <see langword="null" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-177">The composition transaction to use, or <see langword="null" /> to disable transactional composition.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-178">指定した <see cref="T:System.ComponentModel.Composition.Primitives.ImportDefinition" /> オブジェクトの条件に一致するすべてのエクスポートのコレクションを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-178">Returns a collection of all exports that match the conditions in the specified <see cref="T:System.ComponentModel.Composition.Primitives.ImportDefinition" /> object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="656da-179">この <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクト内の <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> オブジェクトのうち、<paramref name="definition" /> で指定した条件に一致するすべてのオブジェクトのコレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-179">A collection of all the <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects in this <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> object that match the conditions specified by <paramref name="definition" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="656da-180">実装では、基数関連の不一致をエラーとして扱う必要がありますされませんし、基数関連の不一致の例外をスローする必要があります。</span><span class="sxs-lookup"><span data-stu-id="656da-180">Implementations should not treat cardinality-related mismatches as errors and should not throw exceptions for cardinality-related mismatches.</span></span> <span data-ttu-id="656da-181">たとえば、インポートが正確に 1 つのエクスポートを要求し、プロバイダーが一致するエクスポートなしまたは 1 つ以上の場合、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer.GetExportsCore%2A>メソッドは、空を返す必要があります<xref:System.Collections.Generic.IEnumerable%601>のコレクション<xref:System.ComponentModel.Composition.Primitives.Export>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="656da-181">For example, if the import requests exactly one export and the provider has either no matching exports or more than one, the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.GetExportsCore%2A> method should return an empty <xref:System.Collections.Generic.IEnumerable%601> collection of <xref:System.ComponentModel.Composition.Primitives.Export> objects.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Providers">
+      <MemberSignature Language="C#" Value="public System.Collections.ObjectModel.ReadOnlyCollection&lt;System.ComponentModel.Composition.Hosting.ExportProvider&gt; Providers { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.ObjectModel.ReadOnlyCollection`1&lt;class System.ComponentModel.Composition.Hosting.ExportProvider&gt; Providers" />
+      <MemberSignature Language="DocId" Value="P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Providers As ReadOnlyCollection(Of ExportProvider)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Collections::ObjectModel::ReadOnlyCollection&lt;System::ComponentModel::Composition::Hosting::ExportProvider ^&gt; ^ Providers { System::Collections::ObjectModel::ReadOnlyCollection&lt;System::ComponentModel::Composition::Hosting::ExportProvider ^&gt; ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.ObjectModel.ReadOnlyCollection&lt;System.ComponentModel.Composition.Hosting.ExportProvider&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="656da-182">追加の <see cref="T:System.ComponentModel.Composition.Primitives.ComposablePartCatalog" /> オブジェクトへのコンテナー アクセスを提供するエクスポート プロバイダーを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-182">Gets the export providers that provide the container access to additional <see cref="T:System.ComponentModel.Composition.Primitives.ComposablePartCatalog" /> objects.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="656da-183">追加の <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> オブジェクトへの <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> アクセスを提供する <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトのコレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-183">A collection of <see cref="T:System.ComponentModel.Composition.Hosting.ExportProvider" /> objects that provide the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> access to additional <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects.</span>
+          </span>
+          <span data-ttu-id="656da-184">既定値は空の <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-184">The default is an empty <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="656da-185">
+            <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> は破棄されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-185">The <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> has been disposed of.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReleaseExport">
+      <MemberSignature Language="C#" Value="public void ReleaseExport (System.ComponentModel.Composition.Primitives.Export export);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void ReleaseExport(class System.ComponentModel.Composition.Primitives.Export export) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport(System.ComponentModel.Composition.Primitives.Export)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void ReleaseExport(System::ComponentModel::Composition::Primitives::Export ^ export);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="export" Type="System.ComponentModel.Composition.Primitives.Export" />
+      </Parameters>
+      <Docs>
+        <param name="export">
+          <span data-ttu-id="656da-186">解放する必要がある <see cref="T:System.ComponentModel.Composition.Primitives.Export" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-186">The <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> that needs to be released.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-187">指定した <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトを <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> から解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-187">Releases the specified <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> object from the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="656da-188">このメソッドの動作は、の実装によって異なる場合があります、<xref:System.ComponentModel.Composition.Hosting.ExportProvider>生成される、<xref:System.ComponentModel.Composition.Primitives.Export>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="656da-188">The behavior of this method may vary depending on the implementation of the <xref:System.ComponentModel.Composition.Hosting.ExportProvider> that produced the <xref:System.ComponentModel.Composition.Primitives.Export> instance.</span></span> <span data-ttu-id="656da-189">原則として、コンテナーから非共有のエクスポートをデタッチする必要があります。</span><span class="sxs-lookup"><span data-stu-id="656da-189">As a rule, non-shared exports should be detached from the container.</span></span>  
+  
+ <span data-ttu-id="656da-190">たとえば、<xref:System.ComponentModel.Composition.Hosting.CatalogExportProvider>のみリリースには、<xref:System.ComponentModel.Composition.Primitives.Export>のものである場合、<xref:System.ComponentModel.Composition.Primitives.ComposablePart>下で構築されている、<xref:System.ComponentModel.Composition.CreationPolicy.NonShared>コンテキスト。</span><span class="sxs-lookup"><span data-stu-id="656da-190">For example, the <xref:System.ComponentModel.Composition.Hosting.CatalogExportProvider> will only release an <xref:System.ComponentModel.Composition.Primitives.Export> if it comes from a <xref:System.ComponentModel.Composition.Primitives.ComposablePart> that was constructed under a <xref:System.ComponentModel.Composition.CreationPolicy.NonShared> context.</span></span> <span data-ttu-id="656da-191">このコンテキストでのリリースは、依存関係チェーンのことを意味、<xref:System.ComponentModel.Composition.Primitives.Export>オブジェクト、コンテナーと呼び出し元からの参照をデタッチ`Dispose`上、<xref:System.ComponentModel.Composition.Primitives.ComposablePart>オブジェクトを必要に応じて。</span><span class="sxs-lookup"><span data-stu-id="656da-191">Release in this context means walking the dependency chain of the <xref:System.ComponentModel.Composition.Primitives.Export> objects, detaching references from the container and calling `Dispose` on the <xref:System.ComponentModel.Composition.Primitives.ComposablePart> objects as needed.</span></span> <span data-ttu-id="656da-192">場合、<xref:System.ComponentModel.Composition.Primitives.Export>で構築された、<xref:System.ComponentModel.Composition.CreationPolicy.Shared>コンテキスト、<xref:System.ComponentModel.Composition.Hosting.CatalogExportProvider>は何も、指定した<xref:System.ComponentModel.Composition.Primitives.Export>他の要求側で使用されている可能性があります。</span><span class="sxs-lookup"><span data-stu-id="656da-192">If the <xref:System.ComponentModel.Composition.Primitives.Export> was constructed under a <xref:System.ComponentModel.Composition.CreationPolicy.Shared> context the <xref:System.ComponentModel.Composition.Hosting.CatalogExportProvider> will do nothing, as the specified <xref:System.ComponentModel.Composition.Primitives.Export> may being used by other requestors.</span></span> <span data-ttu-id="656da-193">ものはのみ、コンテナー自体が破棄されるときにデタッチされます。</span><span class="sxs-lookup"><span data-stu-id="656da-193">Those will only be detached when the container is itself disposed.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="656da-194">
+            <paramref name="export" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-194">
+              <paramref name="export" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReleaseExport&lt;T&gt;">
+      <MemberSignature Language="C#" Value="public void ReleaseExport&lt;T&gt; (Lazy&lt;T&gt; export);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void ReleaseExport&lt;T&gt;(class System.Lazy`1&lt;!!T&gt; export) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport``1(System.Lazy{``0})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub ReleaseExport(Of T) (export As Lazy(Of T))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; void ReleaseExport(Lazy&lt;T&gt; ^ export);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="T" />
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="export" Type="System.Lazy&lt;T&gt;" />
+      </Parameters>
+      <Docs>
+        <typeparam name="T">
+          <span data-ttu-id="656da-195">エクスポートの型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-195">The type of the export.</span>
+          </span>
+        </typeparam>
+        <param name="export">
+          <span data-ttu-id="656da-196">削除するエクスポートへの間接参照。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-196">An indirect reference to the export to remove.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-197">指定したエクスポートを合成から削除し、可能な場合はそのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-197">Removes the specified export from composition and releases its resources if possible.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ReleaseExports">
+      <MemberSignature Language="C#" Value="public void ReleaseExports (System.Collections.Generic.IEnumerable&lt;System.ComponentModel.Composition.Primitives.Export&gt; exports);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void ReleaseExports(class System.Collections.Generic.IEnumerable`1&lt;class System.ComponentModel.Composition.Primitives.Export&gt; exports) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports(System.Collections.Generic.IEnumerable{System.ComponentModel.Composition.Primitives.Export})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub ReleaseExports (exports As IEnumerable(Of Export))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void ReleaseExports(System::Collections::Generic::IEnumerable&lt;System::ComponentModel::Composition::Primitives::Export ^&gt; ^ exports);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="exports" Type="System.Collections.Generic.IEnumerable&lt;System.ComponentModel.Composition.Primitives.Export&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="exports">
+          <span data-ttu-id="656da-198">解放する <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトのコレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-198">A collection of <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects to be released.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-199">
+            <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> オブジェクトのセットを <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> から解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-199">Releases a set of <see cref="T:System.ComponentModel.Composition.Primitives.Export" /> objects from the <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="656da-200">このメソッドの動作は、対象のコンテキストに応じて異なる場合があります、<xref:System.ComponentModel.Composition.Primitives.Export>が構築されています。</span><span class="sxs-lookup"><span data-stu-id="656da-200">The behavior of this method may vary depending on the context in which the <xref:System.ComponentModel.Composition.Primitives.Export> was constructed.</span></span> <span data-ttu-id="656da-201">詳細については、<xref:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport%2A> メソッドを参照してください。</span><span class="sxs-lookup"><span data-stu-id="656da-201">For more information, see the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport%2A> method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="656da-202">
+            <paramref name="exports" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-202">
+              <paramref name="exports" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="656da-203">
+            <paramref name="exports" /> には <see langword="null" /> の要素が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-203">
+              <paramref name="exports" /> contains an element that is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReleaseExports&lt;T&gt;">
+      <MemberSignature Language="C#" Value="public void ReleaseExports&lt;T&gt; (System.Collections.Generic.IEnumerable&lt;Lazy&lt;T&gt;&gt; exports);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void ReleaseExports&lt;T&gt;(class System.Collections.Generic.IEnumerable`1&lt;class System.Lazy`1&lt;!!T&gt;&gt; exports) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports``1(System.Collections.Generic.IEnumerable{System.Lazy{``0}})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub ReleaseExports(Of T) (exports As IEnumerable(Of Lazy(Of T)))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; void ReleaseExports(System::Collections::Generic::IEnumerable&lt;Lazy&lt;T&gt; ^&gt; ^ exports);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="T" />
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="exports" Type="System.Collections.Generic.IEnumerable&lt;System.Lazy&lt;T&gt;&gt;" />
+      </Parameters>
+      <Docs>
+        <typeparam name="T">
+          <span data-ttu-id="656da-204">エクスポートの型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-204">The type of the exports.</span>
+          </span>
+        </typeparam>
+        <param name="exports">
+          <span data-ttu-id="656da-205">削除するエクスポートへの間接参照のコレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-205">A collection of indirect references to the exports to be removed.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-206">エクスポートのコレクションを合成から削除し、可能な場合はそれらのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-206">Removes a collection of exports from composition and releases their resources if possible.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ReleaseExports&lt;T,TMetadataView&gt;">
+      <MemberSignature Language="C#" Value="public void ReleaseExports&lt;T,TMetadataView&gt; (System.Collections.Generic.IEnumerable&lt;Lazy&lt;T,TMetadataView&gt;&gt; exports);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void ReleaseExports&lt;T, TMetadataView&gt;(class System.Collections.Generic.IEnumerable`1&lt;class System.Lazy`2&lt;!!T, !!TMetadataView&gt;&gt; exports) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports``2(System.Collections.Generic.IEnumerable{System.Lazy{``0,``1}})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub ReleaseExports(Of T, TMetadataView) (exports As IEnumerable(Of Lazy(Of T, TMetadataView)))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T, typename TMetadataView&gt;&#xA; void ReleaseExports(System::Collections::Generic::IEnumerable&lt;Lazy&lt;T, TMetadataView&gt; ^&gt; ^ exports);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="T" />
+        <TypeParameter Name="TMetadataView" />
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="exports" Type="System.Collections.Generic.IEnumerable&lt;System.Lazy&lt;T,TMetadataView&gt;&gt;" />
+      </Parameters>
+      <Docs>
+        <typeparam name="T">
+          <span data-ttu-id="656da-207">エクスポートの型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-207">The type of the exports.</span>
+          </span>
+        </typeparam>
+        <typeparam name="TMetadataView">
+          <span data-ttu-id="656da-208">エクスポートのメタデータ ビューの型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-208">The type of the exports' metadata view.</span>
+          </span>
+        </typeparam>
+        <param name="exports">
+          <span data-ttu-id="656da-209">削除するエクスポートおよびそれらのメタデータへの間接参照のコレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-209">A collection of indirect references to the exports to be removed and their metadata.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-210">エクスポートのコレクションを合成から削除し、可能な場合はそれらのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-210">Removes a collection of exports from composition and releases their resources if possible.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SatisfyImportsOnce">
+      <MemberSignature Language="C#" Value="public void SatisfyImportsOnce (System.ComponentModel.Composition.Primitives.ComposablePart part);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void SatisfyImportsOnce(class System.ComponentModel.Composition.Primitives.ComposablePart part) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce(System.ComponentModel.Composition.Primitives.ComposablePart)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub SatisfyImportsOnce (part As ComposablePart)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void SatisfyImportsOnce(System::ComponentModel::Composition::Primitives::ComposablePart ^ part);" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.ComponentModel.Composition.ICompositionService.SatisfyImportsOnce(System.ComponentModel.Composition.Primitives.ComposablePart)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.Composition</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="part" Type="System.ComponentModel.Composition.Primitives.ComposablePart" />
+      </Parameters>
+      <Docs>
+        <param name="part">
+          <span data-ttu-id="656da-211">インポートを満たすパーツ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-211">The part to satisfy the imports of.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="656da-212">指定した <see cref="T:System.ComponentModel.Composition.Primitives.ComposablePart" /> オブジェクトのインポートを、再合成の対象としては登録せずに満たします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-212">Satisfies the imports of the specified <see cref="T:System.ComponentModel.Composition.Primitives.ComposablePart" /> object without registering it for recomposition.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="656da-213">
+            <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> オブジェクトは破棄されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-213">The <see cref="T:System.ComponentModel.Composition.Hosting.CompositionContainer" /> object has been disposed of.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="656da-214">
+            <paramref name="part" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-214">
+              <paramref name="part" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ComponentModel.Composition.CompositionException">
+          <span data-ttu-id="656da-215">合成中にエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-215">An error occurred during composition.</span>
+          </span>
+          <span data-ttu-id="656da-216">
+            <see cref="P:System.ComponentModel.Composition.CompositionException.Errors" /> には、発生したエラーのコレクションが格納されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="656da-216">
+              <see cref="P:System.ComponentModel.Composition.CompositionException.Errors" /> will contain a collection of the errors that occurred.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

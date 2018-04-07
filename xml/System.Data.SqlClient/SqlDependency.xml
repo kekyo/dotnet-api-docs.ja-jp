@@ -1,0 +1,918 @@
+<Type Name="SqlDependency" FullName="System.Data.SqlClient.SqlDependency">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="5a925664dbafc1139e4418d7ba633da90845e5bd" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class SqlDependency" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit SqlDependency extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Data.SqlClient.SqlDependency" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class SqlDependency" />
+  <TypeSignature Language="C++ CLI" Value="public ref class SqlDependency sealed" />
+  <AssemblyInfo>
+    <AssemblyName>System.Data</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="85639-101">
+        <see cref="T:System.Data.SqlClient.SqlDependency" /> オブジェクトは、アプリケーションと SQL Server インスタンス間のクエリ通知の依存関係を表します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="85639-101">The <see cref="T:System.Data.SqlClient.SqlDependency" /> object represents a query notification dependency between an application and an instance of SQL Server.</span>
+      </span>
+      <span data-ttu-id="85639-102">アプリケーションは <see cref="T:System.Data.SqlClient.SqlDependency" /> オブジェクトを作成し、<see cref="T:System.Data.SqlClient.OnChangeEventHandler" /> イベント ハンドラーを使用して通知を受け取るように登録できます。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="85639-102">An application can create a <see cref="T:System.Data.SqlClient.SqlDependency" /> object and register to receive notifications via the <see cref="T:System.Data.SqlClient.OnChangeEventHandler" /> event handler.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-103"><xref:System.Data.SqlClient.SqlDependency> キャッシュの ASP.NET アプリケーションまたは中間層サービスがメモリにキャッシュされた特定の情報を保持する必要があるシナリオに最適です。</span><span class="sxs-lookup"><span data-stu-id="85639-103"><xref:System.Data.SqlClient.SqlDependency> is ideal for caching scenarios, where your ASP.NET application or middle-tier service needs to keep certain information cached in memory.</span></span> <span data-ttu-id="85639-104"><xref:System.Data.SqlClient.SqlDependency> キャッシュを更新することができるように、データベース内の元のデータが変更されたときに通知を受信できます。</span><span class="sxs-lookup"><span data-stu-id="85639-104"><xref:System.Data.SqlClient.SqlDependency> allows you to receive notifications when the original data in the database changes so that the cache can be refreshed.</span></span>  
+  
+ <span data-ttu-id="85639-105">依存関係を設定するに関連付ける必要があります、<xref:System.Data.SqlClient.SqlDependency>を 1 つ以上のオブジェクト<xref:System.Data.SqlClient.SqlCommand>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="85639-105">To set up a dependency, you need to associate a <xref:System.Data.SqlClient.SqlDependency> object to one or more <xref:System.Data.SqlClient.SqlCommand> objects.</span></span> <span data-ttu-id="85639-106">通知を受信するをサブスクライブする必要があります、<xref:System.Data.SqlClient.SqlDependency.OnChange>イベント。</span><span class="sxs-lookup"><span data-stu-id="85639-106">To receive notifications, you need to subscribe to the <xref:System.Data.SqlClient.SqlDependency.OnChange> event.</span></span> <span data-ttu-id="85639-107">通知のクエリを作成するための要件の詳細については、「を作成するクエリ通知の」SQL Server オンライン ブックを参照してください。</span><span class="sxs-lookup"><span data-stu-id="85639-107">For more information about the requirements for creating queries for notifications, see "Creating a Query for Notification" in SQL Server Books Online.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="85639-108"><xref:System.Data.SqlClient.SqlDependency> ASP.NET または中間層サービスで使用するように設計されましたが、比較的少数のデータベースに対してアクティブな依存関係にあるサーバーです。</span><span class="sxs-lookup"><span data-stu-id="85639-108"><xref:System.Data.SqlClient.SqlDependency> was designed to be used in ASP.NET or middle-tier services where there is a relatively small number of servers having dependencies active against the database.</span></span> <span data-ttu-id="85639-109">数百または数千のクライアント コンピューターには、クライアント アプリケーションでの使用向けに設計されていない<xref:System.Data.SqlClient.SqlDependency>オブジェクトの 1 つのデータベース サーバーを設定します。</span><span class="sxs-lookup"><span data-stu-id="85639-109">It was not designed for use in client applications, where hundreds or thousands of client computers would have <xref:System.Data.SqlClient.SqlDependency> objects set up for a single database server.</span></span> <span data-ttu-id="85639-110">を開発しているアプリケーション データが変更されたときに、信頼性の高いの 1 秒未満の通知が必要な場合は、セクションを参照**効率的なクエリ通知戦略の計画**と**クエリ通知に代わる方法**で、[通知の計画](http://go.microsoft.com/fwlink/?LinkId=211984)SQL Server オンライン ブックの「します。</span><span class="sxs-lookup"><span data-stu-id="85639-110">If you are developing an application where you need reliable sub-second notifications when data changes, review the sections **Planning an Efficient Query Notifications Strategy** and **Alternatives to Query Notifications** in the [Planning for Notifications](http://go.microsoft.com/fwlink/?LinkId=211984) topic in SQL Server Books Online.</span></span>  
+  
+ <span data-ttu-id="85639-111">詳細については、次を参照してください。 [SQL server クエリ通知](~/docs/framework/data/adonet/sql/query-notifications-in-sql-server.md)と SQL Server オンライン ブックの"通知ソリューションの構築"します。</span><span class="sxs-lookup"><span data-stu-id="85639-111">For more information, see [Query Notifications in SQL Server](~/docs/framework/data/adonet/sql/query-notifications-in-sql-server.md) and "Building Notification Solutions" in SQL Server Books Online.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="85639-112"><xref:System.Data.SqlClient.SqlDependency.OnChange>コマンドの実行を開始したスレッドから別のスレッドでイベントを生成することができます。</span><span class="sxs-lookup"><span data-stu-id="85639-112">The <xref:System.Data.SqlClient.SqlDependency.OnChange> event may be generated on a different thread from the thread that initiated command execution.</span></span>  
+  
+ <span data-ttu-id="85639-113">クエリ通知は、特定の要件を満たす SELECT ステートメントでのみサポートされます。</span><span class="sxs-lookup"><span data-stu-id="85639-113">Query notifications are supported only for SELECT statements that meet a list of specific requirements.</span></span> <span data-ttu-id="85639-114">次の表に、SQL Server オンライン ブックの Service Broker とクエリ通知に関するドキュメントへのリンクを示します。</span><span class="sxs-lookup"><span data-stu-id="85639-114">The following table provides links to the Service Broker and Query Notifications documentation in SQL Server Books Online.</span></span>  
+  
+ <span data-ttu-id="85639-115">**SQL Server オンライン ブック**</span><span class="sxs-lookup"><span data-stu-id="85639-115">**SQL Server Books Online**</span></span>  
+  
+-   [<span data-ttu-id="85639-116">クエリ通知の作成</span><span class="sxs-lookup"><span data-stu-id="85639-116">Creating a Query for Notification</span></span>](http://msdn.microsoft.com/library/ms181122.aspx)  
+  
+-   [<span data-ttu-id="85639-117">Service Broker のセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-117">Security Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166059.aspx)  
+  
+-   [<span data-ttu-id="85639-118">セキュリティと保護 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-118">Security and Protection (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522911.aspx)  
+  
+-   [<span data-ttu-id="85639-119">通知サービスのセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-119">Security Considerations for Notifications Services</span></span>](http://msdn.microsoft.com/library/ms172604.aspx)  
+  
+-   [<span data-ttu-id="85639-120">クエリ通知の権限</span><span class="sxs-lookup"><span data-stu-id="85639-120">Query Notification Permissions</span></span>](http://msdn.microsoft.com/library/ms188311.aspx)  
+  
+-   [<span data-ttu-id="85639-121">Service Broker の国際化に関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-121">International Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166028.aspx)  
+  
+-   [<span data-ttu-id="85639-122">ソリューション設計に関する考慮事項 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-122">Solution Design Considerations (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522899.aspx)  
+  
+-   [<span data-ttu-id="85639-123">Service Broker 開発者向けの情報</span><span class="sxs-lookup"><span data-stu-id="85639-123">Service Broker Developer InfoCenter</span></span>](http://msdn.microsoft.com/library/ms166100.aspx)  
+  
+-   [<span data-ttu-id="85639-124">開発者ガイド (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-124">Developer's Guide (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522908.aspx)  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="85639-125">
+            <see cref="T:System.Data.SqlClient.SqlDependency" /> クラスの新しいインスタンスを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-125">Creates a new instance of the <see cref="T:System.Data.SqlClient.SqlDependency" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlDependency ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDependency.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlDependency();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="85639-126">既定の設定を使用して、<see cref="T:System.Data.SqlClient.SqlDependency" /> クラスの新しいインスタンスを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-126">Creates a new instance of the <see cref="T:System.Data.SqlClient.SqlDependency" /> class with the default settings.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-127">コンス トラクターは、<xref:System.Data.SqlClient.SqlDependency>オブジェクトの既定の Service Broker サービス名とタイムアウトを使用します。作成した後は、ある時点で使用する必要があります、<xref:System.Data.SqlClient.SqlDependency.AddCommandDependency%2A>にこれを 1 つまたは複数のコマンドを関連付けるメソッド<xref:System.Data.SqlClient.SqlDependency>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="85639-127">The constructor initializes the <xref:System.Data.SqlClient.SqlDependency> object using the default Service Broker service name and time-out. At some point after construction, you must use the <xref:System.Data.SqlClient.SqlDependency.AddCommandDependency%2A> method to associate one or more commands to this <xref:System.Data.SqlClient.SqlDependency> object.</span></span>  
+  
+ <span data-ttu-id="85639-128">クエリ通知は、特定の要件を満たす SELECT ステートメントでのみサポートされます。</span><span class="sxs-lookup"><span data-stu-id="85639-128">Query notifications are supported only for SELECT statements that meet a list of specific requirements.</span></span> <span data-ttu-id="85639-129">次の表に、SQL Server オンライン ブックの Service Broker とクエリ通知に関するドキュメントへのリンクを示します。</span><span class="sxs-lookup"><span data-stu-id="85639-129">The following table provides links to the Service Broker and Query Notifications documentation in SQL Server Books Online.</span></span>  
+  
+ <span data-ttu-id="85639-130">**SQL Server オンライン ブック**</span><span class="sxs-lookup"><span data-stu-id="85639-130">**SQL Server Books Online**</span></span>  
+  
+-   [<span data-ttu-id="85639-131">クエリ通知の作成</span><span class="sxs-lookup"><span data-stu-id="85639-131">Creating a Query for Notification</span></span>](http://msdn.microsoft.com/library/ms181122.aspx)  
+  
+-   [<span data-ttu-id="85639-132">Service Broker のセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-132">Security Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166059.aspx)  
+  
+-   [<span data-ttu-id="85639-133">セキュリティと保護 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-133">Security and Protection (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522911.aspx)  
+  
+-   [<span data-ttu-id="85639-134">通知サービスのセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-134">Security Considerations for Notifications Services</span></span>](http://msdn.microsoft.com/library/ms172604.aspx)  
+  
+-   [<span data-ttu-id="85639-135">クエリ通知の権限</span><span class="sxs-lookup"><span data-stu-id="85639-135">Query Notification Permissions</span></span>](http://msdn.microsoft.com/library/ms188311.aspx)  
+  
+-   [<span data-ttu-id="85639-136">Service Broker の国際化に関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-136">International Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166028.aspx)  
+  
+-   [<span data-ttu-id="85639-137">ソリューション設計に関する考慮事項 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-137">Solution Design Considerations (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522899.aspx)  
+  
+-   [<span data-ttu-id="85639-138">Service Broker 開発者向けの情報</span><span class="sxs-lookup"><span data-stu-id="85639-138">Service Broker Developer InfoCenter</span></span>](http://msdn.microsoft.com/library/ms166100.aspx)  
+  
+-   [<span data-ttu-id="85639-139">開発者ガイド (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-139">Developer's Guide (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522908.aspx)  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlDependency (System.Data.SqlClient.SqlCommand command);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Data.SqlClient.SqlCommand command) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDependency.#ctor(System.Data.SqlClient.SqlCommand)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (command As SqlCommand)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlDependency(System::Data::SqlClient::SqlCommand ^ command);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="command" Type="System.Data.SqlClient.SqlCommand" />
+      </Parameters>
+      <Docs>
+        <param name="command">
+          <span data-ttu-id="85639-140">この <see cref="T:System.Data.SqlClient.SqlCommand" /> オブジェクトに関連付ける <see cref="T:System.Data.SqlClient.SqlDependency" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-140">The <see cref="T:System.Data.SqlClient.SqlCommand" /> object to associate with this <see cref="T:System.Data.SqlClient.SqlDependency" /> object.</span>
+          </span>
+          <span data-ttu-id="85639-141">このコンストラクターは、<see cref="T:System.Data.Sql.SqlNotificationRequest" /> オブジェクトを設定し、コマンドに関連付けます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-141">The constructor will set up a <see cref="T:System.Data.Sql.SqlNotificationRequest" /> object and bind it to the command.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="85639-142">
+            <see cref="T:System.Data.SqlClient.SqlDependency" /> クラスの新しいインスタンスを作成し、<see cref="T:System.Data.SqlClient.SqlCommand" /> パラメーターに関連付けます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-142">Creates a new instance of the <see cref="T:System.Data.SqlClient.SqlDependency" /> class and associates it with the <see cref="T:System.Data.SqlClient.SqlCommand" /> parameter.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-143">このコンス トラクターが内部的には、インスタンスを作成、<xref:System.Data.Sql.SqlNotificationRequest>クラス、およびバインドに、<xref:System.Data.SqlClient.SqlCommand>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="85639-143">Internally, this constructor creates an instance of the <xref:System.Data.Sql.SqlNotificationRequest> class, and binds it to a <xref:System.Data.SqlClient.SqlCommand> object.</span></span>  
+  
+ <span data-ttu-id="85639-144">クエリ通知は、特定の要件を満たす SELECT ステートメントでのみサポートされます。</span><span class="sxs-lookup"><span data-stu-id="85639-144">Query notifications are supported only for SELECT statements that meet a list of specific requirements.</span></span> <span data-ttu-id="85639-145">次の表に、SQL Server オンライン ブックの Service Broker とクエリ通知に関するドキュメントへのリンクを示します。</span><span class="sxs-lookup"><span data-stu-id="85639-145">The following table provides links to the Service Broker and Query Notifications documentation in SQL Server Books Online.</span></span>  
+  
+ <span data-ttu-id="85639-146">**SQL Server オンライン ブック**</span><span class="sxs-lookup"><span data-stu-id="85639-146">**SQL Server Books Online**</span></span>  
+  
+-   [<span data-ttu-id="85639-147">クエリ通知の作成</span><span class="sxs-lookup"><span data-stu-id="85639-147">Creating a Query for Notification</span></span>](http://msdn.microsoft.com/library/ms181122.aspx)  
+  
+-   [<span data-ttu-id="85639-148">Service Broker のセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-148">Security Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166059.aspx)  
+  
+-   [<span data-ttu-id="85639-149">セキュリティと保護 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-149">Security and Protection (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522911.aspx)  
+  
+-   [<span data-ttu-id="85639-150">通知サービスのセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-150">Security Considerations for Notifications Services</span></span>](http://msdn.microsoft.com/library/ms172604.aspx)  
+  
+-   [<span data-ttu-id="85639-151">クエリ通知の権限</span><span class="sxs-lookup"><span data-stu-id="85639-151">Query Notification Permissions</span></span>](http://msdn.microsoft.com/library/ms188311.aspx)  
+  
+-   [<span data-ttu-id="85639-152">Service Broker の国際化に関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-152">International Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166028.aspx)  
+  
+-   [<span data-ttu-id="85639-153">ソリューション設計に関する考慮事項 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-153">Solution Design Considerations (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522899.aspx)  
+  
+-   [<span data-ttu-id="85639-154">Service Broker 開発者向けの情報</span><span class="sxs-lookup"><span data-stu-id="85639-154">Service Broker Developer InfoCenter</span></span>](http://msdn.microsoft.com/library/ms166100.aspx)  
+  
+-   [<span data-ttu-id="85639-155">開発者ガイド (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-155">Developer's Guide (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522908.aspx)  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="85639-156">
+            <paramref name="command" /> パラメーターが NULL です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-156">The <paramref name="command" /> parameter is NULL.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="85639-157">
+            <see cref="T:System.Data.SqlClient.SqlCommand" /> オブジェクトには既に <see cref="T:System.Data.Sql.SqlNotificationRequest" /> プロパティに割り当てられた <see cref="P:System.Data.SqlClient.SqlCommand.Notification" /> オブジェクトがありますが、その <see cref="T:System.Data.Sql.SqlNotificationRequest" /> は、この依存関係に関連付けられていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-157">The <see cref="T:System.Data.SqlClient.SqlCommand" /> object already has a <see cref="T:System.Data.Sql.SqlNotificationRequest" /> object assigned to its <see cref="P:System.Data.SqlClient.SqlCommand.Notification" /> property, and that <see cref="T:System.Data.Sql.SqlNotificationRequest" /> is not associated with this dependency.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlDependency (System.Data.SqlClient.SqlCommand command, string options, int timeout);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Data.SqlClient.SqlCommand command, string options, int32 timeout) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDependency.#ctor(System.Data.SqlClient.SqlCommand,System.String,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (command As SqlCommand, options As String, timeout As Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlDependency(System::Data::SqlClient::SqlCommand ^ command, System::String ^ options, int timeout);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="command" Type="System.Data.SqlClient.SqlCommand" />
+        <Parameter Name="options" Type="System.String" />
+        <Parameter Name="timeout" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="command">
+          <span data-ttu-id="85639-158">この <see cref="T:System.Data.SqlClient.SqlCommand" /> オブジェクトに関連付ける <see cref="T:System.Data.SqlClient.SqlDependency" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-158">The <see cref="T:System.Data.SqlClient.SqlCommand" /> object to associate with this <see cref="T:System.Data.SqlClient.SqlDependency" /> object.</span>
+          </span>
+          <span data-ttu-id="85639-159">このコンストラクターは、<see cref="T:System.Data.Sql.SqlNotificationRequest" /> オブジェクトを設定し、コマンドに関連付けます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-159">The constructor sets up a <see cref="T:System.Data.Sql.SqlNotificationRequest" /> object and bind it to the command.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="85639-160">この依存関係で使用する通知要求オプションです。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-160">The notification request options to be used by this dependency.</span>
+          </span>
+          <span data-ttu-id="85639-161">既定のサービスを使用する <c>null</c>です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-161">
+              <c>null</c> to use the default service.</span>
+          </span>
+        </param>
+        <param name="timeout">
+          <span data-ttu-id="85639-162">この通知のタイムアウト (秒)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-162">The time-out for this notification in seconds.</span>
+          </span>
+          <span data-ttu-id="85639-163">既定値は 0 で、サーバーのタイムアウトが使用されることを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-163">The default is 0, indicating that the server's time-out should be used.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="85639-164">
+            <see cref="T:System.Data.SqlClient.SqlDependency" /> クラスの新しいインスタンスを作成し、<see cref="T:System.Data.SqlClient.SqlCommand" /> パラメーターに関連付けます。通知オプションとタイムアウト値も指定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-164">Creates a new instance of the <see cref="T:System.Data.SqlClient.SqlDependency" /> class, associates it with the <see cref="T:System.Data.SqlClient.SqlCommand" /> parameter, and specifies notification options and a time-out value.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-165">クエリ通知は、特定の要件を満たす SELECT ステートメントでのみサポートされます。</span><span class="sxs-lookup"><span data-stu-id="85639-165">Query notifications are supported only for SELECT statements that meet a list of specific requirements.</span></span> <span data-ttu-id="85639-166">次の表に、SQL Server オンライン ブックの Service Broker とクエリ通知に関するドキュメントへのリンクを示します。</span><span class="sxs-lookup"><span data-stu-id="85639-166">The following table provides links to the Service Broker and Query Notifications documentation in SQL Server Books Online.</span></span>  
+  
+ <span data-ttu-id="85639-167">**SQL Server オンライン ブック**</span><span class="sxs-lookup"><span data-stu-id="85639-167">**SQL Server Books Online**</span></span>  
+  
+-   [<span data-ttu-id="85639-168">クエリ通知の作成</span><span class="sxs-lookup"><span data-stu-id="85639-168">Creating a Query for Notification</span></span>](http://msdn.microsoft.com/library/ms181122.aspx)  
+  
+-   [<span data-ttu-id="85639-169">Service Broker のセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-169">Security Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166059.aspx)  
+  
+-   [<span data-ttu-id="85639-170">セキュリティと保護 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-170">Security and Protection (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522911.aspx)  
+  
+-   [<span data-ttu-id="85639-171">通知サービスのセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-171">Security Considerations for Notifications Services</span></span>](http://msdn.microsoft.com/library/ms172604.aspx)  
+  
+-   [<span data-ttu-id="85639-172">クエリ通知の権限</span><span class="sxs-lookup"><span data-stu-id="85639-172">Query Notification Permissions</span></span>](http://msdn.microsoft.com/library/ms188311.aspx)  
+  
+-   [<span data-ttu-id="85639-173">Service Broker の国際化に関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-173">International Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166028.aspx)  
+  
+-   [<span data-ttu-id="85639-174">ソリューション設計に関する考慮事項 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-174">Solution Design Considerations (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522899.aspx)  
+  
+-   [<span data-ttu-id="85639-175">Service Broker 開発者向けの情報</span><span class="sxs-lookup"><span data-stu-id="85639-175">Service Broker Developer InfoCenter</span></span>](http://msdn.microsoft.com/library/ms166100.aspx)  
+  
+-   [<span data-ttu-id="85639-176">開発者ガイド (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-176">Developer's Guide (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522908.aspx)  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="85639-177">
+            <paramref name="command" /> パラメーターが NULL です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-177">The <paramref name="command" /> parameter is NULL.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="85639-178">タイムアウト値が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-178">The time-out value is less than zero.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="85639-179">
+            <see cref="T:System.Data.SqlClient.SqlCommand" /> オブジェクトには既に <see cref="T:System.Data.Sql.SqlNotificationRequest" /> プロパティに割り当てられた <see cref="P:System.Data.SqlClient.SqlCommand.Notification" /> オブジェクトがありますが、その <see cref="T:System.Data.Sql.SqlNotificationRequest" /> は、この依存関係に関連付けられていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-179">The <see cref="T:System.Data.SqlClient.SqlCommand" /> object already has a <see cref="T:System.Data.Sql.SqlNotificationRequest" /> object assigned to its <see cref="P:System.Data.SqlClient.SqlCommand.Notification" /> property and that <see cref="T:System.Data.Sql.SqlNotificationRequest" /> is not associated with this dependency.</span>
+          </span>
+          <span data-ttu-id="85639-180">SQLCLR 内で **SqlDependency** インスタンスを作成しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-180">An attempt was made to create a **SqlDependency** instance from within SQLCLR.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="AddCommandDependency">
+      <MemberSignature Language="C#" Value="public void AddCommandDependency (System.Data.SqlClient.SqlCommand command);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void AddCommandDependency(class System.Data.SqlClient.SqlCommand command) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDependency.AddCommandDependency(System.Data.SqlClient.SqlCommand)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub AddCommandDependency (command As SqlCommand)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void AddCommandDependency(System::Data::SqlClient::SqlCommand ^ command);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="command" Type="System.Data.SqlClient.SqlCommand" />
+      </Parameters>
+      <Docs>
+        <param name="command">
+          <span data-ttu-id="85639-181">通知に有効なステートメントが格納された <see cref="T:System.Data.SqlClient.SqlCommand" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-181">A <see cref="T:System.Data.SqlClient.SqlCommand" /> object containing a statement that is valid for notifications.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="85639-182">
+            <see cref="T:System.Data.SqlClient.SqlCommand" /> オブジェクトを、この <see cref="T:System.Data.SqlClient.SqlDependency" /> インスタンスに関連付けます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-182">Associates a <see cref="T:System.Data.SqlClient.SqlCommand" /> object with this <see cref="T:System.Data.SqlClient.SqlDependency" /> instance.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-183">クエリ通知は、特定の要件を満たす SELECT ステートメントでのみサポートされます。</span><span class="sxs-lookup"><span data-stu-id="85639-183">Query notifications are supported only for SELECT statements that meet a list of specific requirements.</span></span> <span data-ttu-id="85639-184">次の表に、SQL Server オンライン ブックの Service Broker とクエリ通知に関するドキュメントへのリンクを示します。</span><span class="sxs-lookup"><span data-stu-id="85639-184">The following table provides links to the Service Broker and Query Notifications documentation in SQL Server Books Online.</span></span>  
+  
+ <span data-ttu-id="85639-185">**SQL Server オンライン ブック**</span><span class="sxs-lookup"><span data-stu-id="85639-185">**SQL Server Books Online**</span></span>  
+  
+-   [<span data-ttu-id="85639-186">クエリ通知の作成</span><span class="sxs-lookup"><span data-stu-id="85639-186">Creating a Query for Notification</span></span>](http://msdn.microsoft.com/library/ms181122.aspx)  
+  
+-   [<span data-ttu-id="85639-187">Service Broker のセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-187">Security Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166059.aspx)  
+  
+-   [<span data-ttu-id="85639-188">セキュリティと保護 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-188">Security and Protection (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522911.aspx)  
+  
+-   [<span data-ttu-id="85639-189">通知サービスのセキュリティに関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-189">Security Considerations for Notifications Services</span></span>](http://msdn.microsoft.com/library/ms172604.aspx)  
+  
+-   [<span data-ttu-id="85639-190">クエリ通知の権限</span><span class="sxs-lookup"><span data-stu-id="85639-190">Query Notification Permissions</span></span>](http://msdn.microsoft.com/library/ms188311.aspx)  
+  
+-   [<span data-ttu-id="85639-191">Service Broker の国際化に関する考慮事項</span><span class="sxs-lookup"><span data-stu-id="85639-191">International Considerations for Service Broker</span></span>](http://msdn.microsoft.com/library/ms166028.aspx)  
+  
+-   [<span data-ttu-id="85639-192">ソリューション設計に関する考慮事項 (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-192">Solution Design Considerations (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522899.aspx)  
+  
+-   [<span data-ttu-id="85639-193">Service Broker 開発者向けの情報</span><span class="sxs-lookup"><span data-stu-id="85639-193">Service Broker Developer InfoCenter</span></span>](http://msdn.microsoft.com/library/ms166100.aspx)  
+  
+-   [<span data-ttu-id="85639-194">開発者ガイド (Service Broker)</span><span class="sxs-lookup"><span data-stu-id="85639-194">Developer's Guide (Service Broker)</span></span>](http://msdn.microsoft.com/library/bb522908.aspx)  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="85639-195">
+            <paramref name="command" /> パラメーターが null です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-195">The <paramref name="command" /> parameter is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="85639-196">
+            <see cref="T:System.Data.SqlClient.SqlCommand" /> オブジェクトには既に <see cref="T:System.Data.Sql.SqlNotificationRequest" /> プロパティに割り当てられた <see cref="P:System.Data.SqlClient.SqlCommand.Notification" /> オブジェクトがありますが、その <see cref="T:System.Data.Sql.SqlNotificationRequest" /> は、この依存関係に関連付けられていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-196">The <see cref="T:System.Data.SqlClient.SqlCommand" /> object already has a <see cref="T:System.Data.Sql.SqlNotificationRequest" /> object assigned to its <see cref="P:System.Data.SqlClient.SqlCommand.Notification" /> property, and that <see cref="T:System.Data.Sql.SqlNotificationRequest" /> is not associated with this dependency.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="HasChanges">
+      <MemberSignature Language="C#" Value="public bool HasChanges { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool HasChanges" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlDependency.HasChanges" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property HasChanges As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool HasChanges { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="85639-197">依存関係に関連付けられた、いずれかの結果セットが変更されたかどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-197">Gets a value that indicates whether one of the result sets associated with the dependency has changed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="85639-198">結果セットのいずれかが変更されたかどうかを示すブール値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-198">A Boolean value indicating whether one of the result sets has changed.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-199">使用していない場合、<xref:System.Data.SqlClient.SqlDependency.OnChange>イベントを確認できます、<xref:System.Data.SqlClient.SqlDependency.HasChanges%2A>クエリの結果が変更されたかどうかを決定するプロパティです。</span><span class="sxs-lookup"><span data-stu-id="85639-199">If you are not using the <xref:System.Data.SqlClient.SqlDependency.OnChange> event, you can check the <xref:System.Data.SqlClient.SqlDependency.HasChanges%2A> property to determine if the query results have changed.</span></span>  
+  
+ <span data-ttu-id="85639-200"><xref:System.Data.SqlClient.SqlDependency.HasChanges%2A>プロパティが必ずしもデータの変更を意味します。</span><span class="sxs-lookup"><span data-stu-id="85639-200">The <xref:System.Data.SqlClient.SqlDependency.HasChanges%2A> property does not necessarily imply a change in the data.</span></span> <span data-ttu-id="85639-201">タイムアウトなど、他の状況が期限切れになり、通知要求の設定に失敗したも変更イベントを生成します。</span><span class="sxs-lookup"><span data-stu-id="85639-201">Other circumstances, such as time-out expired and failure to set the notification request, also generate a change event.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Id">
+      <MemberSignature Language="C#" Value="public string Id { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Id" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlDependency.Id" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Id As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Id { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="85639-202">
+            <see cref="T:System.Data.SqlClient.SqlDependency" /> クラスのこのインスタンスを一意に識別する値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-202">Gets a value that uniquely identifies this instance of the <see cref="T:System.Data.SqlClient.SqlDependency" /> class.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="85639-203">
+            <see cref="T:System.Data.SqlClient.SqlDependency" /> クラスの各インスタンスに対して生成された GUID の文字列形式。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-203">A string representation of a GUID that is generated for each instance of the <see cref="T:System.Data.SqlClient.SqlDependency" /> class.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-204"><xref:System.Data.SqlClient.SqlDependency.Id%2A>を一意に識別するプロパティが使用される、指定された<xref:System.Data.SqlClient.SqlDependency>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="85639-204">The <xref:System.Data.SqlClient.SqlDependency.Id%2A> property is used to uniquely identify a given <xref:System.Data.SqlClient.SqlDependency> instance.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnChange">
+      <MemberSignature Language="C#" Value="public event System.Data.SqlClient.OnChangeEventHandler OnChange;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.Data.SqlClient.OnChangeEventHandler OnChange" />
+      <MemberSignature Language="DocId" Value="E:System.Data.SqlClient.SqlDependency.OnChange" />
+      <MemberSignature Language="VB.NET" Value="Public Custom Event OnChange As OnChangeEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event System::Data::SqlClient::OnChangeEventHandler ^ OnChange;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.SqlClient.OnChangeEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="85639-205">この <see cref="T:System.Data.SqlClient.SqlDependency" /> オブジェクトに関連付けられた、いずれかのコマンドに対する通知を受け取った場合に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-205">Occurs when a notification is received for any of the commands associated with this <see cref="T:System.Data.SqlClient.SqlDependency" /> object.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-206"><xref:System.Data.SqlClient.SqlDependency.OnChange> 関連付けられているコマンドの結果が変わると発生します。</span><span class="sxs-lookup"><span data-stu-id="85639-206"><xref:System.Data.SqlClient.SqlDependency.OnChange> occurs when the results for the associated command change.</span></span> <span data-ttu-id="85639-207">使用していない場合<xref:System.Data.SqlClient.SqlDependency.OnChange>、確認することができます、<xref:System.Data.SqlClient.SqlDependency.HasChanges%2A>クエリの結果が変更されたかどうかを決定するプロパティです。</span><span class="sxs-lookup"><span data-stu-id="85639-207">If you are not using <xref:System.Data.SqlClient.SqlDependency.OnChange>, you can check the <xref:System.Data.SqlClient.SqlDependency.HasChanges%2A> property to determine whether the query results have changed.</span></span>  
+  
+ <span data-ttu-id="85639-208"><xref:System.Data.SqlClient.SqlDependency.OnChange>イベントが必ずしもデータの変更を意味します。</span><span class="sxs-lookup"><span data-stu-id="85639-208">The <xref:System.Data.SqlClient.SqlDependency.OnChange> event does not necessarily imply a change in the data.</span></span> <span data-ttu-id="85639-209">その他のような場合に、タイムアウトの有効期限が切れてし、通知要求の設定に失敗したがまた生成など<xref:System.Data.SqlClient.SqlDependency.OnChange>です。</span><span class="sxs-lookup"><span data-stu-id="85639-209">Other circumstances, such as time-out expired and failure to set the notification request, also generate <xref:System.Data.SqlClient.SqlDependency.OnChange>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Start">
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="85639-210">依存関係の変更通知を受け取るリスナーを開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-210">Starts the listener for receiving dependency change notifications.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-211"><xref:System.Data.SqlClient.SqlDependency>でエラーが発生したときに、リスナーが再起動されます、[!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)]接続します。</span><span class="sxs-lookup"><span data-stu-id="85639-211">The <xref:System.Data.SqlClient.SqlDependency> listener will restart when an error occurs in the [!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)] connection.</span></span>  
+  
+ <span data-ttu-id="85639-212">複数回呼び出す、<xref:System.Data.SqlClient.SqlDependency.Start%2A>次の制限の下のメソッドを行んだことができます。</span><span class="sxs-lookup"><span data-stu-id="85639-212">Multiple calls to the <xref:System.Data.SqlClient.SqlDependency.Start%2A> method can be made, subject to the following restrictions:</span></span>  
+  
+-   <span data-ttu-id="85639-213">(同じ接続文字列と呼び出し元のスレッドでの Windows 資格情報) と同じパラメーターを持つ複数の呼び出しは有効です。</span><span class="sxs-lookup"><span data-stu-id="85639-213">Multiple calls with identical parameters (the same connection string and Windows credentials in the calling thread) are valid.</span></span>  
+  
+-   <span data-ttu-id="85639-214">有効な別の接続文字列で複数回呼び出して限り。</span><span class="sxs-lookup"><span data-stu-id="85639-214">Multiple calls with different connection strings are valid as long as:</span></span>  
+  
+    -   <span data-ttu-id="85639-215">各接続文字列が別のデータベースを指定または</span><span class="sxs-lookup"><span data-stu-id="85639-215">Each connection string specifies a different database, or</span></span>  
+  
+    -   <span data-ttu-id="85639-216">各接続文字列が別のユーザーを指定または</span><span class="sxs-lookup"><span data-stu-id="85639-216">Each connection string specifies a different user, or</span></span>  
+  
+    -   <span data-ttu-id="85639-217">呼び出しは、異なるアプリケーション ドメインから取得されます。</span><span class="sxs-lookup"><span data-stu-id="85639-217">The calls come from different application domains.</span></span>  
+  
+ <span data-ttu-id="85639-218">ことができます、<xref:System.Data.SqlClient.SqlDependency>さまざまなユーザーがサブスクライブおよびリッスンするために、グループに dbo ロールを与えることがなく別のユーザーの資格情報を表すために複数のスレッドを使用するアプリケーションで正しく動作 (を使用して<xref:System.Web.Caching.SqlCacheDependency>または<xref:System.Data.SqlClient.SqlCommand>)管理者によって作成された通知キューにします。</span><span class="sxs-lookup"><span data-stu-id="85639-218">You can make the <xref:System.Data.SqlClient.SqlDependency> work correctly for applications that use multiple threads to represent different user credentials without giving the dbo role to the group, because different users can subscribe and listen (using <xref:System.Web.Caching.SqlCacheDependency> or <xref:System.Data.SqlClient.SqlCommand>) to a notification queue created by an administrator.</span></span> <span data-ttu-id="85639-219">関連するアプリケーション ドメインの開始時に、サービス/キュー (キューの作成とサービスの作成のアクセス許可、データベース) を初期化する権限を持つユーザーの (Windows) の資格情報で開始を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="85639-219">When the relevant application domain starts, call Start with the (Windows) credentials of a user that has permission to initialize a service/queue (the CREATE QUEUE and CREATE SERVICE permissions for the database).</span></span> <span data-ttu-id="85639-220">開始があたり AppDomain では、それ以外の場合、あいまいさにより例外が発生したらのみ呼び出されることを確認します。</span><span class="sxs-lookup"><span data-stu-id="85639-220">Ensure that Start is only called once per AppDomain, otherwise an ambiguity exception is raised.</span></span>  <span data-ttu-id="85639-221">ユーザー スレッド通知 (データベースの SUBSCRIBE QUERY NOTIFICATIONS 権限) をサブスクライブする権限が必要です。</span><span class="sxs-lookup"><span data-stu-id="85639-221">The user thread must have permission to subscribe to the notification (the SUBSCRIBE QUERY NOTIFICATIONS permission for the database).</span></span> <span data-ttu-id="85639-222"><xref:System.Data.SqlClient.SqlDependency> 管理者以外のユーザーが管理者によって作成されたサービス/キューへのサブスクリプションの要求と関連付けられます。</span><span class="sxs-lookup"><span data-stu-id="85639-222"><xref:System.Data.SqlClient.SqlDependency> will associate the subscription request of a non-administrator user to the service/queue created by the administrator.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Start">
+      <MemberSignature Language="C#" Value="public static bool Start (string connectionString);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool Start(string connectionString) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDependency.Start(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Start (connectionString As String) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool Start(System::String ^ connectionString);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="85639-223">変更通知の取得元となる [!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)] のインスタンスの接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-223">The connection string for the instance of [!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)] from which to obtain change notifications.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="85639-224">接続文字列で指定される SQL Server のインスタンスから依存関係の変更通知を受け取るリスナーを開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-224">Starts the listener for receiving dependency change notifications from the instance of SQL Server specified by the connection string.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="85639-225">リスナーが正常に初期化された場合は **true**。互換性のあるリスナーが既に存在する場合は **false**。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-225">**true** if the listener initialized successfully; **false** if a compatible listener already exists.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-226">このメソッドは、リスナーを開始、<xref:System.AppDomain>のインスタンスから依存関係の通知を受信するため[!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)]によって指定された、`connectionString`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="85639-226">This method starts the listener for the <xref:System.AppDomain> for receiving dependency notifications from the instance of [!INCLUDE[ssNoVersion](~/includes/ssnoversion-md.md)] specified by the `connectionString` parameter.</span></span> <span data-ttu-id="85639-227">このメソッドに対して呼び出すことは 1 回以上の異なる接続文字列に複数のサーバー。</span><span class="sxs-lookup"><span data-stu-id="85639-227">This method may be called more than once with different connection strings for multiple servers.</span></span>  
+  
+ <span data-ttu-id="85639-228">追加の「解説」を参照してください。<xref:System.Data.SqlClient.SqlDependency.Start%2A>です。</span><span class="sxs-lookup"><span data-stu-id="85639-228">For additional remarks, see <xref:System.Data.SqlClient.SqlDependency.Start%2A>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="85639-229">
+            <paramref name="connectionString" /> パラメーターが NULL です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-229">The <paramref name="connectionString" /> parameter is NULL.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="85639-230">
+            <paramref name="connectionString" /> パラメーターは、このメソッドの以前の呼び出しと同一ですが、他のパラメーターに異なるものがあります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-230">The <paramref name="connectionString" /> parameter is the same as a previous call to this method, but the parameters are different.</span>
+          </span>
+          <span data-ttu-id="85639-231">CLR 内からメソッドが呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-231">The method was called from within the CLR.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Security.SecurityException">
+          <span data-ttu-id="85639-232">必要な <see cref="T:System.Data.SqlClient.SqlClientPermission" /> コード アクセス セキュリティ (CAS: Code Access Security) のアクセス許可が、呼び出し元にありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-232">The caller does not have the required <see cref="T:System.Data.SqlClient.SqlClientPermission" /> code access security (CAS) permission.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Data.SqlClient.SqlException">
+          <span data-ttu-id="85639-233">このメソッドの後続の呼び出しは、同一 <paramref name="connectionString" /> パラメーターを指定し、異なるユーザーまたは同一のスキーマを既定としないユーザーで行われました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-233">A subsequent call to the method has been made with an equivalent <paramref name="connectionString" /> parameter with a different user, or a user that does not default to the same schema.</span>
+          </span>
+          <span data-ttu-id="85639-234">いずれかの、基になる **SqlClient** 例外も発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-234">Also, any underlying **SqlClient** exceptions.</span>
+          </span>
+        </exception>
+        <altmember cref="P:System.Data.SqlClient.SqlConnection.ConnectionString" />
+      </Docs>
+    </Member>
+    <Member MemberName="Start">
+      <MemberSignature Language="C#" Value="public static bool Start (string connectionString, string queue);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool Start(string connectionString, string queue) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDependency.Start(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Start (connectionString As String, queue As String) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool Start(System::String ^ connectionString, System::String ^ queue);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+        <Parameter Name="queue" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="85639-235">変更通知の取得元である SQL Server のインスタンスの接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-235">The connection string for the instance of SQL Server from which to obtain change notifications.</span>
+          </span>
+        </param>
+        <param name="queue">
+          <span data-ttu-id="85639-236">使用する、既存の SQL Server Service Broker キュー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-236">An existing SQL Server Service Broker queue to be used.</span>
+          </span>
+          <span data-ttu-id="85639-237">
+            <see langword="null" /> の場合は、既定のキューが使用されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-237">If <see langword="null" />, the default queue is used.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="85639-238">接続文字列で指定される SQL Server のインスタンスから依存関係の変更通知を受け取るリスナーを、指定した SQL Server Service Broker キューを使用して開始します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-238">Starts the listener for receiving dependency change notifications from the instance of SQL Server specified by the connection string using the specified SQL Server Service Broker queue.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="85639-239">リスナーが正常に初期化された場合は **true**。互換性のあるリスナーが既に存在する場合は **false**。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-239">**true** if the listener initialized successfully; **false** if a compatible listener already exists.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-240">このメソッドは、リスナーを開始、<xref:System.AppDomain>で指定された SQL Server のインスタンスから依存関係の通知を受信するため、`connectionString`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="85639-240">This method starts the listener for the <xref:System.AppDomain> for receiving dependency notifications from the instance of SQL Server specified by the `connectionString` parameter.</span></span> <span data-ttu-id="85639-241">このメソッドに対して呼び出すことは 1 回以上の異なる接続文字列に複数のサーバー。</span><span class="sxs-lookup"><span data-stu-id="85639-241">This method may be called more than once with different connection strings for multiple servers.</span></span>  
+  
+ <span data-ttu-id="85639-242">キュー名が指定されていない場合<xref:System.Data.SqlClient.SqlDependency>サーバーを作成、一時キューおよびサービス全体のプロセスでは、使用される場合でも、プロセスでは、1 つ以上<xref:System.AppDomain>です。</span><span class="sxs-lookup"><span data-stu-id="85639-242">If no queue name is specified, <xref:System.Data.SqlClient.SqlDependency> creates a temporary queue and service in the server that is used for the entire process, even if the process involves more than one <xref:System.AppDomain>.</span></span> <span data-ttu-id="85639-243">キューおよびサービスは、アプリケーションのシャット ダウン時に自動的に削除します。</span><span class="sxs-lookup"><span data-stu-id="85639-243">The queue and service are automatically removed upon application shutdown.</span></span>  
+  
+ <span data-ttu-id="85639-244">追加の「解説」を参照してください。<xref:System.Data.SqlClient.SqlDependency.Start%2A>です。</span><span class="sxs-lookup"><span data-stu-id="85639-244">For additional remarks, see <xref:System.Data.SqlClient.SqlDependency.Start%2A>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="85639-245">
+            <paramref name="connectionString" /> パラメーターが NULL です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-245">The <paramref name="connectionString" /> parameter is NULL.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="85639-246">
+            <paramref name="connectionString" /> パラメーターは、このメソッドの以前の呼び出しと同一ですが、他のパラメーターに異なるものがあります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-246">The <paramref name="connectionString" /> parameter is the same as a previous call to this method, but the parameters are different.</span>
+          </span>
+          <span data-ttu-id="85639-247">CLR 内からメソッドが呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-247">The method was called from within the CLR.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Security.SecurityException">
+          <span data-ttu-id="85639-248">必要な <see cref="T:System.Data.SqlClient.SqlClientPermission" /> コード アクセス セキュリティ (CAS: Code Access Security) のアクセス許可が、呼び出し元にありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-248">The caller does not have the required <see cref="T:System.Data.SqlClient.SqlClientPermission" /> code access security (CAS) permission.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Data.SqlClient.SqlException">
+          <span data-ttu-id="85639-249">このメソッドの後続の呼び出しは、同一 <paramref name="connectionString" /> パラメーターを指定しているが、異なるユーザーまたは同一のスキーマを既定としないユーザーで行われました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-249">A subsequent call to the method has been made with an equivalent <paramref name="connectionString" /> parameter but a different user, or a user that does not default to the same schema.</span>
+          </span>
+          <span data-ttu-id="85639-250">いずれかの、基になる **SqlClient** 例外も発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-250">Also, any underlying **SqlClient** exceptions.</span>
+          </span>
+        </exception>
+        <altmember cref="P:System.Data.SqlClient.SqlConnection.ConnectionString" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Stop">
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="85639-251">以前の <see cref="Overload:System.Data.SqlClient.SqlDependency.Start" /> 呼び出しで指定された接続のリスナーを停止します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-251">Stops a listener for a connection specified in a previous <see cref="Overload:System.Data.SqlClient.SqlDependency.Start" /> call.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-252"><xref:System.Data.SqlClient.SqlDependency>リスナーが SQL Server の接続でエラーが発生したときに再起動されます。</span><span class="sxs-lookup"><span data-stu-id="85639-252">The <xref:System.Data.SqlClient.SqlDependency> listener will restart when an error occurs in the SQL Server connection.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Stop">
+      <MemberSignature Language="C#" Value="public static bool Stop (string connectionString);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool Stop(string connectionString) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDependency.Stop(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Stop (connectionString As String) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool Stop(System::String ^ connectionString);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="85639-253">以前の <see cref="M:System.Data.SqlClient.SqlDependency.Start(System.String)" /> 呼び出しで使用された SQL Server のインスタンスの接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-253">Connection string for the instance of SQL Server that was used in a previous <see cref="M:System.Data.SqlClient.SqlDependency.Start(System.String)" /> call.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="85639-254">以前の <see cref="Overload:System.Data.SqlClient.SqlDependency.Start" /> 呼び出しで指定された接続のリスナーを停止します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-254">Stops a listener for a connection specified in a previous <see cref="Overload:System.Data.SqlClient.SqlDependency.Start" /> call.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="85639-255">リスナーが完全に停止した場合は **true**。<see cref="T:System.AppDomain" /> はリスナーからバインドを解除されたが、同一のリスナーを使用している他の <see cref="T:System.AppDomain" /> が 1 つ以上存在する場合は **false**。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-255">**true** if the listener was completely stopped; **false** if the <see cref="T:System.AppDomain" /> was unbound from the listener, but there are is at least one other <see cref="T:System.AppDomain" /> using the same listener.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-256"><xref:System.Data.SqlClient.SqlDependency.Stop%2A>各メソッドを呼び出す必要があります<xref:System.Data.SqlClient.SqlDependency.Start%2A>呼び出します。</span><span class="sxs-lookup"><span data-stu-id="85639-256">The <xref:System.Data.SqlClient.SqlDependency.Stop%2A> method must be called for each <xref:System.Data.SqlClient.SqlDependency.Start%2A> call.</span></span> <span data-ttu-id="85639-257">指定されたリスナーがのみがシャット ダウン、完全に受信すると、同じ数の<xref:System.Data.SqlClient.SqlDependency.Stop%2A>要求として<xref:System.Data.SqlClient.SqlDependency.Start%2A>要求します。</span><span class="sxs-lookup"><span data-stu-id="85639-257">A given listener only shuts down fully when it receives the same number of <xref:System.Data.SqlClient.SqlDependency.Stop%2A> requests as <xref:System.Data.SqlClient.SqlDependency.Start%2A> requests.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="85639-258">
+            <paramref name="connectionString" /> パラメーターが NULL です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-258">The <paramref name="connectionString" /> parameter is NULL.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="85639-259">SQLCLR 内からメソッドが呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-259">The method was called from within SQLCLR.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Security.SecurityException">
+          <span data-ttu-id="85639-260">必要な <see cref="T:System.Data.SqlClient.SqlClientPermission" /> コード アクセス セキュリティ (CAS: Code Access Security) のアクセス許可が、呼び出し元にありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-260">The caller does not have the required <see cref="T:System.Data.SqlClient.SqlClientPermission" /> code access security (CAS) permission.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Data.SqlClient.SqlException">
+          <span data-ttu-id="85639-261">基になる **SqlClient** 例外が発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-261">An underlying **SqlClient** exception occurred.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Stop">
+      <MemberSignature Language="C#" Value="public static bool Stop (string connectionString, string queue);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool Stop(string connectionString, string queue) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDependency.Stop(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Stop (connectionString As String, queue As String) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool Stop(System::String ^ connectionString, System::String ^ queue);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+        <Parameter Name="queue" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="85639-262">以前の <see cref="M:System.Data.SqlClient.SqlDependency.Start(System.String,System.String)" /> 呼び出しで使用された SQL Server のインスタンスの接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-262">Connection string for the instance of SQL Server that was used in a previous <see cref="M:System.Data.SqlClient.SqlDependency.Start(System.String,System.String)" /> call.</span>
+          </span>
+        </param>
+        <param name="queue">
+          <span data-ttu-id="85639-263">以前の <see cref="M:System.Data.SqlClient.SqlDependency.Start(System.String,System.String)" /> 呼び出しで使用された SQL Server Service Broker キュー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-263">The SQL Server Service Broker queue that was used in a previous <see cref="M:System.Data.SqlClient.SqlDependency.Start(System.String,System.String)" /> call.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="85639-264">以前の <see cref="Overload:System.Data.SqlClient.SqlDependency.Start" /> 呼び出しで指定された接続のリスナーを停止します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-264">Stops a listener for a connection specified in a previous <see cref="Overload:System.Data.SqlClient.SqlDependency.Start" /> call.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="85639-265">リスナーが完全に停止した場合は **true**。<see cref="T:System.AppDomain" /> はリスナーからバインドを解除されたが、同一のリスナーを使用している他の <see cref="T:System.AppDomain" /> が 1 つ以上存在する場合は **false**。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-265">**true** if the listener was completely stopped; **false** if the <see cref="T:System.AppDomain" /> was unbound from the listener, but there is at least one other <see cref="T:System.AppDomain" /> using the same listener.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="85639-266"><xref:System.Data.SqlClient.SqlDependency.Stop%2A>各メソッドを呼び出す必要があります<xref:System.Data.SqlClient.SqlDependency.Start%2A>呼び出します。</span><span class="sxs-lookup"><span data-stu-id="85639-266">The <xref:System.Data.SqlClient.SqlDependency.Stop%2A> method must be called for each <xref:System.Data.SqlClient.SqlDependency.Start%2A> call.</span></span> <span data-ttu-id="85639-267">指定されたリスナーがのみがシャット ダウン、完全に受信すると、同じ数の<xref:System.Data.SqlClient.SqlDependency.Stop%2A>要求として<xref:System.Data.SqlClient.SqlDependency.Start%2A>要求します。</span><span class="sxs-lookup"><span data-stu-id="85639-267">A given listener only shuts down fully when it receives the same number of <xref:System.Data.SqlClient.SqlDependency.Stop%2A> requests as <xref:System.Data.SqlClient.SqlDependency.Start%2A> requests.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="85639-268">
+            <paramref name="connectionString" /> パラメーターが NULL です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-268">The <paramref name="connectionString" /> parameter is NULL.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="85639-269">SQLCLR 内からメソッドが呼び出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-269">The method was called from within SQLCLR.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Security.SecurityException">
+          <span data-ttu-id="85639-270">必要な <see cref="T:System.Data.SqlClient.SqlClientPermission" /> コード アクセス セキュリティ (CAS: Code Access Security) のアクセス許可が、呼び出し元にありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-270">The caller does not have the required <see cref="T:System.Data.SqlClient.SqlClientPermission" /> code access security (CAS) permission.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Data.SqlClient.SqlException">
+          <span data-ttu-id="85639-271">基になる **SqlClient** 例外が発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="85639-271">And underlying **SqlClient** exception occurred.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

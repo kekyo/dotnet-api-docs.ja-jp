@@ -1,0 +1,1747 @@
+<Type Name="SymmetricAlgorithm" FullName="System.Security.Cryptography.SymmetricAlgorithm">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="d20969f0f8dd5914901bf0c98eb58e2cfb3c5219" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class SymmetricAlgorithm : IDisposable" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit SymmetricAlgorithm extends System.Object implements class System.IDisposable" />
+  <TypeSignature Language="DocId" Value="T:System.Security.Cryptography.SymmetricAlgorithm" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class SymmetricAlgorithm&#xA;Implements IDisposable" />
+  <TypeSignature Language="C++ CLI" Value="public ref class SymmetricAlgorithm abstract : IDisposable" />
+  <AssemblyInfo>
+    <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.IDisposable</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="c361c-101">対称アルゴリズムのすべての実装が継承する必要がある、抽象基本クラスを表します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c361c-101">Represents the abstract base class from which all implementations of symmetric algorithms must inherit.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-102">派生したクラス、<xref:System.Security.Cryptography.SymmetricAlgorithm>クラスは、暗号ブロック チェーン (CBC) と呼ばれるチェーン モードを使用するキーが必要ですが (<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>) および初期化ベクター (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) データに対して暗号変換を実行します。</span><span class="sxs-lookup"><span data-stu-id="c361c-102">The classes that derive from the <xref:System.Security.Cryptography.SymmetricAlgorithm> class use a chaining mode called cipher block chaining (CBC), which requires a key (<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>) and an initialization vector (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) to perform cryptographic transformations on data.</span></span>  <span data-ttu-id="c361c-103">いずれかを使用して暗号化されたデータを復号化する、<xref:System.Security.Cryptography.SymmetricAlgorithm>設定する必要があります、クラス、<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>プロパティおよび<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>暗号化に使用されたものと同じ値をプロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-103">To decrypt data that was encrypted using one of the <xref:System.Security.Cryptography.SymmetricAlgorithm> classes, you must set the <xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A> property and the <xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A> property to the same values that were used for encryption.</span></span>  <span data-ttu-id="c361c-104">対称アルゴリズムを使用するためには、送信側と受信側にのみ、秘密キーを確認する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c361c-104">For a symmetric algorithm to be useful, the secret key must be known only to the sender and the receiver.</span></span>  
+  
+ <span data-ttu-id="c361c-105"><xref:System.Security.Cryptography.RijndaelManaged>、 <xref:System.Security.Cryptography.DESCryptoServiceProvider>、 <xref:System.Security.Cryptography.RC2CryptoServiceProvider>、および<xref:System.Security.Cryptography.TripleDESCryptoServiceProvider>は対称アルゴリズムの実装です。</span><span class="sxs-lookup"><span data-stu-id="c361c-105"><xref:System.Security.Cryptography.RijndaelManaged>, <xref:System.Security.Cryptography.DESCryptoServiceProvider>, <xref:System.Security.Cryptography.RC2CryptoServiceProvider>, and <xref:System.Security.Cryptography.TripleDESCryptoServiceProvider> are implementations of symmetric algorithms.</span></span>  
+  
+ <span data-ttu-id="c361c-106">クラスの派生を使用して、ある十分にないため、セキュリティの観点から、単にオブジェクトを使用して完了した後にガベージ コレクションを強制的に注意してください。</span><span class="sxs-lookup"><span data-stu-id="c361c-106">Note that when using derived classes, it is not enough, from a security perspective, to simply force a garbage collection after you have finished using the object.</span></span> <span data-ttu-id="c361c-107">明示的に呼び出す必要があります、<xref:System.Security.Cryptography.SymmetricAlgorithm.Clear%2A>リリースされる前に、オブジェクト内で機密データをゼロにするオブジェクトのメソッドです。</span><span class="sxs-lookup"><span data-stu-id="c361c-107">You must explicitly call the <xref:System.Security.Cryptography.SymmetricAlgorithm.Clear%2A> method on the object to zero out any sensitive data within the object before it is released.</span></span> <span data-ttu-id="c361c-108">ガベージ コレクションは、収集されたオブジェクトの内容は 0 以外は、メモリ割り当ての変更に使用可能としてマークするだけに注意してください。</span><span class="sxs-lookup"><span data-stu-id="c361c-108">Note that garbage collection does not zero out the contents of collected objects but simply marks the memory as available for reallocation.</span></span> <span data-ttu-id="c361c-109">したがってガベージ コレクション オブジェクト内に含まれるデータはまだメモリ ヒープ内に存在未割り当てのメモリにします。</span><span class="sxs-lookup"><span data-stu-id="c361c-109">Thus the data contained within a garbage collected object may still be present in the memory heap in unallocated memory.</span></span> <span data-ttu-id="c361c-110">暗号オブジェクトの場合、このデータにキーのデータまたはプレーン テキストのブロックなどの機密情報が含まれます。</span><span class="sxs-lookup"><span data-stu-id="c361c-110">In the case of cryptographic objects, this data could contain sensitive information such as key data or a block of plain text.</span></span>  
+  
+ <span data-ttu-id="c361c-111">すべての暗号化を実装の重要なデータを保持する .NET Framework クラス、`Clear`メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c361c-111">All cryptographic classes in the .NET Framework that hold sensitive data implement a `Clear` method.</span></span> <span data-ttu-id="c361c-112">呼び出されると、`Clear`メソッドがオブジェクト内のすべての機密データをゼロに上書きしができるように、安全にガベージ コレクション オブジェクトを解放します。</span><span class="sxs-lookup"><span data-stu-id="c361c-112">When called, the `Clear` method overwrites all sensitive data within the object with zeros and then releases the object so that it can be safely garbage collected.</span></span> <span data-ttu-id="c361c-113">オブジェクトを 0 に設定され、解放を呼び出す必要がありますし、`Dispose`メソッドを`disposing`パラメーターに設定`True`を破棄するすべてマネージ リソースとアンマネージ オブジェクトに関連付けられているリソース。</span><span class="sxs-lookup"><span data-stu-id="c361c-113">When the object has been zeroed and released, you should then call the `Dispose` method with the `disposing` parameter set to `True` to dispose of all managed and unmanaged resources associated with the object.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c361c-114">次のコード例では、 <xref:System.Security.Cryptography.RijndaelManaged> 、指定したクラス<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>プロパティおよび初期化ベクター (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) で指定されたファイルを暗号化する`inName`、によって指定されたファイルを暗号化された結果を出力および`outName`.</span><span class="sxs-lookup"><span data-stu-id="c361c-114">The following code example uses the <xref:System.Security.Cryptography.RijndaelManaged> class with the specified <xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A> property and initialization vector (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) to encrypt a file specified by `inName`, and outputs the encrypted result to the file specified by `outName`.</span></span> <span data-ttu-id="c361c-115">`desKey`と`desIV`メソッドのパラメーターは 8 バイトの配列。</span><span class="sxs-lookup"><span data-stu-id="c361c-115">The `desKey` and `desIV` parameters to the method are 8-byte arrays.</span></span> <span data-ttu-id="c361c-116">この例を実行するインストールされている高度暗号化パックが必要です。</span><span class="sxs-lookup"><span data-stu-id="c361c-116">You must have the high encryption pack installed to run this example.</span></span>  
+  
+ [!code-cpp[Classic CryptoStream Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic CryptoStream Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic CryptoStream Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic CryptoStream Example/CS/source.cs#1)]
+ [!code-vb[Classic CryptoStream Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic CryptoStream Example/VB/source.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <block subset="none" type="overrides">
+      <para>
+        <span data-ttu-id="c361c-117">継承する場合、<see cref="T:System.Security.Cryptography.SymmetricAlgorithm" />クラスでは、次のメンバーをオーバーライドする必要があります: <see cref="M:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor(System.Byte[],System.Byte[])" />、 <see cref="M:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor(System.Byte[],System.Byte[])" />、 <see cref="M:System.Security.Cryptography.SymmetricAlgorithm.GenerateIV" />、および<see cref="M:System.Security.Cryptography.SymmetricAlgorithm.GenerateKey" />です。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="c361c-117">When you inherit from the <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> class, you must override the following members: <see cref="M:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor(System.Byte[],System.Byte[])" />, <see cref="M:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor(System.Byte[],System.Byte[])" />, <see cref="M:System.Security.Cryptography.SymmetricAlgorithm.GenerateIV" />, and <see cref="M:System.Security.Cryptography.SymmetricAlgorithm.GenerateKey" />.</span>
+        </span>
+      </para>
+    </block>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected SymmetricAlgorithm ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; SymmetricAlgorithm();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-118">
+            <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-118">Initializes a new instance of the <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-119">抽象クラスのインスタンスを作成することはできません。</span><span class="sxs-lookup"><span data-stu-id="c361c-119">You cannot create an instance of an abstract class.</span></span> <span data-ttu-id="c361c-120">アプリケーション コードでは、派生クラスの新しいインスタンスを作成します。</span><span class="sxs-lookup"><span data-stu-id="c361c-120">Application code creates a new instance of a derived class.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="c361c-121">対称アルゴリズムの派生クラスの実装が有効ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-121">The implementation of the class derived from the symmetric algorithm is not valid.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BlockSize">
+      <MemberSignature Language="C#" Value="public virtual int BlockSize { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 BlockSize" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Cryptography.SymmetricAlgorithm.BlockSize" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Property BlockSize As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property int BlockSize { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-122">暗号操作のブロック サイズをビット単位で取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-122">Gets or sets the block size, in bits, of the cryptographic operation.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c361c-123">ブロック サイズ (ビット単位)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-123">The block size, in bits.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-124">ブロック サイズは、暗号化または 1 つの操作で復号化できるデータの基本単位です。</span><span class="sxs-lookup"><span data-stu-id="c361c-124">The block size is the basic unit of data that can be encrypted or decrypted in one operation.</span></span> <span data-ttu-id="c361c-125">ブロック サイズよりも長いメッセージが連続するブロックと見なされますブロック サイズよりも短いメッセージは、ブロックのサイズに達するために余分なビットが埋め込まれている必要があります。</span><span class="sxs-lookup"><span data-stu-id="c361c-125">Messages longer than the block size are handled as successive blocks; messages shorter than the block size must be padded with extra bits to reach the size of a block.</span></span> <span data-ttu-id="c361c-126">有効なブロック サイズは、使用する対称アルゴリズムによって決定されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-126">Valid block sizes are determined by the symmetric algorithm used.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="c361c-127">ブロック サイズが無効です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-127">The block size is invalid.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BlockSizeValue">
+      <MemberSignature Language="C#" Value="protected int BlockSizeValue;" />
+      <MemberSignature Language="ILAsm" Value=".field family int32 BlockSizeValue" />
+      <MemberSignature Language="DocId" Value="F:System.Security.Cryptography.SymmetricAlgorithm.BlockSizeValue" />
+      <MemberSignature Language="VB.NET" Value="Protected BlockSizeValue As Integer " />
+      <MemberSignature Language="C++ CLI" Value="protected: int BlockSizeValue;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-128">暗号操作のブロック サイズをビット単位で表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-128">Represents the block size, in bits, of the cryptographic operation.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-129">ブロック サイズは、暗号化または 1 つの操作で復号化できるデータの基本単位です。</span><span class="sxs-lookup"><span data-stu-id="c361c-129">The block size is the basic unit of data that can be encrypted or decrypted in one operation.</span></span> <span data-ttu-id="c361c-130">ブロック サイズよりも長いメッセージが連続するブロックと見なされますブロック サイズよりも短いメッセージは、ブロックのサイズに達するために余分なビットが埋め込まれている必要があります。</span><span class="sxs-lookup"><span data-stu-id="c361c-130">Messages longer than the block size are handled as successive blocks; messages shorter than the block size must be padded with extra bits to reach the size of a block.</span></span> <span data-ttu-id="c361c-131">有効なブロック サイズは、使用する対称アルゴリズムによって決定されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-131">Valid block sizes are determined by the symmetric algorithm used.</span></span>  
+  
+ <span data-ttu-id="c361c-132">このフィールドには、<xref:System.Security.Cryptography.SymmetricAlgorithm.BlockSize%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-132">This field is accessed through the <xref:System.Security.Cryptography.SymmetricAlgorithm.BlockSize%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Clear">
+      <MemberSignature Language="C#" Value="public void Clear ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Clear() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.Clear" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Clear ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Clear();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-133">
+            <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> クラスによって使用されているすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-133">Releases all resources used by the <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-134">クラスの派生を使用して、ある十分にないため、セキュリティの観点から、単にオブジェクトを使用して完了した後にガベージ コレクションを強制的に注意してください。</span><span class="sxs-lookup"><span data-stu-id="c361c-134">Note that when using derived classes, it is not enough, from a security perspective, to simply force a garbage collection after you have finished using the object.</span></span> <span data-ttu-id="c361c-135">明示的に呼び出す必要があります、<xref:System.Security.Cryptography.SymmetricAlgorithm.Clear%2A>リリースされる前に、オブジェクト内で機密データをゼロにするオブジェクトのメソッドです。</span><span class="sxs-lookup"><span data-stu-id="c361c-135">You must explicitly call the <xref:System.Security.Cryptography.SymmetricAlgorithm.Clear%2A> method on the object to zero out any sensitive data within the object before it is released.</span></span> <span data-ttu-id="c361c-136">ガベージ コレクションは、収集されたオブジェクトの内容は 0 以外は、メモリ割り当ての変更に使用可能としてマークするだけに注意してください。</span><span class="sxs-lookup"><span data-stu-id="c361c-136">Note that garbage collection does not zero out the contents of collected objects but simply marks the memory as available for reallocation.</span></span> <span data-ttu-id="c361c-137">したがってガベージ コレクション オブジェクト内に含まれるデータはまだメモリ ヒープ内に存在未割り当てのメモリにします。</span><span class="sxs-lookup"><span data-stu-id="c361c-137">Thus the data contained within a garbage collected object may still be present in the memory heap in unallocated memory.</span></span> <span data-ttu-id="c361c-138">暗号オブジェクトの場合、このデータにキーのデータまたはプレーン テキストのブロックなどの機密情報が含まれます。</span><span class="sxs-lookup"><span data-stu-id="c361c-138">In the case of cryptographic objects, this data could contain sensitive information such as key data or a block of plain text.</span></span>  
+  
+ <span data-ttu-id="c361c-139">すべての暗号化を実装の重要なデータを保持する .NET Framework クラス、`Clear`メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c361c-139">All cryptographic classes in the .NET Framework that hold sensitive data implement a `Clear` method.</span></span> <span data-ttu-id="c361c-140">呼び出されると、`Clear`メソッドがオブジェクト内のすべての機密データをゼロに上書きしができるように、安全にガベージ コレクション オブジェクトを解放します。</span><span class="sxs-lookup"><span data-stu-id="c361c-140">When called, the `Clear` method overwrites all sensitive data within the object with zeros and then releases the object so that it can be safely garbage collected.</span></span> <span data-ttu-id="c361c-141">オブジェクトを 0 に設定され、解放を呼び出す必要がありますし、`Dispose`メソッドを`disposing`パラメーターに設定`True`を破棄するすべてマネージ リソースとアンマネージ オブジェクトに関連付けられているリソース。</span><span class="sxs-lookup"><span data-stu-id="c361c-141">When the object has been zeroed and released, you should then call the `Dispose` method with the `disposing` parameter set to `True` to dispose of all managed and unmanaged resources associated with the object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Create">
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-142">対称アルゴリズムを実行するために使用する暗号オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-142">Creates a cryptographic object used to perform the symmetric algorithm.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Create">
+      <MemberSignature Language="C#" Value="public static System.Security.Cryptography.SymmetricAlgorithm Create ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Security.Cryptography.SymmetricAlgorithm Create() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.Create" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Create () As SymmetricAlgorithm" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Security::Cryptography::SymmetricAlgorithm ^ Create();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.SymmetricAlgorithm</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-143">対称アルゴリズムを実行するために使用する既定の暗号オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-143">Creates a default cryptographic object used to perform the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c361c-144">対称アルゴリズムを実行するために使用する既定の暗号オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-144">A default cryptographic object used to perform the symmetric algorithm.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="c361c-145">次のコード例では、 <xref:System.Security.Cryptography.RijndaelManaged> 、指定したクラス<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>プロパティおよび初期化ベクター (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) で指定されたファイルを暗号化する`inName`、によって指定されたファイルを暗号化された結果を出力および`outName`.</span><span class="sxs-lookup"><span data-stu-id="c361c-145">The following code example uses the <xref:System.Security.Cryptography.RijndaelManaged> class with the specified <xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A> property and initialization vector (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) to encrypt a file specified by `inName`, and outputs the encrypted result to the file specified by `outName`.</span></span> <span data-ttu-id="c361c-146">`desKey`と`desIV`メソッドのパラメーターは 8 バイトの配列。</span><span class="sxs-lookup"><span data-stu-id="c361c-146">The `desKey` and `desIV` parameters to the method are 8-byte arrays.</span></span> <span data-ttu-id="c361c-147">この例を実行するインストールされている高度暗号化パックが必要です。</span><span class="sxs-lookup"><span data-stu-id="c361c-147">You must have the high encryption pack installed to run this example.</span></span>  
+  
+ [!code-cpp[Classic CryptoStream Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic CryptoStream Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic CryptoStream Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic CryptoStream Example/CS/source.cs#1)]
+ [!code-vb[Classic CryptoStream Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic CryptoStream Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Create">
+      <MemberSignature Language="C#" Value="public static System.Security.Cryptography.SymmetricAlgorithm Create (string algName);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Security.Cryptography.SymmetricAlgorithm Create(string algName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.Create(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Create (algName As String) As SymmetricAlgorithm" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Security::Cryptography::SymmetricAlgorithm ^ Create(System::String ^ algName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.SymmetricAlgorithm</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="algName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="algName">
+          <span data-ttu-id="c361c-148">使用する <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> クラスの特定の実装の名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-148">The name of the specific implementation of the <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> class to use.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c361c-149">対称アルゴリズムを実行するために使用する指定された暗号オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-149">Creates the specified cryptographic object used to perform the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c361c-150">対称アルゴリズムを実行するために使用する暗号オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-150">A cryptographic object used to perform the symmetric algorithm.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="CreateDecryptor">
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-151">対称復号化オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-151">Creates a symmetric decryptor object.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="CreateDecryptor">
+      <MemberSignature Language="C#" Value="public virtual System.Security.Cryptography.ICryptoTransform CreateDecryptor ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Security.Cryptography.ICryptoTransform CreateDecryptor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function CreateDecryptor () As ICryptoTransform" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Security::Cryptography::ICryptoTransform ^ CreateDecryptor();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.ICryptoTransform</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-152">現在の <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" /> プロパティおよび初期化ベクター (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) を使用して、対称復号化オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-152">Creates a symmetric decryptor object with the current <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" /> property and initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />).</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c361c-153">対称復号化オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-153">A symmetric decryptor object.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-154">このメソッドを使用して作成された、暗号化されたメッセージを復号化、<xref:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor%2A>同じシグネチャを持つオーバー ロードします。</span><span class="sxs-lookup"><span data-stu-id="c361c-154">This method decrypts an encrypted message created using the <xref:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor%2A> overload with the same signature.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateDecryptor">
+      <MemberSignature Language="C#" Value="public abstract System.Security.Cryptography.ICryptoTransform CreateDecryptor (byte[] rgbKey, byte[] rgbIV);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Security.Cryptography.ICryptoTransform CreateDecryptor(unsigned int8[] rgbKey, unsigned int8[] rgbIV) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor(System.Byte[],System.Byte[])" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function CreateDecryptor (rgbKey As Byte(), rgbIV As Byte()) As ICryptoTransform" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract System::Security::Cryptography::ICryptoTransform ^ CreateDecryptor(cli::array &lt;System::Byte&gt; ^ rgbKey, cli::array &lt;System::Byte&gt; ^ rgbIV);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.ICryptoTransform</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="rgbKey" Type="System.Byte[]" />
+        <Parameter Name="rgbIV" Type="System.Byte[]" />
+      </Parameters>
+      <Docs>
+        <param name="rgbKey">
+          <span data-ttu-id="c361c-155">対称アルゴリズムに使用する共有キー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-155">The secret key to use for the symmetric algorithm.</span>
+          </span>
+        </param>
+        <param name="rgbIV">
+          <span data-ttu-id="c361c-156">対称アルゴリズムに使用する初期化ベクター。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-156">The initialization vector to use for the symmetric algorithm.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c361c-157">派生クラスでオーバーライドされると、指定した <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" /> プロパティおよび初期化ベクター (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) を使用して、対称復号化オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-157">When overridden in a derived class, creates a symmetric decryptor object with the specified <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" /> property and initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />).</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c361c-158">対称復号化オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-158">A symmetric decryptor object.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-159">このメソッドを使用して作成された、暗号化されたメッセージを復号化、<xref:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor%2A>同じパラメーターを持つオーバー ロードします。</span><span class="sxs-lookup"><span data-stu-id="c361c-159">This method decrypts an encrypted message created using the <xref:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor%2A> overload with the same parameters.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="CreateEncryptor">
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-160">対称暗号化オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-160">Creates a symmetric encryptor object.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="CreateEncryptor">
+      <MemberSignature Language="C#" Value="public virtual System.Security.Cryptography.ICryptoTransform CreateEncryptor ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Security.Cryptography.ICryptoTransform CreateEncryptor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function CreateEncryptor () As ICryptoTransform" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Security::Cryptography::ICryptoTransform ^ CreateEncryptor();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.ICryptoTransform</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-161">現在の <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" /> プロパティおよび初期化ベクター (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) を使用して、対称暗号化オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-161">Creates a symmetric encryptor object with the current <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" /> property and initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />).</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c361c-162">対称暗号化オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-162">A symmetric encryptor object.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-163">場合、現在<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>プロパティは`null`、<xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateKey%2A>メソッドが、新たに作成するために呼び出されるランダム<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>です。</span><span class="sxs-lookup"><span data-stu-id="c361c-163">If the current <xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A> property is `null`, the <xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateKey%2A> method is called to create a new random <xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>.</span></span> <span data-ttu-id="c361c-164">場合、現在<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>プロパティは`null`、<xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateIV%2A>メソッドが、新たに作成するために呼び出されるランダム<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>です。</span><span class="sxs-lookup"><span data-stu-id="c361c-164">If the current <xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A> property is `null`, the <xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateIV%2A> method is called to create a new random <xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>.</span></span>  
+  
+ <span data-ttu-id="c361c-165">使用して、<xref:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor%2A>このメソッドの結果を復号化に同じシグネチャを持つオーバー ロードします。</span><span class="sxs-lookup"><span data-stu-id="c361c-165">Use the <xref:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor%2A> overload with the same signature to decrypt the result of this method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c361c-166">次の例から返された変換オブジェクトを使用して文字列を暗号化する、<xref:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c361c-166">The following example encrypts a string using the transform object returned from the <xref:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor%2A> method.</span></span>  
+  
+ [!code-cpp[System.Security.Cryptography.SymmetricAlgorithm#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.security.cryptography.symmetricalgorithm/cpp/encryptor.cpp#1)]
+ [!code-csharp[System.Security.Cryptography.SymmetricAlgorithm#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.security.cryptography.symmetricalgorithm/cs/encryptor.cs#1)]
+ [!code-vb[System.Security.Cryptography.SymmetricAlgorithm#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.security.cryptography.symmetricalgorithm/vb/encryptor.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateEncryptor">
+      <MemberSignature Language="C#" Value="public abstract System.Security.Cryptography.ICryptoTransform CreateEncryptor (byte[] rgbKey, byte[] rgbIV);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Security.Cryptography.ICryptoTransform CreateEncryptor(unsigned int8[] rgbKey, unsigned int8[] rgbIV) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor(System.Byte[],System.Byte[])" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function CreateEncryptor (rgbKey As Byte(), rgbIV As Byte()) As ICryptoTransform" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract System::Security::Cryptography::ICryptoTransform ^ CreateEncryptor(cli::array &lt;System::Byte&gt; ^ rgbKey, cli::array &lt;System::Byte&gt; ^ rgbIV);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.ICryptoTransform</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="rgbKey" Type="System.Byte[]" />
+        <Parameter Name="rgbIV" Type="System.Byte[]" />
+      </Parameters>
+      <Docs>
+        <param name="rgbKey">
+          <span data-ttu-id="c361c-167">対称アルゴリズムに使用する共有キー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-167">The secret key to use for the symmetric algorithm.</span>
+          </span>
+        </param>
+        <param name="rgbIV">
+          <span data-ttu-id="c361c-168">対称アルゴリズムに使用する初期化ベクター。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-168">The initialization vector to use for the symmetric algorithm.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c361c-169">派生クラスでオーバーライドされると、指定した <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" /> プロパティおよび初期化ベクター (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) を使用して、対称暗号化オブジェクトを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-169">When overridden in a derived class, creates a symmetric encryptor object with the specified <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" /> property and initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />).</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c361c-170">対称暗号化オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-170">A symmetric encryptor object.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-171">使用して、<xref:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor%2A>このメソッドの結果を復号化に同じパラメーターを持つオーバー ロードします。</span><span class="sxs-lookup"><span data-stu-id="c361c-171">Use the <xref:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor%2A> overload with the same parameters to decrypt the result of this method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Dispose">
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-172">
+            <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> クラスの現在のインスタンスによって使用されているすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-172">Releases all resources used by the current instance of the <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="public void Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.Dispose" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Dispose ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Dispose();" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.IDisposable.Dispose</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-173">
+            <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> クラスの現在のインスタンスによって使用されているすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-173">Releases all resources used by the current instance of the <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-174">`Dispose` を使い終わったら <xref:System.Security.Cryptography.SymmetricAlgorithm> を呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c361c-174">Call `Dispose` when you are finished using the <xref:System.Security.Cryptography.SymmetricAlgorithm>.</span></span> <span data-ttu-id="c361c-175">`Dispose` メソッドによって、<xref:System.Security.Cryptography.SymmetricAlgorithm> は使用不可の状態になります。</span><span class="sxs-lookup"><span data-stu-id="c361c-175">The `Dispose` method leaves the <xref:System.Security.Cryptography.SymmetricAlgorithm> in an unusable state.</span></span> <span data-ttu-id="c361c-176">呼び出した後`Dispose`へのすべての参照を解放する必要があります、<xref:System.Security.Cryptography.SymmetricAlgorithm>ガベージ コレクターがメモリを再利用できるようにする、<xref:System.Security.Cryptography.SymmetricAlgorithm>占有されていた。</span><span class="sxs-lookup"><span data-stu-id="c361c-176">After calling `Dispose`, you must release all references to the <xref:System.Security.Cryptography.SymmetricAlgorithm> so the garbage collector can reclaim the memory that the <xref:System.Security.Cryptography.SymmetricAlgorithm> was occupying.</span></span>  
+  
+ <span data-ttu-id="c361c-177">詳細については、次を参照してください。[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)と[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)です。</span><span class="sxs-lookup"><span data-stu-id="c361c-177">For more information, see [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md) and [Implementing a Dispose Method](~/docs/standard/garbage-collection/implementing-dispose.md).</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="c361c-178">`Dispose` への最後の参照を解放する前に、必ず <xref:System.Security.Cryptography.SymmetricAlgorithm> を呼び出してください。</span><span class="sxs-lookup"><span data-stu-id="c361c-178">Always call `Dispose` before you release your last reference to the <xref:System.Security.Cryptography.SymmetricAlgorithm>.</span></span> <span data-ttu-id="c361c-179">そうしないと、ガベージ コレクターが <xref:System.Security.Cryptography.SymmetricAlgorithm> オブジェクトの `Finalize` メソッドを呼び出すまで、使用されているリソースは解放されません。</span><span class="sxs-lookup"><span data-stu-id="c361c-179">Otherwise, the resources it is using will not be freed until the garbage collector calls the <xref:System.Security.Cryptography.SymmetricAlgorithm> object's `Finalize` method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected virtual void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">
+          <span data-ttu-id="c361c-180">マネージ リソースとアンマネージ リソースの両方を解放する場合は <see langword="true" />。アンマネージ リソースだけを解放する場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-180">
+              <see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c361c-181">
+            <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> によって使用されているアンマネージ リソースを解放し、オプションでマネージ リソースも解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-181">Releases the unmanaged resources used by the <see cref="T:System.Security.Cryptography.SymmetricAlgorithm" /> and optionally releases the managed resources.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-182">このメソッドは、パブリック`Dispose()`メソッドおよび`Finalize`メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c361c-182">This method is called by the public `Dispose()` method and the `Finalize` method.</span></span> <span data-ttu-id="c361c-183">`Dispose()` プロテクト呼び出します`Dispose(Boolean)`メソッドを`disposing`パラメーターに設定`true`です。</span><span class="sxs-lookup"><span data-stu-id="c361c-183">`Dispose()` invokes the protected `Dispose(Boolean)` method with the `disposing` parameter set to `true`.</span></span> <span data-ttu-id="c361c-184">`Finalize` 呼び出す`Dispose`で`disposing`'éý'`false`です。</span><span class="sxs-lookup"><span data-stu-id="c361c-184">`Finalize` invokes `Dispose` with `disposing` set to `false`.</span></span>  
+  
+ <span data-ttu-id="c361c-185">`disposing` パラメーターが `true` の場合、このメソッドは、この <xref:System.Security.Cryptography.SymmetricAlgorithm> が参照しているすべてのマネージ オブジェクトによって保持されているリソースをすべて解放します。</span><span class="sxs-lookup"><span data-stu-id="c361c-185">When the `disposing` parameter is `true`, this method releases all resources held by any managed objects that this <xref:System.Security.Cryptography.SymmetricAlgorithm> references.</span></span> <span data-ttu-id="c361c-186">このメソッドは、参照される各オブジェクトの `Dispose()` メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="c361c-186">This method invokes the `Dispose()` method of each referenced object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="c361c-187">
+              <see langword="Dispose" /> は、他のオブジェクトから複数回呼び出すことができます。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c361c-187">
+                <see langword="Dispose" /> can be called multiple times by other objects.</span>
+            </span>
+            <span data-ttu-id="c361c-188">オーバーライドする場合<see langword="Dispose(Boolean)" />を以前の呼び出しで既に破棄されているオブジェクトを参照しないように注意、<see langword="Dispose" />です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c361c-188">When overriding <see langword="Dispose(Boolean)" />, be careful not to reference objects that have been previously disposed in an earlier call to <see langword="Dispose" />.</span>
+            </span>
+            <span data-ttu-id="c361c-189">実装する方法の詳細についての<see langword="Dispose(Boolean)" />を参照してください[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c361c-189">For more information about how to implement <see langword="Dispose(Boolean)" />, see [Implementing a Dispose Method](~/docs/standard/garbage-collection/implementing-dispose.md).</span>
+            </span>
+            <span data-ttu-id="c361c-190">詳細については<see langword="Dispose" />と<see langword="Finalize" />を参照してください[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c361c-190">For more information about <see langword="Dispose" /> and <see langword="Finalize" />, see [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md).</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="FeedbackSize">
+      <MemberSignature Language="C#" Value="public virtual int FeedbackSize { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 FeedbackSize" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Property FeedbackSize As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property int FeedbackSize { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-191">暗号操作のフィードバック サイズをビット単位で取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-191">Gets or sets the feedback size, in bits, of the cryptographic operation.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c361c-192">フィードバック サイズ (ビット単位)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-192">The feedback size in bits.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-193">フィードバック サイズは、一連の暗号化または復号化操作にフィードバック データの量を決定します。</span><span class="sxs-lookup"><span data-stu-id="c361c-193">The feedback size determines the amount of data that is fed back to successive encryption or decryption operations.</span></span> <span data-ttu-id="c361c-194">フィードバック サイズは、ブロック サイズを超えることはできません。</span><span class="sxs-lookup"><span data-stu-id="c361c-194">The feedback size cannot be greater than the block size.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="c361c-195">フィードバック サイズがブロック サイズを超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-195">The feedback size is larger than the block size.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="FeedbackSizeValue">
+      <MemberSignature Language="C#" Value="protected int FeedbackSizeValue;" />
+      <MemberSignature Language="ILAsm" Value=".field family int32 FeedbackSizeValue" />
+      <MemberSignature Language="DocId" Value="F:System.Security.Cryptography.SymmetricAlgorithm.FeedbackSizeValue" />
+      <MemberSignature Language="VB.NET" Value="Protected FeedbackSizeValue As Integer " />
+      <MemberSignature Language="C++ CLI" Value="protected: int FeedbackSizeValue;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-196">暗号操作のフィードバック サイズをビット単位で表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-196">Represents the feedback size, in bits, of the cryptographic operation.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-197">フィードバック サイズは、一連の暗号化または復号化操作にフィードバック データの量を決定します。</span><span class="sxs-lookup"><span data-stu-id="c361c-197">The feedback size determines the amount of data that is fed back to successive encryption or decryption operations.</span></span> <span data-ttu-id="c361c-198">フィードバック サイズは、ブロック サイズを超えることはできません。</span><span class="sxs-lookup"><span data-stu-id="c361c-198">The feedback size cannot be greater than the block size.</span></span>  
+  
+ <span data-ttu-id="c361c-199">このフィールドには、<xref:System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-199">This field is accessed through the <xref:System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GenerateIV">
+      <MemberSignature Language="C#" Value="public abstract void GenerateIV ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void GenerateIV() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.GenerateIV" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Sub GenerateIV ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract void GenerateIV();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-200">派生クラスでオーバーライドされると、アルゴリズムで使用するランダムな初期化ベクター (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) を生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-200">When overridden in a derived class, generates a random initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) to use for the algorithm.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-201">一般に、理由はありません、このメソッドを使用するため`CreateEncryptor()`または`CreateEncryptor(null, null)`初期化ベクターとキーの両方が自動的に生成されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-201">In general, there is no reason to use this method, because `CreateEncryptor()` or `CreateEncryptor(null, null)` automatically generates both an initialization vector and a key.</span></span> <span data-ttu-id="c361c-202">ただし、使用する場合は、<xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateIV%2A>メソッドをさまざまな初期化ベクトルと対称アルゴリズムのインスタンスを再利用します。</span><span class="sxs-lookup"><span data-stu-id="c361c-202">However, you may want to use the <xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateIV%2A> method to reuse a symmetric algorithm instance with a different initialization vector.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GenerateKey">
+      <MemberSignature Language="C#" Value="public abstract void GenerateKey ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void GenerateKey() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.GenerateKey" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Sub GenerateKey ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract void GenerateKey();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-203">派生クラスでオーバーライドされると、アルゴリズムで使用するランダム キー (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" />) を生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-203">When overridden in a derived class, generates a random key (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key" />) to use for the algorithm.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-204">一般に、理由はありません、このメソッドを使用するため`CreateEncryptor()`または`CreateEncryptor(null, null)`初期化ベクターとキーの両方が自動的に生成されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-204">In general, there is no reason to use this method, because `CreateEncryptor()` or `CreateEncryptor(null, null)` automatically generates both an initialization vector and a key.</span></span> <span data-ttu-id="c361c-205">ただし、使用する場合は、<xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateKey%2A>メソッドを別のキーと対称アルゴリズムのインスタンスを再利用します。</span><span class="sxs-lookup"><span data-stu-id="c361c-205">However, you may want to use the <xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateKey%2A> method to reuse a symmetric algorithm instance with a different key.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IV">
+      <MemberSignature Language="C#" Value="public virtual byte[] IV { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance unsigned int8[] IV" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Property IV As Byte()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property cli::array &lt;System::Byte&gt; ^ IV { cli::array &lt;System::Byte&gt; ^ get(); void set(cli::array &lt;System::Byte&gt; ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-206">対称アルゴリズムの初期化ベクター (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-206">Gets or sets the initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) for the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c361c-207">初期化ベクター。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-207">The initialization vector.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-208"><xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>自動的にプロパティが新しいランダムな値のいずれかの新しいインスタンスを作成するたびに、<xref:System.Security.Cryptography.SymmetricAlgorithm>クラスまたは手動で呼び出すと、<xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateIV%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c361c-208">The <xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A> property is automatically set to a new random value whenever you create a new instance of one of the <xref:System.Security.Cryptography.SymmetricAlgorithm> classes or when you manually call the <xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateIV%2A> method.</span></span>  <span data-ttu-id="c361c-209">サイズ、<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>プロパティと同じである必要があります、<xref:System.Security.Cryptography.SymmetricAlgorithm.BlockSize%2A>プロパティが 8 で割った値します。</span><span class="sxs-lookup"><span data-stu-id="c361c-209">The size of the <xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A> property must be the same as the <xref:System.Security.Cryptography.SymmetricAlgorithm.BlockSize%2A> property divided by 8.</span></span>  
+  
+ <span data-ttu-id="c361c-210">派生したクラス、<xref:System.Security.Cryptography.SymmetricAlgorithm>クラスは、暗号ブロック チェーン (CBC) と呼ばれるチェーン モードを使用する、キーと初期化ベクトル データを暗号変換を実行する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c361c-210">The classes that derive from the <xref:System.Security.Cryptography.SymmetricAlgorithm> class use a chaining mode called cipher block chaining (CBC), which requires a key and an initialization vector to perform cryptographic transformations on data.</span></span>  <span data-ttu-id="c361c-211">いずれかを使用して暗号化されたデータを復号化する、<xref:System.Security.Cryptography.SymmetricAlgorithm>設定する必要があります、クラス、<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>プロパティおよび<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>暗号化に使用されたものと同じ値をプロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-211">To decrypt data that was encrypted using one of the <xref:System.Security.Cryptography.SymmetricAlgorithm> classes, you must set the <xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A> property and <xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A> property to the same values that were used for encryption.</span></span>  
+  
+ <span data-ttu-id="c361c-212">指定された秘密キーの*k*、初期化ベクターを使用しない単純なブロック暗号を使用して、プレーン テキストの入力ブロックは同じを同じ暗号文の出力ブロックに暗号化されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-212">For a given secret key *k*, a simple block cipher that does not use an initialization vector will encrypt the same input block of plain text into the same output block of cipher text.</span></span> <span data-ttu-id="c361c-213">をプレーン テキストには、ストリーム内で重複するブロックがある場合は、暗号文ストリーム内で重複するブロックがあります。</span><span class="sxs-lookup"><span data-stu-id="c361c-213">If you have duplicate blocks within your plain text stream, you will have duplicate blocks within your cipher text stream.</span></span> <span data-ttu-id="c361c-214">承認されていないユーザーに関する知識は、プレーン テキストのブロックの構造場合、は、その情報を使用して、既知の暗号文ブロックを解読して、キーを復元することができます、します。</span><span class="sxs-lookup"><span data-stu-id="c361c-214">If unauthorized users know anything about the structure of a block of your plain text, they can use that information to decipher the known cipher text block and possibly recover your key.</span></span> <span data-ttu-id="c361c-215">この問題を解決するに、前のブロックからの情報は、次のブロックを暗号化するためのプロセスに mixed です。</span><span class="sxs-lookup"><span data-stu-id="c361c-215">To combat this problem, information from the previous block is mixed into the process of encrypting the next block.</span></span> <span data-ttu-id="c361c-216">したがって、2 つの同一のプレーン テキスト ブロックの出力は別です。</span><span class="sxs-lookup"><span data-stu-id="c361c-216">Thus, the output of two identical plain text blocks is different.</span></span> <span data-ttu-id="c361c-217">この手法は、次のブロックを暗号化する、前のブロックを使用するため、初期化ベクターがデータの最初のブロックの暗号化に必要です。</span><span class="sxs-lookup"><span data-stu-id="c361c-217">Because this technique uses the previous block to encrypt the next block, an initialization vector is needed to encrypt the first block of data.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c361c-218">初期化ベクターを <see langword="null" /> に設定しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-218">An attempt was made to set the initialization vector to <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="c361c-219">初期化ベクターを無効なサイズに設定しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-219">An attempt was made to set the initialization vector to an invalid size.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="IVValue">
+      <MemberSignature Language="C#" Value="protected byte[] IVValue;" />
+      <MemberSignature Language="ILAsm" Value=".field family unsigned int8[] IVValue" />
+      <MemberSignature Language="DocId" Value="F:System.Security.Cryptography.SymmetricAlgorithm.IVValue" />
+      <MemberSignature Language="VB.NET" Value="Protected IVValue As Byte() " />
+      <MemberSignature Language="C++ CLI" Value="protected: cli::array &lt;System::Byte&gt; ^ IVValue;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-220">対称アルゴリズムで使用する初期化ベクター (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) を表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-220">Represents the initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV" />) for the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-221">このフィールドには、<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-221">This field is accessed through the <xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Key">
+      <MemberSignature Language="C#" Value="public virtual byte[] Key { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance unsigned int8[] Key" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Cryptography.SymmetricAlgorithm.Key" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Property Key As Byte()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property cli::array &lt;System::Byte&gt; ^ Key { cli::array &lt;System::Byte&gt; ^ get(); void set(cli::array &lt;System::Byte&gt; ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-222">対称アルゴリズムの共有キーを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-222">Gets or sets the secret key for the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c361c-223">対称アルゴリズムに使用する共有キー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-223">The secret key to use for the symmetric algorithm.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-224">秘密キーは、暗号化と復号化の両方が使用されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-224">The secret key is used both for encryption and for decryption.</span></span> <span data-ttu-id="c361c-225">正常に行う、対称アルゴリズムでは、送信者と受信者にのみ、秘密キーを確認する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c361c-225">For a symmetric algorithm to be successful, the secret key must be known only to the sender and the receiver.</span></span> <span data-ttu-id="c361c-226">有効なキー サイズは、特定の対称アルゴリズムの実装によって指定されに記載されて、<xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-226">The valid key sizes are specified by the particular symmetric algorithm implementation and are listed in the <xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A> property.</span></span>  
+  
+ <span data-ttu-id="c361c-227">場合は、このプロパティは`null`を使用するときに、<xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateKey%2A>新しいランダムな値を作成するメソッドが呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-227">If this property is `null` when it is used, the <xref:System.Security.Cryptography.SymmetricAlgorithm.GenerateKey%2A> method is called to create a new random value.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c361c-228">キーを <see langword="null" /> に設定しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-228">An attempt was made to set the key to <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="c361c-229">キー サイズが無効です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-229">The key size is invalid.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="KeySize">
+      <MemberSignature Language="C#" Value="public virtual int KeySize { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 KeySize" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Cryptography.SymmetricAlgorithm.KeySize" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Property KeySize As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property int KeySize { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-230">対称アルゴリズムで使用する共有キーのサイズをビット単位で取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-230">Gets or sets the size, in bits, of the secret key used by the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c361c-231">対称アルゴリズムで使用する共有キーのサイズ (ビット単位)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-231">The size, in bits, of the secret key used by the symmetric algorithm.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-232">有効なキー サイズは、特定の対称アルゴリズムの実装によって指定されに記載されて、<xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-232">The valid key sizes are specified by the particular symmetric algorithm implementation and are listed in the <xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="c361c-233">キー サイズが有効ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-233">The key size is not valid.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="KeySizeValue">
+      <MemberSignature Language="C#" Value="protected int KeySizeValue;" />
+      <MemberSignature Language="ILAsm" Value=".field family int32 KeySizeValue" />
+      <MemberSignature Language="DocId" Value="F:System.Security.Cryptography.SymmetricAlgorithm.KeySizeValue" />
+      <MemberSignature Language="VB.NET" Value="Protected KeySizeValue As Integer " />
+      <MemberSignature Language="C++ CLI" Value="protected: int KeySizeValue;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-234">対称アルゴリズムで使用する共有キーのサイズをビット単位で表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-234">Represents the size, in bits, of the secret key used by the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-235">有効なキー サイズは、特定の対称アルゴリズムの実装によって指定されに記載されて、<xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-235">The valid key sizes are specified by the particular symmetric algorithm implementation and are listed in the <xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A> property.</span></span>  
+  
+ <span data-ttu-id="c361c-236">このフィールドには、<xref:System.Security.Cryptography.SymmetricAlgorithm.KeySize%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-236">This field is accessed through the <xref:System.Security.Cryptography.SymmetricAlgorithm.KeySize%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="KeyValue">
+      <MemberSignature Language="C#" Value="protected byte[] KeyValue;" />
+      <MemberSignature Language="ILAsm" Value=".field family unsigned int8[] KeyValue" />
+      <MemberSignature Language="DocId" Value="F:System.Security.Cryptography.SymmetricAlgorithm.KeyValue" />
+      <MemberSignature Language="VB.NET" Value="Protected KeyValue As Byte() " />
+      <MemberSignature Language="C++ CLI" Value="protected: cli::array &lt;System::Byte&gt; ^ KeyValue;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-237">対称アルゴリズムの共有キーを表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-237">Represents the secret key for the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-238">秘密キーは、暗号化と復号化の両方が使用されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-238">The secret key is used both for encryption and for decryption.</span></span> <span data-ttu-id="c361c-239">正常に行う、対称アルゴリズムでは、送信者と受信者にのみ、秘密キーを確認する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c361c-239">For a symmetric algorithm to be successful, the secret key must be known only to the sender and the receiver.</span></span> <span data-ttu-id="c361c-240">有効なキー サイズは、特定の対称アルゴリズムの実装によって指定されに記載されて、<xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-240">The valid key sizes are specified by the particular symmetric algorithm implementation and are listed in the <xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A> property.</span></span>  
+  
+ <span data-ttu-id="c361c-241">このフィールドには、<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-241">This field is accessed through the <xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LegalBlockSizes">
+      <MemberSignature Language="C#" Value="public virtual System.Security.Cryptography.KeySizes[] LegalBlockSizes { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Security.Cryptography.KeySizes[] LegalBlockSizes" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Cryptography.SymmetricAlgorithm.LegalBlockSizes" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable ReadOnly Property LegalBlockSizes As KeySizes()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property cli::array &lt;System::Security::Cryptography::KeySizes ^&gt; ^ LegalBlockSizes { cli::array &lt;System::Security::Cryptography::KeySizes ^&gt; ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.KeySizes[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-242">対称アルゴリズムでサポートされているブロック サイズをビット単位で取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-242">Gets the block sizes, in bits, that are supported by the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c361c-243">アルゴリズムでサポートされているブロック サイズを格納している配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-243">An array that contains the block sizes supported by the algorithm.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-244">対称アルゴリズムでは、この配列内のエントリに一致するブロック サイズのみがサポートされます。</span><span class="sxs-lookup"><span data-stu-id="c361c-244">The symmetric algorithm supports only block sizes that match an entry in this array.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c361c-245">次の例の値が表示<xref:System.Security.Cryptography.SymmetricAlgorithm.LegalBlockSizes%2A>対称アルゴリズム。</span><span class="sxs-lookup"><span data-stu-id="c361c-245">The following example shows the value of <xref:System.Security.Cryptography.SymmetricAlgorithm.LegalBlockSizes%2A> for the symmetric algorithms.</span></span>  
+  
+ [!code-csharp[System.Security.Cryptography.SymmetricAlgorithm.BlockSize#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.security.cryptography.symmetricalgorithm.blocksize/cs/program.cs#1)]
+ [!code-vb[System.Security.Cryptography.SymmetricAlgorithm.BlockSize#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.security.cryptography.symmetricalgorithm.blocksize/vb/program.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LegalBlockSizesValue">
+      <MemberSignature Language="C#" Value="protected System.Security.Cryptography.KeySizes[] LegalBlockSizesValue;" />
+      <MemberSignature Language="ILAsm" Value=".field family class System.Security.Cryptography.KeySizes[] LegalBlockSizesValue" />
+      <MemberSignature Language="DocId" Value="F:System.Security.Cryptography.SymmetricAlgorithm.LegalBlockSizesValue" />
+      <MemberSignature Language="VB.NET" Value="Protected LegalBlockSizesValue As KeySizes() " />
+      <MemberSignature Language="C++ CLI" Value="protected: cli::array &lt;System::Security::Cryptography::KeySizes ^&gt; ^ LegalBlockSizesValue;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.KeySizes[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-246">対称アルゴリズムでサポートされているブロック サイズをビット単位で指定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-246">Specifies the block sizes, in bits, that are supported by the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-247">対称アルゴリズムでは、この配列内のエントリに一致するブロック サイズのみがサポートされます。</span><span class="sxs-lookup"><span data-stu-id="c361c-247">The symmetric algorithm supports only block sizes that match an entry in this array.</span></span>  
+  
+ <span data-ttu-id="c361c-248">このフィールドには、<xref:System.Security.Cryptography.SymmetricAlgorithm.LegalBlockSizes%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-248">This field is accessed through the <xref:System.Security.Cryptography.SymmetricAlgorithm.LegalBlockSizes%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LegalKeySizes">
+      <MemberSignature Language="C#" Value="public virtual System.Security.Cryptography.KeySizes[] LegalKeySizes { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Security.Cryptography.KeySizes[] LegalKeySizes" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable ReadOnly Property LegalKeySizes As KeySizes()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property cli::array &lt;System::Security::Cryptography::KeySizes ^&gt; ^ LegalKeySizes { cli::array &lt;System::Security::Cryptography::KeySizes ^&gt; ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.KeySizes[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-249">対称アルゴリズムでサポートされているキー サイズをビット単位で取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-249">Gets the key sizes, in bits, that are supported by the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c361c-250">アルゴリズムでサポートされているキー サイズを格納している配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-250">An array that contains the key sizes supported by the algorithm.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-251">対称アルゴリズムには、この配列内のエントリに一致するキーのサイズのみがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="c361c-251">The symmetric algorithm supports only key sizes that match an entry in this array.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c361c-252">次の例の値が表示<xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A>対称アルゴリズム。</span><span class="sxs-lookup"><span data-stu-id="c361c-252">The following example shows the value of <xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A> for the symmetric algorithms.</span></span>  
+  
+ [!code-csharp[System.Security.Cryptography.SymmetricAlgorithm.BlockSize#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.security.cryptography.symmetricalgorithm.blocksize/cs/program.cs#1)]
+ [!code-vb[System.Security.Cryptography.SymmetricAlgorithm.BlockSize#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.security.cryptography.symmetricalgorithm.blocksize/vb/program.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LegalKeySizesValue">
+      <MemberSignature Language="C#" Value="protected System.Security.Cryptography.KeySizes[] LegalKeySizesValue;" />
+      <MemberSignature Language="ILAsm" Value=".field family class System.Security.Cryptography.KeySizes[] LegalKeySizesValue" />
+      <MemberSignature Language="DocId" Value="F:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizesValue" />
+      <MemberSignature Language="VB.NET" Value="Protected LegalKeySizesValue As KeySizes() " />
+      <MemberSignature Language="C++ CLI" Value="protected: cli::array &lt;System::Security::Cryptography::KeySizes ^&gt; ^ LegalKeySizesValue;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.KeySizes[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-253">対称アルゴリズムでサポートされているキー サイズをビット単位で指定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-253">Specifies the key sizes, in bits, that are supported by the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-254">対称アルゴリズムには、この配列内のエントリに一致するキーのサイズのみがサポートされています。</span><span class="sxs-lookup"><span data-stu-id="c361c-254">The symmetric algorithm supports only key sizes that match an entry in this array.</span></span>  
+  
+ <span data-ttu-id="c361c-255">このフィールドには、<xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-255">This field is accessed through the <xref:System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Mode">
+      <MemberSignature Language="C#" Value="public virtual System.Security.Cryptography.CipherMode Mode { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Security.Cryptography.CipherMode Mode" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Cryptography.SymmetricAlgorithm.Mode" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Property Mode As CipherMode" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Security::Cryptography::CipherMode Mode { System::Security::Cryptography::CipherMode get(); void set(System::Security::Cryptography::CipherMode value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.CipherMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-256">対称アルゴリズムの操作モードを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-256">Gets or sets the mode for operation of the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c361c-257">対称アルゴリズムの操作モード。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-257">The mode for operation of the symmetric algorithm.</span>
+          </span>
+          <span data-ttu-id="c361c-258">既定値は、<see cref="F:System.Security.Cryptography.CipherMode.CBC" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-258">The default is <see cref="F:System.Security.Cryptography.CipherMode.CBC" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-259">参照してください<xref:System.Security.Cryptography.CipherMode>特定のモードの詳細については、列挙体です。</span><span class="sxs-lookup"><span data-stu-id="c361c-259">See <xref:System.Security.Cryptography.CipherMode> enumeration for a description of specific modes.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="c361c-260">暗号モードが <see cref="T:System.Security.Cryptography.CipherMode" /> 値ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-260">The cipher mode is not one of the <see cref="T:System.Security.Cryptography.CipherMode" /> values.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ModeValue">
+      <MemberSignature Language="C#" Value="protected System.Security.Cryptography.CipherMode ModeValue;" />
+      <MemberSignature Language="ILAsm" Value=".field family valuetype System.Security.Cryptography.CipherMode ModeValue" />
+      <MemberSignature Language="DocId" Value="F:System.Security.Cryptography.SymmetricAlgorithm.ModeValue" />
+      <MemberSignature Language="VB.NET" Value="Protected ModeValue As CipherMode " />
+      <MemberSignature Language="C++ CLI" Value="protected: System::Security::Cryptography::CipherMode ModeValue;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.CipherMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-261">対称アルゴリズムで使用する暗号モードを表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-261">Represents the cipher mode used in the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-262">参照してください<xref:System.Security.Cryptography.CipherMode>特定のモードの詳細については、列挙体です。</span><span class="sxs-lookup"><span data-stu-id="c361c-262">See <xref:System.Security.Cryptography.CipherMode> enumeration for a description of specific modes.</span></span>  
+  
+ <span data-ttu-id="c361c-263">このフィールドには、<xref:System.Security.Cryptography.SymmetricAlgorithm.Mode%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-263">This field is accessed through the <xref:System.Security.Cryptography.SymmetricAlgorithm.Mode%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Padding">
+      <MemberSignature Language="C#" Value="public virtual System.Security.Cryptography.PaddingMode Padding { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Security.Cryptography.PaddingMode Padding" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Cryptography.SymmetricAlgorithm.Padding" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Property Padding As PaddingMode" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Security::Cryptography::PaddingMode Padding { System::Security::Cryptography::PaddingMode get(); void set(System::Security::Cryptography::PaddingMode value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.PaddingMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-264">対称アルゴリズムで使用する埋め込みモードを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-264">Gets or sets the padding mode used in the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c361c-265">対称アルゴリズムで使用する埋め込みモード。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-265">The padding mode used in the symmetric algorithm.</span>
+          </span>
+          <span data-ttu-id="c361c-266">既定値は、<see cref="F:System.Security.Cryptography.PaddingMode.PKCS7" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-266">The default is <see cref="F:System.Security.Cryptography.PaddingMode.PKCS7" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-267">ほとんどのプレーン テキスト メッセージは、ブロックが完全に入力するバイト数ので構成されていません。</span><span class="sxs-lookup"><span data-stu-id="c361c-267">Most plain text messages do not consist of a number of bytes that completely fill blocks.</span></span> <span data-ttu-id="c361c-268">多くの場合、最後のブロックを格納するための十分なバイトがありません。</span><span class="sxs-lookup"><span data-stu-id="c361c-268">Often, there are not enough bytes to fill the last block.</span></span> <span data-ttu-id="c361c-269">この場合、テキストに埋め込み文字列が追加されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-269">When this happens, a padding string is added to the text.</span></span> <span data-ttu-id="c361c-270">たとえば、ブロックの長さは 64 ビット、最後のブロックには、40 ビットだけが含まれている場合は、24 ビットのパディングが追加されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-270">For example, if the block length is 64 bits and the last block contains only 40 bits, 24 bits of padding are added.</span></span> <span data-ttu-id="c361c-271">参照してください、<xref:System.Security.Cryptography.PaddingMode>特定のモードの詳細については、列挙体です。</span><span class="sxs-lookup"><span data-stu-id="c361c-271">See the <xref:System.Security.Cryptography.PaddingMode> enumeration for a description of specific modes.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Security.Cryptography.CryptographicException">
+          <span data-ttu-id="c361c-272">埋め込みモードが <see cref="T:System.Security.Cryptography.PaddingMode" /> 値ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-272">The padding mode is not one of the <see cref="T:System.Security.Cryptography.PaddingMode" /> values.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="PaddingValue">
+      <MemberSignature Language="C#" Value="protected System.Security.Cryptography.PaddingMode PaddingValue;" />
+      <MemberSignature Language="ILAsm" Value=".field family valuetype System.Security.Cryptography.PaddingMode PaddingValue" />
+      <MemberSignature Language="DocId" Value="F:System.Security.Cryptography.SymmetricAlgorithm.PaddingValue" />
+      <MemberSignature Language="VB.NET" Value="Protected PaddingValue As PaddingMode " />
+      <MemberSignature Language="C++ CLI" Value="protected: System::Security::Cryptography::PaddingMode PaddingValue;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Cryptography.PaddingMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c361c-273">対称アルゴリズムで使用する埋め込みモードを表します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-273">Represents the padding mode used in the symmetric algorithm.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c361c-274">ほとんどのプレーン テキスト メッセージは、ブロックが完全に入力するバイト数ので構成されていません。</span><span class="sxs-lookup"><span data-stu-id="c361c-274">Most plain text messages do not consist of a number of bytes that completely fill blocks.</span></span> <span data-ttu-id="c361c-275">多くの場合、最後のブロックを格納するための十分なバイトがありません。</span><span class="sxs-lookup"><span data-stu-id="c361c-275">Often, there are not enough bytes to fill the last block.</span></span> <span data-ttu-id="c361c-276">この場合、テキストに埋め込み文字列が追加されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-276">When this happens, a padding string is added to the text.</span></span> <span data-ttu-id="c361c-277">たとえば、ブロックの長さは 64 ビット、最後のブロックには、40 ビットだけが含まれている場合は、24 ビットのパディングが追加されます。</span><span class="sxs-lookup"><span data-stu-id="c361c-277">For example, if the block length is 64 bits and the last block contains only 40 bits, 24 bits of padding are added.</span></span> <span data-ttu-id="c361c-278">参照してください、<xref:System.Security.Cryptography.PaddingMode>特定のモードの詳細については、列挙体です。</span><span class="sxs-lookup"><span data-stu-id="c361c-278">See the <xref:System.Security.Cryptography.PaddingMode> enumeration for a description of specific modes.</span></span>  
+  
+ <span data-ttu-id="c361c-279">このフィールドには、<xref:System.Security.Cryptography.SymmetricAlgorithm.Padding%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="c361c-279">This field is accessed through the <xref:System.Security.Cryptography.SymmetricAlgorithm.Padding%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ValidKeySize">
+      <MemberSignature Language="C#" Value="public bool ValidKeySize (int bitLength);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool ValidKeySize(int32 bitLength) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Cryptography.SymmetricAlgorithm.ValidKeySize(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Function ValidKeySize (bitLength As Integer) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool ValidKeySize(int bitLength);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Cryptography.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bitLength" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="bitLength">
+          <span data-ttu-id="c361c-280">キー サイズが有効かどうかのチェック対象となる長さ (ビット単位)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-280">The length, in bits, to check for a valid key size.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c361c-281">指定されたキー サイズが、現在のアルゴリズムに対して有効かどうかを判断します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-281">Determines whether the specified key size is valid for the current algorithm.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c361c-282">指定されたキー サイズが現在のアルゴリズムに対して有効な場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c361c-282">
+              <see langword="true" /> if the specified key size is valid for the current algorithm; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
