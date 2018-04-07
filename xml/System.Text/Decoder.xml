@@ -1,0 +1,1781 @@
+<Type Name="Decoder" FullName="System.Text.Decoder">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="af988a5d852dff603b2e4e888be96288515f405e" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class Decoder" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract serializable beforefieldinit Decoder extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Text.Decoder" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class Decoder" />
+  <TypeSignature Language="C++ CLI" Value="public ref class Decoder abstract" />
+  <AssemblyInfo>
+    <AssemblyName>System.Text.Encoding</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="18e6e-101">エンコードされたバイトのシーケンスを文字のセットに変換します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="18e6e-101">Converts a sequence of encoded bytes into a set of characters.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-102">実装のインスタンスを取得する、<xref:System.Text.Decoder>クラス、アプリケーションで使用する必要があります、<xref:System.Text.Encoding.GetDecoder%2A>のメソッド、<xref:System.Text.Encoding>実装します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-102">To obtain an instance of an implementation of the <xref:System.Text.Decoder> class, the application should use the <xref:System.Text.Encoding.GetDecoder%2A> method of an <xref:System.Text.Encoding> implementation.</span></span>  
+  
+ <span data-ttu-id="18e6e-103"><xref:System.Text.Decoder.GetCharCount%2A>メソッドは、バイト シーケンスをデコード中に発生する文字数を決定し、<xref:System.Text.Decoder.GetChars%2A>メソッドは、実際のデコードを実行します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-103">The <xref:System.Text.Decoder.GetCharCount%2A> method determines how many characters result in decoding a sequence of bytes, and the <xref:System.Text.Decoder.GetChars%2A> method performs the actual decoding.</span></span> <span data-ttu-id="18e6e-104">いくつかのバージョンのどちらの方法で使用できる、<xref:System.Text.Decoder>クラスです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-104">There are several versions of both of these methods available in the <xref:System.Text.Decoder> class.</span></span> <span data-ttu-id="18e6e-105">詳細については、「<xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="18e6e-105">For more information, see <xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType>.</span></span> <span data-ttu-id="18e6e-106">A<xref:System.Text.Decoder>オブジェクトは、連続する呼び出しの間の状態情報を保持`GetChars`または<xref:System.Text.Decoder.Convert%2A>メソッドため、ブロックをまたぐバイト シーケンスを正しくデコードすることができますの。</span><span class="sxs-lookup"><span data-stu-id="18e6e-106">A <xref:System.Text.Decoder> object maintains state information between successive calls to `GetChars` or <xref:System.Text.Decoder.Convert%2A> methods so it can correctly decode byte sequences that span blocks.</span></span> <span data-ttu-id="18e6e-107"><xref:System.Text.Decoder>もデータ ブロックの末尾にある末尾バイトを保持し、[次へ] のデコード操作で末尾バイトを使用します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-107">The <xref:System.Text.Decoder> also preserves trailing bytes at the end of data blocks and uses the trailing bytes in the next decoding operation.</span></span> <span data-ttu-id="18e6e-108">したがって、<xref:System.Text.Encoding.GetDecoder%2A>と<xref:System.Text.Encoding.GetEncoder%2A>の完全なデータ ストリームではなくデータ ブロックを頻繁にこれらの操作を処理するために転送し、ファイルのネットワーク操作に便利です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-108">Therefore, <xref:System.Text.Encoding.GetDecoder%2A> and <xref:System.Text.Encoding.GetEncoder%2A> are useful for network transmission and file operations because those operations often deal with blocks of data instead of a complete data stream.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="18e6e-109">アプリケーションでは、データ ストリームの処理が終わったらことを確認してください、状態情報を設定してフラッシュされる、`flush`パラメーターを`true`適切なメソッドの呼び出しで。</span><span class="sxs-lookup"><span data-stu-id="18e6e-109">When the application is done with a stream of data, it should make sure that the state information is flushed by setting the `flush` parameter to `true` in the appropriate method call.</span></span> <span data-ttu-id="18e6e-110">例外が発生したかを呼び出してストリームをアプリケーションに切り替え場合、<xref:System.Text.Decoder.Reset%2A>の内部状態をクリアする、`Decoder`オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="18e6e-110">If an exception occurs or if the application switches streams, it should call <xref:System.Text.Decoder.Reset%2A> to clear the internal state of the `Decoder` object.</span></span>  
+  
+## <a name="version-considerations"></a><span data-ttu-id="18e6e-111">バージョンの考慮事項</span><span class="sxs-lookup"><span data-stu-id="18e6e-111">Version Considerations</span></span>  
+ <span data-ttu-id="18e6e-112">A<xref:System.Text.Decoder>または<xref:System.Text.Encoder>変換操作中に、オブジェクトをシリアル化することができます。</span><span class="sxs-lookup"><span data-stu-id="18e6e-112">A <xref:System.Text.Decoder> or <xref:System.Text.Encoder> object can be serialized during a conversion operation.</span></span> <span data-ttu-id="18e6e-113">オブジェクトの状態が同じ .NET Framework のバージョンで逆シリアル化される場合、保持は、別のバージョンで逆シリアル化される場合を失われます。</span><span class="sxs-lookup"><span data-stu-id="18e6e-113">The state of the object is retained if it is deserialized in the same version of the .NET Framework, but lost if it is deserialized in another version.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="18e6e-114">次の例での使用、<xref:System.Text.Decoder>に 2 つの異なるバイト配列を文字配列に変換します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-114">The following example demonstrates the use of a <xref:System.Text.Decoder> to convert two different byte arrays into a character array.</span></span> <span data-ttu-id="18e6e-115">文字のバイトのいずれかの範囲の配列。</span><span class="sxs-lookup"><span data-stu-id="18e6e-115">One of the character's bytes spans the arrays.</span></span> <span data-ttu-id="18e6e-116">これは新機能と同様、<xref:System.IO.StreamReader>オブジェクトは内部的に、ストリームを読み取るとき。</span><span class="sxs-lookup"><span data-stu-id="18e6e-116">This is similar to what a <xref:System.IO.StreamReader> object does internally when reading a stream.</span></span>  
+  
+ [!code-cpp[Classic Decoder Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic Decoder Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic Decoder Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic Decoder Example/CS/source.cs#1)]
+ [!code-vb[Classic Decoder Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic Decoder Example/VB/source.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <block subset="none" type="overrides">
+      <para>
+        <span data-ttu-id="18e6e-117">アプリケーションをこのクラスから継承するとき、すべてのメンバーをオーバーライドする必要があります。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="18e6e-117">When your application inherits from this class, it must override all the members.</span>
+        </span>
+      </para>
+    </block>
+    <altmember cref="T:System.Text.Encoder" />
+    <altmember cref="T:System.Text.Encoding" />
+    <altmember cref="M:System.Text.Encoding.GetChars(System.Byte[],System.Int32,System.Int32)" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected Decoder ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; Decoder();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="18e6e-118">
+            <see cref="T:System.Text.Decoder" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-118">Initializes a new instance of the <see cref="T:System.Text.Decoder" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-119">このクラスの実装のインスタンスを取得するアプリケーションを使用する必要があります、<xref:System.Text.Encoding.GetDecoder%2A>のメソッド、<xref:System.Text.Encoding>実装します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-119">To obtain an instance of an implementation of this class, the application should use the <xref:System.Text.Encoding.GetDecoder%2A> method of a <xref:System.Text.Encoding> implementation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="18e6e-120">次の例では、新しい初期化するための 2 つの手法<xref:System.Text.Decoder>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="18e6e-120">The following example demonstrates two techniques for initializing a new <xref:System.Text.Decoder> instance.</span></span>  
+  
+ [!code-cpp[System.Text.Decoder.ctor Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Text.Decoder.ctor Example/CPP/ctor.cpp#1)]
+ [!code-csharp[System.Text.Decoder.ctor Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Text.Decoder.ctor Example/CS/ctor.cs#1)]
+ [!code-vb[System.Text.Decoder.ctor Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Text.Decoder.ctor Example/VB/ctor.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Text.Encoding" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Convert">
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="18e6e-121">エンコード済みバイト シーケンスを文字列または文字配列に変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-121">Converts an encoded byte sequence to a string or array of characters.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Convert">
+      <MemberSignature Language="C#" Value="public virtual void Convert (ReadOnlySpan&lt;byte&gt; bytes, Span&lt;char&gt; chars, bool flush, out int bytesUsed, out int charsUsed, out bool completed);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Convert(valuetype System.ReadOnlySpan`1&lt;unsigned int8&gt; bytes, valuetype System.Span`1&lt;char&gt; chars, bool flush, [out] int32&amp; bytesUsed, [out] int32&amp; charsUsed, [out] bool&amp; completed) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.Convert(System.ReadOnlySpan{System.Byte},System.Span{System.Char},System.Boolean,System.Int32@,System.Int32@,System.Boolean@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Sub Convert (bytes As ReadOnlySpan(Of Byte), chars As Span(Of Char), flush As Boolean, ByRef bytesUsed As Integer, ByRef charsUsed As Integer, ByRef completed As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Convert(ReadOnlySpan&lt;System::Byte&gt; bytes, Span&lt;char&gt; chars, bool flush, [Runtime::InteropServices::Out] int % bytesUsed, [Runtime::InteropServices::Out] int % charsUsed, [Runtime::InteropServices::Out] bool % completed);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.ReadOnlySpan&lt;System.Byte&gt;" />
+        <Parameter Name="chars" Type="System.Span&lt;System.Char&gt;" />
+        <Parameter Name="flush" Type="System.Boolean" />
+        <Parameter Name="bytesUsed" Type="System.Int32&amp;" RefType="out" />
+        <Parameter Name="charsUsed" Type="System.Int32&amp;" RefType="out" />
+        <Parameter Name="completed" Type="System.Boolean&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">To be added.</param>
+        <param name="chars">To be added.</param>
+        <param name="flush">To be added.</param>
+        <param name="bytesUsed">To be added.</param>
+        <param name="charsUsed">To be added.</param>
+        <param name="completed">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Convert">
+      <MemberSignature Language="C#" Value="public virtual void Convert (byte* bytes, int byteCount, char* chars, int charCount, bool flush, out int bytesUsed, out int charsUsed, out bool completed);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Convert(unsigned int8* bytes, int32 byteCount, char* chars, int32 charCount, bool flush, [out] int32&amp; bytesUsed, [out] int32&amp; charsUsed, [out] bool&amp; completed) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.Convert(System.Byte*,System.Int32,System.Char*,System.Int32,System.Boolean,System.Int32@,System.Int32@,System.Boolean@)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Convert(System::Byte* bytes, int byteCount, char* chars, int charCount, bool flush, [Runtime::InteropServices::Out] int % bytesUsed, [Runtime::InteropServices::Out] int % charsUsed, [Runtime::InteropServices::Out] bool % completed);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.CLSCompliant(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.Byte*" />
+        <Parameter Name="byteCount" Type="System.Int32" />
+        <Parameter Name="chars" Type="System.Char*" />
+        <Parameter Name="charCount" Type="System.Int32" />
+        <Parameter Name="flush" Type="System.Boolean" />
+        <Parameter Name="bytesUsed" Type="System.Int32&amp;" RefType="out" />
+        <Parameter Name="charsUsed" Type="System.Int32&amp;" RefType="out" />
+        <Parameter Name="completed" Type="System.Boolean&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">
+          <span data-ttu-id="18e6e-122">変換するバイト シーケンスを格納しているバッファーのアドレス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-122">The address of a buffer that contains the byte sequences to convert.</span>
+          </span>
+        </param>
+        <param name="byteCount">
+          <span data-ttu-id="18e6e-123">
+            <c>bytes</c> にある変換対象のバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-123">The number of bytes in <c>bytes</c> to convert.</span>
+          </span>
+        </param>
+        <param name="chars">
+          <span data-ttu-id="18e6e-124">変換後の文字を格納するバッファーのアドレス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-124">The address of a buffer to store the converted characters.</span>
+          </span>
+        </param>
+        <param name="charCount">
+          <span data-ttu-id="18e6e-125">変換に使用する <c>chars</c> 内の最大文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-125">The maximum number of characters in <c>chars</c> to use in the conversion.</span>
+          </span>
+        </param>
+        <param name="flush">
+          <span data-ttu-id="18e6e-126">これ以上データの変換を行わないことを示す場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-126">
+              <see langword="true" /> to indicate no further data is to be converted; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <param name="bytesUsed">
+          <span data-ttu-id="18e6e-127">このメソッドから制御が戻るときに、変換の結果生成されたバイト数を格納します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-127">When this method returns, contains the number of bytes that were produced by the conversion.</span>
+          </span>
+          <span data-ttu-id="18e6e-128">このパラメーターは初期化せずに渡されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-128">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <param name="charsUsed">
+          <span data-ttu-id="18e6e-129">このメソッドから制御が戻るときに、<c>chars</c> で変換に使用された文字数を格納します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-129">When this method returns, contains the number of characters from <c>chars</c> that were used in the conversion.</span>
+          </span>
+          <span data-ttu-id="18e6e-130">このパラメーターは初期化せずに渡されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-130">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <param name="completed">
+          <span data-ttu-id="18e6e-131">このメソッドから制御が戻るときに、<c>byteCount</c> で指定したすべての文字が変換された場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-131">When this method returns, contains <see langword="true" /> if all the characters specified by <c>byteCount</c> were converted; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="18e6e-132">このパラメーターは初期化せずに渡されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-132">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="18e6e-133">バッファーに格納されているエンコード済みバイトを UTF-16 エンコード文字に変換し、その結果を別のバッファーに格納します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-133">Converts a buffer of encoded bytes to UTF-16 encoded characters and stores the result in another buffer.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-134">注意して、<xref:System.Text.Decoder>オブジェクトへの呼び出しの間で状態を保存する<xref:System.Text.Decoder.Convert%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-134">Remember that the <xref:System.Text.Decoder> object saves state between calls to <xref:System.Text.Decoder.Convert%2A>.</span></span> <span data-ttu-id="18e6e-135">これを設定する必要があります、アプリケーションでは、データ ストリームの処理が終わったら、`flush`パラメーターを`true`状態情報がフラッシュされるかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-135">When the application is done with a stream of data, it should set the `flush` parameter to `true` to make sure that the state information is flushed.</span></span> <span data-ttu-id="18e6e-136">この設定では、デコーダーは、データ ブロックの末尾に無効なバイトを無視し、内部バッファーをクリアします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-136">With this setting, the decoder ignores invalid bytes at the end of the data block and clears the internal buffer.</span></span> <span data-ttu-id="18e6e-137">サロゲート ペアの上位サロゲートなどの論理ユニットの一部である残り処理後のデータは、現在のフォールバック設定に従って変換されます。</span><span class="sxs-lookup"><span data-stu-id="18e6e-137">Any remaining processed data that is part of a logical unit, such as the high surrogate of a surrogate pair, is converted according to the current fallback settings.</span></span>  
+  
+ <span data-ttu-id="18e6e-138">`Convert`メソッドが、入力の任意の大きさをデコードするループ内で使用するため、ファイルまたはストリームから読み取られるデータなどです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-138">The `Convert` method is designed to be used in a loop to decode an arbitrary amount of input, such as data read from a file or stream.</span></span> <span data-ttu-id="18e6e-139">デコード操作の出力は、固定サイズのバッファーに格納します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-139">It stores the output of the decoding operation in a fixed-size buffer.</span></span> <span data-ttu-id="18e6e-140"><xref:System.Text.Decoder.GetChars%2A> 出力バッファーが十分でない場合、例外がスローされますが、<xref:System.Text.Decoder.Convert%2A>は、できるだけ多くの領域を入力し、読み取られたバイトと書き込まれる文字数を返します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-140"><xref:System.Text.Decoder.GetChars%2A> will throw an exception if the output buffer isn't large enough, but <xref:System.Text.Decoder.Convert%2A> will fill as much space as possible and return the bytes read and chars written.</span></span> <span data-ttu-id="18e6e-141">参照してください、<xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType>詳細コメントのトピックです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-141">Also see the <xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType> topic for more comments.</span></span>  
+  
+ <span data-ttu-id="18e6e-142">`completed`出力パラメーターは、入力バッファー内のすべてのデータが変換され、出力バッファーに格納されているかどうかを示します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-142">The `completed` output parameter indicates whether all the data in the input buffer was converted and stored in the output buffer.</span></span> <span data-ttu-id="18e6e-143">このパラメーターに設定されている`false`でのバイト数が指定されている場合、`byteCount`パラメーターで指定された文字の数を超えずに変換できません、`charCount`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="18e6e-143">This parameter is set to `false` if the number of bytes specified by the `byteCount` parameter cannot be converted without exceeding the number of characters specified by the `charCount` parameter.</span></span> <span data-ttu-id="18e6e-144">状況では、アプリケーション、出力バッファーの内容を使用か、新しい出力バッファーを提供インクリメント、`bytes`パラメーターによって指定されたバイト数を`bytesUsed`パラメーター、まず、`Convert`残りの入力を処理するには、もう一度メソッドです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-144">In that situation, the application should use the contents of the output buffer or provide a new output buffer, increment the `bytes` parameter by the number of bytes specified by the `bytesUsed` parameter, then call the `Convert` method again to process the remaining input.</span></span>  
+  
+ <span data-ttu-id="18e6e-145">`completed`パラメーターを設定することも`false`場合でも、`bytesUsed`と`byteCount`パラメーターが等しい。</span><span class="sxs-lookup"><span data-stu-id="18e6e-145">The `completed` parameter can also be set to `false`, even though the `bytesUsed` and `byteCount` parameters are equal.</span></span> <span data-ttu-id="18e6e-146">内のデータが解決しない場合、このような状況が発生した、<xref:System.Text.Decoder>内に保存されていないオブジェクト、`bytes`バッファー。</span><span class="sxs-lookup"><span data-stu-id="18e6e-146">This situation occurs if there is still data in the <xref:System.Text.Decoder> object that has not been stored in the `bytes` buffer.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altCompliant cref="M:System.Text.Decoder.Convert(System.Byte[],System.Int32,System.Int32,System.Char[],System.Int32,System.Int32,System.Boolean,System.Int32@,System.Int32@,System.Boolean@)" />
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="18e6e-147">
+            <paramref name="chars" /> または <paramref name="bytes" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-147">
+              <paramref name="chars" /> or <paramref name="bytes" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="18e6e-148">
+            <paramref name="charCount" /> または <paramref name="byteCount" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-148">
+              <paramref name="charCount" /> or <paramref name="byteCount" /> is less than zero.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="18e6e-149">出力バッファーが小さすぎて、変換した入力を格納できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-149">The output buffer is too small to contain any of the converted input.</span>
+          </span>
+          <span data-ttu-id="18e6e-150">出力バッファーは、<see cref="Overload:System.Text.Decoder.GetCharCount" /> メソッドで示されるサイズ以上である必要があります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-150">The output buffer should be greater than or equal to the size indicated by the <see cref="Overload:System.Text.Decoder.GetCharCount" /> method.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Text.DecoderFallbackException">
+          <span data-ttu-id="18e6e-151">フォールバックが発生しました (詳細な説明は、「[.NET Framework における文字エンコーディング](~/docs/standard/base-types/character-encoding.md)」をご覧ください)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-151">A fallback occurred (see [Character Encoding in the .NET Framework](~/docs/standard/base-types/character-encoding.md) for fuller explanation)</span>
+          </span>
+          <span data-ttu-id="18e6e-152">および</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-152">-and-</span>
+          </span>
+          <span data-ttu-id="18e6e-153">
+            <see cref="P:System.Text.Decoder.Fallback" /> が <see cref="T:System.Text.DecoderExceptionFallback" /> に設定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-153">
+              <see cref="P:System.Text.Decoder.Fallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="18e6e-154">直前の呼び出し元に対する完全な信頼が必要です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-154">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="18e6e-155">このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-155">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Convert">
+      <MemberSignature Language="C#" Value="public virtual void Convert (byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex, int charCount, bool flush, out int bytesUsed, out int charsUsed, out bool completed);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Convert(unsigned int8[] bytes, int32 byteIndex, int32 byteCount, char[] chars, int32 charIndex, int32 charCount, bool flush, [out] int32&amp; bytesUsed, [out] int32&amp; charsUsed, [out] bool&amp; completed) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.Convert(System.Byte[],System.Int32,System.Int32,System.Char[],System.Int32,System.Int32,System.Boolean,System.Int32@,System.Int32@,System.Boolean@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Sub Convert (bytes As Byte(), byteIndex As Integer, byteCount As Integer, chars As Char(), charIndex As Integer, charCount As Integer, flush As Boolean, ByRef bytesUsed As Integer, ByRef charsUsed As Integer, ByRef completed As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Convert(cli::array &lt;System::Byte&gt; ^ bytes, int byteIndex, int byteCount, cli::array &lt;char&gt; ^ chars, int charIndex, int charCount, bool flush, [Runtime::InteropServices::Out] int % bytesUsed, [Runtime::InteropServices::Out] int % charsUsed, [Runtime::InteropServices::Out] bool % completed);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.Byte[]" />
+        <Parameter Name="byteIndex" Type="System.Int32" />
+        <Parameter Name="byteCount" Type="System.Int32" />
+        <Parameter Name="chars" Type="System.Char[]" />
+        <Parameter Name="charIndex" Type="System.Int32" />
+        <Parameter Name="charCount" Type="System.Int32" />
+        <Parameter Name="flush" Type="System.Boolean" />
+        <Parameter Name="bytesUsed" Type="System.Int32&amp;" RefType="out" />
+        <Parameter Name="charsUsed" Type="System.Int32&amp;" RefType="out" />
+        <Parameter Name="completed" Type="System.Boolean&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">
+          <span data-ttu-id="18e6e-156">変換するバイト配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-156">A byte array to convert.</span>
+          </span>
+        </param>
+        <param name="byteIndex">
+          <span data-ttu-id="18e6e-157">変換する <c>bytes</c> の最初の要素。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-157">The first element of <c>bytes</c> to convert.</span>
+          </span>
+        </param>
+        <param name="byteCount">
+          <span data-ttu-id="18e6e-158">変換する <c>bytes</c> の要素の数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-158">The number of elements of <c>bytes</c> to convert.</span>
+          </span>
+        </param>
+        <param name="chars">
+          <span data-ttu-id="18e6e-159">変換後の文字を格納する配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-159">An array to store the converted characters.</span>
+          </span>
+        </param>
+        <param name="charIndex">
+          <span data-ttu-id="18e6e-160">データを格納する <c>chars</c> の最初の要素。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-160">The first element of <c>chars</c> in which data is stored.</span>
+          </span>
+        </param>
+        <param name="charCount">
+          <span data-ttu-id="18e6e-161">変換に使用する <c>chars</c> 内の最大要素数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-161">The maximum number of elements of <c>chars</c> to use in the conversion.</span>
+          </span>
+        </param>
+        <param name="flush">
+          <span data-ttu-id="18e6e-162">これ以上データの変換を行わないことを示す場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-162">
+              <see langword="true" /> to indicate that no further data is to be converted; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <param name="bytesUsed">
+          <span data-ttu-id="18e6e-163">このメソッドから制御が戻るときに、変換に使用されたバイト数を格納します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-163">When this method returns, contains the number of bytes that were used in the conversion.</span>
+          </span>
+          <span data-ttu-id="18e6e-164">このパラメーターは初期化せずに渡されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-164">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <param name="charsUsed">
+          <span data-ttu-id="18e6e-165">このメソッドから制御が戻るときに、変換によって生成された <c>chars</c> の文字数を格納します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-165">When this method returns, contains the number of characters from <c>chars</c> that were produced by the conversion.</span>
+          </span>
+          <span data-ttu-id="18e6e-166">このパラメーターは初期化せずに渡されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-166">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <param name="completed">
+          <span data-ttu-id="18e6e-167">このメソッドから制御が戻るときに、<c>byteCount</c> で指定したすべての文字が変換された場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-167">When this method returns, contains <see langword="true" /> if all the characters specified by <c>byteCount</c> were converted; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="18e6e-168">このパラメーターは初期化せずに渡されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-168">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="18e6e-169">配列に格納されているエンコード済みバイトを UTF-16 エンコード文字に変換し、その結果を文字配列に格納します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-169">Converts an array of encoded bytes to UTF-16 encoded characters and stores the result in a character array.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-170">注意して、<xref:System.Text.Decoder>オブジェクトへの呼び出しの間で状態を保存する<xref:System.Text.Decoder.Convert%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-170">Remember that the <xref:System.Text.Decoder> object saves state between calls to <xref:System.Text.Decoder.Convert%2A>.</span></span> <span data-ttu-id="18e6e-171">これを設定する必要があります、アプリケーションでは、データ ストリームの処理が終わったら、`flush`パラメーターを`true`状態情報がフラッシュされるかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-171">When the application is done with a stream of data, it should set the `flush` parameter to `true` to make sure that the state information is flushed.</span></span> <span data-ttu-id="18e6e-172">この設定では、デコーダーは、データ ブロックの末尾に無効なバイトを無視し、内部バッファーをクリアします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-172">With this setting, the decoder ignores invalid bytes at the end of the data block and clears the internal buffer.</span></span> <span data-ttu-id="18e6e-173">サロゲート ペアの上位サロゲートなどの論理ユニットの一部である残り処理後のデータは、現在のフォールバック設定に従って変換されます。</span><span class="sxs-lookup"><span data-stu-id="18e6e-173">Any remaining processed data that is part of a logical unit, such as the high surrogate of a surrogate pair, is converted according to the current fallback settings.</span></span>  
+  
+ <span data-ttu-id="18e6e-174">`Convert`メソッドが、入力の任意の大きさをデコードするループ内で使用するため、ファイルまたはストリームから読み取られるデータなどです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-174">The `Convert` method is designed to be used in a loop to decode an arbitrary amount of input, such as data read from a file or stream.</span></span> <span data-ttu-id="18e6e-175">デコード操作の出力は、固定サイズのバッファーに格納します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-175">It stores the output of the decoding operation in a fixed-size buffer.</span></span> <span data-ttu-id="18e6e-176"><xref:System.Text.Decoder.GetChars%2A> 出力バッファーが十分でない場合、例外がスローされますが、<xref:System.Text.Decoder.Convert%2A>は、できるだけ多くの領域を入力し、読み取られたバイトと書き込まれる文字数を返します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-176"><xref:System.Text.Decoder.GetChars%2A> will throw an exception if the output buffer isn't large enough, but <xref:System.Text.Decoder.Convert%2A> will fill as much space as possible and return the bytes read and chars written.</span></span> <span data-ttu-id="18e6e-177">参照してください、<xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType>詳細コメントのトピックです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-177">Also see the <xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType> topic for more comments.</span></span>  
+  
+ <span data-ttu-id="18e6e-178">`completed`出力パラメーターは、入力バッファー内のすべてのデータが変換され、出力バッファーに格納されているかどうかを示します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-178">The `completed` output parameter indicates whether all the data in the input buffer was converted and stored in the output buffer.</span></span> <span data-ttu-id="18e6e-179">このパラメーターに設定されている`false`でのバイト数が指定されている場合、`byteCount`パラメーターで指定された文字の数を超えずに変換できません、`charCount`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="18e6e-179">This parameter is set to `false` if the number of bytes specified by the `byteCount` parameter cannot be converted without exceeding the number of characters specified by the `charCount` parameter.</span></span> <span data-ttu-id="18e6e-180">状況では、アプリケーション、出力バッファーの内容を使用か、新しい出力バッファーを提供インクリメント、`bytes`パラメーターによって指定されたバイト数を`bytesUsed`パラメーター、まず、`Convert`残りの入力を処理するには、もう一度メソッドです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-180">In that situation, the application should use the contents of the output buffer or provide a new output buffer, increment the `bytes` parameter by the number of bytes specified by the `bytesUsed` parameter, then call the `Convert` method again to process the remaining input.</span></span>  
+  
+ <span data-ttu-id="18e6e-181">`completed`パラメーターを設定することも`false`場合でも、`bytesUsed`と`byteCount`パラメーターが等しい。</span><span class="sxs-lookup"><span data-stu-id="18e6e-181">The `completed` parameter can also be set to `false`, even though the `bytesUsed` and `byteCount` parameters are equal.</span></span> <span data-ttu-id="18e6e-182">内のデータが解決しない場合、このような状況が発生した、<xref:System.Text.Decoder>内に保存されていないオブジェクト、`bytes`バッファー。</span><span class="sxs-lookup"><span data-stu-id="18e6e-182">This situation occurs if there is still data in the <xref:System.Text.Decoder> object that has not been stored in the `bytes` buffer.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="18e6e-183">次のコード例では、 <xref:System.Text.Encoder.Convert%2A> utf-16 文字のファイルを utf-8 に変換します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-183">The following code example uses the <xref:System.Text.Encoder.Convert%2A> method to convert a file of UTF-16 characters to UTF-8.</span></span> <span data-ttu-id="18e6e-184">次を使用して、<xref:System.Text.Decoder.Convert%2A>に utf-8 文字を変換する方法は、utf-16 文字をバックアップします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-184">It then uses the <xref:System.Text.Decoder.Convert%2A> method to convert the UTF-8 characters back to UTF-16 characters.</span></span>  
+  
+ [!code-csharp[sys.txt.EncoderDecoder.convert#1](~/samples/snippets/csharp/VS_Snippets_CLR/sys.txt.EncoderDecoder.convert/cs/edCvt.cs#1)]
+ [!code-vb[sys.txt.EncoderDecoder.convert#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/sys.txt.EncoderDecoder.convert/vb/edCvt.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="18e6e-185">
+            <paramref name="chars" /> または <paramref name="bytes" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-185">
+              <paramref name="chars" /> or <paramref name="bytes" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="18e6e-186">
+            <paramref name="charIndex" />、<paramref name="charCount" />、<paramref name="byteIndex" />、または <paramref name="byteCount" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-186">
+              <paramref name="charIndex" />, <paramref name="charCount" />, <paramref name="byteIndex" />, or <paramref name="byteCount" /> is less than zero.</span>
+          </span>
+          <span data-ttu-id="18e6e-187">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-187">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-188">
+            <paramref name="chars" /> - <paramref name="charIndex" /> の長さは <paramref name="charCount" /> 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-188">The length of <paramref name="chars" /> - <paramref name="charIndex" /> is less than <paramref name="charCount" />.</span>
+          </span>
+          <span data-ttu-id="18e6e-189">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-189">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-190">
+            <paramref name="bytes" /> - <paramref name="byteIndex" /> の長さは <paramref name="byteCount" /> 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-190">The length of <paramref name="bytes" /> - <paramref name="byteIndex" /> is less than <paramref name="byteCount" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="18e6e-191">出力バッファーが小さすぎて、変換した入力を格納できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-191">The output buffer is too small to contain any of the converted input.</span>
+          </span>
+          <span data-ttu-id="18e6e-192">出力バッファーは、<see cref="Overload:System.Text.Decoder.GetCharCount" /> メソッドで示されるサイズ以上である必要があります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-192">The output buffer should be greater than or equal to the size indicated by the <see cref="Overload:System.Text.Decoder.GetCharCount" /> method.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Text.DecoderFallbackException">
+          <span data-ttu-id="18e6e-193">フォールバックが発生しました (詳細な説明は、「[.NET Framework における文字エンコーディング](~/docs/standard/base-types/character-encoding.md)」をご覧ください)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-193">A fallback occurred (see [Character Encoding in the .NET Framework](~/docs/standard/base-types/character-encoding.md) for fuller explanation)</span>
+          </span>
+          <span data-ttu-id="18e6e-194">および</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-194">-and-</span>
+          </span>
+          <span data-ttu-id="18e6e-195">
+            <see cref="P:System.Text.Decoder.Fallback" /> が <see cref="T:System.Text.DecoderExceptionFallback" /> に設定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-195">
+              <see cref="P:System.Text.Decoder.Fallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Fallback">
+      <MemberSignature Language="C#" Value="public System.Text.DecoderFallback Fallback { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Text.DecoderFallback Fallback" />
+      <MemberSignature Language="DocId" Value="P:System.Text.Decoder.Fallback" />
+      <MemberSignature Language="VB.NET" Value="Public Property Fallback As DecoderFallback" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Text::DecoderFallback ^ Fallback { System::Text::DecoderFallback ^ get(); void set(System::Text::DecoderFallback ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Text.DecoderFallback</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="18e6e-196">現在の <see cref="T:System.Text.DecoderFallback" /> オブジェクトの <see cref="T:System.Text.Decoder" /> オブジェクトを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-196">Gets or sets a <see cref="T:System.Text.DecoderFallback" /> object for the current <see cref="T:System.Text.Decoder" /> object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="18e6e-197">
+            <see cref="T:System.Text.DecoderFallback" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-197">A <see cref="T:System.Text.DecoderFallback" /> object.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-198"><xref:System.Text.DecoderFallback>オブジェクトは、エンコード済みバイト シーケンスを文字に変換できないときに呼び出されるエラー ハンドラーを表します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-198">The <xref:System.Text.DecoderFallback> object represents an error handler that is invoked when an encoded byte sequence cannot be converted to a character.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="18e6e-199">設定操作の値が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-199">The value in a set operation is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="18e6e-200">現在の <see cref="T:System.Text.DecoderFallbackBuffer" /> オブジェクトにまだデコードされていないデータが含まれるため、設定操作に新しい値を代入できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-200">A new value cannot be assigned in a set operation because the current <see cref="T:System.Text.DecoderFallbackBuffer" /> object contains data that has not been decoded yet.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Text.EncoderFallback" />
+        <altmember cref="P:System.Text.Encoder.FallbackBuffer" />
+      </Docs>
+    </Member>
+    <Member MemberName="FallbackBuffer">
+      <MemberSignature Language="C#" Value="public System.Text.DecoderFallbackBuffer FallbackBuffer { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Text.DecoderFallbackBuffer FallbackBuffer" />
+      <MemberSignature Language="DocId" Value="P:System.Text.Decoder.FallbackBuffer" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property FallbackBuffer As DecoderFallbackBuffer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Text::DecoderFallbackBuffer ^ FallbackBuffer { System::Text::DecoderFallbackBuffer ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Text.DecoderFallbackBuffer</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="18e6e-201">現在の <see cref="T:System.Text.DecoderFallbackBuffer" /> オブジェクトに関連付けられている <see cref="T:System.Text.Decoder" /> オブジェクトを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-201">Gets the <see cref="T:System.Text.DecoderFallbackBuffer" /> object associated with the current <see cref="T:System.Text.Decoder" /> object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="18e6e-202">
+            <see cref="T:System.Text.DecoderFallbackBuffer" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-202">A <see cref="T:System.Text.DecoderFallbackBuffer" /> object.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-203"><xref:System.Text.DecoderFallbackBuffer>オブジェクトによって使用されるデータを表す、<xref:System.Text.DecoderFallback>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="18e6e-203">The <xref:System.Text.DecoderFallbackBuffer> object represents data used by the <xref:System.Text.DecoderFallback> object.</span></span> <span data-ttu-id="18e6e-204"><xref:System.Text.DecoderFallback>オブジェクトは、エンコード済みバイト シーケンスを文字に変換できないときに呼び出されるエラー ハンドラーを表します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-204">The <xref:System.Text.DecoderFallback> object represents an error handler that is invoked when an encoded byte sequence cannot be converted to a character.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Text.EncoderFallback" />
+        <altmember cref="P:System.Text.Encoder.Fallback" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="GetCharCount">
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="18e6e-205">派生クラスでオーバーライドされた場合、バイト シーケンスをデコードすることによって生成される文字数を計算します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-205">When overridden in a derived class, calculates the number of characters produced by decoding a sequence of bytes.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="GetCharCount">
+      <MemberSignature Language="C#" Value="public virtual int GetCharCount (ReadOnlySpan&lt;byte&gt; bytes, bool flush);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetCharCount(valuetype System.ReadOnlySpan`1&lt;unsigned int8&gt; bytes, bool flush) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.GetCharCount(System.ReadOnlySpan{System.Byte},System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetCharCount (bytes As ReadOnlySpan(Of Byte), flush As Boolean) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual int GetCharCount(ReadOnlySpan&lt;System::Byte&gt; bytes, bool flush);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.ReadOnlySpan&lt;System.Byte&gt;" />
+        <Parameter Name="flush" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">To be added.</param>
+        <param name="flush">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetCharCount">
+      <MemberSignature Language="C#" Value="public virtual int GetCharCount (byte* bytes, int count, bool flush);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetCharCount(unsigned int8* bytes, int32 count, bool flush) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.GetCharCount(System.Byte*,System.Int32,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual int GetCharCount(System::Byte* bytes, int count, bool flush);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.CLSCompliant(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.Byte*" />
+        <Parameter Name="count" Type="System.Int32" />
+        <Parameter Name="flush" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">
+          <span data-ttu-id="18e6e-206">デコードする最初のバイトへのポインター。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-206">A pointer to the first byte to decode.</span>
+          </span>
+        </param>
+        <param name="count">
+          <span data-ttu-id="18e6e-207">デコードするバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-207">The number of bytes to decode.</span>
+          </span>
+        </param>
+        <param name="flush">
+          <span data-ttu-id="18e6e-208">計算後にエンコーダーの内部状態をクリアするようシミュレートする場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-208">
+              <see langword="true" /> to simulate clearing the internal state of the encoder after the calculation; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="18e6e-209">派生クラスでオーバーライドされた場合、指定したバイト ポインターから始まるバイト シーケンスをデコードすることによって生成される文字数を計算します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-209">When overridden in a derived class, calculates the number of characters produced by decoding a sequence of bytes starting at the specified byte pointer.</span>
+          </span>
+          <span data-ttu-id="18e6e-210">パラメーターは、計算後に、デコーダーの内部状態をクリアするかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-210">A parameter indicates whether to clear the internal state of the decoder after the calculation.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="18e6e-211">指定したバイト シーケンスと内部バッファー内のバイトをデコードすることによって生成される文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-211">The number of characters produced by decoding the specified sequence of bytes and any bytes in the internal buffer.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-212">このメソッドは、デコーダーの状態には影響しません。</span><span class="sxs-lookup"><span data-stu-id="18e6e-212">This method does not affect the state of the decoder.</span></span>  
+  
+ <span data-ttu-id="18e6e-213">計算する正確な配列のサイズを<xref:System.Text.Decoder.GetChars%2A>必要と結果の文字を格納するアプリケーションを使用する必要があります<xref:System.Text.Decoder.GetCharCount%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-213">To calculate the exact array size that <xref:System.Text.Decoder.GetChars%2A> requires to store the resulting characters, the application should use <xref:System.Text.Decoder.GetCharCount%2A>.</span></span>  
+  
+ <span data-ttu-id="18e6e-214">場合`GetChars`で呼び出された`flush`'éý'`false`デコーダーが内部バッファーにデータ ブロックの末尾にある末尾バイトを格納し、それらを次にデコード操作で使用します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-214">If `GetChars` is called with `flush` set to `false`, the decoder stores trailing bytes at the end of the data block in an internal buffer and uses them in the next decoding operation.</span></span> <span data-ttu-id="18e6e-215">アプリケーションを呼び出す必要があります`GetCharCount`呼び出す前にすぐにデータのブロックに`GetChars`同じブロックで、前のブロックからの後続バイトが計算に含まれるようにします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-215">The application should call `GetCharCount` on a block of data immediately before calling `GetChars` on the same block, so that any trailing bytes from the previous block are included in the calculation.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="18e6e-216">
+            <paramref name="bytes" /> が <see langword="null" /> (Visual Basic .NET の場合は <see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-216">
+              <paramref name="bytes" /> is <see langword="null" /> (<see langword="Nothing" /> in Visual Basic .NET).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="18e6e-217">
+            <paramref name="count" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-217">
+              <paramref name="count" /> is less than zero.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Text.DecoderFallbackException">
+          <span data-ttu-id="18e6e-218">フォールバックが発生しました (詳細な説明は、「[.NET Framework における文字エンコーディング](~/docs/standard/base-types/character-encoding.md)」をご覧ください)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-218">A fallback occurred (see [Character Encoding in the .NET Framework](~/docs/standard/base-types/character-encoding.md) for fuller explanation)</span>
+          </span>
+          <span data-ttu-id="18e6e-219">および</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-219">-and-</span>
+          </span>
+          <span data-ttu-id="18e6e-220">
+            <see cref="P:System.Text.Decoder.Fallback" /> が <see cref="T:System.Text.DecoderExceptionFallback" /> に設定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-220">
+              <see cref="P:System.Text.Decoder.Fallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="18e6e-221">直前の呼び出し元に対する完全な信頼が必要です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-221">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="18e6e-222">このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-222">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+        <altmember cref="M:System.Text.Decoder.GetChars(System.Byte*,System.Int32,System.Char*,System.Int32,System.Boolean)" />
+        <altmember cref="M:System.Text.Decoder.Reset" />
+      </Docs>
+    </Member>
+    <Member MemberName="GetCharCount">
+      <MemberSignature Language="C#" Value="public abstract int GetCharCount (byte[] bytes, int index, int count);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetCharCount(unsigned int8[] bytes, int32 index, int32 count) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.GetCharCount(System.Byte[],System.Int32,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function GetCharCount (bytes As Byte(), index As Integer, count As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract int GetCharCount(cli::array &lt;System::Byte&gt; ^ bytes, int index, int count);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.Byte[]" />
+        <Parameter Name="index" Type="System.Int32" />
+        <Parameter Name="count" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">
+          <span data-ttu-id="18e6e-223">デコード対象のバイト シーケンスが格納されたバイト配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-223">The byte array containing the sequence of bytes to decode.</span>
+          </span>
+        </param>
+        <param name="index">
+          <span data-ttu-id="18e6e-224">デコードする最初のバイトのインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-224">The index of the first byte to decode.</span>
+          </span>
+        </param>
+        <param name="count">
+          <span data-ttu-id="18e6e-225">デコードするバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-225">The number of bytes to decode.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="18e6e-226">派生クラスでオーバーライドされた場合、指定したバイト配列に格納されているバイト シーケンスをデコードすることによって生成される文字数を計算します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-226">When overridden in a derived class, calculates the number of characters produced by decoding a sequence of bytes from the specified byte array.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="18e6e-227">指定したバイト シーケンスと内部バッファー内のバイトをデコードすることによって生成される文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-227">The number of characters produced by decoding the specified sequence of bytes and any bytes in the internal buffer.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-228">このメソッドは、デコーダーの状態には影響しません。</span><span class="sxs-lookup"><span data-stu-id="18e6e-228">This method does not affect the state of the decoder.</span></span>  
+  
+ <span data-ttu-id="18e6e-229">計算する正確な配列のサイズを<xref:System.Text.Decoder.GetChars%2A>必要と結果の文字を格納するアプリケーションを使用する必要があります<xref:System.Text.Decoder.GetCharCount%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-229">To calculate the exact array size that <xref:System.Text.Decoder.GetChars%2A> requires to store the resulting characters, the application should use <xref:System.Text.Decoder.GetCharCount%2A>.</span></span>  
+  
+ <span data-ttu-id="18e6e-230">場合`GetChars`で呼び出された`flush`'éý'`false`デコーダーが内部バッファーにデータ ブロックの末尾にある末尾バイトを格納し、それらを次にデコード操作で使用します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-230">If `GetChars` is called with `flush` set to `false`, the decoder stores trailing bytes at the end of the data block in an internal buffer and uses them in the next decoding operation.</span></span> <span data-ttu-id="18e6e-231">アプリケーションを呼び出す必要があります`GetCharCount`呼び出す前にすぐにデータのブロックに`GetChars`同じブロックで、前のブロックからの後続バイトが計算に含まれるようにします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-231">The application should call `GetCharCount` on a block of data immediately before calling `GetChars` on the same block, so that any trailing bytes from the previous block are included in the calculation.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="18e6e-232">次のコード例を使用する方法を示しています、<xref:System.Text.Decoder.GetCharCount%2A>メソッドを指定された配列内のバイトの範囲をデコードするために必要な文字の数を計算します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-232">The following code example demonstrates how to use the <xref:System.Text.Decoder.GetCharCount%2A> method to calculate the number of characters required to decode the specified range of bytes in the array.</span></span>  
+  
+ [!code-cpp[System.Text.Decoder.GetCharCount Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Text.Decoder.GetCharCount Example/CPP/getcharcount-byte[]-int32-int32.cpp#1)]
+ [!code-csharp[System.Text.Decoder.GetCharCount Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Text.Decoder.GetCharCount Example/CS/getcharcount-byte[]-int32-int32.cs#1)]
+ [!code-vb[System.Text.Decoder.GetCharCount Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Text.Decoder.GetCharCount Example/VB/getcharcount-byte[]-int32-int32.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="18e6e-233">
+            <paramref name="bytes" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-233">
+              <paramref name="bytes" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="18e6e-234">
+            <paramref name="index" /> または <paramref name="count" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-234">
+              <paramref name="index" /> or <paramref name="count" /> is less than zero.</span>
+          </span>
+          <span data-ttu-id="18e6e-235">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-235">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-236">
+            <paramref name="index" /> および <paramref name="count" /> は <paramref name="bytes" /> において有効な範囲を表していません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-236">
+              <paramref name="index" /> and <paramref name="count" /> do not denote a valid range in <paramref name="bytes" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Text.DecoderFallbackException">
+          <span data-ttu-id="18e6e-237">フォールバックが発生しました (詳細な説明は、「[.NET Framework における文字エンコーディング](~/docs/standard/base-types/character-encoding.md)」をご覧ください)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-237">A fallback occurred (see [Character Encoding in the .NET Framework](~/docs/standard/base-types/character-encoding.md) for fuller explanation)</span>
+          </span>
+          <span data-ttu-id="18e6e-238">および</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-238">-and-</span>
+          </span>
+          <span data-ttu-id="18e6e-239">
+            <see cref="P:System.Text.Decoder.Fallback" /> が <see cref="T:System.Text.DecoderExceptionFallback" /> に設定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-239">
+              <see cref="P:System.Text.Decoder.Fallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Text.Decoder.GetChars(System.Byte[],System.Int32,System.Int32,System.Char[],System.Int32)" />
+        <altmember cref="M:System.Text.Decoder.Reset" />
+      </Docs>
+    </Member>
+    <Member MemberName="GetCharCount">
+      <MemberSignature Language="C#" Value="public virtual int GetCharCount (byte[] bytes, int index, int count, bool flush);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetCharCount(unsigned int8[] bytes, int32 index, int32 count, bool flush) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.GetCharCount(System.Byte[],System.Int32,System.Int32,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetCharCount (bytes As Byte(), index As Integer, count As Integer, flush As Boolean) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual int GetCharCount(cli::array &lt;System::Byte&gt; ^ bytes, int index, int count, bool flush);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.Byte[]" />
+        <Parameter Name="index" Type="System.Int32" />
+        <Parameter Name="count" Type="System.Int32" />
+        <Parameter Name="flush" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">
+          <span data-ttu-id="18e6e-240">デコード対象のバイト シーケンスが格納されたバイト配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-240">The byte array containing the sequence of bytes to decode.</span>
+          </span>
+        </param>
+        <param name="index">
+          <span data-ttu-id="18e6e-241">デコードする最初のバイトのインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-241">The index of the first byte to decode.</span>
+          </span>
+        </param>
+        <param name="count">
+          <span data-ttu-id="18e6e-242">デコードするバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-242">The number of bytes to decode.</span>
+          </span>
+        </param>
+        <param name="flush">
+          <span data-ttu-id="18e6e-243">計算後にエンコーダーの内部状態をクリアするようシミュレートする場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-243">
+              <see langword="true" /> to simulate clearing the internal state of the encoder after the calculation; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="18e6e-244">派生クラスでオーバーライドされた場合、指定したバイト配列に格納されているバイト シーケンスをデコードすることによって生成される文字数を計算します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-244">When overridden in a derived class, calculates the number of characters produced by decoding a sequence of bytes from the specified byte array.</span>
+          </span>
+          <span data-ttu-id="18e6e-245">パラメーターは、計算後に、デコーダーの内部状態をクリアするかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-245">A parameter indicates whether to clear the internal state of the decoder after the calculation.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="18e6e-246">指定したバイト シーケンスと内部バッファー内のバイトをデコードすることによって生成される文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-246">The number of characters produced by decoding the specified sequence of bytes and any bytes in the internal buffer.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-247">このメソッドは、デコーダーの状態には影響しません。</span><span class="sxs-lookup"><span data-stu-id="18e6e-247">This method does not affect the state of the decoder.</span></span>  
+  
+ <span data-ttu-id="18e6e-248">計算する正確な配列のサイズを<xref:System.Text.Decoder.GetChars%2A>必要と結果の文字を格納するアプリケーションを使用する必要があります<xref:System.Text.Decoder.GetCharCount%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-248">To calculate the exact array size that <xref:System.Text.Decoder.GetChars%2A> requires to store the resulting characters, the application should use <xref:System.Text.Decoder.GetCharCount%2A>.</span></span>  
+  
+ <span data-ttu-id="18e6e-249">場合`GetChars`で呼び出された`flush`'éý'`false`デコーダーが内部バッファーにデータ ブロックの末尾にある末尾バイトを格納し、それらを次にデコード操作で使用します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-249">If `GetChars` is called with `flush` set to `false`, the decoder stores trailing bytes at the end of the data block in an internal buffer and uses them in the next decoding operation.</span></span> <span data-ttu-id="18e6e-250">アプリケーションを呼び出す必要があります`GetCharCount`呼び出す前にすぐにデータのブロックに`GetChars`同じブロックで、前のブロックからの後続バイトが計算に含まれるようにします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-250">The application should call `GetCharCount` on a block of data immediately before calling `GetChars` on the same block, so that any trailing bytes from the previous block are included in the calculation.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="18e6e-251">
+            <paramref name="bytes" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-251">
+              <paramref name="bytes" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="18e6e-252">
+            <paramref name="index" /> または <paramref name="count" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-252">
+              <paramref name="index" /> or <paramref name="count" /> is less than zero.</span>
+          </span>
+          <span data-ttu-id="18e6e-253">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-253">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-254">
+            <paramref name="index" /> および <paramref name="count" /> は <paramref name="bytes" /> において有効な範囲を表していません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-254">
+              <paramref name="index" /> and <paramref name="count" /> do not denote a valid range in <paramref name="bytes" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Text.DecoderFallbackException">
+          <span data-ttu-id="18e6e-255">フォールバックが発生しました (詳細な説明は、「[.NET Framework における文字エンコーディング](~/docs/standard/base-types/character-encoding.md)」をご覧ください)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-255">A fallback occurred (see [Character Encoding in the .NET Framework](~/docs/standard/base-types/character-encoding.md) for fuller explanation)</span>
+          </span>
+          <span data-ttu-id="18e6e-256">および</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-256">-and-</span>
+          </span>
+          <span data-ttu-id="18e6e-257">
+            <see cref="P:System.Text.Decoder.Fallback" /> が <see cref="T:System.Text.DecoderExceptionFallback" /> に設定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-257">
+              <see cref="P:System.Text.Decoder.Fallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Text.Decoder.GetChars(System.Byte[],System.Int32,System.Int32,System.Char[],System.Int32,System.Boolean)" />
+        <altmember cref="M:System.Text.Decoder.Reset" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="GetChars">
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="18e6e-258">派生クラスでオーバーライドされた場合、バイト シーケンスを文字のセットにデコードします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-258">When overridden in a derived class, decodes a sequence of bytes into a set of characters.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="GetChars">
+      <MemberSignature Language="C#" Value="public virtual int GetChars (ReadOnlySpan&lt;byte&gt; bytes, Span&lt;char&gt; chars, bool flush);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetChars(valuetype System.ReadOnlySpan`1&lt;unsigned int8&gt; bytes, valuetype System.Span`1&lt;char&gt; chars, bool flush) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.GetChars(System.ReadOnlySpan{System.Byte},System.Span{System.Char},System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetChars (bytes As ReadOnlySpan(Of Byte), chars As Span(Of Char), flush As Boolean) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual int GetChars(ReadOnlySpan&lt;System::Byte&gt; bytes, Span&lt;char&gt; chars, bool flush);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.ReadOnlySpan&lt;System.Byte&gt;" />
+        <Parameter Name="chars" Type="System.Span&lt;System.Char&gt;" />
+        <Parameter Name="flush" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">To be added.</param>
+        <param name="chars">To be added.</param>
+        <param name="flush">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetChars">
+      <MemberSignature Language="C#" Value="public virtual int GetChars (byte* bytes, int byteCount, char* chars, int charCount, bool flush);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetChars(unsigned int8* bytes, int32 byteCount, char* chars, int32 charCount, bool flush) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.GetChars(System.Byte*,System.Int32,System.Char*,System.Int32,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual int GetChars(System::Byte* bytes, int byteCount, char* chars, int charCount, bool flush);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.CLSCompliant(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.Byte*" />
+        <Parameter Name="byteCount" Type="System.Int32" />
+        <Parameter Name="chars" Type="System.Char*" />
+        <Parameter Name="charCount" Type="System.Int32" />
+        <Parameter Name="flush" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">
+          <span data-ttu-id="18e6e-259">デコードする最初のバイトへのポインター。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-259">A pointer to the first byte to decode.</span>
+          </span>
+        </param>
+        <param name="byteCount">
+          <span data-ttu-id="18e6e-260">デコードするバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-260">The number of bytes to decode.</span>
+          </span>
+        </param>
+        <param name="chars">
+          <span data-ttu-id="18e6e-261">結果の文字セットの書き込みを開始する位置へのポインター。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-261">A pointer to the location at which to start writing the resulting set of characters.</span>
+          </span>
+        </param>
+        <param name="charCount">
+          <span data-ttu-id="18e6e-262">書き込む文字の最大数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-262">The maximum number of characters to write.</span>
+          </span>
+        </param>
+        <param name="flush">
+          <span data-ttu-id="18e6e-263">変換後にデコーダーの内部状態をクリアする場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-263">
+              <see langword="true" /> to clear the internal state of the decoder after the conversion; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="18e6e-264">派生クラスでオーバーライドされた場合、指定したバイト ポインターで始まるバイト シーケンス、および内部バッファー内のバイトを、指定した文字ポインターを開始位置として格納される文字のセットにエンコードします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-264">When overridden in a derived class, decodes a sequence of bytes starting at the specified byte pointer and any bytes in the internal buffer into a set of characters that are stored starting at the specified character pointer.</span>
+          </span>
+          <span data-ttu-id="18e6e-265">パラメーターでは、変換後にデコーダーの内部状態をクリアするかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-265">A parameter indicates whether to clear the internal state of the decoder after the conversion.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="18e6e-266">
+            <paramref name="chars" /> パラメーターによって示される位置に書き込む実際の文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-266">The actual number of characters written at the location indicated by the <paramref name="chars" /> parameter.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-267">注意して、<xref:System.Text.Decoder>オブジェクトへの呼び出しの間で状態を保存する<xref:System.Text.Decoder.GetChars%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-267">Remember that the <xref:System.Text.Decoder> object saves state between calls to <xref:System.Text.Decoder.GetChars%2A>.</span></span> <span data-ttu-id="18e6e-268">これを設定する必要があります、アプリケーションでは、データ ストリームの処理が終わったら、`flush`パラメーターを`true`状態情報がフラッシュされるかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-268">When the application is done with a stream of data, it should set the `flush` parameter to `true` to make sure that the state information is flushed.</span></span> <span data-ttu-id="18e6e-269">この設定では、デコーダーは、データ ブロックの末尾に無効なバイトを無視し、内部バッファーをクリアします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-269">With this setting, the decoder ignores invalid bytes at the end of the data block and clears the internal buffer.</span></span>  
+  
+ <span data-ttu-id="18e6e-270">計算する正確なバッファーのサイズを`GetChars`必要と結果の文字を格納するアプリケーションを使用する必要があります<xref:System.Text.Decoder.GetCharCount%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-270">To calculate the exact buffer size that `GetChars` requires to store the resulting characters, the application should use <xref:System.Text.Decoder.GetCharCount%2A>.</span></span>  
+  
+ <span data-ttu-id="18e6e-271">場合`GetChars`で呼び出された`flush`'éý'`false`デコーダーが内部バッファーにデータ ブロックの末尾にある末尾バイトを格納し、それらを次にデコード操作で使用します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-271">If `GetChars` is called with `flush` set to `false`, the decoder stores trailing bytes at the end of the data block in an internal buffer and uses them in the next decoding operation.</span></span> <span data-ttu-id="18e6e-272">アプリケーションを呼び出す必要があります`GetCharCount`呼び出す前にすぐにデータのブロックに`GetChars`同じブロックで、前のブロックからの後続バイトが計算に含まれるようにします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-272">The application should call `GetCharCount` on a block of data immediately before calling `GetChars` on the same block, so that any trailing bytes from the previous block are included in the calculation.</span></span>  
+  
+ <span data-ttu-id="18e6e-273">入力ストリームの数のセグメントに変換する、アプリケーションがある場合は、使用を検討して、<xref:System.Text.Decoder.Convert%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-273">If your application is to convert many segments of an input stream, consider using the <xref:System.Text.Decoder.Convert%2A> method.</span></span> <span data-ttu-id="18e6e-274"><xref:System.Text.Decoder.GetChars%2A> 出力バッファーが十分でない場合、例外がスローされますが、<xref:System.Text.Decoder.Convert%2A>は、できるだけ多くの領域を入力し、読み取られたバイトと書き込まれる文字数を返します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-274"><xref:System.Text.Decoder.GetChars%2A> will throw an exception if the output buffer isn't large enough, but <xref:System.Text.Decoder.Convert%2A> will fill as much space as possible and return the bytes read and chars written.</span></span> <span data-ttu-id="18e6e-275">参照してください、<xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType>詳細コメントのトピックです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-275">Also see the <xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType> topic for more comments.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="18e6e-276">
+            <paramref name="bytes" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-276">
+              <paramref name="bytes" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+          <span data-ttu-id="18e6e-277">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-277">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-278">
+            <paramref name="chars" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-278">
+              <paramref name="chars" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="18e6e-279">
+            <paramref name="byteCount" /> または <paramref name="charCount" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-279">
+              <paramref name="byteCount" /> or <paramref name="charCount" /> is less than zero.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="18e6e-280">
+            <paramref name="charCount" /> が結果の文字数より少なくなっています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-280">
+              <paramref name="charCount" /> is less than the resulting number of characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Text.DecoderFallbackException">
+          <span data-ttu-id="18e6e-281">フォールバックが発生しました (詳細な説明は、「[.NET Framework における文字エンコーディング](~/docs/standard/base-types/character-encoding.md)」をご覧ください)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-281">A fallback occurred (see [Character Encoding in the .NET Framework](~/docs/standard/base-types/character-encoding.md) for fuller explanation)</span>
+          </span>
+          <span data-ttu-id="18e6e-282">および</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-282">-and-</span>
+          </span>
+          <span data-ttu-id="18e6e-283">
+            <see cref="P:System.Text.Decoder.Fallback" /> が <see cref="T:System.Text.DecoderExceptionFallback" /> に設定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-283">
+              <see cref="P:System.Text.Decoder.Fallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="18e6e-284">直前の呼び出し元に対する完全な信頼が必要です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-284">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="18e6e-285">このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-285">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+        <altmember cref="M:System.Text.Decoder.GetCharCount(System.Byte*,System.Int32,System.Boolean)" />
+        <altmember cref="M:System.Text.Decoder.Reset" />
+      </Docs>
+    </Member>
+    <Member MemberName="GetChars">
+      <MemberSignature Language="C#" Value="public abstract int GetChars (byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetChars(unsigned int8[] bytes, int32 byteIndex, int32 byteCount, char[] chars, int32 charIndex) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.GetChars(System.Byte[],System.Int32,System.Int32,System.Char[],System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function GetChars (bytes As Byte(), byteIndex As Integer, byteCount As Integer, chars As Char(), charIndex As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract int GetChars(cli::array &lt;System::Byte&gt; ^ bytes, int byteIndex, int byteCount, cli::array &lt;char&gt; ^ chars, int charIndex);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.Byte[]" />
+        <Parameter Name="byteIndex" Type="System.Int32" />
+        <Parameter Name="byteCount" Type="System.Int32" />
+        <Parameter Name="chars" Type="System.Char[]" />
+        <Parameter Name="charIndex" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">
+          <span data-ttu-id="18e6e-286">デコード対象のバイト シーケンスが格納されたバイト配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-286">The byte array containing the sequence of bytes to decode.</span>
+          </span>
+        </param>
+        <param name="byteIndex">
+          <span data-ttu-id="18e6e-287">デコードする最初のバイトのインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-287">The index of the first byte to decode.</span>
+          </span>
+        </param>
+        <param name="byteCount">
+          <span data-ttu-id="18e6e-288">デコードするバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-288">The number of bytes to decode.</span>
+          </span>
+        </param>
+        <param name="chars">
+          <span data-ttu-id="18e6e-289">結果の文字のセットを格納する文字配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-289">The character array to contain the resulting set of characters.</span>
+          </span>
+        </param>
+        <param name="charIndex">
+          <span data-ttu-id="18e6e-290">結果の文字のセットを書き込む開始位置のインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-290">The index at which to start writing the resulting set of characters.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="18e6e-291">派生クラスでオーバーライドされた場合、指定したバイト配列に格納されているバイト シーケンス、および内部バッファー内のバイトを、指定した文字配列にデコードします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-291">When overridden in a derived class, decodes a sequence of bytes from the specified byte array and any bytes in the internal buffer into the specified character array.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="18e6e-292">
+            <paramref name="chars" /> に書き込まれた実際の文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-292">The actual number of characters written into <paramref name="chars" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-293">注意して、<xref:System.Text.Decoder>オブジェクトへの呼び出しの間で状態を保存する<xref:System.Text.Decoder.GetChars%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-293">Remember that the <xref:System.Text.Decoder> object saves state between calls to <xref:System.Text.Decoder.GetChars%2A>.</span></span> <span data-ttu-id="18e6e-294">これを設定する必要があります、アプリケーションでは、データ ストリームの処理が終わったら、`flush`パラメーターを`true`状態情報がフラッシュされるかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-294">When the application is done with a stream of data, it should set the `flush` parameter to `true` to make sure that the state information is flushed.</span></span> <span data-ttu-id="18e6e-295">この設定では、デコーダーは、データ ブロックの末尾に無効なバイトを無視し、内部バッファーをクリアします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-295">With this setting, the decoder ignores invalid bytes at the end of the data block and clears the internal buffer.</span></span>  
+  
+ <span data-ttu-id="18e6e-296">計算する正確な配列のサイズを`GetChars`必要と結果の文字を格納するアプリケーションを使用する必要があります<xref:System.Text.Decoder.GetCharCount%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-296">To calculate the exact array size that `GetChars` requires to store the resulting characters, the application should use <xref:System.Text.Decoder.GetCharCount%2A>.</span></span>  
+  
+ <span data-ttu-id="18e6e-297">場合`GetChars`で呼び出された`flush`'éý'`false`デコーダーが内部バッファーにデータ ブロックの末尾にある末尾バイトを格納し、それらを次にデコード操作で使用します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-297">If `GetChars` is called with `flush` set to `false`, the decoder stores trailing bytes at the end of the data block in an internal buffer and uses them in the next decoding operation.</span></span> <span data-ttu-id="18e6e-298">アプリケーションを呼び出す必要があります`GetCharCount`呼び出す前にすぐにデータのブロックに`GetChars`同じブロックで、前のブロックからの後続バイトが計算に含まれるようにします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-298">The application should call `GetCharCount` on a block of data immediately before calling `GetChars` on the same block, so that any trailing bytes from the previous block are included in the calculation.</span></span>  
+  
+ <span data-ttu-id="18e6e-299">入力ストリームの数のセグメントに変換する、アプリケーションがある場合は、使用を検討して、<xref:System.Text.Decoder.Convert%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-299">If your application is to convert many segments of an input stream, consider using the <xref:System.Text.Decoder.Convert%2A> method.</span></span> <span data-ttu-id="18e6e-300"><xref:System.Text.Decoder.GetChars%2A> 出力バッファーが十分でない場合、例外がスローされますが、<xref:System.Text.Decoder.Convert%2A>は、できるだけ多くの領域を入力し、読み取られたバイトと書き込まれる文字数を返します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-300"><xref:System.Text.Decoder.GetChars%2A> will throw an exception if the output buffer isn't large enough, but <xref:System.Text.Decoder.Convert%2A> will fill as much space as possible and return the bytes read and chars written.</span></span> <span data-ttu-id="18e6e-301">参照してください、<xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType>詳細コメントのトピックです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-301">Also see the <xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType> topic for more comments.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="18e6e-302">次の例では、ある範囲のバイト配列から要素をデコードし、Unicode 文字配列に保存する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-302">The following example demonstrates how to decode a range of elements from a byte array and store them in a Unicode character array.</span></span> <span data-ttu-id="18e6e-303"><xref:System.Text.Decoder.GetCharCount%2A>メソッドは、配列にデコードされた要素を格納するために必要な文字数を計算に使用`bytes`です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-303">The <xref:System.Text.Decoder.GetCharCount%2A> method is used to calculate the number of characters needed to store the decoded elements in the array `bytes`.</span></span> <span data-ttu-id="18e6e-304"><xref:System.Text.Decoder.GetChars%2A>メソッドは、バイト配列に指定された要素をデコードし、新しい文字配列に保存します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-304">The <xref:System.Text.Decoder.GetChars%2A> method decodes the specified elements in the byte array and stores them in the new character array.</span></span>  
+  
+ [!code-cpp[System.Text.Decoder.GetChars Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Text.Decoder.GetChars Example/CPP/getchars-byte[]-int32-int32-char[]-int32.cpp#1)]
+ [!code-csharp[System.Text.Decoder.GetChars Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Text.Decoder.GetChars Example/CS/getchars-byte[]-int32-int32-char[]-int32.cs#1)]
+ [!code-vb[System.Text.Decoder.GetChars Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Text.Decoder.GetChars Example/VB/getchars-byte[]-int32-int32-char[]-int32.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="18e6e-305">
+            <paramref name="bytes" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-305">
+              <paramref name="bytes" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+          <span data-ttu-id="18e6e-306">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-306">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-307">
+            <paramref name="chars" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-307">
+              <paramref name="chars" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="18e6e-308">
+            <paramref name="byteIndex" />、<paramref name="byteCount" />、または <paramref name="charIndex" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-308">
+              <paramref name="byteIndex" /> or <paramref name="byteCount" /> or <paramref name="charIndex" /> is less than zero.</span>
+          </span>
+          <span data-ttu-id="18e6e-309">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-309">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-310">
+            <paramref name="byteindex" /> および <paramref name="byteCount" /> は <paramref name="bytes" /> において有効な範囲を表していません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-310">
+              <paramref name="byteindex" /> and <paramref name="byteCount" /> do not denote a valid range in <paramref name="bytes" />.</span>
+          </span>
+          <span data-ttu-id="18e6e-311">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-311">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-312">
+            <paramref name="charIndex" /> が <paramref name="chars" /> の有効なインデックスではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-312">
+              <paramref name="charIndex" /> is not a valid index in <paramref name="chars" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="18e6e-313">
+            <paramref name="chars" /> には、<paramref name="charIndex" /> から配列の末尾までに十分なサイズがなく、結果の文字を格納できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-313">
+              <paramref name="chars" /> does not have enough capacity from <paramref name="charIndex" /> to the end of the array to accommodate the resulting characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Text.DecoderFallbackException">
+          <span data-ttu-id="18e6e-314">フォールバックが発生しました (詳細な説明は、「[.NET Framework における文字エンコーディング](~/docs/standard/base-types/character-encoding.md)」をご覧ください)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-314">A fallback occurred (see [Character Encoding in the .NET Framework](~/docs/standard/base-types/character-encoding.md) for fuller explanation)</span>
+          </span>
+          <span data-ttu-id="18e6e-315">および</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-315">-and-</span>
+          </span>
+          <span data-ttu-id="18e6e-316">
+            <see cref="P:System.Text.Decoder.Fallback" /> が <see cref="T:System.Text.DecoderExceptionFallback" /> に設定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-316">
+              <see cref="P:System.Text.Decoder.Fallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Text.Decoder.GetCharCount(System.Byte[],System.Int32,System.Int32)" />
+        <altmember cref="M:System.Text.Decoder.Reset" />
+      </Docs>
+    </Member>
+    <Member MemberName="GetChars">
+      <MemberSignature Language="C#" Value="public virtual int GetChars (byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex, bool flush);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetChars(unsigned int8[] bytes, int32 byteIndex, int32 byteCount, char[] chars, int32 charIndex, bool flush) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.GetChars(System.Byte[],System.Int32,System.Int32,System.Char[],System.Int32,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetChars (bytes As Byte(), byteIndex As Integer, byteCount As Integer, chars As Char(), charIndex As Integer, flush As Boolean) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual int GetChars(cli::array &lt;System::Byte&gt; ^ bytes, int byteIndex, int byteCount, cli::array &lt;char&gt; ^ chars, int charIndex, bool flush);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytes" Type="System.Byte[]" />
+        <Parameter Name="byteIndex" Type="System.Int32" />
+        <Parameter Name="byteCount" Type="System.Int32" />
+        <Parameter Name="chars" Type="System.Char[]" />
+        <Parameter Name="charIndex" Type="System.Int32" />
+        <Parameter Name="flush" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="bytes">
+          <span data-ttu-id="18e6e-317">デコード対象のバイト シーケンスが格納されたバイト配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-317">The byte array containing the sequence of bytes to decode.</span>
+          </span>
+        </param>
+        <param name="byteIndex">
+          <span data-ttu-id="18e6e-318">デコードする最初のバイトのインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-318">The index of the first byte to decode.</span>
+          </span>
+        </param>
+        <param name="byteCount">
+          <span data-ttu-id="18e6e-319">デコードするバイト数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-319">The number of bytes to decode.</span>
+          </span>
+        </param>
+        <param name="chars">
+          <span data-ttu-id="18e6e-320">結果の文字のセットを格納する文字配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-320">The character array to contain the resulting set of characters.</span>
+          </span>
+        </param>
+        <param name="charIndex">
+          <span data-ttu-id="18e6e-321">結果の文字のセットを書き込む開始位置のインデックス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-321">The index at which to start writing the resulting set of characters.</span>
+          </span>
+        </param>
+        <param name="flush">
+          <span data-ttu-id="18e6e-322">変換後にデコーダーの内部状態をクリアする場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-322">
+              <see langword="true" /> to clear the internal state of the decoder after the conversion; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="18e6e-323">派生クラスでオーバーライドされた場合、指定したバイト配列に格納されているバイト シーケンス、および内部バッファー内のバイトを、指定した文字配列にデコードします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-323">When overridden in a derived class, decodes a sequence of bytes from the specified byte array and any bytes in the internal buffer into the specified character array.</span>
+          </span>
+          <span data-ttu-id="18e6e-324">パラメーターでは、変換後にデコーダーの内部状態をクリアするかどうかを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-324">A parameter indicates whether to clear the internal state of the decoder after the conversion.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="18e6e-325">
+            <paramref name="chars" /> パラメーターに書き込まれた実際の文字数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-325">The actual number of characters written into the <paramref name="chars" /> parameter.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-326">注意して、<xref:System.Text.Decoder>オブジェクトへの呼び出しの間で状態を保存する<xref:System.Text.Decoder.GetChars%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-326">Remember that the <xref:System.Text.Decoder> object saves state between calls to <xref:System.Text.Decoder.GetChars%2A>.</span></span> <span data-ttu-id="18e6e-327">これを設定する必要があります、アプリケーションでは、データ ストリームの処理が終わったら、`flush`パラメーターを`true`状態情報がフラッシュされるかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-327">When the application is done with a stream of data, it should set the `flush` parameter to `true` to make sure that the state information is flushed.</span></span> <span data-ttu-id="18e6e-328">この設定では、デコーダーは、データ ブロックの末尾に無効なバイトを無視し、内部バッファーをクリアします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-328">With this setting, the decoder ignores invalid bytes at the end of the data block and clears the internal buffer.</span></span>  
+  
+ <span data-ttu-id="18e6e-329">計算する正確な配列のサイズを`GetChars`必要と結果の文字を格納するアプリケーションを使用する必要があります<xref:System.Text.Decoder.GetCharCount%2A>です。</span><span class="sxs-lookup"><span data-stu-id="18e6e-329">To calculate the exact array size that `GetChars` requires to store the resulting characters, the application should use <xref:System.Text.Decoder.GetCharCount%2A>.</span></span>  
+  
+ <span data-ttu-id="18e6e-330">場合`GetChars`で呼び出された`flush`'éý'`false`デコーダーが内部バッファーにデータ ブロックの末尾にある末尾バイトを格納し、それらを次にデコード操作で使用します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-330">If `GetChars` is called with `flush` set to `false`, the decoder stores trailing bytes at the end of the data block in an internal buffer and uses them in the next decoding operation.</span></span> <span data-ttu-id="18e6e-331">アプリケーションを呼び出す必要があります`GetCharCount`呼び出す前にすぐにデータのブロックに`GetChars`同じブロックで、前のブロックからの後続バイトが計算に含まれるようにします。</span><span class="sxs-lookup"><span data-stu-id="18e6e-331">The application should call `GetCharCount` on a block of data immediately before calling `GetChars` on the same block, so that any trailing bytes from the previous block are included in the calculation.</span></span>  
+  
+ <span data-ttu-id="18e6e-332">入力ストリームの数のセグメントに変換する、アプリケーションがある場合は、使用を検討して、<xref:System.Text.Decoder.Convert%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-332">If your application is to convert many segments of an input stream, consider using the <xref:System.Text.Decoder.Convert%2A> method.</span></span> <span data-ttu-id="18e6e-333"><xref:System.Text.Decoder.GetChars%2A> 出力バッファーが十分でない場合、例外がスローされますが、<xref:System.Text.Decoder.Convert%2A>は、できるだけ多くの領域を入力し、読み取られたバイトと書き込まれる文字数を返します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-333"><xref:System.Text.Decoder.GetChars%2A> will throw an exception if the output buffer isn't large enough, but <xref:System.Text.Decoder.Convert%2A> will fill as much space as possible and return the bytes read and chars written.</span></span> <span data-ttu-id="18e6e-334">参照してください、<xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType>詳細コメントのトピックです。</span><span class="sxs-lookup"><span data-stu-id="18e6e-334">Also see the <xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType> topic for more comments.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="18e6e-335">
+            <paramref name="bytes" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-335">
+              <paramref name="bytes" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+          <span data-ttu-id="18e6e-336">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-336">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-337">
+            <paramref name="chars" /> が <see langword="null" /> (<see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-337">
+              <paramref name="chars" /> is <see langword="null" /> (<see langword="Nothing" />).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="18e6e-338">
+            <paramref name="byteIndex" />、<paramref name="byteCount" />、または <paramref name="charIndex" /> が 0 未満です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-338">
+              <paramref name="byteIndex" /> or <paramref name="byteCount" /> or <paramref name="charIndex" /> is less than zero.</span>
+          </span>
+          <span data-ttu-id="18e6e-339">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-339">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-340">
+            <paramref name="byteindex" /> および <paramref name="byteCount" /> は <paramref name="bytes" /> において有効な範囲を表していません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-340">
+              <paramref name="byteindex" /> and <paramref name="byteCount" /> do not denote a valid range in <paramref name="bytes" />.</span>
+          </span>
+          <span data-ttu-id="18e6e-341">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-341">-or-</span>
+          </span>
+          <span data-ttu-id="18e6e-342">
+            <paramref name="charIndex" /> が <paramref name="chars" /> の有効なインデックスではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-342">
+              <paramref name="charIndex" /> is not a valid index in <paramref name="chars" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="18e6e-343">
+            <paramref name="chars" /> には、<paramref name="charIndex" /> から配列の末尾までに十分なサイズがなく、結果の文字を格納できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-343">
+              <paramref name="chars" /> does not have enough capacity from <paramref name="charIndex" /> to the end of the array to accommodate the resulting characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Text.DecoderFallbackException">
+          <span data-ttu-id="18e6e-344">フォールバックが発生しました (詳細な説明は、「[.NET Framework における文字エンコーディング](~/docs/standard/base-types/character-encoding.md)」をご覧ください)。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-344">A fallback occurred (see [Character Encoding in the .NET Framework](~/docs/standard/base-types/character-encoding.md) for fuller explanation)</span>
+          </span>
+          <span data-ttu-id="18e6e-345">および</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-345">-and-</span>
+          </span>
+          <span data-ttu-id="18e6e-346">
+            <see cref="P:System.Text.Decoder.Fallback" /> が <see cref="T:System.Text.DecoderExceptionFallback" /> に設定されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-346">
+              <see cref="P:System.Text.Decoder.Fallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Text.Decoder.GetCharCount(System.Byte[],System.Int32,System.Int32,System.Boolean)" />
+        <altmember cref="M:System.Text.Decoder.Reset" />
+      </Docs>
+    </Member>
+    <Member MemberName="Reset">
+      <MemberSignature Language="C#" Value="public virtual void Reset ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Reset() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.Decoder.Reset" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Sub Reset ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Reset();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="18e6e-347">派生クラスでオーバーライドされた場合、デコーダーを初期状態に戻します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="18e6e-347">When overridden in a derived class, sets the decoder back to its initial state.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="18e6e-348">このメソッドの内部状態をクリアする、<xref:System.Text.Decoder>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="18e6e-348">This method clears the internal state of the <xref:System.Text.Decoder> object.</span></span> <span data-ttu-id="18e6e-349">メソッドを前回呼び出したときから保存された任意の状態情報をクリアする<xref:System.Text.Decoder.GetChars%2A>または<xref:System.Text.Decoder.Convert%2A>など、末尾に、前のデータ ブロックの最後のバイト数。</span><span class="sxs-lookup"><span data-stu-id="18e6e-349">The method clears any state information preserved from a previous call to <xref:System.Text.Decoder.GetChars%2A> or <xref:System.Text.Decoder.Convert%2A>, including trailing bytes at the end of the previous data block.</span></span>  
+  
+ <span data-ttu-id="18e6e-350">アプリケーションを呼び出す必要があります、<xref:System.Text.Decoder.Reset%2A>メソッドによって例外がスローされた後でも、同じデコーダーを再利用する必要がある場合<xref:System.Text.Decoder.GetChars%2A>、 <xref:System.Text.Decoder.Convert%2A>、または<xref:System.Text.Decoder.GetCharCount%2A>、またはデコーダーがストリームに切り替え、別のストリームのデコードを開始します。</span><span class="sxs-lookup"><span data-stu-id="18e6e-350">Your application should call the <xref:System.Text.Decoder.Reset%2A> method if it wants to reuse the same decoder even after an exception is thrown by <xref:System.Text.Decoder.GetChars%2A>, <xref:System.Text.Decoder.Convert%2A>, or <xref:System.Text.Decoder.GetCharCount%2A>, or if the decoder switches streams and begins to decode another stream.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

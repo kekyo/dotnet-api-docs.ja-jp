@@ -1,0 +1,528 @@
+<Type Name="TransactionInterop" FullName="System.Transactions.TransactionInterop">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="c5a3c47603fe26921fe6e788b26bf42be3976258" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public static class TransactionInterop" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit TransactionInterop extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Transactions.TransactionInterop" />
+  <TypeSignature Language="VB.NET" Value="Public Class TransactionInterop" />
+  <TypeSignature Language="C++ CLI" Value="public ref class TransactionInterop abstract sealed" />
+  <AssemblyInfo>
+    <AssemblyName>System.Transactions</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Transactions.Local</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="37500-101">MSDTC、COM+、または <see cref="N:System.EnterpriseServices" /> とやり取りするために以前記述されたコンポーネントと <see cref="N:System.Transactions" /> との対話を容易にします。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="37500-101">Facilitates interaction between <see cref="N:System.Transactions" /> and components that were previously written to interact with MSDTC, COM+, or <see cref="N:System.EnterpriseServices" />.</span>
+      </span>
+      <span data-ttu-id="37500-102">このクラスは継承できません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="37500-102">This class cannot be inherited.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="37500-103">このクラスは、トランザクションの伝達のメソッドを提供します。</span><span class="sxs-lookup"><span data-stu-id="37500-103">This class provides methods for transaction propagation.</span></span> <span data-ttu-id="37500-104">このプロセスのしくみの詳細については、次を参照してください。[トランザクション伝達](http://msdn.microsoft.com/library/default.asp?url=/library/cossdk/html/b09541e6-4baf-4e37-b879-62884fbb0969.asp)です。</span><span class="sxs-lookup"><span data-stu-id="37500-104">For more information on how this process works, see [Transaction Propagation](http://msdn.microsoft.com/library/default.asp?url=/library/cossdk/html/b09541e6-4baf-4e37-b879-62884fbb0969.asp).</span></span>  
+  
+ <span data-ttu-id="37500-105">このクラスによって提供されるメソッドを使用して、2 種類のトランザクションの反映、(プッシュ モデル) のエクスポート/インポートし、トランスミッターまたはレシーバー (プル モデル) に取り組むことができます。</span><span class="sxs-lookup"><span data-stu-id="37500-105">Using the methods provided by this class, you can engage in two types of transaction propagations, Export/Import (push model) and Transmitter/Receiver (pull model).</span></span>  
+  
+ <span data-ttu-id="37500-106">エクスポート/インポート (プッシュ モデル) の伝達は、次の手順</span><span class="sxs-lookup"><span data-stu-id="37500-106">The Export/Import (push model) propagation involves these steps,</span></span>  
+  
+1.  <span data-ttu-id="37500-107">リモートのコンピューター上で呼び出すことによってをそのコンピューターのトランザクション マネージャーの「行き先」取得、<xref:System.Transactions.TransactionInterop.GetWhereabouts%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="37500-107">On the remote machine, obtain the "whereabouts" of the transaction manager of that machine by calling the <xref:System.Transactions.TransactionInterop.GetWhereabouts%2A> method.</span></span> <span data-ttu-id="37500-108">将来の使用をクライアント コンピューターで情報をキャッシュできます。</span><span class="sxs-lookup"><span data-stu-id="37500-108">You can then cache this piece of information on the client machine for future usage.</span></span>  
+  
+2.  <span data-ttu-id="37500-109">適切なメソッドを使用してクライアント コンピューターに位置情報を含むデータを送信します。</span><span class="sxs-lookup"><span data-stu-id="37500-109">Send the data containing the whereabouts to the client machine using any preferred method</span></span>  
+  
+3.  <span data-ttu-id="37500-110">クライアント コンピューターでは、リモート コンピューターに、トランザクションを「エクスポート」トランザクション"cookie"を生成して位置情報を使用します。</span><span class="sxs-lookup"><span data-stu-id="37500-110">On the client machine, use the whereabouts to "export" the transaction to the remote machine and generate a transaction "cookie".</span></span>  <span data-ttu-id="37500-111">これは、呼び出すことで<xref:System.Transactions.TransactionInterop.GetExportCookie%2A>リモート コンピューターの行き先を渡しています。</span><span class="sxs-lookup"><span data-stu-id="37500-111">This is done by calling <xref:System.Transactions.TransactionInterop.GetExportCookie%2A> and passing in the remote machine's whereabouts.</span></span>  
+  
+4.  <span data-ttu-id="37500-112">適切なメソッドを使用してリモート コンピューターに、トランザクションを含むデータ"cookie"を送信します。</span><span class="sxs-lookup"><span data-stu-id="37500-112">Send the data containing the transaction "cookie" to the remote machine using any preferred method</span></span>  
+  
+5.  <span data-ttu-id="37500-113">リモートのコンピューターでを呼び出すことによって、クライアント トランザクションの複製を取得するトランザクション"cookie"を使用して、<xref:System.Transactions.TransactionInterop.GetTransactionFromExportCookie%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="37500-113">On the remote machine, use the transaction "cookie" to obtain a clone of the client transaction by calling the <xref:System.Transactions.TransactionInterop.GetTransactionFromExportCookie%2A> method.</span></span>  
+  
+6.  <span data-ttu-id="37500-114">リモートのコンピューターに複製トランザクションを使用してを使用して、リソース マネージャーを参加させる、<xref:System.Transactions.Transaction.EnlistVolatile%2A>または<xref:System.Transactions.Transaction.EnlistDurable%2A>のメソッド、<xref:System.Transactions.Transaction>クラスです。</span><span class="sxs-lookup"><span data-stu-id="37500-114">On the remote machine, use the clone transaction to enlist the resource manager using the <xref:System.Transactions.Transaction.EnlistVolatile%2A> or <xref:System.Transactions.Transaction.EnlistDurable%2A> methods of the <xref:System.Transactions.Transaction> class.</span></span>  
+  
+ <span data-ttu-id="37500-115">トランスミッターまたはレシーバー (プル モデル) の伝達は、次の手順</span><span class="sxs-lookup"><span data-stu-id="37500-115">The Transmitter/Receiver (pull model) propagation involves these steps,</span></span>  
+  
+-   <span data-ttu-id="37500-116">クライアント コンピューターで、トランザクションを使用してトークンを生成、対応する"伝達"を呼び出して <xref:System.Transactions.TransactionInterop.GetTransmitterPropagationToken%2A></span><span class="sxs-lookup"><span data-stu-id="37500-116">On the client machine, using the transaction generates a corresponding "propagation token" by calling <xref:System.Transactions.TransactionInterop.GetTransmitterPropagationToken%2A></span></span>  
+  
+-   <span data-ttu-id="37500-117">トークンを含む、"伝達"トランザクションの適切なメソッドを使用してリモート コンピューターにデータを送信します。</span><span class="sxs-lookup"><span data-stu-id="37500-117">Send the data containing the "propagation token" of the transaction to the remote machine using any preferred method</span></span>  
+  
+-   <span data-ttu-id="37500-118">リモートのコンピューターに「伝達トークン」を使用して呼び出すことによって、クライアント トランザクションの複製を取得するには <xref:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken%2A></span><span class="sxs-lookup"><span data-stu-id="37500-118">On the remote machine, use the "propagation token" to obtain a clone of the client transaction by calling <xref:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken%2A></span></span>  
+  
+ <span data-ttu-id="37500-119">トランスミッターまたはレシーバー モデルでは、トランザクション トークンが送信され、リモート コンピューターには、リモート コンピューターでは、トランザクションの取得に使用されませんが、シナリオでパフォーマンスの向上を提供します。</span><span class="sxs-lookup"><span data-stu-id="37500-119">The Transmitter/Receiver model provides better performance in scenarios where the transaction token is sent to a remote machine, but the remote machine may not use it to obtain the transaction.</span></span>  <span data-ttu-id="37500-120">これは、トランザクションがまで反映されないため<xref:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken%2A>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="37500-120">This is because the transaction is not propagated until <xref:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken%2A> is called.</span></span> <span data-ttu-id="37500-121">その他の利点は、エクスポート クッキーは、位置情報を提供するコンピューター上でのみ使用できますが、伝達トークンを任意のリモート コンピューターに送信できることです。</span><span class="sxs-lookup"><span data-stu-id="37500-121">Another advantage is that the propagation token can be sent to any remote machine, while the export cookie can be used only on the machine that provided the whereabouts.</span></span>  
+  
+ <span data-ttu-id="37500-122">ただし、するも注意してくださいリモート トランザクション マネージャーの位置情報は、すべての伝達トークンにカプセル化する、対応するトランザクションからの cookie、エクスポート/インポート モデルよりも大きくすることです。</span><span class="sxs-lookup"><span data-stu-id="37500-122">However, you should also note that the whereabouts of remote transaction managers are encapsulated in all the propagation tokens, making them bigger than the corresponding transaction cookies from the Export/Import model.</span></span>  
+  
+ <span data-ttu-id="37500-123">**注**この型を使用して<xref:System.Security.Permissions.SecurityAction.LinkDemand>されないようにするで、信頼されていないコードから呼び出されます。 ただし、直前の呼び出し元だけが所有する必要が、`FullTrust`権限セットです。</span><span class="sxs-lookup"><span data-stu-id="37500-123">**Note** This type uses <xref:System.Security.Permissions.SecurityAction.LinkDemand> to prevent it from being called from untrusted code; however, only the immediate caller is required to possess the `FullTrust` permission set.</span></span>  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="GetDtcTransaction">
+      <MemberSignature Language="C#" Value="public static System.Transactions.IDtcTransaction GetDtcTransaction (System.Transactions.Transaction transaction);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Transactions.IDtcTransaction GetDtcTransaction(class System.Transactions.Transaction transaction) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetDtcTransaction(System.Transactions.Transaction)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Transactions::IDtcTransaction ^ GetDtcTransaction(System::Transactions::Transaction ^ transaction);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions.Local</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Transactions.IDtcTransaction</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="transaction" Type="System.Transactions.Transaction" />
+      </Parameters>
+      <Docs>
+        <param name="transaction">
+          <span data-ttu-id="37500-124">マーシャリングされる <see cref="T:System.Transactions.Transaction" /> インスタンス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-124">A <see cref="T:System.Transactions.Transaction" /> instance to be marshaled.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="37500-125">
+            <see cref="T:System.Transactions.IDtcTransaction" /> を表す <see cref="T:System.Transactions.Transaction" /> インスタンスを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-125">Gets an <see cref="T:System.Transactions.IDtcTransaction" /> instance that represents a <see cref="T:System.Transactions.Transaction" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="37500-126">
+            <see cref="T:System.Transactions.Transaction" /> を表す <see cref="T:System.Transactions.IDtcTransaction" /> インスタンス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-126">An <see cref="T:System.Transactions.IDtcTransaction" /> instance that represents a <see cref="T:System.Transactions.Transaction" />.</span>
+          </span>
+          <span data-ttu-id="37500-127">
+            <see cref="T:System.Transactions.IDtcTransaction" /> インスタンスは、MSDTC によって使用されるアンマネージ形式の [ITransaction](http://msdn.microsoft.com/library/default.asp?url=/library/cossdk/html/d40264be-f9b2-4044-aac6-84b43e5be666.asp) および <see cref="N:System.EnterpriseServices" /> によって使用されるマネージ形式の <see cref="T:System.EnterpriseServices.ITransaction" /> と互換性があります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-127">The <see cref="T:System.Transactions.IDtcTransaction" /> instance is compatible with the unmanaged form of [ITransaction](http://msdn.microsoft.com/library/default.asp?url=/library/cossdk/html/d40264be-f9b2-4044-aac6-84b43e5be666.asp) used by MSDTC and with the Managed form of <see cref="T:System.EnterpriseServices.ITransaction" /> used by <see cref="N:System.EnterpriseServices" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetExportCookie">
+      <MemberSignature Language="C#" Value="public static byte[] GetExportCookie (System.Transactions.Transaction transaction, byte[] whereabouts);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig unsigned int8[] GetExportCookie(class System.Transactions.Transaction transaction, unsigned int8[] whereabouts) cil managed" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetExportCookie(System.Transactions.Transaction,System.Byte[])" FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static cli::array &lt;System::Byte&gt; ^ GetExportCookie(System::Transactions::Transaction ^ transaction, cli::array &lt;System::Byte&gt; ^ whereabouts);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="C#" Value="public static byte[] GetExportCookie (System.Transactions.Transaction transaction, byte[] exportCookie);" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig unsigned int8[] GetExportCookie(class System.Transactions.Transaction transaction, unsigned int8[] exportCookie) cil managed" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetExportCookie(System.Transactions.Transaction,System.Byte[])" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static cli::array &lt;System::Byte&gt; ^ GetExportCookie(System::Transactions::Transaction ^ transaction, cli::array &lt;System::Byte&gt; ^ exportCookie);" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions.Local</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="transaction" Type="System.Transactions.Transaction" Index="0" />
+        <Parameter Name="whereabouts" Type="System.Byte[]" Index="1" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+        <Parameter Name="exportCookie" Type="System.Byte[]" Index="1" FrameworkAlternate="xamarinandroid-7.1" />
+      </Parameters>
+      <Docs>
+        <param name="transaction">
+          <span data-ttu-id="37500-128">マーシャリングされる <see cref="T:System.Transactions.Transaction" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-128">The <see cref="T:System.Transactions.Transaction" /> object to be marshaled.</span>
+          </span>
+        </param>
+        <param name="whereabouts">To be added.</param>
+        <param name="exportCookie">To be added.</param>
+        <summary>
+          <span data-ttu-id="37500-129">トランザクション オブジェクトをエクスポート トランザクション クッキーに変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-129">Transforms a transaction object into an export transaction cookie.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="37500-130">指定した <see cref="T:System.Transactions.Transaction" /> オブジェクトを表すエクスポート トランザクション クッキー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-130">An export transaction cookie representing the specified <see cref="T:System.Transactions.Transaction" /> object.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="37500-131">トランザクションをエクスポートする場合は、このメソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="37500-131">Call this method if you want to export a transaction.</span></span> <span data-ttu-id="37500-132">`transaction`渡されるには、マーシャ リングされるトランザクション クッキーにします。</span><span class="sxs-lookup"><span data-stu-id="37500-132">The `transaction` that is passed along is marshaled into a transaction cookie.</span></span> <span data-ttu-id="37500-133">目的のプロセス トランザクション クッキーを送信することができます。</span><span class="sxs-lookup"><span data-stu-id="37500-133">You can then send the transaction cookie to the destination process.</span></span> <span data-ttu-id="37500-134">これはシステムまたはプロセス間のトランザクションの反映と呼ばれます。</span><span class="sxs-lookup"><span data-stu-id="37500-134">This is referred to as propagating the transaction between processes or systems.</span></span> <span data-ttu-id="37500-135">伝達は、プッシュ モデルはローカル トランザクションが、変換先にプッシュする場所と見なされます。</span><span class="sxs-lookup"><span data-stu-id="37500-135">The propagation is considered to be a push model where the local transaction is pushed to the destination.</span></span>  <span data-ttu-id="37500-136">情報が含まれているため、`whereabouts`対象になるトランザクション マネージャーを記述する必要があります。</span><span class="sxs-lookup"><span data-stu-id="37500-136">Therefore, information contained in `whereabouts` must describe the destination transaction manager.</span></span>  
+  
+ <span data-ttu-id="37500-137">各種の伝達モデルの詳細については、<xref:System.Transactions.TransactionInterop> クラスの「解説」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="37500-137">For more information on different propagation models, see the Remarks section of the <xref:System.Transactions.TransactionInterop> class.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetTransactionFromDtcTransaction">
+      <MemberSignature Language="C#" Value="public static System.Transactions.Transaction GetTransactionFromDtcTransaction (System.Transactions.IDtcTransaction transactionNative);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Transactions.Transaction GetTransactionFromDtcTransaction(class System.Transactions.IDtcTransaction transactionNative) cil managed" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetTransactionFromDtcTransaction(System.Transactions.IDtcTransaction)" FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.0" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTransactionFromDtcTransaction (transactionNative As IDtcTransaction) As Transaction" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Transactions::Transaction ^ GetTransactionFromDtcTransaction(System::Transactions::IDtcTransaction ^ transactionNative);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="C#" Value="public static System.Transactions.Transaction GetTransactionFromDtcTransaction (System.Transactions.IDtcTransaction dtc);" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Transactions.Transaction GetTransactionFromDtcTransaction(class System.Transactions.IDtcTransaction dtc) cil managed" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetTransactionFromDtcTransaction(System.Transactions.IDtcTransaction)" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTransactionFromDtcTransaction (dtc As IDtcTransaction) As Transaction" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Transactions::Transaction ^ GetTransactionFromDtcTransaction(System::Transactions::IDtcTransaction ^ dtc);" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions.Local</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Transactions.Transaction</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="transactionNative" Type="System.Transactions.IDtcTransaction" Index="0" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+        <Parameter Name="dtc" Type="System.Transactions.IDtcTransaction" Index="0" FrameworkAlternate="xamarinandroid-7.1" />
+      </Parameters>
+      <Docs>
+        <param name="transactionNative">To be added.</param>
+        <summary>
+          <span data-ttu-id="37500-138">指定した <see cref="T:System.Transactions.IDtcTransaction" /> から <see cref="T:System.Transactions.Transaction" /> を生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-138">Generates a <see cref="T:System.Transactions.Transaction" /> from a specified <see cref="T:System.Transactions.IDtcTransaction" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="37500-139">指定した <see cref="T:System.Transactions.IDtcTransaction" /> を表す <see cref="T:System.Transactions.Transaction" /> インスタンス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-139">A <see cref="T:System.Transactions.Transaction" /> instance that represents the given <see cref="T:System.Transactions.IDtcTransaction" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="37500-140">`transactionNative`のアンマネージ フォームと互換性が[ITransaction](http://msdn.microsoft.com/library/default.asp?url=/library/cossdk/html/d40264be-f9b2-4044-aac6-84b43e5be666.asp) MSDTC によって、管理されている形式の<xref:System.EnterpriseServices.ITransaction>によって使用される<xref:System.EnterpriseServices>です。</span><span class="sxs-lookup"><span data-stu-id="37500-140">The `transactionNative` is compatible with the unmanaged form of [ITransaction](http://msdn.microsoft.com/library/default.asp?url=/library/cossdk/html/d40264be-f9b2-4044-aac6-84b43e5be666.asp) used by MSDTC and with the Managed form of <xref:System.EnterpriseServices.ITransaction> used by <xref:System.EnterpriseServices>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetTransactionFromExportCookie">
+      <MemberSignature Language="C#" Value="public static System.Transactions.Transaction GetTransactionFromExportCookie (byte[] cookie);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Transactions.Transaction GetTransactionFromExportCookie(unsigned int8[] cookie) cil managed" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetTransactionFromExportCookie(System.Byte[])" FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.0" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTransactionFromExportCookie (cookie As Byte()) As Transaction" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Transactions::Transaction ^ GetTransactionFromExportCookie(cli::array &lt;System::Byte&gt; ^ cookie);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="C#" Value="public static System.Transactions.Transaction GetTransactionFromExportCookie (byte[] exportCookie);" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Transactions.Transaction GetTransactionFromExportCookie(unsigned int8[] exportCookie) cil managed" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetTransactionFromExportCookie(System.Byte[])" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTransactionFromExportCookie (exportCookie As Byte()) As Transaction" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Transactions::Transaction ^ GetTransactionFromExportCookie(cli::array &lt;System::Byte&gt; ^ exportCookie);" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions.Local</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Transactions.Transaction</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="cookie" Type="System.Byte[]" Index="0" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+        <Parameter Name="exportCookie" Type="System.Byte[]" Index="0" FrameworkAlternate="xamarinandroid-7.1" />
+      </Parameters>
+      <Docs>
+        <param name="cookie">To be added.</param>
+        <summary>
+          <span data-ttu-id="37500-141">指定したエクスポート クッキーから <see cref="T:System.Transactions.Transaction" /> を生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-141">Generates a <see cref="T:System.Transactions.Transaction" /> from the specified an export cookie.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="37500-142">指定したエクスポート クッキーから生成される <see cref="T:System.Transactions.Transaction" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-142">A <see cref="T:System.Transactions.Transaction" /> from the specified export cookie.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="37500-143">各種の伝達モデルの詳細については、<xref:System.Transactions.TransactionInterop> クラスの「解説」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="37500-143">For more information on different propagation models, see the Remarks section of the <xref:System.Transactions.TransactionInterop> class.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetTransactionFromTransmitterPropagationToken">
+      <MemberSignature Language="C#" Value="public static System.Transactions.Transaction GetTransactionFromTransmitterPropagationToken (byte[] propagationToken);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Transactions.Transaction GetTransactionFromTransmitterPropagationToken(unsigned int8[] propagationToken) cil managed" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(System.Byte[])" FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.0" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTransactionFromTransmitterPropagationToken (propagationToken As Byte()) As Transaction" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Transactions::Transaction ^ GetTransactionFromTransmitterPropagationToken(cli::array &lt;System::Byte&gt; ^ propagationToken);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="C#" Value="public static System.Transactions.Transaction GetTransactionFromTransmitterPropagationToken (byte[] token);" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Transactions.Transaction GetTransactionFromTransmitterPropagationToken(unsigned int8[] token) cil managed" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(System.Byte[])" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTransactionFromTransmitterPropagationToken (token As Byte()) As Transaction" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Transactions::Transaction ^ GetTransactionFromTransmitterPropagationToken(cli::array &lt;System::Byte&gt; ^ token);" FrameworkAlternate="xamarinandroid-7.1" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions.Local</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Transactions.Transaction</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="propagationToken" Type="System.Byte[]" Index="0" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0" />
+        <Parameter Name="token" Type="System.Byte[]" Index="0" FrameworkAlternate="xamarinandroid-7.1" />
+      </Parameters>
+      <Docs>
+        <param name="propagationToken">To be added.</param>
+        <summary>
+          <span data-ttu-id="37500-144">指定したトランスミッター伝達トークンから <see cref="T:System.Transactions.Transaction" /> インスタンスを生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-144">Generates a <see cref="T:System.Transactions.Transaction" /> instance from the specified transmitter propagation token.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="37500-145">指定されたトランスミッター伝達トークンから生成される <see cref="T:System.Transactions.Transaction" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-145">A <see cref="T:System.Transactions.Transaction" /> from the specified transmitter propagation token.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="37500-146">連携して、このメソッド、<xref:System.Transactions.TransactionInterop.GetTransmitterPropagationToken%2A>メソッドをトランザクションを「プル」リモート コンピューターからこのメソッドは、トランザクションのマーシャ リングを解除するときに、「プル」伝達の機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="37500-146">This method, together with the <xref:System.Transactions.TransactionInterop.GetTransmitterPropagationToken%2A> method, provide functionality for "pull" propagation, in which the transaction is "pulled" from the remote machine when this method is called to unmarshal the transaction.</span></span>  
+  
+ <span data-ttu-id="37500-147">各種の伝達モデルの詳細については、<xref:System.Transactions.TransactionInterop> クラスの「解説」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="37500-147">For more information on different propagation models, see the Remarks section of the <xref:System.Transactions.TransactionInterop> class.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Transactions.TransactionManagerCommunicationException">
+          <span data-ttu-id="37500-148">トランザクション マネージャーに接続できなかったため、トランザクションの逆シリアル化に失敗しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-148">The deserialization of a transaction fails because the transaction manager cannot be contacted.</span>
+          </span>
+          <span data-ttu-id="37500-149">原因として、ネットワーク ファイアウォールまたはセキュリティ設定が考えられます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-149">This may be caused by network firewall or security settings.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetTransmitterPropagationToken">
+      <MemberSignature Language="C#" Value="public static byte[] GetTransmitterPropagationToken (System.Transactions.Transaction transaction);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig unsigned int8[] GetTransmitterPropagationToken(class System.Transactions.Transaction transaction) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetTransmitterPropagationToken(System.Transactions.Transaction)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static cli::array &lt;System::Byte&gt; ^ GetTransmitterPropagationToken(System::Transactions::Transaction ^ transaction);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions.Local</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="transaction" Type="System.Transactions.Transaction" />
+      </Parameters>
+      <Docs>
+        <param name="transaction">
+          <span data-ttu-id="37500-150">伝達トークンにマーシャリングされるトランザクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-150">A transaction to be marshaled into a propagation token.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="37500-151">指定した <see cref="T:System.Transactions.Transaction" /> に伝達トークンを生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-151">Generates a propagation token for the specified <see cref="T:System.Transactions.Transaction" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="37500-152">このメソッドは、<see cref="M:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(System.Byte[])" /> メソッドと連携して、トランスミッターまたはレシーバーによる伝達機能を提供します。この伝達方法では、後者のメソッドを呼び出してトランザクションのマーシャリングを解除する際に、リモート コンピューターの方からトランザクションを "プル" します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-152">This method, together with the <see cref="M:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(System.Byte[])" /> method, provide functionality for Transmitter/Receiver propagation, in which the transaction is "pulled" from the remote machine when the latter is called to unmarshal the transaction.</span>
+          </span>
+          <span data-ttu-id="37500-153">各種の伝達モデルの詳細については、<see cref="T:System.Transactions.TransactionInterop" /> クラスを参照してください。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-153">For more information on different propagation models, see <see cref="T:System.Transactions.TransactionInterop" /> class.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetWhereabouts">
+      <MemberSignature Language="C#" Value="public static byte[] GetWhereabouts ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig unsigned int8[] GetWhereabouts() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.TransactionInterop.GetWhereabouts" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetWhereabouts () As Byte()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static cli::array &lt;System::Byte&gt; ^ GetWhereabouts();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions.Local</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Byte[]</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="37500-154">
+            <see cref="N:System.Transactions" /> が使用する分散トランザクション マネージャーの位置情報を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-154">Gets the Whereabouts of the distributed transaction manager that <see cref="N:System.Transactions" /> uses.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="37500-155">
+            <see cref="N:System.Transactions" /> が使用する分散トランザクション マネージャーの位置情報。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-155">The Whereabouts of the distributed transaction manager that <see cref="N:System.Transactions" /> uses.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="37500-156">位置情報には、トランザクション マネージャーの場所を示すアドレスが含まれています。</span><span class="sxs-lookup"><span data-stu-id="37500-156">The Whereabouts contains an address that describes the location of a transaction manager.</span></span> <span data-ttu-id="37500-157">このアドレスを使用することにより、2 つのトランザクション マネージャー間での相互通信が可能になり、これによってシステム間でのトランザクションの伝達が可能になります。</span><span class="sxs-lookup"><span data-stu-id="37500-157">This permits two transaction managers to communicate with one another and thereby propagate a transaction from one system to the other.</span></span> <span data-ttu-id="37500-158">このメソッドによって返される情報でプッシュ モデル トランザクション伝達の場所の情報を提供するために使用できます、<xref:System.Transactions.TransactionInterop.GetExportCookie%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="37500-158">The information returned by this method can be used to provide location information for push model transaction propagation with the <xref:System.Transactions.TransactionInterop.GetExportCookie%2A> method.</span></span>  
+  
+ <span data-ttu-id="37500-159">各種の伝達モデルの詳細については、<xref:System.Transactions.TransactionInterop> クラスの「解説」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="37500-159">For more information on different propagation models, see the Remarks section of the <xref:System.Transactions.TransactionInterop> class.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="PromoterTypeDtc">
+      <MemberSignature Language="C#" Value="public static readonly Guid PromoterTypeDtc;" />
+      <MemberSignature Language="ILAsm" Value=".field public static initonly valuetype System.Guid PromoterTypeDtc" />
+      <MemberSignature Language="DocId" Value="F:System.Transactions.TransactionInterop.PromoterTypeDtc" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly PromoterTypeDtc As Guid " />
+      <MemberSignature Language="C++ CLI" Value="public: static initonly Guid PromoterTypeDtc;" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions.Local</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Guid</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="37500-160">分散トランザクション プロセッサの種類。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="37500-160">The type of the distributed transaction processor.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="37500-161">この値はの使用、`Transaction.PromoterType`プロパティか、トランザクションは MSDTC に昇格されます、`Transaction.GetPromotedToken`メソッドの MSDTC トランザクション伝達トークンを返します、`byte[]`結果。</span><span class="sxs-lookup"><span data-stu-id="37500-161">This value is used for the `Transaction.PromoterType` property if the transaction is or will be promoted to MSDTC and the `Transaction.GetPromotedToken` method will return an MSDTC transaction propagation token for the `byte[]` result.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

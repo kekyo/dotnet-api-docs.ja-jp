@@ -1,0 +1,731 @@
+<Type Name="SqlCacheDependencyAdmin" FullName="System.Web.Caching.SqlCacheDependencyAdmin">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="bb18d2e75a1e5529c599aa0d8b0bd97e9ac51567" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public static class SqlCacheDependencyAdmin" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit SqlCacheDependencyAdmin extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Web.Caching.SqlCacheDependencyAdmin" />
+  <TypeSignature Language="VB.NET" Value="Public Class SqlCacheDependencyAdmin" />
+  <TypeSignature Language="C++ CLI" Value="public ref class SqlCacheDependencyAdmin abstract sealed" />
+  <AssemblyInfo>
+    <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="e0104-101">ポーリング ベースの依存関係を使用するときに、<see cref="T:System.Web.Caching.SqlCacheDependency" /> クラスをサポートするために SQL Server データベースで必要な管理タスクを実行します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="e0104-101">Performs administrative tasks required on a SQL Server database to support the <see cref="T:System.Web.Caching.SqlCacheDependency" /> class when using polling-based dependencies.</span>
+      </span>
+      <span data-ttu-id="e0104-102">このクラスは継承できません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="e0104-102">This class cannot be inherited.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e0104-103">このクラスのメソッドを使用するにはプログラムで有効にして、SQL Server データベースとそのテーブルを無効にする<xref:System.Web.Caching.SqlCacheDependency>オブジェクトの変更通知します。</span><span class="sxs-lookup"><span data-stu-id="e0104-103">You can use the methods of this class to programmatically enable and disable a SQL Server database and its tables for <xref:System.Web.Caching.SqlCacheDependency> object change notifications.</span></span> <span data-ttu-id="e0104-104">このクラスがどのデータベース内のテーブルは変更通知を使用して有効になっている情報を取得するさらに、<xref:System.Web.Caching.SqlCacheDependencyAdmin.GetTablesEnabledForNotifications%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="e0104-104">In addition, this class obtains information about which tables in a database are enabled for change notifications using the <xref:System.Web.Caching.SqlCacheDependencyAdmin.GetTablesEnabledForNotifications%2A> method.</span></span> <span data-ttu-id="e0104-105">ただし、SQL Server データベースとそのテーブルの変更通知を管理するのにコマンド ライン ツール Aspnet_regsql を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="e0104-105">However, you can also use the Aspnet_regsql command-line tool to manage change notifications for a SQL Server database and its tables.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="e0104-106">をこのクラスで呼び出すメソッドのいずれかの SQL Server データベースへのアクセスに使用するアカウントは、テーブルおよびストアド プロシージャを作成する権限が必要です。</span><span class="sxs-lookup"><span data-stu-id="e0104-106">To call any of the methods in this class, the account you use to access the SQL Server database must have permissions to create tables and stored procedures.</span></span> <span data-ttu-id="e0104-107">特定のテーブルでの通知を有効にするには、そのテーブル上の SQL Server トリガーを作成する権限が必要です。</span><span class="sxs-lookup"><span data-stu-id="e0104-107">To enable notifications on a specific table, you must have permissions to create a SQL Server trigger on that table.</span></span> <span data-ttu-id="e0104-108">データベースに対する権限を設定する方法の詳細については、SQL Server のマニュアルを参照してください。</span><span class="sxs-lookup"><span data-stu-id="e0104-108">For more information on how to set permissions on a database, see the SQL Server documentation.</span></span> <span data-ttu-id="e0104-109">ASP.NET プロセスによって使用されるアカウントの詳細については、次を参照してください。 [ASP.NET の偽装](http://msdn.microsoft.com/library/a0cb3024-562f-4184-9d3c-095504787d3d)です。</span><span class="sxs-lookup"><span data-stu-id="e0104-109">For more information about the account used by the ASP.NET process, see [ASP.NET Impersonation](http://msdn.microsoft.com/library/a0cb3024-562f-4184-9d3c-095504787d3d).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e0104-110">次のコード例は、有効にして、SQL Server データベースのテーブル変更通知を無効にするための単純な ASP.NET ページです。</span><span class="sxs-lookup"><span data-stu-id="e0104-110">The following code example is a simple ASP.NET page for enabling and disabling change notifications on SQL Server database tables.</span></span> <span data-ttu-id="e0104-111">使用して、<xref:System.Web.Caching.SqlCacheDependencyAdmin>と呼ばれる接続文字列で指定されたデータベースで変更通知を管理するオブジェクト`MyConnectionString`です。</span><span class="sxs-lookup"><span data-stu-id="e0104-111">It uses the <xref:System.Web.Caching.SqlCacheDependencyAdmin> object to manage change notifications in the database specified in a connection string called `MyConnectionString`.</span></span> <span data-ttu-id="e0104-112">この例には、2 つのファイル、ユーザー インターフェイスを定義する .aspx ファイルおよび ASP.NET イベントのソース コードを含む分離コード ファイルが含まれています。</span><span class="sxs-lookup"><span data-stu-id="e0104-112">The example includes two files, an .aspx file that defines the user interface and a code-behind file containing the source code for the ASP.NET events.</span></span>  
+  
+ <span data-ttu-id="e0104-113">最初のサンプルは、ユーザー インターフェイスを定義する .aspx ファイルです。</span><span class="sxs-lookup"><span data-stu-id="e0104-113">The first sample is the .aspx file that defines the user interface.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="e0104-114">この例には、ユーザー入力を受け付けるテキスト ボックスがあります。これにより、セキュリティが脆弱になる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="e0104-114">This example has a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="e0104-115">既定では、ASP.NET Web ページによって、ユーザー入力にスクリプトまたは HTML 要素が含まれていないかどうかが検証されます。</span><span class="sxs-lookup"><span data-stu-id="e0104-115">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="e0104-116">詳細については、「[スクリプトによる攻略の概要](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="e0104-116">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Caching.SqlCacheDependencyAdmin#10](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/CS/cacheDependencyAdmincs.aspx#10)]
+ [!code-aspx-vb[System.Web.Caching.SqlCacheDependencyAdmin#10](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/VB/cacheDependencyAdminvb.aspx#10)]
+  
+ <span data-ttu-id="e0104-117">2 番目のサンプルは、ページのイベントのソース コードを含む分離コード ファイルです。</span><span class="sxs-lookup"><span data-stu-id="e0104-117">The second sample is the code-behind file containing the source code for the page events.</span></span>  
+  
+ [!code-csharp[System.Web.Caching.SqlCacheDependencyAdmin#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/CS/cacheDependencyAdmincs.aspx.cs#1)]
+ [!code-vb[System.Web.Caching.SqlCacheDependencyAdmin#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/VB/cacheDependencyAdminvb.aspx.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Web.Caching.SqlCacheDependency" />
+  </Docs>
+  <Members>
+    <Member MemberName="DisableNotifications">
+      <MemberSignature Language="C#" Value="public static void DisableNotifications (string connectionString);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void DisableNotifications(string connectionString) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Caching.SqlCacheDependencyAdmin.DisableNotifications(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub DisableNotifications (connectionString As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void DisableNotifications(System::String ^ connectionString);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="e0104-118">SQL Server データベースに接続するときに使用する接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-118">A connection string used to connect to the SQL Server database.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e0104-119">指定されているデータベースの <see cref="T:System.Web.Caching.SqlCacheDependency" /> 変更通知を無効にします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-119">Disables <see cref="T:System.Web.Caching.SqlCacheDependency" /> change notifications for the specified database.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e0104-120"><xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableNotifications%2A>メソッドで指定されたデータベースからの変更通知のサポートの削除、`connectionString`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="e0104-120">The <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableNotifications%2A> method removes support for change notifications from the database specified in the `connectionString` parameter.</span></span> <span data-ttu-id="e0104-121">実行すると、<xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableNotifications%2A>メソッドを実行する必要がある、<xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications%2A>メソッドを再度有効にする場合はデータベースの通知を変更します。</span><span class="sxs-lookup"><span data-stu-id="e0104-121">Once you have run the <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableNotifications%2A> method, you must run the <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications%2A> method if you wish to re-enable change notifications for a database.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e0104-122">次のコード例では、<xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableNotifications%2A>無効にする方法の変更通知の接続文字列で指定されたデータベース`MyConnectionString`です。</span><span class="sxs-lookup"><span data-stu-id="e0104-122">The following code example uses the <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableNotifications%2A> method to disable change notifications for the database specified by the connection string `MyConnectionString`.</span></span>  
+  
+ <span data-ttu-id="e0104-123">例を実行するために必要な完全なコードのセクションの例を参照してください、<xref:System.Web.Caching.SqlCacheDependencyAdmin>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="e0104-123">For the full code required to run the example, see the Example section of the <xref:System.Web.Caching.SqlCacheDependencyAdmin> class overview topic.</span></span>  
+  
+ [!code-vb[CachingSamples_SqlCacheDependencyAdmin#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/CachingSamples_SqlCacheDependencyAdmin/VB/sqlcachedep2vb.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="e0104-124">データベースへの接続を確立できませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-124">A connection to the database could not be established.</span>
+          </span>
+          <span data-ttu-id="e0104-125">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-125">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-126">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースに接続できる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-126">The security context of the ASP.NET application does not have permission to connect to the database.</span>
+          </span>
+          <span data-ttu-id="e0104-127">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-127">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-128">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースの通知を無効にできる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-128">The security context of the ASP.NET application does not have permission to disable notifications for the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="DisableTableForNotifications">
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e0104-129">SQL Server データベース テーブルまたはデータベース テーブルの配列の <see cref="T:System.Web.Caching.SqlCacheDependency" /> 変更通知を無効にします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-129">Disables <see cref="T:System.Web.Caching.SqlCacheDependency" /> change notifications on a SQL Server database table or an array of database tables.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="DisableTableForNotifications">
+      <MemberSignature Language="C#" Value="public static void DisableTableForNotifications (string connectionString, string table);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void DisableTableForNotifications(string connectionString, string table) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub DisableTableForNotifications (connectionString As String, table As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void DisableTableForNotifications(System::String ^ connectionString, System::String ^ table);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+        <Parameter Name="table" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="e0104-130">SQL Server データベースに接続するときに使用する接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-130">A connection string used to connect to the SQL Server database.</span>
+          </span>
+        </param>
+        <param name="table">
+          <span data-ttu-id="e0104-131">変更通知を無効にするデータベース テーブル。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-131">The database table on which to disable change notifications.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e0104-132">SQL Server データベース テーブルの <see cref="T:System.Web.Caching.SqlCacheDependency" /> 変更通知を無効にします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-132">Disables <see cref="T:System.Web.Caching.SqlCacheDependency" /> change notifications on a SQL Server database table.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e0104-133"><xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A>メソッドを無効に変更の通知で指定されたテーブルを`table`パラメーターで指定されたデータベースである必要があります`connectionString`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="e0104-133">The <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A> method disables change notifications for the table specified in the `table` parameter, which must be in the database specified in the `connectionString` parameter.</span></span>  
+  
+ <span data-ttu-id="e0104-134">使用して、<xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A>変更テーブルの通知を無効にする方法のいずれかを使用する必要があります、<xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A>オーバー ロードを再度有効にする場合は、通知を変更します。</span><span class="sxs-lookup"><span data-stu-id="e0104-134">Once you have used the <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A> method to disable change notifications for a table, you must use one of the <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A> overloads if you wish to re-enable change notifications.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e0104-135">次のコード例の変更、接続文字列で指定されたテーブルで通知を無効に`MyConnectionString`です。</span><span class="sxs-lookup"><span data-stu-id="e0104-135">The following code example disables change notification on a table specified in the connection string `MyConnectionString`.</span></span>  
+  
+ <span data-ttu-id="e0104-136">例を実行するために必要な完全なコードのセクションの例を参照してください、<xref:System.Web.Caching.SqlCacheDependencyAdmin>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="e0104-136">For the full code required to run the example, see the Example section of the <xref:System.Web.Caching.SqlCacheDependencyAdmin> class overview topic.</span></span>  
+  
+ [!code-csharp[System.Web.Caching.SqlCacheDependencyAdmin#7](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/CS/cacheDependencyAdmincs.aspx.cs#7)]
+ [!code-vb[System.Web.Caching.SqlCacheDependencyAdmin#7](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/VB/cacheDependencyAdminvb.aspx.vb#7)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.Caching.DatabaseNotEnabledForNotificationException">
+          <span data-ttu-id="e0104-137">データベースの変更通知が有効になっていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-137">The database is not enabled for change notifications.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="e0104-138">
+            <paramref name="table" /> が空の文字列 ("") です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-138">
+              <paramref name="table" /> is an empty string ("").</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="e0104-139">
+            <paramref name="table" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-139">
+              <paramref name="table" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="e0104-140">データベースへの接続を確立できませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-140">A connection to the database could not be established.</span>
+          </span>
+          <span data-ttu-id="e0104-141">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-141">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-142">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースに接続できる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-142">The security context of the ASP.NET application does not have permission to connect to the database.</span>
+          </span>
+          <span data-ttu-id="e0104-143">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-143">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-144">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースの通知を無効にできる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-144">The security context of the ASP.NET application does not have permission to disable notifications for the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="DisableTableForNotifications">
+      <MemberSignature Language="C#" Value="public static void DisableTableForNotifications (string connectionString, string[] tables);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void DisableTableForNotifications(string connectionString, string[] tables) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications(System.String,System.String[])" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub DisableTableForNotifications (connectionString As String, tables As String())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void DisableTableForNotifications(System::String ^ connectionString, cli::array &lt;System::String ^&gt; ^ tables);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+        <Parameter Name="tables" Type="System.String[]" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="e0104-145">SQL Server データベースに接続するときに使用する接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-145">A connection string used to connect to the SQL Server database.</span>
+          </span>
+        </param>
+        <param name="tables">
+          <span data-ttu-id="e0104-146">変更通知を無効にする SQL Server データベース テーブルの配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-146">The array of SQL Server database tables on which to disable change notifications.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e0104-147">SQL Server データベース テーブルの配列の <see cref="T:System.Web.Caching.SqlCacheDependency" /> 変更通知を無効にします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-147">Disables <see cref="T:System.Web.Caching.SqlCacheDependency" /> change notifications on an array of SQL Server database tables.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e0104-148"><xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A>で指定されたテーブルからの通知を変更するメソッドの削除、`tables`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="e0104-148">The <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A> method removes change notifications from the tables specified in the `tables` parameter.</span></span> <span data-ttu-id="e0104-149">これらのテーブルがで指定されたデータベースである必要があります、`connectionString`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="e0104-149">These tables must be in the database specified in the `connectionString` parameter.</span></span>  
+  
+ <span data-ttu-id="e0104-150">使用して、<xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A>変更テーブルの一覧については通知を無効にする方法のいずれかを使用する必要があります、<xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A>オーバー ロードを再度有効にする場合は、通知を変更します。</span><span class="sxs-lookup"><span data-stu-id="e0104-150">Once you have used the <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A> method to disable change notifications for a list of tables, you must use one of the <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A> overloads if you wish to re-enable change notifications.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.Caching.DatabaseNotEnabledForNotificationException">
+          <span data-ttu-id="e0104-151">データベースの変更通知が有効になっていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-151">The database is not enabled for change notifications.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="e0104-152">
+            <paramref name="tables" /> パラメーターのいずれかの値が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-152">One of the values in the <paramref name="tables" /> parameter is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="e0104-153">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-153">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-154">
+            <paramref name="tables" /> パラメーターのいずれかの値が空の文字列 ("") です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-154">One of the values in the <paramref name="tables" /> parameter is an empty string ("").</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="e0104-155">
+            <paramref name="tables" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-155">
+              <paramref name="tables" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="e0104-156">データベースへの接続を確立できませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-156">A connection to the database could not be established.</span>
+          </span>
+          <span data-ttu-id="e0104-157">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-157">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-158">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースに接続できる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-158">The security context of the ASP.NET application does not have permission to connect to the database.</span>
+          </span>
+          <span data-ttu-id="e0104-159">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-159">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-160">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースの通知を無効にできる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-160">The security context of the ASP.NET application does not have permission to disable notifications for the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="EnableNotifications">
+      <MemberSignature Language="C#" Value="public static void EnableNotifications (string connectionString);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void EnableNotifications(string connectionString) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub EnableNotifications (connectionString As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void EnableNotifications(System::String ^ connectionString);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="e0104-161">SQL Server データベースに接続するときに使用する接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-161">A connection string used to connect to the SQL Server database.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e0104-162">指定されているデータベースの <see cref="T:System.Web.Caching.SqlCacheDependency" /> 変更通知を有効にします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-162">Enables <see cref="T:System.Web.Caching.SqlCacheDependency" /> change notifications on the specified database.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e0104-163"><xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications%2A>メソッドで指定されたデータベースからの変更通知のサポートの追加、`connectionString`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="e0104-163">The <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications%2A> method adds support for change notifications from the database specified in the `connectionString` parameter.</span></span> <span data-ttu-id="e0104-164">実行すると、<xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications%2A>メソッドが実行する必要があります、<xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableNotifications%2A>メソッドを無効にする場合はデータベースの通知を変更します。</span><span class="sxs-lookup"><span data-stu-id="e0104-164">Once you have run the <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications%2A> method, you must run the <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableNotifications%2A> method if you wish to disable change notifications for a database.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e0104-165">次のコード例では、<xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications%2A>を有効にする方法の変更通知の接続文字列で指定されたデータベース`MyConnectionString`です。</span><span class="sxs-lookup"><span data-stu-id="e0104-165">The following code example uses the <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications%2A> method to enable change notifications for the database specified by the connection string `MyConnectionString`.</span></span>  
+  
+ <span data-ttu-id="e0104-166">例を実行するために必要な完全なコードのセクションの例を参照してください、<xref:System.Web.Caching.SqlCacheDependencyAdmin>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="e0104-166">For the full code required to run the example, see the Example section of the <xref:System.Web.Caching.SqlCacheDependencyAdmin> class overview topic.</span></span>  
+  
+ [!code-csharp[System.Web.Caching.SqlCacheDependencyAdmin#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/CS/cacheDependencyAdmincs.aspx.cs#3)]
+ [!code-vb[System.Web.Caching.SqlCacheDependencyAdmin#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/VB/cacheDependencyAdminvb.aspx.vb#3)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="e0104-167">データベースへの接続を確立できませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-167">A connection to the database could not be established.</span>
+          </span>
+          <span data-ttu-id="e0104-168">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-168">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-169">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースに接続できる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-169">The security context of the ASP.NET application does not have permission to connect to the database.</span>
+          </span>
+          <span data-ttu-id="e0104-170">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-170">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-171">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースの通知を無効にできる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-171">The security context of the ASP.NET application does not have permission to disable notifications for the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="EnableTableForNotifications">
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e0104-172">SQL Server データベースに接続し、データベース テーブルまたはテーブルの <see cref="T:System.Web.Caching.SqlCacheDependency" /> 変更通知を準備します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-172">Connects to a SQL Server database and prepares a database table or tables for <see cref="T:System.Web.Caching.SqlCacheDependency" /> change notifications.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="EnableTableForNotifications">
+      <MemberSignature Language="C#" Value="public static void EnableTableForNotifications (string connectionString, string table);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void EnableTableForNotifications(string connectionString, string table) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub EnableTableForNotifications (connectionString As String, table As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void EnableTableForNotifications(System::String ^ connectionString, System::String ^ table);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+        <Parameter Name="table" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="e0104-173">SQL Server データベースに接続するときに使用する接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-173">A connection string used to connect to the SQL Server database.</span>
+          </span>
+        </param>
+        <param name="table">
+          <span data-ttu-id="e0104-174">変更通知を有効にするデータベース テーブル。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-174">The database table on which to enable change notifications.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e0104-175">指定されている SQL Server データベースに接続し、指定されているデータベース テーブルの <see cref="T:System.Web.Caching.SqlCacheDependency" /> 変更通知を有効にします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-175">Connects to the specified SQL Server database and enables the specified database table for <see cref="T:System.Web.Caching.SqlCacheDependency" /> change notifications.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e0104-176"><xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A>メソッドで指定されたテーブルの変更通知は追加、`table`パラメーターで指定されたデータベースである必要があります`connectionString`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="e0104-176">The <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A> method adds change notifications for the table specified in the `table` parameter, which must be in the database specified in the `connectionString` parameter.</span></span>  
+  
+ <span data-ttu-id="e0104-177">使用して、<xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A>テーブル変更通知を追加するメソッドのいずれかを使用する必要があります、<xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A>変更通知を無効にする場合のオーバー ロードします。</span><span class="sxs-lookup"><span data-stu-id="e0104-177">Once you have used the <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A> method to add change notifications to a table, you must use one of the <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A> overloads if you wish to disable change notifications.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e0104-178">次のコード例では、<xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A>を有効にする方法を変更する接続文字列で指定されたデータベースの指定されたテーブル上の通知`MyConnectionString`です。</span><span class="sxs-lookup"><span data-stu-id="e0104-178">The following code example uses the <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A> method to enable change notifications on the specified table in the database specified in the connection string `MyConnectionString`.</span></span>  
+  
+ <span data-ttu-id="e0104-179">例を実行するために必要な完全なコードのセクションの例を参照してください、<xref:System.Web.Caching.SqlCacheDependencyAdmin>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="e0104-179">For the full code required to run the example, see the Example section of the <xref:System.Web.Caching.SqlCacheDependencyAdmin> class overview topic.</span></span>  
+  
+ [!code-csharp[System.Web.Caching.SqlCacheDependencyAdmin#7](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/CS/cacheDependencyAdmincs.aspx.cs#7)]
+ [!code-vb[System.Web.Caching.SqlCacheDependencyAdmin#7](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/VB/cacheDependencyAdminvb.aspx.vb#7)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.Caching.DatabaseNotEnabledForNotificationException">
+          <span data-ttu-id="e0104-180">データベースの変更通知が有効になっていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-180">The database is not enabled for change notifications.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="e0104-181">
+            <paramref name="table" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-181">
+              <paramref name="table" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="e0104-182">データベースへの接続を確立できませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-182">A connection to the database could not be established.</span>
+          </span>
+          <span data-ttu-id="e0104-183">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-183">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-184">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースに接続できる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-184">The security context of the ASP.NET application does not have permission to connect to the database.</span>
+          </span>
+          <span data-ttu-id="e0104-185">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-185">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-186">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースの通知を無効にできる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-186">The security context of the ASP.NET application does not have permission to disable notifications for the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="EnableTableForNotifications">
+      <MemberSignature Language="C#" Value="public static void EnableTableForNotifications (string connectionString, string[] tables);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void EnableTableForNotifications(string connectionString, string[] tables) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(System.String,System.String[])" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub EnableTableForNotifications (connectionString As String, tables As String())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void EnableTableForNotifications(System::String ^ connectionString, cli::array &lt;System::String ^&gt; ^ tables);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+        <Parameter Name="tables" Type="System.String[]" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="e0104-187">SQL Server データベースに接続するときに使用する接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-187">A connection string used to connect to the SQL Server database.</span>
+          </span>
+        </param>
+        <param name="tables">
+          <span data-ttu-id="e0104-188">変更通知を有効にする SQL Server データベース テーブルの配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-188">The array of SQL Server database tables on which to enable change notifications.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e0104-189">指定されている SQL Server データベースに接続し、指定されているデータベース テーブルの配列の <see cref="T:System.Web.Caching.SqlCacheDependency" /> 変更通知を有効にします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-189">Connects to the specified SQL Server database and enables the specified array of database tables for <see cref="T:System.Web.Caching.SqlCacheDependency" /> change notification.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e0104-190"><xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A>メソッドで指定されたテーブルの変更通知は追加、`tables`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="e0104-190">The <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A> method adds change notifications for the tables specified in the `tables` parameter.</span></span> <span data-ttu-id="e0104-191">これらのテーブルがで指定されたデータベースである必要があります、`connectionString`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="e0104-191">These tables must be in the database specified in the `connectionString` parameter.</span></span>  
+  
+ <span data-ttu-id="e0104-192">使用して、<xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A>テーブルのグループに変更通知を追加するメソッドのいずれかを使用する必要があります、<xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A>変更通知を無効にする場合のオーバー ロードします。</span><span class="sxs-lookup"><span data-stu-id="e0104-192">Once you have used the <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A> method to add change notifications to a group of tables, you must use one of the <xref:System.Web.Caching.SqlCacheDependencyAdmin.DisableTableForNotifications%2A> overloads if you wish to disable change notifications.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e0104-193">次のコード例では、<xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A>を有効にする方法を変更する接続文字列で指定されたデータベースでのセミコロン区切りのリストで指定されたテーブル上の通知`MyConnectionString`です。</span><span class="sxs-lookup"><span data-stu-id="e0104-193">The following code example uses the <xref:System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications%2A> method to enable change notifications on the tables specified in a semicolon-delimited list in the database specified in the connection string `MyConnectionString`.</span></span>  
+  
+ <span data-ttu-id="e0104-194">例を実行するために必要な完全なコードのセクションの例を参照してください、<xref:System.Web.Caching.SqlCacheDependencyAdmin>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="e0104-194">For the full code required to run the example, see the Example section of the <xref:System.Web.Caching.SqlCacheDependencyAdmin> class overview topic.</span></span>  
+  
+ [!code-csharp[System.Web.Caching.SqlCacheDependencyAdmin#7](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/CS/cacheDependencyAdmincs.aspx.cs#7)]
+ [!code-vb[System.Web.Caching.SqlCacheDependencyAdmin#7](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/VB/cacheDependencyAdminvb.aspx.vb#7)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.Caching.DatabaseNotEnabledForNotificationException">
+          <span data-ttu-id="e0104-195">データベースの変更通知が有効になっていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-195">The database is not enabled for change notifications.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="e0104-196">
+            <paramref name="tables" /> パラメーターのいずれかの値が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-196">One of the values in the <paramref name="tables" /> parameter is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="e0104-197">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-197">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-198">
+            <paramref name="tables" /> パラメーターのいずれかの値が空の文字列 ("") です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-198">One of the values in the <paramref name="tables" /> parameter is an empty string ("").</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="e0104-199">
+            <paramref name="tables" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-199">
+              <paramref name="tables" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="e0104-200">データベースへの接続を確立できませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-200">A connection to the database could not be established.</span>
+          </span>
+          <span data-ttu-id="e0104-201">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-201">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-202">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースに接続できる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-202">The security context of the ASP.NET application does not have permission to connect to the database.</span>
+          </span>
+          <span data-ttu-id="e0104-203">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-203">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-204">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースの通知を無効にできる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-204">The security context of the ASP.NET application does not have permission to disable notifications for the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetTablesEnabledForNotifications">
+      <MemberSignature Language="C#" Value="public static string[] GetTablesEnabledForNotifications (string connectionString);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig string[] GetTablesEnabledForNotifications(string connectionString) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Caching.SqlCacheDependencyAdmin.GetTablesEnabledForNotifications(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTablesEnabledForNotifications (connectionString As String) As String()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static cli::array &lt;System::String ^&gt; ^ GetTablesEnabledForNotifications(System::String ^ connectionString);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String[]</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionString" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="connectionString">
+          <span data-ttu-id="e0104-205">SQL Server データベースに接続するときに使用する接続文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-205">A connection string used to connect to the SQL Server database.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e0104-206">変更通知が有効になっている、SQL Server データベース内の各テーブルの名前を含む文字列配列を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-206">Retrieves a string array containing the name of every table that is enabled for change notifications in a SQL Server database.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="e0104-207">SQL Server データベース テーブルの名前を含む文字列配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-207">A string array that contains the names of the SQL Server database tables.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e0104-208"><xref:System.Web.Caching.SqlCacheDependencyAdmin.GetTablesEnabledForNotifications%2A>メソッドで指定されたデータベースのすべてのテーブルの名前を含む文字列配列を返します、`connectionString`パラメーター変更通知を有効になっています。</span><span class="sxs-lookup"><span data-stu-id="e0104-208">The <xref:System.Web.Caching.SqlCacheDependencyAdmin.GetTablesEnabledForNotifications%2A> method returns a string array containing the names of all tables in the database specified in the `connectionString` parameter that are enabled for change notifications.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e0104-209">次のコード例は、接続文字列で指定されたデータベースで変更通知が有効にするテーブルの文字列配列を作成`MyConnectionString`です。</span><span class="sxs-lookup"><span data-stu-id="e0104-209">The following code example creates a string array of the tables enabled for change notifications in the database specified in the connection string `MyConnectionString`.</span></span>  
+  
+ <span data-ttu-id="e0104-210">例を実行するために必要な完全なコードのセクションの例を参照してください、<xref:System.Web.Caching.SqlCacheDependencyAdmin>クラスの概要に関するトピック。</span><span class="sxs-lookup"><span data-stu-id="e0104-210">For the full code required to run the example, see the Example section of the <xref:System.Web.Caching.SqlCacheDependencyAdmin> class overview topic.</span></span>  
+  
+ [!code-csharp[System.Web.Caching.SqlCacheDependencyAdmin#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/CS/cacheDependencyAdmincs.aspx.cs#2)]
+ [!code-vb[System.Web.Caching.SqlCacheDependencyAdmin#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Caching.SqlCacheDependencyAdmin/VB/cacheDependencyAdminvb.aspx.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.Caching.DatabaseNotEnabledForNotificationException">
+          <span data-ttu-id="e0104-211">データベースの変更通知が有効になっていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-211">The database is not enabled for change notifications</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="e0104-212">データベースへの接続を確立できませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-212">A connection to the database could not be established.</span>
+          </span>
+          <span data-ttu-id="e0104-213">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-213">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-214">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースに接続できる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-214">The security context of the ASP.NET application does not have permission to connect to the database.</span>
+          </span>
+          <span data-ttu-id="e0104-215">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-215">-or-</span>
+          </span>
+          <span data-ttu-id="e0104-216">ASP.NET アプリケーションのセキュリティ コンテキストに、データベースの通知を無効にできる権限がありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e0104-216">The security context of the ASP.NET application does not have permission to disable notifications for the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

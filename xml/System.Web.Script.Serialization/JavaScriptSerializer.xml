@@ -1,0 +1,1201 @@
+<Type Name="JavaScriptSerializer" FullName="System.Web.Script.Serialization.JavaScriptSerializer">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="7d32f4b8263b0fde5028248c2a084efc30c7bca5" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class JavaScriptSerializer" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit JavaScriptSerializer extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Web.Script.Serialization.JavaScriptSerializer" />
+  <TypeSignature Language="VB.NET" Value="Public Class JavaScriptSerializer" />
+  <TypeSignature Language="C++ CLI" Value="public ref class JavaScriptSerializer" />
+  <AssemblyInfo>
+    <AssemblyName>System.Web.Extensions</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="35f44-101">[Json.NET](http://www.newtonsoft.com/json) はシリアル化および逆シリアル化で使用する必要があります。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="35f44-101">[Json.NET](http://www.newtonsoft.com/json) should be used serialization and deserialization.</span>
+      </span>
+      <span data-ttu-id="35f44-102">AJAX 対応アプリケーションにシリアル化および逆シリアル化の機能を提供します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="35f44-102">Provides serialization and deserialization functionality for AJAX-enabled applications.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-103"><xref:System.Web.Script.Serialization.JavaScriptSerializer>クラス、非同期通信レイヤーによってシリアル化し、ブラウザーと Web サーバー間で渡されるデータを逆シリアル化は内部的に使用します。</span><span class="sxs-lookup"><span data-stu-id="35f44-103">The <xref:System.Web.Script.Serialization.JavaScriptSerializer> class is used internally by the asynchronous communication layer to serialize and deserialize the data that is passed between the browser and the Web server.</span></span> <span data-ttu-id="35f44-104">シリアライザーのインスタンスにアクセスできません。</span><span class="sxs-lookup"><span data-stu-id="35f44-104">You cannot access that instance of the serializer.</span></span> <span data-ttu-id="35f44-105">ただし、このクラスは、パブリック API を公開します。</span><span class="sxs-lookup"><span data-stu-id="35f44-105">However, this class exposes a public API.</span></span> <span data-ttu-id="35f44-106">したがって、マネージ コードでの JavaScript Object Notation (JSON) での作業をするときに、クラスを使用できます。</span><span class="sxs-lookup"><span data-stu-id="35f44-106">Therefore, you can use the class when you want to work with JavaScript Object Notation (JSON) in managed code.</span></span>  
+  
+ <span data-ttu-id="35f44-107">オブジェクトをシリアル化を使用して、<xref:System.Web.Script.Serialization.JavaScriptSerializer.Serialize%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="35f44-107">To serialize an object, use the <xref:System.Web.Script.Serialization.JavaScriptSerializer.Serialize%2A> method.</span></span> <span data-ttu-id="35f44-108">JSON 文字列を逆シリアル化を使用して、<xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A>または<xref:System.Web.Script.Serialization.JavaScriptSerializer.DeserializeObject%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="35f44-108">To deserialize a JSON string, use the <xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A> or <xref:System.Web.Script.Serialization.JavaScriptSerializer.DeserializeObject%2A> methods.</span></span> <span data-ttu-id="35f44-109">シリアル化をネイティブでサポートされていない型を逆シリアル化する<xref:System.Web.Script.Serialization.JavaScriptSerializer>を使用してカスタムのコンバーターを実装する、<xref:System.Web.Script.Serialization.JavaScriptConverter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="35f44-109">To serialize and deserialize types that are not natively supported by <xref:System.Web.Script.Serialization.JavaScriptSerializer>, implement custom converters by using the <xref:System.Web.Script.Serialization.JavaScriptConverter> class.</span></span> <span data-ttu-id="35f44-110">使用して、コンバーターを登録、<xref:System.Web.Script.Serialization.JavaScriptSerializer.RegisterConverters%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="35f44-110">Then register the converters by using the <xref:System.Web.Script.Serialization.JavaScriptSerializer.RegisterConverters%2A> method.</span></span>  
+  
+## <a name="mapping-between-managed-types-and-json"></a><span data-ttu-id="35f44-111">マネージ型と JSON の間のマッピング</span><span class="sxs-lookup"><span data-stu-id="35f44-111">Mapping Between Managed Types and JSON</span></span>  
+ <span data-ttu-id="35f44-112">次の表は、シリアル化のプロセスは、マネージ型と JSON の間のマッピングを示します。</span><span class="sxs-lookup"><span data-stu-id="35f44-112">The following table shows the mapping between managed types and JSON for the serialization process.</span></span> <span data-ttu-id="35f44-113">これらのマネージ型がネイティブでサポート<xref:System.Web.Script.Serialization.JavaScriptSerializer>です。</span><span class="sxs-lookup"><span data-stu-id="35f44-113">These managed types are natively supported by <xref:System.Web.Script.Serialization.JavaScriptSerializer>.</span></span> <span data-ttu-id="35f44-114">シリアル化する JSON 文字列からマネージ型に、同じマッピングが適用されます。</span><span class="sxs-lookup"><span data-stu-id="35f44-114">When you are deserializing from a JSON string to a managed type, the same mapping applies.</span></span> <span data-ttu-id="35f44-115">ただし、逆シリアル化できます非対称です。シリアル化可能なすべてのマネージ型は、JSON から逆シリアル化することができます。</span><span class="sxs-lookup"><span data-stu-id="35f44-115">However, deserialization can be asymmetric; not all serializable managed types can be deserialized from JSON.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="35f44-116">多次元配列は 1 次元の配列としてシリアル化して、フラットな配列として使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="35f44-116">A multidimensional array is serialized as a one-dimensional array, and you should use it as a flat array.</span></span>  
+  
+|<span data-ttu-id="35f44-117">マネージ型</span><span class="sxs-lookup"><span data-stu-id="35f44-117">Managed type</span></span>|<span data-ttu-id="35f44-118">該当するショートカットは JSON</span><span class="sxs-lookup"><span data-stu-id="35f44-118">JSON equivalent</span></span>|  
+|------------------|---------------------|  
+|<span data-ttu-id="35f44-119"><xref:System.String> (Utf-8 エンコードのみ)。</span><span class="sxs-lookup"><span data-stu-id="35f44-119"><xref:System.String> (UTF-8 encoding only).</span></span>|<span data-ttu-id="35f44-120">String</span><span class="sxs-lookup"><span data-stu-id="35f44-120">String</span></span>|  
+|<xref:System.Char>|<span data-ttu-id="35f44-121">String</span><span class="sxs-lookup"><span data-stu-id="35f44-121">String</span></span>|  
+|<span data-ttu-id="35f44-122">1 つの null 文字 (など、\0)</span><span class="sxs-lookup"><span data-stu-id="35f44-122">Single null char (such as, \0 )</span></span>|<span data-ttu-id="35f44-123">Null</span><span class="sxs-lookup"><span data-stu-id="35f44-123">Null</span></span>|  
+|<xref:System.Boolean>|<span data-ttu-id="35f44-124">ブール型。</span><span class="sxs-lookup"><span data-stu-id="35f44-124">Boolean.</span></span> <span data-ttu-id="35f44-125">として JSON で表される`true`または `false`</span><span class="sxs-lookup"><span data-stu-id="35f44-125">Represented in JSON as `true` or `false`</span></span>|  
+|<span data-ttu-id="35f44-126">`null` (`null`オブジェクト参照と<xref:System.Nullable>値の型)。</span><span class="sxs-lookup"><span data-stu-id="35f44-126">`null` (`null` object references and <xref:System.Nullable> value types).</span></span>|<span data-ttu-id="35f44-127">文字列値は null</span><span class="sxs-lookup"><span data-stu-id="35f44-127">A string value of null</span></span>|  
+|<xref:System.DBNull>|<span data-ttu-id="35f44-128">文字列値は null</span><span class="sxs-lookup"><span data-stu-id="35f44-128">A string value of null</span></span>|  
+|<span data-ttu-id="35f44-129">プリミティブな数値 (または、数値型と互換性のある) の型: <xref:System.Byte>、 <xref:System.SByte>、 <xref:System.Int16>、 <xref:System.Int32>、 <xref:System.Int64>、 <xref:System.UInt16>、 <xref:System.UInt32>、 <xref:System.UInt64>、 <xref:System.Double>、および<xref:System.Single>です。</span><span class="sxs-lookup"><span data-stu-id="35f44-129">Primitive numeric (or numeric-compatible) types: <xref:System.Byte>, <xref:System.SByte>, <xref:System.Int16>, <xref:System.Int32>, <xref:System.Int64>, <xref:System.UInt16>, <xref:System.UInt32>, <xref:System.UInt64>, <xref:System.Double>, and <xref:System.Single>.</span></span> <span data-ttu-id="35f44-130">カルチャに依存しない文字列形式が使用されます。</span><span class="sxs-lookup"><span data-stu-id="35f44-130">The culture-invariant string representation is used.</span></span>|<span data-ttu-id="35f44-131">数値</span><span class="sxs-lookup"><span data-stu-id="35f44-131">Number</span></span>|  
+|<xref:System.DateTime>|<span data-ttu-id="35f44-132">として JSON で表された日付オブジェクト"\\(タイマー刻みの数) の日付/\\/"です。</span><span class="sxs-lookup"><span data-stu-id="35f44-132">Date object, represented in JSON as "\\/Date(number of ticks)\\/".</span></span> <span data-ttu-id="35f44-133">タイマー刻みの数は、01、1970 年 1 月 (utc) の午前 0 時から経過したタイマー刻み (ミリ秒) の数を示す正または負 long 値です。</span><span class="sxs-lookup"><span data-stu-id="35f44-133">The number of ticks is a positive or negative long value that indicates the number of ticks (milliseconds) that have elapsed since midnight 01 January, 1970 UTC.</span></span><br /><br /> <span data-ttu-id="35f44-134">サポートされる値は日付の最大<xref:System.DateTime.MaxValue>(9999/12/31 11時 59分: 59 PM) と、サポートされている日付の最小値は<xref:System.DateTime.MinValue>(1/1/0001 12時 00分: 00 AM)。</span><span class="sxs-lookup"><span data-stu-id="35f44-134">The maximum supported date value is <xref:System.DateTime.MaxValue> (12/31/9999 11:59:59 PM) and the minimum supported date value is <xref:System.DateTime.MinValue> (1/1/0001 12:00:00 AM).</span></span>|  
+|<span data-ttu-id="35f44-135">整数型の列挙</span><span class="sxs-lookup"><span data-stu-id="35f44-135">Enumerations of integer type</span></span>|<span data-ttu-id="35f44-136">等価の列挙値の整数</span><span class="sxs-lookup"><span data-stu-id="35f44-136">Integer equivalent of the enumeration value</span></span>|  
+|<span data-ttu-id="35f44-137">型を実装する<xref:System.Collections.IEnumerable>または<xref:System.Collections.Generic.IEnumerable%601?displayProperty=nameWithType>いるもの実装になっていない<xref:System.Collections.IDictionary>または<xref:System.Collections.Generic.IDictionary%602?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="35f44-137">Types that implement <xref:System.Collections.IEnumerable> or <xref:System.Collections.Generic.IEnumerable%601?displayProperty=nameWithType> that are not also implementations of <xref:System.Collections.IDictionary> or <xref:System.Collections.Generic.IDictionary%602?displayProperty=nameWithType>.</span></span> <span data-ttu-id="35f44-138">これは、型が含まれるように<xref:System.Array>、 <xref:System.Collections.ArrayList>、および<xref:System.Collections.Generic.List%601>です。</span><span class="sxs-lookup"><span data-stu-id="35f44-138">This includes types such as <xref:System.Array>, <xref:System.Collections.ArrayList>, and <xref:System.Collections.Generic.List%601>.</span></span>|<span data-ttu-id="35f44-139">JSON 配列の構文を使用する配列</span><span class="sxs-lookup"><span data-stu-id="35f44-139">Array that uses JSON array syntax</span></span>|  
+|<span data-ttu-id="35f44-140">型を実装する<xref:System.Collections.IDictionary>または<xref:System.Collections.Generic.IDictionary%602?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="35f44-140">Types that implement <xref:System.Collections.IDictionary> or <xref:System.Collections.Generic.IDictionary%602?displayProperty=nameWithType>.</span></span> <span data-ttu-id="35f44-141">これは、型が含まれるように<xref:System.Collections.Generic.Dictionary%602>と<xref:System.Collections.Hashtable>です。</span><span class="sxs-lookup"><span data-stu-id="35f44-141">This includes types such as <xref:System.Collections.Generic.Dictionary%602> and <xref:System.Collections.Hashtable>.</span></span>|<span data-ttu-id="35f44-142">JSON ディクショナリの構文を使用する JavaScript オブジェクト</span><span class="sxs-lookup"><span data-stu-id="35f44-142">JavaScript object that uses JSON dictionary syntax</span></span>|  
+|<span data-ttu-id="35f44-143">カスタムの具象 (抽象型ではない) 型を持つパブリック インスタンス プロパティを持つは get アクセサーまたはパブリック インスタンス フィールドです。</span><span class="sxs-lookup"><span data-stu-id="35f44-143">Custom concrete (non-abstract) types that have public instance properties that have get accessors or public instance fields.</span></span><br /><br /> <span data-ttu-id="35f44-144">書き込み専用のパブリック プロパティ、そのパブリック プロパティまたはパブリック フィールドの属性でマークされたことに注意してください<xref:System.Web.Script.Serialization.ScriptIgnoreAttribute>とでこれらの型のパブリックのインデックス付きプロパティは無視されます。</span><span class="sxs-lookup"><span data-stu-id="35f44-144">Note that public write-only properties, public property or public field attributes marked with <xref:System.Web.Script.Serialization.ScriptIgnoreAttribute>, and public indexed properties in these types are ignored.</span></span>|<span data-ttu-id="35f44-145">JSON ディクショナリの構文を使用する JavaScript オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="35f44-145">JavaScript object that uses JSON dictionary syntax.</span></span> <span data-ttu-id="35f44-146">"_ _Type"という名前の特殊なメタデータ プロパティが正しく逆シリアル化を確実に含まれています。</span><span class="sxs-lookup"><span data-stu-id="35f44-146">A special metadata property named "__type" is included to ensure correct deserialization.</span></span> <span data-ttu-id="35f44-147">パブリック インスタンス プロパティが get し、set アクセサーを正しく逆シリアル化を確認することを確認してください。</span><span class="sxs-lookup"><span data-stu-id="35f44-147">Make sure that public instance properties have get and set accessors to ensure correct deserialization.</span></span>|  
+|<xref:System.Guid>|<span data-ttu-id="35f44-148">GUID の文字列表現</span><span class="sxs-lookup"><span data-stu-id="35f44-148">String representation of a GUID</span></span>|  
+|<xref:System.Uri>|<span data-ttu-id="35f44-149">戻り値の文字列表現 <xref:System.Uri.GetComponents%2A></span><span class="sxs-lookup"><span data-stu-id="35f44-149">String representation of the return value of <xref:System.Uri.GetComponents%2A></span></span>|  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="35f44-150">最初の例では、およびデータ オブジェクトを逆シリアル化する方法の簡単な図を提供します。</span><span class="sxs-lookup"><span data-stu-id="35f44-150">The first example provides a simple illustration of how to serialize and deserialize data objects.</span></span> <span data-ttu-id="35f44-151">クラス名の下に表示されるユーザーが必要です。</span><span class="sxs-lookup"><span data-stu-id="35f44-151">It requires a class names Person which is shown below.</span></span>  
+  
+ [!code-csharp[System.Web.Script.Serialization.JavaScriptSerializer#1](~/samples/snippets/csharp/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/cs/default.aspx.cs#1)]
+ [!code-vb[System.Web.Script.Serialization.JavaScriptSerializer#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/vb/default.aspx.vb#1)]  
+  
+ [!code-csharp[System.Web.Script.Serialization.JavaScriptSerializer#2](~/samples/snippets/csharp/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/cs/default.aspx.cs#2)]
+ [!code-vb[System.Web.Script.Serialization.JavaScriptSerializer#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/vb/default.aspx.vb#2)]  
+  
+ <span data-ttu-id="35f44-152">次の例より複雑な完全なプロジェクトを使用する、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスを保存および JSON のシリアル化を使用してオブジェクトの状態を復元します。</span><span class="sxs-lookup"><span data-stu-id="35f44-152">The next example shows a more complicated and complete project that uses the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class to save and restore the state of an object by using JSON serialization.</span></span> <span data-ttu-id="35f44-153">このコードの提供されるカスタムのコンバーターを使用して、<xref:System.Web.Script.Serialization.JavaScriptConverter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="35f44-153">This code uses a custom converter that is provided for the <xref:System.Web.Script.Serialization.JavaScriptConverter> class.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Script.Serialization#4](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.Script.Serialization/CS/Default.aspx#4)]
+ [!code-aspx-vb[System.Web.Script.Serialization#4](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.Script.Serialization/VB/Default.aspx#4)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="35f44-154">
+            <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-154">Initializes a new instance of the <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public JavaScriptSerializer ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; JavaScriptSerializer();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="35f44-155">型リゾルバーを持たない <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-155">Initializes a new instance of the <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> class that has no type resolver.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-156">インスタンス、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスの型競合回避モジュールが、シリアル化された JSON 文字列に型のメタデータ プロパティ (名前は"_ _type") を含めないなし。</span><span class="sxs-lookup"><span data-stu-id="35f44-156">An instance of the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class without a type resolver does not include type metadata properties (named "__type") in the serialized JSON string.</span></span> <span data-ttu-id="35f44-157">型のメタデータ プロパティを使って、<xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A>と<xref:System.Web.Script.Serialization.JavaScriptSerializer.DeserializeObject%2A>メソッドは、適切なマネージを確認するのには、JSON 文字列を変換する型します。</span><span class="sxs-lookup"><span data-stu-id="35f44-157">A type metadata property is used by the <xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A> and <xref:System.Web.Script.Serialization.JavaScriptSerializer.DeserializeObject%2A> methods to determine the appropriate managed type to which the JSON string will be converted.</span></span> <span data-ttu-id="35f44-158">型競合回避モジュールについては、次を参照してください。、<xref:System.Web.Script.Serialization.JavaScriptTypeResolver>クラスです。</span><span class="sxs-lookup"><span data-stu-id="35f44-158">For information about type resolvers, see the <xref:System.Web.Script.Serialization.JavaScriptTypeResolver> class.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public JavaScriptSerializer (System.Web.Script.Serialization.JavaScriptTypeResolver resolver);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Web.Script.Serialization.JavaScriptTypeResolver resolver) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.#ctor(System.Web.Script.Serialization.JavaScriptTypeResolver)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (resolver As JavaScriptTypeResolver)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; JavaScriptSerializer(System::Web::Script::Serialization::JavaScriptTypeResolver ^ resolver);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="resolver" Type="System.Web.Script.Serialization.JavaScriptTypeResolver" />
+      </Parameters>
+      <Docs>
+        <param name="resolver">
+          <span data-ttu-id="35f44-159">カスタムの型リゾルバー オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-159">The custom type-resolver object.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="35f44-160">カスタムの型リゾルバーを持つ <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-160">Initializes a new instance of the <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> class that has a custom type resolver.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-161">オブジェクトをシリアル化時に、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスの使用、`resolver`型のメタデータ プロパティ ("_ _type") のシリアル化された JSON 文字列に含める適切な値を決定するパラメーターです。</span><span class="sxs-lookup"><span data-stu-id="35f44-161">When it is serializing an object, the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class uses the `resolver` parameter to determine the appropriate value to include in the serialized JSON string for the type metadata property ("__type").</span></span> <span data-ttu-id="35f44-162">同様に、時、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスが、JSON 文字列を逆シリアル化、競合回避モジュールのインスタンスを使用して適切なマネージ型に型のメタデータ プロパティの値を解決します。</span><span class="sxs-lookup"><span data-stu-id="35f44-162">Similarly, when the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class  is deserializing a JSON string, it resolves the type metadata property value to the appropriate managed type by using the resolver instance.</span></span>  
+  
+ <span data-ttu-id="35f44-163">設定することができます、`resolver`パラメーターを`null`、呼び出すことと同じである、<xref:System.Web.Script.Serialization.JavaScriptSerializer.%23ctor%2A>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="35f44-163">You can set the `resolver` parameter to `null`, which is equivalent to calling the <xref:System.Web.Script.Serialization.JavaScriptSerializer.%23ctor%2A> constructor.</span></span>  
+  
+ <span data-ttu-id="35f44-164">インスタンス<xref:System.Web.Script.Serialization.JavaScriptSerializer>特殊な競合回避モジュールを使用するクライアント スクリプトから Web サービスを呼び出す非同期通信レイヤーで使用されています。</span><span class="sxs-lookup"><span data-stu-id="35f44-164">The instance of <xref:System.Web.Script.Serialization.JavaScriptSerializer> that is used by the asynchronous communication layer for invoking Web services from client script uses a special type resolver.</span></span> <span data-ttu-id="35f44-165">この型の競合回避モジュールの種類を逆シリアル化することができますを Web サービスのメソッドのシグネチャまたは付いてで定義されたに限定する、<xref:System.Web.Script.Services.GenerateScriptTypeAttribute>適用します。</span><span class="sxs-lookup"><span data-stu-id="35f44-165">This type resolver restricts the types that can be deserialized to those defined in the Web service’s method signature, or the ones that have the <xref:System.Web.Script.Services.GenerateScriptTypeAttribute> applied.</span></span> <span data-ttu-id="35f44-166">この組み込みの型リゾルバーをプログラムで変更することはできません。</span><span class="sxs-lookup"><span data-stu-id="35f44-166">You cannot modify this built-in type resolver programmatically.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="35f44-167">カスタムの型リゾルバーで初期化されたこのオブジェクトのインスタンスを使用すると、セキュリティ リスクがあることができます。</span><span class="sxs-lookup"><span data-stu-id="35f44-167">Using an instance of this object initialized with a custom type-resolver can present a security risk.</span></span> <span data-ttu-id="35f44-168">このオブジェクトを使用して、信頼されたデータだけです。</span><span class="sxs-lookup"><span data-stu-id="35f44-168">Use this object only with trusted data.</span></span> <span data-ttu-id="35f44-169">詳細については、次を参照してください。[データ検証](https://www.owasp.org/index.php/Data_Validation)です。</span><span class="sxs-lookup"><span data-stu-id="35f44-169">For more information, see [Data Validation](https://www.owasp.org/index.php/Data_Validation).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Web.Script.Serialization.JavaScriptTypeResolver" />
+        <altmember cref="T:System.Web.Script.Serialization.SimpleTypeResolver" />
+      </Docs>
+    </Member>
+    <Member MemberName="ConvertToType">
+      <MemberSignature Language="C#" Value="public object ConvertToType (object obj, Type targetType);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object ConvertToType(object obj, class System.Type targetType) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType(System.Object,System.Type)" />
+      <MemberSignature Language="VB.NET" Value="Public Function ConvertToType (obj As Object, targetType As Type) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ ConvertToType(System::Object ^ obj, Type ^ targetType);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="obj" Type="System.Object" />
+        <Parameter Name="targetType" Type="System.Type" />
+      </Parameters>
+      <Docs>
+        <param name="obj">
+          <span data-ttu-id="35f44-170">変換対象のオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-170">The object to convert.</span>
+          </span>
+        </param>
+        <param name="targetType">
+          <span data-ttu-id="35f44-171">オブジェクトの変換後の型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-171">The type to convert the object to.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="35f44-172">指定したオブジェクトを指定した型に変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-172">Converts the specified object to the specified type.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="35f44-173">シリアル化された JSON 文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-173">The serialized JSON string.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-174">ときに、<xref:System.Web.Script.Serialization.JavaScriptSerializer>インスタンスは、シリアライザーの呼び出し、カスタムのコンバーターが登録されている型をシリアル化、 <xref:System.Web.Script.Serialization.JavaScriptConverter.Serialize%2A> JSON 形式の文字列に変換される名前/値ペアのディクショナリを取得します。</span><span class="sxs-lookup"><span data-stu-id="35f44-174">When the <xref:System.Web.Script.Serialization.JavaScriptSerializer> instance is serializing a type for which a custom converter is registered, the serializer calls the <xref:System.Web.Script.Serialization.JavaScriptConverter.Serialize%2A> method to obtain the dictionary of name/value pairs that will be converted to a JSON-formatted string.</span></span>  
+  
+ <span data-ttu-id="35f44-175"><xref:System.Web.Script.Serialization.JavaScriptSerializer.Serialize%2A>オブジェクト グラフが複雑すぎるため、またはのインスタンスが登録されている場合、メソッドは例外をスローできますできます<xref:System.Web.Script.Serialization.JavaScriptConverter>コンバーター再帰が発生します。</span><span class="sxs-lookup"><span data-stu-id="35f44-175">The <xref:System.Web.Script.Serialization.JavaScriptSerializer.Serialize%2A> method can also throw exceptions if the object graph is too complex, or if registered instances of <xref:System.Web.Script.Serialization.JavaScriptConverter> have caused converter recursion.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="35f44-176">生成される JSON 形式の文字列が、<see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" /> 値を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-176">The resulting JSON-formatted string exceeds the value of <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" />.</span>
+          </span>
+          <span data-ttu-id="35f44-177">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-177">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-178">
+            <paramref name="obj" /> に循環参照が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-178">
+              <paramref name="obj" /> contains a circular reference.</span>
+          </span>
+          <span data-ttu-id="35f44-179">循環参照は、子オブジェクトが親オブジェクトへの参照を持ち、親オブジェクトがその子オブジェクトへの参照を持つ場合に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-179">A circular reference occurs when a child object has a reference to a parent object, and the parent object has a reference to the child object.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="35f44-180">
+            <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> で定義された再帰制限を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-180">The recursion limit defined by <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> was exceeded.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ConvertToType&lt;T&gt;">
+      <MemberSignature Language="C#" Value="public T ConvertToType&lt;T&gt; (object obj);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance !!T ConvertToType&lt;T&gt;(object obj) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType``1(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Function ConvertToType(Of T) (obj As Object) As T" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; T ConvertToType(System::Object ^ obj);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>T</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="T" />
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="obj" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <typeparam name="T">
+          <span data-ttu-id="35f44-181">型<c>obj</c>変換されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-181">The type to which <c>obj</c> will be converted.</span>
+          </span>
+        </typeparam>
+        <param name="obj">
+          <span data-ttu-id="35f44-182">変換対象のオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-182">The object to convert.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="35f44-183">指定したオブジェクトを指定した型に変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-183">Converts the given object to the specified type.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="35f44-184">ターゲットの型に変換されたオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-184">The object that has been converted to the target type.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-185"><xref:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType%2A>メソッドで表されるオブジェクトのインスタンスに変換しようとしました。`obj`型のインスタンスに`T`です。</span><span class="sxs-lookup"><span data-stu-id="35f44-185">The <xref:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType%2A> method tries to convert the object instance that is represented by `obj` to an instance of type `T`.</span></span> <span data-ttu-id="35f44-186">この変換中には、オブジェクト参照の等価性が維持される保証はありません。</span><span class="sxs-lookup"><span data-stu-id="35f44-186">During this conversion there is no guarantee that object reference equality is maintained.</span></span> <span data-ttu-id="35f44-187">したがってとは限りませんを`obj`と`T`同じオブジェクトを参照してください。</span><span class="sxs-lookup"><span data-stu-id="35f44-187">Therefore, you cannot assume that `obj` and `T` refer to the same object.</span></span>  
+  
+ <span data-ttu-id="35f44-188"><xref:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType%2A> 派生するクラスを実装する場合に使用するものでは<xref:System.Web.Script.Serialization.JavaScriptConverter>します。</span><span class="sxs-lookup"><span data-stu-id="35f44-188"><xref:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType%2A> is intended to be used if you implement a class that derives from <xref:System.Web.Script.Serialization.JavaScriptConverter>.</span></span> <span data-ttu-id="35f44-189">コンバーター コードが、シリアライザーから渡されるディクショナリ内にある値を取得できるようにして型のインスタンスにその値を変換する必要があります`T`です。</span><span class="sxs-lookup"><span data-stu-id="35f44-189">Converter code must be able to take a value that is in the dictionary that the serializer passes to it, and then convert that value to an instance of type `T`.</span></span> <span data-ttu-id="35f44-190">このタスクを実行する変換のカスタム コードを再実装するには、代わりに呼び出すことができます、<xref:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType%2A>コンバーター コードからメソッドです。</span><span class="sxs-lookup"><span data-stu-id="35f44-190">Instead of re-implementing the custom conversion code to perform this task, you can call the <xref:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType%2A> method from the converter code.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="35f44-191">次の例を使用する方法を示しています、<xref:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType%2A>を取得するメソッド、<xref:System.Web.UI.WebControls.ListItem>コンバーターに渡されるディクショナリの値からのオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="35f44-191">The following example shows how to use the <xref:System.Web.Script.Serialization.JavaScriptSerializer.ConvertToType%2A> method to obtain a <xref:System.Web.UI.WebControls.ListItem> object from a value in the dictionary that is passed to the converter.</span></span> <span data-ttu-id="35f44-192">このコード例に示されている例の一部である、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスです。</span><span class="sxs-lookup"><span data-stu-id="35f44-192">This code example is part of a larger example provided for the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class.</span></span>  
+  
+ [!code-csharp[System.Web.Script.Serialization#5](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.Script.Serialization/CS/App_Code/ListItemCollectionConverter.cs#5)]
+ [!code-vb[System.Web.Script.Serialization#5](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.Script.Serialization/VB/App_Code/ListItemCollectionConverter.vb#5)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="35f44-193">
+            <paramref name="obj" /> (または <paramref name="obj" /> の入れ子にされたメンバー) にはカスタムの型を示す "__type" プロパティが含まれていますが、シリアライザーに関連付けられた型リゾルバーは対応するマネージ型を見つけることができません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-193">
+              <paramref name="obj" /> (or a nested member of <paramref name="obj" />) contains a "__type" property that indicates a custom type, but the type resolver that is associated with the serializer cannot find a corresponding managed type.</span>
+          </span>
+          <span data-ttu-id="35f44-194">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-194">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-195">
+            <paramref name="obj" /> (または <paramref name="obj" /> の入れ子にされたメンバー) にはカスタムの型を示す "__type" プロパティが含まれていますが、対応する JSON 文字列を逆シリアル化した結果を指定のターゲットの型に代入できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-195">
+              <paramref name="obj" /> (or a nested member of <paramref name="obj" />) contains a "__type" property that indicates a custom type, but the result of deserializing the corresponding JSON string cannot be assigned to the expected target type.</span>
+          </span>
+          <span data-ttu-id="35f44-196">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-196">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-197">
+            <paramref name="obj" /> (または <paramref name="obj" /> の入れ子にされたメンバー) には、<see cref="T:System.Object" /> またはインスタンス化できない型 (抽象型やインターフェイスなど) を示す "__type" プロパティが含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-197">
+              <paramref name="obj" /> (or a nested member of <paramref name="obj" />) contains a "__type" property that indicates either <see cref="T:System.Object" /> or a non-instantiable type (for example, an abstract type or an interface).</span>
+          </span>
+          <span data-ttu-id="35f44-198">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-198">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-199">
+            <paramref name="obj" /> を配列のようなマネージ型に変換しようとしました。このような型を変換先の型として逆シリアル化を実行することはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-199">An attempt was made to convert <paramref name="obj" /> to an array-like managed type, which is not supported for use as a deserialization target.</span>
+          </span>
+          <span data-ttu-id="35f44-200">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-200">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-201">
+            <paramref name="obj" /> を <paramref name="T" /> に変換することはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-201">It is not possible to convert <paramref name="obj" /> to <paramref name="T" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="35f44-202">
+            <paramref name="obj" /> はディクショナリ型であり、文字列ではないキー値が検出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-202">
+              <paramref name="obj" /> is a dictionary type and a non-string key value was encountered.</span>
+          </span>
+          <span data-ttu-id="35f44-203">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-203">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-204">
+            <paramref name="obj" /> には、型 <paramref name="T" /> に使用できないメンバー定義が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-204">
+              <paramref name="obj" /> includes member definitions that are not available on type <paramref name="T" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Deserialize">
+      <MemberSignature Language="C#" Value="public object Deserialize (string input, Type targetType);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object Deserialize(string input, class System.Type targetType) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize(System.String,System.Type)" />
+      <MemberSignature Language="VB.NET" Value="Public Function Deserialize (input As String, targetType As Type) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ Deserialize(System::String ^ input, Type ^ targetType);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="input" Type="System.String" />
+        <Parameter Name="targetType" Type="System.Type" />
+      </Parameters>
+      <Docs>
+        <param name="input">
+          <span data-ttu-id="35f44-205">逆シリアル化する JSON 文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-205">The JSON string to deserialize.</span>
+          </span>
+        </param>
+        <param name="targetType">
+          <span data-ttu-id="35f44-206">生成されるオブジェクトの型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-206">The type of the resulting object.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="35f44-207">JSON 形式の文字列を指定した型のオブジェクトに変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-207">Converts a JSON-formatted string to an object of the specified type.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="35f44-208">逆シリアル化されたオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-208">The deserialized object.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-209">この逆シリアル化メソッドはキャストをする方法、特定の種類のオブジェクト グラフのルートを試みませんを<xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="35f44-209">This deserialization method does not try to cast the root of the object graph to a specific type, the way that the <xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A> method does.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="35f44-210">
+            <paramref name="input" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-210">
+              <paramref name="input" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="35f44-211">
+            <paramref name="input" /> の長さが <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" /> の値を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-211">The length of <paramref name="input" /> exceeds the value of <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" />.</span>
+          </span>
+          <span data-ttu-id="35f44-212">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-212">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-213">
+            <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> で定義された再帰制限を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-213">The recursion limit defined by <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> was exceeded.</span>
+          </span>
+          <span data-ttu-id="35f44-214">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-214">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-215">
+            <paramref name="input" /> パラメーターに予期しない文字シーケンスが含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-215">
+              <paramref name="input" /> contains an unexpected character sequence.</span>
+          </span>
+          <span data-ttu-id="35f44-216">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-216">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-217">
+            <paramref name="input" /> はディクショナリ型であり、文字列ではないキー値が検出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-217">
+              <paramref name="input" /> is a dictionary type and a non-string key value was encountered.</span>
+          </span>
+          <span data-ttu-id="35f44-218">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-218">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-219">
+            <paramref name="input" /> には、変換先の型に使用できないメンバー定義が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-219">
+              <paramref name="input" /> includes member definitions that are not available on the target type.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="35f44-220">
+            <paramref name="input" /> にはカスタムの型を示す "__type" プロパティが含まれていますが、シリアライザーに現在関連付けられている型リゾルバーは対応するマネージ型を見つけることができません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-220">
+              <paramref name="input" /> contains a "__type" property that indicates a custom type, but the type resolver that is currently associated with the serializer cannot find a corresponding managed type.</span>
+          </span>
+          <span data-ttu-id="35f44-221">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-221">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-222">
+            <paramref name="input" /> にはカスタムの型を示す "__type" プロパティが含まれていますが、対応する JSON 文字列を逆シリアル化した結果を指定のターゲットの型に代入できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-222">
+              <paramref name="input" /> contains a "__type" property that indicates a custom type, but the result of deserializing the corresponding JSON string cannot be assigned to the expected target type.</span>
+          </span>
+          <span data-ttu-id="35f44-223">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-223">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-224">
+            <paramref name="input" /> には、<see cref="T:System.Object" /> またはインスタンス化できない型 (抽象型やインターフェイスなど) を示す "__type" プロパティが含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-224">
+              <paramref name="input" /> contains a "__type" property that indicates either <see cref="T:System.Object" /> or a non-instantiable type (for example, an abstract type or an interface).</span>
+          </span>
+          <span data-ttu-id="35f44-225">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-225">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-226">JSON 配列を、JSON の逆シリアル化のターゲットとして使用できない、配列のようなマネージ型に変換しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-226">An attempt was made to convert a JSON array to an array-like managed type that is not supported for use as a JSON deserialization target.</span>
+          </span>
+          <span data-ttu-id="35f44-227">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-227">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-228">
+            <paramref name="input" /> をターゲットの型に変換できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-228">It is not possible to convert <paramref name="input" /> to the target type.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Deserialize&lt;T&gt;">
+      <MemberSignature Language="C#" Value="public T Deserialize&lt;T&gt; (string input);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance !!T Deserialize&lt;T&gt;(string input) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize``1(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Function Deserialize(Of T) (input As String) As T" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; T Deserialize(System::String ^ input);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>T</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="T" />
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="input" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <typeparam name="T">
+          <span data-ttu-id="35f44-229">生成されるオブジェクトの型。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-229">The type of the resulting object.</span>
+          </span>
+        </typeparam>
+        <param name="input">
+          <span data-ttu-id="35f44-230">逆シリアル化する JSON 文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-230">The JSON string to be deserialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="35f44-231">指定した JSON 文字列を指定した型 <paramref name="T" /> のオブジェクトに変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-231">Converts the specified JSON string to an object of type <paramref name="T" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="35f44-232">逆シリアル化されたオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-232">The deserialized object.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-233"><xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A>メソッドを使用して最初には、<xref:System.Web.Script.Serialization.JavaScriptSerializer.DeserializeObject%2A>メソッドは、オブジェクト グラフしようとして、型に結果をキャストを取得する`T`です。</span><span class="sxs-lookup"><span data-stu-id="35f44-233">The <xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A> method is equivalent to first using the <xref:System.Web.Script.Serialization.JavaScriptSerializer.DeserializeObject%2A> method to obtain an object graph and then trying to cast the result to type `T`.</span></span>  
+  
+ <span data-ttu-id="35f44-234">逆シリアル化中に、シリアライザーの現在の型競合回避モジュールは、参照される配列およびディクショナリ型の内部にネストする要素を変換するときに使用するマネージ型を決定します。</span><span class="sxs-lookup"><span data-stu-id="35f44-234">During deserialization, the serializer’s current type resolver is referenced, which determines the managed type to use when converting elements that are nested inside arrays and dictionary types.</span></span> <span data-ttu-id="35f44-235">逆シリアル化プロセスがの入れ子になったすべての要素を反復処理結果として、`input`です。</span><span class="sxs-lookup"><span data-stu-id="35f44-235">As a result, the deserialization process iterates through all nested elements of `input`.</span></span> <span data-ttu-id="35f44-236">型競合回避モジュールの詳細については、次を参照してください。、<xref:System.Web.Script.Serialization.JavaScriptTypeResolver>クラスです。</span><span class="sxs-lookup"><span data-stu-id="35f44-236">For more information about type resolvers, see the <xref:System.Web.Script.Serialization.JavaScriptTypeResolver> class.</span></span>  
+  
+   
+  
+## Examples  
+<span data-ttu-id="35f44-237">次の例では、およびデータ オブジェクトを逆シリアル化する方法の簡単な図を提供します。</span><span class="sxs-lookup"><span data-stu-id="35f44-237">The following example provides a simple illustration of how to serialize and deserialize data objects.</span></span>  
+  
+[!code-csharp[System.Web.Script.JavaScriptSerializer](~/samples/snippets/csharp/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/cs/default.aspx.cs#1)]  
+[!code-vb[System.Web.Script.JavaScriptSerializer](~/samples/snippets/visualbasic/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/vb/default.aspx.vb#1)]  
+
+<span data-ttu-id="35f44-238">という名前のクラスが必要な`Person`、次の例で示したです。</span><span class="sxs-lookup"><span data-stu-id="35f44-238">It requires a class named `Person`, which is shown in the following example.</span></span> 
+
+[!code-csharp[System.Web.Script.JavaScriptSerializer](~/samples/snippets/csharp/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/cs/default.aspx.cs#2)]  
+[!code-vb[System.Web.Script.JavaScriptSerializer](~/samples/snippets/visualbasic/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/vb/default.aspx.vb#2)]  
+
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="35f44-239">
+            <paramref name="input" /> の長さが <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" /> の値を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-239">The <paramref name="input" /> length exceeds the value of <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" />.</span>
+          </span>
+          <span data-ttu-id="35f44-240">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-240">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-241">
+            <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> で定義された再帰制限を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-241">The recursion limit defined by <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> was exceeded.</span>
+          </span>
+          <span data-ttu-id="35f44-242">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-242">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-243">
+            <paramref name="input" /> パラメーターに予期しない文字シーケンスが含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-243">
+              <paramref name="input" /> contains an unexpected character sequence.</span>
+          </span>
+          <span data-ttu-id="35f44-244">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-244">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-245">
+            <paramref name="input" /> はディクショナリ型であり、文字列ではないキー値が検出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-245">
+              <paramref name="input" /> is a dictionary type and a non-string key value was encountered.</span>
+          </span>
+          <span data-ttu-id="35f44-246">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-246">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-247">
+            <paramref name="input" /> には、型 <paramref name="T" /> に使用できないメンバー定義が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-247">
+              <paramref name="input" /> includes member definitions that are not available on type <paramref name="T" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="35f44-248">
+            <paramref name="input" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-248">
+              <paramref name="input" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="35f44-249">
+            <paramref name="input" /> にはカスタムの型を示す "__type" プロパティが含まれていますが、シリアライザーに関連付けられた型リゾルバーは対応するマネージ型を見つけることができません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-249">
+              <paramref name="input" /> contains a "__type" property that indicates a custom type, but the type resolver associated with the serializer cannot find a corresponding managed type.</span>
+          </span>
+          <span data-ttu-id="35f44-250">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-250">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-251">
+            <paramref name="input" /> にはカスタムの型を示す "__type" プロパティが含まれていますが、対応する JSON 文字列を逆シリアル化した結果を指定のターゲットの型に代入できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-251">
+              <paramref name="input" /> contains a "__type" property that indicates a custom type, but the result of deserializing the corresponding JSON string cannot be assigned to the expected target type.</span>
+          </span>
+          <span data-ttu-id="35f44-252">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-252">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-253">
+            <paramref name="input" /> には、<see cref="T:System.Object" /> またはインスタンス化できない型 (抽象型やインターフェイスなど) を示す "__type" プロパティが含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-253">
+              <paramref name="input" /> contains a "__type" property that indicates either <see cref="T:System.Object" /> or a non-instantiable type (for example, an abstract types or an interface).</span>
+          </span>
+          <span data-ttu-id="35f44-254">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-254">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-255">JSON 配列を、JSON の逆シリアル化のターゲットとして使用できない、配列のようなマネージ型に変換しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-255">An attempt was made to convert a JSON array to an array-like managed type that is not supported for use as a JSON deserialization target.</span>
+          </span>
+          <span data-ttu-id="35f44-256">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-256">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-257">
+            <paramref name="input" /> を <paramref name="T" /> に変換することはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-257">It is not possible to convert <paramref name="input" /> to <paramref name="T" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="DeserializeObject">
+      <MemberSignature Language="C#" Value="public object DeserializeObject (string input);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object DeserializeObject(string input) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.DeserializeObject(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Function DeserializeObject (input As String) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ DeserializeObject(System::String ^ input);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="input" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="input">
+          <span data-ttu-id="35f44-258">逆シリアル化する JSON 文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-258">The JSON string to be deserialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="35f44-259">指定した JSON 文字列をオブジェクト グラフに変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-259">Converts the specified JSON string to an object graph.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="35f44-260">逆シリアル化されたオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-260">The deserialized object.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-261">この逆シリアル化メソッドは、特定の種類をオブジェクト グラフのルートのキャストを試みませんと同様、<xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="35f44-261">This deserialization method does not try to cast the root of the object graph to a specific type, as with the <xref:System.Web.Script.Serialization.JavaScriptSerializer.Deserialize%2A> method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="35f44-262">
+            <paramref name="input" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-262">
+              <paramref name="input" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="35f44-263">
+            <paramref name="input" /> の長さが <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" /> の値を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-263">The <paramref name="input" /> length exceeds the value of <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" />.</span>
+          </span>
+          <span data-ttu-id="35f44-264">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-264">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-265">
+            <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> で定義された再帰制限を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-265">The recursion limit defined by <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> was exceeded.</span>
+          </span>
+          <span data-ttu-id="35f44-266">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-266">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-267">
+            <paramref name="input" /> パラメーターに予期しない文字シーケンスが含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-267">
+              <paramref name="input" /> contains an unexpected character sequence.</span>
+          </span>
+          <span data-ttu-id="35f44-268">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-268">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-269">
+            <paramref name="input" /> はディクショナリ型であり、文字列ではないキー値が検出されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-269">
+              <paramref name="input" /> is a dictionary type and a non-string key value was encountered.</span>
+          </span>
+          <span data-ttu-id="35f44-270">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-270">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-271">
+            <paramref name="input" /> には、変換先の型に使用できないメンバー定義が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-271">
+              <paramref name="input" /> includes member definitions that are not available on the target type.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="35f44-272">
+            <paramref name="input" /> にはカスタムの型を示す "__type" プロパティが含まれていますが、シリアライザーに現在関連付けられている型リゾルバーは対応するマネージ型を見つけることができません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-272">
+              <paramref name="input" /> contains a "__type" property that indicates a custom type, but the type resolver that is currently associated with the serializer cannot find a corresponding managed type.</span>
+          </span>
+          <span data-ttu-id="35f44-273">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-273">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-274">
+            <paramref name="input" /> にはカスタムの型を示す "__type" プロパティが含まれていますが、対応する JSON 文字列を逆シリアル化した結果を指定のターゲットの型に代入できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-274">
+              <paramref name="input" /> contains a "__type" property that indicates a custom type, but the result of deserializing the corresponding JSON string cannot be assigned to the expected target type.</span>
+          </span>
+          <span data-ttu-id="35f44-275">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-275">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-276">
+            <paramref name="input" /> には、<see cref="T:System.Object" /> またはインスタンス化できない型 (抽象型やインターフェイスなど) を示す "__type" プロパティが含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-276">
+              <paramref name="input" /> contains a "__type" property that indicates either <see cref="T:System.Object" /> or a non-instantiable type (for example, an abstract type or an interface).</span>
+          </span>
+          <span data-ttu-id="35f44-277">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-277">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-278">JSON 配列を、JSON の逆シリアル化のターゲットとして使用できない、配列のようなマネージ型に変換しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-278">An attempt was made to convert a JSON array to an array-like managed type that is not supported for use as a JSON deserialization target.</span>
+          </span>
+          <span data-ttu-id="35f44-279">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-279">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-280">
+            <paramref name="input" /> をターゲットの型に変換できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-280">It is not possible to convert <paramref name="input" /> to the target type.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="MaxJsonLength">
+      <MemberSignature Language="C#" Value="public int MaxJsonLength { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 MaxJsonLength" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" />
+      <MemberSignature Language="VB.NET" Value="Public Property MaxJsonLength As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int MaxJsonLength { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="35f44-281">
+            <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> クラスによって受け入れられる JSON 文字列の最大長を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-281">Gets or sets the maximum length of JSON strings that are accepted by the <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> class.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="35f44-282">JSON 文字列の最大長。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-282">The maximum length of JSON strings.</span>
+          </span>
+          <span data-ttu-id="35f44-283">既定では 2,097, 152 文字は Unicode 文字列データの 4 MB に相当です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-283">The default is 2097152 characters, which is equivalent to 4 MB of Unicode string data.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-284">値、<xref:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength%2A>プロパティは、のみと明示的にインスタンスを作成するが適用される、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスです。</span><span class="sxs-lookup"><span data-stu-id="35f44-284">The value of the <xref:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength%2A> property applies only when you explicitly create an instance of the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class.</span></span> <span data-ttu-id="35f44-285">使用して、`jsonSerialization`非同期通信レイヤーで使用される内部シリアライザー インスタンスの最大の長さを設定する構成ファイルの要素。</span><span class="sxs-lookup"><span data-stu-id="35f44-285">Use the `jsonSerialization` element of the configuration file to set the maximum length for the internal serializer instance that is used by the asynchronous communication layer.</span></span> <span data-ttu-id="35f44-286">シリアル化の構成要素の詳細については、次を参照してください。[する方法: Microsoft Ajax の ASP.NET サービスを構成する](http://msdn.microsoft.com/library/ea4fb56e-bc1d-405a-9877-00cf5e552a30)です。</span><span class="sxs-lookup"><span data-stu-id="35f44-286">For more information about the configuration elements for serialization, see [How to: Configure ASP.NET Services in Microsoft Ajax](http://msdn.microsoft.com/library/ea4fb56e-bc1d-405a-9877-00cf5e552a30).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="35f44-287">プロパティが 1 未満の値に設定されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-287">The property is set to a value that is less than one.</span>
+          </span>
+        </exception>
+        <altmember cref="P:System.Web.Configuration.ScriptingJsonSerializationSection.MaxJsonLength" />
+      </Docs>
+    </Member>
+    <Member MemberName="RecursionLimit">
+      <MemberSignature Language="C#" Value="public int RecursionLimit { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 RecursionLimit" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" />
+      <MemberSignature Language="VB.NET" Value="Public Property RecursionLimit As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int RecursionLimit { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="35f44-288">処理されるオブジェクト レベル数の制限値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-288">Gets or sets the limit for constraining the number of object levels to process.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="35f44-289">オブジェクト レベル数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-289">The number of object levels.</span>
+          </span>
+          <span data-ttu-id="35f44-290">既定値は 100 です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-290">The default is 100.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-291"><xref:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit%2A>プロパティは、オブジェクトの階層内のレベル数を参照する<xref:System.Web.Script.Serialization.JavaScriptSerializer>次の場合に処理されます。</span><span class="sxs-lookup"><span data-stu-id="35f44-291">The <xref:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit%2A> property refers to the number of levels in the object hierarchy that <xref:System.Web.Script.Serialization.JavaScriptSerializer> will process in the following cases:</span></span>  
+  
+-   <span data-ttu-id="35f44-292">ときに、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスが、JSON 文字列を逆シリアル化します。</span><span class="sxs-lookup"><span data-stu-id="35f44-292">When the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class is deserializing a JSON string.</span></span>  
+  
+-   <span data-ttu-id="35f44-293">ときに、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスがシリアル化中に、オブジェクト グラフをウォークします。</span><span class="sxs-lookup"><span data-stu-id="35f44-293">When the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class is walking an object graph during serialization.</span></span>  
+  
+ <span data-ttu-id="35f44-294">値<xref:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit%2A>のみときに明示的にインスタンスを作成するを適用、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスです。</span><span class="sxs-lookup"><span data-stu-id="35f44-294">The value of <xref:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit%2A> applies only when you explicitly create an instance of the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class.</span></span> <span data-ttu-id="35f44-295">使用して、`jsonSerialization`非同期通信レイヤーで使用される内部シリアライザーのインスタンスを処理するオブジェクトの各レベルの数を設定する構成ファイルの要素。</span><span class="sxs-lookup"><span data-stu-id="35f44-295">Use the `jsonSerialization` element of the configuration file to set the number of object levels to process for the internal serializer instance that is used by the asynchronous communication layer.</span></span> <span data-ttu-id="35f44-296">シリアル化の構成要素の詳細については、次を参照してください。[する方法: Microsoft Ajax の ASP.NET サービスを構成する](http://msdn.microsoft.com/library/ea4fb56e-bc1d-405a-9877-00cf5e552a30)です。</span><span class="sxs-lookup"><span data-stu-id="35f44-296">For more information about the configuration elements for serialization, see [How to: Configure ASP.NET Services in Microsoft Ajax](http://msdn.microsoft.com/library/ea4fb56e-bc1d-405a-9877-00cf5e552a30).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="35f44-297">プロパティが 1 未満の値に設定されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-297">The property is set to a value that is less than one.</span>
+          </span>
+        </exception>
+        <altmember cref="P:System.Web.Configuration.ScriptingJsonSerializationSection.RecursionLimit" />
+      </Docs>
+    </Member>
+    <Member MemberName="RegisterConverters">
+      <MemberSignature Language="C#" Value="public void RegisterConverters (System.Collections.Generic.IEnumerable&lt;System.Web.Script.Serialization.JavaScriptConverter&gt; converters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void RegisterConverters(class System.Collections.Generic.IEnumerable`1&lt;class System.Web.Script.Serialization.JavaScriptConverter&gt; converters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.RegisterConverters(System.Collections.Generic.IEnumerable{System.Web.Script.Serialization.JavaScriptConverter})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub RegisterConverters (converters As IEnumerable(Of JavaScriptConverter))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void RegisterConverters(System::Collections::Generic::IEnumerable&lt;System::Web::Script::Serialization::JavaScriptConverter ^&gt; ^ converters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="converters" Type="System.Collections.Generic.IEnumerable&lt;System.Web.Script.Serialization.JavaScriptConverter&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="converters">
+          <span data-ttu-id="35f44-298">登録するカスタムのコンバーターが格納されている配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-298">An array that contains the custom converters to be registered.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="35f44-299">カスタムのコンバーターを <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> インスタンスに登録します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-299">Registers a custom converter with the <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer" /> instance.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-300">1 つまたは複数のカスタムのコンバーターを登録することができます、<xref:System.Web.Script.Serialization.JavaScriptSerializer>インスタンスを使用して、<xref:System.Web.Script.Serialization.JavaScriptSerializer.RegisterConverters%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="35f44-300">You can register one or more custom converters with a <xref:System.Web.Script.Serialization.JavaScriptSerializer> instance by using the <xref:System.Web.Script.Serialization.JavaScriptSerializer.RegisterConverters%2A> method.</span></span> <span data-ttu-id="35f44-301">カスタムのコンバーターが登録されると、<xref:System.Web.Script.Serialization.JavaScriptSerializer>マネージ型をシリアル化とマネージ型を JSON 文字列を逆シリアル化するコンバーターを使用します。</span><span class="sxs-lookup"><span data-stu-id="35f44-301">When custom converters are registered, <xref:System.Web.Script.Serialization.JavaScriptSerializer> uses the converters both to serialize managed types and to deserialize JSON strings to managed types.</span></span>  
+  
+ <span data-ttu-id="35f44-302">複数のコンバーターは、同じに登録されていることができます<xref:System.Web.Script.Serialization.JavaScriptSerializer>インスタンス、およびこれらのコンバーターは、同じ型のサポートを指定できます。</span><span class="sxs-lookup"><span data-stu-id="35f44-302">Multiple converters can be registered with the same <xref:System.Web.Script.Serialization.JavaScriptSerializer> instance, and these converters can indicate support for the same type.</span></span> <span data-ttu-id="35f44-303">特定の種類に対して登録されている最後のコンバーターで使用される 1 つは、その結果、<xref:System.Web.Script.Serialization.JavaScriptSerializer>型をシリアル化します。</span><span class="sxs-lookup"><span data-stu-id="35f44-303">As a result, the last converter that is registered for a specific type is the one that will be used by <xref:System.Web.Script.Serialization.JavaScriptSerializer> to serialize the type.</span></span>  
+  
+ <span data-ttu-id="35f44-304">カスタムのコンバーターの詳細については、次を参照してください。、<xref:System.Web.Script.Serialization.JavaScriptConverter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="35f44-304">For more information about custom converters, see the <xref:System.Web.Script.Serialization.JavaScriptConverter> class.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="35f44-305">次の例は、カスタムのコンバーターを登録する方法を示します、<xref:System.Web.Script.Serialization.JavaScriptSerializer>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="35f44-305">The following example shows how to register a custom converter with a <xref:System.Web.Script.Serialization.JavaScriptSerializer> instance.</span></span> <span data-ttu-id="35f44-306">このコード例に示されている例の一部である、<xref:System.Web.Script.Serialization.JavaScriptSerializer>クラスです。</span><span class="sxs-lookup"><span data-stu-id="35f44-306">This code example is part of a larger example provided for the <xref:System.Web.Script.Serialization.JavaScriptSerializer> class.</span></span>  
+  
+ [!code-csharp[System.Web.Script.Serialization#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.Script.Serialization/CS/Default.aspx#1)]
+ [!code-vb[System.Web.Script.Serialization#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.Script.Serialization/VB/Default.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="35f44-307">
+            <paramref name="converters" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-307">
+              <paramref name="converters" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Serialize">
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="35f44-308">オブジェクトを JSON 文字列に変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-308">Converts an object to a JSON string.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Serialize">
+      <MemberSignature Language="C#" Value="public string Serialize (object obj);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string Serialize(object obj) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.Serialize(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Function Serialize (obj As Object) As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::String ^ Serialize(System::Object ^ obj);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="obj" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="obj">
+          <span data-ttu-id="35f44-309">シリアル化するオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-309">The object to serialize.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="35f44-310">オブジェクトを JSON 文字列に変換します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-310">Converts an object to a JSON string.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="35f44-311">シリアル化された JSON 文字列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-311">The serialized JSON string.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-312">ときに、<xref:System.Web.Script.Serialization.JavaScriptSerializer>インスタンスは、シリアライザーの呼び出し、カスタムのコンバーターが登録されている型をシリアル化、 <xref:System.Web.Script.Serialization.JavaScriptConverter.Serialize%2A> JSON 文字列に変換される名前/値ペアのディクショナリを取得します。</span><span class="sxs-lookup"><span data-stu-id="35f44-312">When the <xref:System.Web.Script.Serialization.JavaScriptSerializer> instance is serializing a type for which a custom converter is registered, the serializer calls the <xref:System.Web.Script.Serialization.JavaScriptConverter.Serialize%2A> method to obtain the dictionary of name/value pairs that will be converted to a JSON string.</span></span>  
+  
+ <span data-ttu-id="35f44-313"><xref:System.Web.Script.Serialization.JavaScriptSerializer.Serialize%2A>オブジェクト グラフが複雑すぎるため、またはのインスタンスが登録されている場合、メソッドは例外をスローできますできます<xref:System.Web.Script.Serialization.JavaScriptConverter>コンバーター再帰が発生します。</span><span class="sxs-lookup"><span data-stu-id="35f44-313">The <xref:System.Web.Script.Serialization.JavaScriptSerializer.Serialize%2A> method can also throw exceptions if the object graph is too complex, or if registered instances of <xref:System.Web.Script.Serialization.JavaScriptConverter> have caused converter recursion.</span></span>  
+  
+   
+  
+## Examples  
+<span data-ttu-id="35f44-314">次の例では、およびデータ オブジェクトを逆シリアル化する方法の簡単な図を提供します。</span><span class="sxs-lookup"><span data-stu-id="35f44-314">The following example provides a simple illustration of how to serialize and deserialize data objects.</span></span>  
+  
+[!code-csharp[System.Web.Script.JavaScriptSerializer](~/samples/snippets/csharp/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/cs/default.aspx.cs#1)]  
+[!code-vb[System.Web.Script.JavaScriptSerializer](~/samples/snippets/visualbasic/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/vb/default.aspx.vb#1)]  
+
+<span data-ttu-id="35f44-315">という名前のクラスが必要な`Person`、次の例で示したです。</span><span class="sxs-lookup"><span data-stu-id="35f44-315">It requires a class named `Person`, which is shown in the following example.</span></span> 
+
+[!code-csharp[System.Web.Script.JavaScriptSerializer](~/samples/snippets/csharp/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/cs/default.aspx.cs#2)]  
+[!code-vb[System.Web.Script.JavaScriptSerializer](~/samples/snippets/visualbasic/VS_Snippets_WebNet/system.web.script.serialization.javascriptserializer/vb/default.aspx.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="35f44-316">生成される JSON 文字列が、<see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" /> 値を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-316">The resulting JSON string exceeds the value of <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" />.</span>
+          </span>
+          <span data-ttu-id="35f44-317">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-317">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-318">
+            <paramref name="obj" /> に循環参照が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-318">
+              <paramref name="obj" /> contains a circular reference.</span>
+          </span>
+          <span data-ttu-id="35f44-319">循環参照は、子オブジェクトが親オブジェクトへの参照を持ち、親オブジェクトがその子オブジェクトへの参照を持つ場合に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-319">A circular reference occurs when a child object has a reference to a parent object, and the parent object has a reference to the child object.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="35f44-320">
+            <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> で定義された再帰制限を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-320">The recursion limit defined by <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> was exceeded.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Serialize">
+      <MemberSignature Language="C#" Value="public void Serialize (object obj, System.Text.StringBuilder output);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Serialize(object obj, class System.Text.StringBuilder output) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Script.Serialization.JavaScriptSerializer.Serialize(System.Object,System.Text.StringBuilder)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Serialize (obj As Object, output As StringBuilder)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Serialize(System::Object ^ obj, System::Text::StringBuilder ^ output);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="obj" Type="System.Object" />
+        <Parameter Name="output" Type="System.Text.StringBuilder" />
+      </Parameters>
+      <Docs>
+        <param name="obj">
+          <span data-ttu-id="35f44-321">シリアル化するオブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-321">The object to serialize.</span>
+          </span>
+        </param>
+        <param name="output">
+          <span data-ttu-id="35f44-322">JSON 文字列を書き込むために使用される <see cref="T:System.Text.StringBuilder" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-322">The <see cref="T:System.Text.StringBuilder" /> object that is used to write the JSON string.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="35f44-323">オブジェクトをシリアル化し、生成された JSON 文字列を指定の <see cref="T:System.Text.StringBuilder" /> オブジェクトに書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-323">Serializes an object and writes the resulting JSON string to the specified <see cref="T:System.Text.StringBuilder" /> object.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="35f44-324">ときに、<xref:System.Web.Script.Serialization.JavaScriptSerializer>インスタンスは、シリアライザーの呼び出し、カスタムのコンバーターが登録されている型をシリアル化、 <xref:System.Web.Script.Serialization.JavaScriptConverter.Serialize%2A> JSON 文字列に変換される名前/値ペアのディクショナリを取得します。</span><span class="sxs-lookup"><span data-stu-id="35f44-324">When the <xref:System.Web.Script.Serialization.JavaScriptSerializer> instance is serializing a type for which a custom converter is registered, the serializer calls the <xref:System.Web.Script.Serialization.JavaScriptConverter.Serialize%2A> method to obtain the dictionary of name/value pairs that will be converted to a JSON string.</span></span>  
+  
+ <span data-ttu-id="35f44-325"><xref:System.Web.Script.Serialization.JavaScriptSerializer.Serialize%2A>オブジェクト グラフが複雑すぎるため、またはのインスタンスが登録されている場合、メソッドは例外をスローできますできます<xref:System.Web.Script.Serialization.JavaScriptConverter>コンバーター再帰が発生します。</span><span class="sxs-lookup"><span data-stu-id="35f44-325">The <xref:System.Web.Script.Serialization.JavaScriptSerializer.Serialize%2A> method can also throw exceptions if the object graph is too complex, or if registered instances of <xref:System.Web.Script.Serialization.JavaScriptConverter> have caused converter recursion.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="35f44-326">生成される JSON 文字列が、<see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" /> 値を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-326">The resulting JSON string exceeds the value of <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.MaxJsonLength" />.</span>
+          </span>
+          <span data-ttu-id="35f44-327">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-327">-or-</span>
+          </span>
+          <span data-ttu-id="35f44-328">
+            <paramref name="obj" /> に循環参照が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-328">
+              <paramref name="obj" /> contains a circular reference.</span>
+          </span>
+          <span data-ttu-id="35f44-329">循環参照は、子オブジェクトが親オブジェクトへの参照を持ち、親オブジェクトがその子オブジェクトへの参照を持つ場合に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-329">A circular reference occurs when a child object has a reference to a parent object, and the parent object has a reference to the child object.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="35f44-330">
+            <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> で定義された再帰制限を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-330">The recursion limit defined by <see cref="P:System.Web.Script.Serialization.JavaScriptSerializer.RecursionLimit" /> was exceeded.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="35f44-331">
+            <paramref name="output" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="35f44-331">
+              <paramref name="output" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

@@ -1,0 +1,928 @@
+<Type Name="TaskScheduler" FullName="System.Threading.Tasks.TaskScheduler">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="ddd94061f594e353cba8674c76ffcb77a643ddb1" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class TaskScheduler" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit TaskScheduler extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Threading.Tasks.TaskScheduler" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class TaskScheduler" />
+  <TypeSignature Language="C++ CLI" Value="public ref class TaskScheduler abstract" />
+  <AssemblyInfo>
+    <AssemblyName>System.Threading.Tasks</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Diagnostics.DebuggerDisplay("Id={Id}")</AttributeName>
+    </Attribute>
+    <Attribute>
+      <AttributeName>System.Diagnostics.DebuggerTypeProxy(typeof(System.Threading.Tasks.TaskScheduler/SystemThreadingTasks_TaskSchedulerDebugView))</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="c3a19-101">スレッドのキューにタスクを置くという下位の作業を処理するオブジェクトを表します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c3a19-101">Represents an object that handles the low-level work of queuing tasks onto threads.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-102">インスタンス、<xref:System.Threading.Tasks.TaskScheduler>クラスは、タスク スケジューラを表します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-102">An instance of the <xref:System.Threading.Tasks.TaskScheduler> class represents a task scheduler.</span></span> <span data-ttu-id="c3a19-103">タスク スケジューラは、タスクの作業が最終的に実行されるようにします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-103">A task scheduler ensures that the work of a task is eventually executed.</span></span>  
+  
+ <span data-ttu-id="c3a19-104">既定のタスク スケジューラは、負荷分散、スループット最大化のためのスレッドのインジェクション/リタイヤ、および全体のパフォーマンスの向上のためのワーク スティーリングを提供する .NET Framework 4 スレッド プールに基づいています。</span><span class="sxs-lookup"><span data-stu-id="c3a19-104">The default task scheduler is based on the .NET Framework 4 thread pool, which provides work-stealing for load-balancing, thread injection/retirement for maximum throughput, and overall good performance.</span></span> <span data-ttu-id="c3a19-105">ほとんどのシナリオでは、既定のタスク スケジューラで十分です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-105">It should be sufficient for most scenarios.</span></span>  
+  
+ <span data-ttu-id="c3a19-106"><xref:System.Threading.Tasks.TaskScheduler>クラスは、すべてのカスタマイズ可能なスケジュール ロジックの拡張ポイントとしても機能します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-106">The <xref:System.Threading.Tasks.TaskScheduler> class also serves as the extension point for all customizable scheduling logic.</span></span>  <span data-ttu-id="c3a19-107">タスクの実行、およびスケジュールされたタスクをスケジュールする方法をデバッガーに公開するなど、メカニズムが含まれます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-107">This includes mechanisms such as how to schedule a task for execution, and how scheduled tasks should be exposed to debuggers.</span></span> <span data-ttu-id="c3a19-108">特別な機能を必要とする場合は、カスタム スケジューラを作成して、特定のタスクまたはクエリに対して有効にします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-108">If you require special functionality, you can create a custom scheduler and enable it for specific tasks or queries.</span></span>  
+  
+ <span data-ttu-id="c3a19-109">このトピックの内容:</span><span class="sxs-lookup"><span data-stu-id="c3a19-109">In this topic:</span></span>  
+[<span data-ttu-id="c3a19-110">既定のタスク スケジューラと、スレッド プール</span><span class="sxs-lookup"><span data-stu-id="c3a19-110">The default task scheduler and the thread pool</span></span>](#Default)  
+ [<span data-ttu-id="c3a19-111">ローカル キューとの比較にグローバル キュー</span><span class="sxs-lookup"><span data-stu-id="c3a19-111">The global queue vs. local queues</span></span>](#Queues)  
+ [<span data-ttu-id="c3a19-112">ワーク スティー リング</span><span class="sxs-lookup"><span data-stu-id="c3a19-112">Work stealing</span></span>](#Stealing)  
+ [<span data-ttu-id="c3a19-113">実行時間の長いタスク</span><span class="sxs-lookup"><span data-stu-id="c3a19-113">Long-running tasks</span></span>](#LongRunning)  
+ [<span data-ttu-id="c3a19-114">タスクのインライン展開</span><span class="sxs-lookup"><span data-stu-id="c3a19-114">Task inlining</span></span>](#Inlining)  
+[<span data-ttu-id="c3a19-115">同期コンテキストの指定</span><span class="sxs-lookup"><span data-stu-id="c3a19-115">Specifying a synchronization context</span></span>](#Sync)  
+  
+<a name="Default"></a>   
+## <a name="the-default-task-scheduler-and-the-thread-pool"></a><span data-ttu-id="c3a19-116">既定のタスク スケジューラと、スレッド プール</span><span class="sxs-lookup"><span data-stu-id="c3a19-116">The default task scheduler and the thread pool</span></span>  
+ <span data-ttu-id="c3a19-117">タスク並列ライブラリおよび PLINQ の既定のスケジューラで表される、.NET Framework スレッド プールを使用して、<xref:System.Threading.ThreadPool>クラス、キューに置き、作業を実行します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-117">The default scheduler for the Task Parallel Library and PLINQ uses the .NET Framework thread pool, which is represented by the <xref:System.Threading.ThreadPool> class, to queue and execute work.</span></span> <span data-ttu-id="c3a19-118">スレッド プールによって提供される情報を使用して、<xref:System.Threading.Tasks.Task>粒度の細かい並列化 (有効期間が短い作業単位) 並列タスクや並列クエリよく表すを効率的にサポートする型。</span><span class="sxs-lookup"><span data-stu-id="c3a19-118">The thread pool uses the information that is provided by the <xref:System.Threading.Tasks.Task> type to efficiently     support the fine-grained parallelism (short-lived units of work) that parallel tasks and queries often represent.</span></span>  
+  
+<a name="Queues"></a>   
+### <a name="the-global-queue-vs-local-queues"></a><span data-ttu-id="c3a19-119">ローカル キューとの比較にグローバル キュー</span><span class="sxs-lookup"><span data-stu-id="c3a19-119">The global queue vs. local queues</span></span>  
+ <span data-ttu-id="c3a19-120">スレッド プールでは、グローバル FIFO (先入れ、先出し) 作業の各アプリケーション ドメインのスレッドのキューを保持します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-120">The thread pool maintains a global FIFO (first-in, first-out) work queue for threads in each application domain.</span></span> <span data-ttu-id="c3a19-121">プログラムを呼び出すたびに、 <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A?displayProperty=nameWithType> (または<xref:System.Threading.ThreadPool.UnsafeQueueUserWorkItem%2A?displayProperty=nameWithType>)、メソッドは、この共有キューに配置、および作業最終的にキューから取り出され、次に利用可能になるスレッドにします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-121">Whenever a program calls the <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A?displayProperty=nameWithType> (or <xref:System.Threading.ThreadPool.UnsafeQueueUserWorkItem%2A?displayProperty=nameWithType>) method, the work is put on this shared queue and eventually de-queued onto the next thread that becomes available.</span></span> <span data-ttu-id="c3a19-122">.NET Framework 4 以降ではこのキューが改善されましたに似たロック制御不要のアルゴリズムを使用して、<xref:System.Collections.Concurrent.ConcurrentQueue%601>クラスです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-122">Starting with the .NET Framework 4, this queue has been improved to use a lock-free algorithm that resembles the <xref:System.Collections.Concurrent.ConcurrentQueue%601> class.</span></span> <span data-ttu-id="c3a19-123">このロック制御不要の実装を使用するは、スレッド プールは、キューに入れ、作業項目は、キューの場合に、短時間を費やしています。</span><span class="sxs-lookup"><span data-stu-id="c3a19-123">By using this lock-free implementation, the thread pool spends less time when it queues and de-queues work items.</span></span> <span data-ttu-id="c3a19-124">このパフォーマンスの利点は、スレッド プールを使用するすべてのプログラムで使用可能です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-124">This performance benefit is available to all programs that use the thread pool.</span></span>  
+  
+ <span data-ttu-id="c3a19-125">トップレベル タスクは、別のタスクのコンテキストで作成されないタスクのことで、他の作業項目と同様にグローバル キューに配置されます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-125">Top-level tasks, which are tasks that are not created in the context of another task, are put on the global queue just like any other work item.</span></span> <span data-ttu-id="c3a19-126">ただし、別のタスクのコンテキストで作成される入れ子のタスクまたは子タスクは、まったく異なる方法で処理されます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-126">However, nested or child tasks, which are created in the context of another task, are handled quite differently.</span></span> <span data-ttu-id="c3a19-127">子タスクまたは入れ子のタスクは、親タスクが実行されているスレッドに固有のローカル キューに配置されます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-127">A child or nested task is put on a local queue that is specific to the thread on which the parent task is executing.</span></span> <span data-ttu-id="c3a19-128">親タスクはトップレベルのタスクである場合もあれば、別のタスクの子である場合もあります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-128">The parent task may be a top-level task or it also may be the child of another task.</span></span> <span data-ttu-id="c3a19-129">このスレッドは、追加の作業を処理する準備が整ったら、最初にローカル キューを検索します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-129">When this thread is ready for more work, it first looks in the local queue.</span></span> <span data-ttu-id="c3a19-130">作業項目がローカル キューで待機している場合は、それらにすばやくアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-130">If work items are waiting there, they can be accessed quickly.</span></span> <span data-ttu-id="c3a19-131">ローカル キューは、後入れ先出しの順序でキャッシュの局所性を保持し、競合を減らすには、(LIFO) アクセスします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-131">The local queues are accessed in last-in, first-out order (LIFO) to preserve cache locality and reduce contention.</span></span> <span data-ttu-id="c3a19-132">子タスクと入れ子になったタスクの詳細については、次を参照してください。[アタッチとデタッチされた子タスク](~/docs/standard/parallel-programming/attached-and-detached-child-tasks.md)です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-132">For more information about child tasks and nested tasks, see [Attached and Detached Child Tasks](~/docs/standard/parallel-programming/attached-and-detached-child-tasks.md).</span></span>  
+  
+ <span data-ttu-id="c3a19-133">ローカル キューを使用するにグローバル キューに負荷が減るだけでなく、データの局所性も活用します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-133">The use of local queues not only reduces pressure on the global queue, but also takes advantage of data locality.</span></span> <span data-ttu-id="c3a19-134">頻繁にキュー、ローカルの作業項目の物理的に近くにあるメモリ参照データ構造です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-134">Work items in the local queue frequently reference data structures that are physically near one another in memory.</span></span> <span data-ttu-id="c3a19-135">このような場合は、データは既にキャッシュ後、最初のタスクは実行し、すばやくアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-135">In these cases, the data is already in the cache after the first task has run and can be accessed quickly.</span></span> <span data-ttu-id="c3a19-136">両方[Parallel LINQ (PLINQ)](~/docs/standard/parallel-programming/parallel-linq-plinq.md)と<xref:System.Threading.Tasks.Parallel>を使用して入れ子になったタスクと子タスクを広範囲に、クラスし、ローカル作業キューを使用する重要なことを実現します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-136">Both [Parallel LINQ (PLINQ)](~/docs/standard/parallel-programming/parallel-linq-plinq.md) and the <xref:System.Threading.Tasks.Parallel> class use nested tasks and child tasks extensively, and achieve significant speedups by using the local work queues.</span></span>  
+  
+<a name="Stealing"></a>   
+### <a name="work-stealing"></a><span data-ttu-id="c3a19-137">ワーク スティー リング</span><span class="sxs-lookup"><span data-stu-id="c3a19-137">Work stealing</span></span>  
+ <span data-ttu-id="c3a19-138">.NET Framework 4 以降では、スレッド プール機能も確認するスレッドがとどまっているないアイドル作業が担当するキューの中に、ワーク スティー リング アルゴリズムです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-138">Starting with the .NET Framework 4, the thread pool also features a work-stealing algorithm to help make sure that no threads are sitting idle while others still have work in their queues.</span></span> <span data-ttu-id="c3a19-139">スレッド プールのスレッドは、追加の作業を処理する準備が整ったら、最初にローカル キューの先頭を探します。次にグローバル キューを探し、最後に他のスレッドのローカル キューを探します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-139">When a thread-pool thread is ready for more work, it first looks at the head of its local queue, then in the global queue, and then in the local queues of other threads.</span></span> <span data-ttu-id="c3a19-140">別のスレッドのローカル キューで作業項目が見つかった場合、作業を効率的に実行できるように、最初にヒューリスティックを適用します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-140">If it finds a work item in the local queue of another thread, it first applies heuristics to make sure that it can run the work efficiently.</span></span> <span data-ttu-id="c3a19-141">できる場合は、キューで FIFO の順序) の末尾から、作業項目。</span><span class="sxs-lookup"><span data-stu-id="c3a19-141">If it can, it de-queues the work item from the tail (in FIFO order).</span></span> <span data-ttu-id="c3a19-142">これにより、各ローカル キューでの競合が減り、データの局所性が保持されます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-142">This reduces contention on each local queue and preserves data locality.</span></span> <span data-ttu-id="c3a19-143">このアーキテクチャは、スレッド プール負荷を分散旧バージョンより効率的に作業に役立ちます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-143">This architecture helps the  thread pool load-balance work more efficiently than past versions did.</span></span>  
+  
+<a name="LongRunning"></a>   
+### <a name="long-running-tasks"></a><span data-ttu-id="c3a19-144">実行時間の長いタスク</span><span class="sxs-lookup"><span data-stu-id="c3a19-144">Long-running tasks</span></span>  
+ <span data-ttu-id="c3a19-145">タスクがローカル キューに配置されるのを明示的に防止したい場合があります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-145">You may want to explicitly prevent a task from being put on a local queue.</span></span> <span data-ttu-id="c3a19-146">たとえば、特定の作業項目がかなり長い時間実行され、ローカル キューの他の作業項目をすべてブロックする可能性があることがわかっている場合などです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-146">For example, you may know that a particular work item will run for a relatively long time and is likely to block all other work items on the local queue.</span></span> <span data-ttu-id="c3a19-147">このような場合は、<xref:System.Threading.Tasks.TaskCreationOptions?displayProperty=nameWithType> オプションを指定できます。このオプションは、タスクの処理に追加のスレッドが必要になる可能性があるというヒントをスケジューラに提供し、他のスレッドまたはローカル キューの作業項目の進行をスケジューラがブロックするのを防ぎます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-147">In this case, you can specify the <xref:System.Threading.Tasks.TaskCreationOptions?displayProperty=nameWithType> option, which provides a hint to the scheduler that an additional thread might be required for the task so that it does not block the forward progress of other threads or work items on the local queue.</span></span> <span data-ttu-id="c3a19-148">このオプションを使用するスレッド プール、完全が含まれないようにグローバルとローカル キュー。</span><span class="sxs-lookup"><span data-stu-id="c3a19-148">By using this option you avoid the thread pool completely, including the global and local queues.</span></span>  
+  
+<a name="Inlining"></a>   
+### <a name="task-inlining"></a><span data-ttu-id="c3a19-149">タスクのインライン展開</span><span class="sxs-lookup"><span data-stu-id="c3a19-149">Task inlining</span></span>  
+ <span data-ttu-id="c3a19-150">一部の場合に、<xref:System.Threading.Tasks.Task>待機が実行されることが同期的に、待機操作を実行しているスレッドでします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-150">In some cases when a <xref:System.Threading.Tasks.Task> is waited on, it may be executed synchronously on the thread that is performing the wait operation.</span></span> <span data-ttu-id="c3a19-151">これによって、追加のスレッドが不要にし、それ以外の場合がブロックされている既存のスレッドを使用して、代わりに、パフォーマンスが向上します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-151">This enhances performance by preventing the need for an additional thread and instead using the existing thread, which would have blocked otherwise.</span></span> <span data-ttu-id="c3a19-152">これは再入によるエラーを防ぐためには、タスクのインライン展開のみが発生した関連するスレッドのローカル キューで待機対象が見つかったときにします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-152">To prevent errors due to re-entrancy, task inlining only occurs when the wait target is found in the relevant thread's local queue.</span></span>  
+  
+<a name="Sync"></a>   
+## <a name="specifying-a-synchronization-context"></a><span data-ttu-id="c3a19-153">同期コンテキストの指定</span><span class="sxs-lookup"><span data-stu-id="c3a19-153">Specifying a synchronization context</span></span>  
+ <span data-ttu-id="c3a19-154"><xref:System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext%2A?displayProperty=nameWithType> メソッドを使用すると、タスクが特定のスレッドで実行されるようにスケジュールできます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-154">You can use the <xref:System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext%2A?displayProperty=nameWithType> method to specify that a task should be scheduled to run on a particular thread.</span></span> <span data-ttu-id="c3a19-155">これは、Windows フォームや Windows Presentation Foundation などのフレームワークで役立ちます。これらのフレームワークでは、多くの場合、ユーザー インターフェイス オブジェクトへのアクセスが、その UI オブジェクトが作成されたスレッドで実行されているコードに制限されるからです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-155">This is useful in frameworks such as Windows Forms and Windows Presentation Foundation where access to user interface objects is often restricted to code that is running on the same thread on which the UI object was created.</span></span>  
+  
+ <span data-ttu-id="c3a19-156">次の例では、 <xref:System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext%2A?displayProperty=nameWithType> Windows Presentation Foundation (WPF) アプリケーションでは、ユーザー インターフェイス (UI) コントロールが作成された同じスレッドでタスクをスケジュールする方法です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-156">The following example uses the <xref:System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext%2A?displayProperty=nameWithType> method in a Windows Presentation Foundation (WPF) app to schedule a task on the same thread that the user interface (UI) control was created on.</span></span>   <span data-ttu-id="c3a19-157">例では、指定したディレクトリからランダムに選択されているイメージを作成します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-157">The example creates a mosaic of images that are randomly selected from a specified directory.</span></span> <span data-ttu-id="c3a19-158">WPF オブジェクトは、読み込みし、画像をサイズ変更に使用されます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-158">The WPF objects are used to load and resize the images.</span></span> <span data-ttu-id="c3a19-159">生のピクセルを使用するタスクに渡されて、<xref:System.Threading.Tasks.Parallel.For%2A>ラージ 1 バイト配列にピクセル データを書き込むループします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-159">The raw pixels are then passed to a task that uses a <xref:System.Threading.Tasks.Parallel.For%2A> loop to write the pixel data into a large single-byte array.</span></span> <span data-ttu-id="c3a19-160">同期は必要ありませんので、2 つのタイルが同じ配列の要素を占有します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-160">No synchronization is required because no two tiles occupy the same array elements.</span></span> <span data-ttu-id="c3a19-161">その他のいずれかのタイルとは別にそれらの位置が計算されるため、タイルを任意の順序で記述もできます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-161">The tiles can also be written in any order because their position is calculated independently of any other tile.</span></span> <span data-ttu-id="c3a19-162">大きな配列がイメージ コントロールにピクセル データが読み込まれる場所が UI スレッドで実行されるタスクに渡されます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-162">The large array is then passed to a task that runs on the UI thread, where the pixel data is loaded into an Image control.</span></span>  
+  
+ <span data-ttu-id="c3a19-163">例では、UI スレッドからのデータを移動するには、並列ループを使用して、変更および<xref:System.Threading.Tasks.Task>オブジェクト、し、それを UI スレッドで実行されるタスクに渡します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-163">The example moves data off the UI thread, modifies it by using parallel loops and <xref:System.Threading.Tasks.Task> objects, and then passes it back to a task that runs on the UI thread.</span></span> <span data-ttu-id="c3a19-164">この方法は、タスク並列ライブラリを使用して、WPF API でサポートされていないか十分な速さを操作する必要がある場合に便利です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-164">This approach is useful when you have to use the Task Parallel Library to perform operations that either are not supported by the WPF API, or are not sufficiently fast.</span></span> <span data-ttu-id="c3a19-165">WPF ではイメージ表さを作成する別の方法を使用して、<xref:System.Windows.Controls.WrapPanel?displayProperty=nameWithType>を制御し、イメージを追加します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-165">Another way to create an image mosaic in WPF is to use a <xref:System.Windows.Controls.WrapPanel?displayProperty=nameWithType> control and add images to it.</span></span> <span data-ttu-id="c3a19-166"><xref:System.Windows.Controls.WrapPanel>タイルの配置の作業を処理します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-166">The <xref:System.Windows.Controls.WrapPanel> handles the work of positioning the tiles.</span></span> <span data-ttu-id="c3a19-167">ただし、この作業は、UI スレッドでのみ実行できます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-167">However, this work can only be performed on the UI thread.</span></span>  
+  
+ [!code-csharp[TPL_SyncContext#01](~/samples/snippets/csharp/VS_Snippets_Misc/tpl_synccontext/cs/mainwindow.xaml.cs#01)]
+ [!code-vb[TPL_SyncContext#01](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl_synccontext/vb/MainWindow.xaml.vb#01)]  
+  
+ <span data-ttu-id="c3a19-168">例を作成するには、Visual Studio での WPF アプリケーション プロジェクトを作成し、任意の名前を割り当てます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-168">To create the example, create a WPF application project in Visual Studio and assign it a name of your choice.</span></span> <span data-ttu-id="c3a19-169">次の操作を行います。</span><span class="sxs-lookup"><span data-stu-id="c3a19-169">Then do the following:</span></span>  
+  
+1.  <span data-ttu-id="c3a19-170">デザイン ビューで、ドラッグ、<xref:System.Windows.Controls.Image>から制御、**ツールボックス**デザイン画面にします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-170">In design view, drag an <xref:System.Windows.Controls.Image> control from the **Toolbox** to the design surface.</span></span> <span data-ttu-id="c3a19-171">XAML ビューで、"Left"と水平方向の配置を指定します</span><span class="sxs-lookup"><span data-stu-id="c3a19-171">In XAML view, specify the horizontal alignment as "Left."</span></span> <span data-ttu-id="c3a19-172">サイズは、実行時にコントロールが動的にサイズ変更は、するためには関係ありません。</span><span class="sxs-lookup"><span data-stu-id="c3a19-172">The size does not matter because the control is be dynamically resized at run time.</span></span> <span data-ttu-id="c3a19-173">「イメージ」の既定の名前をそのまま使用します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-173">Accept the default name, "image".</span></span>  
+  
+2.  <span data-ttu-id="c3a19-174">ドラッグ、<xref:System.Windows.Controls.Button>から制御、**ツールボックス**アプリケーション ウィンドウの左下の部分にします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-174">Drag a <xref:System.Windows.Controls.Button> control from the **Toolbox** to the lower left part of the application window.</span></span> <span data-ttu-id="c3a19-175">追加ボタンをダブルクリックして、<xref:System.Windows.Controls.Primitives.ButtonBase.Click>イベント ハンドラー。</span><span class="sxs-lookup"><span data-stu-id="c3a19-175">Double-click the button to add a <xref:System.Windows.Controls.Primitives.ButtonBase.Click> event handler.</span></span> <span data-ttu-id="c3a19-176">XAML ビューで、指定、 <xref:System.Windows.Controls.ContentControl.Content%2A> 「表さようにする」と"Left"としての水平方向の配置を指定して、ボタンのプロパティです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-176">In XAML view, specify the <xref:System.Windows.Controls.ContentControl.Content%2A> property of the button as "Make a Mosaic" and specify its horizontal alignment as "Left".</span></span> <span data-ttu-id="c3a19-177">"Button"既定の名前をそのまま使用します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-177">Accept the default name, "button".</span></span>  
+  
+3.  <span data-ttu-id="c3a19-178">この例のコードを MainWindow.xaml.cs または MainWindow.xaml.vb ファイルの内容全体を置き換えます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-178">Replace the entire contents of the MainWindow.xaml.cs or MainWindow.xaml.vb file with the code from this example.</span></span> <span data-ttu-id="c3a19-179">ワークスペースの名前がプロジェクト名と一致していることを確認してください。</span><span class="sxs-lookup"><span data-stu-id="c3a19-179">Make sure that the name of the workspace matches the project name.</span></span>  
+  
+4.  <span data-ttu-id="c3a19-180">この例では、C:\Users\Public\Pictures\Sample Pictures をという名前のディレクトリから JPEG イメージを読み取り\\です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-180">The example reads JPEG images from a directory named C:\Users\Public\Pictures\Sample Pictures\\.</span></span> <span data-ttu-id="c3a19-181">ディレクトリを作成および、いくつかのイメージを配置またはイメージを含むその他のディレクトリを参照するパスを変更します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-181">Either create the directory and place some images in it, or change the path to refer to some other directory that contains images.</span></span>  
+  
+ <span data-ttu-id="c3a19-182">この例では、いくつかの制限があります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-182">This example has some limitations.</span></span> <span data-ttu-id="c3a19-183">たとえば、のみ 32 ビットごとのピクセルのイメージがサポートされています。によって他の形式でのイメージが破損している、<xref:System.Windows.Media.Imaging.BitmapImage>サイズ変更操作中にオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="c3a19-183">For example, only 32-bits-per-pixel images are supported; images in other formats are corrupted by the <xref:System.Windows.Media.Imaging.BitmapImage> object during the resizing operation.</span></span> <span data-ttu-id="c3a19-184">また、ソース イメージする必要がありますすべてタイルのサイズよりも大きいです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-184">Also, the source images must all be larger than the tile size.</span></span> <span data-ttu-id="c3a19-185">これ以上の手順としては、複数のピクセル形式やファイルのサイズを処理する機能を追加できます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-185">As a further exercise, you can add functionality to handle multiple pixel formats and file sizes.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3a19-186">次の例から取得、 [、.NET Framework 4 による並列プログラミングのサンプル](http://go.microsoft.com/fwlink/?LinkID=165717)MSDN コード ギャラリー Web サイトです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-186">The following example is taken from the [Samples for Parallel Programming with the .NET Framework 4](http://go.microsoft.com/fwlink/?LinkID=165717) on the MSDN Code Gallery Web site.</span></span>  <span data-ttu-id="c3a19-187">アプリで使用されるスレッドの数を制限するカスタムのタスク スケジューラを作成します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-187">It creates a custom task scheduler that limits the number of threads used by the app.</span></span> <span data-ttu-id="c3a19-188">2 つのタスクのセットを起動し、タスクおよびタスクが実行されているスレッドに関する情報を表示します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-188">It then launches two sets of tasks and displays information about the task and the thread on which the task is executing.</span></span>  
+  
+ [!code-csharp[TPL_Schedulers#02](~/samples/snippets/csharp/VS_Snippets_Misc/tpl_schedulers/cs/limitex1.cs#02)]
+ [!code-vb[TPL_Schedulers#02](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl_schedulers/vb/module2.vb#02)]  
+  
+ <span data-ttu-id="c3a19-189">さらに、いくつかのサンプル タスク スケジューラが使用可能なコード ギャラリー: [、.NET Framework 4 による並列プログラミングのサンプル](http://go.microsoft.com/fwlink/?LinkID=165717)です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-189">In addition, several sample task schedulers are available on Code Gallery: [Samples for Parallel Programming with the .NET Framework 4](http://go.microsoft.com/fwlink/?LinkID=165717).</span></span>  
+  
+ ]]></format>
+    </remarks>
+    <threadsafe>
+      <span data-ttu-id="c3a19-190">すべての抽象メンバー<see cref="T:System.Threading.Tasks.TaskScheduler" />型はスレッド セーフであると同時に複数のスレッドから使用できます。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c3a19-190">All members of the abstract <see cref="T:System.Threading.Tasks.TaskScheduler" /> type are thread-safe and may be used from multiple threads concurrently.</span>
+      </span>
+    </threadsafe>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected TaskScheduler ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskScheduler.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; TaskScheduler();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3a19-191">
+            <see cref="T:System.Threading.Tasks.TaskScheduler" /> を初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-191">Initializes the <see cref="T:System.Threading.Tasks.TaskScheduler" />.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Current">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.TaskScheduler Current { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property class System.Threading.Tasks.TaskScheduler Current" />
+      <MemberSignature Language="DocId" Value="P:System.Threading.Tasks.TaskScheduler.Current" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property Current As TaskScheduler" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::Threading::Tasks::TaskScheduler ^ Current { System::Threading::Tasks::TaskScheduler ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.TaskScheduler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3a19-192">現在実行中のタスクに関連付けられている <see cref="T:System.Threading.Tasks.TaskScheduler" /> を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-192">Gets the <see cref="T:System.Threading.Tasks.TaskScheduler" /> associated with the currently executing task.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c3a19-193">現在実行中のタスクに関連付けられている <see cref="T:System.Threading.Tasks.TaskScheduler" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-193">Returns the <see cref="T:System.Threading.Tasks.TaskScheduler" /> associated with the currently executing task.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-194">タスク内で呼び出されていない場合<xref:System.Threading.Tasks.TaskScheduler.Current%2A>が返されます、<xref:System.Threading.Tasks.TaskScheduler.Default%2A>スケジューラです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-194">When not called from within a task, <xref:System.Threading.Tasks.TaskScheduler.Current%2A> will return the <xref:System.Threading.Tasks.TaskScheduler.Default%2A> scheduler.</span></span>  
+  
+ <span data-ttu-id="c3a19-195">詳細については、「<xref:System.Threading.Tasks.TaskScheduler>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c3a19-195">For more information, see <xref:System.Threading.Tasks.TaskScheduler>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Default">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.TaskScheduler Default { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property class System.Threading.Tasks.TaskScheduler Default" />
+      <MemberSignature Language="DocId" Value="P:System.Threading.Tasks.TaskScheduler.Default" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property Default As TaskScheduler" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::Threading::Tasks::TaskScheduler ^ Default { System::Threading::Tasks::TaskScheduler ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.TaskScheduler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3a19-196">.NET Framework によって提供される既定の <see cref="T:System.Threading.Tasks.TaskScheduler" /> インスタンスを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-196">Gets the default <see cref="T:System.Threading.Tasks.TaskScheduler" /> instance that is provided by the .NET Framework.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c3a19-197">既定の <see cref="T:System.Threading.Tasks.TaskScheduler" /> インスタンスを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-197">Returns the default <see cref="T:System.Threading.Tasks.TaskScheduler" /> instance.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-198">詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-198">For more information, see [Task Schedulers](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="FromCurrentSynchronizationContext">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.TaskScheduler FromCurrentSynchronizationContext ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.TaskScheduler FromCurrentSynchronizationContext() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function FromCurrentSynchronizationContext () As TaskScheduler" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::Tasks::TaskScheduler ^ FromCurrentSynchronizationContext();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.TaskScheduler</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3a19-199">現在の <see cref="T:System.Threading.SynchronizationContext" /> に関連付けられている <see cref="T:System.Threading.Tasks.TaskScheduler" /> を作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-199">Creates a <see cref="T:System.Threading.Tasks.TaskScheduler" /> associated with the current <see cref="T:System.Threading.SynchronizationContext" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3a19-200">
+            <see cref="P:System.Threading.SynchronizationContext.Current" />による判断として、現在の <see cref="T:System.Threading.SynchronizationContext" /> に関連付けられている <see cref="T:System.Threading.Tasks.TaskScheduler" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-200">A <see cref="T:System.Threading.Tasks.TaskScheduler" /> associated with the current <see cref="T:System.Threading.SynchronizationContext" />, as determined by <see cref="P:System.Threading.SynchronizationContext.Current" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-201">すべて<xref:System.Threading.Tasks.Task>に返されたインスタンスのキューに置かれたスケジューラを呼び出すことによって実行される、<xref:System.Threading.SynchronizationContext.Post%2A>メソッドのコンテキストでします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-201">All <xref:System.Threading.Tasks.Task> instances queued to the returned scheduler will be executed through a call to the <xref:System.Threading.SynchronizationContext.Post%2A> method on that context.</span></span>  
+  
+ <span data-ttu-id="c3a19-202">詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-202">For more information, see [Task Schedulers](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="c3a19-203">現在の SynchronizationContext を TaskScheduler として使用することはできません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-203">The current SynchronizationContext may not be used as a TaskScheduler.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetScheduledTasks">
+      <MemberSignature Language="C#" Value="protected abstract System.Collections.Generic.IEnumerable&lt;System.Threading.Tasks.Task&gt; GetScheduledTasks ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class System.Collections.Generic.IEnumerable`1&lt;class System.Threading.Tasks.Task&gt; GetScheduledTasks() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskScheduler.GetScheduledTasks" />
+      <MemberSignature Language="VB.NET" Value="Protected MustOverride Function GetScheduledTasks () As IEnumerable(Of Task)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract System::Collections::Generic::IEnumerable&lt;System::Threading::Tasks::Task ^&gt; ^ GetScheduledTasks();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.IEnumerable&lt;System.Threading.Tasks.Task&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3a19-204">デバッガー サポートの目的でのみ、現在実行待機中のスケジューラのキューに含まれている <see cref="T:System.Threading.Tasks.Task" /> インスタンスの列挙可能なコレクションを生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-204">For debugger support only, generates an enumerable of <see cref="T:System.Threading.Tasks.Task" /> instances currently queued to the scheduler waiting to be executed.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3a19-205">デバッガーがこのスケジューラのキューに現在含まれているタスクを走査できるようにする列挙可能なコレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-205">An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-206">派生したクラス<xref:System.Threading.Tasks.TaskScheduler>デバッガーとの統合をサポートするためにこのメソッドを実装します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-206">A class derived from <xref:System.Threading.Tasks.TaskScheduler> implements this method in order to support integration with debuggers.</span></span> <span data-ttu-id="c3a19-207">デバッガーは、データへのアクセスを要求したときに、.NET Framework はこのメソッドを呼び出すだけです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-207">This method will only be invoked by the .NET Framework when the debugger requests access to the data.</span></span> <span data-ttu-id="c3a19-208">列挙子の返されたタスクにアクセスするためのユーティリティをデバッグしてがスキャンされますこのスケジューラはこの情報は、ユーザー インターフェイスでの表現を提供するデバッガーを有効にすると、現在キューに登録します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-208">The enumerable returned will be traversed by debugging utilities to access the tasks currently queued to this scheduler, enabling the debugger to provide a representation of this information in the user interface.</span></span>  
+  
+ <span data-ttu-id="c3a19-209">ことが重要でこのメソッドが呼び出されると、プロセスの他のすべてのスレッドが凍結されることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="c3a19-209">It is important to note that, when this method is called, all other threads in the process will be frozen.</span></span> <span data-ttu-id="c3a19-210">そのため、ブロックにつながる可能性のあるその他のスレッドとの同期を避けるために重要なです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-210">Therefore, it's important to avoid synchronization with other threads that may lead to blocking.</span></span> <span data-ttu-id="c3a19-211">同期が必要です。 このメソッドでロックを取得できない場合は、デバッガーがハングアップしないように例外をスローする必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-211">If synchronization is necessary, and you are unable to acquire the lock in this method, then you should throw an exception so that the debugger does not hang.</span></span> <span data-ttu-id="c3a19-212">次の例では、c# の方法の 1 つを示しています。</span><span class="sxs-lookup"><span data-stu-id="c3a19-212">The following example shows one possible approach in C#:</span></span>  
+  
+```  
+protected override IEnumerable<Task> GetScheduledTasks()  
+{  
+    bool lockTaken = false;  
+    try  
+    {  
+        Monitor.TryEnter(_syncObj, ref lockTaken);  
+        if (lockTaken)  
+        {  
+            return _tasks.ToArray();  
+        }  
+        else throw new NotSupportedException();  
+    }  
+    finally  
+    {  
+    if (lockTaken) Monitor.Exit(_syncObj);  
+    }}  
+```  
+  
+ <span data-ttu-id="c3a19-213">さらに、このメソッドは、返される列挙可能なは、グローバルな表示状態を変更する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-213">Additionally, this method and the enumerable returned must not modify any globally visible state.</span></span>  
+  
+ <span data-ttu-id="c3a19-214">返される列挙可能な null ではありません。</span><span class="sxs-lookup"><span data-stu-id="c3a19-214">The returned enumerable should never be null.</span></span> <span data-ttu-id="c3a19-215">現在、キューに置かれたタスクはありません、列挙可能な空が代わりに返されます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-215">If there are currently no queued tasks, an empty enumerable should be returned instead.</span></span>  
+  
+ <span data-ttu-id="c3a19-216">カスタムのデバッガーを実装している開発者は、このメソッドを直接呼び出すべきではありませんが、内部ラッパー メソッドを使用して`GetScheduledTasksForDebugger`代わりに:`internal Task[] GetScheduledTasksForDebugger()`です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-216">Developers who are implementing custom debuggers shouldn't call this method directly, but should use the internal wrapper method `GetScheduledTasksForDebugger` instead: `internal Task[] GetScheduledTasksForDebugger()`.</span></span> <span data-ttu-id="c3a19-217">このラッパー メソッドは、列挙可能なのではなくタスクの配列を返します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-217">This wrapper method returns an array of tasks instead of an enumerable.</span></span> <span data-ttu-id="c3a19-218">アクティブなスケジューラのリストを取得するには、内部のメソッドを使用`internal static TaskScheduler[] GetTaskSchedulersForDebugger()`です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-218">To retrieve a list of active schedulers, use the internal method `internal static TaskScheduler[] GetTaskSchedulersForDebugger()`.</span></span> <span data-ttu-id="c3a19-219">この静的メソッドは、アクティブなすべての配列を返します<xref:System.Threading.Tasks.TaskScheduler>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="c3a19-219">This static method returns an array of all active <xref:System.Threading.Tasks.TaskScheduler> instances.</span></span> <span data-ttu-id="c3a19-220">使用してできます`GetScheduledTasksForDebugger`スケジュールされたタスクの一覧を取得するには、各スケジューラ インスタンスにします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-220">You can then use `GetScheduledTasksForDebugger` on each scheduler instance to retrieve its list of scheduled tasks.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="c3a19-221">このスケジューラは、この時点でキューにあるタスクの一覧を生成できません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-221">This scheduler is unable to generate a list of queued tasks at this time.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Id">
+      <MemberSignature Language="C#" Value="public int Id { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 Id" />
+      <MemberSignature Language="DocId" Value="P:System.Threading.Tasks.TaskScheduler.Id" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Id As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int Id { int get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3a19-222">この <see cref="T:System.Threading.Tasks.TaskScheduler" /> の一意の ID を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-222">Gets the unique ID for this <see cref="T:System.Threading.Tasks.TaskScheduler" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c3a19-223">この <see cref="T:System.Threading.Tasks.TaskScheduler" /> の一意の ID を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-223">Returns the unique ID for this <see cref="T:System.Threading.Tasks.TaskScheduler" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-224">詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-224">For more information, see [Task Schedulers](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="MaximumConcurrencyLevel">
+      <MemberSignature Language="C#" Value="public virtual int MaximumConcurrencyLevel { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 MaximumConcurrencyLevel" />
+      <MemberSignature Language="DocId" Value="P:System.Threading.Tasks.TaskScheduler.MaximumConcurrencyLevel" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable ReadOnly Property MaximumConcurrencyLevel As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property int MaximumConcurrencyLevel { int get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3a19-225">この <see cref="T:System.Threading.Tasks.TaskScheduler" /> がサポートできる同時実行レベルの上限を示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-225">Indicates the maximum concurrency level this <see cref="T:System.Threading.Tasks.TaskScheduler" /> is able to support.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c3a19-226">同時実行レベルの上限を表す整数を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-226">Returns an integer that represents the maximum concurrency level.</span>
+          </span>
+          <span data-ttu-id="c3a19-227">既定のスケジューラは、<see cref="F:System.Int32.MaxValue" /> を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-227">The default scheduler returns <see cref="F:System.Int32.MaxValue" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-228">詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-228">For more information, see [Task Schedulers](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="QueueTask">
+      <MemberSignature Language="C#" Value="protected internal abstract void QueueTask (System.Threading.Tasks.Task task);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void QueueTask(class System.Threading.Tasks.Task task) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskScheduler.QueueTask(System.Threading.Tasks.Task)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; abstract void QueueTask(System::Threading::Tasks::Task ^ task);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="task" Type="System.Threading.Tasks.Task" />
+      </Parameters>
+      <Docs>
+        <param name="task">
+          <span data-ttu-id="c3a19-229">キューに追加する <see cref="T:System.Threading.Tasks.Task" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-229">The <see cref="T:System.Threading.Tasks.Task" /> to be queued.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3a19-230">スケジューラのキューに <see cref="T:System.Threading.Tasks.Task" /> を追加します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-230">Queues a <see cref="T:System.Threading.Tasks.Task" /> to the scheduler.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-231">派生したクラス<xref:System.Threading.Tasks.TaskScheduler>スケジューラでスケジュールされているタスクをそのまま使用するには、このメソッドを実装します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-231">A class derived from <xref:System.Threading.Tasks.TaskScheduler> implements this method to accept tasks being scheduled on the scheduler.</span></span>  
+  
+ <span data-ttu-id="c3a19-232">一般的な実装では、いずれかの時点が後でそれらのタスクが実行されたスレッドにより処理されると、内部データ構造で、タスクに保存します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-232">A typical implementation would store the task in an internal data structure, which would be serviced by threads that would execute those tasks at some time in the future.</span></span>  
+  
+ <span data-ttu-id="c3a19-233">このメソッドは、.NET Framework によって呼び出されるだけを目的とし、派生クラスによって直接呼び出すことはできません。</span><span class="sxs-lookup"><span data-stu-id="c3a19-233">This method is only meant to be called by the .NET Framework and should not be called directly by the derived class.</span></span> <span data-ttu-id="c3a19-234">これは、システムの一貫性を維持する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-234">This is necessary for maintaining the consistency of the system.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3a19-235">
+            <paramref name="task" /> 引数が null です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-235">The <paramref name="task" /> argument is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TryDequeue">
+      <MemberSignature Language="C#" Value="protected internal virtual bool TryDequeue (System.Threading.Tasks.Task task);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance bool TryDequeue(class System.Threading.Tasks.Task task) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskScheduler.TryDequeue(System.Threading.Tasks.Task)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual bool TryDequeue(System::Threading::Tasks::Task ^ task);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="task" Type="System.Threading.Tasks.Task" />
+      </Parameters>
+      <Docs>
+        <param name="task">
+          <span data-ttu-id="c3a19-236">キューから取り出す <see cref="T:System.Threading.Tasks.Task" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-236">The <see cref="T:System.Threading.Tasks.Task" /> to be dequeued.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3a19-237">このスケジューラのキューに以前含まれていた <see cref="T:System.Threading.Tasks.Task" /> のデキューを試みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-237">Attempts to dequeue a <see cref="T:System.Threading.Tasks.Task" /> that was previously queued to this scheduler.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3a19-238">
+            <paramref name="task" /> 引数が正常にデキューされたかどうかを示すブール値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-238">A Boolean denoting whether the <paramref name="task" /> argument was successfully dequeued.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-239">詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-239">For more information, see [Task Schedulers](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65).</span></span>  
+  
+ <span data-ttu-id="c3a19-240">このメソッド内で実行が、finally ブロックです。したがって、返す必要があります可能な限り早くそのためなどのリソース<xref:System.Threading.CancellationTokenRegistration>オブジェクトは、適切なタイミングで破棄することができます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-240">This method may execute in a finally block; therefore it should return as quickly as possible so that any resources such as <xref:System.Threading.CancellationTokenRegistration> objects can be disposed of in a timely manner.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3a19-241">
+            <paramref name="task" /> 引数が null です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-241">The <paramref name="task" /> argument is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TryExecuteTask">
+      <MemberSignature Language="C#" Value="protected bool TryExecuteTask (System.Threading.Tasks.Task task);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig instance bool TryExecuteTask(class System.Threading.Tasks.Task task) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskScheduler.TryExecuteTask(System.Threading.Tasks.Task)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; bool TryExecuteTask(System::Threading::Tasks::Task ^ task);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="task" Type="System.Threading.Tasks.Task" />
+      </Parameters>
+      <Docs>
+        <param name="task">
+          <span data-ttu-id="c3a19-242">実行対象の <see cref="T:System.Threading.Tasks.Task" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-242">A <see cref="T:System.Threading.Tasks.Task" /> object to be executed.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3a19-243">このスケジューラ上の指定された <see cref="T:System.Threading.Tasks.Task" /> の実行を試みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-243">Attempts to execute the provided <see cref="T:System.Threading.Tasks.Task" /> on this scheduler.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3a19-244">
+            <paramref name="task" /> が正常に実行された場合は true、正常に実行されなかった場合は false。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-244">A Boolean that is true if <paramref name="task" /> was successfully executed, false if it was not.</span>
+          </span>
+          <span data-ttu-id="c3a19-245">タスクが正常に実行されない原因としては、タスクが既に実行されていた場合や、他のスレッドによって実行中である場合などが挙げられます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-245">A common reason for execution failure is that the task had previously been executed or is in the process of being executed by another thread.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-246">スケジューラの実装が付属して<xref:System.Threading.Tasks.Task>いずれかで実行されるインスタンス、<xref:System.Threading.Tasks.TaskScheduler.QueueTask%2A>メソッドまたは<xref:System.Threading.Tasks.TaskScheduler.TryExecuteTaskInline%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-246">Scheduler implementations are provided with <xref:System.Threading.Tasks.Task> instances to be executed through either the <xref:System.Threading.Tasks.TaskScheduler.QueueTask%2A> method or the <xref:System.Threading.Tasks.TaskScheduler.TryExecuteTaskInline%2A> method.</span></span> <span data-ttu-id="c3a19-247">スケジューラと見なさを指定されたタスクを実行する適切なときに<xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A>これを行うために使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-247">When the scheduler deems it appropriate to run the provided task, <xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A> should be used to do so.</span></span> <span data-ttu-id="c3a19-248">アクションの呼び出し、例外処理、状態管理、およびライフ サイクル管理を含め、タスクの実行のすべての側面を tryexecutetask です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-248">TryExecuteTask handles all aspects of executing a task, including action invocation, exception handling, state management, and lifecycle control.</span></span>  
+  
+ <span data-ttu-id="c3a19-249"><xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A> .NET Framework インフラストラクチャによってこのスケジューラに提供されたタスクのみ使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-249"><xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A> must only be used for tasks provided to this scheduler by the .NET Framework infrastructure.</span></span> <span data-ttu-id="c3a19-250">カスタムのメカニズムを通じて取得した任意のタスクの実行には使用できません。</span><span class="sxs-lookup"><span data-stu-id="c3a19-250">It should not be used to execute arbitrary tasks obtained through custom mechanisms.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="c3a19-251">
+            <paramref name="task" /> はこのスケジューラに関連付けられていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-251">The <paramref name="task" /> is not associated with this scheduler.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TryExecuteTaskInline">
+      <MemberSignature Language="C#" Value="protected abstract bool TryExecuteTaskInline (System.Threading.Tasks.Task task, bool taskWasPreviouslyQueued);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance bool TryExecuteTaskInline(class System.Threading.Tasks.Task task, bool taskWasPreviouslyQueued) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskScheduler.TryExecuteTaskInline(System.Threading.Tasks.Task,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract bool TryExecuteTaskInline(System::Threading::Tasks::Task ^ task, bool taskWasPreviouslyQueued);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="task" Type="System.Threading.Tasks.Task" />
+        <Parameter Name="taskWasPreviouslyQueued" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="task">
+          <span data-ttu-id="c3a19-252">実行対象の <see cref="T:System.Threading.Tasks.Task" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-252">The <see cref="T:System.Threading.Tasks.Task" /> to be executed.</span>
+          </span>
+        </param>
+        <param name="taskWasPreviouslyQueued">
+          <span data-ttu-id="c3a19-253">タスクが以前キューに追加されていたかどうかを示すブール値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-253">A Boolean denoting whether or not task has previously been queued.</span>
+          </span>
+          <span data-ttu-id="c3a19-254">このパラメーターを True に設定すると、タスクが以前キューに追加されていた (スケジュールされていた) 可能性があることを示します。False に設定すると、タスクがキューに追加されていないことを示し、この呼び出しによって、タスクがキューに追加されずにインラインで実行されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-254">If this parameter is True, then the task may have been previously queued (scheduled); if False, then the task is known not to have been queued, and this call is being made in order to execute the task inline without queuing it.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3a19-255">指定された <see cref="T:System.Threading.Tasks.Task" /> をこの呼び出しで同期的に実行できるかどうかを判断し、できる場合は実行します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-255">Determines whether the provided <see cref="T:System.Threading.Tasks.Task" /> can be executed synchronously in this call, and if it can, executes it.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3a19-256">タスクがインラインで実行されたかどうかを示すブール値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-256">A Boolean value indicating whether the task was executed inline.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-257">派生したクラス<xref:System.Threading.Tasks.TaskScheduler>タスク オブジェクトでの待機を開始したスレッドで、タスクのインラインの実行をサポートするには、この関数を実装します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-257">A class derived from <xref:System.Threading.Tasks.TaskScheduler> implements this function to support inline execution of a task on a thread that initiates a wait on that task object.</span></span> <span data-ttu-id="c3a19-258">インライン実行がオプションであり、false を返すことによって、要求が拒否される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-258">Inline execution is optional, and the request may be rejected by returning false.</span></span> <span data-ttu-id="c3a19-259">ただしより多くのタスクをことがインライン化できません、ほど、スケジューラは拡大縮小されます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-259">However, the more tasks that can be inlined, the better the scheduler will scale.</span></span> <span data-ttu-id="c3a19-260">実際には、スケジューラ インライン展開少なすぎる可能性があるデッドロック発生しやすくします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-260">In fact, a scheduler that inlines too little may be prone to deadlocks.</span></span> <span data-ttu-id="c3a19-261">適切な実装は、スケジューラによって保証されたポリシーで要求の実行が正常がインライン展開できるようにします。</span><span class="sxs-lookup"><span data-stu-id="c3a19-261">A proper implementation should ensure that a request executing under the policies guaranteed by the scheduler can successfully inline.</span></span> <span data-ttu-id="c3a19-262">たとえば、スケジューラは、タスクを実行する専用のスレッドを使用する場合のインライン展開要求したスレッドからは成功します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-262">For example, if a scheduler uses a dedicated thread to execute tasks, any inlining requests from that thread should succeed.</span></span>  
+  
+ <span data-ttu-id="c3a19-263">スケジューラは、インラインの実行を実行する場合は、その要求を実行、基本の TaskScheduler を呼び出すことによって<xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A>メソッドの戻り値を反映する、指定されたタスク オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="c3a19-263">If a scheduler decides to perform the inline execution, it should do so by calling to the base TaskScheduler's <xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A> method with the provided task object, propagating the return value.</span></span> <span data-ttu-id="c3a19-264">インライン展開要求を許可することに決めた場合、その内部データ構造体からインライン展開のタスクを削除するスケジューラに適切な場合もあります。</span><span class="sxs-lookup"><span data-stu-id="c3a19-264">It may also be appropriate for the scheduler to remove an inlined task from its internal data structures if it decides to honor the inlining request.</span></span> <span data-ttu-id="c3a19-265">ただし、こと状況によっては、スケジューラ必要がありますをインライン展開するタスクを使っていない提供されていたを<xref:System.Threading.Tasks.TaskScheduler.QueueTask%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c3a19-265">Note, however, that under some circumstances a scheduler may be asked to inline a task that was not previously provided to it with the <xref:System.Threading.Tasks.TaskScheduler.QueueTask%2A> method.</span></span>  
+  
+ <span data-ttu-id="c3a19-266">派生されるスケジューラは、その呼び出し元のスレッドがそれ自身のスケジューリング枝葉と同じ特定のタスクを実行するために適切な実行ポリシーが関係していることを確認します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-266">The derived scheduler is responsible for making sure that the calling thread is suitable for executing the given task as far as its own scheduling and execution policies are concerned.</span></span>  
+  
+ <span data-ttu-id="c3a19-267">詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。</span><span class="sxs-lookup"><span data-stu-id="c3a19-267">For more information, see [Task Schedulers](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3a19-268">
+            <paramref name="task" /> 引数が null です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-268">The <paramref name="task" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="c3a19-269">
+            <paramref name="task" /> は既に実行されました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-269">The <paramref name="task" /> was already executed.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="UnobservedTaskException">
+      <MemberSignature Language="C#" Value="public static event EventHandler&lt;System.Threading.Tasks.UnobservedTaskExceptionEventArgs&gt; UnobservedTaskException;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.EventHandler`1&lt;class System.Threading.Tasks.UnobservedTaskExceptionEventArgs&gt; UnobservedTaskException" />
+      <MemberSignature Language="DocId" Value="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Custom Event UnobservedTaskException As EventHandler(Of UnobservedTaskExceptionEventArgs) " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static event EventHandler&lt;System::Threading::Tasks::UnobservedTaskExceptionEventArgs ^&gt; ^ UnobservedTaskException;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>add: System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>remove: System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.EventHandler&lt;System.Threading.Tasks.UnobservedTaskExceptionEventArgs&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3a19-270">エラーが発生したタスクの無視された例外が例外エスカレーション ポリシーをトリガーしようとする場合に発生します。既定では、プロセスを終了します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3a19-270">Occurs when a faulted task's unobserved exception is about to trigger exception escalation policy, which, by default, would terminate the process.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3a19-271">このアプリケーション ドメイン全体のイベントは、トリガーから例外のエスカレーションのポリシー (、既定では、プロセスを終了します) を回避するためのメカニズムを提供します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-271">This application domain-wide event provides a mechanism to prevent exception escalation policy (which, by default, terminates the process) from triggering.</span></span>  
+  
+ <span data-ttu-id="c3a19-272">タスクに基づく非同期コードを記述する開発者向け容易にできるように、[!INCLUDE[net_v45](~/includes/net-v45-md.md)]観察されない例外の既定の例外動作を変更します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-272">To make it easier for developers to write asynchronous code based on tasks, the [!INCLUDE[net_v45](~/includes/net-v45-md.md)] changes the default exception behavior for unobserved exceptions.</span></span> <span data-ttu-id="c3a19-273">観察されない例外が発生させる、<xref:System.Threading.Tasks.TaskScheduler.UnobservedTaskException>例外、プロセスは既定でに終了しません。</span><span class="sxs-lookup"><span data-stu-id="c3a19-273">Although unobserved exceptions still raise the <xref:System.Threading.Tasks.TaskScheduler.UnobservedTaskException> exception, the process does not terminate by default.</span></span> <span data-ttu-id="c3a19-274">代わりに、例外は、イベント ハンドラーが例外を監視するかどうかに関係なく、イベントが発生した後、ランタイムによって処理されます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-274">Instead, the exception is handled by the runtime after the event is raised, regardless of whether an event handler observes the exception.</span></span> <span data-ttu-id="c3a19-275">この動作を構成することができます。</span><span class="sxs-lookup"><span data-stu-id="c3a19-275">This behavior can be configured.</span></span> <span data-ttu-id="c3a19-276">以降で、[!INCLUDE[net_v45](~/includes/net-v45-md.md)]の動作に戻すには、構成要素を使用することができます、[!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]およびプロセスを終了します。</span><span class="sxs-lookup"><span data-stu-id="c3a19-276">Starting with the [!INCLUDE[net_v45](~/includes/net-v45-md.md)], you can use the  configuration element to revert to the behavior of the [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)] and terminate the process:</span></span>  
+  
+```xml  
+<configuration>   
+   <runtime>   
+      <ThrowUnobservedTaskExceptions enabled="true"/>   
+   </runtime>   
+</configuration>  
+  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
