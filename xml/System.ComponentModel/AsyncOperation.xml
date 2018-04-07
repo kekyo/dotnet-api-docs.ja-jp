@@ -1,0 +1,499 @@
+<Type Name="AsyncOperation" FullName="System.ComponentModel.AsyncOperation">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="27b3f4ff3ed46bf8dc07465aaecd985e0ada7d95" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class AsyncOperation" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit AsyncOperation extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.ComponentModel.AsyncOperation" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class AsyncOperation" />
+  <TypeSignature Language="C++ CLI" Value="public ref class AsyncOperation sealed" />
+  <AssemblyInfo>
+    <AssemblyName>System.ComponentModel.EventBasedAsync</AssemblyName>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="e2bff-101">非同期操作の有効期間を追跡します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="e2bff-101">Tracks the lifetime of an asynchronous operation.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e2bff-102">に従ってクラスを実装する場合、[イベント ベースの非同期パターン概要](~/docs/standard/asynchronous-programming-patterns/event-based-asynchronous-pattern-overview.md)クラスのインスタンスで呼び出される各非同期操作の有効期間を追跡する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e2bff-102">When you implement a class according to the [Event-based Asynchronous Pattern Overview](~/docs/standard/asynchronous-programming-patterns/event-based-asynchronous-pattern-overview.md), you may need to track the lifetime of each asynchronous operation invoked on an instance of your class.</span></span> <span data-ttu-id="e2bff-103"><xref:System.ComponentModel.AsyncOperation>クラスには、追跡して、非同期タスクの進行状況をレポートする方法が用意されています。</span><span class="sxs-lookup"><span data-stu-id="e2bff-103">The <xref:System.ComponentModel.AsyncOperation> class provides ways to track and report the progress of an asynchronous task.</span></span>  
+  
+ <span data-ttu-id="e2bff-104">次の一覧が使用する方法を示して、<xref:System.ComponentModel.AsyncOperation>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="e2bff-104">The following list identifies ways to use an <xref:System.ComponentModel.AsyncOperation> object:</span></span>  
+  
+-   <span data-ttu-id="e2bff-105">進行状況と中間結果をクライアントに報告する呼び出し<xref:System.ComponentModel.AsyncOperation.Post%2A>非同期ワーカー コードからです。</span><span class="sxs-lookup"><span data-stu-id="e2bff-105">To report progress and interim results to the client, call <xref:System.ComponentModel.AsyncOperation.Post%2A> from your asynchronous worker code.</span></span>  
+  
+-   <span data-ttu-id="e2bff-106">非同期タスクが完了したことを示すために、または保留中の非同期タスクをキャンセルするには、呼び出す<xref:System.ComponentModel.AsyncOperation.PostOperationCompleted%2A>です。</span><span class="sxs-lookup"><span data-stu-id="e2bff-106">To indicate that an asynchronous task has completed, or to cancel a pending asynchronous task, call <xref:System.ComponentModel.AsyncOperation.PostOperationCompleted%2A>.</span></span>  
+  
+ <span data-ttu-id="e2bff-107">クラスを取得する必要があります、<xref:System.ComponentModel.AsyncOperation>オブジェクトを呼び出すことによって各非同期タスク<xref:System.ComponentModel.AsyncOperationManager.CreateOperation%2A?displayProperty=nameWithType>各タスクの開始時です。</span><span class="sxs-lookup"><span data-stu-id="e2bff-107">Your class should get an <xref:System.ComponentModel.AsyncOperation> object for each asynchronous task by calling <xref:System.ComponentModel.AsyncOperationManager.CreateOperation%2A?displayProperty=nameWithType> when each task starts.</span></span> <span data-ttu-id="e2bff-108">別の非同期タスクを区別するためにクライアントを許可する<xref:System.ComponentModel.AsyncOperationManager.CreateOperation%2A?displayProperty=nameWithType>一意クライアントに用意されているトークンになりますパラメーターを受け取り、<xref:System.ComponentModel.AsyncOperation.UserSuppliedState%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e2bff-108">To allow the client to distinguish separate asynchronous tasks, <xref:System.ComponentModel.AsyncOperationManager.CreateOperation%2A?displayProperty=nameWithType> takes a parameter for a unique client-provided token, which becomes the <xref:System.ComponentModel.AsyncOperation.UserSuppliedState%2A> property.</span></span> <span data-ttu-id="e2bff-109">これは、進行中または完了のイベントを発生させる特定の非同期タスクを識別のクライアント コードで使用できます。</span><span class="sxs-lookup"><span data-stu-id="e2bff-109">It can then be used by client code to identify the particular asynchronous task that is raising progress or completion events.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e2bff-110">次のコード例では、使用方法を示します、<xref:System.ComponentModel.AsyncOperation>非同期操作の有効期間を追跡するオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="e2bff-110">The following code example demonstrates using an <xref:System.ComponentModel.AsyncOperation> object to track the lifetime of asynchronous operations.</span></span> <span data-ttu-id="e2bff-111">このコード例に示されている例の一部である、<xref:System.ComponentModel.AsyncOperationManager?displayProperty=nameWithType>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e2bff-111">This code example is part of a larger example provided for the <xref:System.ComponentModel.AsyncOperationManager?displayProperty=nameWithType> class.</span></span>  
+  
+ <span data-ttu-id="e2bff-112">完全なコードの一覧については、次を参照してください。[する方法: イベント ベースの非同期パターンをサポートするコンポーネントを実装する](http://msdn.microsoft.com/library/3c1aa4d4-da87-4a03-b812-3d167b8c57cf)です。</span><span class="sxs-lookup"><span data-stu-id="e2bff-112">For a full code listing, see [How to: Implement a Component That Supports the Event-based Asynchronous Pattern](http://msdn.microsoft.com/library/3c1aa4d4-da87-4a03-b812-3d167b8c57cf).</span></span> <span data-ttu-id="e2bff-113">クライアントの完全なコードについては、次を参照してください。[する方法: イベント ベースの非同期パターンのクライアントを実装する](~/docs/standard/asynchronous-programming-patterns/how-to-implement-a-client-of-the-event-based-asynchronous-pattern.md)です。</span><span class="sxs-lookup"><span data-stu-id="e2bff-113">For a full code listing of a client form, see [How to: Implement a Client of the Event-based Asynchronous Pattern](~/docs/standard/asynchronous-programming-patterns/how-to-implement-a-client-of-the-event-based-asynchronous-pattern.md).</span></span>  
+  
+ [!code-csharp[System.ComponentModel.AsyncOperationManager#3](~/samples/snippets/csharp/VS_Snippets_Winforms/System.ComponentModel.AsyncOperationManager/CS/primenumbercalculatormain.cs#3)]
+ [!code-vb[System.ComponentModel.AsyncOperationManager#3](~/samples/snippets/visualbasic/VS_Snippets_Winforms/System.ComponentModel.AsyncOperationManager/VB/primenumbercalculatormain.vb#3)]  
+  
+ ]]></format>
+    </remarks>
+    <block subset="none" type="overrides">
+      <para>
+        <span data-ttu-id="e2bff-114">実装時は、必ず、<see cref="M:System.ComponentModel.AsyncOperation.PostOperationCompleted(System.Threading.SendOrPostCallback,System.Object)" />と<see cref="M:System.ComponentModel.AsyncOperation.Post(System.Threading.SendOrPostCallback,System.Object)" />は非同期に呼び出し、特定のアプリケーション内の非同期動作であると、潜在的なスタックがオーバーフローできるように、クラス ライブラリのプロバイダーを意識する必要はありません同期することで発生したモデルです。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="e2bff-114">Implementers must ensure the <see cref="M:System.ComponentModel.AsyncOperation.PostOperationCompleted(System.Threading.SendOrPostCallback,System.Object)" /> and <see cref="M:System.ComponentModel.AsyncOperation.Post(System.Threading.SendOrPostCallback,System.Object)" /> invocations are asynchronous, so that class library providers do not need to concern themselves with potential stack overflows if they assume asynchronous behavior in a particular application model that happens to be synchronous.</span>
+        </span>
+        <span data-ttu-id="e2bff-115">非同期のクラスの実装の詳細については、次を参照してください。[イベント ベースの非同期パターンを実装する](~/docs/standard/asynchronous-programming-patterns/implementing-the-event-based-asynchronous-pattern.md)です。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="e2bff-115">For more information about implementing asynchronous classes, see [Implementing the Event-based Asynchronous Pattern](~/docs/standard/asynchronous-programming-patterns/implementing-the-event-based-asynchronous-pattern.md).</span>
+        </span>
+      </para>
+    </block>
+    <altmember cref="T:System.ComponentModel.AsyncOperationManager" />
+  </Docs>
+  <Members>
+    <Member MemberName="Finalize">
+      <MemberSignature Language="C#" Value="~AsyncOperation ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Finalize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.AsyncOperation.Finalize" />
+      <MemberSignature Language="VB.NET" Value="Finalize ()" />
+      <MemberSignature Language="C++ CLI" Value="!AsyncOperation ()" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.EventBasedAsync</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e2bff-116">非同期操作の終了処理を行います。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-116">Finalizes the asynchronous operation.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OperationCompleted">
+      <MemberSignature Language="C#" Value="public void OperationCompleted ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void OperationCompleted() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.AsyncOperation.OperationCompleted" />
+      <MemberSignature Language="VB.NET" Value="Public Sub OperationCompleted ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void OperationCompleted();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.EventBasedAsync</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e2bff-117">非同期操作の有効期間を終了します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-117">Ends the lifetime of an asynchronous operation.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e2bff-118">呼び出す、<xref:System.ComponentModel.AsyncOperation.OperationCompleted%2A>メソッドを非同期操作の有効期間を終了します。</span><span class="sxs-lookup"><span data-stu-id="e2bff-118">Call the <xref:System.ComponentModel.AsyncOperation.OperationCompleted%2A> method to end the lifetime of an asynchronous operation.</span></span> <span data-ttu-id="e2bff-119">このメソッドは特定のタスクに対して呼び出されると、それに対応する呼び出し<xref:System.ComponentModel.AsyncOperation>で例外が発生します。</span><span class="sxs-lookup"><span data-stu-id="e2bff-119">After this method is called for a particular task, calls to its corresponding <xref:System.ComponentModel.AsyncOperation> will raise an exception.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="e2bff-120">
+            <see cref="M:System.ComponentModel.AsyncOperation.OperationCompleted" /> は、このタスクに対して既に呼び出されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-120">
+              <see cref="M:System.ComponentModel.AsyncOperation.OperationCompleted" /> has been called previously for this task.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Post">
+      <MemberSignature Language="C#" Value="public void Post (System.Threading.SendOrPostCallback d, object arg);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Post(class System.Threading.SendOrPostCallback d, object arg) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.AsyncOperation.Post(System.Threading.SendOrPostCallback,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Post (d As SendOrPostCallback, arg As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Post(System::Threading::SendOrPostCallback ^ d, System::Object ^ arg);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.EventBasedAsync</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="d" Type="System.Threading.SendOrPostCallback" />
+        <Parameter Name="arg" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="d">
+          <span data-ttu-id="e2bff-121">操作終了時に呼び出されるデリゲートをラップする <see cref="T:System.Threading.SendOrPostCallback" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-121">A <see cref="T:System.Threading.SendOrPostCallback" /> object that wraps the delegate to be called when the operation ends.</span>
+          </span>
+        </param>
+        <param name="arg">
+          <span data-ttu-id="e2bff-122">
+            <c>d</c> パラメーターに格納されているデリゲートの引数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-122">An argument for the delegate contained in the <c>d</c> parameter.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e2bff-123">アプリケーション モデルに適したスレッドまたはコンテキストでデリゲートを呼び出します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-123">Invokes a delegate on the thread or context appropriate for the application model.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e2bff-124"><xref:System.ComponentModel.AsyncOperation.Post%2A>メソッドによって指定されたデリゲートを呼び出す、`arg`非同期操作の有効期間を終了せずにパラメーター。</span><span class="sxs-lookup"><span data-stu-id="e2bff-124">The <xref:System.ComponentModel.AsyncOperation.Post%2A> method invokes the delegate specified by the `arg` parameter without ending the lifetime of the asynchronous operation.</span></span>  
+  
+ <span data-ttu-id="e2bff-125">呼び出すことができます、<xref:System.ComponentModel.AsyncOperation.Post%2A>メソッドへの呼び出しによって、非同期操作の有効期間が終了されていません、好きなように、多くの場合、<xref:System.ComponentModel.AsyncOperation.PostOperationCompleted%2A>です。</span><span class="sxs-lookup"><span data-stu-id="e2bff-125">You can call the <xref:System.ComponentModel.AsyncOperation.Post%2A> method as often as you like while the lifetime of the asynchronous operation has not been ended by a call to <xref:System.ComponentModel.AsyncOperation.PostOperationCompleted%2A>.</span></span> <span data-ttu-id="e2bff-126">進行状況や中間結果を戻すクライアントに報告するのにメソッドを使用できます。</span><span class="sxs-lookup"><span data-stu-id="e2bff-126">You can use the method to report progress or interim results back to clients.</span></span>  
+  
+ <span data-ttu-id="e2bff-127">`d`パラメーターは、非同期タスクの状態に関する更新を投稿するときに呼び出される必要のあるデリゲートをラップします。</span><span class="sxs-lookup"><span data-stu-id="e2bff-127">The `d` parameter wraps the delegate you want called when you want to post an update about the status of the asynchronous task.</span></span> <span data-ttu-id="e2bff-128"><xref:System.ComponentModel.AsyncOperation>オブジェクトはスレッドまたはアプリケーション モデルに適切なコンテキストで、デリゲートが呼び出されることを確認してください。</span><span class="sxs-lookup"><span data-stu-id="e2bff-128">The <xref:System.ComponentModel.AsyncOperation> object will ensure that your delegate is invoked on the thread or context appropriate for the application model.</span></span> <span data-ttu-id="e2bff-129">メソッドは、状態の変更、進行状況の更新、または新しく使用可能な増分の結果のクライアントに通知イベントを発生させる必要に応じてことができます。</span><span class="sxs-lookup"><span data-stu-id="e2bff-129">Your method can optionally raise an event that notifies clients of a status change, progress update, or newly available incremental results.</span></span>  
+  
+ <span data-ttu-id="e2bff-130">`arg`と状態をによってラップされたデリゲートに渡すパラメーターを使用する必要があります、`d`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="e2bff-130">The `arg` parameter should be used to pass state to the delegate wrapped by the `d` parameter.</span></span> <span data-ttu-id="e2bff-131">参照があります、 <xref:System.ComponentModel.AsyncOperation>、またはその可能性があります、<xref:System.ComponentModel.ProgressChangedEventArgs?displayProperty=nameWithType>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="e2bff-131">It might be a reference to an <xref:System.ComponentModel.AsyncOperation>, or it might be a <xref:System.ComponentModel.ProgressChangedEventArgs?displayProperty=nameWithType> object.</span></span> <span data-ttu-id="e2bff-132">独自のクラスを派生させることが望ましい場合があります<xref:System.ComponentModel.ProgressChangedEventArgs?displayProperty=nameWithType>追加の状態の記憶域を提供します。</span><span class="sxs-lookup"><span data-stu-id="e2bff-132">It may be desirable to derive your own class from <xref:System.ComponentModel.ProgressChangedEventArgs?displayProperty=nameWithType> to provide additional state storage.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e2bff-133">次のコード例では、使用方法を示します、<xref:System.ComponentModel.AsyncOperation.Post%2A>の進行状況と非同期操作のインクリメンタル結果をレポートします。</span><span class="sxs-lookup"><span data-stu-id="e2bff-133">The following code example demonstrates using the <xref:System.ComponentModel.AsyncOperation.Post%2A> method for reporting progress and incremental results of an asynchronous operation.</span></span> <span data-ttu-id="e2bff-134">このコード例に示されている例の一部である、<xref:System.ComponentModel.AsyncOperationManager?displayProperty=nameWithType>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e2bff-134">This code example is part of a larger example provided for the <xref:System.ComponentModel.AsyncOperationManager?displayProperty=nameWithType> class.</span></span>  
+  
+  
+[!code-csharp[System.ComponentModel.AsyncOperationManager#5](~/samples/snippets/csharp/VS_Snippets_Winforms/System.ComponentModel.AsyncOperationManager/CS/primenumbercalculatormain.cs#5)]
+[!code-vb[System.ComponentModel.AsyncOperationManager#5](~/samples/snippets/visualbasic/VS_Snippets_Winforms/System.ComponentModel.AsyncOperationManager/VB/primenumbercalculatormain.vb#5)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="e2bff-135">
+            <see cref="M:System.ComponentModel.AsyncOperation.PostOperationCompleted(System.Threading.SendOrPostCallback,System.Object)" /> メソッドは、このタスクに対して既に呼び出されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-135">The <see cref="M:System.ComponentModel.AsyncOperation.PostOperationCompleted(System.Threading.SendOrPostCallback,System.Object)" /> method has been called previously for this task.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="e2bff-136">
+            <paramref name="d" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-136">
+              <paramref name="d" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="e2bff-137">継承元が行う必要があります、<see cref="M:System.ComponentModel.AsyncOperation.Post(System.Threading.SendOrPostCallback,System.Object)" />できるように、クラス ライブラリのプロバイダーは、潜在的なスタックを考慮する必要はありませんは、非同期呼び出しには、非同期処理が前提としていますが、特定のアプリケーション モデルの処理は同期している場合がオーバーフローが発生します。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="e2bff-137">Inheritors must make the <see cref="M:System.ComponentModel.AsyncOperation.Post(System.Threading.SendOrPostCallback,System.Object)" /> invocation asynchronous, so that class library providers do not need to concern themselves with potential stack overflows if they assume asynchrony but a particular application model happens to be synchronous.</span>
+            </span>
+            <block subset="none" type="note">
+              <para>
+                <span data-ttu-id="e2bff-138">コンソール アプリケーションは <see cref="M:System.ComponentModel.AsyncOperation.Post(System.Threading.SendOrPostCallback,System.Object)" /> 呼び出しの実行を同期しません。</span>
+                <span class="sxs-lookup">
+                  <span data-stu-id="e2bff-138">Console applications do not synchronize the execution of <see cref="M:System.ComponentModel.AsyncOperation.Post(System.Threading.SendOrPostCallback,System.Object)" /> calls.</span>
+                </span>
+                <span data-ttu-id="e2bff-139">これが原因で、<see langword="ProgressChanged" /> イベントが正しくない順序で発生することがあります。</span>
+                <span class="sxs-lookup">
+                  <span data-stu-id="e2bff-139">This can cause <see langword="ProgressChanged" /> events to be raised out of order.</span>
+                </span>
+                <span data-ttu-id="e2bff-140">
+                  <see cref="M:System.ComponentModel.AsyncOperation.Post(System.Threading.SendOrPostCallback,System.Object)" /> 呼び出しを順次実行するには、<see cref="T:System.Threading.SynchronizationContext" /> クラスを実装およびインストールします。</span>
+                <span class="sxs-lookup">
+                  <span data-stu-id="e2bff-140">If you wish to have serialized execution of <see cref="M:System.ComponentModel.AsyncOperation.Post(System.Threading.SendOrPostCallback,System.Object)" /> calls, implement and install a <see cref="T:System.Threading.SynchronizationContext" /> class.</span>
+                </span>
+              </para>
+            </block>
+            <span data-ttu-id="e2bff-141">非同期のクラスの実装の詳細については、次を参照してください。[イベント ベースの非同期パターンを実装する](~/docs/standard/asynchronous-programming-patterns/implementing-the-event-based-asynchronous-pattern.md)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="e2bff-141">For more information about implementing asynchronous classes, see [Implementing the Event-based Asynchronous Pattern](~/docs/standard/asynchronous-programming-patterns/implementing-the-event-based-asynchronous-pattern.md).</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="T:System.ComponentModel.AsyncOperationManager" />
+      </Docs>
+    </Member>
+    <Member MemberName="PostOperationCompleted">
+      <MemberSignature Language="C#" Value="public void PostOperationCompleted (System.Threading.SendOrPostCallback d, object arg);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void PostOperationCompleted(class System.Threading.SendOrPostCallback d, object arg) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ComponentModel.AsyncOperation.PostOperationCompleted(System.Threading.SendOrPostCallback,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub PostOperationCompleted (d As SendOrPostCallback, arg As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void PostOperationCompleted(System::Threading::SendOrPostCallback ^ d, System::Object ^ arg);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.EventBasedAsync</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="d" Type="System.Threading.SendOrPostCallback" />
+        <Parameter Name="arg" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="d">
+          <span data-ttu-id="e2bff-142">操作終了時に呼び出されるデリゲートをラップする <see cref="T:System.Threading.SendOrPostCallback" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-142">A <see cref="T:System.Threading.SendOrPostCallback" /> object that wraps the delegate to be called when the operation ends.</span>
+          </span>
+        </param>
+        <param name="arg">
+          <span data-ttu-id="e2bff-143">
+            <c>d</c> パラメーターに格納されているデリゲートの引数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-143">An argument for the delegate contained in the <c>d</c> parameter.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e2bff-144">非同期操作の有効期間を終了します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-144">Ends the lifetime of an asynchronous operation.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e2bff-145">呼び出す、<xref:System.ComponentModel.AsyncOperation.PostOperationCompleted%2A>メソッドを非同期操作の有効期間を終了します。</span><span class="sxs-lookup"><span data-stu-id="e2bff-145">Call the <xref:System.ComponentModel.AsyncOperation.PostOperationCompleted%2A> method to end the lifetime of an asynchronous operation.</span></span> <span data-ttu-id="e2bff-146">このメソッドは特定のタスクに対して呼び出されると、それに対応する呼び出し<xref:System.ComponentModel.AsyncOperation>オブジェクトには、例外が発生します。</span><span class="sxs-lookup"><span data-stu-id="e2bff-146">After this method is called for a particular task, calls to its corresponding <xref:System.ComponentModel.AsyncOperation> object will raise an exception.</span></span>  
+  
+ <span data-ttu-id="e2bff-147">`d`パラメーター クラス完了、取り消し、またはタスクのエラーにより、タスクの有効期間が終了したときに呼び出すデリゲートをラップします。</span><span class="sxs-lookup"><span data-stu-id="e2bff-147">The `d` parameter wraps the delegate you want your class to call when the task's lifetime ends due to completion, cancellation, or failure of the task.</span></span> <span data-ttu-id="e2bff-148"><xref:System.ComponentModel.AsyncOperation>オブジェクトはスレッドまたはアプリケーション モデルに適切なコンテキストで、デリゲートが呼び出されることを確認してください。</span><span class="sxs-lookup"><span data-stu-id="e2bff-148">The <xref:System.ComponentModel.AsyncOperation> object will ensure that your delegate is invoked on the thread or context appropriate for the application model.</span></span> <span data-ttu-id="e2bff-149">デリゲートは、非同期タスクの有効期間が終了したことをクライアントに通知イベントを発生させる必要に応じてことができます。</span><span class="sxs-lookup"><span data-stu-id="e2bff-149">Your delegate can optionally raise an event that notifies clients that the asynchronous task's lifetime has ended.</span></span>  
+  
+ <span data-ttu-id="e2bff-150">`arg`完了デリゲートに状態情報を渡すパラメーターが使用される`d`です。</span><span class="sxs-lookup"><span data-stu-id="e2bff-150">The `arg` parameter is used to pass state information to the completion delegate `d`.</span></span> <span data-ttu-id="e2bff-151">使用することができます、<xref:System.ComponentModel.AsyncOperation>オブジェクト、または<xref:System.ComponentModel.AsyncCompletedEventArgs?displayProperty=nameWithType>パラメーター値としてオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="e2bff-151">You can use an <xref:System.ComponentModel.AsyncOperation> object, or an <xref:System.ComponentModel.AsyncCompletedEventArgs?displayProperty=nameWithType> object as the parameter value.</span></span> <span data-ttu-id="e2bff-152">代わりに、追加の状態の記憶域を提供する場合から派生したクラスのインスタンスを使用できる、<xref:System.ComponentModel.AsyncCompletedEventArgs?displayProperty=nameWithType>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e2bff-152">Alternatively, if you want to provide additional state storage, you can use an instance of a class you derive from the <xref:System.ComponentModel.AsyncCompletedEventArgs?displayProperty=nameWithType> class.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e2bff-153">次のコード例では、使用方法を示します、<xref:System.ComponentModel.AsyncOperation.PostOperationCompleted%2A>メソッドを非同期操作の有効期間を終了します。</span><span class="sxs-lookup"><span data-stu-id="e2bff-153">The following code example demonstrates using the <xref:System.ComponentModel.AsyncOperation.PostOperationCompleted%2A> method to end the lifetime of an asynchronous operation.</span></span> <span data-ttu-id="e2bff-154">このコード例に示されている例の一部である、<xref:System.ComponentModel.AsyncOperationManager?displayProperty=nameWithType>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e2bff-154">This code example is part of a larger example provided for the <xref:System.ComponentModel.AsyncOperationManager?displayProperty=nameWithType> class.</span></span>  
+  
+  
+[!code-csharp[System.ComponentModel.AsyncOperationManager#4](~/samples/snippets/csharp/VS_Snippets_Winforms/System.ComponentModel.AsyncOperationManager/CS/primenumbercalculatormain.cs#4)]
+[!code-vb[System.ComponentModel.AsyncOperationManager#4](~/samples/snippets/visualbasic/VS_Snippets_Winforms/System.ComponentModel.AsyncOperationManager/VB/primenumbercalculatormain.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="e2bff-155">
+            <see cref="M:System.ComponentModel.AsyncOperation.OperationCompleted" /> は、このタスクに対して既に呼び出されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-155">
+              <see cref="M:System.ComponentModel.AsyncOperation.OperationCompleted" /> has been called previously for this task.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="e2bff-156">
+            <paramref name="d" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-156">
+              <paramref name="d" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="e2bff-157">継承元が行う必要があります、<see cref="M:System.ComponentModel.AsyncOperation.PostOperationCompleted(System.Threading.SendOrPostCallback,System.Object)" />できるように、クラス ライブラリのプロバイダーは、潜在的なスタックを考慮する必要はありませんは、非同期呼び出しには、非同期処理が前提としていますが、特定のアプリケーション モデルの処理は同期している場合がオーバーフローが発生します。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="e2bff-157">Inheritors must make the <see cref="M:System.ComponentModel.AsyncOperation.PostOperationCompleted(System.Threading.SendOrPostCallback,System.Object)" /> invocation asynchronous, so that class library providers do not need to concern themselves with potential stack overflows if they assume asynchrony but a particular application model happens to be synchronous.</span>
+            </span>
+            <span data-ttu-id="e2bff-158">メソッドは、「有効期間の終了」の呼び出し、つまり、実装は、アプリケーション モデルに適切なことを行う必要があるとして解釈する必要があります。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="e2bff-158">The method should be interpreted as an "ending the lifetime" call, meaning the implementation needs to do what is appropriate for the application model.</span>
+            </span>
+            <span data-ttu-id="e2bff-159">たとえば、ASP.NET では、未処理の非同期操作ののカウントがデクリメントされます。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="e2bff-159">For instance, ASP.NET will decrement its count of outstanding asynchronous operations.</span>
+            </span>
+            <span data-ttu-id="e2bff-160">これもする必要があります、操作状態に後続の呼び出しが失敗するようが今すぐに完了したためです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="e2bff-160">This also should put the operation into a state such that any subsequent calls into it will fail, since it has now completed.</span>
+            </span>
+            <span data-ttu-id="e2bff-161">非同期のクラスの実装の詳細については、次を参照してください。[イベント ベースの非同期パターンを実装する](~/docs/standard/asynchronous-programming-patterns/implementing-the-event-based-asynchronous-pattern.md)です。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="e2bff-161">For more information about implementing asynchronous classes, see [Implementing the Event-based Asynchronous Pattern](~/docs/standard/asynchronous-programming-patterns/implementing-the-event-based-asynchronous-pattern.md).</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="T:System.ComponentModel.AsyncOperationManager" />
+      </Docs>
+    </Member>
+    <Member MemberName="SynchronizationContext">
+      <MemberSignature Language="C#" Value="public System.Threading.SynchronizationContext SynchronizationContext { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Threading.SynchronizationContext SynchronizationContext" />
+      <MemberSignature Language="DocId" Value="P:System.ComponentModel.AsyncOperation.SynchronizationContext" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property SynchronizationContext As SynchronizationContext" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Threading::SynchronizationContext ^ SynchronizationContext { System::Threading::SynchronizationContext ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.EventBasedAsync</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.SynchronizationContext</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e2bff-162">コンストラクターに渡された <see cref="T:System.Threading.SynchronizationContext" /> オブジェクトを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-162">Gets the <see cref="T:System.Threading.SynchronizationContext" /> object that was passed to the constructor.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e2bff-163">コンストラクターに渡された <see cref="T:System.Threading.SynchronizationContext" /> オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-163">The <see cref="T:System.Threading.SynchronizationContext" /> object that was passed to the constructor.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="UserSuppliedState">
+      <MemberSignature Language="C#" Value="public object UserSuppliedState { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance object UserSuppliedState" />
+      <MemberSignature Language="DocId" Value="P:System.ComponentModel.AsyncOperation.UserSuppliedState" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property UserSuppliedState As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Object ^ UserSuppliedState { System::Object ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ComponentModel.EventBasedAsync</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e2bff-164">非同期操作を一意に識別するために使用するオブジェクトを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-164">Gets or sets an object used to uniquely identify an asynchronous operation.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e2bff-165">非同期メソッド呼び出しに渡される状態オブジェクト。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e2bff-165">The state object passed to the asynchronous method invocation.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e2bff-166">クラスは、複数の非同期メソッド、または 1 つの非同期メソッドの複数の呼び出しをサポートする場合、クライアントは、非同期タスクがイベントを発生させるかを決定する方法を必要があります。</span><span class="sxs-lookup"><span data-stu-id="e2bff-166">If your class supports multiple asynchronous methods or multiple invocations of a single asynchronous method, clients will need a way to determine which asynchronous task is raising events.</span></span> <span data-ttu-id="e2bff-167">`MethodNameAsync`メソッドは、型のパラメーターを受け取る必要があります<xref:System.Object>タスク ID として動作します。</span><span class="sxs-lookup"><span data-stu-id="e2bff-167">Your `MethodNameAsync` method should take a parameter of type <xref:System.Object> that will act as a task ID.</span></span> <span data-ttu-id="e2bff-168">呼び出すときにこのタスクの ID を使用する、<xref:System.ComponentModel.AsyncOperationManager.CreateOperation%2A?displayProperty=nameWithType>メソッドが、これは、非同期操作の特定の呼び出しで、クライアントのタスクの ID を関連付けます。</span><span class="sxs-lookup"><span data-stu-id="e2bff-168">You will use this task ID when you call the <xref:System.ComponentModel.AsyncOperationManager.CreateOperation%2A?displayProperty=nameWithType>, method and this will associate the client's task ID with a particular invocation of your asynchronous operation.</span></span> <span data-ttu-id="e2bff-169">このタスクの ID はを通じて実装に使用可能になります、<xref:System.ComponentModel.AsyncOperation.UserSuppliedState%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e2bff-169">This task ID is made available to your implementation through the <xref:System.ComponentModel.AsyncOperation.UserSuppliedState%2A> property.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="e2bff-170">クライアント コードは一意の値を指定するように注意する必要があります、<xref:System.ComponentModel.AsyncOperation.UserSuppliedState%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e2bff-170">Client code must be careful to provide a unique value for the <xref:System.ComponentModel.AsyncOperation.UserSuppliedState%2A> property.</span></span> <span data-ttu-id="e2bff-171">タスク Id が一意でない進行状況とその他のイベントを正しくレポートする、実装があります。</span><span class="sxs-lookup"><span data-stu-id="e2bff-171">Non-unique task IDs may cause your implementation to report progress and other events incorrectly.</span></span> <span data-ttu-id="e2bff-172">一意でないタスク id をチェックして発生させるコード、<xref:System.ArgumentException>いずれかが検出された場合。</span><span class="sxs-lookup"><span data-stu-id="e2bff-172">Your code should check for a non-unique task ID and raise an <xref:System.ArgumentException> if one is detected.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e2bff-173">次のコード例では、使用方法を示します<xref:System.ComponentModel.AsyncOperation.UserSuppliedState%2A>を非同期操作の有効期間を追跡します。</span><span class="sxs-lookup"><span data-stu-id="e2bff-173">The following code example demonstrates using <xref:System.ComponentModel.AsyncOperation.UserSuppliedState%2A> to track the lifetime of asynchronous operations.</span></span> <span data-ttu-id="e2bff-174">このコード例に示されている例の一部である、<xref:System.ComponentModel.AsyncOperationManager?displayProperty=nameWithType>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e2bff-174">This code example is part of a larger example provided for the <xref:System.ComponentModel.AsyncOperationManager?displayProperty=nameWithType> class.</span></span>  
+  
+  
+[!code-csharp[System.ComponentModel.AsyncOperationManager#4](~/samples/snippets/csharp/VS_Snippets_Winforms/System.ComponentModel.AsyncOperationManager/CS/primenumbercalculatormain.cs#4)]
+[!code-vb[System.ComponentModel.AsyncOperationManager#4](~/samples/snippets/visualbasic/VS_Snippets_Winforms/System.ComponentModel.AsyncOperationManager/VB/primenumbercalculatormain.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.ComponentModel.AsyncOperationManager" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>
