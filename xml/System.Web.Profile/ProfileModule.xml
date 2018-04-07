@@ -1,0 +1,355 @@
+<Type Name="ProfileModule" FullName="System.Web.Profile.ProfileModule">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="7aea5bc89f15dd65e9b9dc6ce8aec92e1a8c517a" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class ProfileModule : System.Web.IHttpModule" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit ProfileModule extends System.Object implements class System.Web.IHttpModule" />
+  <TypeSignature Language="DocId" Value="T:System.Web.Profile.ProfileModule" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class ProfileModule&#xA;Implements IHttpModule" />
+  <TypeSignature Language="C++ CLI" Value="public ref class ProfileModule sealed : System::Web::IHttpModule" />
+  <AssemblyInfo>
+    <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.Web.IHttpModule</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="cf3eb-101">ユーザー プロファイルとプロファイル イベントの作成を管理します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="cf3eb-101">Manages the creation of the user profile and profile events.</span>
+      </span>
+      <span data-ttu-id="cf3eb-102">このクラスは継承できません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="cf3eb-102">This class cannot be inherited.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="cf3eb-103">ASP.NET を使用して、ユーザー プロファイルが有効にすると、<xref:System.Web.Profile.ProfileModule>にユーザー プロファイルを作成し、保存、 <xref:System.Web.HttpContext.Profile%2A> 、現在のプロパティ<xref:System.Web.HttpContext>です。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-103">When the user profile is enabled, ASP.NET uses the <xref:System.Web.Profile.ProfileModule> to create the user profile and store it in the <xref:System.Web.HttpContext.Profile%2A> property of the current <xref:System.Web.HttpContext>.</span></span>  
+  
+ <span data-ttu-id="cf3eb-104"><xref:System.Web.Profile.ProfileModule>次に、アプリケーションで認証を構成することができますを処理するイベントを公開します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-104">The <xref:System.Web.Profile.ProfileModule> exposes the following events you can handle to configure authentication in your application:</span></span>  
+  
+-   <span data-ttu-id="cf3eb-105"><xref:System.Web.Profile.ProfileModule.MigrateAnonymous>イベントには匿名ユーザーとしてログインするときは、認証済みのプロファイルに匿名プロファイルのプロファイル設定を移行します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-105">The <xref:System.Web.Profile.ProfileModule.MigrateAnonymous> event, to migrate profile settings from an anonymous profile to an authenticated profile when an anonymous user logs in.</span></span>  
+  
+-   <span data-ttu-id="cf3eb-106"><xref:System.Web.Profile.ProfileModule.Personalize>イベント、ユーザー プロファイルを作成する方法をカスタマイズします。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-106">The <xref:System.Web.Profile.ProfileModule.Personalize> event, to customize how the user profile is created.</span></span>  
+  
+-   <span data-ttu-id="cf3eb-107"><xref:System.Web.Profile.ProfileModule.ProfileAutoSaving>イベント、ユーザー プロファイルを保存時にする方法を制御する、<xref:System.Web.Profile.ProfileManager.AutomaticSaveEnabled%2A>プロパティに設定されている`true`です。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-107">The <xref:System.Web.Profile.ProfileModule.ProfileAutoSaving> event, to control how the user profile is saved when the <xref:System.Web.Profile.ProfileManager.AutomaticSaveEnabled%2A> property is set to `true`.</span></span>  
+  
+ <span data-ttu-id="cf3eb-108">ユーザー プロファイルを有効にする方法については、次を参照してください。 [profile 要素 (ASP.NET 設定スキーマ)](http://msdn.microsoft.com/library/ccb9bf3a-a044-464d-b89b-5cb5a3d389dd)です。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-108">For information about enabling the user profile, see [profile Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/library/ccb9bf3a-a044-464d-b89b-5cb5a3d389dd).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="cf3eb-109">次の例では、匿名 id と匿名ユーザーをサポートするプロファイルのプロパティを有効する Web.config ファイルを示します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-109">The following example shows a Web.config file that enables anonymous identification and profile properties that support anonymous users.</span></span>  
+  
+```  
+<configuration>  
+  <system.web>  
+    <authentication mode="Forms" >  
+      <forms loginUrl="login.aspx" name=".ASPXFORMSAUTH" />  
+    </authentication>  
+  
+    <anonymousIdentification enabled="true" />  
+  
+    <profile enabled="true" defaultProvider="AspNetSqlProvider">  
+      <properties>  
+        <add name="ZipCode" allowAnonymous="true" />  
+        <add name="CityAndState" allowAnonymous="true" />  
+        <add name="StockSymbols" type="System.Collections.ArrayList" allowAnonymous="true" />  
+      </properties>  
+    </profile>  
+  </system.web>  
+</configuration>  
+```  
+  
+ <span data-ttu-id="cf3eb-110">次のコード例は、 <xref:System.Web.Profile.ProfileModule.MigrateAnonymous> ASP.NET アプリケーションの Global.asax ファイルに含まれるイベント。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-110">The following code example shows the <xref:System.Web.Profile.ProfileModule.MigrateAnonymous> event included in the Global.asax file for an ASP.NET application.</span></span> <span data-ttu-id="cf3eb-111"><xref:System.Web.Profile.ProfileModule.MigrateAnonymous>イベントは、匿名プロファイルからプロファイル プロパティの値を現在のユーザーのプロファイルにコピーします。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-111">The <xref:System.Web.Profile.ProfileModule.MigrateAnonymous> event copies profile property values from the anonymous profile to the profile for the current user.</span></span>  
+  
+ [!code-csharp[System.Web.Profile.ProfileManager#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Profile.ProfileManager/CS/global.asax#1)]
+ [!code-vb[System.Web.Profile.ProfileManager#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Profile.ProfileManager/VB/global.asax#1)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ProfileModule ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Profile.ProfileModule.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; ProfileModule();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="cf3eb-112">
+            <see cref="T:System.Web.Profile.ProfileModule" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="cf3eb-112">Initializes a new instance of the <see cref="T:System.Web.Profile.ProfileModule" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="cf3eb-113">このコンス トラクターは、アプリケーション コードから呼び出されるものではありません。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-113">This constructor is not intended to be called from application code.</span></span>  
+  
+ <span data-ttu-id="cf3eb-114"><xref:System.Web.HttpApplication>は ASP.NET アプリケーションが開始されたときに作成します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-114">An <xref:System.Web.HttpApplication> is created when an ASP.NET application is started.</span></span> <span data-ttu-id="cf3eb-115"><xref:System.Web.HttpApplication>呼び出し、<xref:System.Web.Profile.ProfileModule>コンス トラクターを作成する、<xref:System.Web.Profile.ProfileModule>アプリケーションです。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-115">The <xref:System.Web.HttpApplication> calls the <xref:System.Web.Profile.ProfileModule> constructor to create the <xref:System.Web.Profile.ProfileModule> for the application.</span></span> <span data-ttu-id="cf3eb-116"><xref:System.Web.Profile.ProfileModule>はアプリケーションの構成で指定します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-116">The <xref:System.Web.Profile.ProfileModule> is specified in the configuration for an application.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="public void Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Profile.ProfileModule.Dispose" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Dispose ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Dispose();" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Web.IHttpModule.Dispose</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="cf3eb-117">
+            <see cref="T:System.Web.Profile.ProfileModule" /> によって使用されているすべてのリソースを解放します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="cf3eb-117">Releases all resources used by the <see cref="T:System.Web.Profile.ProfileModule" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="cf3eb-118">このメソッドは、アプリケーション コードから呼び出されるものではありません。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-118">This method is not intended to be called from application code.</span></span>  
+  
+ <span data-ttu-id="cf3eb-119"><xref:System.Web.HttpApplication>は ASP.NET アプリケーションが開始されたときに作成します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-119">An <xref:System.Web.HttpApplication> is created when an ASP.NET application is started.</span></span> <span data-ttu-id="cf3eb-120"><xref:System.Web.HttpApplication>を作成して初期化、<xref:System.Web.Profile.ProfileModule>アプリケーションおよび呼び出し、<xref:System.Web.Profile.ProfileModule.Dispose%2A>メソッド、オブジェクトが離されるとします。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-120">The <xref:System.Web.HttpApplication> creates and initializes the <xref:System.Web.Profile.ProfileModule> for the application and calls the <xref:System.Web.Profile.ProfileModule.Dispose%2A> method when the object is released.</span></span> <span data-ttu-id="cf3eb-121"><xref:System.Web.Profile.ProfileModule>はアプリケーションの構成で指定します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-121">The <xref:System.Web.Profile.ProfileModule> is specified in the configuration for an application.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Init">
+      <MemberSignature Language="C#" Value="public void Init (System.Web.HttpApplication app);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Init(class System.Web.HttpApplication app) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Profile.ProfileModule.Init(System.Web.HttpApplication)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Init (app As HttpApplication)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Init(System::Web::HttpApplication ^ app);" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Web.IHttpModule.Init(System.Web.HttpApplication)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="app" Type="System.Web.HttpApplication" />
+      </Parameters>
+      <Docs>
+        <param name="app">
+          <span data-ttu-id="cf3eb-122">現在のアプリケーション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="cf3eb-122">The current application.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="cf3eb-123">
+            <see cref="T:System.Web.Profile.ProfileModule" /> オブジェクトが作成されるときに、初期化コードを呼び出します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="cf3eb-123">Calls initialization code when a <see cref="T:System.Web.Profile.ProfileModule" /> object is created.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="cf3eb-124">このメソッドは、アプリケーション コードから呼び出されるものではありません。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-124">This method is not intended to be called from application code.</span></span>  
+  
+ <span data-ttu-id="cf3eb-125"><xref:System.Web.HttpApplication>は ASP.NET アプリケーションが開始されたときに作成します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-125">An <xref:System.Web.HttpApplication> is created when an ASP.NET application is started.</span></span> <span data-ttu-id="cf3eb-126"><xref:System.Web.HttpApplication>呼び出し、<xref:System.Web.Profile.ProfileModule.Init%2A>メソッドの作成時に、<xref:System.Web.Profile.ProfileModule>アプリケーションです。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-126">The <xref:System.Web.HttpApplication> calls the <xref:System.Web.Profile.ProfileModule.Init%2A> method when it creates the <xref:System.Web.Profile.ProfileModule> for the application.</span></span> <span data-ttu-id="cf3eb-127"><xref:System.Web.Profile.ProfileModule>はアプリケーションの構成で指定します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-127">The <xref:System.Web.Profile.ProfileModule> is specified in the configuration for an application.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="MigrateAnonymous">
+      <MemberSignature Language="C#" Value="public event System.Web.Profile.ProfileMigrateEventHandler MigrateAnonymous;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.Web.Profile.ProfileMigrateEventHandler MigrateAnonymous" />
+      <MemberSignature Language="DocId" Value="E:System.Web.Profile.ProfileModule.MigrateAnonymous" />
+      <MemberSignature Language="VB.NET" Value="Public Custom Event MigrateAnonymous As ProfileMigrateEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event System::Web::Profile::ProfileMigrateEventHandler ^ MigrateAnonymous;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.Profile.ProfileMigrateEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="cf3eb-128">あるプロファイルに対する匿名ユーザーがログインするときに発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="cf3eb-128">Occurs when the anonymous user for a profile logs in.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="cf3eb-129">アクセスすることができます、<xref:System.Web.Profile.ProfileModule.MigrateAnonymous>のイベント、<xref:System.Web.Profile.ProfileModule>を使用して ASP.NET アプリケーションの Global.asax ファイル内のクラス、`Profile_MigrateAnonymous`グローバル イベントをこのトピックの例に示すようにします。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-129">You can access the <xref:System.Web.Profile.ProfileModule.MigrateAnonymous> event of the <xref:System.Web.Profile.ProfileModule> class in the Global.asax file for your ASP.NET application by using the `Profile_MigrateAnonymous` global event, as shown in the example for this topic.</span></span>  
+  
+ <span data-ttu-id="cf3eb-130">使用することができます、<xref:System.Web.Profile.ProfileModule.MigrateAnonymous>プロファイル プロパティをコピーするイベント値の匿名プロファイルの認証済みのプロファイルに、アプリケーションが匿名でを使用したユーザーがログインするとします。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-130">You can use the <xref:System.Web.Profile.ProfileModule.MigrateAnonymous> event to copy profile property values from an anonymous profile to an authenticated profile when a user who has been anonymously using your application logs in.</span></span>  
+  
+ <span data-ttu-id="cf3eb-131">ASP.NET が型の新しいクラスを作成して有効になっているユーザー プロファイルを持つアプリケーションが開始されると、`ProfileCommon`から継承される、<xref:System.Web.Profile.ProfileBase>クラスです。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-131">When an application that has the user profile enabled is started, ASP.NET creates a new class of type `ProfileCommon`, which inherits from the <xref:System.Web.Profile.ProfileBase> class.</span></span> <span data-ttu-id="cf3eb-132">厳密に型指定されたアクセサーを追加、`ProfileCommon`構成セクションで定義されている各プロパティのクラスです。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-132">Strongly typed accessors are added to the `ProfileCommon` class for each property defined in the  configuration section.</span></span> <span data-ttu-id="cf3eb-133">A`GetProfile`メソッドでは、取得することができます、`ProfileCommon`オブジェクトは、ユーザー名に基づいています。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-133">A `GetProfile` method enables you to retrieve a `ProfileCommon` object based on a user name.</span></span> <span data-ttu-id="cf3eb-134">使用することができます、`GetProfile`匿名プロファイルのプロパティ値を取得する現在の認証済みのプロファイルのメソッドです。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-134">You can use the `GetProfile` method of the current, authenticated profile to retrieve the property values of the anonymous profile.</span></span> <span data-ttu-id="cf3eb-135">匿名プロパティの値は、認証されたユーザーの現在のプロファイルにコピーできます。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-135">The anonymous property values can then be copied to the current profile for the authenticated user.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="cf3eb-136">次の例では、匿名 id と匿名ユーザーをサポートするプロファイルのプロパティを有効する Web.config ファイルを示します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-136">The following example shows a Web.config file that enables anonymous identification and profile properties that support anonymous users.</span></span>  
+  
+```  
+<configuration>  
+  <system.web>  
+    <authentication mode="Forms" >  
+      <forms loginUrl="login.aspx" name=".ASPXFORMSAUTH" />  
+    </authentication>  
+  
+    <anonymousIdentification enabled="true" />  
+  
+    <profile enabled="true" defaultProvider="AspNetSqlProvider">  
+      <properties>  
+        <add name="ZipCode" allowAnonymous="true" />  
+        <add name="CityAndState" allowAnonymous="true" />  
+        <add name="StockSymbols" type="System.Collections.ArrayList" allowAnonymous="true" />  
+      </properties>  
+    </profile>  
+  </system.web>  
+</configuration>  
+```  
+  
+ <span data-ttu-id="cf3eb-137">次のコード例は、 <xref:System.Web.Profile.ProfileModule.MigrateAnonymous> ASP.NET アプリケーションの Global.asax ファイルに含まれるイベント。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-137">The following code example shows the <xref:System.Web.Profile.ProfileModule.MigrateAnonymous> event included in the Global.asax file for an ASP.NET application.</span></span> <span data-ttu-id="cf3eb-138"><xref:System.Web.Profile.ProfileModule.MigrateAnonymous>イベントは、匿名プロファイルからプロファイル プロパティの値を現在のユーザーのプロファイルにコピーします。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-138">The <xref:System.Web.Profile.ProfileModule.MigrateAnonymous> event copies profile property values from the anonymous profile to the profile for the current user.</span></span>  
+  
+ [!code-csharp[System.Web.Profile.ProfileManager#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Profile.ProfileManager/CS/global.asax#1)]
+ [!code-vb[System.Web.Profile.ProfileManager#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Profile.ProfileManager/VB/global.asax#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Personalize">
+      <MemberSignature Language="C#" Value="public event System.Web.Profile.ProfileEventHandler Personalize;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.Web.Profile.ProfileEventHandler Personalize" />
+      <MemberSignature Language="DocId" Value="E:System.Web.Profile.ProfileModule.Personalize" />
+      <MemberSignature Language="VB.NET" Value="Public Custom Event Personalize As ProfileEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event System::Web::Profile::ProfileEventHandler ^ Personalize;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.Profile.ProfileEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="cf3eb-139">ユーザー プロファイルが作成される前に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="cf3eb-139">Occurs before the user profile is created.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="cf3eb-140"><xref:System.Web.Profile.ProfileModule.Personalize>中にイベントが発生した、<xref:System.Web.HttpApplication.AcquireRequestState?displayProperty=nameWithType>イベント。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-140">The <xref:System.Web.Profile.ProfileModule.Personalize> event is raised during the <xref:System.Web.HttpApplication.AcquireRequestState?displayProperty=nameWithType> event.</span></span> <span data-ttu-id="cf3eb-141">アクセスすることができます、<xref:System.Web.Profile.ProfileModule.Personalize>のイベント、<xref:System.Web.Profile.ProfileModule>使用して ASP.NET アプリケーションの Global.asax ファイル内のクラス、`Profile_Personalize`このトピックの例に示すようにグローバル イベント。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-141">You can access the <xref:System.Web.Profile.ProfileModule.Personalize> event of the <xref:System.Web.Profile.ProfileModule> class in the Global.asax file for your ASP.NET application using the `Profile_Personalize` global event as shown in the example for this topic.</span></span>  
+  
+ <span data-ttu-id="cf3eb-142">使用することができます、<xref:System.Web.Profile.ProfileModule.Personalize>カスタム ユーザー プロファイルを指定するイベントです。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-142">You can use the <xref:System.Web.Profile.ProfileModule.Personalize> event to specify a custom user profile.</span></span> <span data-ttu-id="cf3eb-143">場合、<xref:System.Web.Profile.ProfileEventArgs.Profile%2A?displayProperty=nameWithType>に指定されたプロパティ値、<xref:System.Web.Profile.ProfileEventHandler>のイベント ハンドラー、<xref:System.Web.Profile.ProfileModule.Personalize>イベントではない値に設定`null`ときに、<xref:System.Web.Profile.ProfileModule.Personalize>イベントの終了時刻、<xref:System.Web.Profile.ProfileModule>の指定した値が使用されます、<xref:System.Web.Profile.ProfileEventArgs.Profile%2A?displayProperty=nameWithType>プロパティの値として、 <xref:System.Web.HttpContext.Profile%2A> 、現在のプロパティ<xref:System.Web.HttpContext>です。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-143">If the <xref:System.Web.Profile.ProfileEventArgs.Profile%2A?displayProperty=nameWithType> property value specified for the <xref:System.Web.Profile.ProfileEventHandler> event handler for the <xref:System.Web.Profile.ProfileModule.Personalize> event is set to a value that is not `null` when the <xref:System.Web.Profile.ProfileModule.Personalize> event ends, then the <xref:System.Web.Profile.ProfileModule> will use the specified value of the <xref:System.Web.Profile.ProfileEventArgs.Profile%2A?displayProperty=nameWithType> property as the value of the <xref:System.Web.HttpContext.Profile%2A> property of the current <xref:System.Web.HttpContext>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="cf3eb-144">次のコード例は、<xref:System.Web.Profile.ProfileModule.Personalize>イベント、アプリケーションの Global.asax ファイルで宣言されています。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-144">The following code example shows the <xref:System.Web.Profile.ProfileModule.Personalize> event declared in the Global.asax file for an application.</span></span> <span data-ttu-id="cf3eb-145">イベントのコードでは、ロールのメンバーシップに基づくユーザーのユーザー プロファイルを読み込みます。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-145">The event code loads a user profile for a user based on role membership.</span></span>  
+  
+ [!code-csharp[System.Web.Profile.ProfileManager.Personalize#12](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Profile.ProfileManager.Personalize/CS/global.asax#12)]
+ [!code-vb[System.Web.Profile.ProfileManager.Personalize#12](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Profile.ProfileManager.Personalize/VB/global.asax#12)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ProfileAutoSaving">
+      <MemberSignature Language="C#" Value="public event System.Web.Profile.ProfileAutoSaveEventHandler ProfileAutoSaving;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.Web.Profile.ProfileAutoSaveEventHandler ProfileAutoSaving" />
+      <MemberSignature Language="DocId" Value="E:System.Web.Profile.ProfileModule.ProfileAutoSaving" />
+      <MemberSignature Language="VB.NET" Value="Public Custom Event ProfileAutoSaving As ProfileAutoSaveEventHandler " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event System::Web::Profile::ProfileAutoSaveEventHandler ^ ProfileAutoSaving;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.Profile.ProfileAutoSaveEventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="cf3eb-146">プロファイルの自動保存が有効になっている場合、ページ実行の終了時に発生します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="cf3eb-146">Occurs at the end of page execution if automatic profile saving is enabled.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="cf3eb-147"><xref:System.Web.Profile.ProfileModule.ProfileAutoSaving>イベントは、ページの実行の最後、<xref:System.Web.Profile.ProfileManager.AutomaticSaveEnabled%2A?displayProperty=nameWithType>プロパティは`true`します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-147">The <xref:System.Web.Profile.ProfileModule.ProfileAutoSaving> event is raised at the end of page execution if the <xref:System.Web.Profile.ProfileManager.AutomaticSaveEnabled%2A?displayProperty=nameWithType> property is `true`.</span></span> <span data-ttu-id="cf3eb-148">アクセスすることができます、<xref:System.Web.Profile.ProfileModule.ProfileAutoSaving>のイベント、<xref:System.Web.Profile.ProfileModule>使用して ASP.NET アプリケーションの Global.asax ファイル内のクラス、`Profile_ProfileAutoSaving`グローバル イベントをこのトピックの例に示すようにします。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-148">You can access the <xref:System.Web.Profile.ProfileModule.ProfileAutoSaving> event of the <xref:System.Web.Profile.ProfileModule> class in the Global.asax file for your ASP.NET application using the `Profile_ProfileAutoSaving` global event, as shown in the example for this topic.</span></span>  
+  
+ <span data-ttu-id="cf3eb-149"><xref:System.Configuration.SettingsBase.Save%2A?displayProperty=nameWithType>メソッド チェック、<xref:System.Configuration.SettingsPropertyValue.IsDirty%2A>の各プロパティの値<xref:System.Configuration.SettingsPropertyValue>かどうかについてのプロパティをユーザー プロファイルにプリミティブ型、文字列の構成または<xref:System.DateTime>オブジェクトが変更されました。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-149">The <xref:System.Configuration.SettingsBase.Save%2A?displayProperty=nameWithType> method checks the <xref:System.Configuration.SettingsPropertyValue.IsDirty%2A> property value for each <xref:System.Configuration.SettingsPropertyValue> in the user profile to determine whether properties that are made up of primitive types, strings, or <xref:System.DateTime> objects have been changed.</span></span> <span data-ttu-id="cf3eb-150"><xref:System.Configuration.SettingsBase.Save%2A>メソッドが、カスタム クラスが変更されたかどうかを判定できません明示的にします。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-150">The <xref:System.Configuration.SettingsBase.Save%2A> method cannot explicitly determine whether a custom class has changed.</span></span> <span data-ttu-id="cf3eb-151">使用することができます、<xref:System.Web.Profile.ProfileModule.ProfileAutoSaving>カスタム オブジェクトが変更され、変更したオブジェクトの保存、自動を続行するかどうかを決定する場合、またはオブジェクトが変更されていない場合は、自動保存をキャンセルするイベントです。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-151">You can use the <xref:System.Web.Profile.ProfileModule.ProfileAutoSaving> event to determine whether a custom object has been changed and then either to continue with the automatic save for modified objects or to cancel the automatic save if no objects have been modified.</span></span>  
+  
+ <span data-ttu-id="cf3eb-152">プロファイルの自動保存の操作をキャンセルする、<xref:System.Web.Profile.ProfileAutoSaveEventArgs.ContinueWithProfileAutoSave%2A>プロパティを`false`で、<xref:System.Web.Profile.ProfileModule.ProfileAutoSaving>イベントです。 それ以外の場合、設定、<xref:System.Web.Profile.ProfileAutoSaveEventArgs.ContinueWithProfileAutoSave%2A>プロパティを`true`です。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-152">To cancel the automatic profile save operation, set the <xref:System.Web.Profile.ProfileAutoSaveEventArgs.ContinueWithProfileAutoSave%2A> property to `false` in the <xref:System.Web.Profile.ProfileModule.ProfileAutoSaving> event; otherwise, set the <xref:System.Web.Profile.ProfileAutoSaveEventArgs.ContinueWithProfileAutoSave%2A> property to `true`.</span></span>  
+  
+ <span data-ttu-id="cf3eb-153">複数のサブスクライバーがある可能性があります、<xref:System.Web.Profile.ProfileModule.ProfileAutoSaving>イベント。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-153">There may be multiple subscribers to the <xref:System.Web.Profile.ProfileModule.ProfileAutoSaving> event.</span></span> <span data-ttu-id="cf3eb-154"><xref:System.Web.Profile.ProfileModule>が使用する最後の値を<xref:System.Web.Profile.ProfileAutoSaveEventArgs.ContinueWithProfileAutoSave%2A>プロパティに設定します。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-154">The <xref:System.Web.Profile.ProfileModule> will use the last value that the <xref:System.Web.Profile.ProfileAutoSaveEventArgs.ContinueWithProfileAutoSave%2A> property is set to.</span></span> <span data-ttu-id="cf3eb-155">その結果、お勧めする明示的に設定する、<xref:System.Web.Profile.ProfileAutoSaveEventArgs.ContinueWithProfileAutoSave%2A>プロパティに、<xref:System.Web.Profile.ProfileModule.ProfileAutoSaving>イベントを取り消すまたは自動を続行するかどうかを付けて、以前のサブスクライバーによって設定された値を上書きする必要があります。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-155">As a result, it is recommended that you explicitly set the <xref:System.Web.Profile.ProfileAutoSaveEventArgs.ContinueWithProfileAutoSave%2A> property in the <xref:System.Web.Profile.ProfileModule.ProfileAutoSaving> event whether you are canceling or continuing with the automatic save, as you may need to overwrite the value set by an earlier subscriber.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="cf3eb-156">次のコード例は、 <xref:System.Web.Profile.ProfileModule.ProfileAutoSaving> ASP.NET アプリケーションの Global.asax ファイルに含まれるイベント。</span><span class="sxs-lookup"><span data-stu-id="cf3eb-156">The following code example shows the <xref:System.Web.Profile.ProfileModule.ProfileAutoSaving> event included in the Global.asax file for an ASP.NET application.</span></span>  
+  
+ [!code-csharp[System.Web.Profile.ProfileManager.ProfileAutoSaving#11](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Profile.ProfileManager.ProfileAutoSaving/CS/global.asax#11)]
+ [!code-vb[System.Web.Profile.ProfileManager.ProfileAutoSaving#11](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Profile.ProfileManager.ProfileAutoSaving/VB/global.asax#11)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

@@ -1,0 +1,1052 @@
+<Type Name="ControlAdapter" FullName="System.Web.UI.Adapters.ControlAdapter">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="31e3a9db18b7cba85d5901fe816b3124d2f065ba" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class ControlAdapter" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit ControlAdapter extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Web.UI.Adapters.ControlAdapter" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class ControlAdapter" />
+  <TypeSignature Language="C++ CLI" Value="public ref class ControlAdapter abstract" />
+  <AssemblyInfo>
+    <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="7b506-101">既定のマークアップ、または特定のブラウザーに対する動作を変更するために、アダプターの割り当て先の派生コントロールの表示をカスタマイズします。すべてのコントロール アダプターの継承元となる基本クラスです。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="7b506-101">Customizes rendering for the derived control to which the adapter is attached, to modify the default markup or behavior for specific browsers, and is the base class from which all control adapters inherit.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-102">管理アダプターは、特定のオーバーライド コンポーネント<xref:System.Web.UI.Control>クラス メソッドやブラウザーまたはマークアップ固有の処理を許可する実行のライフ サイクルのイベントです。</span><span class="sxs-lookup"><span data-stu-id="7b506-102">Control adapters are components that override certain <xref:System.Web.UI.Control> class methods and events in its execution lifecycle to allow browser or markup-specific handling.</span></span> <span data-ttu-id="7b506-103">.NET Framework がマップに 1 つの派生コントロール アダプター、<xref:System.Web.UI.Control>クライアント要求ごとのオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7b506-103">The .NET Framework maps a single derived control adapter to a <xref:System.Web.UI.Control> object for each client request.</span></span>  
+  
+ <span data-ttu-id="7b506-104">アダプターでは、特定のブラウザーまたはブラウザーのクラスのコントロールを変更するか、一部の機能に対しては任意のフィルターとして機能します。</span><span class="sxs-lookup"><span data-stu-id="7b506-104">An adapter modifies a control for a specific browser or class of browsers or acts as an arbitrary filter on some capability.</span></span> <span data-ttu-id="7b506-105">通常、アダプターは、(たとえば、XHTML または HTML 3.2) ブラウザーで使用するマークアップ言語によって定義されます。</span><span class="sxs-lookup"><span data-stu-id="7b506-105">Typically the adapter is defined by the markup language that the browser uses (for example, XHTML or HTML 3.2).</span></span> <span data-ttu-id="7b506-106">派生する特殊なクラスにカプセル化できますレンダリング動作に適応性の多く、<xref:System.Web.UI.HtmlTextWriter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="7b506-106">Much of the adaptability in rendering behavior can be encapsulated in the specialized classes that derive from the <xref:System.Web.UI.HtmlTextWriter> class.</span></span> <span data-ttu-id="7b506-107">したがって、さまざまなブラウザー クラスの動作、またはその信頼に適応性の 1 つのアダプターを使用できることが可能性が、<xref:System.Web.UI.HtmlTextWriter>クラスを不要なコントロール アダプターの使用して使用する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-107">Therefore, it is likely that a single adapter can be used for a number of browser class behaviors or that inclusion of the adaptability in the <xref:System.Web.UI.HtmlTextWriter> classes could make the use of a control adapter unnecessary.</span></span>  
+  
+ <span data-ttu-id="7b506-108">コントロール クラスのアダプターは、専用のアダプターが存在しない限り、そのクラスから継承するすべてのコントロールに適用されます。</span><span class="sxs-lookup"><span data-stu-id="7b506-108">An adapter for a control class applies to all controls that inherit from that class, unless more specialized adapters are present.</span></span> <span data-ttu-id="7b506-109">たとえば、アダプターを<xref:System.Web.UI.WebControls.BaseValidator>すべてのクラスを使用できます`Validator`オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7b506-109">For example, an adapter for the <xref:System.Web.UI.WebControls.BaseValidator> class can be used for all `Validator` objects.</span></span>  
+  
+ <span data-ttu-id="7b506-110">アダプター通常から継承しない直接、<xref:System.Web.UI.Adapters.ControlAdapter>コントロール型とターゲットのブラウザーに固有の追加機能を提供するクラスを基本からターゲット固有のアダプターのいずれかがクラス、または特定の表示が必要です。</span><span class="sxs-lookup"><span data-stu-id="7b506-110">Adapters typically do not inherit directly from the <xref:System.Web.UI.Adapters.ControlAdapter> class, but from one of the target-specific adapter base classes that provide additional functionality specific to the control type and target browser or the particular rendering required.</span></span>  
+  
+ <span data-ttu-id="7b506-111">コントロール自体では、アダプターは必ずしも必要はありません。</span><span class="sxs-lookup"><span data-stu-id="7b506-111">Controls themselves do not necessarily require an adapter.</span></span> <span data-ttu-id="7b506-112">コントロールは、コンポジションを介して拡張は場合、通常、子コントロールのアダプターで十分です。</span><span class="sxs-lookup"><span data-stu-id="7b506-112">If controls are extended through composition, generally the child control adapters are sufficient.</span></span>  
+  
+ <span data-ttu-id="7b506-113">各コントロールには、.browser 定義ファイルからアダプターへの明示的なマッピングがあります。</span><span class="sxs-lookup"><span data-stu-id="7b506-113">Each control has explicit mappings to adapters through the .browser definition files.</span></span> <span data-ttu-id="7b506-114">したがって、いずれかへのアクセスを<xref:System.Web.UI.Control.Adapter%2A?displayProperty=nameWithType>プロパティの使用、<xref:System.Web.HttpBrowserCapabilities>コントロール アダプターのマッピングの参照を実行するブラウザー定義ファイルから抽出されるオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7b506-114">Thus, any access to the <xref:System.Web.UI.Control.Adapter%2A?displayProperty=nameWithType> property uses the <xref:System.Web.HttpBrowserCapabilities> object extracted from the browser definition files to perform the lookup for the mapping of the adapter to control.</span></span>  
+  
+ <span data-ttu-id="7b506-115">処理中には、.NET Framework は、ターゲット固有の可能性があるコントロールのオーバーライド可能なメソッドの呼び出しを受け取ります。</span><span class="sxs-lookup"><span data-stu-id="7b506-115">During processing, the .NET Framework intercepts calls to the overridable methods of a control that could be target-specific.</span></span> <span data-ttu-id="7b506-116">コントロール アダプターが接続されている場合、.NET Framework は、関連付けられているアダプターのメソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="7b506-116">If a control adapter is attached, the .NET Framework calls the associated adapter methods.</span></span>  
+  
+ <span data-ttu-id="7b506-117">アダプターを使用してコントロールのレンダリングを実行する、<xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-117">The adapter performs rendering for the control through the <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A> method.</span></span> <span data-ttu-id="7b506-118">オーバーライドされると場合、<xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>可能性のある呼び出さないでください。 基本クラスの実装に呼び出しを実行するため、<xref:System.Web.UI.Control.Render%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-118">If overridden, <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A> potentially should not call the base class implementation because that performs a call back on the <xref:System.Web.UI.Control.Render%2A?displayProperty=nameWithType> method.</span></span> <span data-ttu-id="7b506-119">アダプターの 1 回で 1 回、およびコントロールで 2 回、発生するレンダリングする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-119">This might cause the rendering to occur twice, once by the adapter and once by the control.</span></span>  
+  
+ <span data-ttu-id="7b506-120"><xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>メソッドの呼び出しをに基づいて、<xref:System.Web.UI.Control.Render%2A?displayProperty=nameWithType>コントロールのメソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-120">The <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A> base method calls back on the <xref:System.Web.UI.Control.Render%2A?displayProperty=nameWithType> method of the control.</span></span> <span data-ttu-id="7b506-121">したがって、オーバーライドする場合は<xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>を実装するレンダリングはでさらに提供する場合を除き、基本クラスの実装を呼び出す必要がありますいない<xref:System.Web.UI.Control.Render%2A?displayProperty=nameWithType>コントロールのです。</span><span class="sxs-lookup"><span data-stu-id="7b506-121">Thus, if you override <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>, you should not call the base class implementation unless the rendering you implement is in addition to that provided by <xref:System.Web.UI.Control.Render%2A?displayProperty=nameWithType> of the control.</span></span>  
+  
+ <span data-ttu-id="7b506-122">.NET Framework 実行するインターセプション子コントロールのアダプターを確認する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-122">You must ensure that the .NET Framework performs interception for adapters of the child controls.</span></span> <span data-ttu-id="7b506-123">呼び出すことによってこれを行う、<xref:System.Web.UI.Adapters.ControlAdapter.RenderChildren%2A>呼び出すメソッドの基本、 <xref:System.Web.UI.Control.RenderChildren%2A?displayProperty=nameWithType> 、コントロールのメソッドから、<xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="7b506-123">You can do this by calling the <xref:System.Web.UI.Adapters.ControlAdapter.RenderChildren%2A> base method, which calls the <xref:System.Web.UI.Control.RenderChildren%2A?displayProperty=nameWithType> method of the control, from your <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A> override.</span></span>  
+  
+ <span data-ttu-id="7b506-124"><xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A>と<xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A>メソッドがコントロールによって呼び出される直前と直後にコントロールの呼び出し (それぞれ)、<xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-124">The <xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A> and <xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A> methods are called by the control immediately before and after (respectively) the control calls the <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A> method.</span></span> <span data-ttu-id="7b506-125">前と後のレンダリングはのみブラウザー固有の処理を使用して、必要なタスク<xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A>と<xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A>をオーバーライドする必要がない可能性がある<xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>です。</span><span class="sxs-lookup"><span data-stu-id="7b506-125">If pre- and post-rendering are the only browser-specific processing tasks required, using <xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A> and <xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A> might make it unnecessary to override <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>.</span></span> <span data-ttu-id="7b506-126">既定の動作、<xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A>と<xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A>の対応するメソッドを呼び出すには、メソッド、<xref:System.Web.UI.HtmlTextWriter>です。</span><span class="sxs-lookup"><span data-stu-id="7b506-126">The default behavior of the <xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A> and <xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A> methods is to call the corresponding methods of the <xref:System.Web.UI.HtmlTextWriter>.</span></span>  
+  
+ <span data-ttu-id="7b506-127">コントロール アダプターには、独自の状態情報を維持するには、オーバーライド、 <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A>、 <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A>、 <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A>、および<xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-127">To maintain its own state information, a control adapter can override the <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A>, <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A>, <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A>, and <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A> methods.</span></span> <span data-ttu-id="7b506-128"><xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A>、 <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A>、 <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A>、および<xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A>プライベート コントロールとビューの状態が保存され、それぞれ読み込まれるときに呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="7b506-128"><xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A>, <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A>, <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A>, and <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A> are called when the private control and view states are saved and loaded, respectively.</span></span>  
+  
+ <span data-ttu-id="7b506-129"><xref:System.Web.UI.Adapters.ControlAdapter.OnInit%2A>、 <xref:System.Web.UI.Adapters.ControlAdapter.OnLoad%2A>、 <xref:System.Web.UI.Adapters.ControlAdapter.OnPreRender%2A>、および<xref:System.Web.UI.Adapters.ControlAdapter.OnUnload%2A>base 対応に戻すメソッドの呼び出し<xref:System.Web.UI.Control>クラスのメソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-129">The <xref:System.Web.UI.Adapters.ControlAdapter.OnInit%2A>, <xref:System.Web.UI.Adapters.ControlAdapter.OnLoad%2A>, <xref:System.Web.UI.Adapters.ControlAdapter.OnPreRender%2A>, and <xref:System.Web.UI.Adapters.ControlAdapter.OnUnload%2A> base methods call back on the corresponding <xref:System.Web.UI.Control> class methods.</span></span> <span data-ttu-id="7b506-130">したがって、これらのいずれか<xref:System.Web.UI.Adapters.ControlAdapter>オーバーライドされたメソッドは、その基本メソッドを呼び出す必要があります以外の場合は、イベントに関連付けられているそれ以外の場合、<xref:System.Web.UI.Control>クラスのメソッドは発生しません。</span><span class="sxs-lookup"><span data-stu-id="7b506-130">Thus, any of these <xref:System.Web.UI.Adapters.ControlAdapter> methods that are overridden must call their base methods; otherwise, the event associated with the <xref:System.Web.UI.Control> class method will not be raised.</span></span>  
+  
+ <span data-ttu-id="7b506-131">コントロールとアダプターが必要に応じて実装の<xref:System.Web.UI.IPostBackDataHandler>と<xref:System.Web.UI.IPostBackEventHandler>インターフェイスです。</span><span class="sxs-lookup"><span data-stu-id="7b506-131">Controls and adapters optionally implement the <xref:System.Web.UI.IPostBackDataHandler> and <xref:System.Web.UI.IPostBackEventHandler> interfaces.</span></span> <span data-ttu-id="7b506-132">.NET Framework は、アダプターが存在するかどうかと、アダプターがこれらのインターフェイスを実装するかどうかを判断します。</span><span class="sxs-lookup"><span data-stu-id="7b506-132">The .NET Framework determines whether an adapter exists and whether the adapter implements these interfaces.</span></span> <span data-ttu-id="7b506-133">場合は、アダプターをオーバーライドする必要があります、 <xref:System.Web.UI.IPostBackDataHandler.LoadPostData%2A>、 <xref:System.Web.UI.IPostBackDataHandler.RaisePostDataChangedEvent%2A>、および<xref:System.Web.UI.IPostBackEventHandler.RaisePostBackEvent%2A>メソッドは、必要に応じて、します。</span><span class="sxs-lookup"><span data-stu-id="7b506-133">If it does, the adapter should override the <xref:System.Web.UI.IPostBackDataHandler.LoadPostData%2A>, <xref:System.Web.UI.IPostBackDataHandler.RaisePostDataChangedEvent%2A>, and <xref:System.Web.UI.IPostBackEventHandler.RaisePostBackEvent%2A> methods, as necessary.</span></span> <span data-ttu-id="7b506-134">ポストバック データが、アダプターで認識されない場合は、それを処理するコントロールにコールバックする必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-134">If the postback data is not recognized in the adapter, it must call back on the control to process it.</span></span> <span data-ttu-id="7b506-135">後続のイベント ハンドラーは、コントロールに戻る呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-135">Subsequent event handlers also must call back on the control.</span></span>  
+  
+ ]]></format>
+    </remarks>
+    <block subset="none" type="overrides">
+      <para>
+        <span data-ttu-id="7b506-136">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラス、一般的なアダプターの機能を必要とするコントロールは基底クラス、パターンのという名前の対応するアダプターが必要<paramref name="ControlType" /><see langword="Adapter" /> (たとえば、 <see langword="TextBoxAdapter" />)。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="7b506-136">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class, a control that requires general adapter functionality should have a corresponding adapter base class, named in the pattern <paramref name="ControlType" /><see langword="Adapter" /> (for example, <see langword="TextBoxAdapter" />).</span>
+        </span>
+        <span data-ttu-id="7b506-137">アダプター返す必要がありますには、少なくとも、厳密に型指定されたインスタンスを使用してコントロールの<see cref="P:System.Web.UI.Adapters.ControlAdapter.Control" />プロパティです。</span>
+        <span class="sxs-lookup">
+          <span data-stu-id="7b506-137">The adapter should at a minimum return a strongly-typed instance of the control through its <see cref="P:System.Web.UI.Adapters.ControlAdapter.Control" /> property.</span>
+        </span>  
+  
+1.  <span data-ttu-id="7b506-138">パターン内で特定のコントロール型とマークアップ言語の名前を付けるためのアダプターを制御<paramref name="MarkupControlType" /><see langword="Adapter" /> (たとえば、 <see langword="XhtmlTextBoxAdapter" />)。</span><span class="sxs-lookup"><span data-stu-id="7b506-138">Control adapters for a given control type and markup language should be named in the pattern <paramref name="MarkupControlType" /><see langword="Adapter" /> (for example, <see langword="XhtmlTextBoxAdapter" />).</span></span><span data-ttu-id="7b506-139">コントロール用のアダプターを実装する必要があります、 <see langword="Adapters" /> subnamespace です。</span><span class="sxs-lookup"><span data-stu-id="7b506-139">Adapters for a control should be implemented in an <see langword="Adapters" /> subnamespace.</span></span><span data-ttu-id="7b506-140">コントロール アダプターは、適切な基本クラスから継承し、コントロールと同じ継承モデルに従う必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-140">Control adapters should inherit from the appropriate base class and follow the same inheritance model as the control.</span></span><span data-ttu-id="7b506-141">継承するコントロール用のアダプターなど、<see cref="T:System.Web.UI.Control" />からいずれかの基本クラスを継承する必要があります、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラスまたは関連する<paramref name="ControlType" /><see langword="Adapter" />クラスです。</span><span class="sxs-lookup"><span data-stu-id="7b506-141">For example, an adapter for a control inheriting from the <see cref="T:System.Web.UI.Control" /> base class should inherit from either the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class or the relevant <paramref name="ControlType" /><see langword="Adapter" /> class.</span></span><span data-ttu-id="7b506-142">すべて .browser 構成ファイル内のデバイス ノードの下にある特殊なコントロールに対して、専用のアダプターを定義する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-142">Any specialized adapters should be defined for the specialized control under all of the device nodes in configuration .browser files.</span></span><span data-ttu-id="7b506-143">適切に実装されたコントロールは、アダプターが接続されているか、割り当てられているアダプターが特定のインターフェイスを実装すると想定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-143">A properly implemented control should not assume that an adapter is attached, or that the attached adapter implements a specific interface.</span></span><span data-ttu-id="7b506-144">代わりに、これらの呼び出しの前にチェックインします。</span><span class="sxs-lookup"><span data-stu-id="7b506-144">Instead, it should check for these before calling.</span></span><span data-ttu-id="7b506-145">などのコントロールでは、保護されたイベント メソッドをオーバーライドするをシミュレートすることは、<see cref="M:System.Web.UI.WebControls.LinkButton.OnClick(System.EventArgs)" />のメソッド、<see cref="T:System.Web.UI.WebControls.LinkButton" />です。</span><span class="sxs-lookup"><span data-stu-id="7b506-145">It is possible to simulate overriding protected event methods in the control, such as the <see cref="M:System.Web.UI.WebControls.LinkButton.OnClick(System.EventArgs)" /> method of the <see cref="T:System.Web.UI.WebControls.LinkButton" />.</span></span><span data-ttu-id="7b506-146">最初に、アダプター クラスを作成、 <c>OnClick</c>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-146">First, create an adapter class with an <c>OnClick</c> method.</span></span><span data-ttu-id="7b506-147">派生した新しいコントロールを作成し、<see cref="T:System.Web.UI.WebControls.LinkButton" />をオーバーライドし、<see cref="M:System.Web.UI.WebControls.LinkButton.OnClick(System.EventArgs)" />メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-147">Then create a new control derived from <see cref="T:System.Web.UI.WebControls.LinkButton" /> and override the <see cref="M:System.Web.UI.WebControls.LinkButton.OnClick(System.EventArgs)" /> method.</span></span><span data-ttu-id="7b506-148">オーバーライドされた<see cref="M:System.Web.UI.WebControls.LinkButton.OnClick(System.EventArgs)" />メソッドの呼び出し、 <c>OnClick</c>アダプターのメソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-148">The overriden <see cref="M:System.Web.UI.WebControls.LinkButton.OnClick(System.EventArgs)" /> method calls the <c>OnClick</c> method of the adapter.</span></span><span data-ttu-id="7b506-149">アダプター オブジェクトは、保護されたを通じて使用可能な<see cref="P:System.Web.UI.Control.Adapter" />のプロパティ、<see cref="T:System.Web.UI.Control" />クラスです。</span><span class="sxs-lookup"><span data-stu-id="7b506-149">The adapter object is available through the protected <see cref="P:System.Web.UI.Control.Adapter" /> property of the <see cref="T:System.Web.UI.Control" /> class.</span></span><span data-ttu-id="7b506-150"><see cref="P:System.Web.UI.Control.Adapter" /> 、コントロールのプロパティが<see langword="null" />関連付けられているアダプターがない場合は、任意のコードする必要がありますをチェックする条件、アダプターのメソッドを呼び出す前にします。</span><span class="sxs-lookup"><span data-stu-id="7b506-150">The <see cref="P:System.Web.UI.Control.Adapter" /> property of the control is <see langword="null" /> when there is no associated adapter, so any code should check for that condition before calling methods of the adapter.</span></span></para>
+    </block>
+    <altmember cref="T:System.Web.UI.Control" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected ControlAdapter ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; ControlAdapter();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="7b506-151">
+            <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-151">Initializes a new instance of the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-152">.NET Framework は、対応する、作成時に内部的にこのアダプターを構築<xref:System.Web.UI.Control>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7b506-152">The .NET Framework internally constructs this adapter when it creates the corresponding <xref:System.Web.UI.Control> object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="BeginRender">
+      <MemberSignature Language="C#" Value="protected internal virtual void BeginRender (System.Web.UI.HtmlTextWriter writer);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void BeginRender(class System.Web.UI.HtmlTextWriter writer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.BeginRender(System.Web.UI.HtmlTextWriter)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub BeginRender (writer As HtmlTextWriter)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void BeginRender(System::Web::UI::HtmlTextWriter ^ writer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Web.UI.HtmlTextWriter" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="7b506-153">ターゲット固有の出力を表示するメソッドを持つ <see cref="T:System.Web.UI.HtmlTextWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-153">The <see cref="T:System.Web.UI.HtmlTextWriter" /> containing methods to render the target-specific output.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-154">コントロールの表示前に呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-154">Called prior to the rendering of a control.</span>
+          </span>
+          <span data-ttu-id="7b506-155">派生アダプター クラスで、HTML ブラウザーには必要ではなくても特定のターゲットには必要な開始タグを生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-155">In a derived adapter class, generates opening tags that are required by a specific target but not needed by HTML browsers.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-156"><xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A>メソッドが直前に呼び出されます、<xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>メソッド、コントロールのレンダリングの前にターゲット固有の処理を実行するために使用します。</span><span class="sxs-lookup"><span data-stu-id="7b506-156">The <xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A> method is called just before the <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A> method, and is used to perform target-specific preprocessing before the rendering of the control.</span></span>  
+  
+ <span data-ttu-id="7b506-157">使用して、<xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A>メソッドと組み合わせて、<xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A>メソッドを開始タグと終了タグの整合性を確認してください。</span><span class="sxs-lookup"><span data-stu-id="7b506-157">Use the <xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A> method in combination with the <xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A> method to ensure opening and closing tag consistency.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-158">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラス、<see cref="M:System.Web.UI.Adapters.ControlAdapter.BeginRender(System.Web.UI.HtmlTextWriter)" />基本メソッドの呼び出し、<see cref="M:System.Web.UI.HtmlTextWriter.BeginRender" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-158">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class, the <see cref="M:System.Web.UI.Adapters.ControlAdapter.BeginRender(System.Web.UI.HtmlTextWriter)" /> base method calls the <see cref="M:System.Web.UI.HtmlTextWriter.BeginRender" /> method.</span>
+            </span>
+            <span data-ttu-id="7b506-159">ため、オーバーライド、<see cref="M:System.Web.UI.Adapters.ControlAdapter.BeginRender(System.Web.UI.HtmlTextWriter)" />メソッドを呼び出す必要があります、<see cref="M:System.Web.UI.Adapters.ControlAdapter.BeginRender(System.Web.UI.HtmlTextWriter)" />メソッドを基本の代わりではなく、ほかに、その処理が場合にのみ、<see cref="M:System.Web.UI.HtmlTextWriter.BeginRender" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-159">Thus, overrides of the <see cref="M:System.Web.UI.Adapters.ControlAdapter.BeginRender(System.Web.UI.HtmlTextWriter)" /> method should call the <see cref="M:System.Web.UI.Adapters.ControlAdapter.BeginRender(System.Web.UI.HtmlTextWriter)" /> base method only if its processing is in addition to, rather than instead of, the <see cref="M:System.Web.UI.HtmlTextWriter.BeginRender" /> method.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="M:System.Web.UI.HtmlTextWriter.BeginRender" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.EndRender(System.Web.UI.HtmlTextWriter)" />
+        <altmember cref="T:System.Web.UI.HtmlTextWriter" />
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="Browser">
+      <MemberSignature Language="C#" Value="protected System.Web.HttpBrowserCapabilities Browser { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Web.HttpBrowserCapabilities Browser" />
+      <MemberSignature Language="DocId" Value="P:System.Web.UI.Adapters.ControlAdapter.Browser" />
+      <MemberSignature Language="VB.NET" Value="Protected ReadOnly Property Browser As HttpBrowserCapabilities" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; property System::Web::HttpBrowserCapabilities ^ Browser { System::Web::HttpBrowserCapabilities ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.HttpBrowserCapabilities</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7b506-160">現在の HTTP 要求の作成元であるクライアントのブラウザー機能への参照を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-160">Gets a reference to the browser capabilities of the client making the current HTTP request.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7b506-161">クライアントのブラウザーとマークアップ機能を指定する <see cref="T:System.Web.HttpBrowserCapabilities" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-161">An <see cref="T:System.Web.HttpBrowserCapabilities" /> specifying client browser and markup capabilities.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-162">A<xref:System.Web.UI.Adapters.ControlAdapter>オブジェクトからクライアント ブラウザーの性能を決定する、<xref:System.Web.HttpBrowserCapabilities>によって返されるオブジェクト、<xref:System.Web.UI.Adapters.ControlAdapter.Browser%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="7b506-162">A <xref:System.Web.UI.Adapters.ControlAdapter> object determines the client browser capabilities from the <xref:System.Web.HttpBrowserCapabilities> object that is returned by the <xref:System.Web.UI.Adapters.ControlAdapter.Browser%2A> property.</span></span> <span data-ttu-id="7b506-163">これにより、<xref:System.Web.UI.Adapters.ControlAdapter>ブラウザー固有のマークアップを表示するか、それ以外の場合の動作を変更するオブジェクト、<xref:System.Web.UI.Control>です。</span><span class="sxs-lookup"><span data-stu-id="7b506-163">This enables the <xref:System.Web.UI.Adapters.ControlAdapter> object to render browser-specific markup or otherwise modify the behavior of the <xref:System.Web.UI.Control>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7b506-164">次のコード例を使用する方法を示しています、<xref:System.Web.UI.Adapters.ControlAdapter.Browser%2A>要求側のブラウザーの詳細にアクセスするプロパティです。</span><span class="sxs-lookup"><span data-stu-id="7b506-164">The following code example shows how to use the <xref:System.Web.UI.Adapters.ControlAdapter.Browser%2A> property to access the details of the requesting browser.</span></span> <span data-ttu-id="7b506-165">この例では、コードは、ブラウザーが JavaScript と互換性し、し、そのケースでカスタマイズされた出力を表示するために、開発者は、かどうかを判断するを確認します。</span><span class="sxs-lookup"><span data-stu-id="7b506-165">In this example, the code checks to determine whether the browser is compatible with JavaScript, and then allows the developer to render customized output in that case.</span></span>  
+  
+ [!code-cpp[ControlAdapter_Browser#1](~/samples/snippets/cpp/VS_Snippets_WebNet/ControlAdapter_Browser/CPP/controladapter_browser.cpp#1)]
+ [!code-csharp[ControlAdapter_Browser#1](~/samples/snippets/csharp/VS_Snippets_WebNet/ControlAdapter_Browser/CS/controladapter_browser.cs#1)]
+ [!code-vb[ControlAdapter_Browser#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/ControlAdapter_Browser/VB/controladapter_browser.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Web.UI.Control" />
+        <altmember cref="T:System.Web.HttpBrowserCapabilities" />
+        <altmember cref="T:System.Web.Configuration.HttpCapabilitiesBase" />
+      </Docs>
+    </Member>
+    <Member MemberName="Control">
+      <MemberSignature Language="C#" Value="protected System.Web.UI.Control Control { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Web.UI.Control Control" />
+      <MemberSignature Language="DocId" Value="P:System.Web.UI.Adapters.ControlAdapter.Control" />
+      <MemberSignature Language="VB.NET" Value="Protected ReadOnly Property Control As Control" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; property System::Web::UI::Control ^ Control { System::Web::UI::Control ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DesignerSerializationVisibility</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Web.UI.Control</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7b506-166">このコントロール アダプターの割り当て先コントロールへの参照を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-166">Gets a reference to the control to which this control adapter is attached.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7b506-167">
+            <see cref="T:System.Web.UI.Control" /> の割り当て先である <see cref="T:System.Web.UI.Adapters.ControlAdapter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-167">The <see cref="T:System.Web.UI.Control" /> to which this <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> is attached.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-168">派生コントロール アダプターがコントロールに関連付けられている場合、.NET Framework は、コントロールのメンバーではなく特定のアダプター メンバーを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="7b506-168">When a derived control adapter is attached to a control, the .NET Framework calls certain adapter members instead of the control members.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7b506-169">次のコード例をからカスタム コントロールを派生させる方法を示しています、<xref:System.Web.UI.Control>クラス、および継承された対応するアダプターを作成、<xref:System.Web.UI.Adapters.ControlAdapter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="7b506-169">The following code example shows how to derive a custom control from the <xref:System.Web.UI.Control> class, and then create a corresponding adapter that inherits from the <xref:System.Web.UI.Adapters.ControlAdapter> class.</span></span> <span data-ttu-id="7b506-170">アダプターの上書き、<xref:System.Web.UI.Adapters.ControlAdapter.Control%2A>プロパティを厳密に型指定されたコントロールへの参照を返します。</span><span class="sxs-lookup"><span data-stu-id="7b506-170">The adapter overrides the <xref:System.Web.UI.Adapters.ControlAdapter.Control%2A> property and returns a strongly-typed reference to the control.</span></span>  
+  
+ [!code-cpp[ControlAdapter.Control#1](~/samples/snippets/cpp/VS_Snippets_WebNet/ControlAdapter.Control/CPP/controladapter.control.cpp#1)]
+ [!code-csharp[ControlAdapter.Control#1](~/samples/snippets/csharp/VS_Snippets_WebNet/ControlAdapter.Control/CS/controladapter.control.cs#1)]
+ [!code-vb[ControlAdapter.Control#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/ControlAdapter.Control/VB/controladapter.control.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-171">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラスを実装する必要がありますには、少なくとも、<see langword="Control" />例」のセクションで示すように、コントロールの厳密に型指定されたインスタンスを取得するプロパティです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-171">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class, at a minimum, you should implement a <see langword="Control" /> property to return a strongly-typed instance of the control, as shown in the Example section.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="CreateChildControls">
+      <MemberSignature Language="C#" Value="protected internal virtual void CreateChildControls ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void CreateChildControls() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.CreateChildControls" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub CreateChildControls ()" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void CreateChildControls();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="7b506-172">複合コントロールのターゲット固有の子コントロールを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-172">Creates the target-specific child controls for a composite control.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-173">派生コントロール アダプターに接続がある場合、<xref:System.Web.UI.Control>オブジェクトおよび<xref:System.Web.UI.Adapters.ControlAdapter.CreateChildControls%2A>メソッドはオーバーライドが呼び出されての代わりに、<xref:System.Web.UI.Control.CreateChildControls%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-173">If there is a derived control adapter attached to a <xref:System.Web.UI.Control> object and the <xref:System.Web.UI.Adapters.ControlAdapter.CreateChildControls%2A> method is overridden, the override is called instead of the <xref:System.Web.UI.Control.CreateChildControls%2A?displayProperty=nameWithType> method.</span></span> <span data-ttu-id="7b506-174">したがって、<xref:System.Web.UI.Adapters.ControlAdapter.CreateChildControls%2A>ターゲット固有の子コントロールのセットを作成するために使用できます。</span><span class="sxs-lookup"><span data-stu-id="7b506-174">Thus, <xref:System.Web.UI.Adapters.ControlAdapter.CreateChildControls%2A> can be used to create a target-specific child control set.</span></span>  
+  
+ <span data-ttu-id="7b506-175">詳細については、新しいコントロールを作成するコントロールを組み合わせて、次を参照してください。[複合コントロール](http://msdn.microsoft.com/library/fb174677-d845-467c-8bf3-cc096b2490b0)です。</span><span class="sxs-lookup"><span data-stu-id="7b506-175">For more information about combining controls to create a new control, see [Composite Controls](http://msdn.microsoft.com/library/fb174677-d845-467c-8bf3-cc096b2490b0).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-176">継承するクラスを作成し、オーバーライドする場合、<see cref="M:System.Web.UI.Adapters.ControlAdapter.CreateChildControls" />メソッドでは、基本メソッドにコントロールを追加する場合を除き、によって作成された基本メソッドの呼び出しできません。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-176">If you create an inheriting class and override the <see cref="M:System.Web.UI.Adapters.ControlAdapter.CreateChildControls" /> method, do not call the base method unless you want to add controls to those created by the base method.</span>
+            </span>
+            <span data-ttu-id="7b506-177">それ以外の場合のコントロールの子の 2 つのセットを作成できます。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-177">Otherwise you could create two sets of child controls.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="M:System.Web.UI.Control.CreateChildControls" />
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="EndRender">
+      <MemberSignature Language="C#" Value="protected internal virtual void EndRender (System.Web.UI.HtmlTextWriter writer);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void EndRender(class System.Web.UI.HtmlTextWriter writer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.EndRender(System.Web.UI.HtmlTextWriter)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub EndRender (writer As HtmlTextWriter)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void EndRender(System::Web::UI::HtmlTextWriter ^ writer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Web.UI.HtmlTextWriter" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="7b506-178">ターゲット固有の出力を表示するメソッドを持つ <see cref="T:System.Web.UI.HtmlTextWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-178">The <see cref="T:System.Web.UI.HtmlTextWriter" /> containing methods to render the target-specific output.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-179">コントロールの表示後に呼び出されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-179">Called after the rendering of a control.</span>
+          </span>
+          <span data-ttu-id="7b506-180">派生アダプター クラスで、HTML ブラウザーには必要ではなくても特定のターゲットには必要な終了タグを生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-180">In a derived adapter class, generates closing tags that are required by a specific target but not needed by HTML browsers.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-181"><xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A>メソッドは、直後後に呼び出されますが、<xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>メソッド、コントロールのレンダリング後にターゲット固有の後処理を実行するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="7b506-181">The <xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A> method is called just after the <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A> method, and is used to perform target-specific postprocessing after the rendering of the control.</span></span>  
+  
+ <span data-ttu-id="7b506-182">使用して、<xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A>メソッドと組み合わせて、<xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A>メソッドを開始タグと終了タグの整合性を確認してください。</span><span class="sxs-lookup"><span data-stu-id="7b506-182">Use the <xref:System.Web.UI.Adapters.ControlAdapter.EndRender%2A> method in combination with the <xref:System.Web.UI.Adapters.ControlAdapter.BeginRender%2A> method to ensure opening and closing tag consistency.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-183">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラス、<see cref="M:System.Web.UI.Adapters.ControlAdapter.EndRender(System.Web.UI.HtmlTextWriter)" />基本メソッドの呼び出し、<see cref="M:System.Web.UI.HtmlTextWriter.EndRender" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-183">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class, the <see cref="M:System.Web.UI.Adapters.ControlAdapter.EndRender(System.Web.UI.HtmlTextWriter)" /> base method calls the <see cref="M:System.Web.UI.HtmlTextWriter.EndRender" /> method.</span>
+            </span>
+            <span data-ttu-id="7b506-184">ため、オーバーライド、<see cref="M:System.Web.UI.Adapters.ControlAdapter.EndRender(System.Web.UI.HtmlTextWriter)" />メソッドを呼び出す必要があります、<see cref="M:System.Web.UI.Adapters.ControlAdapter.EndRender(System.Web.UI.HtmlTextWriter)" />メソッドを基本の代わりではなく、ほかに、その処理が場合にのみ、<see cref="M:System.Web.UI.HtmlTextWriter.EndRender" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-184">Thus, overrides of the <see cref="M:System.Web.UI.Adapters.ControlAdapter.EndRender(System.Web.UI.HtmlTextWriter)" /> method should call the <see cref="M:System.Web.UI.Adapters.ControlAdapter.EndRender(System.Web.UI.HtmlTextWriter)" /> base method only if its processing is in addition to, rather than instead of, the <see cref="M:System.Web.UI.HtmlTextWriter.EndRender" /> method.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="M:System.Web.UI.HtmlTextWriter.EndRender" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.BeginRender(System.Web.UI.HtmlTextWriter)" />
+        <altmember cref="T:System.Web.UI.HtmlTextWriter" />
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="LoadAdapterControlState">
+      <MemberSignature Language="C#" Value="protected internal virtual void LoadAdapterControlState (object state);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void LoadAdapterControlState(object state) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub LoadAdapterControlState (state As Object)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void LoadAdapterControlState(System::Object ^ state);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="state" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="state">
+          <span data-ttu-id="7b506-185">アダプターのコントロールの状態情報を <see cref="T:System.Object" /> として格納している <see cref="T:System.Web.UI.StateBag" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-185">An <see cref="T:System.Object" /> that contains the adapter's control state information as a <see cref="T:System.Web.UI.StateBag" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-186">このコントロール アダプターに関連付けられたコントロールが配置されているページに対する以前の要求時に <see cref="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState" /> によって保存された、アダプターのコントロール状態情報を読み込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-186">Loads adapter control state information that was saved by <see cref="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState" /> during a previous request to the page where the control associated with this control adapter resides.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-187">コントロールの状態は、重要な状態情報のビュー ステートが無効になっている場合でも必要です。</span><span class="sxs-lookup"><span data-stu-id="7b506-187">Control state is the essential state information needed even if view state is disabled.</span></span> <span data-ttu-id="7b506-188">アダプターは、独自のコントロールの状態情報を維持する必要があります場合、これをオーバーライドできます、<xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A>と<xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-188">When an adapter needs to maintain its own control state information, it can override the <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A> and <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A> methods.</span></span>  
+  
+ <span data-ttu-id="7b506-189">アダプターは、状態を要求、関連付けられたコントロールの状態から独立して間で維持する必要がある機能がある場合は、コントロールの状態情報を維持する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-189">An adapter might need to maintain control state information when there are features that need to have state maintained across requests, independent from the state of the associated control.</span></span> <span data-ttu-id="7b506-190">大規模なテキスト形式で表示およびのグループから成る複合コントロールなど、<xref:System.Web.UI.WebControls.RadioButton>コントロールは、デスクトップ コンピューター ブラウザー上で 1 つのビューとしてレンダリング可能性があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-190">For example, a composite control consisting of a large textual display and a group of <xref:System.Web.UI.WebControls.RadioButton> controls might render as a single view on desktop computer browsers.</span></span> <span data-ttu-id="7b506-191">他のブラウザーで分割、レンダリング-テキストの表示は、もう一方のラジオ ボタン グループの 1 つのビューです。</span><span class="sxs-lookup"><span data-stu-id="7b506-191">On other browsers, it might split its rendering—one view for the textual display and the other for the radio button group.</span></span> <span data-ttu-id="7b506-192">アダプターは、現在アクティブなビューに関する独自のターゲット固有情報を保持する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-192">The adapter would need to maintain its own target-specific information about the currently active view.</span></span>  
+  
+ <span data-ttu-id="7b506-193"><xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A>直後後にメソッドが呼び出される、<xref:System.Web.UI.Control.LoadControlState%2A?displayProperty=nameWithType>メソッドで、`LoadState`ライフ サイクルの段階です。</span><span class="sxs-lookup"><span data-stu-id="7b506-193">The <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A> method is called immediately after the <xref:System.Web.UI.Control.LoadControlState%2A?displayProperty=nameWithType> method, in the `LoadState` lifecycle stage.</span></span> <span data-ttu-id="7b506-194">アダプターのコントロールの状態は、独立したコントロールのコントロールの状態だけでなくです。</span><span class="sxs-lookup"><span data-stu-id="7b506-194">The adapter control state is separate and in addition to the control state of the control.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Web.UI.Control.LoadControlState(System.Object)" />
+        <altmember cref="T:System.Web.UI.Control" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState(System.Object)" />
+      </Docs>
+    </Member>
+    <Member MemberName="LoadAdapterViewState">
+      <MemberSignature Language="C#" Value="protected internal virtual void LoadAdapterViewState (object state);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void LoadAdapterViewState(object state) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub LoadAdapterViewState (state As Object)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void LoadAdapterViewState(System::Object ^ state);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="state" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="state">
+          <span data-ttu-id="7b506-195">
+            <see cref="T:System.Object" /> としてアダプターのビューステート情報を格納している <see cref="T:System.Web.UI.StateBag" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-195">An <see cref="T:System.Object" /> that contains the adapter view state information as a <see cref="T:System.Web.UI.StateBag" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-196">このコントロール アダプターに関連付けられたコントロールが配置されているページに対する以前の要求時に <see cref="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState" /> によって保存された、アダプターのビューステートを読み込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-196">Loads adapter view state information that was saved by <see cref="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState" /> during a previous request to the page where the control associated with this control adapter resides.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-197">アダプターは、独自の状態情報を維持する必要があります場合、これをオーバーライドできます、<xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A>と<xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-197">When an adapter needs to maintain its own view state information, it can override the <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A> and <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A> methods.</span></span>  
+  
+ <span data-ttu-id="7b506-198">アダプターは、データが関連付けられたコントロールのビューステートから独立しての要求にわたって保持する必要があるときに、ビュー状態情報を維持する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-198">An adapter needs to maintain view state information when there is data that must be maintained across requests, independent from the view state of the associated control.</span></span> <span data-ttu-id="7b506-199">たとえば、デスクトップ コンピューター ブラウザー上のグリッド コントロールは、行の 1 つのビューと値の列としてレンダリング可能性があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-199">For example, a grid control on desktop computer browsers might render as a single view of rows and columns of values.</span></span> <span data-ttu-id="7b506-200">他のブラウザーで、レンダリングの行と 1 つの行の詳細の一覧などの複数のビューに分割します。</span><span class="sxs-lookup"><span data-stu-id="7b506-200">On other browsers, it might split its rendering into multiple separate views, such as a list of rows and details of a single row.</span></span> <span data-ttu-id="7b506-201">アダプターは、ビューいない現在アクティブな状態にあるビューのデータを維持する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-201">The adapter would need to maintain the data for the views that are not currently active in view state.</span></span>  
+  
+ <span data-ttu-id="7b506-202"><xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A>メソッドは、直前に呼び出されますが、<xref:System.Web.UI.Control.LoadViewState%2A?displayProperty=nameWithType>メソッドで、`LoadState`ライフ サイクルの段階です。</span><span class="sxs-lookup"><span data-stu-id="7b506-202">The <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A> method is called immediately before the <xref:System.Web.UI.Control.LoadViewState%2A?displayProperty=nameWithType> method in the `LoadState` lifecycle stage.</span></span> <span data-ttu-id="7b506-203">アダプターのビュー状態とは別されてだけでなく、コントロールのビュー ステート。</span><span class="sxs-lookup"><span data-stu-id="7b506-203">The adapter view state is separate and in addition to the view state of the control.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Web.UI.Control.LoadViewState(System.Object)" />
+        <altmember cref="T:System.Web.UI.Control" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState(System.Object)" />
+        <altmember cref="P:System.Web.UI.Control.ViewState" />
+      </Docs>
+    </Member>
+    <Member MemberName="OnInit">
+      <MemberSignature Language="C#" Value="protected internal virtual void OnInit (EventArgs e);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void OnInit(class System.EventArgs e) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.OnInit(System.EventArgs)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub OnInit (e As EventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void OnInit(EventArgs ^ e);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="e" Type="System.EventArgs" />
+      </Parameters>
+      <Docs>
+        <param name="e">
+          <span data-ttu-id="7b506-204">イベント データを格納している <see cref="T:System.EventArgs" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-204">An <see cref="T:System.EventArgs" /> that contains the event data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-205">関連付けられたコントロールの <see cref="M:System.Web.UI.Control.OnInit(System.EventArgs)" /> メソッドをオーバーライドします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-205">Overrides the <see cref="M:System.Web.UI.Control.OnInit(System.EventArgs)" /> method for the associated control.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-206">アダプターが接続がある場合、<xref:System.Web.UI.Control>オブジェクトおよび<xref:System.Web.UI.Adapters.ControlAdapter.OnInit%2A>メソッドはオーバーライド メソッドが呼び出されての代わりに、<xref:System.Web.UI.Control.OnInit%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-206">If there is an adapter attached to a <xref:System.Web.UI.Control> object and the <xref:System.Web.UI.Adapters.ControlAdapter.OnInit%2A> method is overridden, the override method is called instead of the <xref:System.Web.UI.Control.OnInit%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ <span data-ttu-id="7b506-207">オーバーライド<xref:System.Web.UI.Adapters.ControlAdapter.OnInit%2A>でターゲット固有の処理を実行する、`Initialize`コントロール ライフ サイクルの段階です。</span><span class="sxs-lookup"><span data-stu-id="7b506-207">Override <xref:System.Web.UI.Adapters.ControlAdapter.OnInit%2A> to perform target-specific processing in the `Initialize` stage of the control lifecycle.</span></span> <span data-ttu-id="7b506-208">通常、これらは、コントロールが作成されるときに実行される関数です。</span><span class="sxs-lookup"><span data-stu-id="7b506-208">Typically, these are functions that are performed when a control is created.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="7b506-209">次のコード サンプル、カスタム コントロール アダプターからの派生、<xref:System.Web.UI.Adapters.ControlAdapter>クラスです。</span><span class="sxs-lookup"><span data-stu-id="7b506-209">The following code sample derives a custom control adapter from the <xref:System.Web.UI.Adapters.ControlAdapter> class.</span></span> <span data-ttu-id="7b506-210">よりも優先、<xref:System.Web.UI.Adapters.ControlAdapter.OnInit%2A>を関連付けられたコントロールのプロパティを設定し、コントロールの初期化を完了する基本メソッドを呼び出すメソッド。</span><span class="sxs-lookup"><span data-stu-id="7b506-210">It then overrides the <xref:System.Web.UI.Adapters.ControlAdapter.OnInit%2A> method to set a property on the associated control and call the base method to complete the control initialization.</span></span>  
+  
+ [!code-cpp[ControlAdapter_OnInit#1](~/samples/snippets/cpp/VS_Snippets_WebNet/ControlAdapter_OnInit/CPP/controladapter_oninit.cpp#1)]
+ [!code-csharp[ControlAdapter_OnInit#1](~/samples/snippets/csharp/VS_Snippets_WebNet/ControlAdapter_OnInit/CS/controladapter_oninit.cs#1)]
+ [!code-vb[ControlAdapter_OnInit#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/ControlAdapter_OnInit/VB/controladapter_oninit.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-211">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラスとアダプターの上書き、<see cref="M:System.Web.UI.Adapters.ControlAdapter.OnInit(System.EventArgs)" />メソッド、アダプターは、対応する基本クラス メソッドを呼び出してを呼び出す必要があります、<see cref="M:System.Web.UI.Control.OnInit(System.EventArgs)" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-211">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class and the adapter overrides the <see cref="M:System.Web.UI.Adapters.ControlAdapter.OnInit(System.EventArgs)" /> method, the adapter must call the corresponding base class method, which in turn calls the <see cref="M:System.Web.UI.Control.OnInit(System.EventArgs)" /> method.</span>
+            </span>
+            <span data-ttu-id="7b506-212">場合、<see cref="M:System.Web.UI.Control.OnInit(System.EventArgs)" />メソッドは呼び出されません、<see cref="E:System.Web.UI.Control.Init" />イベントは発生しません。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-212">If the <see cref="M:System.Web.UI.Control.OnInit(System.EventArgs)" /> method is not called, the <see cref="E:System.Web.UI.Control.Init" /> event will not be raised.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="E:System.Web.UI.Control.Init" />
+        <altmember cref="M:System.Web.UI.Control.OnInit(System.EventArgs)" />
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="OnLoad">
+      <MemberSignature Language="C#" Value="protected internal virtual void OnLoad (EventArgs e);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void OnLoad(class System.EventArgs e) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.OnLoad(System.EventArgs)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub OnLoad (e As EventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void OnLoad(EventArgs ^ e);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="e" Type="System.EventArgs" />
+      </Parameters>
+      <Docs>
+        <param name="e">
+          <span data-ttu-id="7b506-213">イベント データを格納している <see cref="T:System.EventArgs" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-213">An <see cref="T:System.EventArgs" /> that contains the event data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-214">関連付けられたコントロールの <see cref="M:System.Web.UI.Control.OnLoad(System.EventArgs)" /> メソッドをオーバーライドします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-214">Overrides the <see cref="M:System.Web.UI.Control.OnLoad(System.EventArgs)" /> method for the associated control.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-215">アダプターが接続がある場合、<xref:System.Web.UI.Control>オブジェクトおよび<xref:System.Web.UI.Adapters.ControlAdapter.OnLoad%2A>メソッドはオーバーライド メソッドが呼び出されての代わりに、<xref:System.Web.UI.Control.OnLoad%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-215">If there is an adapter attached to a <xref:System.Web.UI.Control> object and the <xref:System.Web.UI.Adapters.ControlAdapter.OnLoad%2A> method is overridden, the override method is called instead of the <xref:System.Web.UI.Control.OnLoad%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ <span data-ttu-id="7b506-216">上書き、<xref:System.Web.UI.Adapters.ControlAdapter.OnLoad%2A>でターゲット固有の処理を実行するメソッドを`Load`コントロール ライフ サイクルの段階です。</span><span class="sxs-lookup"><span data-stu-id="7b506-216">Override the <xref:System.Web.UI.Adapters.ControlAdapter.OnLoad%2A> method to perform target-specific processing in the `Load` stage of the control lifecycle.</span></span> <span data-ttu-id="7b506-217">通常、これらは、クライアント要求ごとに実行する必要がある機能です。</span><span class="sxs-lookup"><span data-stu-id="7b506-217">Typically, these are functions that should be performed for each client request.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-218">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラスとアダプターの上書き、<see cref="M:System.Web.UI.Adapters.ControlAdapter.OnLoad(System.EventArgs)" />メソッド、アダプターは、対応する基本クラス メソッドを呼び出してを呼び出す必要があります、<see cref="M:System.Web.UI.Control.OnLoad(System.EventArgs)" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-218">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class and the adapter overrides the <see cref="M:System.Web.UI.Adapters.ControlAdapter.OnLoad(System.EventArgs)" /> method, the adapter must call the corresponding base class method, which in turn calls the <see cref="M:System.Web.UI.Control.OnLoad(System.EventArgs)" /> method.</span>
+            </span>
+            <span data-ttu-id="7b506-219">場合<see cref="M:System.Web.UI.Control.OnLoad(System.EventArgs)" />は呼び出されません、<see cref="E:System.Web.UI.Control.Load" />イベントは発生しません。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-219">If <see cref="M:System.Web.UI.Control.OnLoad(System.EventArgs)" /> is not called, the <see cref="E:System.Web.UI.Control.Load" /> event will not be raised.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="E:System.Web.UI.Control.Load" />
+        <altmember cref="M:System.Web.UI.Control.OnLoad(System.EventArgs)" />
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="OnPreRender">
+      <MemberSignature Language="C#" Value="protected internal virtual void OnPreRender (EventArgs e);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void OnPreRender(class System.EventArgs e) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.OnPreRender(System.EventArgs)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub OnPreRender (e As EventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void OnPreRender(EventArgs ^ e);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="e" Type="System.EventArgs" />
+      </Parameters>
+      <Docs>
+        <param name="e">
+          <span data-ttu-id="7b506-220">イベント データを格納している <see cref="T:System.EventArgs" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-220">An <see cref="T:System.EventArgs" /> that contains the event data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-221">関連付けられたコントロールの <see cref="M:System.Web.UI.Control.OnPreRender(System.EventArgs)" /> メソッドをオーバーライドします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-221">Overrides the <see cref="M:System.Web.UI.Control.OnPreRender(System.EventArgs)" /> method for the associated control.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-222">アダプターが接続がある場合、<xref:System.Web.UI.Control>オブジェクトおよび<xref:System.Web.UI.Adapters.ControlAdapter.OnPreRender%2A>メソッドはオーバーライド メソッドが呼び出されての代わりに、<xref:System.Web.UI.Control.OnPreRender%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-222">If there is an adapter attached to a <xref:System.Web.UI.Control> object and the <xref:System.Web.UI.Adapters.ControlAdapter.OnPreRender%2A> method is overridden, the override method is called instead of the <xref:System.Web.UI.Control.OnPreRender%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ <span data-ttu-id="7b506-223">上書き、<xref:System.Web.UI.Adapters.ControlAdapter.OnPreRender%2A>でターゲット固有の処理を実行するメソッドを`PreRender`コントロール ライフ サイクルの段階です。</span><span class="sxs-lookup"><span data-stu-id="7b506-223">Override the <xref:System.Web.UI.Adapters.ControlAdapter.OnPreRender%2A> method to perform target-specific processing in the `PreRender` stage of the control lifecycle.</span></span> <span data-ttu-id="7b506-224">通常、これらは、コントロールの出力の表示の直前にある機能です。</span><span class="sxs-lookup"><span data-stu-id="7b506-224">Typically, these are functions that immediately precede rendering of the control output.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-225">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラスとアダプターの上書き、<see cref="M:System.Web.UI.Adapters.ControlAdapter.OnPreRender(System.EventArgs)" />メソッド、アダプターは、対応する基本クラス メソッドを呼び出してを呼び出す必要があります、<see cref="M:System.Web.UI.Control.OnPreRender(System.EventArgs)" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-225">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class and the adapter overrides the <see cref="M:System.Web.UI.Adapters.ControlAdapter.OnPreRender(System.EventArgs)" /> method, the adapter must call the corresponding base class method, which in turn calls the <see cref="M:System.Web.UI.Control.OnPreRender(System.EventArgs)" /> method.</span>
+            </span>
+            <span data-ttu-id="7b506-226">場合、<see cref="M:System.Web.UI.Control.OnPreRender(System.EventArgs)" />メソッドは呼び出されません、<see cref="E:System.Web.UI.Control.PreRender" />イベントは発生しません。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-226">If the <see cref="M:System.Web.UI.Control.OnPreRender(System.EventArgs)" /> method is not called, the <see cref="E:System.Web.UI.Control.PreRender" /> event will not be raised.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="E:System.Web.UI.Control.PreRender" />
+        <altmember cref="M:System.Web.UI.Control.OnPreRender(System.EventArgs)" />
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="OnUnload">
+      <MemberSignature Language="C#" Value="protected internal virtual void OnUnload (EventArgs e);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void OnUnload(class System.EventArgs e) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.OnUnload(System.EventArgs)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub OnUnload (e As EventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void OnUnload(EventArgs ^ e);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="e" Type="System.EventArgs" />
+      </Parameters>
+      <Docs>
+        <param name="e">
+          <span data-ttu-id="7b506-227">イベント データを格納している <see cref="T:System.EventArgs" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-227">An <see cref="T:System.EventArgs" /> that contains the event data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-228">関連付けられたコントロールの <see cref="M:System.Web.UI.Control.OnUnload(System.EventArgs)" /> メソッドをオーバーライドします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-228">Overrides the <see cref="M:System.Web.UI.Control.OnUnload(System.EventArgs)" /> method for the associated control.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-229">アダプターが接続がある場合、<xref:System.Web.UI.Control>オブジェクトおよび<xref:System.Web.UI.Adapters.ControlAdapter.OnUnload%2A>メソッドはオーバーライド メソッドが呼び出されての代わりに、<xref:System.Web.UI.Control.OnUnload%2A?displayProperty=nameWithType>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-229">If there is an adapter attached to a <xref:System.Web.UI.Control> object and the <xref:System.Web.UI.Adapters.ControlAdapter.OnUnload%2A> method is overridden, the override method is called instead of the <xref:System.Web.UI.Control.OnUnload%2A?displayProperty=nameWithType> method.</span></span>  
+  
+ <span data-ttu-id="7b506-230">上書き、<xref:System.Web.UI.Adapters.ControlAdapter.OnUnload%2A>ターゲット固有の処理を実行するメソッド、`Unload`コントロール ライフ サイクルの段階です。</span><span class="sxs-lookup"><span data-stu-id="7b506-230">Override the <xref:System.Web.UI.Adapters.ControlAdapter.OnUnload%2A> method to do target-specific processing in the `Unload` stage of the control lifecycle.</span></span> <span data-ttu-id="7b506-231">通常、これらは、コントロールの破棄を直前のクリーンアップ機能です。</span><span class="sxs-lookup"><span data-stu-id="7b506-231">Typically, these are cleanup functions that precede disposition of the control.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-232">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラスとアダプターの上書き、<see cref="M:System.Web.UI.Adapters.ControlAdapter.OnUnload(System.EventArgs)" />メソッド、アダプターは、対応する基本クラス メソッドを呼び出してを呼び出す必要があります、<see cref="M:System.Web.UI.Control.OnUnload(System.EventArgs)" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-232">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class and the adapter overrides the <see cref="M:System.Web.UI.Adapters.ControlAdapter.OnUnload(System.EventArgs)" /> method, the adapter must call the corresponding base class method, which in turn calls the <see cref="M:System.Web.UI.Control.OnUnload(System.EventArgs)" /> method.</span>
+            </span>
+            <span data-ttu-id="7b506-233">場合<see cref="M:System.Web.UI.Control.OnUnload(System.EventArgs)" />は呼び出されません、<see cref="E:System.Web.UI.Control.Unload" />イベントは発生しません。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-233">If <see cref="M:System.Web.UI.Control.OnUnload(System.EventArgs)" /> is not called, the <see cref="E:System.Web.UI.Control.Unload" /> event will not be raised.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="E:System.Web.UI.Control.Unload" />
+        <altmember cref="M:System.Web.UI.Control.OnUnload(System.EventArgs)" />
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="Page">
+      <MemberSignature Language="C#" Value="protected System.Web.UI.Page Page { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Web.UI.Page Page" />
+      <MemberSignature Language="DocId" Value="P:System.Web.UI.Adapters.ControlAdapter.Page" />
+      <MemberSignature Language="VB.NET" Value="Protected ReadOnly Property Page As Page" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; property System::Web::UI::Page ^ Page { System::Web::UI::Page ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DesignerSerializationVisibility</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Web.UI.Page</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7b506-234">このアダプターに関連付けられたコントロールが配置されているページへの参照を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-234">Gets a reference to the page where the control associated with this adapter resides.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7b506-235">関連付けられたコントロールが配置されているページ インスタンスにアクセスできるようにする <see cref="T:System.Web.UI.Page" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-235">A <see cref="T:System.Web.UI.Page" /> that provides access to the page instance where the associated control is situated.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-236"><xref:System.Web.UI.Adapters.ControlAdapter.Page%2A>プロパティへのアクセスを提供する、<xref:System.Web.UI.Page?displayProperty=nameWithType>コントロールが置かれているオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7b506-236">The <xref:System.Web.UI.Adapters.ControlAdapter.Page%2A> property provides access to the <xref:System.Web.UI.Page?displayProperty=nameWithType> object where the control is situated.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Web.UI.Page" />
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="PageAdapter">
+      <MemberSignature Language="C#" Value="protected System.Web.UI.Adapters.PageAdapter PageAdapter { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Web.UI.Adapters.PageAdapter PageAdapter" />
+      <MemberSignature Language="DocId" Value="P:System.Web.UI.Adapters.ControlAdapter.PageAdapter" />
+      <MemberSignature Language="VB.NET" Value="Protected ReadOnly Property PageAdapter As PageAdapter" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; property System::Web::UI::Adapters::PageAdapter ^ PageAdapter { System::Web::UI::Adapters::PageAdapter ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DesignerSerializationVisibility</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Web.UI.Adapters.PageAdapter</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="7b506-237">関連付けられたコントロールが配置されているページのページ アダプターへの参照を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-237">Gets a reference to the page adapter for the page where the associated control resides.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="7b506-238">現在の <see cref="T:System.Web.UI.Adapters.PageAdapter" /> に関連付けられたコントロールが配置されているページの <see cref="T:System.Web.UI.Adapters.ControlAdapter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-238">A <see cref="T:System.Web.UI.Adapters.PageAdapter" /> for the page where the control associated with the current <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> is situated.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-239"><xref:System.Web.UI.Adapters.ControlAdapter.PageAdapter%2A>プロパティへのアクセスを提供する、<xref:System.Web.UI.Adapters.PageAdapter?displayProperty=nameWithType>オブジェクトに対する、<xref:System.Web.UI.Page>オブジェクト場所、<xref:System.Web.UI.Control>に現在関連付けられているオブジェクト<xref:System.Web.UI.Adapters.ControlAdapter>オブジェクトを配置します。</span><span class="sxs-lookup"><span data-stu-id="7b506-239">The <xref:System.Web.UI.Adapters.ControlAdapter.PageAdapter%2A> property provides access to the <xref:System.Web.UI.Adapters.PageAdapter?displayProperty=nameWithType> object for the <xref:System.Web.UI.Page> object where the <xref:System.Web.UI.Control> object associated with the current <xref:System.Web.UI.Adapters.ControlAdapter> object is situated.</span></span>  
+  
+ <span data-ttu-id="7b506-240"><xref:System.Web.UI.Adapters.ControlAdapter.PageAdapter%2A>  ページで、いくつかのコントロール型に適用できる共通のターゲットに固有の機能など、ページ アダプター レベルであるその他の項目にアクセスするプロパティを使用できます。</span><span class="sxs-lookup"><span data-stu-id="7b506-240">The <xref:System.Web.UI.Adapters.ControlAdapter.PageAdapter%2A> property can be used to access other items at the page adapter level, such as common target-specific functions that could apply to several control types on the page.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Web.UI.Adapters.PageAdapter" />
+        <altmember cref="T:System.Web.UI.Control" />
+      </Docs>
+    </Member>
+    <Member MemberName="Render">
+      <MemberSignature Language="C#" Value="protected internal virtual void Render (System.Web.UI.HtmlTextWriter writer);" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance void Render(class System.Web.UI.HtmlTextWriter writer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Sub Render (writer As HtmlTextWriter)" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual void Render(System::Web::UI::HtmlTextWriter ^ writer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Web.UI.HtmlTextWriter" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="7b506-241">ターゲット固有の出力を表示するために使用する <see cref="T:System.Web.UI.HtmlTextWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-241">The <see cref="T:System.Web.UI.HtmlTextWriter" /> to use to render the target-specific output.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-242">コントロール アダプターがアタッチされるコントロール用にターゲット固有のマークアップを生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-242">Generates the target-specific markup for the control to which the control adapter is attached.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-243">上書き、<xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>クライアントのブラウザーに送信するターゲット固有マークアップを生成するメソッド。</span><span class="sxs-lookup"><span data-stu-id="7b506-243">Override the <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A> method to generate target-specific markup to send to the client browser.</span></span> <span data-ttu-id="7b506-244"><xref:System.Web.UI.Adapters.ControlAdapter.Render%2A>の代わりにメソッドが呼び出された、<xref:System.Web.UI.Control.Render%2A?displayProperty=nameWithType>メソッド場合、<xref:System.Web.UI.Adapters.ControlAdapter>オブジェクトにアタッチされて、<xref:System.Web.UI.Control>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="7b506-244">The <xref:System.Web.UI.Adapters.ControlAdapter.Render%2A> method is called in place of the <xref:System.Web.UI.Control.Render%2A?displayProperty=nameWithType> method if a <xref:System.Web.UI.Adapters.ControlAdapter> object is attached to a <xref:System.Web.UI.Control> object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-245">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />クラス、<see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />基本メソッドの呼び出し、<see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-245">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class, the <see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" /> base method calls the <see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" /> method.</span>
+            </span>
+            <span data-ttu-id="7b506-246">ため、オーバーライド、<see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />メソッドを呼び出す必要があります、<see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />メソッドを基本の代わりではなく、ほかに、その処理が場合にのみ、<see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-246">Thus, overrides of the <see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" /> method should call the <see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" /> base method only if its processing is in addition to, rather than instead of, the <see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" /> method.</span>
+            </span>
+            <span data-ttu-id="7b506-247">複合コントロールの場合は、アダプター開発者は必要があります、子コントロールが表示されることを確認します。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-247">For a composite control, the adapter developer must ensure that the child controls are rendered.</span>
+            </span>
+            <span data-ttu-id="7b506-248">場合、<see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />メソッドの原因が子レンダリングを制御しますが、マークアップを生成しませんありますに適した、<see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />にその基本メソッドを呼び出すメソッド。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-248">If the <see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" /> method causes the child controls to be rendered but does not generate markup, it might be appropriate for the <see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" /> method to call its base method.</span>
+            </span>
+            <span data-ttu-id="7b506-249">子コントロールのターゲット固有のレンダリングが必要な場合は、アダプターを実装する必要があります、<see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" />メソッドを呼び出し、<see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" />メソッドから、<see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-249">If target-specific rendering of the child controls is necessary, the adapter should implement the <see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" /> method and call the <see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" /> method from the <see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" /> method.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />
+        <altmember cref="T:System.Web.UI.Control" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" />
+        <altmember cref="M:System.Web.UI.Control.RenderChildren(System.Web.UI.HtmlTextWriter)" />
+        <altmember cref="M:System.Web.UI.Control.RenderControl(System.Web.UI.HtmlTextWriter,System.Web.UI.Adapters.ControlAdapter)" />
+      </Docs>
+    </Member>
+    <Member MemberName="RenderChildren">
+      <MemberSignature Language="C#" Value="protected virtual void RenderChildren (System.Web.UI.HtmlTextWriter writer);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void RenderChildren(class System.Web.UI.HtmlTextWriter writer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Sub RenderChildren (writer As HtmlTextWriter)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void RenderChildren(System::Web::UI::HtmlTextWriter ^ writer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Web.UI.HtmlTextWriter" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="7b506-250">ターゲット固有の出力を表示するために使用する <see cref="T:System.Web.UI.HtmlTextWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-250">The <see cref="T:System.Web.UI.HtmlTextWriter" /> to use to render the target-specific output.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="7b506-251">コントロール アダプターの割り当て先である複合コントロールに含まれる子コントロールのターゲット固有のマークアップを生成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-251">Generates the target-specific markup for the child controls in a composite control to which the control adapter is attached.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-252">上書き、<xref:System.Web.UI.Adapters.ControlAdapter.RenderChildren%2A>メソッドは、個々 の子コントロールのマークアップにさらに複合コントロールの子コントロール セットのターゲット固有マークアップを生成する必要があるとします。</span><span class="sxs-lookup"><span data-stu-id="7b506-252">Override the <xref:System.Web.UI.Adapters.ControlAdapter.RenderChildren%2A> method when it is necessary to generate target-specific markup for the child control set of a composite control, in addition to the markup for the individual child controls.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="7b506-253">継承する場合、<see cref="T:System.Web.UI.Adapters.ControlAdapter" />複合コントロール、アダプター開発者用のクラスが子コントロールが表示されることを確認する必要があります。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-253">When you inherit from the <see cref="T:System.Web.UI.Adapters.ControlAdapter" /> class, for a composite control, the adapter developer must ensure that the child controls are rendered.</span>
+            </span>
+            <span data-ttu-id="7b506-254">アダプターをオーバーライドする場合、<see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" />メソッドを呼び出して、<see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" />メソッドのオーバーライドから、<see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-254">If the adapter overrides the <see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" /> method, it should call the <see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" /> method from an override of the <see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" /> method.</span>
+            </span>
+            <span data-ttu-id="7b506-255">場合、<see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />メソッドの原因が子を表示を制御しますがそれ自体が、マークアップを生成しませんありますに適した、<see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />メソッドを呼び出してその基本メソッドを呼び出す、<see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />のオーバーライドを実装する代わりに、メソッド<see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" />メソッドです。</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="7b506-255">If the <see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" /> method causes the child controls to be rendered but itself does not generate markup, it might be appropriate for the <see cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" /> method to call its base method, which calls the <see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" /> method, instead of implementing an override for the <see cref="M:System.Web.UI.Adapters.ControlAdapter.RenderChildren(System.Web.UI.HtmlTextWriter)" /> method.</span>
+            </span>
+          </para>
+        </block>
+        <altmember cref="M:System.Web.UI.Control.RenderChildren(System.Web.UI.HtmlTextWriter)" />
+        <altmember cref="T:System.Web.UI.Control" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.Render(System.Web.UI.HtmlTextWriter)" />
+        <altmember cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />
+      </Docs>
+    </Member>
+    <Member MemberName="SaveAdapterControlState">
+      <MemberSignature Language="C#" Value="protected internal virtual object SaveAdapterControlState ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance object SaveAdapterControlState() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Function SaveAdapterControlState () As Object" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual System::Object ^ SaveAdapterControlState();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="7b506-256">コントロール アダプターのコントロール状態情報を保存します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-256">Saves control state information for the control adapter.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7b506-257">アダプターのコントロールの状態情報を <see cref="T:System.Object" /> として格納している <see cref="T:System.Web.UI.StateBag" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-257">An <see cref="T:System.Object" /> that contains the adapter's control state information as a <see cref="T:System.Web.UI.StateBag" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-258">コントロールの状態は、重要な状態情報のビュー ステートが無効になっている場合でも必要です。</span><span class="sxs-lookup"><span data-stu-id="7b506-258">Control state is the essential state information needed even if view state is disabled.</span></span> <span data-ttu-id="7b506-259">アダプターは、独自のコントロールの状態情報を維持する必要があります場合、これをオーバーライドできます、<xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A>と<xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-259">When an adapter needs to maintain its own control state information, it can override the <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A> and <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState%2A> methods.</span></span>  
+  
+ <span data-ttu-id="7b506-260">アダプターは、状態を要求、関連付けられたコントロールの状態から独立して間で維持する必要がある機能がある場合は、コントロールの状態情報を維持する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-260">An adapter might need to maintain control state information when there are features that need to have state maintained across requests, independent from the state of the associated control.</span></span> <span data-ttu-id="7b506-261">大規模なテキスト形式で表示およびのグループから成る複合コントロールなど、<xref:System.Web.UI.WebControls.RadioButton>コントロールは、デスクトップ コンピューター ブラウザー上で 1 つのビューとしてレンダリング可能性があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-261">For example, a composite control consisting of a large textual display and a group of <xref:System.Web.UI.WebControls.RadioButton> controls might render as a single view on desktop computer browsers.</span></span> <span data-ttu-id="7b506-262">他のブラウザーで分割、レンダリング-テキストの表示は、もう一方のラジオ ボタン グループの 1 つのビューです。</span><span class="sxs-lookup"><span data-stu-id="7b506-262">On other browsers, it might split its rendering—one view for the textual display and the other for the radio button group.</span></span> <span data-ttu-id="7b506-263">アダプターは、現在アクティブなビューに関する独自のターゲット固有情報を保持する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-263">The adapter would need to maintain its own target-specific information about the currently active view.</span></span>  
+  
+ <span data-ttu-id="7b506-264"><xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A>直後後にメソッドが呼び出される、<xref:System.Web.UI.Control.SaveControlState%2A?displayProperty=nameWithType>メソッドで、`SaveState`ライフ サイクルの段階です。</span><span class="sxs-lookup"><span data-stu-id="7b506-264">The <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState%2A> method is called immediately after the <xref:System.Web.UI.Control.SaveControlState%2A?displayProperty=nameWithType> method in the `SaveState` lifecycle stage.</span></span> <span data-ttu-id="7b506-265">アダプターのコントロールの状態は、独立したコントロールのコントロールの状態だけでなくです。</span><span class="sxs-lookup"><span data-stu-id="7b506-265">The adapter control state is separate and in addition to the control state of the control.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Web.UI.Control.SaveControlState" />
+        <altmember cref="T:System.Web.UI.Control" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.LoadAdapterControlState(System.Object)" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState" />
+      </Docs>
+    </Member>
+    <Member MemberName="SaveAdapterViewState">
+      <MemberSignature Language="C#" Value="protected internal virtual object SaveAdapterViewState ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyorassemblyhidebysig newslot virtual instance object SaveAdapterViewState() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable Function SaveAdapterViewState () As Object" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual System::Object ^ SaveAdapterViewState();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="7b506-266">コントロール アダプターのビューステート情報を保存します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-266">Saves view state information for the control adapter.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="7b506-267">
+            <see cref="T:System.Object" /> としてアダプターのビューステート情報を格納している <see cref="T:System.Web.UI.StateBag" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="7b506-267">An <see cref="T:System.Object" /> that contains the adapter view state information as a <see cref="T:System.Web.UI.StateBag" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="7b506-268">アダプターは、独自の状態情報を維持する必要があります場合、これをオーバーライドできます、<xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A>と<xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="7b506-268">When an adapter needs to maintain its own view state information, it can override the <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A> and <xref:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState%2A> methods.</span></span>  
+  
+ <span data-ttu-id="7b506-269">アダプターは、データがコントロールの関連するビュー状態から独立しての要求にわたって保持する必要があるときに状態情報を維持する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-269">An adapter needs to maintain view state information when there is data that must be maintained across requests, independent from the associated view state of the control.</span></span> <span data-ttu-id="7b506-270">たとえば、デスクトップ コンピューター ブラウザー上のグリッド コントロールは、行の 1 つのビューと値の列としてレンダリング可能性があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-270">For example, a grid control on desktop computer browsers might render as a single view of rows and columns of values.</span></span> <span data-ttu-id="7b506-271">他のブラウザーで、レンダリングの行と 1 つの行の詳細の一覧などの複数のビューに分割します。</span><span class="sxs-lookup"><span data-stu-id="7b506-271">On other browsers, it might split its rendering into multiple separate views, such as a list of rows and details of a single row.</span></span> <span data-ttu-id="7b506-272">アダプターは、ビューいない現在アクティブな状態にあるビューのデータを維持する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7b506-272">The adapter would need to maintain the data for the views that are not currently active in view state.</span></span>  
+  
+ <span data-ttu-id="7b506-273"><xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A>メソッドは、直前に呼び出されますが、<xref:System.Web.UI.Control.SaveViewState%2A?displayProperty=nameWithType>メソッドで、`SaveState`ライフ サイクルの段階です。</span><span class="sxs-lookup"><span data-stu-id="7b506-273">The <xref:System.Web.UI.Adapters.ControlAdapter.SaveAdapterViewState%2A> method is called immediately before the <xref:System.Web.UI.Control.SaveViewState%2A?displayProperty=nameWithType> method in the `SaveState` lifecycle stage.</span></span> <span data-ttu-id="7b506-274">アダプターのビュー状態とは別されてだけでなく、コントロールのビュー ステート。</span><span class="sxs-lookup"><span data-stu-id="7b506-274">The adapter view state is separate and in addition to the view state of the control.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Web.UI.Control.SaveViewState" />
+        <altmember cref="T:System.Web.UI.Control" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.SaveAdapterControlState" />
+        <altmember cref="M:System.Web.UI.Adapters.ControlAdapter.LoadAdapterViewState(System.Object)" />
+        <altmember cref="P:System.Web.UI.Control.ViewState" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

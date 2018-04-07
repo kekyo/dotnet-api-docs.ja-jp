@@ -1,0 +1,784 @@
+<Type Name="HostProtectionAttribute" FullName="System.Security.Permissions.HostProtectionAttribute">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="a3dc5f0dbbfe014cde4f115f48727c4364318db7" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class HostProtectionAttribute : System.Security.Permissions.CodeAccessSecurityAttribute" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit HostProtectionAttribute extends System.Security.Permissions.CodeAccessSecurityAttribute" />
+  <TypeSignature Language="DocId" Value="T:System.Security.Permissions.HostProtectionAttribute" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class HostProtectionAttribute&#xA;Inherits CodeAccessSecurityAttribute" />
+  <TypeSignature Language="C++ CLI" Value="public ref class HostProtectionAttribute sealed : System::Security::Permissions::CodeAccessSecurityAttribute" />
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Security.Permissions</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Security.Permissions.CodeAccessSecurityAttribute</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.AttributeUsage(System.AttributeTargets.Assembly | System.AttributeTargets.Class | System.AttributeTargets.Struct | System.AttributeTargets.Constructor | System.AttributeTargets.Method | System.AttributeTargets.Delegate, AllowMultiple=true, Inherited=false)</AttributeName>
+    </Attribute>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="e23cb-101">ホスト保護要件を決める宣言セキュリティ アクションの使用を許可します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="e23cb-101">Allows the use of declarative security actions to determine host protection requirements.</span>
+      </span>
+      <span data-ttu-id="e23cb-102">このクラスは継承できません。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="e23cb-102">This class cannot be inherited.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-103">この属性は、共通言語ランタイムと実装ホストの保護、SQL Server などをホストするアンマネージ アプリケーションのみに影響します。</span><span class="sxs-lookup"><span data-stu-id="e23cb-103">This attribute affects only unmanaged applications that host the common language runtime and implement host protection, such as SQL Server.</span></span> <span data-ttu-id="e23cb-104">コードがホスト保護されていないクライアント アプリケーションまたはサーバーで実行される場合、この属性は "消滅" します。つまり、検出されないため適用されません。</span><span class="sxs-lookup"><span data-stu-id="e23cb-104">If the code is run in a client application or on a server that is not host-protected, the attribute "evaporates"; it is not detected and therefore not applied.</span></span> <span data-ttu-id="e23cb-105">HPA を適用すると、セキュリティ アクションはクラスまたはメソッドが公開するホスト リソースに基づいてリンク確認要求を作成します。</span><span class="sxs-lookup"><span data-stu-id="e23cb-105">When applied, the security action results in the creation of a link demand based on the host resources the class or method exposes.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="e23cb-106">この属性の目的は、セキュリティ動作ではなく、ホスト固有のプログラミング モデルのガイドラインを強制することです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-106">The purpose of this attribute is to enforce host-specific programming model guidelines, not security behavior.</span></span>  <span data-ttu-id="e23cb-107">リンク確認要求はプログラミング モデルの要件への準拠を確認するために使われますが、<xref:System.Security.Permissions.HostProtectionAttribute> はセキュリティ アクセス許可ではありません。</span><span class="sxs-lookup"><span data-stu-id="e23cb-107">Although a link demand is used to check for conformance to programming model requirements, the <xref:System.Security.Permissions.HostProtectionAttribute> is not a security permission.</span></span>  
+  
+ <span data-ttu-id="e23cb-108">ホストにプログラミング モデルの要件がない場合、リンク確認要求は発生しません。</span><span class="sxs-lookup"><span data-stu-id="e23cb-108">If the host does not have programming model requirements, the link demands do not occur.</span></span>  
+  
+ <span data-ttu-id="e23cb-109">この属性は次のものを識別します。</span><span class="sxs-lookup"><span data-stu-id="e23cb-109">This attribute identifies the following:</span></span>  
+  
+-   <span data-ttu-id="e23cb-110">ホスト プログラミング モデルには適合しないが、それ以外の問題はないメソッドまたはクラス。</span><span class="sxs-lookup"><span data-stu-id="e23cb-110">Methods or classes that do not fit the host programming model, but are otherwise benign.</span></span>  
+  
+-   <span data-ttu-id="e23cb-111">ホスト プログラミング モデルに適合せず、サーバーが管理するユーザー コードが不安定になる可能性があるメソッドまたはクラス。</span><span class="sxs-lookup"><span data-stu-id="e23cb-111">Methods or classes that do not fit the host programming model and could lead to destabilizing server-managed user code.</span></span>  
+  
+-   <span data-ttu-id="e23cb-112">ホスト プログラミング モデルに適合せず、サーバー プロセス自体が不安定になる可能性があるメソッドまたはクラス。</span><span class="sxs-lookup"><span data-stu-id="e23cb-112">Methods or classes that do not fit the host programming model and could lead to a destabilization of the server process itself.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="e23cb-113">ホストで保護された環境で実行する可能性のあるアプリケーションによって呼び出されるクラス ライブラリを作成する場合は、<xref:System.Security.Permissions.HostProtectionResource> リソース カテゴリを公開するメンバーにこの属性を適用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e23cb-113">If you are creating a class library that is to be called by applications that may execute in a host protected environment, you should apply this attribute to members that expose <xref:System.Security.Permissions.HostProtectionResource> resource categories.</span></span> <span data-ttu-id="e23cb-114">この属性を持つ .NET Framework クラス ライブラリのメンバーについては、直前の呼び出し元だけがチェックされます。</span><span class="sxs-lookup"><span data-stu-id="e23cb-114">The .NET Framework class library members with this attribute cause only the immediate caller to be checked.</span></span>  <span data-ttu-id="e23cb-115">カスタムのライブラリ メンバーについても、同じように直前の呼び出し元がチェックされるようにする必要があります。</span><span class="sxs-lookup"><span data-stu-id="e23cb-115">Your library member must also cause a check of its immediate caller in the same manner.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="e23cb-116">使用しないで、 [Ngen.exe (ネイティブ イメージ ジェネレーター)](~/docs/framework/tools/ngen-exe-native-image-generator.md)によって保護されているアセンブリのネイティブ イメージを作成する、<xref:System.Security.Permissions.HostProtectionAttribute>です。</span><span class="sxs-lookup"><span data-stu-id="e23cb-116">Do not use the [Ngen.exe (Native Image Generator)](~/docs/framework/tools/ngen-exe-native-image-generator.md) to create a native image of assemblies that are protected by the <xref:System.Security.Permissions.HostProtectionAttribute>.</span></span> <span data-ttu-id="e23cb-117">完全に信頼された環境でイメージが常に読み込まれるに関係なく、 <xref:System.Security.Permissions.HostProtectionAttribute>、し、イメージが読み込まれていない部分信頼環境でします。</span><span class="sxs-lookup"><span data-stu-id="e23cb-117">In a full-trust environment, the image is always loaded, without regard to the <xref:System.Security.Permissions.HostProtectionAttribute>, and in a partial-trust environment the image is not loaded.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e23cb-118">次のコード例の使用を示しています、 <xref:System.Security.Permissions.HostProtectionAttribute> 、さまざまな属性<xref:System.Security.Permissions.HostProtectionResource>値。</span><span class="sxs-lookup"><span data-stu-id="e23cb-118">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with a variety of <xref:System.Security.Permissions.HostProtectionResource> values.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#1)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#1)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-119">
+            <see cref="T:System.Security.Permissions.HostProtectionAttribute" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-119">Initializes a new instance of the <see cref="T:System.Security.Permissions.HostProtectionAttribute" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public HostProtectionAttribute ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Permissions.HostProtectionAttribute.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; HostProtectionAttribute();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-120">
+            <see cref="T:System.Security.Permissions.HostProtectionAttribute" /> クラスの新しいインスタンスを既定値で初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-120">Initializes a new instance of the <see cref="T:System.Security.Permissions.HostProtectionAttribute" /> class with default values.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-121">このコンス トラクターを作成、<xref:System.Security.Permissions.HostProtectionAttribute>すべてのブール型プロパティ設定`false`です。</span><span class="sxs-lookup"><span data-stu-id="e23cb-121">This constructor creates a <xref:System.Security.Permissions.HostProtectionAttribute> with all Boolean properties set to `false`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public HostProtectionAttribute (System.Security.Permissions.SecurityAction action);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.Security.Permissions.SecurityAction action) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Permissions.HostProtectionAttribute.#ctor(System.Security.Permissions.SecurityAction)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (action As SecurityAction)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; HostProtectionAttribute(System::Security::Permissions::SecurityAction action);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="action" Type="System.Security.Permissions.SecurityAction" />
+      </Parameters>
+      <Docs>
+        <param name="action">
+          <span data-ttu-id="e23cb-122">
+            <see cref="T:System.Security.Permissions.SecurityAction" /> 値のいずれか 1 つ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-122">One of the <see cref="T:System.Security.Permissions.SecurityAction" /> values.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e23cb-123">指定した <see cref="T:System.Security.Permissions.SecurityAction" /> 値を使用して、<see cref="T:System.Security.Permissions.HostProtectionAttribute" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-123">Initializes a new instance of the <see cref="T:System.Security.Permissions.HostProtectionAttribute" /> class with the specified <see cref="T:System.Security.Permissions.SecurityAction" /> value.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-124">このコンス トラクターは使用できません。</span><span class="sxs-lookup"><span data-stu-id="e23cb-124">This constructor should not be used.</span></span> <span data-ttu-id="e23cb-125">インフラストラクチャの使用目的がします。</span><span class="sxs-lookup"><span data-stu-id="e23cb-125">It is intended for infrastructure use.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="e23cb-126">
+            <paramref name="action" /> が <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" /> ではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-126">
+              <paramref name="action" /> is not <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="CreatePermission">
+      <MemberSignature Language="C#" Value="public override System.Security.IPermission CreatePermission ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Security.IPermission CreatePermission() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Security.Permissions.HostProtectionAttribute.CreatePermission" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function CreatePermission () As IPermission" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::Security::IPermission ^ CreatePermission();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.IPermission</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-127">新しいホスト保護のアクセス許可を作成して返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-127">Creates and returns a new host protection permission.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="e23cb-128">現在の属性に対応する <see cref="T:System.Security.IPermission" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-128">An <see cref="T:System.Security.IPermission" /> that corresponds to the current attribute.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-129">このメソッドは、アプリケーション コードからではなく、セキュリティ システムからのみ呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="e23cb-129">This method should be called only by the security system, never by application code.</span></span>  
+  
+ <span data-ttu-id="e23cb-130">コンパイル時に、属性は、セキュリティの宣言をメタデータのシリアル化された形式に変換されます。</span><span class="sxs-lookup"><span data-stu-id="e23cb-130">At compile time, attributes convert security declarations to a serialized form in metadata.</span></span> <span data-ttu-id="e23cb-131">メタデータの宣言セキュリティ データは、このメソッドが返す属性に対応するアクセス許可から作成されます。</span><span class="sxs-lookup"><span data-stu-id="e23cb-131">Declarative security data in metadata is created from the permission corresponding to the attribute that this method returns.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ExternalProcessMgmt">
+      <MemberSignature Language="C#" Value="public bool ExternalProcessMgmt { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool ExternalProcessMgmt" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.ExternalProcessMgmt" />
+      <MemberSignature Language="VB.NET" Value="Public Property ExternalProcessMgmt As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool ExternalProcessMgmt { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-132">外部プロセス管理が公開されているかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-132">Gets or sets a value indicating whether external process management is exposed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-133">外部プロセス管理が公開されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-133">
+              <see langword="true" /> if external process management is exposed; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="e23cb-134">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-134">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-135">外部プロセス管理を公開するコードを作成したり他のプロセスを破棄します。</span><span class="sxs-lookup"><span data-stu-id="e23cb-135">Code that exposes external process management might create or destroy other processes.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e23cb-136">次のコード例の使用を示しています、<xref:System.Security.Permissions.HostProtectionAttribute>属性が、<xref:System.Security.Permissions.HostProtectionAttribute.ExternalProcessMgmt%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-136">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with the <xref:System.Security.Permissions.HostProtectionAttribute.ExternalProcessMgmt%2A> property.</span></span> <span data-ttu-id="e23cb-137">この例に示されている例の一部である、<xref:System.Security.Permissions.HostProtectionAttribute>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-137">This example is part of a larger example provided for the <xref:System.Security.Permissions.HostProtectionAttribute> class.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#5](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#5)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#5)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#5](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#5)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="F:System.Security.Permissions.HostProtectionResource.ExternalProcessMgmt" />
+      </Docs>
+    </Member>
+    <Member MemberName="ExternalThreading">
+      <MemberSignature Language="C#" Value="public bool ExternalThreading { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool ExternalThreading" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.ExternalThreading" />
+      <MemberSignature Language="VB.NET" Value="Public Property ExternalThreading As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool ExternalThreading { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-138">外部スレッド処理が公開されているかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-138">Gets or sets a value indicating whether external threading is exposed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-139">外部スレッド処理が公開されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-139">
+              <see langword="true" /> if external threading is exposed; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="e23cb-140">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-140">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-141">外部スレッド処理を公開するコードを作成またはホストに害を及ぼす可能性のある、それ自体以外のスレッドを操作します。</span><span class="sxs-lookup"><span data-stu-id="e23cb-141">Code that exposes external threading creates or manipulates threads other than its own, which might be harmful to the host.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e23cb-142">次のコード例の使用を示しています、<xref:System.Security.Permissions.HostProtectionAttribute>属性が、<xref:System.Security.Permissions.HostProtectionAttribute.ExternalThreading%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-142">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with the <xref:System.Security.Permissions.HostProtectionAttribute.ExternalThreading%2A> property.</span></span> <span data-ttu-id="e23cb-143">この例に示されている例の一部である、<xref:System.Security.Permissions.HostProtectionAttribute>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-143">This example is part of a larger example provided for the <xref:System.Security.Permissions.HostProtectionAttribute> class.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#6](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#6)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#6](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#6)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#6](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#6)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="F:System.Security.Permissions.HostProtectionResource.ExternalThreading" />
+      </Docs>
+    </Member>
+    <Member MemberName="MayLeakOnAbort">
+      <MemberSignature Language="C#" Value="public bool MayLeakOnAbort { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool MayLeakOnAbort" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.MayLeakOnAbort" />
+      <MemberSignature Language="VB.NET" Value="Public Property MayLeakOnAbort As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool MayLeakOnAbort { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-144">操作が終了した場合にリソースがメモリをリークする可能性があるかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-144">Gets or sets a value indicating whether resources might leak memory if the operation is terminated.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-145">終了時にリソースがメモリをリークする可能性がある場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-145">
+              <see langword="true" /> if resources might leak memory on termination; otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-146">コードがセーフ ハンドルまたはリソースの解放を確保するその他の手段によって保護されていなければ、終了時にリソース リークが発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="e23cb-146">Code might cause a resource leak on termination, if not protected by a safe handle or some other means of ensuring the release of resources.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="F:System.Security.Permissions.HostProtectionResource.MayLeakOnAbort" />
+      </Docs>
+    </Member>
+    <Member MemberName="Resources">
+      <MemberSignature Language="C#" Value="public System.Security.Permissions.HostProtectionResource Resources { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Security.Permissions.HostProtectionResource Resources" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.Resources" />
+      <MemberSignature Language="VB.NET" Value="Public Property Resources As HostProtectionResource" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Security::Permissions::HostProtectionResource Resources { System::Security::Permissions::HostProtectionResource get(); void set(System::Security::Permissions::HostProtectionResource value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.Permissions.HostProtectionResource</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-147">ホストに害を及ぼす可能性がある機能のカテゴリを指定するフラグを取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-147">Gets or sets flags specifying categories of functionality that are potentially harmful to the host.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-148">
+            <see cref="T:System.Security.Permissions.HostProtectionResource" /> 値のビットごとの組み合わせ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-148">A bitwise combination of the <see cref="T:System.Security.Permissions.HostProtectionResource" /> values.</span>
+          </span>
+          <span data-ttu-id="e23cb-149">既定値は、<see cref="F:System.Security.Permissions.HostProtectionResource.None" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-149">The default is <see cref="F:System.Security.Permissions.HostProtectionResource.None" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-150"><xref:System.Security.Permissions.HostProtectionResource>フラグは、ホストに害を及ぼす可能性のあるいるメソッドまたはクラスによって公開されるリソースを指定します。</span><span class="sxs-lookup"><span data-stu-id="e23cb-150">The <xref:System.Security.Permissions.HostProtectionResource> flags specify the resources exposed by the method or class that are potentially harmful to the host.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e23cb-151">次のコード例の使用を示しています、<xref:System.Security.Permissions.HostProtectionAttribute>属性が、<xref:System.Security.Permissions.HostProtectionAttribute.Resources%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-151">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with the <xref:System.Security.Permissions.HostProtectionAttribute.Resources%2A> property.</span></span> <span data-ttu-id="e23cb-152">この例に示されている例の一部である、<xref:System.Security.Permissions.HostProtectionAttribute>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-152">This example is part of a larger example provided for the <xref:System.Security.Permissions.HostProtectionAttribute> class.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#2)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#2)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Security.Permissions.HostProtectionResource" />
+      </Docs>
+    </Member>
+    <Member MemberName="SecurityInfrastructure">
+      <MemberSignature Language="C#" Value="public bool SecurityInfrastructure { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool SecurityInfrastructure" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.SecurityInfrastructure" />
+      <MemberSignature Language="VB.NET" Value="Public Property SecurityInfrastructure As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool SecurityInfrastructure { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-153">セキュリティ インフラストラクチャが公開されているかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-153">Gets or sets a value indicating whether the security infrastructure is exposed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-154">セキュリティ インフラストラクチャが公開されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-154">
+              <see langword="true" /> if the security infrastructure is exposed; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="e23cb-155">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-155">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-156">使用、<xref:System.Security.Principal.WindowsIdentity>ユーザーを偽装するオブジェクトがセキュリティ インフラストラクチャを公開するための例を示します。</span><span class="sxs-lookup"><span data-stu-id="e23cb-156">The use of a <xref:System.Security.Principal.WindowsIdentity> object to impersonate a user is an example of exposing the security infrastructure.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e23cb-157">次のコード例の使用を示しています、<xref:System.Security.Permissions.HostProtectionAttribute>属性が、<xref:System.Security.Permissions.HostProtectionAttribute.SecurityInfrastructure%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-157">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with the <xref:System.Security.Permissions.HostProtectionAttribute.SecurityInfrastructure%2A> property.</span></span> <span data-ttu-id="e23cb-158">この例に示されている例の一部である、<xref:System.Security.Permissions.HostProtectionAttribute>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-158">This example is part of a larger example provided for the <xref:System.Security.Permissions.HostProtectionAttribute> class.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#4](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#4)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#4)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="F:System.Security.Permissions.HostProtectionResource.SecurityInfrastructure" />
+      </Docs>
+    </Member>
+    <Member MemberName="SelfAffectingProcessMgmt">
+      <MemberSignature Language="C#" Value="public bool SelfAffectingProcessMgmt { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool SelfAffectingProcessMgmt" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.SelfAffectingProcessMgmt" />
+      <MemberSignature Language="VB.NET" Value="Public Property SelfAffectingProcessMgmt As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool SelfAffectingProcessMgmt { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-159">自己作用型のプロセス管理が公開されているかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-159">Gets or sets a value indicating whether self-affecting process management is exposed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-160">自己作用型のプロセス管理が公開されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-160">
+              <see langword="true" /> if self-affecting process management is exposed; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="e23cb-161">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-161">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-162">自己作用型の処理管理コードと、現在のプロセスを終了し、サーバーが終了する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="e23cb-162">Self-affecting process management code might exit the current process, terminating the server.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e23cb-163">次のコード例の使用を示しています、<xref:System.Security.Permissions.HostProtectionAttribute>属性が、<xref:System.Security.Permissions.HostProtectionAttribute.SelfAffectingProcessMgmt%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-163">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with the <xref:System.Security.Permissions.HostProtectionAttribute.SelfAffectingProcessMgmt%2A> property.</span></span> <span data-ttu-id="e23cb-164">この例に示されている例の一部である、<xref:System.Security.Permissions.HostProtectionAttribute>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-164">This example is part of a larger example provided for the <xref:System.Security.Permissions.HostProtectionAttribute> class.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#2)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#2)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="F:System.Security.Permissions.HostProtectionResource.SelfAffectingProcessMgmt" />
+      </Docs>
+    </Member>
+    <Member MemberName="SelfAffectingThreading">
+      <MemberSignature Language="C#" Value="public bool SelfAffectingThreading { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool SelfAffectingThreading" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.SelfAffectingThreading" />
+      <MemberSignature Language="VB.NET" Value="Public Property SelfAffectingThreading As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool SelfAffectingThreading { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-165">自己作用型のスレッド処理が公開されているかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-165">Gets or sets a value indicating whether self-affecting threading is exposed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-166">自己作用型のスレッド処理が公開されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-166">
+              <see langword="true" /> if self-affecting threading is exposed; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="e23cb-167">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-167">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-168">自己作用型のスレッドは、ユーザー コードにのみ影響を与えるようにスレッドを操作します。</span><span class="sxs-lookup"><span data-stu-id="e23cb-168">Self-affecting threading manipulates threads in a way that only affects user code.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e23cb-169">次のコード例の使用を示しています、<xref:System.Security.Permissions.HostProtectionAttribute>属性が、<xref:System.Security.Permissions.HostProtectionAttribute.SelfAffectingThreading%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-169">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with the <xref:System.Security.Permissions.HostProtectionAttribute.SelfAffectingThreading%2A> property.</span></span> <span data-ttu-id="e23cb-170">この例に示されている例の一部である、<xref:System.Security.Permissions.HostProtectionAttribute>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-170">This example is part of a larger example provided for the <xref:System.Security.Permissions.HostProtectionAttribute> class.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#3)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#3)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#3)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="F:System.Security.Permissions.HostProtectionResource.SelfAffectingThreading" />
+      </Docs>
+    </Member>
+    <Member MemberName="SharedState">
+      <MemberSignature Language="C#" Value="public bool SharedState { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool SharedState" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.SharedState" />
+      <MemberSignature Language="VB.NET" Value="Public Property SharedState As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool SharedState { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-171">共有状態が公開されているかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-171">Gets or sets a value indicating whether shared state is exposed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-172">共有状態が公開されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-172">
+              <see langword="true" /> if shared state is exposed; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="e23cb-173">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-173">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e23cb-174">ときに<xref:System.Security.Permissions.HostProtectionAttribute.SharedState%2A>は`true`状態が公開されることを示しますスレッド間で共有されることです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-174">When <xref:System.Security.Permissions.HostProtectionAttribute.SharedState%2A> is `true`, it indicates that a state is exposed that might be shared between threads.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="e23cb-175">次のコード例の使用を示しています、<xref:System.Security.Permissions.HostProtectionAttribute>属性が、<xref:System.Security.Permissions.HostProtectionAttribute.SharedState%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-175">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with the <xref:System.Security.Permissions.HostProtectionAttribute.SharedState%2A> property.</span></span> <span data-ttu-id="e23cb-176">この例に示されている例の一部である、<xref:System.Security.Permissions.HostProtectionAttribute>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-176">This example is part of a larger example provided for the <xref:System.Security.Permissions.HostProtectionAttribute> class.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#3)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#3)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#3)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="F:System.Security.Permissions.HostProtectionResource.SharedState" />
+      </Docs>
+    </Member>
+    <Member MemberName="Synchronization">
+      <MemberSignature Language="C#" Value="public bool Synchronization { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool Synchronization" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.Synchronization" />
+      <MemberSignature Language="VB.NET" Value="Public Property Synchronization As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool Synchronization { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-177">同期が公開されているかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-177">Gets or sets a value indicating whether synchronization is exposed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-178">同期が公開されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-178">
+              <see langword="true" /> if synchronization is exposed; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="e23cb-179">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-179">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="e23cb-180">次のコード例の使用を示しています、<xref:System.Security.Permissions.HostProtectionAttribute>属性が、<xref:System.Security.Permissions.HostProtectionAttribute.Synchronization%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-180">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with the <xref:System.Security.Permissions.HostProtectionAttribute.Synchronization%2A> property.</span></span> <span data-ttu-id="e23cb-181">この例に示されている例の一部である、<xref:System.Security.Permissions.HostProtectionAttribute>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-181">This example is part of a larger example provided for the <xref:System.Security.Permissions.HostProtectionAttribute> class.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#6](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#6)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#6](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#6)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#6](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#6)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="F:System.Security.Permissions.HostProtectionResource.Synchronization" />
+      </Docs>
+    </Member>
+    <Member MemberName="UI">
+      <MemberSignature Language="C#" Value="public bool UI { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool UI" />
+      <MemberSignature Language="DocId" Value="P:System.Security.Permissions.HostProtectionAttribute.UI" />
+      <MemberSignature Language="VB.NET" Value="Public Property UI As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool UI { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Security.Permissions</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="e23cb-182">ユーザー インターフェイスが公開されているかどうかを示す値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-182">Gets or sets a value indicating whether the user interface is exposed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="e23cb-183">ユーザー インターフェイスが公開されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-183">
+              <see langword="true" /> if the user interface is exposed; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="e23cb-184">既定値は、<see langword="false" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e23cb-184">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="e23cb-185">次のコード例の使用を示しています、<xref:System.Security.Permissions.HostProtectionAttribute>属性が、<xref:System.Security.Permissions.HostProtectionAttribute.UI%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-185">The following code example illustrates the use of the <xref:System.Security.Permissions.HostProtectionAttribute> attribute with the <xref:System.Security.Permissions.HostProtectionAttribute.UI%2A> property.</span></span> <span data-ttu-id="e23cb-186">この例に示されている例の一部である、<xref:System.Security.Permissions.HostProtectionAttribute>クラスです。</span><span class="sxs-lookup"><span data-stu-id="e23cb-186">This example is part of a larger example provided for the <xref:System.Security.Permissions.HostProtectionAttribute> class.</span></span>  
+  
+ [!code-cpp[System.Security.Permissions.HostProtectionAttribute.1.1#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CPP/hostprotectionattribute.cpp#3)]
+ [!code-csharp[System.Security.Permissions.HostProtectionAttribute.1.1#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/CS/hostprotectionattribute.cs#3)]
+ [!code-vb[System.Security.Permissions.HostProtectionAttribute.1.1#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.HostProtectionAttribute.1.1/VB/hostprotectionattribute.vb#3)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="F:System.Security.Permissions.HostProtectionResource.UI" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

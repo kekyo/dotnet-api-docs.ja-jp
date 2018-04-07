@@ -1,0 +1,118 @@
+<Type Name="Enlistment" FullName="System.Transactions.Enlistment">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="5dacb6e0d9a3eb1837291d29c765d3aadae3c06c" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class Enlistment" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Enlistment extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Transactions.Enlistment" />
+  <TypeSignature Language="VB.NET" Value="Public Class Enlistment" />
+  <TypeSignature Language="C++ CLI" Value="public ref class Enlistment" />
+  <AssemblyInfo>
+    <AssemblyName>System.Transactions</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Transactions.Local</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="360ba-101">トランザクションの最終フェーズにおいて、トランザクションに参加している参加要素とトランザクション マネージャーの間の通信を容易にします。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="360ba-101">Facilitates communication between an enlisted transaction participant and the transaction manager during the final phase of the transaction.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="360ba-102">ときに、<xref:System.Transactions.Transaction.EnlistVolatile%2A>と<xref:System.Transactions.Transaction.EnlistDurable%2A>のメソッド、<xref:System.Transactions.Transaction>オブジェクトが起動され、トランザクション内の参加者を参加させる、参加リストを記述するこのオブジェクトを返します。</span><span class="sxs-lookup"><span data-stu-id="360ba-102">When the <xref:System.Transactions.Transaction.EnlistVolatile%2A> and <xref:System.Transactions.Transaction.EnlistDurable%2A> methods of the <xref:System.Transactions.Transaction> object are invoked to enlist a participant in a transaction, they return this object describing the enlistment.</span></span>  
+  
+ <span data-ttu-id="360ba-103">トランザクションのコミットの最終フェーズでは、トランザクション マネージャーは、リソース マネージャーの実装にこのオブジェクトを渡します、<xref:System.Transactions.IEnlistmentNotification>トランザクションに参加しているインターフェイス。</span><span class="sxs-lookup"><span data-stu-id="360ba-103">During the final phase of the transaction commit, the transaction manager passes this object to a resource manager implementing the <xref:System.Transactions.IEnlistmentNotification> interface that has enlisted in a transaction.</span></span> <span data-ttu-id="360ba-104">具体的には、トランザクション マネージャーを呼び出すか、<xref:System.Transactions.IEnlistmentNotification.Commit%2A>または<xref:System.Transactions.IEnlistmentNotification.Rollback%2A>かどうか、後者を決定したがコミットまたはロールバック、トランザクションによって、参加要素のメソッドです。</span><span class="sxs-lookup"><span data-stu-id="360ba-104">Specifically, the transaction manager calls either the <xref:System.Transactions.IEnlistmentNotification.Commit%2A> or the <xref:System.Transactions.IEnlistmentNotification.Rollback%2A> method of the participant, depending on whether the latter has decided to commit or roll back the transaction.</span></span> <span data-ttu-id="360ba-105">参加要素を呼び出す必要があります、<xref:System.Transactions.Enlistment.Done%2A>トランザクション マネージャーがその作業が完了したことを確認できるようにするには、このオブジェクトのメソッドです。</span><span class="sxs-lookup"><span data-stu-id="360ba-105">The participant should call the <xref:System.Transactions.Enlistment.Done%2A> method of this object to let the transaction manager know that it has completed its work.</span></span>  
+  
+ <span data-ttu-id="360ba-106">参加リストが呼び出すことができます、<xref:System.Transactions.Enlistment.Done%2A>呼び出したメソッドの前にいつでもで<xref:System.Transactions.PreparingEnlistment.Prepared%2A>が準備フェーズにします。</span><span class="sxs-lookup"><span data-stu-id="360ba-106">An enlistment can call the <xref:System.Transactions.Enlistment.Done%2A> method at anytime before it has called <xref:System.Transactions.PreparingEnlistment.Prepared%2A> in the prepare phase.</span></span>  <span data-ttu-id="360ba-107">これにより、参加リストをキャスト、読み取り専用の決定、つまりことは、トランザクションのコミットの投票なく最終結果を受信する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="360ba-107">By doing so, the enlistment is casting a read only vote, meaning that it votes commit on the transaction but does not need to receive the final outcome.</span></span> <span data-ttu-id="360ba-108">なお、後に、<xref:System.Transactions.Enlistment.Done%2A>メソッドが呼び出されると、参加要素を受け取るトランザクション マネージャーからさらに通知されません。</span><span class="sxs-lookup"><span data-stu-id="360ba-108">Note that, after the <xref:System.Transactions.Enlistment.Done%2A> method is called, the enlisted participant receives no further notifications from the transaction manager.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="360ba-109">次の例の実装を示しています、<xref:System.Transactions.IEnlistmentNotification>インターフェイスとタイミング、<xref:System.Transactions.Enlistment.Done%2A>メソッドを呼び出す必要があります。</span><span class="sxs-lookup"><span data-stu-id="360ba-109">The following example shows an implementation of the <xref:System.Transactions.IEnlistmentNotification> interface, and when the <xref:System.Transactions.Enlistment.Done%2A> method should be called.</span></span>  
+  
+ [!code-csharp[Tx_Enlist#2](~/samples/snippets/csharp/VS_Snippets_CFX/tx_enlist/cs/enlist.cs#2)]
+ [!code-vb[Tx_Enlist#2](~/samples/snippets/visualbasic/VS_Snippets_CFX/tx_enlist/vb/enlist.vb#2)]  
+  
+ ]]></format>
+    </remarks>
+    <threadsafe>
+      <span data-ttu-id="360ba-110">この型はスレッド セーフです。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="360ba-110">This type is thread safe.</span>
+      </span>
+    </threadsafe>
+    <altmember cref="T:System.Transactions.PreparingEnlistment" />
+    <altmember cref="T:System.Transactions.IEnlistmentNotification" />
+  </Docs>
+  <Members>
+    <Member MemberName="Done">
+      <MemberSignature Language="C#" Value="public void Done ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Done() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.Enlistment.Done" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Done ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Done();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Transactions.Local</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="360ba-111">トランザクション参加要素が作業を完了したことを示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="360ba-111">Indicates that the transaction participant has completed its work.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="360ba-112">トランザクションのコミットの最終フェーズでは、トランザクション マネージャーを呼び出すか、 <xref:System.Transactions.IEnlistmentNotification.Commit%2A>、<xref:System.Transactions.IEnlistmentNotification.Rollback%2A>または<xref:System.Transactions.IEnlistmentNotification.InDoubt%2A>トランザクションがコミットまたはロールバックするかどうかに応じて、参加要素のメソッドです。</span><span class="sxs-lookup"><span data-stu-id="360ba-112">During the final phase of the transaction commit, the transaction manager calls either the <xref:System.Transactions.IEnlistmentNotification.Commit%2A>, <xref:System.Transactions.IEnlistmentNotification.Rollback%2A> or <xref:System.Transactions.IEnlistmentNotification.InDoubt%2A> method of the participant, depending on whether the transaction is to be committed or rolled back.</span></span> <span data-ttu-id="360ba-113">リソース マネージャーがトランザクションを終了し、呼び出すことによってこれが完了したこと、トランザクション マネージャーに通知し、必要な作業を実行する必要があります、<xref:System.Transactions.Enlistment.Done%2A>メソッドを`enlistment`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="360ba-113">The resource manager should perform any work necessary to finish the transaction and then inform the transaction manager that it has finished by calling the <xref:System.Transactions.Enlistment.Done%2A> method on the `enlistment` parameter.</span></span>  
+  
+ <span data-ttu-id="360ba-114">リソース マネージャーが永続的に、参加しているが、呼び出すことによって応答しないかどうかは<xref:System.Transactions.Enlistment.Done%2A>メソッド、トランザクション マネージャーは、リソース マネージャーが、それぞれの通知呼び出しを受信したことを確認します。</span><span class="sxs-lookup"><span data-stu-id="360ba-114">If the resource manager has enlisted durably, but does not respond by calling <xref:System.Transactions.Enlistment.Done%2A> method, the transaction manager is unsure that the resource manager has received the respective notification call.</span></span> <span data-ttu-id="360ba-115">そのため、トランザクション マネージャーでは、応答を待機中は保持し、このトランザクションに関連する情報を保持します。</span><span class="sxs-lookup"><span data-stu-id="360ba-115">As such, the transaction manager keeps waiting for a response, and maintains information relevant to this transaction.</span></span>  <span data-ttu-id="360ba-116">場合<xref:System.Transactions.Enlistment.Done%2A>は決して呼び出されると、この特定の情報はの周囲は無期限に保持メモリやシステム全体のリソースにします。</span><span class="sxs-lookup"><span data-stu-id="360ba-116">If <xref:System.Transactions.Enlistment.Done%2A> is never called, this piece of information is kept around indefinitely in memory or in a system-wide resource.</span></span> <span data-ttu-id="360ba-117">これは、結果、リソースの再利用することはできません。</span><span class="sxs-lookup"><span data-stu-id="360ba-117">This results in resources not being able to be reclaimed.</span></span> <span data-ttu-id="360ba-118">分散トランザクションの場合このでした MSDTC プロセスが中断される MSDTC のログをいっぱいになってしまいます。</span><span class="sxs-lookup"><span data-stu-id="360ba-118">In the case of a distributed transaction, this could eventually fill the MSDTC log which halts the MSDTC process.</span></span> <span data-ttu-id="360ba-119">によって管理されるトランザクションの場合<xref:System.Transactions>、この結果、リソース マネージャーのプロセスのメモリの消費量が段階的なと継続的な増加します。</span><span class="sxs-lookup"><span data-stu-id="360ba-119">In the case of a transaction managed by <xref:System.Transactions>, this results in a gradual and continual increase in the memory consumption of the resource manager's process.</span></span> <span data-ttu-id="360ba-120">したがって、非常に重要に呼び出すことは、<xref:System.Transactions.Enlistment.Done%2A>メソッドで、リソース マネージャーが完了したら、作業を準備します。</span><span class="sxs-lookup"><span data-stu-id="360ba-120">Therefore, it is crucial that you call the <xref:System.Transactions.Enlistment.Done%2A> method once your resource manager is done with your prepare work.</span></span>  
+  
+ <span data-ttu-id="360ba-121">参加リストが呼び出すことができます、<xref:System.Transactions.Enlistment.Done%2A>呼び出したメソッドの前にいつでもで<xref:System.Transactions.PreparingEnlistment.Prepared%2A>が準備フェーズにします。</span><span class="sxs-lookup"><span data-stu-id="360ba-121">An enlistment can call the <xref:System.Transactions.Enlistment.Done%2A> method at anytime before it has called <xref:System.Transactions.PreparingEnlistment.Prepared%2A> in the prepare phase.</span></span> <span data-ttu-id="360ba-122">これにより、参加リストをキャスト、読み取り専用の決定、つまりことは、トランザクションのコミットの投票なく最終結果を受信する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="360ba-122">By doing so, the enlistment is casting a read only vote, meaning that it votes commit on the transaction but does not need to receive the final outcome.</span></span> <span data-ttu-id="360ba-123">このメソッドが呼び出されると、参加要素なしさらにから通知を受け取る、トランザクション マネージャーに注意してください。</span><span class="sxs-lookup"><span data-stu-id="360ba-123">Note that, after this method is called, the enlisted participant receives no further notifications from the transaction manager.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Transactions.PreparingEnlistment" />
+        <altmember cref="T:System.Transactions.IEnlistmentNotification" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

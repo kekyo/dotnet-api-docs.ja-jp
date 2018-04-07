@@ -1,0 +1,1413 @@
+<Type Name="SqlRoleProvider" FullName="System.Web.Security.SqlRoleProvider">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="942210b309e564a76951dc1e28382e481877d7b2" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class SqlRoleProvider : System.Web.Security.RoleProvider" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit SqlRoleProvider extends System.Web.Security.RoleProvider" />
+  <TypeSignature Language="DocId" Value="T:System.Web.Security.SqlRoleProvider" />
+  <TypeSignature Language="VB.NET" Value="Public Class SqlRoleProvider&#xA;Inherits RoleProvider" />
+  <TypeSignature Language="C++ CLI" Value="public ref class SqlRoleProvider : System::Web::Security::RoleProvider" />
+  <AssemblyInfo>
+    <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Web.Security.RoleProvider</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="1e4b8-101">SQL Server データベースにある ASP.NET アプリケーションのロール メンバーシップ情報の保存を管理します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="1e4b8-101">Manages storage of role membership information for an ASP.NET application in a SQL Server database.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-102">このクラスは使用、<xref:System.Web.Security.Roles>と<xref:System.Web.Security.RolePrincipal>SQL Server データベースを使用して ASP.NET アプリケーションのロール管理サービスを提供するクラス。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-102">This class is used by the <xref:System.Web.Security.Roles> and <xref:System.Web.Security.RolePrincipal> classes to provide role-management services for an ASP.NET application using a SQL Server database.</span></span> <span data-ttu-id="1e4b8-103">ロール管理を使用すると、アプリケーションのさまざまなレベルの権限を指定します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-103">You can use role management to specify different levels of authorization for your application.</span></span>  
+  
+ <span data-ttu-id="1e4b8-104">使用する、<xref:System.Web.Security.SqlRoleProvider>クラス、する必要があります最初にデータベースを作成する SQL Server で使用される、<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-104">To use the <xref:System.Web.Security.SqlRoleProvider> class, you must first create the SQL Server database used by the <xref:System.Web.Security.SqlRoleProvider>.</span></span> <span data-ttu-id="1e4b8-105">によって使用されるデータベースを作成する、<xref:System.Web.Security.SqlRoleProvider>クラス、実行、 `aspnet_regsql.exe` 、C:\WINDOWS\Microsoft.NET\Framework\ で実行可能ファイルが見つかった`versionNumber`フォルダーを指定し、`-Ar`オプション (たとえば、 `aspnet_regsql.exe -Ar`)。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-105">To create the database used by the <xref:System.Web.Security.SqlRoleProvider> class, run the `aspnet_regsql.exe` executable found in the C:\WINDOWS\Microsoft.NET\Framework\ `versionNumber` folder and specify the `-Ar` option (for example, `aspnet_regsql.exe -Ar`).</span></span> <span data-ttu-id="1e4b8-106">作成されたデータベースには、Aspnetdb が呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-106">The database created is called Aspnetdb.</span></span> <span data-ttu-id="1e4b8-107">また、GUI モードの構成をプルする aspnet_regsql.exe を実行し、ASP.NET のすべての機能の構成を選択します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-107">Alternatively, run aspnet_regsql.exe to pull up the GUI configuration mode and choose to configure all ASP.NET features.</span></span>  
+  
+ <span data-ttu-id="1e4b8-108">ロール プロバイダーが統合セキュリティを使用する接続文字列で構成されている場合、ASP.NET アプリケーションのプロセス アカウントは、SQL Server データベースに接続する権限が必要です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-108">If the role provider is configured with a connection string that uses integrated security, the process account of the ASP.NET application must have rights to connect to the SQL Server database.</span></span>  
+  
+ <span data-ttu-id="1e4b8-109">Machine.config ファイルが構成されている、 <xref:System.Web.Security.SqlRoleProvider> AspNetSqlProvider、ローカル コンピューター上の SQL Server に接続するという名前のインスタンス。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-109">The Machine.config file is configured with a <xref:System.Web.Security.SqlRoleProvider> instance named AspNetSqlProvider that connects to the SQL Server on the local machine.</span></span> <span data-ttu-id="1e4b8-110">プロバイダーのこのインスタンスを使用したり、独自の指定、Web.config ファイルで ASP.NET アプリケーションのできます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-110">You can use this instance of the provider, or specify your own in the Web.config file for your ASP.NET application.</span></span> <span data-ttu-id="1e4b8-111">AspNetSqlProvider のインスタンスを使用するには、指定として AspNetSqlProvider、`defaultProvider`構成にします。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-111">To use the AspNetSqlProvider instance, specify AspNetSqlProvider as the `defaultProvider` in your  configuration.</span></span>  
+  
+ <span data-ttu-id="1e4b8-112">構成することができます、<xref:System.Web.Security.SqlRoleProvider>として同じデータベースとユーザー情報を使用して、<xref:System.Web.Security.SqlMembershipProvider>認証と承認については、単一のデータベースを使用するためにします。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-112">You can configure the <xref:System.Web.Security.SqlRoleProvider> to use the same database and user information as the <xref:System.Web.Security.SqlMembershipProvider> in order to use a single database for authentication and authorization information.</span></span> <span data-ttu-id="1e4b8-113">同じデータベースを使用して、メンバーシップとロールについて、aspnet_regsql.exe 実行可能ファイルを実行して、メンバーシップ機能をインストールします。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-113">To use the same database for membership and role information, run the aspnet_regsql.exe executable and install the membership feature.</span></span> <span data-ttu-id="1e4b8-114">次に、両方の構成で同じ接続文字列を指定して<xref:System.Web.Security.SqlRoleProvider>と<xref:System.Web.Security.SqlMembershipProvider>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-114">Then, specify the same connection string in your configuration for both your <xref:System.Web.Security.SqlRoleProvider> and <xref:System.Web.Security.SqlMembershipProvider> instances.</span></span> <span data-ttu-id="1e4b8-115">また、同じプロバイダーの両方のインスタンスが構成されていることを確認<xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-115">Also ensure that both provider instances are configured with the same <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-116">次の例では、使用するように構成、ASP.NET アプリケーションの Web.config ファイル、<xref:System.Web.Security.SqlRoleProvider>オブジェクトおよび<xref:System.Web.Security.SqlMembershipProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-116">The following example shows the Web.config file for an ASP.NET application configured to use a <xref:System.Web.Security.SqlRoleProvider> object and the <xref:System.Web.Security.SqlMembershipProvider>.</span></span> <span data-ttu-id="1e4b8-117">要素はのみ管理者ロールで認証されたユーザーへのアクセスを許可するように構成します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-117">The  element is configured to only allow access to authenticated users in the Administrators role.</span></span>  
+  
+```  
+<configuration>  
+  <connectionStrings>  
+    <add name="SqlServices" connectionString="Data Source=localhost;Integrated Security=SSPI;Initial Catalog=aspnetdb;" />  
+  </connectionStrings>  
+  <system.web>  
+    <authentication mode="Forms" >  
+      <forms loginUrl="logincs.aspx"  
+      name=".ASPXFORMSAUTH" />  
+    </authentication>  
+    <authorization>  
+      <deny users="?" />  
+         <allow roles="Administrators" />  
+         <deny users="*" />  
+    </authorization>  
+    <membership defaultProvider="SqlProvider" userIsOnlineTimeWindow="15">  
+      <providers>  
+        <add   
+          name="SqlProvider"   
+          type="System.Web.Security.SqlMembershipProvider"   
+          connectionStringName="SqlServices"  
+          enablePasswordRetrieval="false"  
+          enablePasswordReset="false"  
+          requiresQuestionAndAnswer="false"   
+          passwordFormat="Hashed"   
+          applicationName="SampleApplication" />  
+      </providers>  
+    </membership>  
+    <roleManager defaultProvider="SqlProvider"   
+      enabled="true"  
+      cacheRolesInCookie="true"  
+      cookieName=".ASPROLES"  
+      cookieTimeout="30"  
+      cookiePath="/"  
+      cookieRequireSSL="true"  
+      cookieSlidingExpiration="true"  
+      cookieProtection="All" >  
+      <providers>  
+        <add  
+          name="SqlProvider"  
+          type="System.Web.Security.SqlRoleProvider"  
+          connectionStringName="SqlServices"   
+          applicationName="SampleApplication" />  
+      </providers>  
+    </roleManager>  
+  </system.web>  
+</configuration>  
+```  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlRoleProvider ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlRoleProvider();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="1e4b8-118">
+            <see cref="T:System.Web.Security.SqlRoleProvider" /> クラスのインスタンスを作成します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-118">Creates an instance of the <see cref="T:System.Web.Security.SqlRoleProvider" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-119"><xref:System.Web.Security.SqlRoleProvider.%23ctor%2A>コンス トラクターがのインスタンスを作成する ASP.NET によって呼び出されます、<xref:System.Web.Security.SqlRoleProvider>アプリケーションの構成で指定したクラスです。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-119">The <xref:System.Web.Security.SqlRoleProvider.%23ctor%2A> constructor is called by ASP.NET to create an instance of the <xref:System.Web.Security.SqlRoleProvider> class as specified in the configuration for the application.</span></span> <span data-ttu-id="1e4b8-120">このコンス トラクターは、コードから使用するものではありません。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-120">This constructor is not intended to be used from your code.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="AddUsersToRoles">
+      <MemberSignature Language="C#" Value="public override void AddUsersToRoles (string[] usernames, string[] roleNames);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void AddUsersToRoles(string[] usernames, string[] roleNames) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.AddUsersToRoles(System.String[],System.String[])" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub AddUsersToRoles (usernames As String(), roleNames As String())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void AddUsersToRoles(cli::array &lt;System::String ^&gt; ^ usernames, cli::array &lt;System::String ^&gt; ^ roleNames);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="usernames" Type="System.String[]" />
+        <Parameter Name="roleNames" Type="System.String[]" />
+      </Parameters>
+      <Docs>
+        <param name="usernames">
+          <span data-ttu-id="1e4b8-121">指定したロールに追加するユーザー名の文字列配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-121">A string array of user names to be added to the specified roles.</span>
+          </span>
+        </param>
+        <param name="roleNames">
+          <span data-ttu-id="1e4b8-122">指定されたユーザー名の割り当て先となるロール名の文字列配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-122">A string array of role names to add the specified user names to.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-123">指定された各ロールに、指定されたユーザー名を追加します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-123">Adds the specified user names to each of the specified roles.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-124"><xref:System.Web.Security.SqlRoleProvider.AddUsersToRoles%2A>メソッドによって呼び出されます、 <xref:System.Web.Security.Roles> ASP.NET アプリケーションの構成ファイル (Web.config) で指定された SQL Server データベースに 1 つまたは複数の役割を持つ 1 つまたは複数のユーザーを関連付けるにはクラスです。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-124">The <xref:System.Web.Security.SqlRoleProvider.AddUsersToRoles%2A> method is called by the <xref:System.Web.Security.Roles> class to associate one or more users with one or more roles in the SQL Server database specified in the ASP.NET application's configuration file (Web.config).</span></span> <span data-ttu-id="1e4b8-125">このメソッドは、 <xref:System.Web.Security.Roles.AddUserToRole%2A>、 <xref:System.Web.Security.Roles.AddUserToRoles%2A>、 <xref:System.Web.Security.Roles.AddUsersToRole%2A>、および<xref:System.Web.Security.Roles.AddUsersToRoles%2A>のメソッド、<xref:System.Web.Security.Roles>クラスです。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-125">This method is called by the <xref:System.Web.Security.Roles.AddUserToRole%2A>, <xref:System.Web.Security.Roles.AddUserToRoles%2A>, <xref:System.Web.Security.Roles.AddUsersToRole%2A>, and <xref:System.Web.Security.Roles.AddUsersToRoles%2A> methods of the <xref:System.Web.Security.Roles> class.</span></span>  
+  
+ <span data-ttu-id="1e4b8-126">呼び出し中に実行されるデータベースの更新、<xref:System.Web.Security.SqlRoleProvider.AddUsersToRoles%2A>メソッドがトランザクション内で行われました。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-126">The database updates that are performed during the call to the <xref:System.Web.Security.SqlRoleProvider.AddUsersToRoles%2A> method are made within a transaction.</span></span> <span data-ttu-id="1e4b8-127">エラーが発生した場合、指定されたロールに既にある、ユーザー名など、トランザクションがロールバックし、更新は実行されません。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-127">If an error is encountered, such as a user name that is already in a specified role, the transaction is rolled back and no updates are performed.</span></span>  
+  
+ <span data-ttu-id="1e4b8-128">場合、<xref:System.Web.Security.SqlRoleProvider>で使用されている、 <xref:System.Web.Security.SqlMembershipProvider>、および指定されたユーザー名のいずれかが存在しません、データベースで、ユーザー名は、データベースに自動的に追加されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-128">If the <xref:System.Web.Security.SqlRoleProvider> is being used with the <xref:System.Web.Security.SqlMembershipProvider>, and one of the specified user names does not exist in the database, the user name will be automatically added to the database.</span></span>  
+  
+ <span data-ttu-id="1e4b8-129">ユーザー名とロール名は、コンマを含めることはできません。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-129">User names and role names cannot contain commas.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-130">次のコード例では、1 つまたは複数のユーザーをロールに追加またはロールからユーザーを削除します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-130">The following code example adds one or more users to a role or removes a user from a role.</span></span> <span data-ttu-id="1e4b8-131">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-131">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.SqlRoleProvider>.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlRoleProvider#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/CS/adduserstorolecs.aspx#3)]
+ [!code-aspx-vb[System.Web.Security.SqlRoleProvider#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/VB/adduserstorolevb.aspx#3)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-132">
+            <paramref name="roleNames" /> のロールの 1 つが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-132">One of the roles in <paramref name="roleNames" /> is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="1e4b8-133">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-133">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-134">
+            <paramref name="usernames" /> のユーザーの 1 つが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-134">One of the users in <paramref name="usernames" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="1e4b8-135">
+            <paramref name="roleNames" /> のロールの 1 つが空の文字列か、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-135">One of the roles in <paramref name="roleNames" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-136">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-136">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-137">
+            <paramref name="usernames" /> のロールの 1 つが空の文字列か、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-137">One of the users in <paramref name="usernames" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-138">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-138">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-139">
+            <paramref name="roleNames" /> のロールの 1 つが 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-139">One of the roles in <paramref name="roleNames" /> is longer than 256 characters.</span>
+          </span>
+          <span data-ttu-id="1e4b8-140">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-140">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-141">
+            <paramref name="usernames" /> のユーザーの 1 つが 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-141">One of the users in <paramref name="usernames" /> is longer than 256 characters.</span>
+          </span>
+          <span data-ttu-id="1e4b8-142">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-142">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-143">
+            <paramref name="roleNames" /> に重複した要素が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-143">
+              <paramref name="roleNames" /> contains a duplicate element.</span>
+          </span>
+          <span data-ttu-id="1e4b8-144">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-144">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-145">
+            <paramref name="usernames" /> に重複した要素が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-145">
+              <paramref name="usernames" /> contains a duplicate element.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-146">指定された 1 つ以上のロール名が見つかりませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-146">One or more of the specified role names was not found.</span>
+          </span>
+          <span data-ttu-id="1e4b8-147">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-147">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-148">指定された 1 つ以上のユーザー名が見つかりませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-148">One or more of the specified user names was not found.</span>
+          </span>
+          <span data-ttu-id="1e4b8-149">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-149">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-150">指定された 1 つ以上のユーザー名が、指定された 1 つ以上のロール名に既に関連付けられています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-150">One or more of the specified user names is already associated with one or more of the specified role names.</span>
+          </span>
+          <span data-ttu-id="1e4b8-151">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-151">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-152">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-152">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ApplicationName">
+      <MemberSignature Language="C#" Value="public override string ApplicationName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ApplicationName" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.SqlRoleProvider.ApplicationName" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property ApplicationName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ ApplicationName { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="1e4b8-153">ロール情報を保管および取得するアプリケーションの名前を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-153">Gets or sets the name of the application for which to store and retrieve role information.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="1e4b8-154">ロール情報を保管および取得するアプリケーションの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-154">The name of the application for which to store and retrieve role information.</span>
+          </span>
+          <span data-ttu-id="1e4b8-155">既定値は、現在の <see cref="P:System.Web.HttpRequest.ApplicationPath" /> の <see cref="P:System.Web.HttpContext.Request" /> プロパティ値です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-155">The default is the <see cref="P:System.Web.HttpRequest.ApplicationPath" /> property value for the current <see cref="P:System.Web.HttpContext.Request" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-156"><xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>によって使用される、<xref:System.Web.Security.SqlRoleProvider>別のアプリケーションにユーザーおよびロールを関連付ける。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-156">The <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A> is used by the <xref:System.Web.Security.SqlRoleProvider> to associate users and roles with different applications.</span></span> <span data-ttu-id="1e4b8-157">これにより、複数のアプリケーションで重複するユーザー名またはロール名の間の競合を実行しなくてもユーザーとロール情報を保存して、同じデータベースを使用できます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-157">This enables multiple applications to use the same database to store user and role information without running into conflicts between duplicate user names or role names.</span></span> <span data-ttu-id="1e4b8-158">複数の ASP.NET アプリケーションで同じ値を指定することによって、同じデータベースを使用することができます、<xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-158">Multiple ASP.NET applications can use the same database by specifying the same value in the <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A> property.</span></span> <span data-ttu-id="1e4b8-159"><xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>プログラムでは、プロパティを設定することや、Web アプリケーションを使用して、構成ファイル内で宣言して設定されることができます、`applicationName`属性。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-159">The <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A> property can be set programmatically, or it can be set declaratively in the configuration file for the Web application using the `applicationName` attribute.</span></span>  
+  
+ <span data-ttu-id="1e4b8-160">値が指定されていない場合、 `applicationName` Web アプリケーションの構成ファイル内の属性、<xref:System.Web.HttpRequest.ApplicationPath%2A?displayProperty=nameWithType>プロパティの値を現在の<xref:System.Web.HttpContext.Request%2A?displayProperty=nameWithType>オブジェクトを使用します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-160">If a value is not specified for the `applicationName` attribute in the configuration file for the Web application, then the <xref:System.Web.HttpRequest.ApplicationPath%2A?displayProperty=nameWithType> property value for the current <xref:System.Web.HttpContext.Request%2A?displayProperty=nameWithType> object is used.</span></span>  
+  
+> [!CAUTION]
+>  <span data-ttu-id="1e4b8-161">すべてで処理された要求の 1 つの既定のロール プロバイダーのインスタンスが使用されるため、<xref:System.Web.HttpApplication>オブジェクトを同時に実行して、設定しようとしています。 複数の要求を持つことができます、<xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>プロパティの値。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-161">Because a single default role provider instance is used for all of the requests served by an <xref:System.Web.HttpApplication> object, you can have multiple requests executing concurrently and attempting to set the <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A> property value.</span></span> <span data-ttu-id="1e4b8-162"><xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>プロパティは複数の書き込みでは、安全と変化するスレッドではありません、<xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>プロパティの値は、アプリケーションの複数のユーザーに対して予期しない動作になります。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-162">The <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A> property is not thread safe for multiple writes, and changing the <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A> property value can result in unexpected behavior for multiple users of an application.</span></span> <span data-ttu-id="1e4b8-163">ユーザーに設定できるようにするコードを記述しないことをお勧め、<xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>プロパティする必要がありますしない限り、します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-163">It is recommended that you avoid writing code that allows users to set the <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A> property unless you must.</span></span> <span data-ttu-id="1e4b8-164">アプリケーションの例の設定が、<xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>プロパティが必要な可能性がありますは、複数のアプリケーション ロールのデータを管理する管理アプリケーションです。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-164">An example of an application where setting the <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A> property may be required is an administrative application that manages role data for multiple applications.</span></span> <span data-ttu-id="1e4b8-165">このようなアプリケーションは、シングル ユーザー アプリケーションと Web アプリケーションではなくにする必要があります。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-165">Such an application should be a single-user application and not a Web application.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-166">次の例にある要素を示しています、 `system.web` ASP.NET アプリケーションの Web.config ファイルのセクションです。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-166">The following example shows the  element in the `system.web` section of the Web.config file for an ASP.NET application.</span></span> <span data-ttu-id="1e4b8-167">アプリケーションの指定<xref:System.Web.Security.SqlRoleProvider>インスタンスとセット、<xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A>プロパティを`MyApplication`です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-167">It specifies the application's <xref:System.Web.Security.SqlRoleProvider> instance and sets the <xref:System.Web.Security.SqlRoleProvider.ApplicationName%2A> property to `MyApplication`.</span></span>  
+  
+```  
+<roleManager defaultProvider="SqlProvider"   
+  enabled="true"  
+  cacheRolesInCookie="true"  
+  cookieName=".ASPROLES"  
+  cookieTimeout="30"  
+  cookiePath="/"  
+  cookieRequireSSL="false"  
+  cookieSlidingExpiration="true"  
+  cookieProtection="All" >  
+  <providers>  
+    <add  
+      name="SqlProvider"  
+      type="System.Web.Security.SqlRoleProvider"  
+      connectionStringName="SqlServices"  
+      applicationName="MyApplication" />  
+  </providers>  
+</roleManager>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="1e4b8-168">ASP.NET の <see cref="P:System.Web.Security.SqlRoleProvider.ApplicationName" /> ホスト許可を持たない呼び出し元が、<see cref="F:System.Web.AspNetHostingPermissionLevel.High" /> プロパティを設定しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-168">An attempt was made to set the <see cref="P:System.Web.Security.SqlRoleProvider.ApplicationName" /> property by a caller that does not have <see cref="F:System.Web.AspNetHostingPermissionLevel.High" /> ASP.NET hosting permission.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-169">
+            <see cref="P:System.Web.Security.SqlRoleProvider.ApplicationName" /> に 256 文字を超える文字列を設定しようとしました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-169">An attempt was made to set the <see cref="P:System.Web.Security.SqlRoleProvider.ApplicationName" /> to a string that is longer than 256 characters.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateRole">
+      <MemberSignature Language="C#" Value="public override void CreateRole (string roleName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void CreateRole(string roleName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.CreateRole(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub CreateRole (roleName As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void CreateRole(System::String ^ roleName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="roleName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="roleName">
+          <span data-ttu-id="1e4b8-170">作成するロールの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-170">The name of the role to create.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-171">新しいロールをロール データベースに追加します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-171">Adds a new role to the role database.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-172"><xref:System.Web.Security.SqlRoleProvider.CreateRole%2A>メソッドによって呼び出されます、 <xref:System.Web.Security.Roles> ASP.NET アプリケーションの構成ファイル (Web.config) で指定された SQL Server データベースにロールを作成するクラス。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-172">The <xref:System.Web.Security.SqlRoleProvider.CreateRole%2A> method is called by the <xref:System.Web.Security.Roles> class to create a role in the SQL Server database specified in the ASP.NET application's configuration file (Web.config).</span></span>  
+  
+ <span data-ttu-id="1e4b8-173">ロール名の最大長は、256 文字です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-173">The maximum length for the role name is 256 characters.</span></span> <span data-ttu-id="1e4b8-174">ロールの名前は区別されません。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-174">Role names are not case-sensitive.</span></span> <span data-ttu-id="1e4b8-175">コンマは、ロール名では許可されません。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-175">Commas are not allowed in role names.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-176">次のコード例では、データベースに新しいロールを作成します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-176">The following code example creates a new role in the database.</span></span> <span data-ttu-id="1e4b8-177">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-177">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.SqlRoleProvider>.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="1e4b8-178">この例には、潜在的なセキュリティの脅威は、ユーザー入力を受け付けるテキスト ボックスが含まれています。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-178">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="1e4b8-179">既定では、ASP.NET Web ページによって、ユーザー入力にスクリプトまたは HTML 要素が含まれていないかどうかが検証されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-179">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="1e4b8-180">詳細については、「[スクリプトによる攻略の概要](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-180">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlRoleProvider#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/CS/createrolecs.aspx#1)]
+ [!code-aspx-vb[System.Web.Security.SqlRoleProvider#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/VB/createrolevb.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-181">
+            <paramref name="roleName" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-181">
+              <paramref name="roleName" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="1e4b8-182">
+            <paramref name="roleName" /> が空の文字列であるか、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-182">
+              <paramref name="roleName" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-183">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-183">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-184">
+            <paramref name="roleName" /> が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-184">
+              <paramref name="roleName" /> is longer than 256 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-185">
+            <paramref name="roleName" /> はデータベースに既に存在します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-185">
+              <paramref name="roleName" /> already exists in the database.</span>
+          </span>
+          <span data-ttu-id="1e4b8-186">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-186">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-187">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-187">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="DeleteRole">
+      <MemberSignature Language="C#" Value="public override bool DeleteRole (string roleName, bool throwOnPopulatedRole);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance bool DeleteRole(string roleName, bool throwOnPopulatedRole) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.DeleteRole(System.String,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function DeleteRole (roleName As String, throwOnPopulatedRole As Boolean) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override bool DeleteRole(System::String ^ roleName, bool throwOnPopulatedRole);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="roleName" Type="System.String" />
+        <Parameter Name="throwOnPopulatedRole" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="roleName">
+          <span data-ttu-id="1e4b8-188">削除するロールの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-188">The name of the role to delete.</span>
+          </span>
+        </param>
+        <param name="throwOnPopulatedRole">
+          <span data-ttu-id="1e4b8-189">
+            <see langword="true" /> の場合、<c>roleName</c> に 1 つ以上のメンバーがあれば例外をスローします。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-189">If <see langword="true" />, throws an exception if <c>roleName</c> has one or more members.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-190">ロール データベースからロールを削除します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-190">Removes a role from the role database.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="1e4b8-191">ロールが正常に削除された場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-191">
+              <see langword="true" /> if the role was successfully deleted; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-192"><xref:System.Web.Security.SqlRoleProvider.DeleteRole%2A>メソッドによって呼び出されます、 <xref:System.Web.Security.Roles> ASP.NET アプリケーションの構成ファイル (Web.config) で指定された SQL Server データベースからロールを削除するクラス。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-192">The <xref:System.Web.Security.SqlRoleProvider.DeleteRole%2A> method is called by the <xref:System.Web.Security.Roles> class to delete a role from the SQL Server database specified in the ASP.NET application's configuration file (Web.config).</span></span> <span data-ttu-id="1e4b8-193">ロールを削除すると、そのロールに関連付けられているユーザーの一覧は、データベースからも削除されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-193">When a role is deleted, the list of users associated with that role is also deleted from the database.</span></span> <span data-ttu-id="1e4b8-194">データベース内のユーザー情報には影響しません。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-194">The user information in the database is not affected.</span></span>  
+  
+ <span data-ttu-id="1e4b8-195">場合`throwOnPopulatedRole`は`true`し、例外がスローされます、およびロールがによって識別される場合、ロールは削除されません、`roleName`パラメーターが 1 つまたは複数のメンバーです。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-195">If `throwOnPopulatedRole` is `true`, then an exception will be thrown and the role will not be deleted if the role identified by the `roleName` parameter has one or more members.</span></span> <span data-ttu-id="1e4b8-196">場合`throwOnPopulatedRole`は`false`、空であるかどうかどうか、ロールが削除されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-196">If `throwOnPopulatedRole` is `false`, then the role will be deleted whether it is empty or not.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-197">次の例では、データベースからロールを削除します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-197">The following example deletes a role from the database.</span></span> <span data-ttu-id="1e4b8-198">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-198">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.SqlRoleProvider>.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlRoleProvider#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/CS/deleterolecs.aspx#2)]
+ [!code-aspx-vb[System.Web.Security.SqlRoleProvider#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/VB/deleterolevb.aspx#2)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-199">
+            <paramref name="roleName" /> が <see langword="null" /> (Visual Basic の場合は <see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-199">
+              <paramref name="roleName" /> is <see langword="null" /> (<see langword="Nothing" /> in Visual Basic).</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="1e4b8-200">
+            <paramref name="roleName" /> が空の文字列であるか、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-200">
+              <paramref name="roleName" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-201">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-201">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-202">
+            <paramref name="roleName" /> が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-202">
+              <paramref name="roleName" /> is longer than 256 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-203">
+            <paramref name="roleName" /> に 1 つ以上のメンバーがあり、<paramref name="throwOnPopulatedRole" /> は <see langword="true" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-203">
+              <paramref name="roleName" /> has one or more members and <paramref name="throwOnPopulatedRole" /> is <see langword="true" />.</span>
+          </span>
+          <span data-ttu-id="1e4b8-204">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-204">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-205">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-205">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="FindUsersInRole">
+      <MemberSignature Language="C#" Value="public override string[] FindUsersInRole (string roleName, string usernameToMatch);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string[] FindUsersInRole(string roleName, string usernameToMatch) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.FindUsersInRole(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function FindUsersInRole (roleName As String, usernameToMatch As String) As String()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override cli::array &lt;System::String ^&gt; ^ FindUsersInRole(System::String ^ roleName, System::String ^ usernameToMatch);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String[]</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="roleName" Type="System.String" />
+        <Parameter Name="usernameToMatch" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="roleName">
+          <span data-ttu-id="1e4b8-206">検索範囲とするロール。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-206">The role to search in.</span>
+          </span>
+        </param>
+        <param name="usernameToMatch">
+          <span data-ttu-id="1e4b8-207">検索するユーザー名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-207">The user name to search for.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-208">指定したユーザー名と一致するユーザー名が含まれる、特定のロールのユーザー名の配列を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-208">Gets an array of user names in a role where the user name contains the specified user name to match.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="1e4b8-209">
+            <paramref name="usernameToMatch" /> に一致するユーザー名を持ち、指定されたロールのメンバーであるすべてのユーザーの名前を格納している文字列配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-209">A string array containing the names of all the users where the user name matches <paramref name="usernameToMatch" /> and the user is a member of the specified role.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-210"><xref:System.Web.Security.SqlRoleProvider.FindUsersInRole%2A>メソッドによって呼び出されます、<xref:System.Web.Security.Roles>クラスをユーザー名が指定された一致を含むロールにユーザーの一覧を返します`usernameToMatch`構成済みの`applicationName`します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-210">The <xref:System.Web.Security.SqlRoleProvider.FindUsersInRole%2A> method is called by the <xref:System.Web.Security.Roles> class and returns a list of users in a role where the user name contains a match of the supplied `usernameToMatch` for the configured `applicationName`.</span></span> <span data-ttu-id="1e4b8-211"><xref:System.Web.Security.SqlRoleProvider>ユーザー名と一致するものを検索、 `usernameToMatch` LIKE キーワードをサポートしており SQL Server のワイルドカード文字を使用してパラメーター値。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-211">The <xref:System.Web.Security.SqlRoleProvider> searches for a user name that matches the `usernameToMatch` parameter value using the LIKE keyword and supports SQL Server wildcard characters.</span></span> <span data-ttu-id="1e4b8-212">たとえば場合、`usernameToMatch`パラメーターが"user1"に設定し、存在する場合、"user1"のユーザー名を持つユーザーのメンバーシップ情報が返されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-212">For example, if the `usernameToMatch` parameter is set to "user1", then membership information for the user with the user name of "user1" is returned, if it exists.</span></span> <span data-ttu-id="1e4b8-213">場合、`usernameToMatch`パラメーターは「user %」に設定し、"user1"、"user2"、"user_admin"などのユーザー名を持つユーザーのメンバーシップ情報が返されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-213">If the `usernameToMatch` parameter is set to "user%", then membership information for users with the user name of "user1", "user2", "user_admin", and so on are returned.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-214">次のコード例では、<xref:System.Web.Security.Roles.FindUsersInRole%2A>ユーザー入力に基づいてロールのメンバーシップを表示するメソッド。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-214">The following code example uses the <xref:System.Web.Security.Roles.FindUsersInRole%2A> method to display role membership based on user input.</span></span> <span data-ttu-id="1e4b8-215">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.Roles>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-215">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.Roles>.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="1e4b8-216">この例には、潜在的なセキュリティの脅威は、ユーザー入力を受け付けるテキスト ボックスが含まれています。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-216">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="1e4b8-217">既定では、ASP.NET Web ページによって、ユーザー入力にスクリプトまたは HTML 要素が含まれていないかどうかが検証されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-217">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="1e4b8-218">詳細については、「[スクリプトによる攻略の概要](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-218">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.Roles#11](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.Roles/CS/FindUsersInRolecs.aspx#11)]
+ [!code-aspx-vb[System.Web.Security.Roles#11](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.Roles/VB/FindUsersInRolevb.aspx#11)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-219">
+            <paramref name="roleName" /> が <see langword="null" /> (Visual Basic の場合は <see langword="Nothing" />) です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-219">
+              <paramref name="roleName" /> is <see langword="null" /> (<see langword="Nothing" /> in Visual Basic).</span>
+          </span>
+          <span data-ttu-id="1e4b8-220">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-220">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-221">
+            <paramref name="usernameToMatch" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-221">
+              <paramref name="usernameToMatch" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="1e4b8-222">
+            <paramref name="roleName" /> が空の文字列であるか、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-222">
+              <paramref name="roleName" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-223">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-223">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-224">
+            <paramref name="usernameToMatch" /> が空の文字列です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-224">
+              <paramref name="usernameToMatch" /> is an empty string.</span>
+          </span>
+          <span data-ttu-id="1e4b8-225">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-225">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-226">
+            <paramref name="roleName" /> が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-226">
+              <paramref name="roleName" /> is longer than 256 characters.</span>
+          </span>
+          <span data-ttu-id="1e4b8-227">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-227">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-228">
+            <paramref name="usernameToMatch" /> が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-228">
+              <paramref name="usernameToMatch" /> is longer than 256 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-229">データベースに <paramref name="roleName" /> が見つかりませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-229">
+              <paramref name="roleName" /> was not found in the database.</span>
+          </span>
+          <span data-ttu-id="1e4b8-230">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-230">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-231">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-231">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetAllRoles">
+      <MemberSignature Language="C#" Value="public override string[] GetAllRoles ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string[] GetAllRoles() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.GetAllRoles" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function GetAllRoles () As String()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override cli::array &lt;System::String ^&gt; ^ GetAllRoles();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String[]</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="1e4b8-232">アプリケーションのすべてのロールのリストを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-232">Gets a list of all the roles for the application.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="1e4b8-233">特定のアプリケーションのデータベースに保存されているすべてのロール名を格納している文字列配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-233">A string array containing the names of all the roles stored in the database for a particular application.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-234"><xref:System.Web.Security.SqlRoleProvider.GetAllRoles%2A>メソッドによって呼び出されます、 <xref:System.Web.Security.Roles> ASP.NET アプリケーションの構成ファイル (Web.config) で指定された SQL Server データベース内のすべてのロールの一覧を取得するクラス。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-234">The <xref:System.Web.Security.SqlRoleProvider.GetAllRoles%2A> method is called by the <xref:System.Web.Security.Roles> class to retrieve a list of all the roles in the SQL Server database specified in the ASP.NET application's configuration file (Web.config).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-235">次のコード例では、<xref:System.Web.Security.Roles.GetAllRoles%2A>メソッドは、アプリケーションの役割の一覧を取得する結果バインドを<xref:System.Web.UI.WebControls.GridView?displayProperty=nameWithType>コントロール。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-235">The following code example uses the <xref:System.Web.Security.Roles.GetAllRoles%2A> method to get the list of roles for an application and bind the results to a <xref:System.Web.UI.WebControls.GridView?displayProperty=nameWithType> control.</span></span> <span data-ttu-id="1e4b8-236">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-236">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.SqlRoleProvider>.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="1e4b8-237">この例には、潜在的なセキュリティの脅威は、ユーザー入力を受け付けるテキスト ボックスが含まれています。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-237">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="1e4b8-238">既定では、ASP.NET Web ページによって、ユーザー入力にスクリプトまたは HTML 要素が含まれていないかどうかが検証されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-238">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="1e4b8-239">詳細については、「[スクリプトによる攻略の概要](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-239">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlRoleProvider#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/CS/createrolecs.aspx#1)]
+ [!code-aspx-vb[System.Web.Security.SqlRoleProvider#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/VB/createrolevb.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-240">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-240">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetRolesForUser">
+      <MemberSignature Language="C#" Value="public override string[] GetRolesForUser (string username);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string[] GetRolesForUser(string username) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.GetRolesForUser(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function GetRolesForUser (username As String) As String()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override cli::array &lt;System::String ^&gt; ^ GetRolesForUser(System::String ^ username);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String[]</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="username" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="username">
+          <span data-ttu-id="1e4b8-241">ロールの一覧を取得するユーザー。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-241">The user to return a list of roles for.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-242">ユーザーに割り当てられたロールのリストを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-242">Gets a list of the roles that a user is in.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="1e4b8-243">指定ユーザーに割り当てられたすべてのロールの名前を格納している文字列配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-243">A string array containing the names of all the roles that the specified user is in.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-244"><xref:System.Web.Security.SqlRoleProvider.GetRolesForUser%2A>メソッドによって呼び出されます、 <xref:System.Web.Security.Roles> ASP.NET アプリケーションの構成ファイル (Web.config) で指定された SQL Server データベースから指定したユーザーのロールの一覧を取得するクラス。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-244">The <xref:System.Web.Security.SqlRoleProvider.GetRolesForUser%2A> method is called by the <xref:System.Web.Security.Roles> class to retrieve a list of a specified user's roles from the SQL Server database specified in the ASP.NET application's configuration file (Web.config).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-245">次のコード例では、<xref:System.Web.Security.Roles.GetRolesForUser%2A>指定されたユーザーのロールの一覧を取得する方法をバインドして、<xref:System.Web.UI.WebControls.GridView?displayProperty=nameWithType>コントロール。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-245">The following code example uses the <xref:System.Web.Security.Roles.GetRolesForUser%2A> method to retrieve a list of roles for a specified user and binds them to a <xref:System.Web.UI.WebControls.GridView?displayProperty=nameWithType> control.</span></span> <span data-ttu-id="1e4b8-246">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-246">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.SqlRoleProvider>.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlRoleProvider#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/CS/ViewRolescs.aspx#4)]
+ [!code-aspx-vb[System.Web.Security.SqlRoleProvider#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/VB/ViewRolesvb.aspx#4)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-247">
+            <paramref name="username" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-247">
+              <paramref name="username" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="1e4b8-248">
+            <paramref name="username" /> にコンマが含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-248">
+              <paramref name="username" /> contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-249">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-249">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-250">
+            <paramref name="username" /> が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-250">
+              <paramref name="username" /> is longer than 256 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-251">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-251">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetUsersInRole">
+      <MemberSignature Language="C#" Value="public override string[] GetUsersInRole (string roleName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string[] GetUsersInRole(string roleName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.GetUsersInRole(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function GetUsersInRole (roleName As String) As String()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override cli::array &lt;System::String ^&gt; ^ GetUsersInRole(System::String ^ roleName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String[]</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="roleName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="roleName">
+          <span data-ttu-id="1e4b8-252">ユーザーの一覧を取得するロールの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-252">The name of the role to get the list of users for.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-253">指定されたロールに属するユーザーのリストを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-253">Gets a list of users in the specified role.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="1e4b8-254">指定されたロールのメンバーであるすべてのユーザーの名前を格納している文字列配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-254">A string array containing the names of all the users who are members of the specified role.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-255"><xref:System.Web.Security.SqlRoleProvider.GetUsersInRole%2A>メソッドによって呼び出されます、 <xref:System.Web.Security.Roles> ASP.NET アプリケーションの構成ファイル (Web.config) で指定された SQL Server データベースで指定されたロールに関連付けられているユーザーの一覧を取得するクラス。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-255">The <xref:System.Web.Security.SqlRoleProvider.GetUsersInRole%2A> method is called by the <xref:System.Web.Security.Roles> class to retrieve the list of users associated with the specified role in the SQL Server database specified in the ASP.NET application's configuration file (Web.config).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-256">次のコード例では、<xref:System.Web.Security.Roles.GetUsersInRole%2A>メソッドは、特定のロールのユーザーの一覧を取得する結果バインドを<xref:System.Web.UI.WebControls.GridView?displayProperty=nameWithType>コントロール。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-256">The following code example uses the <xref:System.Web.Security.Roles.GetUsersInRole%2A> method to get a list of the users in a particular role and bind the results to a <xref:System.Web.UI.WebControls.GridView?displayProperty=nameWithType> control.</span></span> <span data-ttu-id="1e4b8-257">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-257">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.SqlRoleProvider>.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlRoleProvider#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/CS/adduserstorolecs.aspx#3)]
+ [!code-aspx-vb[System.Web.Security.SqlRoleProvider#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/VB/adduserstorolevb.aspx#3)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-258">
+            <paramref name="roleName" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-258">
+              <paramref name="roleName" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="1e4b8-259">
+            <paramref name="roleName" /> が空の文字列であるか、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-259">
+              <paramref name="roleName" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-260">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-260">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-261">
+            <paramref name="roleName" /> が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-261">
+              <paramref name="roleName" /> is longer than 256 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-262">データベースに <paramref name="rolename" /> が見つかりませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-262">
+              <paramref name="rolename" /> was not found in the database.</span>
+          </span>
+          <span data-ttu-id="1e4b8-263">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-263">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-264">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-264">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Initialize">
+      <MemberSignature Language="C#" Value="public override void Initialize (string name, System.Collections.Specialized.NameValueCollection config);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Initialize(string name, class System.Collections.Specialized.NameValueCollection config) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub Initialize (name As String, config As NameValueCollection)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void Initialize(System::String ^ name, System::Collections::Specialized::NameValueCollection ^ config);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="config" Type="System.Collections.Specialized.NameValueCollection" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="1e4b8-265">初期化する <see cref="T:System.Web.Security.SqlRoleProvider" /> インスタンスの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-265">The name of the <see cref="T:System.Web.Security.SqlRoleProvider" /> instance to initialize.</span>
+          </span>
+        </param>
+        <param name="config">
+          <span data-ttu-id="1e4b8-266">ロール プロバイダーの構成オプションの名前と値を含む <see cref="T:System.Collections.Specialized.NameValueCollection" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-266">A <see cref="T:System.Collections.Specialized.NameValueCollection" /> that contains the names and values of configuration options for the role provider.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-267">ASP.NET アプリケーションの構成ファイルに指定されているプロパティ値を使用して、SQL Server ロール プロバイダーを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-267">Initializes the SQL Server role provider with the property values specified in the ASP.NET application's configuration file.</span>
+          </span>
+          <span data-ttu-id="1e4b8-268">このメソッドはコードから直接使用するためのものではありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-268">This method is not intended to be used directly from your code.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-269">このメソッドは、初期化、<xref:System.Web.Security.SqlRoleProvider>プロパティを使用して値が ASP.NET アプリケーション構成ファイル (Web.config) で指定し、コードから直接使用するものではありません。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-269">This method initializes the <xref:System.Web.Security.SqlRoleProvider> with the property values specified in the ASP.NET application configuration file (Web.config) and is not intended to be used directly from your code.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="1e4b8-270">ASP.NET アプリケーションは <see cref="F:System.Web.AspNetHostingPermissionLevel.Medium" /> またはそれ以上の信頼レベルで実行されていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-270">The ASP.NET application is not running at <see cref="F:System.Web.AspNetHostingPermissionLevel.Medium" /> trust or higher.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-271">
+            <paramref name="config" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-271">
+              <paramref name="config" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-272">
+            <see langword="connectionStringName" /> 属性が空であるか、この <see cref="T:System.Web.Security.SqlRoleProvider" /> インスタンスのアプリケーション構成ファイルに存在しません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-272">The <see langword="connectionStringName" /> attribute is empty or does not exist in the application configuration file for this <see cref="T:System.Web.Security.SqlRoleProvider" /> instance.</span>
+          </span>
+          <span data-ttu-id="1e4b8-273">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-273">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-274">
+            <see langword="applicationName" /> 属性が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-274">The <see langword="applicationName" /> attribute exceeds 256 characters.</span>
+          </span>
+          <span data-ttu-id="1e4b8-275">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-275">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-276">この <see cref="T:System.Web.Security.SqlRoleProvider" /> インスタンスのアプリケーション構成ファイルに、認識できない属性が格納されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-276">The application configuration file for this <see cref="T:System.Web.Security.SqlRoleProvider" /> instance contains an unrecognized attribute.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="IsUserInRole">
+      <MemberSignature Language="C#" Value="public override bool IsUserInRole (string username, string roleName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance bool IsUserInRole(string username, string roleName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.IsUserInRole(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function IsUserInRole (username As String, roleName As String) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override bool IsUserInRole(System::String ^ username, System::String ^ roleName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="username" Type="System.String" />
+        <Parameter Name="roleName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="username">
+          <span data-ttu-id="1e4b8-277">検索するユーザー名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-277">The user name to search for.</span>
+          </span>
+        </param>
+        <param name="roleName">
+          <span data-ttu-id="1e4b8-278">検索範囲とするロール。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-278">The role to search in.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-279">指定したユーザーが指定したロールに存在するかどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-279">Gets a value indicating whether the specified user is in the specified role.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="1e4b8-280">指定されたユーザー名が指定されたロールに存在する場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-280">
+              <see langword="true" /> if the specified user name is in the specified role; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-281"><xref:System.Web.Security.SqlRoleProvider.IsUserInRole%2A>メソッドによって呼び出されます、<xref:System.Web.Security.Roles>クラスおよび<xref:System.Security.Principal.IPrincipal.IsInRole%2A>のメソッド、<xref:System.Web.UI.Page.User%2A?displayProperty=nameWithType>プロパティをユーザーが、ASP.NET アプリケーションの構成ファイル (Web.config) で指定された SQL Server データベース内のロールに関連付けられているかどうかを判断します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-281">The <xref:System.Web.Security.SqlRoleProvider.IsUserInRole%2A> method is called by the <xref:System.Web.Security.Roles> class and the <xref:System.Security.Principal.IPrincipal.IsInRole%2A> method of the <xref:System.Web.UI.Page.User%2A?displayProperty=nameWithType> property to determine whether a user is associated with a role in the SQL Server database specified in the ASP.NET application's configuration file (Web.config).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-282">次のコード例は、プログラムで、ログオン ユーザーがユーザー ロールを表示するユーザーを許可する前に、管理者ロールがかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-282">The following code example programmatically checks to see whether the logged-on user is in the Administrators role before allowing the user to view user roles.</span></span> <span data-ttu-id="1e4b8-283">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-283">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.SqlRoleProvider>.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlRoleProvider#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/CS/ViewRolescs.aspx#4)]
+ [!code-aspx-vb[System.Web.Security.SqlRoleProvider#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/VB/ViewRolesvb.aspx#4)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-284">
+            <paramref name="roleName" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-284">
+              <paramref name="roleName" /> is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="1e4b8-285">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-285">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-286">
+            <paramref name="username" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-286">
+              <paramref name="username" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="1e4b8-287">
+            <paramref name="roleName" /> が空の文字列であるか、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-287">
+              <paramref name="roleName" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-288">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-288">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-289">
+            <paramref name="username" /> にコンマが含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-289">
+              <paramref name="username" /> is contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-290">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-290">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-291">
+            <paramref name="roleName" /> が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-291">
+              <paramref name="roleName" /> is longer than 256 characters.</span>
+          </span>
+          <span data-ttu-id="1e4b8-292">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-292">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-293">
+            <paramref name="username" /> が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-293">
+              <paramref name="username" /> is longer than 256 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-294">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-294">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="RemoveUsersFromRoles">
+      <MemberSignature Language="C#" Value="public override void RemoveUsersFromRoles (string[] usernames, string[] roleNames);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void RemoveUsersFromRoles(string[] usernames, string[] roleNames) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.RemoveUsersFromRoles(System.String[],System.String[])" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub RemoveUsersFromRoles (usernames As String(), roleNames As String())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void RemoveUsersFromRoles(cli::array &lt;System::String ^&gt; ^ usernames, cli::array &lt;System::String ^&gt; ^ roleNames);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="usernames" Type="System.String[]" />
+        <Parameter Name="roleNames" Type="System.String[]" />
+      </Parameters>
+      <Docs>
+        <param name="usernames">
+          <span data-ttu-id="1e4b8-295">指定したロールから削除するユーザー名の文字列配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-295">A string array of user names to be removed from the specified roles.</span>
+          </span>
+        </param>
+        <param name="roleNames">
+          <span data-ttu-id="1e4b8-296">指定したユーザー名を削除するロール名の文字列配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-296">A string array of role names to remove the specified user names from.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-297">指定されたユーザー名を指定されたロールから削除します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-297">Removes the specified user names from the specified roles.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-298"><xref:System.Web.Security.SqlRoleProvider.RemoveUsersFromRoles%2A>メソッドによって呼び出されます、 <xref:System.Web.Security.Roles> ASP.NET アプリケーションの構成ファイル (Web.config) で指定された SQL Server データベースに 1 つまたは複数のロールから 1 つまたは複数のユーザーを削除するクラス。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-298">The <xref:System.Web.Security.SqlRoleProvider.RemoveUsersFromRoles%2A> method is called by the <xref:System.Web.Security.Roles> class to remove one or more users from one or more roles in the SQL Server database specified in the ASP.NET application's configuration file (Web.config).</span></span> <span data-ttu-id="1e4b8-299">このメソッドは、 <xref:System.Web.Security.Roles.RemoveUserFromRole%2A>、 <xref:System.Web.Security.Roles.RemoveUserFromRoles%2A>、 <xref:System.Web.Security.Roles.RemoveUsersFromRole%2A>、および<xref:System.Web.Security.Roles.RemoveUsersFromRoles%2A>のメソッド、<xref:System.Web.Security.Roles>クラスです。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-299">This method is called by the <xref:System.Web.Security.Roles.RemoveUserFromRole%2A>, <xref:System.Web.Security.Roles.RemoveUserFromRoles%2A>, <xref:System.Web.Security.Roles.RemoveUsersFromRole%2A>, and <xref:System.Web.Security.Roles.RemoveUsersFromRoles%2A> methods of the <xref:System.Web.Security.Roles> class.</span></span>  
+  
+ <span data-ttu-id="1e4b8-300">呼び出し中に実行されるデータベースの更新<xref:System.Web.Security.SqlRoleProvider.RemoveUsersFromRoles%2A>トランザクション内で行われました。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-300">The database updates that are performed during the call to <xref:System.Web.Security.SqlRoleProvider.RemoveUsersFromRoles%2A> are made within a transaction.</span></span> <span data-ttu-id="1e4b8-301">エラーが発生した場合が存在しないユーザー名、指定されたロールに既にあるユーザー名など、トランザクションがロールバックし、更新は実行されません。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-301">If an error is encountered, such as a user name that does not exist or a user name that is already in a specified role, the transaction is rolled back and no updates are performed.</span></span>  
+  
+ <span data-ttu-id="1e4b8-302">ユーザー名とロール名は、コンマを含めることはできません。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-302">User names and role names cannot contain commas.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-303">次のコード例では、1 つまたは複数のユーザーをロールに追加またはロールからユーザーを削除します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-303">The following code example adds one or more users to a role or removes a user from a role.</span></span> <span data-ttu-id="1e4b8-304">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-304">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.SqlRoleProvider>.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlRoleProvider#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/CS/adduserstorolecs.aspx#3)]
+ [!code-aspx-vb[System.Web.Security.SqlRoleProvider#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/VB/adduserstorolevb.aspx#3)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-305">
+            <paramref name="roleNames" /> のロールの 1 つが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-305">One of the roles in <paramref name="roleNames" /> is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="1e4b8-306">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-306">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-307">
+            <paramref name="usernames" /> のユーザーの 1 つが <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-307">One of the users in <paramref name="usernames" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="1e4b8-308">
+            <paramref name="roleNames" /> のロールの 1 つが空の文字列か、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-308">One of the roles in <paramref name="roleNames" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-309">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-309">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-310">
+            <paramref name="usernames" /> のロールの 1 つが空の文字列か、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-310">One of the users in <paramref name="usernames" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-311">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-311">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-312">
+            <paramref name="roleNames" /> のロールの 1 つが 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-312">One of the roles in <paramref name="roleNames" /> is longer than 256 characters.</span>
+          </span>
+          <span data-ttu-id="1e4b8-313">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-313">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-314">
+            <paramref name="usernames" /> のユーザーの 1 つが 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-314">One of the users in <paramref name="usernames" /> is longer than 256 characters.</span>
+          </span>
+          <span data-ttu-id="1e4b8-315">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-315">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-316">
+            <paramref name="roleNames" /> に重複した要素が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-316">
+              <paramref name="roleNames" /> contains a duplicate element.</span>
+          </span>
+          <span data-ttu-id="1e4b8-317">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-317">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-318">
+            <paramref name="usernames" /> に重複した要素が含まれています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-318">
+              <paramref name="usernames" /> contains a duplicate element.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-319">指定された 1 つ以上のユーザー名が見つかりませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-319">One or more of the specified user names was not found.</span>
+          </span>
+          <span data-ttu-id="1e4b8-320">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-320">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-321">指定された 1 つ以上のロール名が見つかりませんでした。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-321">One or more of the specified role names was not found.</span>
+          </span>
+          <span data-ttu-id="1e4b8-322">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-322">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-323">指定された 1 つ以上のユーザー名が、指定された 1 つ以上のロール名に関連付けられていません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-323">One or more of the specified user names is not associated with one or more of the specified role names.</span>
+          </span>
+          <span data-ttu-id="1e4b8-324">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-324">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-325">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-325">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="RoleExists">
+      <MemberSignature Language="C#" Value="public override bool RoleExists (string roleName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance bool RoleExists(string roleName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.SqlRoleProvider.RoleExists(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function RoleExists (roleName As String) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override bool RoleExists(System::String ^ roleName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="roleName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="roleName">
+          <span data-ttu-id="1e4b8-326">データベースで検索するロールの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-326">The name of the role to search for in the database.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="1e4b8-327">指定されたロール名がロール データベースに既に存在するかどうかを示す値を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-327">Gets a value indicating whether the specified role name already exists in the role database.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="1e4b8-328">ロール名がデータベースに既に存在する場合は <see langword="true" />。それ以外の場合は<see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-328">
+              <see langword="true" /> if the role name already exists in the database; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="1e4b8-329"><xref:System.Web.Security.SqlRoleProvider.RoleExists%2A>メソッドによって呼び出されます、<xref:System.Web.Security.Roles>クラス ASP.NET アプリケーションの構成ファイル (Web.config) で指定された SQL Server データベースにロール名が存在するかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-329">The <xref:System.Web.Security.SqlRoleProvider.RoleExists%2A> method is called by the <xref:System.Web.Security.Roles> class to determine whether a role name exists in the SQL Server database specified in the ASP.NET application's configuration file (Web.config).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="1e4b8-330">次のコード例では、<xref:System.Web.Security.Roles.RoleExists%2A>ロールを作成する前に、ロール名が既に存在するかどうかを調べます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-330">The following code example uses the <xref:System.Web.Security.Roles.RoleExists%2A> method to determine whether a role name already exists before creating the role.</span></span> <span data-ttu-id="1e4b8-331">ロール管理をできるようにする Web.config ファイルの例は、次を参照してください。<xref:System.Web.Security.SqlRoleProvider>です。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-331">For an example of a Web.config file that enables role management, see <xref:System.Web.Security.SqlRoleProvider>.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="1e4b8-332">この例には、潜在的なセキュリティの脅威は、ユーザー入力を受け付けるテキスト ボックスが含まれています。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-332">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="1e4b8-333">既定では、ASP.NET Web ページによって、ユーザー入力にスクリプトまたは HTML 要素が含まれていないかどうかが検証されます。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-333">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="1e4b8-334">詳細については、「[スクリプトによる攻略の概要](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="1e4b8-334">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlRoleProvider#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/CS/createrolecs.aspx#1)]
+ [!code-aspx-vb[System.Web.Security.SqlRoleProvider#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlRoleProvider/VB/createrolevb.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="1e4b8-335">
+            <paramref name="roleName" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-335">
+              <paramref name="roleName" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="1e4b8-336">
+            <paramref name="roleName" /> が空の文字列であるか、またはコンマ (,) を含んでいます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-336">
+              <paramref name="roleName" /> is an empty string or contains a comma.</span>
+          </span>
+          <span data-ttu-id="1e4b8-337">- または -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-337">-or-</span>
+          </span>
+          <span data-ttu-id="1e4b8-338">
+            <paramref name="roleName" /> が 256 文字を超えています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-338">
+              <paramref name="roleName" /> is longer than 256 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Configuration.Provider.ProviderException">
+          <span data-ttu-id="1e4b8-339">データベースとの通信中に不明なエラーが発生しました。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="1e4b8-339">An unknown error occurred while communicating with the database.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
