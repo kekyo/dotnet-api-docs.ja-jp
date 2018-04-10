@@ -1,0 +1,1 @@
+このクラスが表す要素の詳細については、次の仕様を参照してください:[の OASIS Security Assertion Markup Language (SAML) V2.0 のメタデータ](http://go.microsoft.com/fwlink/?LinkId=231291)(http://go.microsoft.com/fwlink/?LinkId=231291)です。

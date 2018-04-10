@@ -1,0 +1,1 @@
+.NET Framework 4.7 から始めて、このメソッドを使用して認証<xref:System.Security.Authentication.SslProtocols.None>これにより、オペレーティング システムを使用する最適なプロトコルを選択して、ブロックするプロトコル、安全ではありません。 .NET Framework 4.6 (およびでの最新のセキュリティ パッチがインストールされている .NET Framework 4.5)、許可されている TLS と SSL プロトコルのバージョンが 1.2、1.1 および 1.0 (強力な暗号化を無効にするには、Windows レジストリの編集) しない限り、します。
