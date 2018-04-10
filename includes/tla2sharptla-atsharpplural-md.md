@@ -1,0 +1,1 @@
+<span data-ttu-id="831eb-101">支援技術</span><span class="sxs-lookup"><span data-stu-id="831eb-101">Assistive technologies</span></span>

@@ -1,0 +1,1 @@
+<span data-ttu-id="a1211-101">統合言語クエリ (LINQ: Language-Integrated Query)</span><span class="sxs-lookup"><span data-stu-id="a1211-101">Language-Integrated Query (LINQ)</span></span>

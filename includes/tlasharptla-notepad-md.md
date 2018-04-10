@@ -1,0 +1,1 @@
+<span data-ttu-id="876b4-101">Microsoft メモ帳</span><span class="sxs-lookup"><span data-stu-id="876b4-101">Microsoft Notepad</span></span>

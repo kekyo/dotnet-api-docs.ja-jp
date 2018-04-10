@@ -1,0 +1,1 @@
+<span data-ttu-id="0f4b7-101">グローバル一意識別子 (GUID)</span><span class="sxs-lookup"><span data-stu-id="0f4b7-101">globally unique identifier (GUID)</span></span>

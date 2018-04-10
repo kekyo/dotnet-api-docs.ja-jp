@@ -1,0 +1,1 @@
+<span data-ttu-id="80711-101">OLE 2.0</span><span class="sxs-lookup"><span data-stu-id="80711-101">OLE 2.0</span></span>

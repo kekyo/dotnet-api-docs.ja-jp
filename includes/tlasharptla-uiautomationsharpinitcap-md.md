@@ -1,0 +1,1 @@
+<span data-ttu-id="bbe33-101">UI オートメーション</span><span class="sxs-lookup"><span data-stu-id="bbe33-101">UI Automation</span></span>

@@ -1,0 +1,1 @@
+<span data-ttu-id="d6ed1-101">高度暗号化標準 (AES)</span><span class="sxs-lookup"><span data-stu-id="d6ed1-101">Advanced Encryption Standard (AES)</span></span>

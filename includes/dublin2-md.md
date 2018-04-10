@@ -1,0 +1,1 @@
+<span data-ttu-id="78090-101">ホスト機能</span><span class="sxs-lookup"><span data-stu-id="78090-101">hosting features</span></span>

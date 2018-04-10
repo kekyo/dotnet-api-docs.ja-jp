@@ -1,0 +1,1 @@
+<span data-ttu-id="a3ff4-101">Windows Software Development Kit (SDK)</span><span class="sxs-lookup"><span data-stu-id="a3ff4-101">Windows Software Development Kit (SDK)</span></span>

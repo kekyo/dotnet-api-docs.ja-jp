@@ -1,0 +1,1 @@
+<span data-ttu-id="9da8a-101">Windows Server AppFabric のホスト機能</span><span class="sxs-lookup"><span data-stu-id="9da8a-101">hosting features of Windows Server AppFabric</span></span>

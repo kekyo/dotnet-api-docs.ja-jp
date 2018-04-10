@@ -1,0 +1,1 @@
+<span data-ttu-id="a388e-101">デバイスに依存しないビットマップ (DIB)</span><span class="sxs-lookup"><span data-stu-id="a388e-101">device-independent bitmap (DIB)</span></span>

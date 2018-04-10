@@ -1,0 +1,2 @@
+> [!WARNING]
+> <span data-ttu-id="dcee2-101">バイナリ シリアル化は危険です。</span><span class="sxs-lookup"><span data-stu-id="dcee2-101">Binary serialization can be dangerous.</span></span> <span data-ttu-id="dcee2-102">信頼できないソースからのデータの逆シリアル化、および管理下にないシステムへのラウンドトリップのシリアル化をしてはいけません。</span><span class="sxs-lookup"><span data-stu-id="dcee2-102">Never deserialize data from an untrusted source and never round-trip serialized data to systems not under your control.</span></span>

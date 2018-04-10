@@ -1,0 +1,1 @@
+<span data-ttu-id="4b22e-101">GIF</span><span class="sxs-lookup"><span data-stu-id="4b22e-101">GIF</span></span>

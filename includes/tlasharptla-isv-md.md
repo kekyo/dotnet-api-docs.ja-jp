@@ -1,0 +1,1 @@
+<span data-ttu-id="ead36-101">独立系ソフトウェア ベンダー (ISV)</span><span class="sxs-lookup"><span data-stu-id="ead36-101">independent software vendor (ISV)</span></span>

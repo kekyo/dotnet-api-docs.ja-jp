@@ -1,0 +1,1 @@
+<span data-ttu-id="fad5a-101">Microsoft Windows Presentation Foundation イメージング コンポーネント</span><span class="sxs-lookup"><span data-stu-id="fad5a-101">Microsoft Windows Presentation Foundation Imaging Component</span></span>
