@@ -1,0 +1,11 @@
+### <a name="right-clicking-on-a-wpf-datagrid-row-header-changes-the-datagrid-selection"></a><span data-ttu-id="b36d2-101">WPF のデータ グリッドを右クリックし行ヘッダーは DataGrid の選択を変更します。</span><span class="sxs-lookup"><span data-stu-id="b36d2-101">Right clicking on a WPF DataGrid row header changes the DataGrid selection</span></span>
+
+|   |   |
+|---|---|
+|<span data-ttu-id="b36d2-102">説明</span><span class="sxs-lookup"><span data-stu-id="b36d2-102">Details</span></span>|<span data-ttu-id="b36d2-103">選択したを右クリックして<xref:System.Windows.Controls.DataGrid?displayProperty=name>中で選択した結果を複数の行の行ヘッダー、<xref:System.Windows.Controls.DataGrid?displayProperty=name>の選択をする行のみに変化します。</span><span class="sxs-lookup"><span data-stu-id="b36d2-103">Right-clicking a selected <xref:System.Windows.Controls.DataGrid?displayProperty=name> row header while multiple rows are selected results in the <xref:System.Windows.Controls.DataGrid?displayProperty=name>'s selection changing to only that row.</span></span>|
+|<span data-ttu-id="b36d2-104">提案される解決策</span><span class="sxs-lookup"><span data-stu-id="b36d2-104">Suggestion</span></span>|<span data-ttu-id="b36d2-105">この問題は、.NET Framework 4.6 で修正されており、.NET Framework のバージョンにアップグレードすることで対処することがあります。</span><span class="sxs-lookup"><span data-stu-id="b36d2-105">This issue has been fixed in the .NET Framework 4.6 and may be addressed by upgrading to that version of the .NET Framework.</span></span>|
+|<span data-ttu-id="b36d2-106">スコープ</span><span class="sxs-lookup"><span data-stu-id="b36d2-106">Scope</span></span>|<span data-ttu-id="b36d2-107">エッジ</span><span class="sxs-lookup"><span data-stu-id="b36d2-107">Edge</span></span>|
+|<span data-ttu-id="b36d2-108">Version</span><span class="sxs-lookup"><span data-stu-id="b36d2-108">Version</span></span>|<span data-ttu-id="b36d2-109">4.5</span><span class="sxs-lookup"><span data-stu-id="b36d2-109">4.5</span></span>|
+|<span data-ttu-id="b36d2-110">型</span><span class="sxs-lookup"><span data-stu-id="b36d2-110">Type</span></span>|<span data-ttu-id="b36d2-111">ランタイム</span><span class="sxs-lookup"><span data-stu-id="b36d2-111">Runtime</span></span>|
+|<span data-ttu-id="b36d2-112">影響を受ける API</span><span class="sxs-lookup"><span data-stu-id="b36d2-112">Affected APIs</span></span>|<ul><li><xref:System.Windows.Controls.DataGrid.%23ctor?displayProperty=nameWithType></li></ul>|
+

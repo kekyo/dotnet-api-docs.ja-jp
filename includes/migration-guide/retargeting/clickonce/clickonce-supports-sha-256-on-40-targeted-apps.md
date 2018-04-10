@@ -1,0 +1,10 @@
+### <a name="clickonce-supports-sha-256-on-40-targeted-apps"></a><span data-ttu-id="a008f-101">ClickOnce は、4.0 対象のアプリに SHA 256 をサポートしています</span><span class="sxs-lookup"><span data-stu-id="a008f-101">ClickOnce supports SHA-256 on 4.0-targeted apps</span></span>
+
+|   |   |
+|---|---|
+|<span data-ttu-id="a008f-102">説明</span><span class="sxs-lookup"><span data-stu-id="a008f-102">Details</span></span>|<span data-ttu-id="a008f-103">以前は、SHA 256 で署名された証明書を使用する ClickOnce アプリは、アプリは、4.0 を対象となる場合でも、存在する .NET 4.5 以降が必要です。</span><span class="sxs-lookup"><span data-stu-id="a008f-103">Previously, a ClickOnce app with a certificate signed with SHA-256 would require .NET 4.5 or later to be present, even if the app targeted 4.0.</span></span> <span data-ttu-id="a008f-104">ここで、4.0 を対象とした ClickOnce アプリは、SHA 256 で署名された場合でも、4.0 で実行できます。</span><span class="sxs-lookup"><span data-stu-id="a008f-104">Now, 4.0-targeted ClickOnce apps can run on 4.0, even if signed with SHA-256.</span></span>|
+|<span data-ttu-id="a008f-105">提案される解決策</span><span class="sxs-lookup"><span data-stu-id="a008f-105">Suggestion</span></span>|<span data-ttu-id="a008f-106">この変更は、その依存関係を削除し、SHA 256 を .NET Framework 4 およびそれ以前のバージョンを対象とする ClickOnce アプリの署名に使用される証明書を許可します。</span><span class="sxs-lookup"><span data-stu-id="a008f-106">This change removes that dependency and allows SHA-256 certificates to be used to sign ClickOnce apps that target .NET Framework 4 and earlier versions.</span></span>|
+|<span data-ttu-id="a008f-107">スコープ</span><span class="sxs-lookup"><span data-stu-id="a008f-107">Scope</span></span>|<span data-ttu-id="a008f-108">マイナー</span><span class="sxs-lookup"><span data-stu-id="a008f-108">Minor</span></span>|
+|<span data-ttu-id="a008f-109">Version</span><span class="sxs-lookup"><span data-stu-id="a008f-109">Version</span></span>|<span data-ttu-id="a008f-110">4.6</span><span class="sxs-lookup"><span data-stu-id="a008f-110">4.6</span></span>|
+|<span data-ttu-id="a008f-111">型</span><span class="sxs-lookup"><span data-stu-id="a008f-111">Type</span></span>|<span data-ttu-id="a008f-112">再ターゲット中</span><span class="sxs-lookup"><span data-stu-id="a008f-112">Retargeting</span></span>|
+

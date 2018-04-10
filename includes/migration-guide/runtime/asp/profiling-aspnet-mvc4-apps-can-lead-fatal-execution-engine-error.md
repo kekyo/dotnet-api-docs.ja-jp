@@ -1,0 +1,10 @@
+### <a name="profiling-aspnet-mvc4-apps-can-lead-to-fatal-execution-engine-error"></a><span data-ttu-id="10cb4-101">実行エンジンの致命的なエラーにつながる可能性が ASP.Net MVC4 のアプリのプロファイリング</span><span class="sxs-lookup"><span data-stu-id="10cb4-101">Profiling ASP.Net MVC4 apps can lead to Fatal Execution Engine Error</span></span>
+
+|   |   |
+|---|---|
+|<span data-ttu-id="10cb4-102">説明</span><span class="sxs-lookup"><span data-stu-id="10cb4-102">Details</span></span>|<span data-ttu-id="10cb4-103">NGEN/Profile アセンブリを使用してプロファイラー、' 致命的な実行エンジンが例外 ' の起動時にプロファイリング対象の ASP.NET MVC4 アプリケーションがクラッシュする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="10cb4-103">Profilers using NGEN /Profile assemblies may crash profiled ASP.NET MVC4 applications on startup with a 'Fatal Execution Engine Exception'</span></span>|
+|<span data-ttu-id="10cb4-104">提案される解決策</span><span class="sxs-lookup"><span data-stu-id="10cb4-104">Suggestion</span></span>|<span data-ttu-id="10cb4-105">.NET Framework 4.5.2 では、この問題が解決します。</span><span class="sxs-lookup"><span data-stu-id="10cb4-105">This issue is fixed in the .NET Framework 4.5.2.</span></span> <span data-ttu-id="10cb4-106">また、プロファイラーを指定してこの問題を回避可能性があります<code>COR_PRF_DISABLE_ALL_NGEN_IMAGES</code>そのイベント マスクにします。</span><span class="sxs-lookup"><span data-stu-id="10cb4-106">Alternatively, the profiler may avoid this issue by specifying <code>COR_PRF_DISABLE_ALL_NGEN_IMAGES</code> in its event mask.</span></span>|
+|<span data-ttu-id="10cb4-107">スコープ</span><span class="sxs-lookup"><span data-stu-id="10cb4-107">Scope</span></span>|<span data-ttu-id="10cb4-108">エッジ</span><span class="sxs-lookup"><span data-stu-id="10cb4-108">Edge</span></span>|
+|<span data-ttu-id="10cb4-109">Version</span><span class="sxs-lookup"><span data-stu-id="10cb4-109">Version</span></span>|<span data-ttu-id="10cb4-110">4.5</span><span class="sxs-lookup"><span data-stu-id="10cb4-110">4.5</span></span>|
+|<span data-ttu-id="10cb4-111">型</span><span class="sxs-lookup"><span data-stu-id="10cb4-111">Type</span></span>|<span data-ttu-id="10cb4-112">ランタイム</span><span class="sxs-lookup"><span data-stu-id="10cb4-112">Runtime</span></span>|
+

@@ -1,0 +1,10 @@
+### <a name="winforms-checkforoverflowunderflow-property-is-now-true-for-systemdrawing"></a><span data-ttu-id="57bb1-101">WinForm の CheckForOverflowUnderflow プロパティは true System.Drawing のようになりました</span><span class="sxs-lookup"><span data-stu-id="57bb1-101">WinForm's CheckForOverflowUnderflow property is now true for System.Drawing</span></span>
+
+|   |   |
+|---|---|
+|<span data-ttu-id="57bb1-102">説明</span><span class="sxs-lookup"><span data-stu-id="57bb1-102">Details</span></span>|<span data-ttu-id="57bb1-103">CheckForOverflowUnderflow System.Drawing.dll アセンブリのプロパティが true に設定します。</span><span class="sxs-lookup"><span data-stu-id="57bb1-103">The CheckForOverflowUnderflow property for the System.Drawing.dll assembly is set to true.</span></span>|
+|<span data-ttu-id="57bb1-104">提案される解決策</span><span class="sxs-lookup"><span data-stu-id="57bb1-104">Suggestion</span></span>|<span data-ttu-id="57bb1-105">これまではオーバーフローが発生すると、その結果は自動的に切り捨てられました。</span><span class="sxs-lookup"><span data-stu-id="57bb1-105">Previously when overflows occurred, the result would be silently truncated.</span></span> <span data-ttu-id="57bb1-106">現在では、<xref:System.OverflowException?displayProperty=name> 例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="57bb1-106">Now an <xref:System.OverflowException?displayProperty=name> exception is thrown.</span></span>|
+|<span data-ttu-id="57bb1-107">スコープ</span><span class="sxs-lookup"><span data-stu-id="57bb1-107">Scope</span></span>|<span data-ttu-id="57bb1-108">エッジ</span><span class="sxs-lookup"><span data-stu-id="57bb1-108">Edge</span></span>|
+|<span data-ttu-id="57bb1-109">Version</span><span class="sxs-lookup"><span data-stu-id="57bb1-109">Version</span></span>|<span data-ttu-id="57bb1-110">4.5</span><span class="sxs-lookup"><span data-stu-id="57bb1-110">4.5</span></span>|
+|<span data-ttu-id="57bb1-111">型</span><span class="sxs-lookup"><span data-stu-id="57bb1-111">Type</span></span>|<span data-ttu-id="57bb1-112">ランタイム</span><span class="sxs-lookup"><span data-stu-id="57bb1-112">Runtime</span></span>|
+

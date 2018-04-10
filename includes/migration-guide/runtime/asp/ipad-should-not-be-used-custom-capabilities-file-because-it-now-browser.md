@@ -1,0 +1,10 @@
+### <a name="ipad-should-not-be-used-in-custom-capabilities-file-because-it-is-now-a-browser-capability"></a><span data-ttu-id="730c6-101">ブラウザーの機能であるためには IPad のカスタム機能ファイルで使用する必要がありますはありません。</span><span class="sxs-lookup"><span data-stu-id="730c6-101">IPad should not be used in custom capabilities file because it is now a browser capability</span></span>
+
+|   |   |
+|---|---|
+|<span data-ttu-id="730c6-102">説明</span><span class="sxs-lookup"><span data-stu-id="730c6-102">Details</span></span>|<span data-ttu-id="730c6-103">.NET 4.5 以降で、iPad は既定 ASP.NET ブラウザーの機能ファイル内の識別子のため、カスタムの機能ファイルで使用されません必要があります。</span><span class="sxs-lookup"><span data-stu-id="730c6-103">Beginning in .NET 4.5, iPad is an identifier in the default ASP.NET browser capabilities file, so it should not be used in a custom capabilities file</span></span>|
+|<span data-ttu-id="730c6-104">提案される解決策</span><span class="sxs-lookup"><span data-stu-id="730c6-104">Suggestion</span></span>|<span data-ttu-id="730c6-105">IPad の動作を変更するには、事前に定義されたゲートウェイ refID の機能を設定する必要は iPad 固有の機能が必要な場合は、 &quot;IPad&quot;の代わりに、新しいを生成して&quot;IPad&quot;ユーザー エージェントによって ID一致します。</span><span class="sxs-lookup"><span data-stu-id="730c6-105">If iPad-specific capabilities are required, it is necessary to modify iPad behavior by setting capabilities on the pre-defined gateway refID &quot;IPad&quot; instead of by generating a new &quot;IPad&quot; ID by user agent matching.</span></span>|
+|<span data-ttu-id="730c6-106">スコープ</span><span class="sxs-lookup"><span data-stu-id="730c6-106">Scope</span></span>|<span data-ttu-id="730c6-107">エッジ</span><span class="sxs-lookup"><span data-stu-id="730c6-107">Edge</span></span>|
+|<span data-ttu-id="730c6-108">Version</span><span class="sxs-lookup"><span data-stu-id="730c6-108">Version</span></span>|<span data-ttu-id="730c6-109">4.5</span><span class="sxs-lookup"><span data-stu-id="730c6-109">4.5</span></span>|
+|<span data-ttu-id="730c6-110">型</span><span class="sxs-lookup"><span data-stu-id="730c6-110">Type</span></span>|<span data-ttu-id="730c6-111">ランタイム</span><span class="sxs-lookup"><span data-stu-id="730c6-111">Runtime</span></span>|
+

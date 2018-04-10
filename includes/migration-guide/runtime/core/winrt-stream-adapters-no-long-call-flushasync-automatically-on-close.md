@@ -1,0 +1,10 @@
+### <a name="winrt-stream-adapters-no-long-call-flushasync-automatically-on-close"></a><span data-ttu-id="3eb8d-101">WinRT ストリーム アダプター長い形式でを呼び出す FlushAsync 自動的に閉じる</span><span class="sxs-lookup"><span data-stu-id="3eb8d-101">WinRT stream adapters no long call FlushAsync automatically on close</span></span>
+
+|   |   |
+|---|---|
+|<span data-ttu-id="3eb8d-102">説明</span><span class="sxs-lookup"><span data-stu-id="3eb8d-102">Details</span></span>|<span data-ttu-id="3eb8d-103">Windows ストア アプリ、Windows ランタイム ストリーム アダプターは不要になった Dispose メソッドから FlushAsync メソッドを呼び出します。</span><span class="sxs-lookup"><span data-stu-id="3eb8d-103">In Windows Store apps, Windows Runtime stream adapters no longer call the FlushAsync method from the Dispose method.</span></span>|
+|<span data-ttu-id="3eb8d-104">提案される解決策</span><span class="sxs-lookup"><span data-stu-id="3eb8d-104">Suggestion</span></span>|<span data-ttu-id="3eb8d-105">この変更は透過的である必要があります。</span><span class="sxs-lookup"><span data-stu-id="3eb8d-105">This change should be transparent.</span></span> <span data-ttu-id="3eb8d-106">開発者は次のようなコードを記述して以前の動作を復元できます。</span><span class="sxs-lookup"><span data-stu-id="3eb8d-106">Developers can restore the previous behavior by writing code like this:</span></span><pre><code class="language-csharp">using (var stream = GetWindowsRuntimeStream() as Stream)&#13;&#10;{&#13;&#10;// do something&#13;&#10;await stream.FlushAsync();&#13;&#10;}&#13;&#10;</code></pre>|
+|<span data-ttu-id="3eb8d-107">スコープ</span><span class="sxs-lookup"><span data-stu-id="3eb8d-107">Scope</span></span>|<span data-ttu-id="3eb8d-108">透明</span><span class="sxs-lookup"><span data-stu-id="3eb8d-108">Transparent</span></span>|
+|<span data-ttu-id="3eb8d-109">Version</span><span class="sxs-lookup"><span data-stu-id="3eb8d-109">Version</span></span>|<span data-ttu-id="3eb8d-110">4.5.1</span><span class="sxs-lookup"><span data-stu-id="3eb8d-110">4.5.1</span></span>|
+|<span data-ttu-id="3eb8d-111">型</span><span class="sxs-lookup"><span data-stu-id="3eb8d-111">Type</span></span>|<span data-ttu-id="3eb8d-112">ランタイム</span><span class="sxs-lookup"><span data-stu-id="3eb8d-112">Runtime</span></span>|
+

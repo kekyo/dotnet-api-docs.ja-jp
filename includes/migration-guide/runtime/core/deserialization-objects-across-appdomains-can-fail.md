@@ -1,0 +1,10 @@
+### <a name="deserialization-of-objects-across-appdomains-can-fail"></a><span data-ttu-id="1232a-101">Appdomains 間でのオブジェクトの逆シリアル化が失敗します。</span><span class="sxs-lookup"><span data-stu-id="1232a-101">Deserialization of objects across appdomains can fail</span></span>
+
+|   |   |
+|---|---|
+|<span data-ttu-id="1232a-102">説明</span><span class="sxs-lookup"><span data-stu-id="1232a-102">Details</span></span>|<span data-ttu-id="1232a-103">場合によっては、アプリが異なるアプリケーション ベースを持つ複数のアプリ ドメインを使用すると、アプリ ドメイン間で論理呼び出しコンテキストのオブジェクトを逆シリアル化しようとして、例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="1232a-103">In some cases, when an app uses two or more app domains with different application bases, trying to deserialize objects in the logical call context across app domains throws an exception.</span></span>|
+|<span data-ttu-id="1232a-104">提案される解決策</span><span class="sxs-lookup"><span data-stu-id="1232a-104">Suggestion</span></span>|<span data-ttu-id="1232a-105">参照してください[軽減策: アプリ ドメイン全体でのオブジェクトの逆シリアル化](~/docs/framework/migration-guide/mitigation-deserialization-of-objects-across-app-domains.md)</span><span class="sxs-lookup"><span data-stu-id="1232a-105">See [Mitigation: Deserialization of Objects Across App Domains](~/docs/framework/migration-guide/mitigation-deserialization-of-objects-across-app-domains.md)</span></span>|
+|<span data-ttu-id="1232a-106">スコープ</span><span class="sxs-lookup"><span data-stu-id="1232a-106">Scope</span></span>|<span data-ttu-id="1232a-107">エッジ</span><span class="sxs-lookup"><span data-stu-id="1232a-107">Edge</span></span>|
+|<span data-ttu-id="1232a-108">Version</span><span class="sxs-lookup"><span data-stu-id="1232a-108">Version</span></span>|<span data-ttu-id="1232a-109">4.5.1</span><span class="sxs-lookup"><span data-stu-id="1232a-109">4.5.1</span></span>|
+|<span data-ttu-id="1232a-110">型</span><span class="sxs-lookup"><span data-stu-id="1232a-110">Type</span></span>|<span data-ttu-id="1232a-111">ランタイム</span><span class="sxs-lookup"><span data-stu-id="1232a-111">Runtime</span></span>|
+
