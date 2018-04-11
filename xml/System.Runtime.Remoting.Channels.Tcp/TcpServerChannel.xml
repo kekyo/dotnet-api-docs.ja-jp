@@ -1,0 +1,791 @@
+<Type Name="TcpServerChannel" FullName="System.Runtime.Remoting.Channels.Tcp.TcpServerChannel">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="27c41cdf21b7eb7fe8a508c5aae0b2e23523acaa" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class TcpServerChannel : System.Runtime.Remoting.Channels.IChannel, System.Runtime.Remoting.Channels.IChannelReceiver, System.Runtime.Remoting.Channels.ISecurableChannel" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit TcpServerChannel extends System.Object implements class System.Runtime.Remoting.Channels.IChannel, class System.Runtime.Remoting.Channels.IChannelReceiver, class System.Runtime.Remoting.Channels.ISecurableChannel" />
+  <TypeSignature Language="DocId" Value="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" />
+  <TypeSignature Language="VB.NET" Value="Public Class TcpServerChannel&#xA;Implements IChannel, IChannelReceiver, ISecurableChannel" />
+  <TypeSignature Language="C++ CLI" Value="public ref class TcpServerChannel : System::Runtime::Remoting::Channels::IChannel, System::Runtime::Remoting::Channels::IChannelReceiver, System::Runtime::Remoting::Channels::ISecurableChannel" />
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime.Remoting</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.Runtime.Remoting.Channels.IChannel</InterfaceName>
+    </Interface>
+    <Interface>
+      <InterfaceName>System.Runtime.Remoting.Channels.IChannelReceiver</InterfaceName>
+    </Interface>
+    <Interface>
+      <InterfaceName>System.Runtime.Remoting.Channels.ISecurableChannel</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="c3733-101">TCP プロトコルを使用してメッセージを送信するリモート呼び出しのサーバー チャネルを実装します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c3733-101">Implements a server channel for remote calls that uses the TCP protocol to transmit messages.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-102">チャネルは、(たとえば、コンピューターまたはアプリケーション ドメイン) のリモート処理境界を越えてメッセージを転送します。</span><span class="sxs-lookup"><span data-stu-id="c3733-102">Channels transport messages across remoting boundaries (for example, computers or application domains).</span></span> <span data-ttu-id="c3733-103"><xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>クラスは、TCP プロトコルを使用してメッセージを転送します。</span><span class="sxs-lookup"><span data-stu-id="c3733-103">The <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> class transports messages using the TCP protocol.</span></span>  
+  
+ <span data-ttu-id="c3733-104">チャネルは、リモート呼び出しを転送する、.NET Framework リモート処理インフラストラクチャによって使用されます。</span><span class="sxs-lookup"><span data-stu-id="c3733-104">Channels are used by the .NET Framework remoting infrastructure to transport remote calls.</span></span> <span data-ttu-id="c3733-105">リモート オブジェクトへの呼び出しは、クライアントが、呼び出しは、クライアント チャネルで送信され、サーバー チャネルによって受信されるメッセージにシリアル化されます。</span><span class="sxs-lookup"><span data-stu-id="c3733-105">When a client makes a call to a remote object, the call is serialized into a message that is sent by a client channel and received by a server channel.</span></span> <span data-ttu-id="c3733-106">逆シリアル化し、処理されます。</span><span class="sxs-lookup"><span data-stu-id="c3733-106">It is then deserialized and processed.</span></span> <span data-ttu-id="c3733-107">戻り値はすべては、サーバーのチャネルで送信され、クライアント チャネルで受信します。</span><span class="sxs-lookup"><span data-stu-id="c3733-107">Any returned values are transmitted by the server channel and received by the client channel.</span></span>  
+  
+ <span data-ttu-id="c3733-108">実行する追加のサーバー側でメッセージの処理を指定できますの実装、<xref:System.Runtime.Remoting.Channels.IServerChannelSinkProvider>によって処理されるすべてのメッセージを介して、インターフェイス、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>インスタンスが渡されます。</span><span class="sxs-lookup"><span data-stu-id="c3733-108">To perform additional processing of messages on the server side, you can specify an implementation of the <xref:System.Runtime.Remoting.Channels.IServerChannelSinkProvider> interface through which all messages processed by the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> instance are passed.</span></span>  
+  
+ <span data-ttu-id="c3733-109"><xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>インスタンスでは、バイナリ形式または SOAP 形式でシリアル化されたメッセージを受け取ります。</span><span class="sxs-lookup"><span data-stu-id="c3733-109">The <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> instance accepts messages serialized in either binary or SOAP format.</span></span>  
+  
+ <span data-ttu-id="c3733-110">A<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>オブジェクトで設定できる構成プロパティが関連付けられている構成ファイルのいずれかの実行時間 (静的なを呼び出すことによって<xref:System.Runtime.Remoting.RemotingConfiguration.Configure%2A?displayProperty=nameWithType>メソッド) またはプログラムによって (を渡すことによって、<xref:System.Collections.IDictionary>コレクションに、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.%23ctor%2A>コンス トラクター)。</span><span class="sxs-lookup"><span data-stu-id="c3733-110">A <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> object has associated configuration properties that can be set at run time either in a configuration file (by invoking the static <xref:System.Runtime.Remoting.RemotingConfiguration.Configure%2A?displayProperty=nameWithType> method) or programmatically (by passing a <xref:System.Collections.IDictionary> collection to the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.%23ctor%2A> constructor).</span></span> <span data-ttu-id="c3733-111">これらの構成プロパティの一覧は、次を参照してください。[チャネルとフォーマッタの構成プロパティ](http://msdn.microsoft.com/library/226ecf74-ebbd-4ea0-a701-dcf4441deefe)です。</span><span class="sxs-lookup"><span data-stu-id="c3733-111">For a list of these configuration properties, see [Channel and Formatter Configuration Properties](http://msdn.microsoft.com/library/226ecf74-ebbd-4ea0-a701-dcf4441deefe).</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="c3733-112">サーバー コンピューターは Windows 95/98/Me を実行している場合、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>ほど安全では指定できません。</span><span class="sxs-lookup"><span data-stu-id="c3733-112">If the server computer is running Windows 95/98/Me, the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> cannot be specified as secure.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-113">次のコード例では、リモート化可能型の使用を示します。</span><span class="sxs-lookup"><span data-stu-id="c3733-113">The following code example shows the use of a remotable type.</span></span>  
+  
+ [!code-cpp[Remoting_TcpInfo#10](~/samples/snippets/cpp/VS_Snippets_Remoting/Remoting_TcpInfo/CPP/remotable.cpp#10)]
+ [!code-csharp[Remoting_TcpInfo#10](~/samples/snippets/csharp/VS_Snippets_Remoting/Remoting_TcpInfo/CS/remotable.cs#10)]  
+  
+ <span data-ttu-id="c3733-114">次のコード例の使用を示しています、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>リモート化可能型を公開するクラス。</span><span class="sxs-lookup"><span data-stu-id="c3733-114">The following code example shows the use of the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> class to expose a remotable type.</span></span>  
+  
+ [!code-cpp[Remoting_TcpInfo#30](~/samples/snippets/cpp/VS_Snippets_Remoting/Remoting_TcpInfo/CPP/server.cpp#30)]
+ [!code-csharp[Remoting_TcpInfo#30](~/samples/snippets/csharp/VS_Snippets_Remoting/Remoting_TcpInfo/CS/server.cs#30)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3733-115">指定したポートを待機する <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-115">Initializes a new instance of the <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> class that listens on the specified port.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public TcpServerChannel (int port);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(int32 port) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.#ctor(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (port As Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; TcpServerChannel(int port);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="port" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="port">
+          <span data-ttu-id="c3733-116">チャネルの待機ポート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-116">The port on which the channel listens.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3733-117">指定したポートを待機する <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-117">Initializes a new instance of the <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> class that listens on the specified port.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-118">使用可能なポートを動的に割り当てることを要求するには、設定、`port`パラメーターを 0 (ゼロ)。</span><span class="sxs-lookup"><span data-stu-id="c3733-118">To request that an available port be dynamically assigned, set the `port` parameter to 0 (zero).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-119">次のコード例では、このコンス トラクターの使用を示します。</span><span class="sxs-lookup"><span data-stu-id="c3733-119">The following code example shows the use of this constructor.</span></span>  
+  
+ [!code-cpp[Remoting_TcpInfo#31](~/samples/snippets/cpp/VS_Snippets_Remoting/Remoting_TcpInfo/CPP/server.cpp#31)]
+ [!code-csharp[Remoting_TcpInfo#31](~/samples/snippets/csharp/VS_Snippets_Remoting/Remoting_TcpInfo/CS/server.cs#31)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public TcpServerChannel (System.Collections.IDictionary properties, System.Runtime.Remoting.Channels.IServerChannelSinkProvider sinkProvider);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Collections.IDictionary properties, class System.Runtime.Remoting.Channels.IServerChannelSinkProvider sinkProvider) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.#ctor(System.Collections.IDictionary,System.Runtime.Remoting.Channels.IServerChannelSinkProvider)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (properties As IDictionary, sinkProvider As IServerChannelSinkProvider)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; TcpServerChannel(System::Collections::IDictionary ^ properties, System::Runtime::Remoting::Channels::IServerChannelSinkProvider ^ sinkProvider);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="properties" Type="System.Collections.IDictionary" />
+        <Parameter Name="sinkProvider" Type="System.Runtime.Remoting.Channels.IServerChannelSinkProvider" />
+      </Parameters>
+      <Docs>
+        <param name="properties">
+          <span data-ttu-id="c3733-120">チャネルで使用される構成プロパティの値を指定する <see cref="T:System.Collections.IDictionary" /> コレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-120">A <see cref="T:System.Collections.IDictionary" /> collection specifying values for configuration properties to be used by the channel.</span>
+          </span>
+        </param>
+        <param name="sinkProvider">
+          <span data-ttu-id="c3733-121">チャネルによって使用される <see cref="T:System.Runtime.Remoting.Channels.IServerChannelSinkProvider" /> の実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-121">The <see cref="T:System.Runtime.Remoting.Channels.IServerChannelSinkProvider" /> implementation to be used by the channel.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3733-122">チャネル プロパティとシンクを指定して、<see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-122">Initializes a new instance of the <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> class with the specified channel properties and sink.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-123">チャネルの構成プロパティの詳細については、次を参照してください。[チャネルとフォーマッタの構成プロパティ](http://msdn.microsoft.com/library/226ecf74-ebbd-4ea0-a701-dcf4441deefe)です。</span><span class="sxs-lookup"><span data-stu-id="c3733-123">For more information about channel configuration properties, see [Channel and Formatter Configuration Properties](http://msdn.microsoft.com/library/226ecf74-ebbd-4ea0-a701-dcf4441deefe).</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="c3733-124">サーバー コンピューターは Windows 95/98/Me を実行している場合、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>ほど安全では指定できません。</span><span class="sxs-lookup"><span data-stu-id="c3733-124">If the server computer is running Windows 95/98/Me, the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> cannot be specified as secure.</span></span>  
+  
+ <span data-ttu-id="c3733-125">シンクの機能が必要でない場合は、設定、`sinkProvider`パラメーターを`null`です。</span><span class="sxs-lookup"><span data-stu-id="c3733-125">If you do not require sink functionality, set the `sinkProvider` parameter to `null`.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-126">次のコード例を作成するこのコンス トラクターの使用を示しています、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>特定の構成プロパティを持つオブジェクト。</span><span class="sxs-lookup"><span data-stu-id="c3733-126">The following code example shows the use of this constructor to create a <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> object with specific configuration properties.</span></span>  
+  
+ [!code-cpp[Remoting_TcpAuth#21](~/samples/snippets/cpp/VS_Snippets_Remoting/Remoting_TcpAuth/CPP/server.cpp#21)]
+ [!code-csharp[Remoting_TcpAuth#21](~/samples/snippets/csharp/VS_Snippets_Remoting/Remoting_TcpAuth/CS/server.cs#21)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="c3733-127">指定したチャネル プロパティの書式が正しくありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-127">A provided channel property was badly formatted.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public TcpServerChannel (string name, int port);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string name, int32 port) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.#ctor(System.String,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (name As String, port As Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; TcpServerChannel(System::String ^ name, int port);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="port" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="c3733-128">チャネルの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-128">The name of the channel.</span>
+          </span>
+        </param>
+        <param name="port">
+          <span data-ttu-id="c3733-129">チャネルの待機ポート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-129">The port on which the channel listens.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3733-130">指定した名前を持ち、指定したポートで待機する、<see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-130">Initializes a new instance of the <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> class with the given name and that listens on the specified port.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-131">このコンス トラクターを設定、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.ChannelName%2A>プロパティを使用して、`name`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="c3733-131">This constructor sets the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.ChannelName%2A> property by using the `name` parameter.</span></span> <span data-ttu-id="c3733-132">1 つ以上のチャネルを登録する場合は、チャネルごとに一意の名前は必要です。</span><span class="sxs-lookup"><span data-stu-id="c3733-132">If you want to register more than one channel, each channel must have a unique name.</span></span>  
+  
+ <span data-ttu-id="c3733-133">使用可能なポートを動的に割り当てることを要求するには、設定、`port`パラメーターを 0 (ゼロ)。</span><span class="sxs-lookup"><span data-stu-id="c3733-133">To request that an available port be dynamically assigned, set the `port` parameter to 0 (zero).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-134">次のコード例を作成する方法を示しています、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>です。</span><span class="sxs-lookup"><span data-stu-id="c3733-134">The following code example shows how to construct a <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>.</span></span>  
+  
+ [!code-cpp[System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.2#21](~/samples/snippets/cpp/VS_Snippets_Remoting/System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.2/CPP/server.cpp#21)]
+ [!code-csharp[System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.2#21](~/samples/snippets/csharp/VS_Snippets_Remoting/System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.2/CS/server.cs#21)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public TcpServerChannel (System.Collections.IDictionary properties, System.Runtime.Remoting.Channels.IServerChannelSinkProvider sinkProvider, System.Runtime.Remoting.Channels.IAuthorizeRemotingConnection authorizeCallback);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Collections.IDictionary properties, class System.Runtime.Remoting.Channels.IServerChannelSinkProvider sinkProvider, class System.Runtime.Remoting.Channels.IAuthorizeRemotingConnection authorizeCallback) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.#ctor(System.Collections.IDictionary,System.Runtime.Remoting.Channels.IServerChannelSinkProvider,System.Runtime.Remoting.Channels.IAuthorizeRemotingConnection)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (properties As IDictionary, sinkProvider As IServerChannelSinkProvider, authorizeCallback As IAuthorizeRemotingConnection)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; TcpServerChannel(System::Collections::IDictionary ^ properties, System::Runtime::Remoting::Channels::IServerChannelSinkProvider ^ sinkProvider, System::Runtime::Remoting::Channels::IAuthorizeRemotingConnection ^ authorizeCallback);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="properties" Type="System.Collections.IDictionary" />
+        <Parameter Name="sinkProvider" Type="System.Runtime.Remoting.Channels.IServerChannelSinkProvider" />
+        <Parameter Name="authorizeCallback" Type="System.Runtime.Remoting.Channels.IAuthorizeRemotingConnection" />
+      </Parameters>
+      <Docs>
+        <param name="properties">
+          <span data-ttu-id="c3733-135">チャネルで使用される構成プロパティの値を指定する <see cref="T:System.Collections.IDictionary" /> コレクション。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-135">A <see cref="T:System.Collections.IDictionary" /> collection that specifies values for configuration properties to be used by the channel.</span>
+          </span>
+        </param>
+        <param name="sinkProvider">
+          <span data-ttu-id="c3733-136">チャネルによって使用される <see cref="T:System.Runtime.Remoting.Channels.IServerChannelSinkProvider" /> の実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-136">The <see cref="T:System.Runtime.Remoting.Channels.IServerChannelSinkProvider" /> implementation to be used by the channel.</span>
+          </span>
+        </param>
+        <param name="authorizeCallback">
+          <span data-ttu-id="c3733-137">チャネルによって使用される <see cref="T:System.Runtime.Remoting.Channels.IAuthorizeRemotingConnection" /> の実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-137">The <see cref="T:System.Runtime.Remoting.Channels.IAuthorizeRemotingConnection" /> implementation to be used by the channel.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3733-138">チャネル プロパティ、シンク、および承認プロバイダーを指定して、<see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> クラスの新しいインスタンスを初期化します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-138">Initializes a new instance of the <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> class with the specified channel properties, sink, and authorization provider.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-139">チャネルの構成プロパティの詳細については、次を参照してください。[チャネルとフォーマッタの構成プロパティ](http://msdn.microsoft.com/library/226ecf74-ebbd-4ea0-a701-dcf4441deefe)です。</span><span class="sxs-lookup"><span data-stu-id="c3733-139">For more information about channel configuration properties, see [Channel and Formatter Configuration Properties](http://msdn.microsoft.com/library/226ecf74-ebbd-4ea0-a701-dcf4441deefe).</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="c3733-140">サーバー コンピューターは Windows 95/98/Me を実行している場合、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>ほど安全では指定できません。</span><span class="sxs-lookup"><span data-stu-id="c3733-140">If the server computer is running Windows 95/98/Me, the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> cannot be specified as secure.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="c3733-141">指定したチャネル プロパティの書式が正しくありません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-141">A provided channel property was badly formatted.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public TcpServerChannel (string name, int port, System.Runtime.Remoting.Channels.IServerChannelSinkProvider sinkProvider);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string name, int32 port, class System.Runtime.Remoting.Channels.IServerChannelSinkProvider sinkProvider) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.#ctor(System.String,System.Int32,System.Runtime.Remoting.Channels.IServerChannelSinkProvider)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (name As String, port As Integer, sinkProvider As IServerChannelSinkProvider)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; TcpServerChannel(System::String ^ name, int port, System::Runtime::Remoting::Channels::IServerChannelSinkProvider ^ sinkProvider);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="port" Type="System.Int32" />
+        <Parameter Name="sinkProvider" Type="System.Runtime.Remoting.Channels.IServerChannelSinkProvider" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="c3733-142">チャネルの名前。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-142">The name of the channel.</span>
+          </span>
+        </param>
+        <param name="port">
+          <span data-ttu-id="c3733-143">チャネルの待機ポート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-143">The port on which the channel listens.</span>
+          </span>
+        </param>
+        <param name="sinkProvider">
+          <span data-ttu-id="c3733-144">チャネルによって使用される <see cref="T:System.Runtime.Remoting.Channels.IServerChannelSinkProvider" /> の実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-144">The <see cref="T:System.Runtime.Remoting.Channels.IServerChannelSinkProvider" /> implementation to be used by the channel.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3733-145">指定した名前を持つ <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> クラスの新しいインスタンスを初期化します。このインスタンスは、指定したポートで待機し、指定したシンクを使用します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-145">Initializes a new instance of the <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel" /> class with the given name, which listens on the specified port, and uses the specified sink.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-146">このコンス トラクターを設定、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.ChannelName%2A>プロパティを使用して、`name`パラメーター。</span><span class="sxs-lookup"><span data-stu-id="c3733-146">This constructor sets the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.ChannelName%2A> property by using the `name` parameter.</span></span> <span data-ttu-id="c3733-147">1 つ以上のチャネルを登録する場合は、チャネルごとに一意の名前は必要です。</span><span class="sxs-lookup"><span data-stu-id="c3733-147">If you want to register more than one channel, each channel must have a unique name.</span></span>  
+  
+ <span data-ttu-id="c3733-148">使用可能なポートを動的に割り当てることを要求するには、設定、`port`パラメーターを 0 (ゼロ)。</span><span class="sxs-lookup"><span data-stu-id="c3733-148">To request that an available port be dynamically assigned, set the `port` parameter to 0 (zero).</span></span>  
+  
+ <span data-ttu-id="c3733-149">シンクの機能が必要でない場合は、設定、`sinkProvider`パラメーターを`null`です。</span><span class="sxs-lookup"><span data-stu-id="c3733-149">If you do not require sink functionality, set the `sinkProvider` parameter to `null`.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-150">次のコード例を作成する方法を示しています、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>です。</span><span class="sxs-lookup"><span data-stu-id="c3733-150">The following code example shows how to construct a <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>.</span></span>  
+  
+ [!code-cpp[System.Runtime.Remoting.Channels.Tcp.TcpServerChannel#21](~/samples/snippets/cpp/VS_Snippets_Remoting/System.Runtime.Remoting.Channels.Tcp.TcpServerChannel/CPP/server.cpp#21)]
+ [!code-csharp[System.Runtime.Remoting.Channels.Tcp.TcpServerChannel#21](~/samples/snippets/csharp/VS_Snippets_Remoting/System.Runtime.Remoting.Channels.Tcp.TcpServerChannel/CS/server.cs#21)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ChannelData">
+      <MemberSignature Language="C#" Value="public object ChannelData { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance object ChannelData" />
+      <MemberSignature Language="DocId" Value="P:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.ChannelData" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property ChannelData As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Object ^ ChannelData { System::Object ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3733-151">チャネル固有のデータを取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-151">Gets channel-specific data.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c3733-152">チャネル固有のデータを格納している <see cref="T:System.Runtime.Remoting.Channels.ChannelDataStore" /> インスタンス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-152">A <see cref="T:System.Runtime.Remoting.Channels.ChannelDataStore" /> instance containing channel-specific data.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-153">インスタンスとして返されますが<xref:System.Object?displayProperty=nameWithType>のインスタンスにこのプロパティの値をキャストできます<xref:System.Runtime.Remoting.Channels.ChannelDataStore>先のチャネルを記述する、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>オブジェクトの受信を待機します。</span><span class="sxs-lookup"><span data-stu-id="c3733-153">Although returned as an instance of <xref:System.Object?displayProperty=nameWithType>, the value of this property can be cast to an instance of <xref:System.Runtime.Remoting.Channels.ChannelDataStore> describing the channel to which the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> object listens.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-154">次のコード例では、このプロパティの使用方法を示します。</span><span class="sxs-lookup"><span data-stu-id="c3733-154">The following code example shows the use of this property.</span></span>  
+  
+ [!code-cpp[Remoting_TcpInfo#33](~/samples/snippets/cpp/VS_Snippets_Remoting/Remoting_TcpInfo/CPP/server.cpp#33)]
+ [!code-csharp[Remoting_TcpInfo#33](~/samples/snippets/csharp/VS_Snippets_Remoting/Remoting_TcpInfo/CS/server.cs#33)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ChannelName">
+      <MemberSignature Language="C#" Value="public string ChannelName { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ChannelName" />
+      <MemberSignature Language="DocId" Value="P:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.ChannelName" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property ChannelName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ ChannelName { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3733-155">現在のチャネルの名前を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-155">Gets the name of the current channel.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c3733-156">チャネルの名前を格納している <see cref="T:System.String" /> インスタンス。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-156">A <see cref="T:System.String" /> instance that contains the name of the channel.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-157">登録されている各チャネルは、一意の名前を持ちます。</span><span class="sxs-lookup"><span data-stu-id="c3733-157">Every registered channel has a unique name.</span></span> <span data-ttu-id="c3733-158">呼び出すときに、特定のチャネルを取得する名前が使用される<xref:System.Runtime.Remoting.Channels.ChannelServices.GetChannel%2A>です。</span><span class="sxs-lookup"><span data-stu-id="c3733-158">The name is used to retrieve a specific channel when calling <xref:System.Runtime.Remoting.Channels.ChannelServices.GetChannel%2A>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-159">次のコード例では、このプロパティの使用方法を示します。</span><span class="sxs-lookup"><span data-stu-id="c3733-159">The following code example shows the use of this property.</span></span>  
+  
+ [!code-cpp[Remoting_TcpInfo#32](~/samples/snippets/cpp/VS_Snippets_Remoting/Remoting_TcpInfo/CPP/server.cpp#32)]
+ [!code-csharp[Remoting_TcpInfo#32](~/samples/snippets/csharp/VS_Snippets_Remoting/Remoting_TcpInfo/CS/server.cs#32)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ChannelPriority">
+      <MemberSignature Language="C#" Value="public int ChannelPriority { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 ChannelPriority" />
+      <MemberSignature Language="DocId" Value="P:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.ChannelPriority" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property ChannelPriority As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int ChannelPriority { int get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3733-160">現在のチャネルの優先順位を取得します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-160">Gets the priority of the current channel.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c3733-161">チャネルに割り当てられている優先順位を表す整数。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-161">An integer that represents the priority assigned to the channel.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-162">優先順位でどのチャネルのデータの表示順序を制御する、<xref:System.Runtime.Remoting.ObjRef>インスタンス以外の優先順位の低いチャネルの前に優先順位の高いチャネル。</span><span class="sxs-lookup"><span data-stu-id="c3733-162">The priority controls the order in which channel data appears in a <xref:System.Runtime.Remoting.ObjRef> instance; higher priority channels appear before lower priority channels.</span></span> <span data-ttu-id="c3733-163">クライアントが記載されている順序でサーバー チャネルに接続しようとした場合、<xref:System.Runtime.Remoting.ObjRef>インスタンス。</span><span class="sxs-lookup"><span data-stu-id="c3733-163">Clients try to connect to the server channels in the order that they are listed in the <xref:System.Runtime.Remoting.ObjRef> instance.</span></span> <span data-ttu-id="c3733-164">既定の優先順位が 1 になります。負の値の優先度が許可されます。</span><span class="sxs-lookup"><span data-stu-id="c3733-164">The default priority is 1; negative priorities are allowed.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-165">次のコード例では、このプロパティの使用方法を示します。</span><span class="sxs-lookup"><span data-stu-id="c3733-165">The following code example shows the use of this property.</span></span>  
+  
+ [!code-cpp[Remoting_TcpInfo#32](~/samples/snippets/cpp/VS_Snippets_Remoting/Remoting_TcpInfo/CPP/server.cpp#32)]
+ [!code-csharp[Remoting_TcpInfo#32](~/samples/snippets/csharp/VS_Snippets_Remoting/Remoting_TcpInfo/CS/server.cs#32)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetChannelUri">
+      <MemberSignature Language="C#" Value="public string GetChannelUri ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string GetChannelUri() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.GetChannelUri" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetChannelUri () As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::String ^ GetChannelUri();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3733-166">現在のチャネルの URI を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-166">Returns the URI of the current channel.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3733-167">現在のチャネルの URI。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-167">The URI of the current channel.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="c3733-168">次のコード例では、このメソッドの使用を示します。</span><span class="sxs-lookup"><span data-stu-id="c3733-168">The following code example shows the use this method.</span></span>  
+  
+ [!code-cpp[System.Runtime.Remoting.Channels.Tcp.TcpServerChannel#22](~/samples/snippets/cpp/VS_Snippets_Remoting/System.Runtime.Remoting.Channels.Tcp.TcpServerChannel/CPP/server.cpp#22)]
+ [!code-csharp[System.Runtime.Remoting.Channels.Tcp.TcpServerChannel#22](~/samples/snippets/csharp/VS_Snippets_Remoting/System.Runtime.Remoting.Channels.Tcp.TcpServerChannel/CS/server.cs#22)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetUrlsForUri">
+      <MemberSignature Language="C#" Value="public virtual string[] GetUrlsForUri (string objectUri);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance string[] GetUrlsForUri(string objectUri) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.GetUrlsForUri(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetUrlsForUri (objectUri As String) As String()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual cli::array &lt;System::String ^&gt; ^ GetUrlsForUri(System::String ^ objectUri);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String[]</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="objectUri" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="objectUri">
+          <span data-ttu-id="c3733-169">URL を要求するオブジェクトの URI。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-169">The URI of the object for which URLs are required.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3733-170">指定した URI を持つオブジェクトのすべての URL のうち、現在の <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpChannel" /> インスタンスでホストされている URL の配列を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-170">Returns an array of all the URLs for an object with the specified URI, hosted on the current <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpChannel" /> instance.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3733-171">指定した URI を持つオブジェクトの URL のうち、現在の <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpChannel" /> インスタンスでホストされている URL の配列。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-171">An array of the URLs for an object with the specified URI, hosted on the current <see cref="T:System.Runtime.Remoting.Channels.Tcp.TcpChannel" /> instance.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-172">このメソッドを使用して<xref:System.Runtime.Remoting.Channels.ChannelServices.GetUrlsForObject%2A?displayProperty=nameWithType>です。</span><span class="sxs-lookup"><span data-stu-id="c3733-172">This method is used by <xref:System.Runtime.Remoting.Channels.ChannelServices.GetUrlsForObject%2A?displayProperty=nameWithType>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-173">次のコード例の使用を示しています、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.GetUrlsForUri%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c3733-173">The following code example shows the use of the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.GetUrlsForUri%2A> method.</span></span>  
+  
+ [!code-cpp[TcpServerChannel.GetUrlsForUri#1](~/samples/snippets/cpp/VS_Snippets_Remoting/TcpServerChannel.GetUrlsForUri/CPP/class1.cpp#1)]
+ [!code-csharp[TcpServerChannel.GetUrlsForUri#1](~/samples/snippets/csharp/VS_Snippets_Remoting/TcpServerChannel.GetUrlsForUri/CS/class1.cs#1)]
+ [!code-vb[TcpServerChannel.GetUrlsForUri#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/TcpServerChannel.GetUrlsForUri/VB/class1.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsSecured">
+      <MemberSignature Language="C#" Value="public bool IsSecured { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsSecured" />
+      <MemberSignature Language="DocId" Value="P:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.IsSecured" />
+      <MemberSignature Language="VB.NET" Value="Public Property IsSecured As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool IsSecured { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3733-174">現在のチャネルをセキュリティで保護しているかどうかを示すブール値を取得または設定します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-174">Gets or sets a Boolean value that indicates whether the current channel is secure.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c3733-175">現在のインスタンスをセキュリティで保護しているかどうかを示すブール値。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-175">A Boolean value that indicates whether the current instance is secure.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Parse">
+      <MemberSignature Language="C#" Value="public string Parse (string url, out string objectURI);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance string Parse(string url, [out] string&amp; objectURI) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.Parse(System.String,System.String@)" />
+      <MemberSignature Language="VB.NET" Value="Public Function Parse (url As String, ByRef objectURI As String) As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::String ^ Parse(System::String ^ url, [Runtime::InteropServices::Out] System::String ^ % objectURI);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.String" />
+        <Parameter Name="objectURI" Type="System.String&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="url">
+          <span data-ttu-id="c3733-176">既知のリモート オブジェクトの URI の抽出元 URL。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-176">The URL from which to extract the URI of the remote well-known object.</span>
+          </span>
+        </param>
+        <param name="objectURI">
+          <span data-ttu-id="c3733-177">このメソッドから制御が戻るときに、既知のリモート オブジェクトの URI を保持する <see cref="T:System.String" /> インスタンスが格納されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-177">When this method returns, contains a <see cref="T:System.String" /> instance that holds the URI of the remote well-known object.</span>
+          </span>
+          <span data-ttu-id="c3733-178">このパラメーターは初期化せずに渡されます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-178">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3733-179">指定した URL からチャネル URI と既知のリモート オブジェクト URI を抽出します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-179">Extracts the channel URI and the remote well-known object URI from the specified URL.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3733-180">現在のチャネルの URI。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-180">The URI of the current channel.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-181">オブジェクトの URI は、特定のオブジェクト インスタンスを一意に識別する値です。</span><span class="sxs-lookup"><span data-stu-id="c3733-181">The URI of an object is a value that uniquely identifies a specific object instance.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="c3733-182">次のコード例では、このメソッドの使用を示します。</span><span class="sxs-lookup"><span data-stu-id="c3733-182">The following code example shows the use this method.</span></span>  
+  
+ [!code-cpp[System.Runtime.Remoting.Channels.Tcp.TcpServerChannel#23](~/samples/snippets/cpp/VS_Snippets_Remoting/System.Runtime.Remoting.Channels.Tcp.TcpServerChannel/CPP/server.cpp#23)]
+ [!code-csharp[System.Runtime.Remoting.Channels.Tcp.TcpServerChannel#23](~/samples/snippets/csharp/VS_Snippets_Remoting/System.Runtime.Remoting.Channels.Tcp.TcpServerChannel/CS/server.cs#23)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Uri" />
+      </Docs>
+    </Member>
+    <Member MemberName="StartListening">
+      <MemberSignature Language="C#" Value="public void StartListening (object data);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void StartListening(object data) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.StartListening(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub StartListening (data As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void StartListening(System::Object ^ data);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="data" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="data">
+          <span data-ttu-id="c3733-183">オプションの初期化情報。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-183">Optional initialization information.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3733-184">
+            <see cref="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.StopListening(System.Object)" /> メソッドを呼び出してチャネルのリッスンを停止した後、チャネルでのリッスンを始めるように現在のチャネルに指示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-184">Instructs the current channel to start listening on a channel after the <see cref="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.StopListening(System.Object)" /> method has been called to stop listening on the channel.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-185"><xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel>コンス トラクターを自動的に呼び出します`StartListening`しない限り、このメソッドを呼び出すことはできませんので、<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.StopListening%2A>が既に呼び出されています。</span><span class="sxs-lookup"><span data-stu-id="c3733-185">The <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel> constructor automatically calls `StartListening`, so you shouldn't call this method unless <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.StopListening%2A> was previously called.</span></span>  
+  
+ <span data-ttu-id="c3733-186">呼び出す`StartListening`既にリッスンしているチャネルで予期しない動作する可能性があり、避ける必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3733-186">Calling `StartListening` on an already listening channel may lead to unexpected behaviors and should be avoided.</span></span>  
+  
+ <span data-ttu-id="c3733-187">チャネルは、動的に割り当てられたポート番号を使用している場合待機を再開したときに使用するポート番号を変更する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="c3733-187">If your channel uses a dynamically assigned port number, your port number might change when you restart listening.</span></span>  
+  
+ <span data-ttu-id="c3733-188">特定の初期化状態をチャネルに渡すには、データ オブジェクトを使用できます。</span><span class="sxs-lookup"><span data-stu-id="c3733-188">The data object can be used to pass a specific initialization state to the channel.</span></span> <span data-ttu-id="c3733-189">特定の状態をチャネルに渡すしたくない場合は、設定`data`に`null`です。</span><span class="sxs-lookup"><span data-stu-id="c3733-189">If you do not want to pass a specific state to the channel, set `data` to `null`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="StopListening">
+      <MemberSignature Language="C#" Value="public void StopListening (object data);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void StopListening(object data) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.StopListening(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub StopListening (data As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void StopListening(System::Object ^ data);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Remoting</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="data" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="data">
+          <span data-ttu-id="c3733-190">チャネルのオプションの状態情報。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-190">Optional state information for the channel.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3733-191">現在のチャネルに対して、要求の待機を停止するように指示します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3733-191">Instructs the current channel to stop listening for requests.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3733-192">このメソッドを使用すると、チャネルでの待機を停止します。</span><span class="sxs-lookup"><span data-stu-id="c3733-192">Use this method to stop listening on a channel.</span></span> <span data-ttu-id="c3733-193">リッスンして再起動して、以下の<xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.StartListening%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c3733-193">To restart listening, use the <xref:System.Runtime.Remoting.Channels.Tcp.TcpServerChannel.StartListening%2A> method.</span></span>  
+  
+ <span data-ttu-id="c3733-194">チャネルは、動的に割り当てられたポート番号を使用している場合待機を再開したときに使用するポート番号を変更する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="c3733-194">If your channel uses a dynamically assigned port number, your port number might change when you restart listening.</span></span>  
+  
+ <span data-ttu-id="c3733-195">特定の初期化状態をチャネルに渡すには、データ オブジェクトを使用できます。</span><span class="sxs-lookup"><span data-stu-id="c3733-195">The data object can be used to pass a specific initialization state to the channel.</span></span> <span data-ttu-id="c3733-196">特定の状態をチャネルに渡すしたくない場合は、設定`data`に`null`です。</span><span class="sxs-lookup"><span data-stu-id="c3733-196">If you do not want to pass a specific state to the channel, set `data` to `null`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
