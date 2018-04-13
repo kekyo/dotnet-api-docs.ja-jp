@@ -1,0 +1,897 @@
+<Type Name="XamlServices" FullName="System.Xaml.XamlServices">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="9e1f1d48af20e3873a75e26dc3e1e7ba760293b7" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ja-JP" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public static class XamlServices" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit XamlServices extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Xaml.XamlServices" />
+  <TypeSignature Language="VB.NET" Value="Public Class XamlServices" />
+  <TypeSignature Language="C++ CLI" Value="public ref class XamlServices abstract sealed" />
+  <AssemblyInfo>
+    <AssemblyName>System.Xaml</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="c3ec0-101">XAML の読み取りとオブジェクト グラフの書き込み、オブジェクト グラフの読み取りとシリアル化用の XAML ファイル出力の書き込みなどの共通の XAML タスクのための高いレベルのサービス (静的メソッド) を提供します。</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c3ec0-101">Provides higher-level services (static methods) for the common XAML tasks of reading XAML and writing an object graph; or reading an object graph and writing XAML file output for serialization purposes.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-102">モード、<xref:System.Xaml.XamlServices>読み取りと書き込みのシナリオは、XAML リーダーと XAML ライターのインスタンスを作成するのに依存して、最も一般的な XAML で使用されるクラスです。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-102">The modes of the <xref:System.Xaml.XamlServices> class that are used in the most common XAML reading and writing scenarios rely on creating instances of XAML readers and XAML writers.</span></span> <span data-ttu-id="c3ec0-103">これらのリーダーとライターなどは、パブリック クラスの特殊化されたが、内部実装<xref:System.Xml.XmlReader>、 <xref:System.Xaml.XamlXmlReader>、および<xref:System.Xaml.XamlObjectWriter>です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-103">These readers and writers are specialized but internal implementations of public classes, such as <xref:System.Xml.XmlReader>, <xref:System.Xaml.XamlXmlReader>, and <xref:System.Xaml.XamlObjectWriter>.</span></span> <span data-ttu-id="c3ec0-104">使用する<xref:System.Xaml.XamlServices>ほとんどのシナリオでは、目的の結果を取得する既定の内部実装に依存することができます。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-104">To use <xref:System.Xaml.XamlServices> for most scenarios, you can rely on the default internal implementations to obtain the results that you want.</span></span> <span data-ttu-id="c3ec0-105">専門的なシナリオでは可能性があります、ユーザー自身で、リーダーとライターを定義しのオーバー ロードの引数として渡したり、<xref:System.Xaml.XamlServices>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-105">For more specialized scenarios, you might define readers and writers yourself, and then pass them as arguments for overloads of the <xref:System.Xaml.XamlServices> methods.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="c3ec0-106"><xref:System.Xaml.XamlServices> ないことをお勧め XAML の読み取りまたは XAML 書き込んで API の WPF 定義の型を処理している場合は、設定または型が WPF に基づいています。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-106"><xref:System.Xaml.XamlServices> is not the recommended XAML reading or XAML writing API set if you are processing WPF-defined types, or types based on WPF.</span></span> <span data-ttu-id="c3ec0-107">[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]使用法を使用して<xref:System.Windows.Markup.XamlReader?displayProperty=nameWithType>の読み取りまたは XAML (BAML); の読み込みと<xref:System.Windows.Markup.XamlWriter?displayProperty=nameWithType>XAML の書き戻し用です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-107">For [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] usage, use <xref:System.Windows.Markup.XamlReader?displayProperty=nameWithType> for reading or loading XAML (or BAML); and <xref:System.Windows.Markup.XamlWriter?displayProperty=nameWithType> for writing back XAML.</span></span> <span data-ttu-id="c3ec0-108">これらのクラス .NET Framework XAML サービス Api と XAML リーダーと XAML ライターで内部的に使用の実装です。ただしも提供のサポートと特殊な XAML スキーマ コンテキストと WPF の既知の型の依存関係プロパティの最適化などの WPF 固有の概念について説明します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-108">These classes use .NET Framework XAML Services APIs and the XAML readers and XAML writers internally in their implementation; however, they also provide support and specialized XAML schema context for WPF-specific concepts, such as optimizations for dependency properties and WPF known types.</span></span>  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName="Load">
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3ec0-109">XAML リーダーの読み取り元を読み込み、その出力をオブジェクト グラフとして書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-109">Loads source for a XAML reader and writes its output as an object graph.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static object Load (System.IO.Stream stream);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Load(class System.IO.Stream stream) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Load(System.IO.Stream)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Load(System::IO::Stream ^ stream);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="c3ec0-110">入力として読み込むストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-110">The stream to load as input.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-111">XAML リーダーの読み取り元の <see cref="T:System.IO.Stream" /> を読み込み、その出力をオブジェクト グラフとして書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-111">Loads a <see cref="T:System.IO.Stream" /> source for a XAML reader and writes its output as an object graph.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3ec0-112">出力として書き込まれるオブジェクト グラフ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-112">The object graph that is written as output.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-113">別の署名、<xref:System.Xaml.XamlServices.Load%28System.IO.Stream%29>メソッドがソース XAML に対する入力の種類を指定します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-113">Different signatures for the <xref:System.Xaml.XamlServices.Load%28System.IO.Stream%29> method specify different types of input for the source XAML.</span></span> <span data-ttu-id="c3ec0-114"><xref:System.Xaml.XamlServices.Load%28System.IO.Stream%29>内部実装が最初に作成、<xref:System.Xml.XmlReader>を呼び出して<xref:System.Xml.XmlReader.Create%28System.IO.Stream%29>、専用の新しいインスタンスを作成し、<xref:System.Xaml.XamlReader>入力を処理します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-114">The <xref:System.Xaml.XamlServices.Load%28System.IO.Stream%29> internal implementation first creates an <xref:System.Xml.XmlReader> by calling <xref:System.Xml.XmlReader.Create%28System.IO.Stream%29> and then creates a new instance of a specialized <xref:System.Xaml.XamlReader> that processes the input.</span></span>  
+  
+ <span data-ttu-id="c3ec0-115">順序で、<xref:System.Xaml.XamlServices.Load%28System.IO.Stream%29>オブジェクト グラフを正常に作成する呼び出し、次を満たす必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-115">In order for the <xref:System.Xaml.XamlServices.Load%28System.IO.Stream%29> call to successfully create an object graph, the following must be true:</span></span>  
+  
+-   <span data-ttu-id="c3ec0-116">ソースが適切な形式と有効な XML です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-116">The source is well-formed and valid XML.</span></span>  
+  
+-   <span data-ttu-id="c3ec0-117">ソースは、言語レベルで有効な XAML です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-117">The source is valid XAML at the language level.</span></span>  
+  
+-   <span data-ttu-id="c3ec0-118">ソースで指定されている XAML 型 XAML は、関連の XAML 名前空間のバッキング型に解決される必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-118">The XAML types that are specified in the source XAML must resolve to backing types in the relevant XAML namespaces.</span></span> <span data-ttu-id="c3ec0-119">たとえば、XAML の WPF 名前空間の型は XAML; で指定されている WPF XAML 名前空間に解決します。WPF のアセンブリがプロジェクトに含まれているか、実行時に使用可能にする必要があります。などなど。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-119">For example, XAML types for WPF namespaces can resolve to a WPF XAML namespace as specified in the XAML; the assemblies for WPF must be included in the project or available in the run time; and so on.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="c3ec0-120"><xref:System.Xaml.XamlServices> 推奨される XAML の読み取り中か、API を記述する XAML を処理する場合の設定[!INCLUDE[TLA#tla_winclient](~/includes/tlasharptla-winclient-md.md)]型、または型に基づく[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-120"><xref:System.Xaml.XamlServices> is not the recommended XAML reading or XAML writing API set if you are processing [!INCLUDE[TLA#tla_winclient](~/includes/tlasharptla-winclient-md.md)] types, or types based on [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)].</span></span> <span data-ttu-id="c3ec0-121">[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]使用法を使用して<xref:System.Windows.Markup.XamlReader?displayProperty=nameWithType>の読み取りまたは XAML での読み込みと<xref:System.Windows.Markup.XamlWriter?displayProperty=nameWithType>XAML の書き戻し用です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-121">For [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] usage, use <xref:System.Windows.Markup.XamlReader?displayProperty=nameWithType> for reading or loading XAML; and <xref:System.Windows.Markup.XamlWriter?displayProperty=nameWithType> for writing back XAML.</span></span> <span data-ttu-id="c3ec0-122">これらのクラスを使用して<xref:System.Xaml>; の実装で内部的に Api ただしもサポートして、XAML の読み取りと書き込みの依存関係プロパティの最適化などの性質に影響を与える WPF 固有の概念について説明します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-122">These classes use <xref:System.Xaml> APIs internally in their implementation; however, they also provide support for WPF-specific concepts that influence the nature of XAML reading and writing, such as optimizations for dependency properties.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-123">
+            <paramref name="stream" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-123">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static object Load (System.IO.TextReader textReader);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Load(class System.IO.TextReader textReader) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Load(System.IO.TextReader)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Load(System::IO::TextReader ^ textReader);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="textReader" Type="System.IO.TextReader" />
+      </Parameters>
+      <Docs>
+        <param name="textReader">
+          <span data-ttu-id="c3ec0-124">作成する <see cref="T:System.IO.TextReader" /> の基礎として使用する <see cref="T:System.Xml.XmlReader" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-124">The <see cref="T:System.IO.TextReader" /> to use as the basis for the created <see cref="T:System.Xml.XmlReader" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-125">
+            <see cref="T:System.IO.TextReader" /> から XAML リーダーを作成し、オブジェクト グラフを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-125">Creates a XAML reader from a <see cref="T:System.IO.TextReader" />, and returns an object graph.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3ec0-126">返されるオブジェクト グラフ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-126">The object graph that is returned.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-127">オブジェクト グラフを返すために、`textReader`入力は、関連する入力を使用して構築する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-127">In order to return the object graph, the `textReader` input should be constructed by using its relevant input.</span></span> <span data-ttu-id="c3ec0-128">たとえば、渡す必要があります、<xref:System.IO.StringReader>の有効な XAML の文字列として入力を使用して構築する、<xref:System.IO.StringReader.%23ctor%28System.String%29>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-128">For example, it should pass a <xref:System.IO.StringReader> that is constructed by using a valid XAML-as-string input for the <xref:System.IO.StringReader.%23ctor%28System.String%29> constructor.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-129">
+            <paramref name="textReader" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-129">
+              <paramref name="textReader" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static object Load (string fileName);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Load(string fileName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Load(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Load (fileName As String) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Load(System::String ^ fileName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="fileName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="fileName">
+          <span data-ttu-id="c3ec0-130">読み込み元として使用するファイル名。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-130">The file name to load and use as source.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-131">XAML リーダーの読み取り元の <see cref="T:System.IO.Stream" /> を読み込み、オブジェクト グラフを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-131">Loads a <see cref="T:System.IO.Stream" /> source for a XAML reader and returns an object graph.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3ec0-132">返されるオブジェクト グラフ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-132">The object graph that is returned.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-133">別の署名、<xref:System.Xaml.XamlServices.Load%2A>メソッドがソース XAML に対する入力の種類を指定します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-133">Different signatures for the <xref:System.Xaml.XamlServices.Load%2A> method specify different types of input for the source XAML.</span></span> <span data-ttu-id="c3ec0-134"><xref:System.Xaml.XamlServices.Load%2A>内部実装が最初に作成、<xref:System.Xml.XmlReader>を呼び出して<xref:System.Xml.XmlReader.Create%28System.String%29>、専用の新しいインスタンスを作成し、<xref:System.Xaml.XamlReader>入力を処理します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-134">The <xref:System.Xaml.XamlServices.Load%2A> internal implementation first creates an <xref:System.Xml.XmlReader> by calling <xref:System.Xml.XmlReader.Create%28System.String%29> and then creates a new instance of a specialized <xref:System.Xaml.XamlReader> that processes the input.</span></span>  
+  
+ <span data-ttu-id="c3ec0-135">順序で、<xref:System.Xaml.XamlServices.Load%28System.String%29>オブジェクト グラフを正常に作成する呼び出し、次を満たす必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-135">In order for the <xref:System.Xaml.XamlServices.Load%28System.String%29> call to successfully create an object graph, the following must be true:</span></span>  
+  
+-   <span data-ttu-id="c3ec0-136">ソースが適切な形式と有効な XML です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-136">The source is well-formed and valid XML.</span></span>  
+  
+-   <span data-ttu-id="c3ec0-137">ソースは、言語レベルで有効な XAML です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-137">The source is valid XAML at the language level.</span></span>  
+  
+-   <span data-ttu-id="c3ec0-138">ソースで指定されている XAML 型 XAML は、関連の XAML 名前空間のバッキング型に解決される必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-138">The XAML types that are specified in the source XAML must resolve to backing types in the relevant XAML namespaces.</span></span> <span data-ttu-id="c3ec0-139">たとえば、XAML の WPF 名前空間の型は XAML; で指定されている WPF XAML 名前空間に解決します。wpf アセンブリがプロジェクトに含める必要がありますまたは実行時に使用できます。などなど。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-139">For example, XAML types for WPF namespaces can resolve to a WPF XAML namespace as specified in the XAML; the assemblies for WPF must be included in the project or be available in the run time; and so on.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-140">
+            <paramref name="fileName" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-140">
+              <paramref name="fileName" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static object Load (System.Xaml.XamlReader xamlReader);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Load(class System.Xaml.XamlReader xamlReader) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Load(System.Xaml.XamlReader)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Load(System::Xaml::XamlReader ^ xamlReader);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlReader" Type="System.Xaml.XamlReader" />
+      </Parameters>
+      <Docs>
+        <param name="xamlReader">
+          <span data-ttu-id="c3ec0-141">この <see langword="Load" /> 操作のリーダーとして使用する XAML リーダー実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-141">The XAML reader implementation to use as the reader for this <see langword="Load" /> operation.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-142">固有の XAML リーダー実装を読み込み、オブジェクト グラフを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-142">Loads a specific XAML reader implementation and returns an object graph.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3ec0-143">返されるオブジェクト グラフ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-143">The object graph that is returned.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-144">通常、この署名を使用して、次の場合にのみ必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-144">You should typically use this signature only in the following cases:</span></span>  
+  
+-   <span data-ttu-id="c3ec0-145">独自の実装を定義した、<xref:System.Xaml.XamlReader>です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-145">You defined your own implementation of a <xref:System.Xaml.XamlReader>.</span></span>  
+  
+-   <span data-ttu-id="c3ec0-146">設定を指定した、<xref:System.Xaml.XamlReader>すると、既定の設定は異なります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-146">You specified settings for a <xref:System.Xaml.XamlReader> that differ from the default settings.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-147">
+            <paramref name="xamlReader" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-147">
+              <paramref name="xamlReader" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Load">
+      <MemberSignature Language="C#" Value="public static object Load (System.Xml.XmlReader xmlReader);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Load(class System.Xml.XmlReader xmlReader) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Load(System.Xml.XmlReader)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Load(System::Xml::XmlReader ^ xmlReader);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xmlReader" Type="System.Xml.XmlReader" />
+      </Parameters>
+      <Docs>
+        <param name="xmlReader">
+          <span data-ttu-id="c3ec0-148">この <see langword="Load" /> 操作のリーダーとして使用する <see cref="T:System.Xml.XmlReader" /> 実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-148">The <see cref="T:System.Xml.XmlReader" /> implementation to use as the reader for this <see langword="Load" /> operation.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-149">固有の XML リーダー実装を読み込み、オブジェクト グラフを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-149">Loads a specific XML reader implementation and returns an object graph.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3ec0-150">出力されたオブジェクト グラフ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-150">The output object graph.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-151">独自の実装を定義する場合にのみ、通常この署名を使用する必要があります、<xref:System.Xml.XmlReader>です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-151">You should typically use this signature only if you defined your own implementation of a <xref:System.Xml.XmlReader>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-152">
+            <paramref name="xamlReader" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-152">
+              <paramref name="xamlReader" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Parse">
+      <MemberSignature Language="C#" Value="public static object Parse (string xaml);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig object Parse(string xaml) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Parse(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Parse (xaml As String) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Object ^ Parse(System::String ^ xaml);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xaml" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="xaml">
+          <span data-ttu-id="c3ec0-153">解析する XAML 文字列入力。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-153">The XAML string input to parse.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-154">XAML を文字列出力として読み取り、オブジェクト グラフを返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-154">Reads XAML as string output and returns an object graph.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3ec0-155">返されるオブジェクト グラフ。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-155">The object graph that is returned.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-156">順序で、<xref:System.Xaml.XamlServices.Parse%2A>オブジェクト ツリーを正常に作成する呼び出し、次を満たす必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-156">In order for the <xref:System.Xaml.XamlServices.Parse%2A> call to successfully create an object tree, the following must be true:</span></span>  
+  
+-   <span data-ttu-id="c3ec0-157">`xaml`入力が適切な形式と有効な XML です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-157">The `xaml` input is well-formed and valid XML.</span></span>  
+  
+-   <span data-ttu-id="c3ec0-158">`xaml`入力が有効な XAML 言語レベルでします。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-158">The `xaml` input is valid XAML at the language level.</span></span>  
+  
+-   <span data-ttu-id="c3ec0-159">XAML の型で指定されている、`xaml`入力がバックアップする関連の XAML 名前空間の型に解決する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-159">The XAML types that are specified in the `xaml` input must resolve to backing types in the relevant XAML namespaces.</span></span> <span data-ttu-id="c3ec0-160">たとえば、XAML の WPF 名前空間の型は XAML; で指定されている WPF XAML 名前空間に解決します。wpf アセンブリがプロジェクトに含める必要がありますまたは実行時に使用できます。などなど。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-160">For example, XAML types for a WPF namespace can resolve to a WPF XAML namespace as specified in the XAML; the assemblies for WPF must be included in the project or be available in the run time; and so on.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="c3ec0-161"><xref:System.Xaml.XamlServices> 推奨される XAML の読み取り中か、API を記述する XAML を処理する場合の設定[!INCLUDE[TLA#tla_winclient](~/includes/tlasharptla-winclient-md.md)]型、または型に基づく[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-161"><xref:System.Xaml.XamlServices> is not the recommended XAML reading or XAML writing API set if you are processing [!INCLUDE[TLA#tla_winclient](~/includes/tlasharptla-winclient-md.md)] types, or types based on [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)].</span></span> <span data-ttu-id="c3ec0-162">[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]使用法、使用<xref:System.Windows.Markup.XamlReader?displayProperty=nameWithType>の読み取りまたは XAML の読み込みと<xref:System.Windows.Markup.XamlWriter?displayProperty=nameWithType>XAML の書き戻し用です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-162">For [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] usage, use <xref:System.Windows.Markup.XamlReader?displayProperty=nameWithType> for reading or loading XAML, and <xref:System.Windows.Markup.XamlWriter?displayProperty=nameWithType> for writing back XAML.</span></span> <span data-ttu-id="c3ec0-163">これらのクラスを使用して<xref:System.Xaml>; の実装で内部的に Api ただしもサポートして、XAML の読み取りと書き込みの依存関係プロパティの最適化などの性質に影響を与える WPF 固有の概念について説明します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-163">These classes use <xref:System.Xaml> APIs internally in their implementation; however, they also provide support for WPF-specific concepts that influence the nature of XAML reading and writing, such as optimizations for dependency properties.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-164">
+            <paramref name="xaml" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-164">
+              <paramref name="xaml" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Save">
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3ec0-165">提供されたオブジェクト グラフを XAML ノード表現に処理した後、シリアル化の出力形式に処理します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-165">Processes a provided object graph into a XAML node representation and then into an output format for serialization.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public static string Save (object instance);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig string Save(object instance) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Save(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Save (instance As Object) As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::String ^ Save(System::Object ^ instance);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="instance" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="instance">
+          <span data-ttu-id="c3ec0-166">処理されるオブジェクト グラフのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-166">The root of the object graph to process.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-167">提供されたオブジェクト ツリーを XAML ノード表現に処理した後、出力 XAML の文字列形式を返します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-167">Processes a provided object tree into a XAML node representation, and returns a string representation of the output XAML.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3ec0-168">文字列としての XAML マークアップ出力。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-168">The XAML markup output as a string.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-169">このメソッドからの出力は、`ToString`の結果、<xref:System.Xml.XmlWriter>メソッドの呼び出しによって作成します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-169">The output from this method is the `ToString` result of an <xref:System.Xml.XmlWriter> that is created by the method call.</span></span> <span data-ttu-id="c3ec0-170"><xref:System.Xml.XmlWriter>次の設定を使用して作成された:<xref:System.Xml.XmlWriterSettings.Indent%2A?displayProperty=nameWithType>は`true`; と<xref:System.Xml.XmlWriterSettings.OmitXmlDeclaration%2A?displayProperty=nameWithType>は`true`します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-170">That <xref:System.Xml.XmlWriter> is created by using the following settings: <xref:System.Xml.XmlWriterSettings.Indent%2A?displayProperty=nameWithType> is `true`; and <xref:System.Xml.XmlWriterSettings.OmitXmlDeclaration%2A?displayProperty=nameWithType> is `true`.</span></span>  
+  
+ <span data-ttu-id="c3ec0-171">有効な XML として返される文字列を読み込むことができます、<xref:System.Xml.XmlReader.Create%2A>メソッドに処理して、文字列、ストリーム、またはより具体的には専用のリーダーに XAML の場合。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-171">The returned string can be loaded as valid XML through the <xref:System.Xml.XmlReader.Create%2A> method if you processed the string into a stream, or into a reader more specifically dedicated for XAML.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public static void Save (System.IO.Stream stream, object instance);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Save(class System.IO.Stream stream, object instance) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Save(System.IO.Stream,System.Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Save(System::IO::Stream ^ stream, System::Object ^ instance);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="instance" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="c3ec0-172">宛先のストリーム。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-172">The destination stream.</span>
+          </span>
+        </param>
+        <param name="instance">
+          <span data-ttu-id="c3ec0-173">処理されるオブジェクト グラフのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-173">The root of the object graph to process.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-174">提供されたオブジェクト グラフを XAML ノード表現に処理した後、シリアル化の出力ストリームに処理します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-174">Processes a provided object graph into a XAML node representation and then into an output stream for serialization.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="c3ec0-175"><xref:System.Xaml.XamlServices> 推奨される XAML の読み取り中か、API を記述する XAML を処理する場合の設定[!INCLUDE[TLA#tla_winclient](~/includes/tlasharptla-winclient-md.md)]型、または型に基づく[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-175"><xref:System.Xaml.XamlServices> is not the recommended XAML reading or XAML writing API set if you are processing [!INCLUDE[TLA#tla_winclient](~/includes/tlasharptla-winclient-md.md)] types, or types based on [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)].</span></span> <span data-ttu-id="c3ec0-176">[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]使用法を使用して<xref:System.Windows.Markup.XamlReader?displayProperty=nameWithType>の読み取りまたは XAML での読み込みと<xref:System.Windows.Markup.XamlWriter?displayProperty=nameWithType>XAML の書き戻し用です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-176">For [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] usage, use <xref:System.Windows.Markup.XamlReader?displayProperty=nameWithType> for reading or loading XAML; and <xref:System.Windows.Markup.XamlWriter?displayProperty=nameWithType> for writing back XAML.</span></span> <span data-ttu-id="c3ec0-177">これらのクラスを使用して<xref:System.Xaml>; の実装で内部的に Api ただしもサポートして、XAML の読み取りと書き込みの依存関係プロパティの最適化などの性質に影響を与える WPF 固有の概念について説明します。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-177">These classes use <xref:System.Xaml> APIs internally in their implementation; however, they also provide support for WPF-specific concepts that influence the nature of XAML reading and writing, such as optimizations for dependency properties.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-178">
+            <paramref name="stream" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-178">
+              <paramref name="stream" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public static void Save (System.IO.TextWriter writer, object instance);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Save(class System.IO.TextWriter writer, object instance) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Save(System.IO.TextWriter,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub Save (writer As TextWriter, instance As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Save(System::IO::TextWriter ^ writer, System::Object ^ instance);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.IO.TextWriter" />
+        <Parameter Name="instance" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="c3ec0-179">出力を書き込む <see cref="T:System.IO.TextWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-179">The <see cref="T:System.IO.TextWriter" /> that writes the output.</span>
+          </span>
+        </param>
+        <param name="instance">
+          <span data-ttu-id="c3ec0-180">処理されるオブジェクト グラフのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-180">The root of the object graph to process.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-181">提供されたオブジェクト グラフを XAML ノード表現に処理した後、提供された <see cref="T:System.IO.TextWriter" /> で使用される出力に処理します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-181">Processes a provided object graph into a XAML node representation and then into an output that goes to the provided <see cref="T:System.IO.TextWriter" />.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-182">
+            <paramref name="writer" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-182">
+              <paramref name="writer" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public static void Save (string fileName, object instance);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Save(string fileName, object instance) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Save(System.String,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub Save (fileName As String, instance As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Save(System::String ^ fileName, System::Object ^ instance);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="fileName" Type="System.String" />
+        <Parameter Name="instance" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="fileName">
+          <span data-ttu-id="c3ec0-183">出力を書き込むファイルの名前と場所。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-183">The name and location of the file to write the output to.</span>
+          </span>
+        </param>
+        <param name="instance">
+          <span data-ttu-id="c3ec0-184">処理されるオブジェクト グラフのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-184">The root of the object graph to process.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-185">提供されたオブジェクト グラフを XAML ノード表現に処理した後、提供された場所の出力ファイルに書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-185">Processes a provided object graph into a XAML node representation and then writes it to an output file at a provided location.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-186">`fileName`パラメーター値として使用されます、`outputFileName`への呼び出しの入力を<xref:System.Xml.XmlWriter.Create%2A?displayProperty=nameWithType>、作成する、<xref:System.Xml.XmlWriter>メソッド呼び出しの一部として。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-186">The `fileName` parameter value is used as the `outputFileName` input for a call to <xref:System.Xml.XmlWriter.Create%2A?displayProperty=nameWithType>, which creates a <xref:System.Xml.XmlWriter> as part of the method call.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="c3ec0-187">
+            <paramref name="fileName" /> が空の文字列です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-187">
+              <paramref name="fileName" /> is an empty string.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-188">
+            <paramref name="fileName" /> は <see langword="null" />です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-188">
+              <paramref name="fileName" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public static void Save (System.Xaml.XamlWriter writer, object instance);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Save(class System.Xaml.XamlWriter writer, object instance) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Save(System.Xaml.XamlWriter,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub Save (writer As XamlWriter, instance As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Save(System::Xaml::XamlWriter ^ writer, System::Object ^ instance);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Xaml.XamlWriter" />
+        <Parameter Name="instance" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="c3ec0-189">使用する <see cref="T:System.Xaml.XamlWriter" /> 実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-189">The <see cref="T:System.Xaml.XamlWriter" /> implementation to use.</span>
+          </span>
+        </param>
+        <param name="instance">
+          <span data-ttu-id="c3ec0-190">処理されるオブジェクト グラフのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-190">The root of the object graph to process.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-191">提供されたオブジェクト グラフを XAML ノード表現に処理した後、提供された XAML ライターに書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-191">Processes a provided object graph into a XAML node representation and then writes it to the provided XAML writer.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-192">通常、この署名を使用して、次の場合にのみ必要があります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-192">You should typically use this signature only in the following cases:</span></span>  
+  
+-   <span data-ttu-id="c3ec0-193">独自の実装を定義した、<xref:System.Xaml.XamlWriter>です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-193">You defined your own implementation of a <xref:System.Xaml.XamlWriter>.</span></span>  
+  
+-   <span data-ttu-id="c3ec0-194">設定を指定した、<xref:System.Xaml.XamlWriter>すると、既定の設定は異なります。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-194">You specified settings for the <xref:System.Xaml.XamlWriter> that differ from the default settings.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-195">
+            <paramref name="writer" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-195">
+              <paramref name="writer" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public static void Save (System.Xml.XmlWriter writer, object instance);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Save(class System.Xml.XmlWriter writer, object instance) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Save(System.Xml.XmlWriter,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub Save (writer As XmlWriter, instance As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Save(System::Xml::XmlWriter ^ writer, System::Object ^ instance);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Xml.XmlWriter" />
+        <Parameter Name="instance" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="c3ec0-196">使用する <see cref="T:System.Xml.XmlWriter" /> 実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-196">The <see cref="T:System.Xml.XmlWriter" /> implementation to use.</span>
+          </span>
+        </param>
+        <param name="instance">
+          <span data-ttu-id="c3ec0-197">処理されるオブジェクト グラフのルート。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-197">The root of the object graph to process.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-198">提供されたオブジェクト グラフを XAML ノード表現に処理した後、提供された <see cref="T:System.Xml.XmlWriter" /> に書き込みます。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-198">Processes a provided object graph into a XAML node representation and then writes it to the provided <see cref="T:System.Xml.XmlWriter" />.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-199">
+            <paramref name="writer" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-199">
+              <paramref name="writer" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Transform">
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3ec0-200">共通の XAML ノード セットの中継点を使用するために <see cref="T:System.Xaml.XamlReader" /> と <see cref="T:System.Xaml.XamlWriter" /> を接続します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-200">Connects a <see cref="T:System.Xaml.XamlReader" /> and a <see cref="T:System.Xaml.XamlWriter" /> in order to use a common XAML node set intermediary.</span>
+          </span>
+          <span data-ttu-id="c3ec0-201">提供されるリーダーとライターの種類に応じて、コンテンツが変換される可能性があります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-201">Potentially transforms the content, depending on the types of readers and writers that are provided.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Transform">
+      <MemberSignature Language="C#" Value="public static void Transform (System.Xaml.XamlReader xamlReader, System.Xaml.XamlWriter xamlWriter);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Transform(class System.Xaml.XamlReader xamlReader, class System.Xaml.XamlWriter xamlWriter) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Transform(System.Xaml.XamlReader,System.Xaml.XamlWriter)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Transform(System::Xaml::XamlReader ^ xamlReader, System::Xaml::XamlWriter ^ xamlWriter);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlReader" Type="System.Xaml.XamlReader" />
+        <Parameter Name="xamlWriter" Type="System.Xaml.XamlWriter" />
+      </Parameters>
+      <Docs>
+        <param name="xamlReader">
+          <span data-ttu-id="c3ec0-202">使用する <see cref="T:System.Xaml.XamlReader" /> 実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-202">The <see cref="T:System.Xaml.XamlReader" /> implementation to use.</span>
+          </span>
+        </param>
+        <param name="xamlWriter">
+          <span data-ttu-id="c3ec0-203">使用する <see cref="T:System.Xaml.XamlWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-203">The <see cref="T:System.Xaml.XamlWriter" /> to use.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-204">共通の XAML ノード セットの中継点を使用する <see cref="T:System.Xaml.XamlReader" /> と <see cref="T:System.Xaml.XamlWriter" /> を接続します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-204">Connects a <see cref="T:System.Xaml.XamlReader" /> and a <see cref="T:System.Xaml.XamlWriter" /> to use a common XAML node set intermediary.</span>
+          </span>
+          <span data-ttu-id="c3ec0-205">提供されるリーダーとライターの種類に応じて、コンテンツが変換される可能性があります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-205">Potentially transforms the content, depending on the types of readers and writers that are provided.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3ec0-206">このメソッドは、ラップするラッパー<xref:System.Xaml.XamlServices.Transform%28System.Xaml.XamlReader%2CSystem.Xaml.XamlWriter%2CSystem.Boolean%29>ここで、`closeWriter`として指定された`true`です。</span><span class="sxs-lookup"><span data-stu-id="c3ec0-206">This method is a wrapper around <xref:System.Xaml.XamlServices.Transform%28System.Xaml.XamlReader%2CSystem.Xaml.XamlWriter%2CSystem.Boolean%29>, where `closeWriter` is specified as `true`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-207">
+            <paramref name="xamlReader" /> または <paramref name="xamlWriter" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-207">
+              <paramref name="xamlReader" /> or <paramref name="xamlWriter" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Xaml.XamlException">
+          <span data-ttu-id="c3ec0-208">XAML スキーマ コンテキストが提供された <paramref name="xamlReader" /> と <paramref name="xamlWriter" /> の間で一致していません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-208">The XAML schema context does not match between the provided <paramref name="xamlReader" /> and <paramref name="xamlWriter" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Transform">
+      <MemberSignature Language="C#" Value="public static void Transform (System.Xaml.XamlReader xamlReader, System.Xaml.XamlWriter xamlWriter, bool closeWriter);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Transform(class System.Xaml.XamlReader xamlReader, class System.Xaml.XamlWriter xamlWriter, bool closeWriter) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.XamlServices.Transform(System.Xaml.XamlReader,System.Xaml.XamlWriter,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Transform(System::Xaml::XamlReader ^ xamlReader, System::Xaml::XamlWriter ^ xamlWriter, bool closeWriter);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="xamlReader" Type="System.Xaml.XamlReader" />
+        <Parameter Name="xamlWriter" Type="System.Xaml.XamlWriter" />
+        <Parameter Name="closeWriter" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="xamlReader">
+          <span data-ttu-id="c3ec0-209">使用する <see cref="T:System.Xaml.XamlReader" /> 実装。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-209">The <see cref="T:System.Xaml.XamlReader" /> implementation to use.</span>
+          </span>
+        </param>
+        <param name="xamlWriter">
+          <span data-ttu-id="c3ec0-210">使用する <see cref="T:System.Xaml.XamlWriter" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-210">The <see cref="T:System.Xaml.XamlWriter" /> to use.</span>
+          </span>
+        </param>
+        <param name="closeWriter">
+          <span data-ttu-id="c3ec0-211">呼び出しの完了後にライターを閉じる場合は <see langword="true" />。最後の書き込み位置でライターをアクティブなままにする場合は <see langword="false" />。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-211">
+              <see langword="true" /> to close the writer after the call is complete; <see langword="false" /> to leave the writer active at the last written position.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3ec0-212">共通の XAML ノード セットの中継点を使用する <see cref="T:System.Xaml.XamlReader" /> と <see cref="T:System.Xaml.XamlWriter" /> を接続します。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-212">Connects a <see cref="T:System.Xaml.XamlReader" /> and a <see cref="T:System.Xaml.XamlWriter" /> to use a common XAML node set intermediary.</span>
+          </span>
+          <span data-ttu-id="c3ec0-213">提供されるリーダーとライターの種類に応じて、コンテンツが変換される可能性があります。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-213">Potentially transforms the content, depending on the types of readers and writers that are provided.</span>
+          </span>
+          <span data-ttu-id="c3ec0-214">呼び出しの完了後にライターを閉じるかどうかを指定するパラメーターが用意されています。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-214">Provides a parameter for specifying whether to close the writer after the call is completed.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="c3ec0-215">
+            <paramref name="xamlReader" /> または <paramref name="xamlWriter" /> の入力が <see langword="null" /> です。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-215">
+              <paramref name="xamlReader" /> or <paramref name="xamlWriter" /> input is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Xaml.XamlException">
+          <span data-ttu-id="c3ec0-216">XAML スキーマ コンテキストが提供された <paramref name="xamlReader" /> と <paramref name="xamlWriter" /> の間で一致していません。</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3ec0-216">The XAML schema context does not match between the provided <paramref name="xamlReader" /> and <paramref name="xamlWriter" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
