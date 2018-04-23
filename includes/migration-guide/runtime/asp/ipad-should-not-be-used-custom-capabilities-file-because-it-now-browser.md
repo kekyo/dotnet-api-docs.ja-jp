@@ -1,9 +1,9 @@
-### <a name="ipad-should-not-be-used-in-custom-capabilities-file-because-it-is-now-a-browser-capability"></a>ブラウザーの機能であるためには IPad のカスタム機能ファイルで使用する必要がありますはありません。
+### <a name="ipad-should-not-be-used-in-custom-capabilities-file-because-it-is-now-a-browser-capability"></a>iPad はブラウザー機能になったため、カスタム機能ファイルでは使用できない
 
 |   |   |
 |---|---|
-|説明|.NET 4.5 以降で、iPad は既定 ASP.NET ブラウザーの機能ファイル内の識別子のため、カスタムの機能ファイルで使用されません必要があります。|
-|提案される解決策|IPad の動作を変更するには、事前に定義されたゲートウェイ refID の機能を設定する必要は iPad 固有の機能が必要な場合は、 &quot;IPad&quot;の代わりに、新しいを生成して&quot;IPad&quot;ユーザー エージェントによって ID一致します。|
+|説明|.NET 4.5 以降では、iPad は既定の ASP.NET ブラウザー機能ファイルの識別子であるため、カスタム機能ファイルでは使用できません。|
+|提案される解決策|iPad 固有の機能が必要な場合は、ユーザー エージェントのマッチングで新しい &quot;IPad&quot; ID を生成するのではなく、定義済みのゲートウェイ refID &quot;IPad&quot; で機能を設定して、iPad の動作を変更する必要があります。|
 |スコープ|エッジ|
 |Version|4.5|
 |型|ランタイム|

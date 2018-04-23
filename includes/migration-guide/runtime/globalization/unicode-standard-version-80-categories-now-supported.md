@@ -1,9 +1,9 @@
-### <a name="unicode-standard-version-80-categories-now-supported"></a>Unicode 標準バージョン 8.0 カテゴリのようになりました
+### <a name="unicode-standard-version-80-categories-now-supported"></a>Unicode 標準バージョン 8.0 のカテゴリのサポート開始
 
 |   |   |
 |---|---|
-|説明|.NET framework 4.6.2、フレームワーク内の Unicode データはアップグレードされて Unicode 標準 version 6.3 から version 8.0 に。  .NET Framework 4.6.2 で Unicode 文字カテゴリを要求すると、いくつかの結果が以前のバージョンの .NET Framework での結果一致しません。  これは、影響チェロキー音節と新しい末尾 Lue 母音記号とトーン マークほとんどの場合に変更します。|
-|提案される解決策|コードを確認し、ハード コーディングされた Unicode 文字カテゴリに依存するロジックの削除/変更するとします。|
+|説明|.NET Framework 4.6.2 で、フレームワークの Unicode データが Unicode 標準バージョン 6.3 からバージョン 8.0 にアップグレードされました。  .NET Framework 4.6.2 で Unicode 文字カテゴリを要求すると、いくつかの結果が以前の .NET Framework バージョンの結果と一致しない可能性があります。  この変更は、主にチェロキーの音節、新タイ ロ文字の母音記号および声調記号に影響します。|
+|提案される解決策|コードを確認し、ハードコーディングされた Unicode 文字カテゴリに依存するロジックを削除/変更します。|
 |スコープ|マイナー|
 |Version|4.6.2|
 |型|ランタイム|

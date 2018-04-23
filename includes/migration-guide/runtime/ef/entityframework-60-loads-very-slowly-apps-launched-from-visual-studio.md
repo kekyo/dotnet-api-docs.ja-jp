@@ -1,4 +1,4 @@
-### <a name="entityframework-60-loads-very-slowly-in-apps-launched-from-visual-studio"></a>EntityFramework 6.0 は、Visual Studio から起動したアプリで非常に遅いが読み込まれる
+### <a name="entityframework-60-loads-very-slowly-in-apps-launched-from-visual-studio"></a>EntityFramework 6.0 は、Visual Studio から起動されたアプリを読み込むとき、非常に遅くなる
 
 |   |   |
 |---|---|

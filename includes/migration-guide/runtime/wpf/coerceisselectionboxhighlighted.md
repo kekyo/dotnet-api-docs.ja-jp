@@ -2,7 +2,7 @@
 
 |   |   |
 |---|---|
-|説明|関連するアクションの特定のシーケンス、<xref:System.Windows.Controls.ComboBox?displayProperty=name>なり、そのデータ ソース、<xref:System.NullReferenceException?displayProperty=name>です。|
+|説明|<xref:System.Windows.Controls.ComboBox?displayProperty=name> とそのデータ ソースに関連するアクションの特定のシーケンスで <xref:System.NullReferenceException?displayProperty=name> が発生する可能性があります。|
 |提案される解決策|可能であれば、.NET 4.6.2 にアップグレードしてください。|
 |スコープ|マイナー|
 |Version|4.6|

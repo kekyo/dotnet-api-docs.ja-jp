@@ -1,9 +1,9 @@
-### <a name="flowdocument-may-show-an-extra-line-of-text"></a>FlowDocument は余分な行のテキストを表示することがあります。
+### <a name="flowdocument-may-show-an-extra-line-of-text"></a>FlowDocument でテキストの余分な行が表示される場合がある
 
 |   |   |
 |---|---|
-|説明|場合によっては、<xref:System.Windows.Documents.FlowDocument>要素は、.NET Framework 4.0 で実行時の表示と比較して、.NET Framework 4.5 で実行されているときに余分な行のテキストに表示されます。 以前から除外されたに表示されるテキストことが原因で、表示されるテキストをほとんど、または明る、変更の既知のケースがない可能性が、 <xref:System.Windows.Documents.FlowDocument>'s を表示します。|
-|提案される解決策|場合によっては、いずれかで表示要素の PageHeight プロパティを小さく表示されている行の前の番号を復元できます。|
+|説明|.NET Framework 4.0 での実行時の表示と比べて、.NET Framework 4.5 での実行時に <xref:System.Windows.Documents.FlowDocument> 要素でテキストの余分な行が表示されることがあります。 変更によってテキストが正しく表示されなくなったり、読みにくくなったりするようなことはありませんが、以前は <xref:System.Windows.Documents.FlowDocument> のビューから除外されていたテキストが表示される可能性があります。|
+|提案される解決策|場合によっては、表示要素の PageHeight プロパティを 1 ずつ減らすことで、表示行の以前の数を復元できます。|
 |スコープ|エッジ|
 |Version|4.5|
 |型|ランタイム|

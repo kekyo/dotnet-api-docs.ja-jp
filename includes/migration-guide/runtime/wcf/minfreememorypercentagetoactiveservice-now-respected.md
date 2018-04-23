@@ -1,4 +1,4 @@
-### <a name="minfreememorypercentagetoactiveservice-is-now-respected"></a>MinFreeMemoryPercentageToActiveService が適用されるようになりました
+### <a name="minfreememorypercentagetoactiveservice-is-now-respected"></a>MinFreeMemoryPercentageToActiveService が順守されるようになった
 
 |   |   |
 |---|---|

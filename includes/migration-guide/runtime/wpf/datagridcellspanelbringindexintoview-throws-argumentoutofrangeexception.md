@@ -1,9 +1,9 @@
-### <a name="datagridcellspanelbringindexintoview-throws-argumentoutofrangeexception"></a>DataGridCellsPanel.BringIndexIntoView ArgumentOutOfRangeException をスローします。
+### <a name="datagridcellspanelbringindexintoview-throws-argumentoutofrangeexception"></a>DataGridCellsPanel.BringIndexIntoView で ArgumentOutOfRangeException がスローされる
 
 |   |   |
 |---|---|
-|説明|<xref:System.Windows.Controls.DataGrid.ScrollIntoView(System.Object)> 非同期的に列の仮想化が有効になっているが、列の幅がまだ決定されていません。  非同期の作業が発生する前に、列が削除された場合、<xref:System.ArgumentOutOfRangeException?displayProperty=name>発生することができます。|
-|提案される解決策|次のいずれかの:<ol><li>.NET 4.7 にアップグレードします。</li><li>.NET 4.6.2 用の最新のサービスの修正プログラムをインストールします。</li><li>非同期応答するまでの列が削除されないように<xref:System.Windows.Controls.DataGrid.ScrollIntoView(System.Object)>が完了しました。</li></ol>|
+|説明|列の仮想化は有効になっているが、列の幅がまだ決定されていない場合、<xref:System.Windows.Controls.DataGrid.ScrollIntoView(System.Object)> は非同期で動作します。  非同期動作が発生する前に列が削除されると、<xref:System.ArgumentOutOfRangeException?displayProperty=name> が発生する場合があります。|
+|提案される解決策|以下のいずれかを実行してください。<ol><li>.NET 4.7 にアップグレードする。</li><li>.NET 4.6.2 の最新のサービス パッチをインストールする。</li><li><xref:System.Windows.Controls.DataGrid.ScrollIntoView(System.Object)> に対する非同期応答が完了するまでは列を削除しないようにする。</li></ol>|
 |スコープ|エッジ|
 |Version|4.6.2|
 |型|ランタイム|

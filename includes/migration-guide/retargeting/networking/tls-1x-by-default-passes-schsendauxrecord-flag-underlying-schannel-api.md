@@ -1,9 +1,9 @@
-### <a name="tls-1x-by-default-passes-the-schsendauxrecord-flag-to-the-underlying-schannel-api"></a>TLS 1.x 既定では、基になる SCHANNEL API を SCH_SEND_AUX_RECORD フラグを渡します
+### <a name="tls-1x-by-default-passes-the-schsendauxrecord-flag-to-the-underlying-schannel-api"></a>TLS 1.x は既定で SCH_SEND_AUX_RECORD フラグを基になる SCHANNEL API に渡す
 
 |   |   |
 |---|---|
-|説明|TLS を使用するときに 1.x では、.NET Framework は、基になる Windows SCHANNEL API に依存しています。 .NET Framework 4.6 以降、 [SCH_SEND_AUX_RECORD](https://msdn.microsoft.com/library/windows/desktop/aa379810.aspx) SCHANNEL にフラグが既定で渡されます。 これにより、個別の 2 つのレコード、1 バイトと 2 番目として最初に暗号化されるデータを分割する SCHANNEL <em>n</em>-1 バイトまでです。まれなケースでは、クライアントとデータが 1 つのレコードに格納されている想定を行う既存のサーバー間の通信を停止します。|
-|提案される解決策|この変更は、既存のサーバーとの通信を中断、無効にできますを送信する、 [SCH_SEND_AUX_RECORD](https://msdn.microsoft.com/library/windows/desktop/aa379810.aspx)フラグし、を次のスイッチを追加することで、別のレコードにデータを分割しないの以前の動作を復元します[ \<AppContextSwitchOverrides >](~/docs/framework/configure-apps/file-schema/runtime/appcontextswitchoverrides-element.md)で、 [ ` ](~/docs/framework/configure-apps/file-schema/runtime/runtime-element.md)アプリ構成ファイル。<pre><code class="language-xml">&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides&#13;&#10;value=&quot;Switch.System.Net.DontEnableSchSendAuxRecord=true&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;</code></pre> <blockquote> [!IMPORTANT] この設定は、旧バージョンと互換性のためだけに提供されます。 使用はそれ以外の場合推奨されていません。</blockquote> |
+|説明|TLS 1.x を使用するとき、.NET Framework は基になる Windows SCHANNEL API に依存します。 .NET Framework 4.6 以降、[SCH_SEND_AUX_RECORD](https://msdn.microsoft.com/library/windows/desktop/aa379810.aspx) フラグは既定で SCHANNEL に渡されます。 SCHANNEL によって、暗号化するデータが 2 つの別個のレコードに分割されます。1 つ目のレコードはシングル バイトで、2 つ目のレコードは <em>n</em>-1 バイトです。その結果、まれに、データがシングル レコードに置かれていると想定する既存サーバーとクライアントの間の通信が途切れることがあります。|
+|提案される解決策|この変更によって既存サーバーとの接続が途切れる場合、[SCH_SEND_AUX_RECORD](https://msdn.microsoft.com/library/windows/desktop/aa379810.aspx) フラグの送信を無効にし、アプリ構成ファイルの [`](~/docs/framework/configure-apps/file-schema/runtime/runtime-element.md) で次のスイッチを [\<AppContextSwitchOverrides>](~/docs/framework/configure-apps/file-schema/runtime/appcontextswitchoverrides-element.md) に追加することで、データを別個のレコードに分割しない、以前の動作に復元できます。<pre><code class="language-xml">&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides&#13;&#10;value=&quot;Switch.System.Net.DontEnableSchSendAuxRecord=true&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;</code></pre> <blockquote> [!IMPORTANT] この設定は下位互換性のためにのみ提供されます。 それ以外の目的での使用はお勧めしません。</blockquote> |
 |スコープ|エッジ|
 |Version|4.6|
 |型|再ターゲット中|

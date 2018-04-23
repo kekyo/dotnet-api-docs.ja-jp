@@ -1,9 +1,9 @@
-### <a name="workflowdesignerload-doesnt-remove-symbol-property"></a>WorkflowDesigner.Load はシンボル プロパティを削除しません。
+### <a name="workflowdesignerload-doesnt-remove-symbol-property"></a>WorkflowDesigner.Load ではシンボル プロパティが削除されない
 
 |   |   |
 |---|---|
-|説明|ワークフロー デザイナーで再ホストされた 3.5 ワークフローの読み込みで .NET Framework 4.5 を対象とする場合、<xref:System.Activities.Presentation.WorkflowDesigner.Load>メソッド、<xref:System.Xaml.XamlDuplicateMemberException?displayProperty=name>がワークフローの保存中にスローされます。|
-|提案される解決策|このバグは、中心を設定して動作できるように、ワークフロー デザイナーで、.NET Framework 4.5 を対象とする場合にのみマニフェスト、 <code>WorkflowDesigner.Context.Services.GetService&lt;DesignerConfigurationService&gt;().TargetFrameworkName</code> 4.0 の .NET Framework.Alternatively を使用して、問題を回避することがあります、<xref:System.Activities.Presentation.WorkflowDesigner.Load(System.String)>ワークフローを読み込むメソッド代わりに<xref:System.Activities.Presentation.WorkflowDesigner.Load>です。|
+|説明|ワークフロー デザイナーで .NET Framework 4.5 を対象とし、再ホストされた 3.5 ワークフローを <xref:System.Activities.Presentation.WorkflowDesigner.Load> メソッドで読み込むと、ワークフローの保存中に <xref:System.Xaml.XamlDuplicateMemberException?displayProperty=name> がスローされます。|
+|提案される解決策|このバグは、ワークフロー デザイナーで .NET Framework 4.5 を対象とするときにのみ現れるため、<code>WorkflowDesigner.Context.Services.GetService&lt;DesignerConfigurationService&gt;().TargetFrameworkName</code> を 4.0 の .NET Framework に設定することによって回避できます。あるいは、<xref:System.Activities.Presentation.WorkflowDesigner.Load> の代わりに <xref:System.Activities.Presentation.WorkflowDesigner.Load(System.String)> メソッドを使用してワークフローを読み込むことで問題を回避できます。|
 |スコープ|Major|
 |バージョン|4.5|
 |型|再ターゲット中|

@@ -1,9 +1,9 @@
-### <a name="etw-event-names-cannot-differ-only-by-a-start-or-stop-suffix"></a>ETW イベントの名前が"Start"または「停止」サフィックスだけが異なることはできません。
+### <a name="etw-event-names-cannot-differ-only-by-a-start-or-stop-suffix"></a>サフィックスの "Start" または "Stop" のみで ETW イベント名を使い分けることができない
 
 |   |   |
 |---|---|
-|説明|.NET Framework 4.6 および 4.6.1 では、ランタイムによってスローされる、<xref:System.ArgumentException>と Event Tracing for Windows (ETW) イベントの 2 つの名前だけが異なる、&quot;開始&quot;または&quot;停止&quot;サフィックス (1 つのイベントがを名前付き場合として<code>LogUser</code>で別の名前が<code>LogUserStart</code>)。 この場合、ランタイムはイベント ソースを作成できないため、ログ記録は生成できません。|
-|提案される解決策|例外を防ぐためには、2 つのイベント名が異なることなしでのみを確認してください、&quot;開始&quot;または&quot;停止&quot;サフィックス。この要件は、.NET Framework 4.6.2; 以降の削除します。ランタイムはだけが異なるイベント名を区別できます、&quot;開始&quot;と&quot;停止&quot;サフィックス。|
+|説明|.NET Framework 4.6 と 4.6.1 では、2 つの ETW (Windows イベント トレーシング) イベント名の違いがサフィックスの &quot;Start&quot; または &quot;Stop&quot; のみのとき (たとえば、あるイベントの名前が <code>LogUser</code> で、別のイベントの名前が <code>LogUserStart</code> のとき)、ランタイムによって <xref:System.ArgumentException> がスローされます。 この場合、ランタイムはイベント ソースを作成できないため、ログ記録は生成できません。|
+|提案される解決策|この例外を回避するには、サフィックスの &quot;Start&quot; または &quot;Stop&quot; でしか違いのないイベント名が存在しないようにします。この要件は .NET Framework 4.6.2 以降で削除されています。サフィックスの &quot;Start&quot; と &quot;Stop&quot; のみが異なるイベント名がランタイムによって区別されます。|
 |スコープ|エッジ|
 |Version|4.6|
 |型|再ターゲット中|

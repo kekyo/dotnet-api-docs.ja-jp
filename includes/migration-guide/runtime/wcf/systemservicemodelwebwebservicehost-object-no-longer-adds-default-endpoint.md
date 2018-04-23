@@ -1,9 +1,9 @@
-### <a name="systemservicemodelwebwebservicehost-object-no-longer-adds-a-default-endpoint"></a>System.ServiceModel.Web.WebServiceHost オブジェクトが不要になった、既定のエンドポイントを追加します。
+### <a name="systemservicemodelwebwebservicehost-object-no-longer-adds-a-default-endpoint"></a>System.ServiceModel.Web.WebServiceHost オブジェクトは、既定のエンドポイントを追加しなくなりました
 
 |   |   |
 |---|---|
 |説明|<xref:System.ServiceModel.Web.WebServiceHost> オブジェクトでは、アプリケーション コードによって明示的なエンドポイントが追加された場合に、既定のエンドポイントが追加されなくなりました。|
-|提案される解決策|ユーザーは、既定のエンドポイントに接続できることが予想されに他の明示的なエンドポイントが追加されているかどうか、 <xref:System.ServiceModel.Web.WebServiceHost?displayProperty=name>、既定のエンドポイントが明示的に追加することも必要があります (を使用して<xref:System.ServiceModel.ServiceHostBase.AddDefaultEndpoints?displayProperty=name>)。|
+|提案される解決策|ユーザーが既定のエンドポイントに接続できることを期待していて、他の明示的なエンドポイントが <xref:System.ServiceModel.Web.WebServiceHost?displayProperty=name> に追加されている場合は、既定のエンドポイントも明示的に追加する必要があります (<xref:System.ServiceModel.ServiceHostBase.AddDefaultEndpoints?displayProperty=name> を使用して)。|
 |スコープ|マイナー|
 |Version|4.5|
 |型|ランタイム|

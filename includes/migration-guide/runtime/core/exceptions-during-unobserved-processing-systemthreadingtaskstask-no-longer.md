@@ -1,9 +1,9 @@
-### <a name="exceptions-during-unobserved-processing-in-systemthreadingtaskstask-no-longer-propagate-on-finalizer-thread"></a>System.Threading.Tasks.Task で無視された処理不要になった中に例外がファイナライザー スレッドに反映します。
+### <a name="exceptions-during-unobserved-processing-in-systemthreadingtaskstask-no-longer-propagate-on-finalizer-thread"></a>System.Threading.Tasks.Task で監視されていない処理中の例外が、ファイナライザー スレッドに伝播されなくなった
 
 |   |   |
 |---|---|
 |説明|<xref:System.Threading.Tasks.Task?displayProperty=name> クラスは非同期操作を表すため、非同期処理中に発生する重大ではない例外がすべてキャッチされます。 .NET Framework 4.5 では、例外が監視されていず、コードがタスクを待機していない場合、例外はファイナライザー スレッドに伝播されなくなり、ガベージ コレクション時にプロセスをクラッシュします。 この変更により、Task クラスを使用して、監視されていない非同期処理を実行するアプリケーションの信頼性が向上します。|
-|提案される解決策|適切なハンドラーを提供することにより、以前の動作を復元できますアプリは、無視されたの非同期例外がファイナライザー スレッドに反映に依存している場合、<xref:System.Threading.Tasks.TaskScheduler.UnobservedTaskException>イベント、かを設定して、[ランタイムの構成要素](~/docs/framework/configure-apps/file-schema/runtime/throwunobservedtaskexceptions-element.md).|
+|提案される解決策|アプリが、監視されていない非同期例外のファイナライザー スレッドへの伝播に依存している場合、<xref:System.Threading.Tasks.TaskScheduler.UnobservedTaskException> イベントの適切なハンドラーを提供することによって、または[ランタイム構成要素](~/docs/framework/configure-apps/file-schema/runtime/throwunobservedtaskexceptions-element.md)を設定することによって、以前の動作を復元できます。|
 |スコープ|エッジ|
 |Version|4.5|
 |型|ランタイム|

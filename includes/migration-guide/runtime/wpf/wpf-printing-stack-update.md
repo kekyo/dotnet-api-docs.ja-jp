@@ -1,9 +1,9 @@
-### <a name="wpf-printing-stack-update"></a>WPF 印刷スタック更新プログラム
+### <a name="wpf-printing-stack-update"></a>WPF での印刷スタックの更新
 
 |   |   |
 |---|---|
-|説明|WPF の印刷 Api を使用して<xref:System.Printing.PrintQueue?displayProperty=name>ウィンドウの印刷ドキュメント パッケージ API の代わりに、現在は非推奨の XPS 印刷 API を呼び出すようになりました。 変更されたと保守性に注意します。ユーザーも開発者には、動作や API の使用方法の変更が表示されます。 Windows 10 の作成者の更新プログラムで実行されているときに、新しい印刷スタックが既定で有効にします。 古い印刷スタックも引き続き古いバージョンの Windows で同じように動作します。|
-|提案される解決策|古いスタックを Windows 10 の作成者の更新プログラムを使用する設定、<code>UseXpsOMPrinting</code>の REG_DWORD 値が、<code>HKEY_CURRENT_USER\Software\Microsoft\.NETFramework\Windows Presentation Foundation\Printing</code>レジストリ キーを<code>1</code>です。|
+|説明|<xref:System.Printing.PrintQueue?displayProperty=name> を使う WPF の印刷 API は、非推奨になった XPS 印刷 API ではなく Windows ドキュメント印刷パッケージ API を呼び出すようになりました。 この変更はサービス性を考慮して行われたもので、ユーザーも開発者も、動作または API の使用の変化を目にすることはありません。 Windows 10 Creators Update で実行すると、新しい印刷スタックは既定で有効になります。 以前のバージョンの Windows では、以前の印刷スタックが引き続き同じように動作します。|
+|提案される解決策|Windows 10 Creators Update で以前のスタックを使用するには、<code>HKEY_CURRENT_USER\Software\Microsoft\.NETFramework\Windows Presentation Foundation\Printing</code> レジストリ キーの <code>UseXpsOMPrinting</code> REG_DWORD 値を <code>1</code> に設定します。|
 |スコープ|エッジ|
 |Version|4.7|
 |型|ランタイム|

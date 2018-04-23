@@ -1,1 +1,1 @@
-行列変換の<xref:System.Numerics.Vector2>、 <xref:System.Numerics.Vector3>、および<xref:System.Numerics.Vector4>インスタンスは、行として表現されます: ベクトル*v*行列によって変換された*M*で*vM*乗算します。
+行列変換の場合、インスタンス <xref:System.Numerics.Vector2>、<xref:System.Numerics.Vector3>、<xref:System.Numerics.Vector4> が行を表します。マトリックス *M* と *vM* の乗算によりベクター *v* が変換されます。

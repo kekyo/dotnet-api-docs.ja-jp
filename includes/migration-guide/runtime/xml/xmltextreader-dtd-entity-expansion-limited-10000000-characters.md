@@ -1,9 +1,9 @@
-### <a name="xmltextreader-dtd-entity-expansion-is-limited-to-10000000-characters"></a>XmlTextReader DTD エンティティの展開が 10,000, 000 文字に制限されます。
+### <a name="xmltextreader-dtd-entity-expansion-is-limited-to-10000000-characters"></a>XmlTextReader DTD エンティティの拡張が、10,000, 000 文字に制限される
 
 |   |   |
 |---|---|
 |説明|DTD エンティティの拡張は 10,000,000 文字までに制限されるようになりました。 DTD エンティティの展開を使用しない XML ファイルの読み込みや、制限された DTD エンティティの展開を使用した XML ファイルの読み込みは、影響を受けません。 DTD エンティティの展開が 10,000,000 文字を超えるファイルは読み込みに失敗し、例外をスローします。|
-|提案される解決策|DTD エンティティの展開の制限が低すぎる 10,000, 000 の場合は、値上書きできるは<xref:System.Xml.XmlReaderSettings.MaxCharactersFromEntities>プロパティです。 <xref:System.Xml.XmlReaderSettings?displayProperty=name>適切な<xref:System.Xml.XmlReaderSettings.MaxCharactersFromEntities?displayProperty=name>に値を渡すことが<code>XmlReader.Create</code>を受け取る<xref:System.Xml.XmlReaderSettings?displayProperty=name>(ie です。<xref:System.Xml.XmlReader.Create(System.String,System.Xml.XmlReaderSettings)>)|
+|提案される解決策|DTD エンティティの拡張の制限が 10,000, 000 では低すぎる場合には、<xref:System.Xml.XmlReaderSettings.MaxCharactersFromEntities> プロパティで値をオーバーライドできます。 適切な <xref:System.Xml.XmlReaderSettings.MaxCharactersFromEntities?displayProperty=name> 値を持つ <xref:System.Xml.XmlReaderSettings?displayProperty=name> を、<xref:System.Xml.XmlReaderSettings?displayProperty=name> を受け取る <code>XmlReader.Create</code> に渡すことができます (<xref:System.Xml.XmlReader.Create(System.String,System.Xml.XmlReaderSettings)> など)|
 |スコープ|エッジ|
 |Version|4.5|
 |型|ランタイム|

@@ -1,4 +1,4 @@
-### <a name="wpf-layout-rounding-of-margins-has-changed"></a>上余白の WPF レイアウトの丸めが変更されました
+### <a name="wpf-layout-rounding-of-margins-has-changed"></a>WPF レイアウトでの余白の丸め方の変更
 
 |   |   |
 |---|---|

@@ -1,4 +1,4 @@
-### <a name="workflow-30-types-are-obsolete"></a>ワークフロー 3.0 の型は廃止されました
+### <a name="workflow-30-types-are-obsolete"></a>WorkFlow 3.0 タイプは廃止されました
 
 |   |   |
 |---|---|

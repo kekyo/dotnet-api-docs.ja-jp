@@ -1,9 +1,9 @@
-### <a name="wcf-msmqsecurehashalgorithm-default-value-is-now-sha256"></a>WCF MsmqSecureHashAlgorithm 既定値は SHA256
+### <a name="wcf-msmqsecurehashalgorithm-default-value-is-now-sha256"></a>WCF MsmqSecureHashAlgorithm の既定値が SHA256 になった
 
 |   |   |
 |---|---|
-|説明|.NET Framework 4.7.1 から始めて、署名アルゴリズムは、WCF で Msmq メッセージの既定のメッセージは、SHA256 です。 .NET Framework 4.7 以前のバージョンで、既定のメッセージの署名アルゴリズムは SHA1 です。|
-|提案される解決策|.NET Framework 4.7.1 でこの変更と互換性の問題に実行するか、後ですることができますオプトアウト変更には、次の行を追加することによって場合、 <code>&lt;runtime&gt;</code>app.config ファイルのセクション。<pre><code class="language-xml">&lt;configuration&gt;&#13;&#10;&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.ServiceModel.UseSha1InMsmqEncryptionAlgorithm=true&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;&lt;/configuration&gt;&#13;&#10;</code></pre>|
+|説明|.NET Framework 4.7.1 以降では、Msmq メッセージの WCF での既定のメッセージ署名アルゴリズムは SHA256 です。 .NET Framework 4.7 以前のバージョンでは、既定のメッセージ署名アルゴリズムは SHA1 です。|
+|提案される解決策|.NET Framework 4.7.1 以降でこの変更に関する互換性の問題が発生した場合は、次の行を app.config ファイルの <code>&lt;runtime&gt;</code> セクションに追加することで、変更を無効にできます。<pre><code class="language-xml">&lt;configuration&gt;&#13;&#10;&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.ServiceModel.UseSha1InMsmqEncryptionAlgorithm=true&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;&lt;/configuration&gt;&#13;&#10;</code></pre>|
 |スコープ|マイナー|
 |Version|4.7.1|
 |型|ランタイム|

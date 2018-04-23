@@ -1,9 +1,9 @@
-### <a name="different-exception-handling-for-objectcontextcreatedatabase-and-dbproviderservicescreatedatabase-methods"></a>別の例外処理の ObjectContext.CreateDatabase および DbProviderServices.CreateDatabase メソッド
+### <a name="different-exception-handling-for-objectcontextcreatedatabase-and-dbproviderservicescreatedatabase-methods"></a>ObjectContext.CreateDatabase メソッドと DbProviderServices.CreateDatabase メソッドで異なる例外処理
 
 |   |   |
 |---|---|
 |説明|.NET 4.5 から、データベースの作成が失敗した場合、<code>CreateDatabase</code> メソッドは、空のデータベースの削除を試みます。 その操作が成功した場合、元の <xref:System.Data.SqlClient.SqlException?displayProperty=name> は伝播されます (.NET 4.0 で常にスローされていた <xref:System.InvalidOperationException?displayProperty=name> の代わりに)。|
-|提案される解決策|キャッチすると、<xref:System.InvalidOperationException?displayProperty=name>の実行中に<xref:System.Data.Objects.ObjectContext.CreateDatabase>または<xref:System.Data.Common.DbProviderServices.CreateDatabase(System.Data.Common.DbConnection,System.Nullable{System.Int32},System.Data.Metadata.Edm.StoreItemCollection)>SQLExceptions もキャッチされるようになりました。|
+|提案される解決策|<xref:System.Data.Objects.ObjectContext.CreateDatabase> または <xref:System.Data.Common.DbProviderServices.CreateDatabase(System.Data.Common.DbConnection,System.Nullable{System.Int32},System.Data.Metadata.Edm.StoreItemCollection)> の実行中に <xref:System.InvalidOperationException?displayProperty=name> をキャッチするときには、SQLExceptions もキャッチする必要があります。|
 |スコープ|マイナー|
 |Version|4.5|
 |型|ランタイム|

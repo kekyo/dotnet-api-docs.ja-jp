@@ -1,4 +1,4 @@
-### <a name="changing-the-isenabled-property-of-the-parent-of-a-textblock-control-affects-any-child-controls"></a>子コントロールに影響を与える、TextBlock コントロールの親の IsEnabled プロパティを変更します。
+### <a name="changing-the-isenabled-property-of-the-parent-of-a-textblock-control-affects-any-child-controls"></a>TextBlock コントロールの親の IsEnabled プロパティの変更がすべての子コントロールに影響する
 
 |   |   |
 |---|---|

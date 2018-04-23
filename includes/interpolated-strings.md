@@ -1,3 +1,3 @@
 
 > [!IMPORTANT] 
-> 呼び出す代わりに、 **String.Format**メソッドまたはを使用して[複合書式指定文字列](~/docs/standard/base-types/composite-formatting.md)、使用することができます*補間文字列*言語には、それらがサポートされている場合。 補間文字列は、文字列を含む*式を補間*です。 それぞれの式を補間が式の値に解決され、文字列が割り当てられている場合、結果の文字列に含まれています。 詳細については、次を参照してください。[文字列の補間 (c# リファレンス)](~/docs/csharp/language-reference/tokens/interpolated.md)と[補間文字列 (Visual Basic リファレンス)](~/docs/visual-basic/programming-guide/language-features/strings/interpolated-strings.md)です。 
+> **String.Format** メソッドを呼び出す、あるいは[複合書式指定文字列](~/docs/standard/base-types/composite-formatting.md)を使用する代わりに、お使いの言語でサポートされている場合、*挿入文字列*を使用できます。 挿入文字列は、*挿入式*が含まれている文字列です。 各挿入式は式の値によって解かれ、文字列が割り当てられるとき、結果文字列に含まれます。 詳細については、[文字列補間 (C# リファレンス)](~/docs/csharp/language-reference/tokens/interpolated.md) および[補間文字列 (Visual Basic リファレンス)](~/docs/visual-basic/programming-guide/language-features/strings/interpolated-strings.md) に関するページを参照してください。 

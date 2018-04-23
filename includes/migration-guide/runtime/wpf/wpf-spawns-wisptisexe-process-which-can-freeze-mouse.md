@@ -1,9 +1,9 @@
-### <a name="wpf-spawns-a-wisptisexe-process-which-can-freeze-the-mouse"></a>WPF は、マウスを凍結したり wisptis.exe プロセスを生成します。
+### <a name="wpf-spawns-a-wisptisexe-process-which-can-freeze-the-mouse"></a>WPF が wisptis.exe プロセスを生成し、マウスがフリーズする可能性がある
 
 |   |   |
 |---|---|
-|説明|問題が原因となった 4.5.2 で導入された<code>wisptis.exe</code>を生成するマウス入力を固定することができます。|
-|提案される解決策|この問題の修正は、.NET Framework 4.5.2 (修正プログラム ロールアップ 3026376)、または .NET Framework 4.6 にアップグレードすることで、サービスのリリースで使用できます。|
+|説明|この問題は 4.5.2 から発生するようになり、<code>wisptis.exe</code> が生成され、マウス入力がフリーズする可能性があります。|
+|提案される解決策|この問題はサービス リリースの .NET Framework 4.5.2 (修正プログラム ロールアップ 3026376) で、あるいは .NET Framework 4.6 にアップグレードすることで解決できます。|
 |スコープ|Major|
 |Version|4.5.2|
 |型|ランタイム|

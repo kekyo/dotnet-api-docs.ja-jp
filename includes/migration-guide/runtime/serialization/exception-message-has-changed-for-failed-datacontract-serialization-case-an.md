@@ -1,9 +1,9 @@
-### <a name="exception-message-has-changed-for-failed-datacontract-serialization-in-case-of-an-unknown-type"></a>例外メッセージが、不明な種類が発生した場合の障害が発生したの DataContract シリアル化に変更されました
+### <a name="exception-message-has-changed-for-failed-datacontract-serialization-in-case-of-an-unknown-type"></a>不明な型の場合に失敗した DataContract シリアル化の例外メッセージが変更された
 
 |   |   |
 |---|---|
-|説明|指定された場合、例外メッセージ、.NET Framework 4.6 以降、<xref:System.Runtime.Serialization.DataContractSerializer?displayProperty=name>または<xref:System.Runtime.Serialization.Json.DataContractJsonSerializer?displayProperty=name>'既知の型' がないため逆シリアル化または逆シリアル化に失敗するが明確化されました。|
-|提案される解決策|アプリは、特定の例外のメッセージに依存しないようにします。 場合によっては、このメッセージ アプリを更新してから、いずれかで新しいメッセージを期待できるまたは (可能であれば) に変更して、例外の種類のみに依存します。|
+|説明|.NET Framework 4.6 以降では、"既知の型" がないために <xref:System.Runtime.Serialization.DataContractSerializer?displayProperty=name> または <xref:System.Runtime.Serialization.Json.DataContractJsonSerializer?displayProperty=name> のシリアル化または逆シリアル化が失敗した場合に提供される例外メッセージが明確化されました。|
+|提案される解決策|アプリは、特定の例外メッセージに依存しないようにする必要があります。 アプリがこのメッセージに依存している場合は、新しいメッセージを使うように更新するか、(可能であれば) 例外の種類のみに依存するように変更してください。|
 |スコープ|エッジ|
 |Version|4.6|
 |型|ランタイム|

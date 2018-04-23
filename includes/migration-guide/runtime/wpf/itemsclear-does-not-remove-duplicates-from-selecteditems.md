@@ -1,9 +1,9 @@
-### <a name="itemsclear-does-not-remove-duplicates-from-selecteditems"></a>Items.Clear は、SelectedItems から重複部分は削除されません。
+### <a name="itemsclear-does-not-remove-duplicates-from-selecteditems"></a>Items.Clear で SelectedItems から重複部分が削除されない
 
 |   |   |
 |---|---|
-|説明|(複数選択が有効になっている) のセレクターに重複があるとすると、<xref:System.Windows.Controls.Primitives.MultiSelector.SelectedItems?displayProperty=name>コレクションに同じアイテムが複数回出現します。  それらを削除に失敗した (例: を Items.Clear を呼び出して) のデータ ソースからこれらの項目を削除する<xref:System.Windows.Controls.Primitives.MultiSelector.SelectedItems?displayProperty=name>だけ最初のインスタンスを削除します。 さらの後で使用<xref:System.Windows.Controls.Primitives.MultiSelector.SelectedItems?displayProperty=name>(例: SelectedItems.Clear()) が発生する問題など<xref:System.ArgumentException?displayProperty=name>ので、<xref:System.Windows.Controls.Primitives.MultiSelector.SelectedItems?displayProperty=name>不要になったデータ ソース内にあるアイテムが含まれています。|
-|提案される解決策|.NET 4.6.2 可能であればアップグレードします。|
+|説明|セレクター (複数選択が有効になっている) の <xref:System.Windows.Controls.Primitives.MultiSelector.SelectedItems?displayProperty=name> コレクションに重複部分があるとします。その場合、同じ項目が複数回表示されます。  データ ソースからこれらの項目を削除すると (たとえば、Items.Clear を呼び出すことにより)、<xref:System.Windows.Controls.Primitives.MultiSelector.SelectedItems?displayProperty=name> からそれらの項目を削除できなくなります。最初のインスタンスのみが削除されます。 さらに、<xref:System.Windows.Controls.Primitives.MultiSelector.SelectedItems?displayProperty=name> (SelectedItems.Clear() など) を引き続き使用すると、<xref:System.ArgumentException?displayProperty=name> などの問題が発生する可能性があります。これは、<xref:System.Windows.Controls.Primitives.MultiSelector.SelectedItems?displayProperty=name> に、データ ソース内にはもう存在しない項目が含まれているためです。|
+|提案される解決策|可能であれば、.NET 4.6.2 にアップグレードします。|
 |スコープ|マイナー|
 |Version|4.5|
 |型|ランタイム|

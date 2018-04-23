@@ -1,9 +1,9 @@
-### <a name="wcf-addressheadercollection-now-throws-an-argumentexception-if-an-addressheader-element-is-null"></a>WCF AddressHeaderCollection は、ArgumentException を addressHeader 要素が null の場合にスローようになりました
+### <a name="wcf-addressheadercollection-now-throws-an-argumentexception-if-an-addressheader-element-is-null"></a>addressHeader 要素が null の場合、WCF AddressHeaderCollection で ArgumentException がスローされるようになった
 
 |   |   |
 |---|---|
-|説明|.NET Framework 4.7.1、以降の<xref:System.ServiceModel.Channels.AddressHeaderCollection.%23ctor(System.Collections.Generic.IEnumerable{System.ServiceModel.Channels.AddressHeader})>コンス トラクターをスロー、<xref:System.ArgumentException>場合は、要素の 1 つ<code>null</code>です。 .NET Framework 4.7 と以前のバージョンでは、例外はスローされません。|
-|提案される解決策|発生した場合の .NET Framework 4.7.1 またはそれ以降のバージョンでこの変更との互換性の問題、することができますオプトアウトというに次の行を追加することによって、 <code>&lt;runtime&gt;</code> app.config ファイルのセクション。<pre><code class="language-xml">&lt;configuration&gt;&#13;&#10;&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.ServiceModel.DisableAddressHeaderCollectionValidation=true&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;&lt;/configuration&gt;&#13;&#10;</code></pre>|
+|説明|.NET Framework 4.7.1 以降では、要素のいずれかが <code>null</code> の場合、<xref:System.ServiceModel.Channels.AddressHeaderCollection.%23ctor(System.Collections.Generic.IEnumerable{System.ServiceModel.Channels.AddressHeader})> コンストラクターで <xref:System.ArgumentException> がスローされます。 .NET Framework 4.7 以前のバージョンでは、例外はスローされません。|
+|提案される解決策|.NET Framework 4.7.1 以降のバージョンでこの変更に関する互換性の問題が発生した場合は、次の行を app.config ファイルの <code>&lt;runtime&gt;</code> セクションに追加することで、無効にできます。<pre><code class="language-xml">&lt;configuration&gt;&#13;&#10;&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.ServiceModel.DisableAddressHeaderCollectionValidation=true&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;&lt;/configuration&gt;&#13;&#10;</code></pre>|
 |スコープ|マイナー|
 |Version|4.7.1|
 |型|ランタイム|

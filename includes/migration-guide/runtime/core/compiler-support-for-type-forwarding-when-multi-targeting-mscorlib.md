@@ -1,8 +1,8 @@
-### <a name="compiler-support-for-type-forwarding-when-multi-targeting-mscorlib"></a>型の転送時にコンパイラ サポート mscorlib のマルチ ターゲット
+### <a name="compiler-support-for-type-forwarding-when-multi-targeting-mscorlib"></a>mscorlib の複数バージョン対応時の型転送のコンパイラ サポート
 
 |   |   |
 |---|---|
-|説明|新しい CodeDOM の機能では、コンパイラが、mscorlib.dll の .NET Framework 4.5 のバージョンではなく、mscorlib.dll の対象バージョンに対してコンパイルできるようにします。|
+|説明|新しい CodeDOM の機能を使用すると、mscorlib.dll の .NET Framework 4.5 バージョンではなく、mscorlib.dll の対象バージョンに対してコンパイルできるようになります。|
 |スコープ|エッジ|
 |Version|4.5|
 |型|ランタイム|

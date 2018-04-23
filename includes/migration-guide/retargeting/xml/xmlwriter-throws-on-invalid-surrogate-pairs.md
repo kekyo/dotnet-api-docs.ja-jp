@@ -1,9 +1,9 @@
-### <a name="xmlwriter-throws-on-invalid-surrogate-pairs"></a>XmlWriter は無効なサロゲート ペアをスローします。
+### <a name="xmlwriter-throws-on-invalid-surrogate-pairs"></a>XmlWriter が無効なサロゲート ペアに対してスローされる
 
 |   |   |
 |---|---|
-|説明|.NET Framework 4.5.2 またはそれ以前のバージョンをターゲットとするアプリケーションの場合、例外フォールバック処理を使用した無効なサロゲート ペアを作成しても、必ず例外がスローされるとは限りません。 .NET Framework 4.6 を対象とするアプリの場合は、書き込む無効なサロゲート ペアをスローしようとすると、<xref:System.ArgumentException?displayProperty=name>です。|
-|提案される解決策|必要に応じて、この区切りは、.NET Framework 4.5.2 を対象として回避または以前に指定できます。 また、無効なサロゲート ペアは、有効な xml に書き込む前に、事前処理もあります。|
+|説明|.NET Framework 4.5.2 またはそれ以前のバージョンをターゲットとするアプリケーションの場合、例外フォールバック処理を使用した無効なサロゲート ペアを作成しても、必ず例外がスローされるとは限りません。 .NET Framework 4.6 をターゲットとするアプリでは、無効なサロゲート ペアを作成しようとすると、<xref:System.ArgumentException?displayProperty=name> がスローされます。|
+|提案される解決策|必要に応じて、.NET Framework 4.5.2 以前をターゲットとすることでこの問題を回避できます。 または、無効なサロゲート ペアを有効な xml に書き込む前に事前処理することもできます。|
 |スコープ|エッジ|
 |Version|4.6|
 |型|再ターゲット中|

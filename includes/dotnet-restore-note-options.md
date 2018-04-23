@@ -1,4 +1,4 @@
 > [!NOTE]
-> .NET Core 2.0 以降では、次のように実行する必要ありません[ `dotnet restore` ](~/docs/core/tools/dotnet-restore.md)実行されるため、暗黙的にすべてのコマンドによってなど`dotnet build`と`dotnet run`、発生するために復元を必要とします。 これがここで、明示的な復元を行って、意味の特定のシナリオで有効なコマンドなど[Visual Studio Team Services での継続的インテグレーション ビルド](/vsts/build-release/apps/aspnet/build-aspnet-core)または明示的にする時間を制御する必要があるビルド システムで、復元が発生します。
+> .NET Core 2.0 以降、[`dotnet restore`](~/docs/core/tools/dotnet-restore.md) を実行する必要がなくなりました。`dotnet build` や `dotnet run` のような、復元を必要とするあらゆるコマンドによって暗黙的に実行されるためです。 [Visual Studio Team Services の継続的インテグレーション ビルド](/vsts/build-release/apps/aspnet/build-aspnet-core)など、明示的な復元が合理的となる一部のシナリオや、復元の時刻を明示的に制御する必要があるビルド システムでは、引き続き有効なコマンドとなります。
 >
-> このコマンドもサポートしています、`dotnet restore`長い形式で渡されるときに [オプション] (たとえば、 `--source`)。 など、フォームのオプションの短い`-s`はサポートされていません。
+> このコマンドには `dotnet restore` オプションを指定できますが、`--source` のように長い形式で指定する必要があります。 `-s` のような短い形式のオプションはサポートされていません。

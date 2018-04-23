@@ -1,9 +1,9 @@
-### <a name="adonet-now-attempts-to-automatically-reconnect-broken-sql-connections"></a>ADO.NET は、今すぐ SQL 接続が切断されたを自動的に再接続を試みます
+### <a name="adonet-now-attempts-to-automatically-reconnect-broken-sql-connections"></a>ADO.NET では、切断された SQL 接続の再接続が自動的に試行されるようになりました
 
 |   |   |
 |---|---|
-|説明|.NET framework 4.5.1 以降では、.NET Framework は SQL 接続が切断されたを自動的に再接続を試みます。 これは通常のアプリの信頼性を高める、ことを知っておくアプリが必要なエッジ ケースがあるが再接続したときに何らかのアクションがかかることができるように、接続が失われました。|
-|提案される解決策|この機能が互換性の問題により望ましくない場合に無効にできる設定して、<xref:System.Data.SqlClient.SqlConnectionStringBuilder.ConnectRetryCount?displayProperty=name>接続文字列のプロパティ (または<xref:System.Data.SqlClient.SqlConnectionStringBuilder?displayProperty=name>) を 0 にします。|
+|説明|.NET Framework 4.5.1 以降、.NET Framework では、切断された SQL 接続の再接続が自動的に試行されます。 通常、これはアプリの安定性を高めますが、再接続時に行動できるよう、接続が失われたことをアプリに認識させる必要があるという極端な状況があります。|
+|提案される解決策|互換性の問題からこの機能が望ましくない場合、接続文字列 (または <xref:System.Data.SqlClient.SqlConnectionStringBuilder?displayProperty=name>) の <xref:System.Data.SqlClient.SqlConnectionStringBuilder.ConnectRetryCount?displayProperty=name> プロパティを 0 に設定することで無効にできます。|
 |スコープ|エッジ|
 |Version|4.5.1|
 |型|ランタイム|

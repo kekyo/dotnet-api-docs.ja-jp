@@ -1,9 +1,9 @@
-### <a name="ribbongroup-background-is-set-to-transparent-in-localized-builds"></a>RibbonGroup 背景がローカライズされたビルドで透過的に設定します。
+### <a name="ribbongroup-background-is-set-to-transparent-in-localized-builds"></a>ローカライズされたビルドで RibbonGroup の背景が透明に設定される
 
 |   |   |
 |---|---|
-|説明|<xref:System.Windows.Controls.Ribbon.RibbonGroup?displayProperty=name> UI エクスペリエンス。 不適切な結果として、透過的なブラシでは、ローカライズされたビルドで背景は描画が常にします。 これは固定で .NET 4.7 WPF 修正プログラムのローカライズされたリソースを更新することによって<xref:System.Windows.Controls.Ribbon.RibbonGroup?displayProperty=name>、正しいブラシが選択されているさらに保証されます。|
-|提案される解決策|.NET 4.7 へのアップグレード|
+|説明|ローカライズされたビルドの <xref:System.Windows.Controls.Ribbon.RibbonGroup?displayProperty=name> の背景が常に透明のブラシで塗りつぶされており、UI の操作性が低下していました。 これは、.NET 4.7 WPF 修正プログラムで修正されます。<xref:System.Windows.Controls.Ribbon.RibbonGroup?displayProperty=name> のローカライズされたリソースが更新され、正しいブラシが確実に選択されるようになります。|
+|提案される解決策|.NET 4.7 にアップグレードします。|
 |スコープ|エッジ|
 |Version|4.6.2|
 |型|ランタイム|

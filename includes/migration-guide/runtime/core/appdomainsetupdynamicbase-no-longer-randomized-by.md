@@ -1,9 +1,9 @@
-### <a name="appdomainsetupdynamicbase-is-no-longer-randomized-by-userandomizedstringhashalgorithm"></a>AppDomainSetup.DynamicBase が不要になった UseRandomizedStringHashAlgorithm でランダム化されました。
+### <a name="appdomainsetupdynamicbase-is-no-longer-randomized-by-userandomizedstringhashalgorithm"></a>AppDomainSetup.DynamicBase が UseRandomizedStringHashAlgorithm でランダム化されなくなった
 
 |   |   |
 |---|---|
-|説明|.NET Framework 4.6 の値の前に<xref:System.AppDomainSetup.DynamicBase>UseRandomizedStringHashAlgorithm アプリの構成ファイルに有効であった場合、アプリケーション ドメイン間またはプロセス間でランダム化はします。 以降、.NET Framework 4.6 で<xref:System.AppDomainSetup.DynamicBase>アプリの実行中の異なるインスタンス間で、別のアプリ ドメイン間に安定した結果が返されます。 別のアプリです。 この動的ベースが異なりますこの変更は、同じアプリの異なるインスタンスのランダムな名前付けの要素を削除するだけです。|
-|提案される解決策|注意してくださいできる<code>UseRandomizedStringHashAlgorithm</code>は発生しません<xref:System.AppDomainSetup.DynamicBase>ランダム化されています。 ランダムなベースは、必要な場合は、この API を使用してではなく、アプリのコードで生成する必要があります。|
+|説明|.NET Framework 4.6 より前では、UseRandomizedStringHashAlgorithm がアプリの構成ファイルで有効になっている場合、<xref:System.AppDomainSetup.DynamicBase> の値がアプリケーション ドメイン間、またはプロセス間でランダム化されます。 .NET Framework 4.6 以降では、<xref:System.AppDomainSetup.DynamicBase> は実行されているアプリの異なるインスタンス間、および異なるアプリ ドメイン間で安定した結果を返します。 それでも動的ベースはアプリによって異なります。この変更では、同じアプリの異なるインスタンスのランダムな名前付け要素のみが削除されます。|
+|提案される解決策|<code>UseRandomizedStringHashAlgorithm</code> を有効にすると、<xref:System.AppDomainSetup.DynamicBase> がランダム化されなくなることに注意してください。 ランダム ベースが必要な場合は、この API を使用するのではなく、アプリのコードで生成する必要があります。|
 |スコープ|エッジ|
 |Version|4.6|
 |型|ランタイム|

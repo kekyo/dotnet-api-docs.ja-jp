@@ -1,4 +1,4 @@
-### <a name="systemnetpeertopeercollaboration-unavailable-on-windows-8"></a>Windows 8 で使用できなくなった System.Net.PeerToPeer.Collaboration
+### <a name="systemnetpeertopeercollaboration-unavailable-on-windows-8"></a>Windows 8 で System.Net.PeerToPeer.Collaboration が使用できない
 
 |   |   |
 |---|---|

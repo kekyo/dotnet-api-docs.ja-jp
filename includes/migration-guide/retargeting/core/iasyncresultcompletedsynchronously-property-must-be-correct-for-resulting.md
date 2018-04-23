@@ -1,9 +1,9 @@
-### <a name="iasyncresultcompletedsynchronously-property-must-be-correct-for-the-resulting-task-to-complete"></a>IAsyncResult.CompletedSynchronously プロパティは、結果として得られるタスクが完了するのに適切である必要があります。
+### <a name="iasyncresultcompletedsynchronously-property-must-be-correct-for-the-resulting-task-to-complete"></a>IAsyncResult.CompletedSynchronously プロパティが正しくなければ、結果のタスクは完了しません
 
 |   |   |
 |---|---|
-|説明|TaskFactory.FromAsync の実装を呼び出すときに、<xref:System.IAsyncResult.CompletedSynchronously>プロパティは、結果として得られるタスクが完了するのに適切である必要があります。 つまり、実装が同期的に完了した場合にのみ、このプロパティは true を返す必要があります。 以前は、このプロパティは確認されていませんでした。|
-|提案される解決策|場合<xref:System.IAsyncResult?displayProperty=name>実装正しく true を返すため、<xref:System.IAsyncResult.CompletedSynchronously?displayProperty=name>プロパティは中断は検出されませんし、同期的に完了したタスク。 ユーザーを確認する必要があります<xref:System.IAsyncResult?displayProperty=name>実装、自分が所有 (存在する場合) を正しく評価できるかどうか、タスクが完了した同期的にかどうかを確認します。|
+|説明|TaskFactory.FromAsync を呼び出すとき、<xref:System.IAsyncResult.CompletedSynchronously> プロパティの実装が正しくなければ、結果のタスクは完了しません。 つまり、実装が同期的に完了した場合にのみ、このプロパティは true を返す必要があります。 以前は、このプロパティは確認されていませんでした。|
+|提案される解決策|タスクが同期的に完了したときにのみ、<xref:System.IAsyncResult?displayProperty=name> の実装が <xref:System.IAsyncResult.CompletedSynchronously?displayProperty=name> プロパティに true を返す場合、中断は発生しません。 ユーザーは、所有する <xref:System.IAsyncResult?displayProperty=name> の実装 (ある場合) を見直して、タスクが同期的に完了したかどうかを正しく評価することを確認する必要があります。|
 |スコープ|エッジ|
 |Version|4.5|
 |型|再ターゲット中|

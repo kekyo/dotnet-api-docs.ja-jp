@@ -1,9 +1,9 @@
-### <a name="sqlconnection-can-no-longer-connect-to-sql-server-1997-or-databases-using-the-via-adapter"></a>SQL Server 1997 または VIA アダプターを使用してデータベースに接続できなく SqlConnection
+### <a name="sqlconnection-can-no-longer-connect-to-sql-server-1997-or-databases-using-the-via-adapter"></a>SqlConnection は VIA アダプターを使用して SQL Server 1997 またはデータベースに接続できなくなりました
 
 |   |   |
 |---|---|
-|説明|使用して SQL Server データベースへの接続、[仮想インターフェイス アダプター (VIA) プロトコル](https://technet.microsoft.com/library/ms191229%28v=sql.105%29.aspx)現在サポートされていません。 SQL Server データベースへの接続に使用されるプロトコルは、接続文字列に表示されます。 VIA 接続にを使用してが含まれます:&lt;servername&gt;です。 VIA 以外のプロトコルを使用して、このアプリが SQL に接続するかどうか (tcp: や np: など)、重大な変更は検出されないし。また、SQL Server 7 (1997) への接続は現在サポートされていません。|
-|提案される解決策|別のプロトコルは、SQL データベースに接続するために使用する必要がありますので、VIA プロトコルは推奨されません。 最も一般的に使用されるプロトコルは TCP/IP です。 TCP/IP プロトコルを有効にするための手順を参照して[ここ](https://msdn.microsoft.com/library/bb909712.aspx)です。 データベースは、イントラネット内からのみアクセスは、ネットワーク速度が遅い場合、共有パイプのプロトコルは優れたパフォーマンスを実現可能性があります。|
+|説明|[仮想インターフェイス アダプター (VIA) プロトコル](https://technet.microsoft.com/library/ms191229%28v=sql.105%29.aspx)を使用した SQL Server データベースへの接続はサポートされなくなりました。 SQL Server データベースへの接続に使用されるプロトコルは、接続文字列で表示されます。 VIA 接続には via:&lt;servername&gt; が含まれます。 このアプリが VIA 以外のプロトコル (tcp: や np: など) を介して SQL に接続される場合、破壊的変更は検出されません。また、SQL Server 7 (1997) への接続がサポートされなくなります。|
+|提案される解決策|VIA プロトコルは推奨されていないので、SQL データベースに接続するには別のプロトコルを使用する必要があります。 最も一般的に使用されるプロトコルは TCP/IP です。 TCP/IP プロトコルを有効にするための手順については、[こちら](https://msdn.microsoft.com/library/bb909712.aspx)を参照してください。 データベースへのアクセスがイントラネット内からに限定されていて、ネットワーク速度が遅い場合は、共有パイプ プロトコルがより優れたパフォーマンスを提供する可能性があります。|
 |スコープ|エッジ|
 |Version|4.5|
 |型|ランタイム|

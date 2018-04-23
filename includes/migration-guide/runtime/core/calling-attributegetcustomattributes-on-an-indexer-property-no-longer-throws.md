@@ -1,4 +1,4 @@
-### <a name="calling-attributegetcustomattributes-on-an-indexer-property-no-longer-throws-ambiguousmatchexception-if-the-ambiguity-can-be-resolved-by-indexs-type"></a>インデックスの種類によって、あいまいさを解決できる場合、AmbiguousMatchException をスロー インデクサー プロパティで Attribute.GetCustomAttributes を呼び出すことと、不要になった
+### <a name="calling-attributegetcustomattributes-on-an-indexer-property-no-longer-throws-ambiguousmatchexception-if-the-ambiguity-can-be-resolved-by-indexs-type"></a>インデクサー プロパティに対して Attribute.GetCustomAttributes を呼び出しても、インデックスの型によって、あいまいさを解決できる場合、AmbiguousMatchException はスローされなくなった
 
 |   |   |
 |---|---|

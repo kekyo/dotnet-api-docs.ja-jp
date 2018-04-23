@@ -1,4 +1,4 @@
-### <a name="objectcontexttranslate-and-objectcontextexecutestorequery-now-support-enum-type"></a>ObjectContext.Translate と ObjectContext.ExecuteStoreQuery 列挙型をサポートします。
+### <a name="objectcontexttranslate-and-objectcontextexecutestorequery-now-support-enum-type"></a>ObjectContext.Translate と ObjectContext.ExecuteStoreQuery で列挙型がサポートされるようになった
 
 |   |   |
 |---|---|

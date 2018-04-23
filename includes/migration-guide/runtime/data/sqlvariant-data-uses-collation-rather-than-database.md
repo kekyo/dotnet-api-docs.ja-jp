@@ -1,4 +1,4 @@
-### <a name="sqlvariant-data-uses-sqlvariant-collation-rather-than-database-collation"></a>Sql_variant データは、データベースの照合順序ではなく、sql_variant 型の照合順序を使用します。
+### <a name="sqlvariant-data-uses-sqlvariant-collation-rather-than-database-collation"></a>sql_variant データはデータベースの照合順序ではなく、sql_variant の照合順序を使用する
 
 |   |   |
 |---|---|

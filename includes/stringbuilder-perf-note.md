@@ -1,18 +1,18 @@
-文字ベースのインデックスを使用して、<xref:System.Text.StringBuilder.Chars%2A>プロパティは、次の条件下で非常に低速であることができます。
+<xref:System.Text.StringBuilder.Chars%2A> プロパティで文字ベースのインデックス付けを使用すると、次の条件下では非常に遅くなることがあります。
 
-- <xref:System.Text.StringBuilder>インスタンスが大きい (たとえば、含まれています数万文字)。
-- <xref:System.Text.StringBuilder>は"chunky"なです。 つまりなどメソッドへの呼び出しを繰り返す<xref:System.Text.StringBuilder.Append%2A?displayProperty=nameWithType>オブジェクトの拡張に自動的に<xref:System.Text.StringBuilder.Capacity%2A?displayProperty=nameWithType>プロパティと、メモリの割り当てられた新しいチャンクです。
+- <xref:System.Text.StringBuilder> インスタンスが大きい (たとえば、数万文字が含まれている)。
+- <xref:System.Text.StringBuilder> が "チャンク化" している。 つまり、<xref:System.Text.StringBuilder.Append%2A?displayProperty=nameWithType> などのメソッドの反復的な呼び出しにより、オブジェクトの <xref:System.Text.StringBuilder.Capacity%2A?displayProperty=nameWithType> プロパティが自動的に展開され、メモリの新しいチャンクがそれに割り当てられています。
 
-各文字のアクセスは、リンク リスト全体にインデックスを適切なバッファーを検索するチャンクのため、パフォーマンスが著しく低下します。
+文字にアクセスするたびに、チャンクのリンク リスト全体が走査されて、インデックスを付ける適切なバッファーが検索されるため、パフォーマンスが著しく低下します。
 
 > [!NOTE]
->  大規模なであっても"chunky な"<xref:System.Text.StringBuilder>オブジェクトを使用して、<xref:System.Text.StringBuilder.Chars%2A>プロパティを 1 つまたは少数の文字インデックス ベースのアクセスをごくわずかでありのパフォーマンスに影響は通常、これは、 **0 (n)**操作します。 内の文字を反復処理するときに、パフォーマンスに大きな影響が発生、<xref:System.Text.StringBuilder>オブジェクトは、 **O(n^2)**操作します。 
+>  大きな "チャンク化" した <xref:System.Text.StringBuilder> オブジェクトの場合でも、1 つまたは少数の文字へのインデックス ベースのアクセスに <xref:System.Text.StringBuilder.Chars%2A> プロパティを使うと、パフォーマンスへの影響はごくわずかです。通常、これは **0(n)** 操作です。 <xref:System.Text.StringBuilder> オブジェクト内の文字を反復処理するときは、パフォーマンスに大きな影響が発生します。これは、**O(n^2)** 操作でます。 
 
-文字ベースのインデックスを使用してパフォーマンスの問題が発生した場合<xref:System.Text.StringBuilder>オブジェクトを次の回避策のいずれかを使用することができます。
+<xref:System.Text.StringBuilder> オブジェクトで文字ベースのインデックス付けを使うときにパフォーマンスの問題が発生する場合は、次のいずれかの回避策を使うことができます。
 
-- 変換、<xref:System.Text.StringBuilder>インスタンスを<xref:System.String>を呼び出して、<xref:System.Text.StringBuilder.ToString%2A>メソッドを文字列内の文字にアクセスします。
+- <xref:System.Text.StringBuilder.ToString%2A> メソッドを呼び出して <xref:System.Text.StringBuilder> インスタンスを <xref:System.String> に変換した後、文字列内の文字にアクセスします。
 
-- 既存の内容をコピー<xref:System.Text.StringBuilder>を新しいオブジェクトが事前にサイズ設定<xref:System.Text.StringBuilder>オブジェクト。 パフォーマンス向上のため、新しい<xref:System.Text.StringBuilder>chunky なオブジェクトではありません。 例:
+- 既存の <xref:System.Text.StringBuilder> オブジェクトの内容を、事前にサイズを設定した新しい <xref:System.Text.StringBuilder> オブジェクトにコピーします。 新しい <xref:System.Text.StringBuilder> オブジェクトはチャンク化していないため、パフォーマンスが向上します。 例:
 
    ```csharp
    // sbOriginal is the existing StringBuilder object
@@ -22,4 +22,4 @@
    ' sbOriginal is the existing StringBuilder object
    Dim sbNew = New StringBuilder(sbOriginal.ToString(), sbOriginal.Length)
    ```
-- 初期容量の設定、<xref:System.Text.StringBuilder>は呼び出すことによって、最大の予想サイズにほぼ等しいを値にオブジェクト、<xref:System.Text.StringBuilder.%23ctor(System.Int32)>コンス トラクターです。 場合であってもメモリ全体のブロックを割り当てますこのことに注意してください、<xref:System.Text.StringBuilder>ほとんど処理能力の上限に到達します。
+- <xref:System.Text.StringBuilder.%23ctor(System.Int32)> コンストラクターを呼び出して、<xref:System.Text.StringBuilder> オブジェクトの初期容量を、予想される最大サイズにほぼ等しい値に設定します。 このようにすると、<xref:System.Text.StringBuilder> が最大容量に達することがほとんどない場合であっても、メモリ ブロック全体が割り当てられることに注意してください。

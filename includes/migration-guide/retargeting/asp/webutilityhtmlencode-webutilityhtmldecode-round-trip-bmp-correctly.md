@@ -1,9 +1,9 @@
-### <a name="webutilityhtmlencode-and-webutilityhtmldecode-round-trip-bmp-correctly"></a>WebUtility.HtmlEncode および WebUtility.HtmlDecode ラウンドト リップ BMP 正しく
+### <a name="webutilityhtmlencode-and-webutilityhtmldecode-round-trip-bmp-correctly"></a>WebUtility.HtmlEncode と WebUtility.HtmlDecode で BMP が正常に往復する
 
 |   |   |
 |---|---|
-|説明|.NET Framework 4.5、外側にある、基本的な (bmp: Multilingual Plane) のラウンドト リップ正しくに渡されるときに文字を対象とするアプリケーションの<xref:System.Net.WebUtility.HtmlDecode(System.String)>メソッドです。|
-|提案される解決策|この変更が現在のアプリケーションには影響はありませんが、元の動作を復元するには設定する必要があります、<code>targetFramework</code>の属性、<code>&lt;httpRuntime&gt;</code>要素以外の文字列を&quot;4.5&quot;です。 また、.NET Framework の対象バージョンに関係なくこの動作を制御するために <code>unicodeEncodingConformance</code> 構成要素の <code>unicodeDecodingConformance</code> 属性と <code>&lt;webUtility&gt;</code> 属性を設定することもできます。|
+|説明|.NET Framework 4.5 を対象とするアプリケーションの場合、基本多言語面 (BMP: Basic Multilingual Plane) の外部にある文字は、<xref:System.Net.WebUtility.HtmlDecode(System.String)> メソッドに渡されたときに正常に往復します。|
+|提案される解決策|この変更は現在のアプリケーションに影響を与えないはずですが、元の動作に戻すには、<code>&lt;httpRuntime&gt;</code> 要素の <code>targetFramework</code> 属性を &quot;4.5&quot; 以外の文字列に設定します。 また、.NET Framework の対象バージョンに関係なくこの動作を制御するために <code>unicodeEncodingConformance</code> 構成要素の <code>unicodeDecodingConformance</code> 属性と <code>&lt;webUtility&gt;</code> 属性を設定することもできます。|
 |スコープ|エッジ|
 |Version|4.5|
 |型|再ターゲット中|

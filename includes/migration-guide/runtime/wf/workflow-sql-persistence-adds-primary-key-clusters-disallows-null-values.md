@@ -1,9 +1,9 @@
-### <a name="workflow-sql-persistence-adds-primary-key-clusters-and-disallows-null-values-in-some-columns"></a>ワークフローの SQL 永続化を追加主キーがクラスターし、一部の列に null 値は許可されていません
+### <a name="workflow-sql-persistence-adds-primary-key-clusters-and-disallows-null-values-in-some-columns"></a>Workflow SQL の永続化で主キー クラスターが追加され、一部の列の null 値が許可されない
 
 |   |   |
 |---|---|
-|説明|.NET Framework 4.7 から始めて、SqlWorkflowInstanceStoreSchema.sql スクリプトによって SQL ワークフロー インスタンス ストア (SWIS) 用に作成されたテーブルはクラスター化された主キーを使用します。 このため、ユーザーはサポートしていない<code>null</code>値。 SWIS の操作は、この変更による影響はありません。 更新プログラムが SQL Server のトランザクション レプリケーションをサポートするために行われました。|
-|提案される解決策|SqlWorkflowInstanceStoreSchemaUpgrade.sql SQL ファイルは、この変更が発生するために、既存のインストールに適用する必要があります。 新しいデータベースのインストールは、変更を自動的にがあります。|
+|説明|.NET Framework 4.7 以降では、SqlWorkflowInstanceStoreSchema.sql スクリプトで SQL Workflow Instance Store (SWIS) に作成されたテーブルにはクラスター化された主キーが使用されます。 そのため、ID では <code>null</code> 値はサポートされません。 SWIS の操作には、この変更による影響はありません。 SQL Server トランザクション レプリケーションをサポートするように更新されました。|
+|提案される解決策|この変更では、SQL ファイルの SqlWorkflowInstanceStoreSchemaUpgrade.sql を既存のインストールに適用する必要があります。 新しいデータベースのインストールは自動的に変更されます。|
 |スコープ|エッジ|
 |Version|4.7|
 |型|ランタイム|

@@ -1,9 +1,9 @@
-### <a name="assemblies-compiled-with-regexcompiletoassembly-breaks-between-40-and-45"></a>4.0 および 4.5 Regex.CompileToAssembly の区切り記号でコンパイルされたアセンブリ
+### <a name="assemblies-compiled-with-regexcompiletoassembly-breaks-between-40-and-45"></a>Regex.CompileToAssembly でコンパイルされたアセンブリは 4.0 と 4.5 の間で区別されます
 
 |   |   |
 |---|---|
-|説明|コンパイルされる正規表現のアセンブリが .NET Framework 4.5 は .NET Framework 4 を対象に組み込まれている場合は、例外をスロー システム上で .NET Framework 4 アセンブリをインストールするには、正規表現のいずれかを使用しようとしています。|
-|提案される解決策|この問題を回避するには、次のいずれかの方法を実行します。<ul><li>.NET Framework 4 の正規表現を含むアセンブリをビルドします。</li><li>解釈される正規表現を使用します。</li></ul>|
+|説明|コンパイル済みの正規表現のアセンブリが .NET Framework 4.5 でビルドされ、.NET Framework 4 を対象としている場合、.NET Framework 4 がインストールされているシステム上でそのアセンブリの正規表現の 1 つを使用しようとすると、例外をスローします。|
+|提案される解決策|この問題を回避するには、次のいずれかの方法を実行します。<ul><li>.NET Framework 4 を使用して正規表現を含むアセンブリをビルドします。</li><li>解釈される正規表現を使用します。</li></ul>|
 |スコープ|マイナー|
 |Version|4.5|
 |型|ランタイム|

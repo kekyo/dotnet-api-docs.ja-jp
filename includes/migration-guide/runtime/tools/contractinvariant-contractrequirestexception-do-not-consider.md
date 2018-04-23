@@ -1,9 +1,9 @@
-### <a name="contractinvariant-or-contractrequirestexception-do-not-consider-stringisnullorempty-to-be-pure"></a>Contract.Invariant または Contract.Requires<TException>純粋に String.IsNullOrEmpty は考慮されません
+### <a name="contractinvariant-or-contractrequirestexception-do-not-consider-stringisnullorempty-to-be-pure"></a>Contract.Invariant または Contract.Requires<TException> が String.IsNullOrEmpty の純粋性を考慮しない
 
 |   |   |
 |---|---|
-|説明|固定コントラクトの場合は、.NET Framework 4.6.1 を対象とするアプリの<xref:System.Diagnostics.Contracts.Contract.Invariant%2A?displayProperty=nameWithType>または前提条件のコントラクトを<xref:System.Diagnostics.Contracts.Contract.Requires%2A?displayProperty=nameWithType)>呼び出し、<xref:System.String.IsNullOrEmpty%2A?displayProperty=nameWithType>メソッド、リライター出力コンパイラの警告 CC1036:&quot;メソッドへの呼び出しを検出しました 'System.String.IsNullOrWhteSpace(System.String)' [単純] せずメソッドにします。&quot;これは、コンパイラの警告はコンパイラ エラーではなくです。|
-|提案される解決策|この動作については [GitHubの問題 #339](https://github.com/Microsoft/CodeContracts/issues/339) で報告されています。 この警告をなくすため、ダウンロードしてから、コード コントラクト ツールのソース コードの更新バージョンをコンパイル[GitHub](https://github.com/Microsoft/CodeContracts/blob/master/README.md)です。 ページ下部から情報をダウンロードできます。|
+|説明|.NET Framework 4.6.1 が対象のアプリでは、<xref:System.Diagnostics.Contracts.Contract.Invariant%2A?displayProperty=nameWithType> の不変コントラクトまたは <xref:System.Diagnostics.Contracts.Contract.Requires%2A?displayProperty=nameWithType)> の実行前の状態のコントラクトが <xref:System.String.IsNullOrEmpty%2A?displayProperty=nameWithType> メソッドを呼び出した場合、リライターはコンパイラの警告 CC1036: &quot;Detected call to method 'System.String.IsNullOrWhiteSpace(System.String)' without [Pure] in method.&quot; を生成します。これはコンパイラ エラーではなく、コンパイラ警告です。|
+|提案される解決策|この動作については [GitHubの問題 #339](https://github.com/Microsoft/CodeContracts/issues/339) で報告されています。 この警告が表示されないようにするには、コード コントラクト ツールのソース コードの更新バージョンを [GitHub](https://github.com/Microsoft/CodeContracts/blob/master/README.md) からダウンロードしてコンパイルします。 ページ下部から情報をダウンロードできます。|
 |スコープ|マイナー|
 |Version|4.6.1|
 |型|ランタイム|
