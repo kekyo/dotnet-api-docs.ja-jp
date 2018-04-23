@@ -1,9 +1,9 @@
-### <a name="change-in-behavior-for-taskwaitall-methods-with-time-out-arguments"></a>タイムアウト引数を持つ Task.WaitAll メソッドの動作を変更します。
+### <a name="change-in-behavior-for-taskwaitall-methods-with-time-out-arguments"></a>タイムアウト引数を持つ Task.WaitAll メソッドの動作の変更
 
 |   |   |
 |---|---|
-|説明|Task.WaitAll 動作が行われたより一貫性のある .NET 4.5.In で .NET Framework 4 で、これらのメソッドの動作が矛盾していました。 タイムアウトの期限が切れたときに、メソッドを呼び出す前に完了した、またはキャンセルされたタスクが 1 つ以上ある場合、メソッドでは <xref:System.AggregateException?displayProperty=name> 例外がスローされていました。 タイムアウトの期限が切れると、メソッド呼び出しの前に完了またはキャンセルされたタスクはなかったが、メソッド呼び出し後に 1 つ以上のタスクがこれらの状態になると、メソッドは false を返しました。<br/><br/>.NET Framework 4.5 でこれらのメソッド オーバー ロードを返します、タイムアウトの期限が切れたし、スローされるときに、すべてのタスクが実行中の場合は false、 <xref:System.AggregateException?displayProperty=name> (メソッドの前後であったかに関係なく、入力タスクが取り消された場合にのみ例外呼び出す) その他のタスクがまだ実行されていないとします。|
-|提案される解決策|場合、<xref:System.AggregateException?displayProperty=name>コード IsCanceled プロパティ経由で同じ検出を行う必要があります代わりに呼び出される WaitAll 呼び出しの前にキャンセルされたタスクを検出するための手段としてキャッチされているされました (例: です。Any(t =&gt; t.IsCanceled)) ため、待機中のすべてのタスクがタイムアウトする前に完了した場合、.NET 4.6 はその場合にスローのみです。|
+|説明|.NET 4.5 では、Task.WaitAll の動作が、より一貫性のあるものになりました。.NET Framework 4 では、これらのメソッドの動作に一貫性がありませんでした。 タイムアウトの期限が切れたときに、メソッドを呼び出す前に完了した、またはキャンセルされたタスクが 1 つ以上ある場合、メソッドでは <xref:System.AggregateException?displayProperty=name> 例外がスローされていました。 タイムアウトの期限が切れると、メソッド呼び出しの前に完了またはキャンセルされたタスクはなかったが、メソッド呼び出し後に 1 つ以上のタスクがこれらの状態になると、メソッドは false を返しました。<br/><br/>.NET Framework 4.5 では、これらのメソッドのオーバーロードは、タイムアウト期限が切れたときにタスクがまだ実行中であった場合は false を返し、入力タスクがキャンセルされ (メソッド呼び出しの前か後かに関わらず)、他に実行中のタスクがなかった場合に限り、<xref:System.AggregateException?displayProperty=name> 例外をスローします。|
+|提案される解決策|WaitAll 呼び出しが呼び出される前にキャンセルされたタスクを検出する手段として <xref:System.AggregateException?displayProperty=name> がキャッチされていた場合、.NET 4.6 は、すべての待機中タスクがタイムアウトの前に完了した場合に限ってスローするため、そのコードは、代わりに IsCanceled プロパティによって同じ検出を行う必要があります (例: .Any(t =&gt; t.IsCanceled))。|
 |スコープ|マイナー|
 |Version|4.5|
 |型|ランタイム|

@@ -1,9 +1,9 @@
-### <a name="serialport-background-thread-exceptions"></a>SerialPort バック グラウンド スレッド例外
+### <a name="serialport-background-thread-exceptions"></a>SerialPort バックグラウンド スレッドの例外
 
 |   |   |
 |---|---|
-|説明|作成されたスレッドのバック グラウンド<xref:System.IO.Ports.SerialPort>ストリームが不要になった OS 例外がスローされたときに、プロセスが終了します。作成されたバック グラウンド スレッドで、オペレーティング システムの例外がスローされたときに、.NET Framework 4.7 と以前のバージョンを対象とするアプリケーションでプロセスが終了した、<xref:System.IO.Ports.SerialPort>ストリーム。アプリケーションで対象とする .NET Framework 4.7.1 またはそれ以降のバージョンでは、OS のイベントをバック グラウンド スレッドが待機はアクティブなシリアル ポートに関連して、シリアル ポートの急激な削除などのいくつかの場合、クラッシュすることがします。|
-|提案される解決策|アプリについては、.NET Framework 4.7.1 を対象とする、選択を解除することが望ましくない場合に、次を追加することで、例外処理、<code>&lt;runtime&gt;</code>のセクションで、<code>app.config</code>ファイル。<pre><code class="language-xml">&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.IO.Ports.DoNotCatchSerialStreamThreadExceptions=true&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;</code></pre>対象とするアプリの .NET Framework の以前のバージョンが、.NET Framework 4.7.1 または実行例外には、次を追加することで処理にオプトインした後で、<code>&lt;runtime&gt;</code>のセクションで、<code>app.config</code>ファイル。<pre><code class="language-xml">&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.IO.Ports.DoNotCatchSerialStreamThreadExceptions=false&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;</code></pre>|
+|説明|OS 例外がスローされたとき、<xref:System.IO.Ports.SerialPort> ストリームで作成されたバックグラウンド スレッドによってプロセスが終了することがなくなりました。.NET Framework 4.7 以前のバージョンを対象とするアプリケーションでは、<xref:System.IO.Ports.SerialPort> ストリームで作成されたバックグラウンド スレッドでオペレーティング システムの例外がスローされたとき、プロセスが終了になります。.NET Framework 4.7.1 以降のバージョンを対象とするアプリケーションでは、バックグラウンド スレッドは、アクティブ シリアル ポートに関連付けられている OS イベントを待ち、シリアル ポートが突然取り除かれるなどの場合、クラッシュすることがあります。|
+|提案される解決策|.NET Framework 4.7.1 を対象とするアプリケーションの場合、例外処理が望ましくないときは、<code>app.config</code> ファイルの <code>&lt;runtime&gt;</code> セクションに次を追加することで例外処理を無効にできます。<pre><code class="language-xml">&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.IO.Ports.DoNotCatchSerialStreamThreadExceptions=true&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;</code></pre>以前のバージョンの .NET Framework を対象とするが、.NET Framework 4.7.1 以降で実行するアプリの場合、<code>app.config</code> ファイルの <code>&lt;runtime&gt;</code> セクションに次を追加することで例外処理を選択できます。<pre><code class="language-xml">&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.IO.Ports.DoNotCatchSerialStreamThreadExceptions=false&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;</code></pre>|
 |スコープ|マイナー|
 |Version|4.7.1|
 |型|再ターゲット中|

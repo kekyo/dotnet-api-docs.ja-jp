@@ -1,9 +1,9 @@
-### <a name="rsacng-and-dsacng-are-once-again-usable-in-partial-trust-scenarios"></a>RSACng と DSACng がもう一度部分信頼シナリオでは使用できません。
+### <a name="rsacng-and-dsacng-are-once-again-usable-in-partial-trust-scenarios"></a>部分信頼のシナリオで RSACng と DSACng が再び使用可能に
 
 |   |   |
 |---|---|
-|説明|CngLightup (いくつかの上位レベルの暗号化で使用される api など<xref:System.Security.Cryptography.Xml.EncryptedXml?displayProperty=nameWithType>) と<xref:System.Security.Cryptography.RSACng?displayProperty=nameWithType>場合によっては、完全な信頼に依存します。 アサートせず P/invoke が含まれます<xref:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode?displayProperty=nameWithType>権限、およびコード パスで<xref:System.Security.Cryptography.CngKey?displayProperty=nameWithType>の需要のアクセス許可を持つ<xref:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode?displayProperty=nameWithType>します。 .NET Framework 4.6.2 から始めて、CngLightup に切り替えるには使用された<xref:System.Security.Cryptography.RSACng?displayProperty=nameWithType>可能な限りです。 その結果、部分信頼アプリケーションを正常に使用された<xref:System.Security.Cryptography.Xml.EncryptedXml?displayProperty=nameWithType>が失敗し、スローを開始した<xref:System.Security.SecurityException>例外。この変更は、CngLightup を使用してすべての機能が必要なアクセス許可を持っているので、必要なアサートを追加します。|
-|提案される解決策|.NET Framework 4.6.2 でこの変更には、部分信頼アプリケーションが悪影響を場合は、.NET Framework 4.7.1 にアップグレードします。|
+|説明|CngLightup (<xref:System.Security.Cryptography.Xml.EncryptedXml?displayProperty=nameWithType> などの複数の上位レベル暗号化 API で使われます) および <xref:System.Security.Cryptography.RSACng?displayProperty=nameWithType> は、完全信頼に依存する場合があります。 たとえば、<xref:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode?displayProperty=nameWithType> アクセス許可をアサートしない P/Invoke や、<xref:System.Security.Cryptography.CngKey?displayProperty=nameWithType> に <xref:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode?displayProperty=nameWithType> に対するアクセス許可要求があるコード パスなどです。 .NET Framework 4.6.2 以降では、CngLightup は可能な場合に常に <xref:System.Security.Cryptography.RSACng?displayProperty=nameWithType> に切り替えるために使われました。 その結果、<xref:System.Security.Cryptography.Xml.EncryptedXml?displayProperty=nameWithType> を正常に使っていた部分信頼アプリが、失敗して <xref:System.Security.SecurityException> 例外をスローするようになりました。この変更では、CngLightup を使っているすべての関数が必要なアクセス許可を持つように、必要なアサートが追加されます。|
+|提案される解決策|.NET Framework 4.6.2 でのこの変更により部分信頼アプリに悪影響があった場合は、.NET Framework 4.7.1 にアップグレードしてください。|
 |スコープ|エッジ|
 |Version|4.6.2|
 |型|ランタイム|

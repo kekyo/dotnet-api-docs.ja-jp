@@ -1,9 +1,9 @@
-### <a name="xmlserializer-fails-while-serializing-a-type-that-hides-an-accessible-member-with-an-inaccessible-one"></a>XmlSerializer がアクセス不可能のいずれかでアクセス可能なメンバーを非表示にする型をシリアル化中に失敗しました。
+### <a name="xmlserializer-fails-while-serializing-a-type-that-hides-an-accessible-member-with-an-inaccessible-one"></a>アクセス可能なメンバーを非表示にする型をアクセス不可のメンバーでシリアル化すると、XmlSerializer が失敗する
 
 |   |   |
 |---|---|
-|説明|派生型をシリアル化するとき、<xref:System.Xml.Serialization.XmlSerializer?displayProperty=name>型にアクセスできないフィールドまたは非表示にする ('new' キーワード) を使用してフィールドまたはプロパティが既にアクセス可能な (パブリック、たとえば) ものと同じ名前の基本型のプロパティが含まれている場合に失敗することができます。|
-|提案される解決策|新しい非表示のメンバーがアクセスできるようにするでこの問題を解決する、 <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> (マークすることによって、パブリックなど)。また、次の構成設定が、4.0 に戻ります。 <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> 、問題が解決の動作。<pre><code class="language-xml">&lt;system.xml.serialization&gt;&#13;&#10;&lt;xmlSerializer useLegacySerializerGeneration=&quot;true&quot; /&gt;&#13;&#10;&lt;/system.xml.serialization&gt;&#13;&#10;</code></pre>|
+|説明|基本型で (パブリックなど) 以前はアクセス可能だった同じ名前のフィールドまたはプロパティを ("新しい" キーワードを使用して) 非表示にするアクセス不可のフィールドまたはプロパティが型に含まれている場合、派生型をシリアル化すると、<xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> が失敗する可能性があります。|
+|提案される解決策|この問題は、新しい非表示メンバーを <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> にアクセスできるようにする (パブリックにするなど) ことで解決できます。または、次の構成設定で 4.0 <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> の動作に戻します。これにより、問題が解決されます。<pre><code class="language-xml">&lt;system.xml.serialization&gt;&#13;&#10;&lt;xmlSerializer useLegacySerializerGeneration=&quot;true&quot; /&gt;&#13;&#10;&lt;/system.xml.serialization&gt;&#13;&#10;</code></pre>|
 |スコープ|マイナー|
 |Version|4.5|
 |型|ランタイム|
