@@ -1,577 +1,222 @@
-<Type Name="SymmetricSecurityBindingElement" FullName="System.ServiceModel.Channels.SymmetricSecurityBindingElement">
-  <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="e27ddebb5e77c32b9aedfe7c8390ce11eaeca71f" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
-    <Meta Name="ms.translationtype" Value="HT" />
-    <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-  </Metadata>
-  <TypeSignature Language="C#" Value="public sealed class SymmetricSecurityBindingElement : System.ServiceModel.Channels.SecurityBindingElement, System.ServiceModel.Description.IPolicyExportExtension" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit SymmetricSecurityBindingElement extends System.ServiceModel.Channels.SecurityBindingElement implements class System.ServiceModel.Description.IPolicyExportExtension" />
-  <TypeSignature Language="DocId" Value="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" />
-  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class SymmetricSecurityBindingElement&#xA;Inherits SecurityBindingElement&#xA;Implements IPolicyExportExtension" />
-  <TypeSignature Language="C++ CLI" Value="public ref class SymmetricSecurityBindingElement sealed : System::ServiceModel::Channels::SecurityBindingElement, System::ServiceModel::Description::IPolicyExportExtension" />
-  <AssemblyInfo>
-    <AssemblyName>System.ServiceModel</AssemblyName>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-  </AssemblyInfo>
-  <Base>
-    <BaseTypeName>System.ServiceModel.Channels.SecurityBindingElement</BaseTypeName>
-  </Base>
-  <Interfaces>
-    <Interface>
-      <InterfaceName>System.ServiceModel.Description.IPolicyExportExtension</InterfaceName>
-    </Interface>
-  </Interfaces>
-  <Docs>
-    <summary>
-      <span data-ttu-id="d4510-101">対称暗号化を使用するチャネル セキュリティをサポートするカスタム バインド要素を表します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="d4510-101">Represents a custom binding element that supports channel security using symmetric encryption.</span>
-      </span>
-    </summary>
-    <remarks>
-      <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="d4510-102">カスタム バインドには、特定の順序で配置されたバインド要素のコレクションが含まれます。バインド スタックの一番上を表す要素が最初に追加され、バインド スタックの 1 つ下の要素が 2 番目に追加される、という順序で配置されます。</span><span class="sxs-lookup"><span data-stu-id="d4510-102">A custom binding contains a collection of binding elements arranged in a specific order: the element that represents the top of the binding stack is added first, the next element down in the binding stack, is added second, and so forth.</span></span>  
-  
-### <a name="to-add-this-class-to-a-binding"></a><span data-ttu-id="d4510-103">このクラスをバインドに追加するには</span><span class="sxs-lookup"><span data-stu-id="d4510-103">To add this class to a binding</span></span>  
-  
-1.  <span data-ttu-id="d4510-104"><xref:System.ServiceModel.Channels.BindingElementCollection> を作成します。</span><span class="sxs-lookup"><span data-stu-id="d4510-104">Create a <xref:System.ServiceModel.Channels.BindingElementCollection>.</span></span>  
-  
-2.  <span data-ttu-id="d4510-105">オプションの <xref:System.ServiceModel.Channels.TransactionFlowBindingElement> や <xref:System.ServiceModel.Channels.ReliableSessionBindingElement> など、バインド スタックでこのバインド要素の上になるカスタム バインド要素を作成します。</span><span class="sxs-lookup"><span data-stu-id="d4510-105">Create custom binding elements that is above this binding element in the binding stack, such as the optional <xref:System.ServiceModel.Channels.TransactionFlowBindingElement> and <xref:System.ServiceModel.Channels.ReliableSessionBindingElement>.</span></span>  
-  
-3.  <span data-ttu-id="d4510-106"><xref:System.ServiceModel.Channels.BindingElementCollection> メソッドを使用して、作成した要素を前述の順序で <xref:System.ServiceModel.Channels.BindingElementCollection.InsertItem%2A> に追加します。</span><span class="sxs-lookup"><span data-stu-id="d4510-106">Add the created elements, in the order mentioned previously, to the <xref:System.ServiceModel.Channels.BindingElementCollection> using the <xref:System.ServiceModel.Channels.BindingElementCollection.InsertItem%2A> method.</span></span>  
-  
-4.  <span data-ttu-id="d4510-107"><xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement> インスタンスを作成して、コレクションに追加します。</span><span class="sxs-lookup"><span data-stu-id="d4510-107">Create an instance of <xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement> and add it to the collection.</span></span>  
-  
-5.  <span data-ttu-id="d4510-108"><xref:System.ServiceModel.Channels.TcpTransportBindingElement> など、追加のカスタム バインド要素があればコレクションに追加します。</span><span class="sxs-lookup"><span data-stu-id="d4510-108">Add any additional custom binding elements to the collection, such as <xref:System.ServiceModel.Channels.TcpTransportBindingElement>.</span></span>  
-  
-> [!NOTE]
->  <span data-ttu-id="d4510-109">このオブジェクトのインスタンスが作成されたら、基本クラス <xref:System.ServiceModel.Channels.SecurityBindingElement> のプロパティを変更不可として扱う必要があります。</span><span class="sxs-lookup"><span data-stu-id="d4510-109">Once an instance of this object is created, you should treat the properties of its base class, <xref:System.ServiceModel.Channels.SecurityBindingElement>, as immutable.</span></span> <span data-ttu-id="d4510-110">一部のプロパティで `set` を呼び出すと、予期しない結果になることがあります。プロパティに古い値が保持されているかのようにバインディングが動作し、この問題が発生したことを示すのが、ランタイム エラーのみとなる場合があります。</span><span class="sxs-lookup"><span data-stu-id="d4510-110">Calling `set` on some properties may have unpredictable effects: the binding may behave as if the property retained its old value, with a run-time failure being the only indication of an issue.</span></span> <span data-ttu-id="d4510-111">このように動作することがわかっているプロパティは <xref:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.KeyType%2A> と <xref:System.ServiceModel.Channels.SecurityBindingElement.MessageSecurityVersion%2A> の 2 つです。</span><span class="sxs-lookup"><span data-stu-id="d4510-111">Two properties known to behave this way are <xref:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.KeyType%2A> and <xref:System.ServiceModel.Channels.SecurityBindingElement.MessageSecurityVersion%2A>.</span></span> <span data-ttu-id="d4510-112">他にも同じように動作するプロパティが存在する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="d4510-112">There may be other properties for which this is true.</span></span>  
-  
- ]]></format>
-    </remarks>
-  </Docs>
-  <Members>
-    <MemberGroup MemberName=".ctor">
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="d4510-113">
-            <see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> クラスの新しいインスタンスを初期化します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-113">Initializes a new instance of the <see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> class.</span>
-          </span>
-        </summary>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public SymmetricSecurityBindingElement ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.#ctor" />
-      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; SymmetricSecurityBindingElement();" />
-      <MemberType>Constructor</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Parameters />
-      <Docs>
-        <summary>
-          <span data-ttu-id="d4510-114">
-            <see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> クラスの新しいインスタンスを初期化します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-114">Initializes a new instance of the <see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> class.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Examples  
- <span data-ttu-id="d4510-115">次のコードは、このコンストラクターを使用する方法を示しています。</span><span class="sxs-lookup"><span data-stu-id="d4510-115">The following code shows how to use this constructor.</span></span>  
-  
- [!code-csharp[c_CustomBinding#4](~/samples/snippets/csharp/VS_Snippets_CFX/c_custombinding/cs/c_custombinding.cs#4)]  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public SymmetricSecurityBindingElement (System.ServiceModel.Security.Tokens.SecurityTokenParameters protectionTokenParameters);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.ServiceModel.Security.Tokens.SecurityTokenParameters protectionTokenParameters) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.#ctor(System.ServiceModel.Security.Tokens.SecurityTokenParameters)" />
-      <MemberSignature Language="VB.NET" Value="Public Sub New (protectionTokenParameters As SecurityTokenParameters)" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; SymmetricSecurityBindingElement(System::ServiceModel::Security::Tokens::SecurityTokenParameters ^ protectionTokenParameters);" />
-      <MemberType>Constructor</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Parameters>
-        <Parameter Name="protectionTokenParameters" Type="System.ServiceModel.Security.Tokens.SecurityTokenParameters" />
-      </Parameters>
-      <Docs>
-        <param name="protectionTokenParameters">
-          <span data-ttu-id="d4510-116">
-            <see cref="T:System.ServiceModel.Security.Tokens.SecurityTokenParameters" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-116">The <see cref="T:System.ServiceModel.Security.Tokens.SecurityTokenParameters" />.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="d4510-117">指定したセキュリティ トークン パラメーターを使用して、<see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> クラスの新しいインスタンスを初期化します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-117">Initializes a new instance of the <see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> class using specified security token parameters.</span>
-          </span>
-        </summary>
-        <remarks>To be added.</remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="BuildChannelFactoryCore&lt;TChannel&gt;">
-      <MemberSignature Language="C#" Value="protected override System.ServiceModel.Channels.IChannelFactory&lt;TChannel&gt; BuildChannelFactoryCore&lt;TChannel&gt; (System.ServiceModel.Channels.BindingContext context);" />
-      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.ServiceModel.Channels.IChannelFactory`1&lt;!!TChannel&gt; BuildChannelFactoryCore&lt;TChannel&gt;(class System.ServiceModel.Channels.BindingContext context) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.BuildChannelFactoryCore``1(System.ServiceModel.Channels.BindingContext)" />
-      <MemberSignature Language="VB.NET" Value="Protected Overrides Function BuildChannelFactoryCore(Of TChannel) (context As BindingContext) As IChannelFactory(Of TChannel)" />
-      <MemberSignature Language="C++ CLI" Value="protected:&#xA;generic &lt;typename TChannel&gt;&#xA; override System::ServiceModel::Channels::IChannelFactory&lt;TChannel&gt; ^ BuildChannelFactoryCore(System::ServiceModel::Channels::BindingContext ^ context);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.ServiceModel.Channels.IChannelFactory&lt;TChannel&gt;</ReturnType>
-      </ReturnValue>
-      <TypeParameters>
-        <TypeParameter Name="TChannel" />
-      </TypeParameters>
-      <Parameters>
-        <Parameter Name="context" Type="System.ServiceModel.Channels.BindingContext" />
-      </Parameters>
-      <Docs>
-        <typeparam name="TChannel">To be added.</typeparam>
-        <param name="context">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="BuildChannelListenerCore&lt;TChannel&gt;">
-      <MemberSignature Language="C#" Value="protected override System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListenerCore&lt;TChannel&gt; (System.ServiceModel.Channels.BindingContext context) where TChannel : class, System.ServiceModel.Channels.IChannel;" />
-      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListenerCore&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.ServiceModel.Channels.BindingContext context) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.BuildChannelListenerCore``1(System.ServiceModel.Channels.BindingContext)" />
-      <MemberSignature Language="VB.NET" Value="Protected Overrides Function BuildChannelListenerCore(Of TChannel As {Class, IChannel}) (context As BindingContext) As IChannelListener(Of TChannel)" />
-      <MemberSignature Language="C++ CLI" Value="protected:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel override System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListenerCore(System::ServiceModel::Channels::BindingContext ^ context);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt;</ReturnType>
-      </ReturnValue>
-      <TypeParameters>
-        <TypeParameter Name="TChannel">
-          <Constraints>
-            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
-            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
-          </Constraints>
-        </TypeParameter>
-      </TypeParameters>
-      <Parameters>
-        <Parameter Name="context" Type="System.ServiceModel.Channels.BindingContext" />
-      </Parameters>
-      <Docs>
-        <typeparam name="TChannel">To be added.</typeparam>
-        <param name="context">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="Clone">
-      <MemberSignature Language="C#" Value="public override System.ServiceModel.Channels.BindingElement Clone ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.ServiceModel.Channels.BindingElement Clone() cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone" />
-      <MemberSignature Language="VB.NET" Value="Public Overrides Function Clone () As BindingElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::ServiceModel::Channels::BindingElement ^ Clone();" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.ServiceModel.Channels.BindingElement</ReturnType>
-      </ReturnValue>
-      <Parameters />
-      <Docs>
-        <summary>
-          <span data-ttu-id="d4510-118">このクラスの新しいインスタンスを作成し、現在のインスタンスで初期化します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-118">Creates a new instance of this class initialized from the current one.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="d4510-119">現在のインスタンスと同じプロパティ値が設定された <see cref="T:System.ServiceModel.Channels.BindingElement" /> オブジェクト。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-119">A <see cref="T:System.ServiceModel.Channels.BindingElement" /> object with property values equal to those of the current instance.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="d4510-120">これは、現在のバインド要素のオブジェクト ツリーの完全なコピーを作成します。これはディープ クローンとも呼ばれます。</span><span class="sxs-lookup"><span data-stu-id="d4510-120">This creates a complete copy of the current binding element object tree, also called a deep clone.</span></span> <span data-ttu-id="d4510-121">オブジェクトのディープ クローンでは、オブジェクトのコピーと、このオブジェクトによって直接的または間接的に参照されるすべての対象のコピーが作成されます。</span><span class="sxs-lookup"><span data-stu-id="d4510-121">A deep clone of an object creates a copy of the object and a copy of everything directly or indirectly referenced by that object.</span></span> <span data-ttu-id="d4510-122">これは、オブジェクト グラフ全体のコピーとして記述できます。</span><span class="sxs-lookup"><span data-stu-id="d4510-122">This can also be described as copying the entire object graph.</span></span> <span data-ttu-id="d4510-123">ディープ クローンを返すと、ランタイムでは、複数のカスタム バインドがカスタム バインド要素を共有する場合をサポートできます。</span><span class="sxs-lookup"><span data-stu-id="d4510-123">Returning a deep clone enables the runtime to support the case in which multiple custom bindings share a custom binding element.</span></span> <span data-ttu-id="d4510-124">ディープ クローンが返されない場合、ランタイムの動作は未定義です。</span><span class="sxs-lookup"><span data-stu-id="d4510-124">If a deep clone is not returned, the run-time behavior is undefined.</span></span>  
-  
- <span data-ttu-id="d4510-125">オブジェクトのシャロー クローンは、対照的に、オブジェクトだけをコピーしたものです。</span><span class="sxs-lookup"><span data-stu-id="d4510-125">A shallow clone of an object, by contrast, is a copy of the object only.</span></span> <span data-ttu-id="d4510-126">オブジェクトが他のオブジェクトへの参照を含んでいる場合、シャロー コピーでは、参照されるオブジェクトのコピーは作成されません。代わりに元のオブジェクトへの参照だけがコピーされます。</span><span class="sxs-lookup"><span data-stu-id="d4510-126">If the object contains references to other objects, the shallow copy does not create copies of the referred objects; instead, it copies only the references to the original objects.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="GetProperty&lt;T&gt;">
-      <MemberSignature Language="C#" Value="public override T GetProperty&lt;T&gt; (System.ServiceModel.Channels.BindingContext context) where T : class;" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance !!T GetProperty&lt;class T&gt;(class System.ServiceModel.Channels.BindingContext context) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)" />
-      <MemberSignature Language="VB.NET" Value="Public Overrides Function GetProperty(Of T As Class) (context As BindingContext) As T" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; where T : class override T GetProperty(System::ServiceModel::Channels::BindingContext ^ context);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>T</ReturnType>
-      </ReturnValue>
-      <TypeParameters>
-        <TypeParameter Name="T">
-          <Constraints>
-            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
-          </Constraints>
-        </TypeParameter>
-      </TypeParameters>
-      <Parameters>
-        <Parameter Name="context" Type="System.ServiceModel.Channels.BindingContext" />
-      </Parameters>
-      <Docs>
-        <typeparam name="T">
-          <span data-ttu-id="d4510-127">取得するオブジェクトの型。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-127">The type of the object to get.</span>
-          </span>
-        </typeparam>
-        <param name="context">
-          <span data-ttu-id="d4510-128">
-            <see cref="T:System.ServiceModel.Channels.BindingContext" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-128">A <see cref="T:System.ServiceModel.Channels.BindingContext" />.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="d4510-129">
-            <see cref="T:System.ServiceModel.Channels.BindingContext" /> から指定したオブジェクトを取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-129">Gets a specified object from the <see cref="T:System.ServiceModel.Channels.BindingContext" />.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="d4510-130">
-            <see cref="T:System.ServiceModel.Channels.BindingContext" /> からの <paramref name="T" /> 型の指定されたオブジェクト。オブジェクトが見つからない場合は <see langword="null" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-130">The specified object of type <paramref name="T" /> from the <see cref="T:System.ServiceModel.Channels.BindingContext" />, or <see langword="null" /> if the object is not found.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="d4510-131">このメソッドは、基本クラスまたはそのクラスの先祖から、指定したオブジェクトを取得します。</span><span class="sxs-lookup"><span data-stu-id="d4510-131">This method gets the specified object from the base class or from one of that class's ancestors.</span></span> <span data-ttu-id="d4510-132">返されるオブジェクトは、通常、プロパティのコレクションです。たとえば、<xref:System.ServiceModel.Channels.ISecurityCapabilities> を実装するオブジェクトなどです。</span><span class="sxs-lookup"><span data-stu-id="d4510-132">The object returned is usually a collection of properties, for example an object that implements <xref:System.ServiceModel.Channels.ISecurityCapabilities>.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="MessageProtectionOrder">
-      <MemberSignature Language="C#" Value="public System.ServiceModel.Security.MessageProtectionOrder MessageProtectionOrder { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.ServiceModel.Security.MessageProtectionOrder MessageProtectionOrder" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder" />
-      <MemberSignature Language="VB.NET" Value="Public Property MessageProtectionOrder As MessageProtectionOrder" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::ServiceModel::Security::MessageProtectionOrder MessageProtectionOrder { System::ServiceModel::Security::MessageProtectionOrder get(); void set(System::ServiceModel::Security::MessageProtectionOrder value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.ServiceModel.Security.MessageProtectionOrder</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="d4510-133">このバインドのメッセージの暗号化と署名の命令を取得または設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-133">Gets or sets the order of message encryption and signing for this binding.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="d4510-134">メッセージの保護方法を指定する <see cref="T:System.ServiceModel.Security.MessageProtectionOrder" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-134">The <see cref="T:System.ServiceModel.Security.MessageProtectionOrder" /> that specifies how the message is protected.</span>
-          </span>
-          <span data-ttu-id="d4510-135">既定値は、<see cref="F:System.ServiceModel.Security.MessageProtectionOrder.SignBeforeEncrypt" /> です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-135">The default is <see cref="F:System.ServiceModel.Security.MessageProtectionOrder.SignBeforeEncrypt" />.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
-  
-> [!NOTE]
->  <span data-ttu-id="d4510-136">メッセージ内に暗号化する対象が存在しない場合は、<xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder%2A> プロパティが <xref:System.ServiceModel.Security.MessageProtectionOrder.SignBeforeEncryptAndEncryptSignature> に設定されていても、署名要素は暗号化されません。</span><span class="sxs-lookup"><span data-stu-id="d4510-136">If there is nothing in the message that is encrypted, the signature element is not encrypted even when the <xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder%2A> property is set to <xref:System.ServiceModel.Security.MessageProtectionOrder.SignBeforeEncryptAndEncryptSignature>.</span></span> <span data-ttu-id="d4510-137">この動作は、システム指定のバインディングでも発生します。</span><span class="sxs-lookup"><span data-stu-id="d4510-137">This behavior occurs even with system-provided bindings.</span></span> <span data-ttu-id="d4510-138">ただし、WSDL がによって生成[!INCLUDE[indigo2](~/includes/indigo2-md.md)]まだ含まれている、<`sp:EncryptSignature`> アサーションです。</span><span class="sxs-lookup"><span data-stu-id="d4510-138">However, the WSDL generated by [!INCLUDE[indigo2](~/includes/indigo2-md.md)] still contains the <`sp:EncryptSignature`> assertion.</span></span>  
-  
- <span data-ttu-id="d4510-139">メンバーとその説明の一覧については、<xref:System.ServiceModel.Security.MessageProtectionOrder> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="d4510-139">For a listing of the members and their descriptions, see <xref:System.ServiceModel.Security.MessageProtectionOrder>.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="d4510-140">次のコードに、このプロパティを設定する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="d4510-140">The following code shows how to set this property.</span></span>  
-  
- [!code-csharp[c_CustomBinding#5](~/samples/snippets/csharp/VS_Snippets_CFX/c_custombinding/cs/c_custombinding.cs#5)]  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="d4510-141">
-            <see langword="set" /> と <see langword="value" /> が未定義です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-141">
-              <see langword="set" /> and <see langword="value" /> is undefined.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <Member MemberName="ProtectionTokenParameters">
-      <MemberSignature Language="C#" Value="public System.ServiceModel.Security.Tokens.SecurityTokenParameters ProtectionTokenParameters { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance class System.ServiceModel.Security.Tokens.SecurityTokenParameters ProtectionTokenParameters" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ProtectionTokenParameters" />
-      <MemberSignature Language="VB.NET" Value="Public Property ProtectionTokenParameters As SecurityTokenParameters" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::ServiceModel::Security::Tokens::SecurityTokenParameters ^ ProtectionTokenParameters { System::ServiceModel::Security::Tokens::SecurityTokenParameters ^ get(); void set(System::ServiceModel::Security::Tokens::SecurityTokenParameters ^ value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.ServiceModel.Security.Tokens.SecurityTokenParameters</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="d4510-142">保護トークン パラメーターを取得または設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-142">Gets or sets the protection token parameters.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="d4510-143">
-            <see cref="T:System.ServiceModel.Security.Tokens.SecurityTokenParameters" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-143">The <see cref="T:System.ServiceModel.Security.Tokens.SecurityTokenParameters" />.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Examples  
- <span data-ttu-id="d4510-144">次のコードに、このプロパティを設定する方法を示します。</span><span class="sxs-lookup"><span data-stu-id="d4510-144">The following code shows how to set this property.</span></span>  
-  
- [!code-csharp[c_CustomBinding#6](~/samples/snippets/csharp/VS_Snippets_CFX/c_custombinding/cs/c_custombinding.cs#6)]  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="RequireSignatureConfirmation">
-      <MemberSignature Language="C#" Value="public bool RequireSignatureConfirmation { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance bool RequireSignatureConfirmation" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation" />
-      <MemberSignature Language="VB.NET" Value="Public Property RequireSignatureConfirmation As Boolean" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool RequireSignatureConfirmation { bool get(); void set(bool value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Boolean</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="d4510-145">メッセージの署名を確認する必要があるかどうかを示す値を取得または設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-145">Gets or sets a value that indicates whether message signatures must be confirmed.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="d4510-146">メッセージの署名を確認する必要がある場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-146">
-              <see langword="true" /> if message signatures must be confirmed; otherwise, <see langword="false" />.</span>
-          </span>
-          <span data-ttu-id="d4510-147">既定値は、<see langword="false" /> です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-147">The default is <see langword="false" />.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="d4510-148">このプロパティは、署名を暗号化する必要があるかどうかを指定します。</span><span class="sxs-lookup"><span data-stu-id="d4510-148">This property specifies whether the signature must be encrypted.</span></span> <span data-ttu-id="d4510-149">値が `true` の場合、プライマリ署名を暗号化すると共に、署名確認要素も暗号化する必要があります。</span><span class="sxs-lookup"><span data-stu-id="d4510-149">If the value is `true`, the primary signature must be encrypted and any signature confirmation elements must also be encrypted.</span></span> <span data-ttu-id="d4510-150">値が `false` の場合、プライマリ署名も、署名確認要素も暗号化できません。</span><span class="sxs-lookup"><span data-stu-id="d4510-150">If the value is `false`, the primary signature must not be encrypted and any signature confirmation elements must not be encrypted.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="SetKeyDerivation">
-      <MemberSignature Language="C#" Value="public override void SetKeyDerivation (bool requireDerivedKeys);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void SetKeyDerivation(bool requireDerivedKeys) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.SetKeyDerivation(System.Boolean)" />
-      <MemberSignature Language="VB.NET" Value="Public Overrides Sub SetKeyDerivation (requireDerivedKeys As Boolean)" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void SetKeyDerivation(bool requireDerivedKeys);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Void</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="requireDerivedKeys" Type="System.Boolean" />
-      </Parameters>
-      <Docs>
-        <param name="requireDerivedKeys">
-          <span data-ttu-id="d4510-151">派生キーが必要な場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-151">
-              <see langword="true" /> to indicate that derived keys are required; otherwise, <see langword="false" />.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="d4510-152">派生キーが必要かどうかを示す値を設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-152">Sets a value that indicates whether derived keys are required.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="d4510-153">派生キーは、既存のキーから作成され、通信で使用されるキーをさまざまに変えることができます。</span><span class="sxs-lookup"><span data-stu-id="d4510-153">A derived key is created from an existing key and makes it possible to vary the key used in the course of a conversation.</span></span> <span data-ttu-id="d4510-154">これは、ハッカーによる通信の解読を難しくします。</span><span class="sxs-lookup"><span data-stu-id="d4510-154">This makes it more difficult for a hacker to decrypt the communication.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="System.ServiceModel.Description.IPolicyExportExtension.ExportPolicy">
-      <MemberSignature Language="C#" Value="void IPolicyExportExtension.ExportPolicy (System.ServiceModel.Description.MetadataExporter exporter, System.ServiceModel.Description.PolicyConversionContext context);" />
-      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance void System.ServiceModel.Description.IPolicyExportExtension.ExportPolicy(class System.ServiceModel.Description.MetadataExporter exporter, class System.ServiceModel.Description.PolicyConversionContext context) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)" />
-      <MemberSignature Language="VB.NET" Value="Sub ExportPolicy (exporter As MetadataExporter, context As PolicyConversionContext) Implements IPolicyExportExtension.ExportPolicy" />
-      <MemberSignature Language="C++ CLI" Value=" virtual void System.ServiceModel.Description.IPolicyExportExtension.ExportPolicy(System::ServiceModel::Description::MetadataExporter ^ exporter, System::ServiceModel::Description::PolicyConversionContext ^ context) = System::ServiceModel::Description::IPolicyExportExtension::ExportPolicy;" />
-      <MemberType>Method</MemberType>
-      <Implements>
-        <InterfaceMember>M:System.ServiceModel.Description.IPolicyExportExtension.ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)</InterfaceMember>
-      </Implements>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Void</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="exporter" Type="System.ServiceModel.Description.MetadataExporter" />
-        <Parameter Name="context" Type="System.ServiceModel.Description.PolicyConversionContext" />
-      </Parameters>
-      <Docs>
-        <param name="exporter">
-          <span data-ttu-id="d4510-155">エクスポート プロセスを変更するために使用できる <see cref="T:System.ServiceModel.Description.MetadataExporter" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-155">The <see cref="T:System.ServiceModel.Description.MetadataExporter" /> that you can use to modify the exporting process.</span>
-          </span>
-        </param>
-        <param name="context">
-          <span data-ttu-id="d4510-156">カスタム ポリシー アサーションの挿入に使用できる <see cref="T:System.ServiceModel.Description.PolicyConversionContext" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-156">The <see cref="T:System.ServiceModel.Description.PolicyConversionContext" /> that you can use to insert your custom policy assertion.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="d4510-157">バインディングに関するカスタム ポリシー アサーションをエクスポートします。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-157">Exports a custom policy assertion about bindings.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="d4510-158">このメソッドは、バインドに関連するステートメントを、特定のコントラクトによって公開される WSDL 情報に書き込みます。また、[!INCLUDE[indigo1](~/includes/indigo1-md.md)] によって、バインド スタック内にこのカスタム バインド要素があることをクライアントに伝えるために使用されます。</span><span class="sxs-lookup"><span data-stu-id="d4510-158">This method writes binding-related statements into the WSDL information exposed by a particular contract and is used by [!INCLUDE[indigo1](~/includes/indigo1-md.md)] to communicate to clients of the existence of this custom binding element in the binding stack.</span></span>  
-  
- <span data-ttu-id="d4510-159">このメソッドには、<xref:System.ServiceModel.Description.MetadataExporter> オブジェクトおよび <xref:System.ServiceModel.Description.PolicyConversionContext> オブジェクトの 2 つのパラメーターがあります。</span><span class="sxs-lookup"><span data-stu-id="d4510-159">This method takes two parameters: the <xref:System.ServiceModel.Description.MetadataExporter> and <xref:System.ServiceModel.Description.PolicyConversionContext> objects.</span></span> <span data-ttu-id="d4510-160"><xref:System.ServiceModel.Description.PolicyConversionContext.GetBindingAssertions%2A>、<xref:System.ServiceModel.Description.PolicyConversionContext.GetMessageBindingAssertions%2A>、および <xref:System.ServiceModel.Description.PolicyConversionContext.GetOperationBindingAssertions%2A> の各メソッドを使用して、既にさまざまなスコープでエクスポートされているポリシー アサーションのコレクションを取得します。</span><span class="sxs-lookup"><span data-stu-id="d4510-160">Use the <xref:System.ServiceModel.Description.PolicyConversionContext.GetBindingAssertions%2A>, <xref:System.ServiceModel.Description.PolicyConversionContext.GetMessageBindingAssertions%2A>, and <xref:System.ServiceModel.Description.PolicyConversionContext.GetOperationBindingAssertions%2A> methods to obtain collections of policy assertions that have already been exported at various scopes.</span></span> <span data-ttu-id="d4510-161">次に、このメソッドを使用して、独自のポリシー アサーションを適切なコレクションに追加します。</span><span class="sxs-lookup"><span data-stu-id="d4510-161">Then use this method to add your own policy assertions to the appropriate collection.</span></span>  
-  
- <span data-ttu-id="d4510-162"><xref:System.ServiceModel.Description.PolicyConversionContext.Contract%2A> プロパティは、エクスポートされるエンドポイントの <xref:System.ServiceModel.Description.ContractDescription> を公開します。</span><span class="sxs-lookup"><span data-stu-id="d4510-162">The <xref:System.ServiceModel.Description.PolicyConversionContext.Contract%2A> property exposes the <xref:System.ServiceModel.Description.ContractDescription> for the endpoint that is being exported.</span></span> <span data-ttu-id="d4510-163">これにより、このメソッドは、エクスポートされたポリシー アサーションを正しく特定できます。</span><span class="sxs-lookup"><span data-stu-id="d4510-163">This allows this method to correctly scope their exported policy assertions.</span></span> <span data-ttu-id="d4510-164">たとえば、コード内のセキュリティ属性は、セキュリティ ポリシー アサーションを追加する必要がある場所を示す <xref:System.ServiceModel.Description.ContractDescription> に動作を追加できます。</span><span class="sxs-lookup"><span data-stu-id="d4510-164">For example, security attributes in code may add behaviors to the <xref:System.ServiceModel.Description.ContractDescription> that indicate where security policy assertions should be added.</span></span>  
-  
- <span data-ttu-id="d4510-165">カスタム ポリシー アサーションが WSDL 情報に結び付けられると、クライアントは、<xref:System.ServiceModel.Description.IPolicyImportExtension> インターフェイスを実装することによって、カスタム バインド アサーションを検出し、インポートできます。</span><span class="sxs-lookup"><span data-stu-id="d4510-165">Once custom policy assertions are attached to the WSDL information, clients can detect and import the custom binding assertions by implementing the <xref:System.ServiceModel.Description.IPolicyImportExtension> interface.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="ToString">
-      <MemberSignature Language="C#" Value="public override string ToString ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ToString() cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ToString" />
-      <MemberSignature Language="VB.NET" Value="Public Overrides Function ToString () As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::String ^ ToString();" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Parameters />
-      <Docs>
-        <summary>
-          <span data-ttu-id="d4510-166">この <see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> インスタンスを表す文字列を返します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-166">Returns a string that represents this <see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> instance.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="d4510-167">この <see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> インスタンスを表す文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="d4510-167">A string that represents this <see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /> instance.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="d4510-168"><xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ToString%2A> から返される情報には、現在のインスタンスの <xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder%2A>、<xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation%2A>、および <xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ProtectionTokenParameters%2A> の値が含まれます。</span><span class="sxs-lookup"><span data-stu-id="d4510-168">Information returned by <xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ToString%2A> includes the <xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder%2A>, <xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation%2A>, and <xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ProtectionTokenParameters%2A> values of the current instance.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-  </Members>
-</Type>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" original="SymmetricSecurityBindingElement.xml" source-language="en-US" target-language="ja-JP">
+    <header>
+      <tool tool-id="mdxliff" tool-name="mdxliff" tool-version="1.0-efd8310" tool-company="Microsoft" />
+      <xliffext:skl_file_name xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">73cd4428-9abd-4836-b1ef-ba70fe2e0b7284ceec2188db08311f21c6c229fca3a0de4de8e5.skl</xliffext:skl_file_name>
+      <xliffext:version xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">1.2</xliffext:version>
+      <xliffext:ms.openlocfilehash xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">84ceec2188db08311f21c6c229fca3a0de4de8e5</xliffext:ms.openlocfilehash>
+      <xliffext:ms.sourcegitcommit xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">cc0c87a2e12b0fb9ba9ecdd3d4950f0572524db8</xliffext:ms.sourcegitcommit>
+      <xliffext:ms.lasthandoff xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">05/03/2018</xliffext:ms.lasthandoff>
+      <xliffext:moniker_ids xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">netframework-4.5.1,netframework-4.5.2,netframework-4.5,netframework-4.6.1,netframework-4.6.2,netframework-4.6,netframework-4.7.1,netframework-4.7.2,netframework-4.7</xliffext:moniker_ids>
+    </header>
+    <body>
+      <group id="content" extype="content">
+        <trans-unit id="101" translate="yes" xml:space="preserve" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Represents a custom binding element that supports channel security using symmetric encryption.</source>
+          <target state="translated">対称暗号化を使用するチャネル セキュリティをサポートするカスタム バインド要素を表します。</target>       </trans-unit>
+        <trans-unit id="102" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>A custom binding contains a collection of binding elements arranged in a specific order: the element that represents the top of the binding stack is added first, the next element down in the binding stack, is added second, and so forth.</source>
+          <target state="translated">カスタム バインドには、特定の順序で配置されたバインド要素のコレクションが含まれます。バインド スタックの一番上を表す要素が最初に追加され、バインド スタックの 1 つ下の要素が 2 番目に追加される、という順序で配置されます。</target>       </trans-unit>
+        <trans-unit id="103" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>To add this class to a binding</source>
+          <target state="translated">このクラスをバインドに追加するには</target>       </trans-unit>
+        <trans-unit id="104" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Create a <ph id="ph1">&lt;xref:System.ServiceModel.Channels.BindingElementCollection&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.Channels.BindingElementCollection&gt;</ph> を作成します。</target>       </trans-unit>
+        <trans-unit id="105" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Create custom binding elements that is above this binding element in the binding stack, such as the optional <ph id="ph1">&lt;xref:System.ServiceModel.Channels.TransactionFlowBindingElement&gt;</ph> and <ph id="ph2">&lt;xref:System.ServiceModel.Channels.ReliableSessionBindingElement&gt;</ph>.</source>
+          <target state="translated">オプションの <ph id="ph1">&lt;xref:System.ServiceModel.Channels.TransactionFlowBindingElement&gt;</ph> や <ph id="ph2">&lt;xref:System.ServiceModel.Channels.ReliableSessionBindingElement&gt;</ph> など、バインド スタックでこのバインド要素の上になるカスタム バインド要素を作成します。</target>       </trans-unit>
+        <trans-unit id="106" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Add the created elements, in the order mentioned previously, to the <ph id="ph1">&lt;xref:System.ServiceModel.Channels.BindingElementCollection&gt;</ph> using the <ph id="ph2">&lt;xref:System.ServiceModel.Channels.BindingElementCollection.InsertItem%2A&gt;</ph> method.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.Channels.BindingElementCollection&gt;</ph> メソッドを使用して、作成した要素を前述の順序で <ph id="ph2">&lt;xref:System.ServiceModel.Channels.BindingElementCollection.InsertItem%2A&gt;</ph> に追加します。</target>       </trans-unit>
+        <trans-unit id="107" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Create an instance of <ph id="ph1">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement&gt;</ph> and add it to the collection.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement&gt;</ph> インスタンスを作成して、コレクションに追加します。</target>       </trans-unit>
+        <trans-unit id="108" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Add any additional custom binding elements to the collection, such as <ph id="ph1">&lt;xref:System.ServiceModel.Channels.TcpTransportBindingElement&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.Channels.TcpTransportBindingElement&gt;</ph> など、追加のカスタム バインド要素があればコレクションに追加します。</target>       </trans-unit>
+        <trans-unit id="109" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Once an instance of this object is created, you should treat the properties of its base class, <ph id="ph1">&lt;xref:System.ServiceModel.Channels.SecurityBindingElement&gt;</ph>, as immutable.</source>
+          <target state="translated">このオブジェクトのインスタンスが作成されたら、基本クラス <ph id="ph1">&lt;xref:System.ServiceModel.Channels.SecurityBindingElement&gt;</ph> のプロパティを変更不可として扱う必要があります。</target>       </trans-unit>
+        <trans-unit id="110" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Calling <ph id="ph1">`set`</ph> on some properties may have unpredictable effects: the binding may behave as if the property retained its old value, with a run-time failure being the only indication of an issue.</source>
+          <target state="translated">一部のプロパティで <ph id="ph1">`set`</ph> を呼び出すと、予期しない結果になることがあります。プロパティに古い値が保持されているかのようにバインディングが動作し、この問題が発生したことを示すのが、ランタイム エラーのみとなる場合があります。</target>       </trans-unit>
+        <trans-unit id="111" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Two properties known to behave this way are <ph id="ph1">&lt;xref:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.KeyType%2A&gt;</ph> and <ph id="ph2">&lt;xref:System.ServiceModel.Channels.SecurityBindingElement.MessageSecurityVersion%2A&gt;</ph>.</source>
+          <target state="translated">このように動作することがわかっているプロパティは <ph id="ph1">&lt;xref:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.KeyType%2A&gt;</ph> と <ph id="ph2">&lt;xref:System.ServiceModel.Channels.SecurityBindingElement.MessageSecurityVersion%2A&gt;</ph> の 2 つです。</target>       </trans-unit>
+        <trans-unit id="112" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>There may be other properties for which this is true.</source>
+          <target state="translated">他にも同じように動作するプロパティが存在する可能性があります。</target>       </trans-unit>
+        <trans-unit id="113" translate="yes" xml:space="preserve" uid="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> class.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> クラスの新しいインスタンスを初期化します。</target>       </trans-unit>
+        <trans-unit id="114" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.#ctor">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> class.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> クラスの新しいインスタンスを初期化します。</target>       </trans-unit>
+        <trans-unit id="115" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.#ctor">
+          <source>The following code shows how to use this constructor.</source>
+          <target state="translated">次のコードは、このコンストラクターを使用する方法を示しています。</target>       </trans-unit>
+        <trans-unit id="116" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.#ctor(System.ServiceModel.Security.Tokens.SecurityTokenParameters)">
+          <source>The <ph id="ph1">&lt;see cref="T:System.ServiceModel.Security.Tokens.SecurityTokenParameters" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.ServiceModel.Security.Tokens.SecurityTokenParameters" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="117" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.#ctor(System.ServiceModel.Security.Tokens.SecurityTokenParameters)">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> class using specified security token parameters.</source>
+          <target state="translated">指定したセキュリティ トークン パラメーターを使用して、<ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> クラスの新しいインスタンスを初期化します。</target>       </trans-unit>
+        <trans-unit id="118" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone">
+          <source>Creates a new instance of this class initialized from the current one.</source>
+          <target state="translated">このクラスの新しいインスタンスを作成し、現在のインスタンスで初期化します。</target>       </trans-unit>
+        <trans-unit id="119" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone">
+          <source>A <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.BindingElement" /&gt;</ph> object with property values equal to those of the current instance.</source>
+          <target state="translated">現在のインスタンスと同じプロパティ値が設定された <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.BindingElement" /&gt;</ph> オブジェクト。</target>       </trans-unit>
+        <trans-unit id="120" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone">
+          <source>This creates a complete copy of the current binding element object tree, also called a deep clone.</source>
+          <target state="translated">これは、現在のバインド要素のオブジェクト ツリーの完全なコピーを作成します。これはディープ クローンとも呼ばれます。</target>       </trans-unit>
+        <trans-unit id="121" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone">
+          <source>A deep clone of an object creates a copy of the object and a copy of everything directly or indirectly referenced by that object.</source>
+          <target state="translated">オブジェクトのディープ クローンでは、オブジェクトのコピーと、このオブジェクトによって直接的または間接的に参照されるすべての対象のコピーが作成されます。</target>       </trans-unit>
+        <trans-unit id="122" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone">
+          <source>This can also be described as copying the entire object graph.</source>
+          <target state="translated">これは、オブジェクト グラフ全体のコピーとして記述できます。</target>       </trans-unit>
+        <trans-unit id="123" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone">
+          <source>Returning a deep clone enables the runtime to support the case in which multiple custom bindings share a custom binding element.</source>
+          <target state="translated">ディープ クローンを返すと、ランタイムでは、複数のカスタム バインドがカスタム バインド要素を共有する場合をサポートできます。</target>       </trans-unit>
+        <trans-unit id="124" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone">
+          <source>If a deep clone is not returned, the run-time behavior is undefined.</source>
+          <target state="translated">ディープ クローンが返されない場合、ランタイムの動作は未定義です。</target>       </trans-unit>
+        <trans-unit id="125" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone">
+          <source>A shallow clone of an object, by contrast, is a copy of the object only.</source>
+          <target state="translated">オブジェクトのシャロー クローンは、対照的に、オブジェクトだけをコピーしたものです。</target>       </trans-unit>
+        <trans-unit id="126" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.Clone">
+          <source>If the object contains references to other objects, the shallow copy does not create copies of the referred objects; instead, it copies only the references to the original objects.</source>
+          <target state="translated">オブジェクトが他のオブジェクトへの参照を含んでいる場合、シャロー コピーでは、参照されるオブジェクトのコピーは作成されません。代わりに元のオブジェクトへの参照だけがコピーされます。</target>       </trans-unit>
+        <trans-unit id="127" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)">
+          <source>The type of the object to get.</source>
+          <target state="translated">取得するオブジェクトの型。</target>       </trans-unit>
+        <trans-unit id="128" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)">
+          <source>A <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.BindingContext" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.BindingContext" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="129" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)">
+          <source>Gets a specified object from the <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.BindingContext" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.BindingContext" /&gt;</ph> から指定したオブジェクトを取得します。</target>       </trans-unit>
+        <trans-unit id="130" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)">
+          <source>The specified object of type <ph id="ph1">&lt;paramref name="T" /&gt;</ph> from the <ph id="ph2">&lt;see cref="T:System.ServiceModel.Channels.BindingContext" /&gt;</ph>, or <ph id="ph3">&lt;see langword="null" /&gt;</ph> if the object is not found.</source>
+          <target state="translated"><ph id="ph2">&lt;see cref="T:System.ServiceModel.Channels.BindingContext" /&gt;</ph> からの <ph id="ph1">&lt;paramref name="T" /&gt;</ph> 型の指定されたオブジェクト。オブジェクトが見つからない場合は <ph id="ph3">&lt;see langword="null" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="131" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)">
+          <source>This method gets the specified object from the base class or from one of that class's ancestors.</source>
+          <target state="translated">このメソッドは、基本クラスまたはそのクラスの先祖から、指定したオブジェクトを取得します。</target>       </trans-unit>
+        <trans-unit id="132" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)">
+          <source>The object returned is usually a collection of properties, for example an object that implements <ph id="ph1">&lt;xref:System.ServiceModel.Channels.ISecurityCapabilities&gt;</ph>.</source>
+          <target state="translated">返されるオブジェクトは、通常、プロパティのコレクションです。たとえば、<ph id="ph1">&lt;xref:System.ServiceModel.Channels.ISecurityCapabilities&gt;</ph> を実装するオブジェクトなどです。</target>       </trans-unit>
+        <trans-unit id="133" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder">
+          <source>Gets or sets the order of message encryption and signing for this binding.</source>
+          <target state="translated">このバインドのメッセージの暗号化と署名の命令を取得または設定します。</target>       </trans-unit>
+        <trans-unit id="134" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder">
+          <source>The <ph id="ph1">&lt;see cref="T:System.ServiceModel.Security.MessageProtectionOrder" /&gt;</ph> that specifies how the message is protected.</source>
+          <target state="translated">メッセージの保護方法を指定する <ph id="ph1">&lt;see cref="T:System.ServiceModel.Security.MessageProtectionOrder" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="135" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder">
+          <source>The default is <ph id="ph1">&lt;see cref="F:System.ServiceModel.Security.MessageProtectionOrder.SignBeforeEncrypt" /&gt;</ph>.</source>
+          <target state="translated">既定値は、<ph id="ph1">&lt;see cref="F:System.ServiceModel.Security.MessageProtectionOrder.SignBeforeEncrypt" /&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="136" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder">
+          <source>If there is nothing in the message that is encrypted, the signature element is not encrypted even when the <ph id="ph1">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder%2A&gt;</ph> property is set to <ph id="ph2">&lt;xref:System.ServiceModel.Security.MessageProtectionOrder.SignBeforeEncryptAndEncryptSignature&gt;</ph>.</source>
+          <target state="translated">メッセージ内に暗号化する対象が存在しない場合は、<ph id="ph1">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder%2A&gt;</ph> プロパティが <ph id="ph2">&lt;xref:System.ServiceModel.Security.MessageProtectionOrder.SignBeforeEncryptAndEncryptSignature&gt;</ph> に設定されていても、署名要素は暗号化されません。</target>       </trans-unit>
+        <trans-unit id="137" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder">
+          <source>This behavior occurs even with system-provided bindings.</source>
+          <target state="translated">この動作は、システム指定のバインディングでも発生します。</target>       </trans-unit>
+        <trans-unit id="138" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder">
+          <source>However, the WSDL generated by WCF still contains the &lt;<ph id="ph1">`sp:EncryptSignature`</ph>&gt; assertion.</source>
+          <target state="translated">ただし、WCF によって生成された WSDL が含まれています、&lt;<ph id="ph1">`sp:EncryptSignature`</ph>&gt; アサーションです。</target>       </trans-unit>
+        <trans-unit id="139" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder">
+          <source>For a listing of the members and their descriptions, see <ph id="ph1">&lt;xref:System.ServiceModel.Security.MessageProtectionOrder&gt;</ph>.</source>
+          <target state="translated">メンバーとその説明の一覧については、<ph id="ph1">&lt;xref:System.ServiceModel.Security.MessageProtectionOrder&gt;</ph> を参照してください。</target>       </trans-unit>
+        <trans-unit id="140" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder">
+          <source>The following code shows how to set this property.</source>
+          <target state="translated">次のコードに、このプロパティを設定する方法を示します。</target>       </trans-unit>
+        <trans-unit id="141" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder">
+          <source><ph id="ph1">&lt;see langword="set" /&gt;</ph> and <ph id="ph2">&lt;see langword="value" /&gt;</ph> is undefined.</source>
+          <target state="translated"><ph id="ph1">&lt;see langword="set" /&gt;</ph> と <ph id="ph2">&lt;see langword="value" /&gt;</ph> が未定義です。</target>       </trans-unit>
+        <trans-unit id="142" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ProtectionTokenParameters">
+          <source>Gets or sets the protection token parameters.</source>
+          <target state="translated">保護トークン パラメーターを取得または設定します。</target>       </trans-unit>
+        <trans-unit id="143" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ProtectionTokenParameters">
+          <source>The <ph id="ph1">&lt;see cref="T:System.ServiceModel.Security.Tokens.SecurityTokenParameters" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.ServiceModel.Security.Tokens.SecurityTokenParameters" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="144" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ProtectionTokenParameters">
+          <source>The following code shows how to set this property.</source>
+          <target state="translated">次のコードに、このプロパティを設定する方法を示します。</target>       </trans-unit>
+        <trans-unit id="145" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation">
+          <source>Gets or sets a value that indicates whether message signatures must be confirmed.</source>
+          <target state="translated">メッセージの署名を確認する必要があるかどうかを示す値を取得または設定します。</target>       </trans-unit>
+        <trans-unit id="146" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation">
+          <source><ph id="ph1">&lt;see langword="true" /&gt;</ph> if message signatures must be confirmed; otherwise, <ph id="ph2">&lt;see langword="false" /&gt;</ph>.</source>
+          <target state="translated">メッセージの署名を確認する必要がある場合は <ph id="ph1">&lt;see langword="true" /&gt;</ph>。それ以外の場合は <ph id="ph2">&lt;see langword="false" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="147" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation">
+          <source>The default is <ph id="ph1">&lt;see langword="false" /&gt;</ph>.</source>
+          <target state="translated">既定値は、<ph id="ph1">&lt;see langword="false" /&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="148" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation">
+          <source>This property specifies whether the signature must be encrypted.</source>
+          <target state="translated">このプロパティは、署名を暗号化する必要があるかどうかを指定します。</target>       </trans-unit>
+        <trans-unit id="149" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation">
+          <source>If the value is <ph id="ph1">`true`</ph>, the primary signature must be encrypted and any signature confirmation elements must also be encrypted.</source>
+          <target state="translated">値が <ph id="ph1">`true`</ph> の場合、プライマリ署名を暗号化すると共に、署名確認要素も暗号化する必要があります。</target>       </trans-unit>
+        <trans-unit id="150" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation">
+          <source>If the value is <ph id="ph1">`false`</ph>, the primary signature must not be encrypted and any signature confirmation elements must not be encrypted.</source>
+          <target state="translated">値が <ph id="ph1">`false`</ph> の場合、プライマリ署名も、署名確認要素も暗号化できません。</target>       </trans-unit>
+        <trans-unit id="151" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.SetKeyDerivation(System.Boolean)">
+          <source><ph id="ph1">&lt;see langword="true" /&gt;</ph> to indicate that derived keys are required; otherwise, <ph id="ph2">&lt;see langword="false" /&gt;</ph>.</source>
+          <target state="translated">派生キーが必要な場合は <ph id="ph1">&lt;see langword="true" /&gt;</ph>。それ以外の場合は <ph id="ph2">&lt;see langword="false" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="152" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.SetKeyDerivation(System.Boolean)">
+          <source>Sets a value that indicates whether derived keys are required.</source>
+          <target state="translated">派生キーが必要かどうかを示す値を設定します。</target>       </trans-unit>
+        <trans-unit id="153" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.SetKeyDerivation(System.Boolean)">
+          <source>A derived key is created from an existing key and makes it possible to vary the key used in the course of a conversation.</source>
+          <target state="translated">派生キーは、既存のキーから作成され、通信で使用されるキーをさまざまに変えることができます。</target>       </trans-unit>
+        <trans-unit id="154" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.SetKeyDerivation(System.Boolean)">
+          <source>This makes it more difficult for a hacker to decrypt the communication.</source>
+          <target state="translated">これは、ハッカーによる通信の解読を難しくします。</target>       </trans-unit>
+        <trans-unit id="155" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>The <ph id="ph1">&lt;see cref="T:System.ServiceModel.Description.MetadataExporter" /&gt;</ph> that you can use to modify the exporting process.</source>
+          <target state="translated">エクスポート プロセスを変更するために使用できる <ph id="ph1">&lt;see cref="T:System.ServiceModel.Description.MetadataExporter" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="156" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>The <ph id="ph1">&lt;see cref="T:System.ServiceModel.Description.PolicyConversionContext" /&gt;</ph> that you can use to insert your custom policy assertion.</source>
+          <target state="translated">カスタム ポリシー アサーションの挿入に使用できる <ph id="ph1">&lt;see cref="T:System.ServiceModel.Description.PolicyConversionContext" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="157" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>Exports a custom policy assertion about bindings.</source>
+          <target state="translated">バインディングに関するカスタム ポリシー アサーションをエクスポートします。</target>       </trans-unit>
+        <trans-unit id="158" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>This method writes binding-related statements into the WSDL information exposed by a particular contract and is used by <ph id="ph1">[!INCLUDE[indigo1](~/includes/indigo1-md.md)]</ph> to communicate to clients of the existence of this custom binding element in the binding stack.</source>
+          <target state="translated">このメソッドは、バインドに関連するステートメントを、特定のコントラクトによって公開される WSDL 情報に書き込みます。また、<ph id="ph1">[!INCLUDE[indigo1](~/includes/indigo1-md.md)]</ph> によって、バインド スタック内にこのカスタム バインド要素があることをクライアントに伝えるために使用されます。</target>       </trans-unit>
+        <trans-unit id="159" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>This method takes two parameters: the <ph id="ph1">&lt;xref:System.ServiceModel.Description.MetadataExporter&gt;</ph> and <ph id="ph2">&lt;xref:System.ServiceModel.Description.PolicyConversionContext&gt;</ph> objects.</source>
+          <target state="translated">このメソッドには、<ph id="ph1">&lt;xref:System.ServiceModel.Description.MetadataExporter&gt;</ph> オブジェクトおよび <ph id="ph2">&lt;xref:System.ServiceModel.Description.PolicyConversionContext&gt;</ph> オブジェクトの 2 つのパラメーターがあります。</target>       </trans-unit>
+        <trans-unit id="160" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>Use the <ph id="ph1">&lt;xref:System.ServiceModel.Description.PolicyConversionContext.GetBindingAssertions%2A&gt;</ph>, <ph id="ph2">&lt;xref:System.ServiceModel.Description.PolicyConversionContext.GetMessageBindingAssertions%2A&gt;</ph>, and <ph id="ph3">&lt;xref:System.ServiceModel.Description.PolicyConversionContext.GetOperationBindingAssertions%2A&gt;</ph> methods to obtain collections of policy assertions that have already been exported at various scopes.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.Description.PolicyConversionContext.GetBindingAssertions%2A&gt;</ph>、<ph id="ph2">&lt;xref:System.ServiceModel.Description.PolicyConversionContext.GetMessageBindingAssertions%2A&gt;</ph>、および <ph id="ph3">&lt;xref:System.ServiceModel.Description.PolicyConversionContext.GetOperationBindingAssertions%2A&gt;</ph> の各メソッドを使用して、既にさまざまなスコープでエクスポートされているポリシー アサーションのコレクションを取得します。</target>       </trans-unit>
+        <trans-unit id="161" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>Then use this method to add your own policy assertions to the appropriate collection.</source>
+          <target state="translated">次に、このメソッドを使用して、独自のポリシー アサーションを適切なコレクションに追加します。</target>       </trans-unit>
+        <trans-unit id="162" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.Description.PolicyConversionContext.Contract%2A&gt;</ph> property exposes the <ph id="ph2">&lt;xref:System.ServiceModel.Description.ContractDescription&gt;</ph> for the endpoint that is being exported.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.Description.PolicyConversionContext.Contract%2A&gt;</ph> プロパティは、エクスポートされるエンドポイントの <ph id="ph2">&lt;xref:System.ServiceModel.Description.ContractDescription&gt;</ph> を公開します。</target>       </trans-unit>
+        <trans-unit id="163" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>This allows this method to correctly scope their exported policy assertions.</source>
+          <target state="translated">これにより、このメソッドは、エクスポートされたポリシー アサーションを正しく特定できます。</target>       </trans-unit>
+        <trans-unit id="164" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>For example, security attributes in code may add behaviors to the <ph id="ph1">&lt;xref:System.ServiceModel.Description.ContractDescription&gt;</ph> that indicate where security policy assertions should be added.</source>
+          <target state="translated">たとえば、コード内のセキュリティ属性は、セキュリティ ポリシー アサーションを追加する必要がある場所を示す <ph id="ph1">&lt;xref:System.ServiceModel.Description.ContractDescription&gt;</ph> に動作を追加できます。</target>       </trans-unit>
+        <trans-unit id="165" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
+          <source>Once custom policy assertions are attached to the WSDL information, clients can detect and import the custom binding assertions by implementing the <ph id="ph1">&lt;xref:System.ServiceModel.Description.IPolicyImportExtension&gt;</ph> interface.</source>
+          <target state="translated">カスタム ポリシー アサーションが WSDL 情報に結び付けられると、クライアントは、<ph id="ph1">&lt;xref:System.ServiceModel.Description.IPolicyImportExtension&gt;</ph> インターフェイスを実装することによって、カスタム バインド アサーションを検出し、インポートできます。</target>       </trans-unit>
+        <trans-unit id="166" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ToString">
+          <source>Returns a string that represents this <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> instance.</source>
+          <target state="translated">この <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> インスタンスを表す文字列を返します。</target>       </trans-unit>
+        <trans-unit id="167" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ToString">
+          <source>A string that represents this <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> instance.</source>
+          <target state="translated">この <ph id="ph1">&lt;see cref="T:System.ServiceModel.Channels.SymmetricSecurityBindingElement" /&gt;</ph> インスタンスを表す文字列。</target>       </trans-unit>
+        <trans-unit id="168" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ToString">
+          <source>Information returned by <ph id="ph1">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ToString%2A&gt;</ph> includes the <ph id="ph2">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder%2A&gt;</ph>, <ph id="ph3">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation%2A&gt;</ph>, and <ph id="ph4">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ProtectionTokenParameters%2A&gt;</ph> values of the current instance.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ToString%2A&gt;</ph> から返される情報には、現在のインスタンスの <ph id="ph2">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.MessageProtectionOrder%2A&gt;</ph>、<ph id="ph3">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.RequireSignatureConfirmation%2A&gt;</ph>、および <ph id="ph4">&lt;xref:System.ServiceModel.Channels.SymmetricSecurityBindingElement.ProtectionTokenParameters%2A&gt;</ph> の値が含まれます。</target>       </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

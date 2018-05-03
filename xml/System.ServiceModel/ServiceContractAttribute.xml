@@ -1,576 +1,384 @@
-<Type Name="ServiceContractAttribute" FullName="System.ServiceModel.ServiceContractAttribute">
-  <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="23e56316bd9a8661f771e3708b920518208d4cbb" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
-    <Meta Name="ms.translationtype" Value="HT" />
-    <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-  </Metadata>
-  <TypeSignature Language="C#" Value="public sealed class ServiceContractAttribute : Attribute" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit ServiceContractAttribute extends System.Attribute" />
-  <TypeSignature Language="DocId" Value="T:System.ServiceModel.ServiceContractAttribute" />
-  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class ServiceContractAttribute&#xA;Inherits Attribute" />
-  <TypeSignature Language="C++ CLI" Value="public ref class ServiceContractAttribute sealed : Attribute" />
-  <AssemblyInfo>
-    <AssemblyName>System.ServiceModel</AssemblyName>
-    <AssemblyVersion>2.0.5.0</AssemblyVersion>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-  </AssemblyInfo>
-  <AssemblyInfo>
-    <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
-    <AssemblyVersion>4.1.0.0</AssemblyVersion>
-    <AssemblyVersion>4.1.1.0</AssemblyVersion>
-    <AssemblyVersion>4.2.0.0</AssemblyVersion>
-  </AssemblyInfo>
-  <Base>
-    <BaseTypeName>System.Attribute</BaseTypeName>
-  </Base>
-  <Interfaces />
-  <Attributes>
-    <Attribute>
-      <AttributeName>System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Interface, Inherited=false)</AttributeName>
-    </Attribute>
-  </Attributes>
-  <Docs>
-    <summary>
-      <span data-ttu-id="b3faf-101">インターフェイスまたはクラスが、Windows Communication Foundation (WCF) アプリケーション内にサービス コントラクトを定義することを示します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="b3faf-101">Indicates that an interface or a class defines a service contract in a Windows Communication Foundation (WCF) application.</span>
-      </span>
-    </summary>
-    <remarks>
-      <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="b3faf-102">インターフェイス (またはクラス) に対して <xref:System.ServiceModel.ServiceContractAttribute> 属性を使用して、サービス コントラクトを定義します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-102">Use the <xref:System.ServiceModel.ServiceContractAttribute> attribute on an interface (or class) to define a service contract.</span></span> <span data-ttu-id="b3faf-103">その後、1 つ以上のクラス (またはインターフェイス) のメソッドに対して <xref:System.ServiceModel.OperationContractAttribute> 属性を使用して、コントラクトのサービス操作を定義します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-103">Then use the <xref:System.ServiceModel.OperationContractAttribute> attribute on one or more of the class (or interface) methods to define the contract's service operations.</span></span> <span data-ttu-id="b3faf-104">サービス コントラクトを実装およびと組み合わせて使用すると、[バインド](~/docs/framework/wcf/bindings.md)と<xref:System.ServiceModel.EndpointAddress>オブジェクト、サービス コントラクトが使用するクライアントによって公開されます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-104">When the service contract is implemented and combined with a [Bindings](~/docs/framework/wcf/bindings.md) and an <xref:System.ServiceModel.EndpointAddress> object, the service contract is exposed for use by clients.</span></span> <span data-ttu-id="b3faf-105">単純な例を使用して、プロセスの概要については、次を参照してください。[チュートリアル入門](~/docs/framework/wcf/getting-started-tutorial.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-105">For an overview of the process using simple examples, see [Getting Started Tutorial](~/docs/framework/wcf/getting-started-tutorial.md).</span></span> <span data-ttu-id="b3faf-106">サービス コントラクトの作成の詳細については、次を参照してください。 [Services の実装を設計および](~/docs/framework/wcf/designing-and-implementing-services.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-106">For more information about creating service contracts, see [Designing and Implementing Services](~/docs/framework/wcf/designing-and-implementing-services.md).</span></span>  
-  
- <span data-ttu-id="b3faf-107"><xref:System.ServiceModel.ServiceContractAttribute> とそのインターフェイスで表現される情報は、Web サービス記述言語 (WSDL) の `<portType>` 要素に大まかに関連しています。</span><span class="sxs-lookup"><span data-stu-id="b3faf-107">The information expressed by a <xref:System.ServiceModel.ServiceContractAttribute> and its interface is loosely related to the Web Services Description Language (WSDL) `<portType>` element.</span></span> <span data-ttu-id="b3faf-108">サービス コントラクトはサーバー側で、サービスのエンドポイントが呼び出し元に対して何を公開するかを指定するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-108">A service contract is used on the service side to specify what the service’s endpoint exposes to callers.</span></span> <span data-ttu-id="b3faf-109">サービス コントラクトはクライアント側でも使用され、クライアントが通信を行うエンドポイントのコントラクトを指定します。双方向コントラクトの場合は、クライアントが双方向のメッセージ交換を行うために実装する必要があるコールバック コントラクトを (<xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A> プロパティを使用して) 指定します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-109">It is also used on the client side to specify the contract of the endpoint with which the client communicates and, in the case of duplex contracts, to specify the callback contract (using the <xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A> property) that the client must implement in order to participate in a duplex conversation.</span></span>  
-  
-> [!NOTE]
->  <span data-ttu-id="b3faf-110">さらに、<xref:System.ServiceModel.ServiceContractAttribute> で修飾したインターフェイスまたはクラスがなんらかの機能を公開するには、<xref:System.ServiceModel.OperationContractAttribute> 属性でマークされた、少なくとも 1 つのメソッドを持つ必要があります。</span><span class="sxs-lookup"><span data-stu-id="b3faf-110">An interface or class that is decorated with <xref:System.ServiceModel.ServiceContractAttribute> must also have at least one method marked with the <xref:System.ServiceModel.OperationContractAttribute> attribute to expose any functionality.</span></span> <span data-ttu-id="b3faf-111">この 2 つの属性を使用してサービスの定義と実装を行う最も単純な方法のコード例については、「使用例」のセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="b3faf-111">See the Examples section for a code example of the simplest use of the two attributes to define and implement a service.</span></span>  
-  
- <span data-ttu-id="b3faf-112">サービス コントラクトを変更するには、<xref:System.ServiceModel.ServiceContractAttribute> プロパティを使用します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-112">Use the <xref:System.ServiceModel.ServiceContractAttribute> properties to modify the service contract.</span></span>  
-  
--   <span data-ttu-id="b3faf-113"><xref:System.ServiceModel.ServiceContractAttribute.ConfigurationName%2A> プロパティは、使用する構成ファイル内のサービス要素の名前を指定します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-113">The <xref:System.ServiceModel.ServiceContractAttribute.ConfigurationName%2A> property specifies the name of the service element in the configuration file to use.</span></span>  
-  
--   <span data-ttu-id="b3faf-114"><xref:System.ServiceModel.ServiceContractAttribute.Name%2A> プロパティと <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> プロパティは、WSDL の`<portType>` 要素内のコントラクトの名前と名前空間を制御します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-114">The <xref:System.ServiceModel.ServiceContractAttribute.Name%2A> and <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> properties control the name and namespace of the contract in the WSDL `<portType>` element.</span></span>  
-  
--   <span data-ttu-id="b3faf-115"><xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> プロパティは、コントラクトがセッションをサポートするバインディングを必要とするかどうかを指定します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-115">The <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property specifies whether the contract requires a binding that supports sessions.</span></span>  
-  
--   <span data-ttu-id="b3faf-116"><xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A> プロパティは、双方向 (二重) 通信で使用されるリターン コントラクトを指定します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-116">The <xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A> property specifies the return contract in a two-way (duplex) conversation.</span></span>  
-  
--   <span data-ttu-id="b3faf-117"><xref:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel%2A> プロパティと <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> プロパティは、このコントラクトをサポートするすべてのメッセージに明示的な <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> 値が設定されているかどうかを示し、設定されている場合はそのレベルを示します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-117">The <xref:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel%2A> and <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> properties indicate whether all messages supporting the contract have a explicit <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> value, and if so, what that level is.</span></span>  
-  
- <span data-ttu-id="b3faf-118">サービスはサービス コントラクトを実装します。サービス コントラクトは、サービスの種類がサポートするデータ交換を表します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-118">Services implement service contracts, which represent the data exchange that a service type supports.</span></span> <span data-ttu-id="b3faf-119">サービス クラスは、<xref:System.ServiceModel.ServiceContractAttribute> でマークされたメソッドを持つ <xref:System.ServiceModel.OperationContractAttribute> でマークされたインターフェイスを実装することで、サービス コントラクトを実装できます。または、<xref:System.ServiceModel.ServiceContractAttribute> でマークし、<xref:System.ServiceModel.OperationContractAttribute> 属性を独自のメソッドに適用できます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-119">A service class can implement a service contract (by implementing an interface marked with <xref:System.ServiceModel.ServiceContractAttribute> that has methods marked with <xref:System.ServiceModel.OperationContractAttribute>) or it can be marked with the <xref:System.ServiceModel.ServiceContractAttribute> and apply the <xref:System.ServiceModel.OperationContractAttribute> attribute to its own methods.</span></span> <span data-ttu-id="b3faf-120">(クラスが、<xref:System.ServiceModel.ServiceContractAttribute> でマークされたインターフェイスを実装する場合は、クラス自身を <xref:System.ServiceModel.ServiceContractAttribute> でマークすることはできません)。サービスの種類の <xref:System.ServiceModel.OperationContractAttribute> でマークされたメソッドは、サービスの種類自体によって指定される既定のサービス コントラクトの一部として処理されます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-120">(If a class implements an interface marked with <xref:System.ServiceModel.ServiceContractAttribute>, it cannot be itself marked with <xref:System.ServiceModel.ServiceContractAttribute>.) Methods on service types that are marked with the <xref:System.ServiceModel.OperationContractAttribute> are treated as part of a default service contract specified by the service type itself.</span></span> <span data-ttu-id="b3faf-121">サービス操作の詳細については、<xref:System.ServiceModel.OperationContractAttribute> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="b3faf-121">For details about service operations, see <xref:System.ServiceModel.OperationContractAttribute>.</span></span>  
-  
- <span data-ttu-id="b3faf-122">既定では、<xref:System.ServiceModel.ServiceContractAttribute.Name%2A> プロパティと <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> プロパティは、それぞれコントラクトの種類と`http://tempuri.org` であり、<xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> は <xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType> です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-122">By default, the <xref:System.ServiceModel.ServiceContractAttribute.Name%2A> and <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> properties are the name of the contract type and `http://tempuri.org`, respectively, and <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> is <xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType>.</span></span> <span data-ttu-id="b3faf-123">サービス コントラクトでは、名前、名前空間、および保護レベルを、これらのプロパティを使用して明示的に設定することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="b3faf-123">It is recommended that service contracts explicitly set their names, namespaces, and protection levels using these properties.</span></span> <span data-ttu-id="b3faf-124">この作業により、次の 2 つの目標が達成されます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-124">Doing so accomplishes two goals.</span></span> <span data-ttu-id="b3faf-125">第 1 に、マネージ型情報に直接接続されないコントラクトを構築し、コントラクトを WSDL で表現するときに、コントラクトを壊さずにマネージ コードと名前空間をリファクタリングできます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-125">First, it builds a contract that is not directly connected to the managed type information, enabling you to refactor your managed code and namespaces without breaking the contract as it is expressed in WSDL.</span></span> <span data-ttu-id="b3faf-126">第 2 に、コントラクト自体の保護レベルを明示的に要求することによって、ランタイムがバインド構成でそのレベルのセキュリティがサポートされているかどうかを検証でき、それによって、機密情報を漏洩する不良な構成を回避できます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-126">Second, explicitly requiring a certain level of protection on the contract itself enables the runtime to validate whether the binding configuration supports that level of security, preventing poor configuration from exposing sensitive information.</span></span> <span data-ttu-id="b3faf-127">保護レベルの詳細については、次を参照してください。[について保護レベル](~/docs/framework/wcf/understanding-protection-level.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-127">For more information about protection levels, see [Understanding Protection Level](~/docs/framework/wcf/understanding-protection-level.md).</span></span>  
-  
- <span data-ttu-id="b3faf-128">クライアント アプリケーションで使用するためにサービスを公開するには、サービス エンドポイントを [!INCLUDE[indigo1](~/includes/indigo1-md.md)] に登録するホスト アプリケーションを作成します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-128">To expose a service for use by client applications, create a host application to register your service endpoint with [!INCLUDE[indigo1](~/includes/indigo1-md.md)].</span></span> <span data-ttu-id="b3faf-129">Windows アクティベーション サービス (WAS) を使用する [!INCLUDE[indigo2](~/includes/indigo2-md.md)] サービスは、コンソール アプリケーション、Windows サービス アプリケーション、ASP.NET アプリケーション、Windows フォーム アプリケーション、またはその他の種類のアプリケーション ドメインでホストできます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-129">You can host [!INCLUDE[indigo2](~/includes/indigo2-md.md)] services using Windows Activation Services (WAS), in console applications, Windows Service applications, ASP.NET applications, Windows Forms applications, or any other kind of application domain.</span></span>  
-  
- <span data-ttu-id="b3faf-130">WAS でのホスティングは、ASP.NET アプリケーションの作成とほとんど同じです。</span><span class="sxs-lookup"><span data-stu-id="b3faf-130">Hosting in the WAS is very similar to creating an ASP.NET application.</span></span> <span data-ttu-id="b3faf-131">詳細については、「[する方法: IIS で WCF サービスをホスト](~/docs/framework/wcf/feature-details/how-to-host-a-wcf-service-in-iis.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-131">For details, see [How to: Host a WCF Service in IIS](~/docs/framework/wcf/feature-details/how-to-host-a-wcf-service-in-iis.md).</span></span>  
-  
- <span data-ttu-id="b3faf-132">クライアントは、サービス コントラクト インターフェイス (<xref:System.ServiceModel.ServiceContractAttribute> でマークされたインターフェイス) を使用してサービスへのチャネルを作成するか、またはクライアント オブジェクト (サービス コントラクト インターフェイスの型情報と <xref:System.ServiceModel.ClientBase%601> クラスの組み合わせ) を使用してサービスと通信します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-132">Clients either use the service contract interface (the interface marked with <xref:System.ServiceModel.ServiceContractAttribute>) to create a channel to the service or they use the client objects (which combine the type information of the service contract interface with the <xref:System.ServiceModel.ClientBase%601> class) to communicate with your service.</span></span> <span data-ttu-id="b3faf-133">サービスへのクライアント チャネルの詳細については、「、<xref:System.ServiceModel.ChannelFactory%601>クラスと[WCF クライアントの概要](~/docs/framework/wcf/wcf-client-overview.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-133">For details on client channels to services, see the <xref:System.ServiceModel.ChannelFactory%601> class and [WCF Client Overview](~/docs/framework/wcf/wcf-client-overview.md).</span></span>  
-  
- <span data-ttu-id="b3faf-134"><xref:System.ServiceModel.ServiceContractAttribute> クラスまたはインターフェイスを使用して別の <xref:System.ServiceModel.ServiceContractAttribute> クラスまたはインターフェイスから継承すると、親コントラクトが拡張されます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-134">Using a <xref:System.ServiceModel.ServiceContractAttribute> class or interface to inherit from another <xref:System.ServiceModel.ServiceContractAttribute> class or interface extends the parent contract.</span></span> <span data-ttu-id="b3faf-135">たとえば、`IChildContract` インターフェイスが <xref:System.ServiceModel.ServiceContractAttribute> でマークされ、別のサービス コントラクト インターフェイスである `IParentContract` から継承された場合、`IChildContract` サービス コントラクトには、`IParentContract` と `IChildContract` の両方のメソッドが含まれます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-135">For example, if an `IChildContract` interface is marked with <xref:System.ServiceModel.ServiceContractAttribute> and inherited from another service contract interface, `IParentContract`, the `IChildContract` service contract contains the methods of both `IParentContract` and `IChildContract`.</span></span> <span data-ttu-id="b3faf-136">コントラクト (クラスまたはインターフェイス) の拡張は、マネージ クラスとマネージ インターフェイスの拡張とほとんど同じです。</span><span class="sxs-lookup"><span data-stu-id="b3faf-136">Extending contracts (whether on classes or interfaces) is very similar to extending managed classes and interfaces.</span></span>  
-  
- <span data-ttu-id="b3faf-137">サービスを作成する最も柔軟な方法は、最初にサービス コントラクト インターフェイスを定義し、その後、サービス クラスでそのインターフェイスを実装することです。</span><span class="sxs-lookup"><span data-stu-id="b3faf-137">The most flexible approach to creating services is to define service contract interfaces first and then have your service class implement that interface.</span></span> <span data-ttu-id="b3faf-138">(これは、定義済みのサービス コントラクトを実装する必要がある場合に、サービスを構築するための最も簡単な方法でもあります)。クラスを <xref:System.ServiceModel.ServiceContractAttribute> でマークし、メソッドを <xref:System.ServiceModel.OperationContractAttribute> でマークすることで直接サービスを構築する方法は、サービスが 1 つのコントラクトを公開する場合に適しています (ただし、そのコントラクトは、複数のエンドポイントによって公開できます)。</span><span class="sxs-lookup"><span data-stu-id="b3faf-138">(This is also the simplest way to build your services if you must implement service contracts that have been defined by others.) Building services directly by marking a class with <xref:System.ServiceModel.ServiceContractAttribute> and its methods with <xref:System.ServiceModel.OperationContractAttribute> works when the service exposes only one contract (but that contract can be exposed by more than one endpoint).</span></span>  
-  
- <span data-ttu-id="b3faf-139">使用して、<xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A>を元のサービス コントラクトとバインドされている場合を定義するフローであることができましていない 2 つの方法で独立してメッセージ交換は、別のサービス コントラクトを示すプロパティです。</span><span class="sxs-lookup"><span data-stu-id="b3faf-139">Use the <xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A> property to indicate another service contract that, when bound together with the original service contract, define a message exchange that can flow in two ways independently.</span></span> <span data-ttu-id="b3faf-140">詳細については、「<xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A>」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="b3faf-140">For details, see <xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A>.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="b3faf-141">次のコード例は、<xref:System.ServiceModel.ServiceContractAttribute> をインターフェイスに適用し、<xref:System.ServiceModel.OperationContractAttribute> によって示される 1 つのサービス メソッドを持つサービス コントラクトを定義する方法を示しています。</span><span class="sxs-lookup"><span data-stu-id="b3faf-141">The following code example shows how to apply the <xref:System.ServiceModel.ServiceContractAttribute> to an interface to define a service contract with one service method, indicated by the <xref:System.ServiceModel.OperationContractAttribute>.</span></span> <span data-ttu-id="b3faf-142">この場合、すべてのメッセージのバインドで要求される保護レベルは <xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType> です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-142">In this case, the protection level required of bindings for all messages is <xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType>.</span></span>  
-  
- <span data-ttu-id="b3faf-143">その後、このコード例では、定義したコントラクトを `SampleService` クラスで実装します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-143">The code example then implements that contract on the `SampleService` class.</span></span>  
-  
- [!code-csharp[ServiceContractAttribute#1](~/samples/snippets/csharp/VS_Snippets_CFX/servicecontractattribute/cs/services.cs#1)]
- [!code-vb[ServiceContractAttribute#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/servicecontractattribute/vb/services.vb#1)]  
-  
- <span data-ttu-id="b3faf-144">次のコード例は、上のサービス用の 1 つのエンドポイントを作成する単純な構成ファイルを示しています。</span><span class="sxs-lookup"><span data-stu-id="b3faf-144">The following code example shows a simple configuration file for the preceding service that creates one endpoint.</span></span>  
-  
- [!code-xml[ServiceContractAttribute#2](~/samples/snippets/csharp/VS_Snippets_CFX/servicecontractattribute/cs/hostapplication.exe.config#2)]   
-  
- <span data-ttu-id="b3faf-145">次のコード例は、上の `SampleService` を呼び出す単純なクライアントを示しています。</span><span class="sxs-lookup"><span data-stu-id="b3faf-145">The following code example shows a simple client that invokes the preceding `SampleService`.</span></span>  
-  
- [!code-csharp[ServiceContractAttribute#3](~/samples/snippets/csharp/VS_Snippets_CFX/servicecontractattribute/cs/client.cs#3)]
- [!code-vb[ServiceContractAttribute#3](~/samples/snippets/visualbasic/VS_Snippets_CFX/servicecontractattribute/vb/client.vb#3)]  
-  
- ]]></format>
-    </remarks>
-    <altmember cref="T:System.ServiceModel.OperationContractAttribute" />
-  </Docs>
-  <Members>
-    <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public ServiceContractAttribute ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.ServiceModel.ServiceContractAttribute.#ctor" />
-      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; ServiceContractAttribute();" />
-      <MemberType>Constructor</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
-        <AssemblyVersion>4.1.0.0</AssemblyVersion>
-        <AssemblyVersion>4.1.1.0</AssemblyVersion>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Parameters />
-      <Docs>
-        <summary>
-          <span data-ttu-id="b3faf-146">
-            <see cref="T:System.ServiceModel.ServiceContractAttribute" /> クラスの新しいインスタンスを初期化します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-146">Initializes a new instance of the <see cref="T:System.ServiceModel.ServiceContractAttribute" /> class.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="b3faf-147">このコンストラクターは、セッション要件もコールバック コントラクトもない、既定の名前と名前空間を使用する属性を持つインスタンスを作成します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-147">The constructor creates an instance of the attribute with no session requirements, no callback contract, and the default name and namespace.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="CallbackContract">
-      <MemberSignature Language="C#" Value="public Type CallbackContract { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance class System.Type CallbackContract" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.ServiceContractAttribute.CallbackContract" />
-      <MemberSignature Language="VB.NET" Value="Public Property CallbackContract As Type" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property Type ^ CallbackContract { Type ^ get(); void set(Type ^ value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
-        <AssemblyVersion>4.1.0.0</AssemblyVersion>
-        <AssemblyVersion>4.1.1.0</AssemblyVersion>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Type</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="b3faf-148">コントラクトが双方向コントラクトの場合のコールバック コントラクトの型を取得または設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-148">Gets or sets the type of callback contract when the contract is a duplex contract.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="b3faf-149">コールバック コントラクトを示す <see cref="T:System.Type" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-149">A <see cref="T:System.Type" /> that indicates the callback contract.</span>
-          </span>
-          <span data-ttu-id="b3faf-150">既定値は、<see langword="null" /> です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-150">The default is <see langword="null" />.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="b3faf-151">双方向 (二重) メッセージ交換に必要な逆のコントラクトを表すインターフェイスを、<xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A> プロパティに指定します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-151">Specify an interface in the <xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A> property that represents the required opposite contract in a two-way (or duplex) message exchange.</span></span> <span data-ttu-id="b3faf-152">これにより、クライアント アプリケーションは、サーバー側のサービス アプリケーションがクライアントのアクティビティとは無関係に送信できる受信操作呼び出しをリッスンできます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-152">This enables client applications to listen for inbound operation calls that the server-side service application can send independently of client activity.</span></span> <span data-ttu-id="b3faf-153">一方向操作を持つコールバック コントラクトは、クライアントが処理できるサービスからの呼び出しを表します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-153">Callback contracts that have one-way operations represent calls from the service that the client can handle.</span></span>  
-  
-> [!NOTE]
->  <span data-ttu-id="b3faf-154"><xref:System.ServiceModel.ServiceContractAttribute> 属性は、コールバック コントラクトでは無視されます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-154">The <xref:System.ServiceModel.ServiceContractAttribute> attribute is ignored on callback contracts.</span></span> <span data-ttu-id="b3faf-155">コールバック オブジェクトのランタイム動作を構成するには、<xref:System.ServiceModel.CallbackBehaviorAttribute?displayProperty=nameWithType> を使用します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-155">To configure runtime behavior of callback objects, use the <xref:System.ServiceModel.CallbackBehaviorAttribute?displayProperty=nameWithType>.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="b3faf-156">次のコード例は、`IDuplexHello` 型のサービスには `IHelloCallbackContract` 型のサービスを実装する相手が必要であることを示すコールバック コントラクトを指定するサービスを示しています。</span><span class="sxs-lookup"><span data-stu-id="b3faf-156">The following code example shows a service that specifies a callback contract, which indicates that a service of type `IDuplexHello` must have a correspondent that implements a service of type `IHelloCallbackContract`.</span></span> <span data-ttu-id="b3faf-157">さらに、`IHelloCallbackContract` は、一方向のコールバック メソッドを実装します。これにより、サービスは、クライアントからの応答を待たずにクライアントを呼び出すことができ、分散型でイベント駆動型のクライアントをサポートすることができます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-157">In addition, `IHelloCallbackContract` implements a one-way callback method, enabling the service to call the client without waiting for a reply to support a distributed, event-driven client.</span></span>  
-  
- [!code-csharp[SCA.CallbackContract#1](~/samples/snippets/csharp/VS_Snippets_CFX/sca.callbackcontract/cs/services.cs#1)]
- [!code-vb[SCA.CallbackContract#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/sca.callbackcontract/vb/services.vb#1)]  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="ConfigurationName">
-      <MemberSignature Language="C#" Value="public string ConfigurationName { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance string ConfigurationName" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.ServiceContractAttribute.ConfigurationName" />
-      <MemberSignature Language="VB.NET" Value="Public Property ConfigurationName As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ ConfigurationName { System::String ^ get(); void set(System::String ^ value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
-        <AssemblyVersion>4.1.0.0</AssemblyVersion>
-        <AssemblyVersion>4.1.1.0</AssemblyVersion>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="b3faf-158">アプリケーション構成ファイル内でサービスを検索するために使用される名前を取得または設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-158">Gets or sets the name used to locate the service in an application configuration file.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="b3faf-159">アプリケーション構成ファイル内でサービス要素を検索するために使用される名前。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-159">The name used to locate the service element in an application configuration file.</span>
-          </span>
-          <span data-ttu-id="b3faf-160">既定の名前は、サービス実装クラスの名前です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-160">The default is the name of the service implementation class.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="b3faf-161">構成システムがそれを使用して構成ファイル内でコントラクト値を検索する値を設定する場合は、<xref:System.ServiceModel.ServiceBehaviorAttribute.ConfigurationName%2A> を参照してください。</span><span class="sxs-lookup"><span data-stu-id="b3faf-161">To set the value by which the configuration system locates a contract value in the configuration file, see <xref:System.ServiceModel.ServiceBehaviorAttribute.ConfigurationName%2A>.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="b3faf-162">値が null です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-162">The value is null.</span>
-          </span>
-        </exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="b3faf-163">値が空の文字列です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-163">The value is an empty string.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <Member MemberName="HasProtectionLevel">
-      <MemberSignature Language="C#" Value="public bool HasProtectionLevel { get; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance bool HasProtectionLevel" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel" />
-      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property HasProtectionLevel As Boolean" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool HasProtectionLevel { bool get(); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Boolean</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="b3faf-164">メンバーに保護レベルが割り当てられているかどうかを示す値を取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-164">Gets a value that indicates whether the member has a protection level assigned.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="b3faf-165">
-            <see cref="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel" /> プロパティが <see cref="F:System.Net.Security.ProtectionLevel.None" /> でない場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-165">
-              <see langword="true" /> if the <see cref="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel" /> property is not <see cref="F:System.Net.Security.ProtectionLevel.None" />; otherwise, <see langword="false" />.</span>
-          </span>
-          <span data-ttu-id="b3faf-166">既定値は、<see langword="false" /> です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-166">The default is <see langword="false" />.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="b3faf-167"><xref:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel%2A> プロパティは、`false` 以外の値がコントラクトに設定されているかどうかを示します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-167">The <xref:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel%2A> property indicates whether a protection level value other than `false` has been set for the contract.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="Name">
-      <MemberSignature Language="C#" Value="public string Name { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance string Name" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.ServiceContractAttribute.Name" />
-      <MemberSignature Language="VB.NET" Value="Public Property Name As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Name { System::String ^ get(); void set(System::String ^ value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
-        <AssemblyVersion>4.1.0.0</AssemblyVersion>
-        <AssemblyVersion>4.1.1.0</AssemblyVersion>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="b3faf-168">Web サービス記述言語 (WSDL) での <see langword="&lt;portType&gt;" /> 要素の名前を取得または設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-168">Gets or sets the name for the <see langword="&lt;portType&gt;" /> element in Web Services Description Language (WSDL).</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="b3faf-169">既定値は <see cref="T:System.ServiceModel.ServiceContractAttribute" /> が適用されたクラスまたはインターフェイスの名前です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-169">The default value is the name of the class or interface to which the <see cref="T:System.ServiceModel.ServiceContractAttribute" /> is applied.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="b3faf-170"><xref:System.ServiceModel.ServiceContractAttribute.Name%2A> プロパティと <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> プロパティを使用して、WSDL での `<portType>` 要素の名前と名前空間を制御します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-170">Use the <xref:System.ServiceModel.ServiceContractAttribute.Name%2A> and the <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> properties to control the name and namespace of the `<portType>` element in WSDL.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="b3faf-171"><xref:System.ServiceModel.ServiceContractAttribute.Name%2A> の <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> と <xref:System.ServiceModel.ServiceContractAttribute> のプロパティを使用して、WSDL の対応する値を設定する方法のコード例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-171">The following code example shows how to use the <xref:System.ServiceModel.ServiceContractAttribute.Name%2A> and <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> properties of the <xref:System.ServiceModel.ServiceContractAttribute> to set the corresponding values in WSDL.</span></span>  
-  
- [!code-csharp[SCA.Names#1](~/samples/snippets/csharp/VS_Snippets_CFX/sca.names/cs/services.cs#1)]
- [!code-vb[SCA.Names#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/sca.names/vb/services.vb#1)]  
-  
- <span data-ttu-id="b3faf-172">次のコード例は、 [!INCLUDE[indigo1](~/includes/indigo1-md.md)] WSDL を使用してインポートした前のサービス用のクライアント、 [ServiceModel メタデータ ユーティリティ ツール (Svcutil.exe)](~/docs/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-172">The following code example shows an [!INCLUDE[indigo1](~/includes/indigo1-md.md)] client for the preceding service that imported WSDL using the [ServiceModel Metadata Utility Tool (Svcutil.exe)](~/docs/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe.md).</span></span> <span data-ttu-id="b3faf-173">このクライアントは、(「`HelloWorldProxy`」の「使用例」のセクションにあるサンプルと同様に) `SampleServiceProxy` クライアントではなく <xref:System.ServiceModel.ServiceContractAttribute> クライアントを使用します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-173">This client uses a `HelloWorldProxy` client rather than a `SampleServiceProxy` client (as is the case with the sample in the Example section of <xref:System.ServiceModel.ServiceContractAttribute>).</span></span>  
-  
- [!code-csharp[SCA.Names#3](~/samples/snippets/csharp/VS_Snippets_CFX/sca.names/cs/client.cs#3)]
- [!code-vb[SCA.Names#3](~/samples/snippets/visualbasic/VS_Snippets_CFX/sca.names/vb/client.vb#3)]  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="b3faf-174">値が null です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-174">The value is null.</span>
-          </span>
-        </exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="b3faf-175">値が空の文字列です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-175">The value is an empty string.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <Member MemberName="Namespace">
-      <MemberSignature Language="C#" Value="public string Namespace { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance string Namespace" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.ServiceContractAttribute.Namespace" />
-      <MemberSignature Language="VB.NET" Value="Public Property Namespace As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Namespace { System::String ^ get(); void set(System::String ^ value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
-        <AssemblyVersion>4.1.0.0</AssemblyVersion>
-        <AssemblyVersion>4.1.1.0</AssemblyVersion>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="b3faf-176">Web サービス記述言語 (WSDL) での <see langword="&lt;portType&gt;" /> 要素の名前空間を取得または設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-176">Gets or sets the namespace of the <see langword="&lt;portType&gt;" /> element in Web Services Description Language (WSDL).</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="b3faf-177">
-            <see langword="&lt;portType&gt;" /> 要素の WSDL 名前空間。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-177">The WSDL namespace of the <see langword="&lt;portType&gt;" /> element.</span>
-          </span>
-          <span data-ttu-id="b3faf-178">既定値は "http://tempuri.org" です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-178">The default value is "http://tempuri.org".</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Examples  
- <span data-ttu-id="b3faf-179"><xref:System.ServiceModel.ServiceContractAttribute.Name%2A> の <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> と <xref:System.ServiceModel.ServiceContractAttribute> のプロパティを使用して、WSDL の対応する値を設定する方法のコード例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-179">The following code example shows how to use the <xref:System.ServiceModel.ServiceContractAttribute.Name%2A> and <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> properties of the <xref:System.ServiceModel.ServiceContractAttribute> to set the corresponding values in WSDL.</span></span>  
-  
- [!code-csharp[SCA.Names#1](~/samples/snippets/csharp/VS_Snippets_CFX/sca.names/cs/services.cs#1)]
- [!code-vb[SCA.Names#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/sca.names/vb/services.vb#1)]  
-  
- <span data-ttu-id="b3faf-180">次のコード例は、 [!INCLUDE[indigo1](~/includes/indigo1-md.md)] WSDL を使用してインポートした前のサービス用のクライアント、 [ServiceModel メタデータ ユーティリティ ツール (Svcutil.exe)](~/docs/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-180">The following code example shows an [!INCLUDE[indigo1](~/includes/indigo1-md.md)] client for the preceding service that imported WSDL using the [ServiceModel Metadata Utility Tool (Svcutil.exe)](~/docs/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe.md).</span></span> <span data-ttu-id="b3faf-181">このクライアントは、(「`HelloWorldClient`」の「使用例」のセクションにあるサンプルと同様に) `SampleServiceClient` クライアントではなく <xref:System.ServiceModel.ServiceContractAttribute> クライアントを使用します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-181">This client uses a `HelloWorldClient` client rather than a `SampleServiceClient` client (as is the case with the sample in the Example section of <xref:System.ServiceModel.ServiceContractAttribute>).</span></span>  
-  
- [!code-csharp[SCA.Names#3](~/samples/snippets/csharp/VS_Snippets_CFX/sca.names/cs/client.cs#3)]
- [!code-vb[SCA.Names#3](~/samples/snippets/visualbasic/VS_Snippets_CFX/sca.names/vb/client.vb#3)]  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="ProtectionLevel">
-      <MemberSignature Language="C#" Value="public System.Net.Security.ProtectionLevel ProtectionLevel { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Net.Security.ProtectionLevel ProtectionLevel" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel" />
-      <MemberSignature Language="VB.NET" Value="Public Property ProtectionLevel As ProtectionLevel" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Net::Security::ProtectionLevel ProtectionLevel { System::Net::Security::ProtectionLevel get(); void set(System::Net::Security::ProtectionLevel value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Net.Security.ProtectionLevel</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="b3faf-182">コントラクトのバインディングで、<see cref="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel" /> プロパティの値をサポートする必要があるかどうかを指定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-182">Specifies whether the binding for the contract must support the value of the <see cref="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel" /> property.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="b3faf-183">
-            <see cref="T:System.Net.Security.ProtectionLevel" /> 値のいずれか 1 つ。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-183">One of the <see cref="T:System.Net.Security.ProtectionLevel" /> values.</span>
-          </span>
-          <span data-ttu-id="b3faf-184">既定値は、<see cref="F:System.Net.Security.ProtectionLevel.None" /> です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-184">The default is <see cref="F:System.Net.Security.ProtectionLevel.None" />.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="b3faf-185"><xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> プロパティを使用して、コントラクトを公開するエンドポイントに対して暗号化、デジタル署名、またはその両方がコントラクトのバインドで必要とされる程度を指定します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-185">Use the <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> property to specify the degree to which the contract binding requires encryption, digital signatures, or both for endpoints that expose the contract.</span></span> <span data-ttu-id="b3faf-186">ここで設定する値は、エラーを含むすべての操作メッセージの既定値となります。</span><span class="sxs-lookup"><span data-stu-id="b3faf-186">The value set here is the default value for all operation messages including faults.</span></span>  
-  
- <span data-ttu-id="b3faf-187">ランタイムでの保護動作は、次のプロパティで設定された保護レベル値の組み合わせであることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="b3faf-187">It is important to remember that the protection behavior at runtime is the combination of the protection-level values set on the following properties.</span></span> <span data-ttu-id="b3faf-188">こうしたプロパティは、階層構造を持ちます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-188">These properties have a hierarchical structure.</span></span> <span data-ttu-id="b3faf-189">最も外側の値を設定すると、それより狭いスコープで異なる値を明示的に設定していなければ、より狭いスコープでその既定の設定が定まります。</span><span class="sxs-lookup"><span data-stu-id="b3faf-189">Setting the outermost value establishes the default setting for all narrower scopes unless a different value for a narrower scope is explicitly set.</span></span> <span data-ttu-id="b3faf-190">この場合、外側の値は特に設定された値を除いて、それより狭いすべてのスコープで既定の設定として残ります。</span><span class="sxs-lookup"><span data-stu-id="b3faf-190">In this case, the outer value remains the default for all narrower scopes with the exception of that specifically set.</span></span>  
-  
- <span data-ttu-id="b3faf-191">たとえば、<xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A?displayProperty=nameWithType> が <xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType> に設定され、他のより狭いスコープに保護レベル設定が存在しない場合、操作コントラクト内のすべてのメッセージが暗号化および署名されます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-191">For example, if <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A?displayProperty=nameWithType> is set to <xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType> and no other narrower scopes have protection level settings, all messages in an operation contract are encrypted and signed.</span></span> <span data-ttu-id="b3faf-192">ただし、こうした操作の 1 つで <xref:System.ServiceModel.OperationContractAttribute> が <xref:System.Net.Security.ProtectionLevel.Sign?displayProperty=nameWithType> に設定されている場合、その操作のメッセージは署名されますが、コントラクト内の他のすべてのメッセージは暗号化および署名されます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-192">If, however, one of those operations has the <xref:System.ServiceModel.OperationContractAttribute> set to <xref:System.Net.Security.ProtectionLevel.Sign?displayProperty=nameWithType>, then the messages for that operation are signed but all other messages in the contract are encrypted and signed.</span></span>  
-  
- <span data-ttu-id="b3faf-193">保護レベル、前提条件、およびスコープに関する詳細については、「[について保護レベル](~/docs/framework/wcf/understanding-protection-level.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-193">For details about protection levels and their assumptions and scopes, see [Understanding Protection Level](~/docs/framework/wcf/understanding-protection-level.md).</span></span>  
-  
- <span data-ttu-id="b3faf-194">こうした値が設定されるスコープは次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="b3faf-194">The scopes at which these values are set are:</span></span>  
-  
- <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A?displayProperty=nameWithType>  
-  
- <xref:System.ServiceModel.OperationContractAttribute.ProtectionLevel%2A?displayProperty=nameWithType>  
-  
- <xref:System.ServiceModel.FaultContractAttribute.ProtectionLevel%2A?displayProperty=nameWithType>  
-  
- <xref:System.ServiceModel.MessageContractAttribute.ProtectionLevel%2A?displayProperty=nameWithType>  
-  
- <span data-ttu-id="b3faf-195"><xref:System.ServiceModel.MessageContractMemberAttribute.ProtectionLevel%2A?displayProperty=nameWithType> の <xref:System.ServiceModel.MessageHeaderAttribute?displayProperty=nameWithType> プロパティ。</span><span class="sxs-lookup"><span data-stu-id="b3faf-195">The <xref:System.ServiceModel.MessageContractMemberAttribute.ProtectionLevel%2A?displayProperty=nameWithType> property on <xref:System.ServiceModel.MessageHeaderAttribute?displayProperty=nameWithType>.</span></span>  
-  
- <span data-ttu-id="b3faf-196"><xref:System.ServiceModel.MessageContractMemberAttribute.ProtectionLevel%2A?displayProperty=nameWithType> の <xref:System.ServiceModel.MessageBodyMemberAttribute?displayProperty=nameWithType> プロパティ。</span><span class="sxs-lookup"><span data-stu-id="b3faf-196">The <xref:System.ServiceModel.MessageContractMemberAttribute.ProtectionLevel%2A?displayProperty=nameWithType> property on <xref:System.ServiceModel.MessageBodyMemberAttribute?displayProperty=nameWithType>.</span></span>  
-  
- <span data-ttu-id="b3faf-197">コントラクト上で明示的に指定された保護レベルが存在せず、基になるバインドで (トランスポート レベルまたはメッセージ レベルを問わず) セキュリティをサポートする場合、コントラクト全体の有効な保護レベルは <xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType> です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-197">When there is no protection level explicitly specified on the contract and the underlying binding supports security (whether at the transport or message level), the effective protection level for the whole contract is <xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType>.</span></span> <span data-ttu-id="b3faf-198">バインドで (<xref:System.ServiceModel.BasicHttpBinding> などの) セキュリティをサポートしない場合、コントラクト全体の有効な <xref:System.Net.Security.ProtectionLevel?displayProperty=nameWithType> は <xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType> です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-198">If the binding does not support security (such as <xref:System.ServiceModel.BasicHttpBinding>), the effective <xref:System.Net.Security.ProtectionLevel?displayProperty=nameWithType> is <xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType> for the whole contract.</span></span> <span data-ttu-id="b3faf-199">したがって、コントラクトで <xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType> を指定している場合でも、エンドポイント バインドによってはクライアントが要求するメッセージ レベルまたはトランスポート レベルのセキュリティ保護が異なる場合があります。</span><span class="sxs-lookup"><span data-stu-id="b3faf-199">The result is that depending upon the endpoint binding, clients can require different message or transport level security protection even when the contract specifies <xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType>.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="b3faf-200">値が、<see cref="T:System.Net.Security.ProtectionLevel" /> 値ではありません。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-200">The value is not one of the <see cref="T:System.Net.Security.ProtectionLevel" /> values.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <Member MemberName="SessionMode">
-      <MemberSignature Language="C#" Value="public System.ServiceModel.SessionMode SessionMode { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.ServiceModel.SessionMode SessionMode" />
-      <MemberSignature Language="DocId" Value="P:System.ServiceModel.ServiceContractAttribute.SessionMode" />
-      <MemberSignature Language="VB.NET" Value="Public Property SessionMode As SessionMode" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::ServiceModel::SessionMode SessionMode { System::ServiceModel::SessionMode get(); void set(System::ServiceModel::SessionMode value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.ServiceModel.SessionMode</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="b3faf-201">セッションが許可されるか、許可されないか、または必要であるかを示す値を取得または設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-201">Gets or sets whether sessions are allowed, not allowed or required.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="b3faf-202">
-            <see cref="T:System.ServiceModel.SessionMode" /> は、セッションが許可されるか、許可されないか、または必要であるかを示します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-202">A <see cref="T:System.ServiceModel.SessionMode" /> that indicates whether sessions are allowed, not allowed, or required.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="b3faf-203"><xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> プロパティを使用して、バインドでエンドポイント間のセッションをサポートすることを要求します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-203">Use the <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property to require bindings that support sessions between endpoints.</span></span> <span data-ttu-id="b3faf-204">セッションとは、2 つ以上のエンドポイント間で交換される一連のメッセージを相互に関連付ける方法のことです。</span><span class="sxs-lookup"><span data-stu-id="b3faf-204">A session is a way of correlating a set of messages exchanged between two or more endpoints.</span></span> <span data-ttu-id="b3faf-205">サービスがチャネル セッションをサポートする場合は、<xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A> プロパティを使用して、サービス コントラクトが実装するインスタンスとチャネルセッションの関係を指定できます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-205">If your service supports channel sessions, you can then use the <xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A> property to specify the relationship between instances your service contract implementation and the channel session.</span></span> <span data-ttu-id="b3faf-206">バインドがセッションをサポートしない場合は、例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-206">If a binding does not support sessions, an exception is thrown.</span></span>  
-  
- <span data-ttu-id="b3faf-207">たとえば、<xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> プロパティを <xref:System.ServiceModel.SessionMode.Required?displayProperty=nameWithType>、<xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A> プロパティを <xref:System.ServiceModel.InstanceContextMode.PerSession> に設定した場合、クライアントは、同じ接続を使用して同じサービス オブジェクトを繰り返し呼び出すことができます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-207">For example, if the <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property is set to <xref:System.ServiceModel.SessionMode.Required?displayProperty=nameWithType> and the <xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A> property is set to <xref:System.ServiceModel.InstanceContextMode.PerSession>, clients can use the same connection to make repeated calls to the same service object.</span></span>  
-  
- <span data-ttu-id="b3faf-208">セッションとサービス インスタンスの詳細については、次を参照してください。[セッションを使用した](~/docs/framework/wcf/using-sessions.md)と[セッション、インスタンス化、および同時実行](~/docs/framework/wcf/feature-details/sessions-instancing-and-concurrency.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-208">For more information about sessions and service instances, see [Using Sessions](~/docs/framework/wcf/using-sessions.md) and [Sessions, Instancing, and Concurrency](~/docs/framework/wcf/feature-details/sessions-instancing-and-concurrency.md).</span></span>  
-  
-> [!NOTE]
->  <span data-ttu-id="b3faf-209">セッションをサポートするチャネルは、特定のセッションとのサービス インスタンスの既定の関連付けをサポートします。</span><span class="sxs-lookup"><span data-stu-id="b3faf-209">A channel that supports sessions supports the default association of a service instance with a particular session.</span></span> <span data-ttu-id="b3faf-210">ただし、セッションの実装が異なれば、セッション ベースのインスタンス作成の制御に加えてサポートされる機能も異なります。</span><span class="sxs-lookup"><span data-stu-id="b3faf-210">However, different session implementations support different features in addition to session-based instancing control.</span></span> [!INCLUDE[indigo2](~/includes/indigo2-md.md)]<span data-ttu-id="b3faf-211"> には、セッションフル アプリケーション動作を実現するために使用できる 4 種類のセッションが用意されており、それぞれのセッションは、そのセッションの種類に固有の追加動作を提供します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-211"> provides four types of sessions that you can use to provide sessionful application behavior; each type of session provides additional behavior specific to the type of session it is.</span></span>  
-  
-1.  <span data-ttu-id="b3faf-212"><xref:System.ServiceModel.Channels.SecurityBindingElement?displayProperty=nameWithType> は セキュリティ セッションをサポートします。このセッションでは、通信の両側が暗号化またはデジタル署名、あるいはその両方の処理を行うことに合意し、すべてのメッセージはセキュリティで保護されたメッセージ交換に関連付けられます。</span><span class="sxs-lookup"><span data-stu-id="b3faf-212">The <xref:System.ServiceModel.Channels.SecurityBindingElement?displayProperty=nameWithType> supports security sessions, in which both ends of communication have agreed upon an encryption and/or digital signature process; all messages are correlated with that specific secure conversation.</span></span> <span data-ttu-id="b3faf-213">詳細については、次を参照してください。 [Services のセキュリティ保護](~/docs/framework/wcf/securing-services.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-213">For more information, see [Securing Services](~/docs/framework/wcf/securing-services.md).</span></span> <span data-ttu-id="b3faf-214">たとえば、セキュリティ セッションと信頼できるセッションの両方のサポートを含む <xref:System.ServiceModel.WSHttpBinding?displayProperty=nameWithType> は、既定では、メッセージを暗号化してデジタル署名を行うセキュリティで保護されたセッションのみを使用します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-214">For example, the <xref:System.ServiceModel.WSHttpBinding?displayProperty=nameWithType>, which contains support for both security sessions and reliable sessions, by default uses only a secure session which encrypts and digitally signs messages.</span></span>  
-  
-2.  <span data-ttu-id="b3faf-215"><xref:System.ServiceModel.NetTcpBinding?displayProperty=nameWithType> は、TCP/IP 接続によって公開されるセッションをサポートし、接続セッションにより、すべてのメッセージがソケット レベルで関連付けられるようにします。</span><span class="sxs-lookup"><span data-stu-id="b3faf-215">The <xref:System.ServiceModel.NetTcpBinding?displayProperty=nameWithType> supports the sessions exposed by the TCP/IP connections to ensure that all messages are correlated by the connection session at the socket level.</span></span>  
-  
-3.  <span data-ttu-id="b3faf-216">WS-ReliableMessaging 仕様を実装する <xref:System.ServiceModel.Channels.ReliableSessionBindingElement?displayProperty=nameWithType> は、メッセージが順に 1 回だけ配信される、信頼できるセッションをサポートしているため、メッセージがその交換時に複数のノードを通過するときでも信頼性を実現します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-216">The <xref:System.ServiceModel.Channels.ReliableSessionBindingElement?displayProperty=nameWithType>, which implements the WS-ReliableMessaging specification, provides support for reliable sessions in which messages are delivered in order and exactly once, enabling confidence even when messages travel across multiple nodes during the conversation.</span></span> <span data-ttu-id="b3faf-217">詳細については、次を参照してください。[信頼できるセッション](~/docs/framework/wcf/feature-details/reliable-sessions.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-217">For more information, see [Reliable Sessions](~/docs/framework/wcf/feature-details/reliable-sessions.md).</span></span>  
-  
-4.  <span data-ttu-id="b3faf-218"><xref:System.ServiceModel.NetMsmqBinding?displayProperty=nameWithType> は、MSMQ データグラム セッションを提供します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-218">The <xref:System.ServiceModel.NetMsmqBinding?displayProperty=nameWithType> provides MSMQ datagram sessions.</span></span> <span data-ttu-id="b3faf-219">詳細については、次を参照してください。 [WCF のキュー](~/docs/framework/wcf/feature-details/queues-in-wcf.md)です。</span><span class="sxs-lookup"><span data-stu-id="b3faf-219">For more information, see [Queues in WCF](~/docs/framework/wcf/feature-details/queues-in-wcf.md).</span></span>  
-  
- <span data-ttu-id="b3faf-220"><xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> プロパティを設定すると、コントラクトが必要とするセッションの種類は指定されず、コントラクトがセッションを必要とすることだけが指定されることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="b3faf-220">Remember that setting the <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property does not specify the type of session the contract requires, only that it requires one.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="b3faf-221">次のサービス コントラクトは、`SampleDuplexHello` サービス実装とメッセージ交換するときに、構成されたバインドでセッションを使用することを要求します。</span><span class="sxs-lookup"><span data-stu-id="b3faf-221">The following service contract requires that configured bindings use sessions when interacting with `SampleDuplexHello` service implementations.</span></span>  
-  
- [!code-csharp[SCA.Session#1](~/samples/snippets/csharp/VS_Snippets_CFX/sca.session/cs/services.cs#1)]
- [!code-vb[SCA.Session#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/sca.session/vb/services.vb#1)]  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="b3faf-222">値が、<see cref="T:System.ServiceModel.SessionMode" /> 値ではありません。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="b3faf-222">The value is not one of the <see cref="T:System.ServiceModel.SessionMode" /> values.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-  </Members>
-</Type>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" original="ServiceContractAttribute.xml" source-language="en-US" target-language="ja-JP">
+    <header>
+      <tool tool-id="mdxliff" tool-name="mdxliff" tool-version="1.0-efd8310" tool-company="Microsoft" />
+      <xliffext:skl_file_name xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">73cd4428-9abd-4836-b1ef-ba70fe2e0b726217dbb0bd62f8478f36c978ef938a78b104b651.skl</xliffext:skl_file_name>
+      <xliffext:version xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">1.2</xliffext:version>
+      <xliffext:ms.openlocfilehash xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">6217dbb0bd62f8478f36c978ef938a78b104b651</xliffext:ms.openlocfilehash>
+      <xliffext:ms.sourcegitcommit xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">cc0c87a2e12b0fb9ba9ecdd3d4950f0572524db8</xliffext:ms.sourcegitcommit>
+      <xliffext:ms.lasthandoff xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">05/03/2018</xliffext:ms.lasthandoff>
+      <xliffext:moniker_ids xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">netcore-1.0,netcore-1.1,netcore-2.0,netframework-4.5.1,netframework-4.5.2,netframework-4.5,netframework-4.6.1,netframework-4.6.2,netframework-4.6,netframework-4.7.1,netframework-4.7.2,netframework-4.7,xamarinandroid-7.1,xamarinios-10.8,xamarinmac-3.0</xliffext:moniker_ids>
+    </header>
+    <body>
+      <group id="content" extype="content">
+        <trans-unit id="101" translate="yes" xml:space="preserve" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Indicates that an interface or a class defines a service contract in a Windows Communication Foundation (WCF) application.</source>
+          <target state="translated">インターフェイスまたはクラスが、Windows Communication Foundation (WCF) アプリケーション内にサービス コントラクトを定義することを示します。</target>       </trans-unit>
+        <trans-unit id="102" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Use the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> attribute on an interface (or class) to define a service contract.</source>
+          <target state="translated">インターフェイス (またはクラス) に対して <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> 属性を使用して、サービス コントラクトを定義します。</target>       </trans-unit>
+        <trans-unit id="103" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Then use the <ph id="ph1">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> attribute on one or more of the class (or interface) methods to define the contract's service operations.</source>
+          <target state="translated">その後、1 つ以上のクラス (またはインターフェイス) のメソッドに対して <ph id="ph1">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> 属性を使用して、コントラクトのサービス操作を定義します。</target>       </trans-unit>
+        <trans-unit id="104" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>When the service contract is implemented and combined with a <bpt id="p1">[</bpt>Bindings<ept id="p1">](~/docs/framework/wcf/bindings.md)</ept> and an <ph id="ph1">&lt;xref:System.ServiceModel.EndpointAddress&gt;</ph> object, the service contract is exposed for use by clients.</source>
+          <target state="translated">サービス コントラクトを実装およびと組み合わせて使用すると、<bpt id="p1">[</bpt>バインド<ept id="p1">](~/docs/framework/wcf/bindings.md)</ept>と<ph id="ph1">&lt;xref:System.ServiceModel.EndpointAddress&gt;</ph>オブジェクト、サービス コントラクトが使用するクライアントによって公開されます。</target>       </trans-unit>
+        <trans-unit id="105" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>For an overview of the process using simple examples, see <bpt id="p1">[</bpt>Getting Started Tutorial<ept id="p1">](~/docs/framework/wcf/getting-started-tutorial.md)</ept>.</source>
+          <target state="translated">単純な例を使用して、プロセスの概要については、次を参照してください。<bpt id="p1">[</bpt>チュートリアル入門<ept id="p1">](~/docs/framework/wcf/getting-started-tutorial.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="106" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>For more information about creating service contracts, see <bpt id="p1">[</bpt>Designing and Implementing Services<ept id="p1">](~/docs/framework/wcf/designing-and-implementing-services.md)</ept>.</source>
+          <target state="translated">サービス コントラクトの作成の詳細については、次を参照してください。 <bpt id="p1">[</bpt>Services の実装を設計および<ept id="p1">](~/docs/framework/wcf/designing-and-implementing-services.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="107" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The information expressed by a <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> and its interface is loosely related to the Web Services Description Language (WSDL) <ph id="ph2">`&lt;portType&gt;`</ph> element.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> とそのインターフェイスで表現される情報は、Web サービス記述言語 (WSDL) の <ph id="ph2">`&lt;portType&gt;`</ph> 要素に大まかに関連しています。</target>       </trans-unit>
+        <trans-unit id="108" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>A service contract is used on the service side to specify what the service’s endpoint exposes to callers.</source>
+          <target state="translated">サービス コントラクトはサーバー側で、サービスのエンドポイントが呼び出し元に対して何を公開するかを指定するために使用されます。</target>       </trans-unit>
+        <trans-unit id="109" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>It is also used on the client side to specify the contract of the endpoint with which the client communicates and, in the case of duplex contracts, to specify the callback contract (using the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph> property) that the client must implement in order to participate in a duplex conversation.</source>
+          <target state="translated">サービス コントラクトはクライアント側でも使用され、クライアントが通信を行うエンドポイントのコントラクトを指定します。双方向コントラクトの場合は、クライアントが双方向のメッセージ交換を行うために実装する必要があるコールバック コントラクトを (<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph> プロパティを使用して) 指定します。</target>       </trans-unit>
+        <trans-unit id="110" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>An interface or class that is decorated with <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> must also have at least one method marked with the <ph id="ph2">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> attribute to expose any functionality.</source>
+          <target state="translated">さらに、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> で修飾したインターフェイスまたはクラスがなんらかの機能を公開するには、<ph id="ph2">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> 属性でマークされた、少なくとも 1 つのメソッドを持つ必要があります。</target>       </trans-unit>
+        <trans-unit id="111" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>See the Examples section for a code example of the simplest use of the two attributes to define and implement a service.</source>
+          <target state="translated">この 2 つの属性を使用してサービスの定義と実装を行う最も単純な方法のコード例については、「使用例」のセクションを参照してください。</target>       </trans-unit>
+        <trans-unit id="112" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Use the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> properties to modify the service contract.</source>
+          <target state="translated">サービス コントラクトを変更するには、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> プロパティを使用します。</target>       </trans-unit>
+        <trans-unit id="113" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.ConfigurationName%2A&gt;</ph> property specifies the name of the service element in the configuration file to use.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.ConfigurationName%2A&gt;</ph> プロパティは、使用する構成ファイル内のサービス要素の名前を指定します。</target>       </trans-unit>
+        <trans-unit id="114" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> and <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> properties control the name and namespace of the contract in the WSDL <ph id="ph3">`&lt;portType&gt;`</ph> element.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> プロパティと <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> プロパティは、WSDL の<ph id="ph3">`&lt;portType&gt;`</ph> 要素内のコントラクトの名前と名前空間を制御します。</target>       </trans-unit>
+        <trans-unit id="115" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A&gt;</ph> property specifies whether the contract requires a binding that supports sessions.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A&gt;</ph> プロパティは、コントラクトがセッションをサポートするバインディングを必要とするかどうかを指定します。</target>       </trans-unit>
+        <trans-unit id="116" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph> property specifies the return contract in a two-way (duplex) conversation.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph> プロパティは、双方向 (二重) 通信で使用されるリターン コントラクトを指定します。</target>       </trans-unit>
+        <trans-unit id="117" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel%2A&gt;</ph> and <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A&gt;</ph> properties indicate whether all messages supporting the contract have a explicit <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A&gt;</ph> value, and if so, what that level is.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel%2A&gt;</ph> プロパティと <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A&gt;</ph> プロパティは、このコントラクトをサポートするすべてのメッセージに明示的な <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A&gt;</ph> 値が設定されているかどうかを示し、設定されている場合はそのレベルを示します。</target>       </trans-unit>
+        <trans-unit id="118" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Services implement service contracts, which represent the data exchange that a service type supports.</source>
+          <target state="translated">サービスはサービス コントラクトを実装します。サービス コントラクトは、サービスの種類がサポートするデータ交換を表します。</target>       </trans-unit>
+        <trans-unit id="119" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>A service class can implement a service contract (by implementing an interface marked with <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> that has methods marked with <ph id="ph2">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph>) or it can be marked with the <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> and apply the <ph id="ph4">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> attribute to its own methods.</source>
+          <target state="translated">サービス クラスは、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> でマークされたメソッドを持つ <ph id="ph2">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> でマークされたインターフェイスを実装することで、サービス コントラクトを実装できます。または、<ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> でマークし、<ph id="ph4">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> 属性を独自のメソッドに適用できます。</target>       </trans-unit>
+        <trans-unit id="120" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>(If a class implements an interface marked with <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph>, it cannot be itself marked with <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph>.) Methods on service types that are marked with the <ph id="ph3">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> are treated as part of a default service contract specified by the service type itself.</source>
+          <target state="translated">(クラスが、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> でマークされたインターフェイスを実装する場合は、クラス自身を <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> でマークすることはできません)。サービスの種類の <ph id="ph3">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> でマークされたメソッドは、サービスの種類自体によって指定される既定のサービス コントラクトの一部として処理されます。</target>       </trans-unit>
+        <trans-unit id="121" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>For details about service operations, see <ph id="ph1">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph>.</source>
+          <target state="translated">サービス操作の詳細については、<ph id="ph1">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> を参照してください。</target>       </trans-unit>
+        <trans-unit id="122" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>By default, the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> and <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> properties are the name of the contract type and <ph id="ph3">`http://tempuri.org`</ph>, respectively, and <ph id="ph4">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A&gt;</ph> is <ph id="ph5">&lt;xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType&gt;</ph>.</source>
+          <target state="translated">既定では、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> プロパティと <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> プロパティは、それぞれコントラクトの種類と<ph id="ph3">`http://tempuri.org`</ph> であり、<ph id="ph4">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A&gt;</ph> は <ph id="ph5">&lt;xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="123" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>It is recommended that service contracts explicitly set their names, namespaces, and protection levels using these properties.</source>
+          <target state="translated">サービス コントラクトでは、名前、名前空間、および保護レベルを、これらのプロパティを使用して明示的に設定することをお勧めします。</target>       </trans-unit>
+        <trans-unit id="124" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Doing so accomplishes two goals.</source>
+          <target state="translated">この作業により、次の 2 つの目標が達成されます。</target>       </trans-unit>
+        <trans-unit id="125" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>First, it builds a contract that is not directly connected to the managed type information, enabling you to refactor your managed code and namespaces without breaking the contract as it is expressed in WSDL.</source>
+          <target state="translated">第 1 に、マネージ型情報に直接接続されないコントラクトを構築し、コントラクトを WSDL で表現するときに、コントラクトを壊さずにマネージ コードと名前空間をリファクタリングできます。</target>       </trans-unit>
+        <trans-unit id="126" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Second, explicitly requiring a certain level of protection on the contract itself enables the runtime to validate whether the binding configuration supports that level of security, preventing poor configuration from exposing sensitive information.</source>
+          <target state="translated">第 2 に、コントラクト自体の保護レベルを明示的に要求することによって、ランタイムがバインド構成でそのレベルのセキュリティがサポートされているかどうかを検証でき、それによって、機密情報を漏洩する不良な構成を回避できます。</target>       </trans-unit>
+        <trans-unit id="127" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>For more information about protection levels, see <bpt id="p1">[</bpt>Understanding Protection Level<ept id="p1">](~/docs/framework/wcf/understanding-protection-level.md)</ept>.</source>
+          <target state="translated">保護レベルの詳細については、次を参照してください。<bpt id="p1">[</bpt>について保護レベル<ept id="p1">](~/docs/framework/wcf/understanding-protection-level.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="128" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>To expose a service for use by client applications, create a host application to register your service endpoint with <ph id="ph1">[!INCLUDE[indigo1](~/includes/indigo1-md.md)]</ph>.</source>
+          <target state="translated">クライアント アプリケーションで使用するためにサービスを公開するには、サービス エンドポイントを <ph id="ph1">[!INCLUDE[indigo1](~/includes/indigo1-md.md)]</ph> に登録するホスト アプリケーションを作成します。</target>       </trans-unit>
+        <trans-unit id="129" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>You can host WCF services using Windows Activation Services (WAS), in console applications, Windows Service applications, ASP.NET applications, Windows Forms applications, or any other kind of application domain.</source>
+          <target state="translated">コンソール アプリケーション、Windows サービス アプリケーション、ASP.NET アプリケーション、Windows フォーム アプリケーション、またはその他の種類のアプリケーション ドメインで Windows アクティベーション サービス (WAS) を使用して WCF サービスをホストすることができます。</target>       </trans-unit>
+        <trans-unit id="130" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Hosting in the WAS is very similar to creating an ASP.NET application.</source>
+          <target state="translated">WAS でのホスティングは、ASP.NET アプリケーションの作成とほとんど同じです。</target>       </trans-unit>
+        <trans-unit id="131" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>For details, see <bpt id="p1">[</bpt>How to: Host a WCF Service in IIS<ept id="p1">](~/docs/framework/wcf/feature-details/how-to-host-a-wcf-service-in-iis.md)</ept>.</source>
+          <target state="translated">詳細については、「<bpt id="p1">[</bpt>する方法: IIS で WCF サービスをホスト<ept id="p1">](~/docs/framework/wcf/feature-details/how-to-host-a-wcf-service-in-iis.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="132" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Clients either use the service contract interface (the interface marked with <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph>) to create a channel to the service or they use the client objects (which combine the type information of the service contract interface with the <ph id="ph2">&lt;xref:System.ServiceModel.ClientBase%601&gt;</ph> class) to communicate with your service.</source>
+          <target state="translated">クライアントは、サービス コントラクト インターフェイス (<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> でマークされたインターフェイス) を使用してサービスへのチャネルを作成するか、またはクライアント オブジェクト (サービス コントラクト インターフェイスの型情報と <ph id="ph2">&lt;xref:System.ServiceModel.ClientBase%601&gt;</ph> クラスの組み合わせ) を使用してサービスと通信します。</target>       </trans-unit>
+        <trans-unit id="133" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>For details on client channels to services, see the <ph id="ph1">&lt;xref:System.ServiceModel.ChannelFactory%601&gt;</ph> class and <bpt id="p1">[</bpt>WCF Client Overview<ept id="p1">](~/docs/framework/wcf/wcf-client-overview.md)</ept>.</source>
+          <target state="translated">サービスへのクライアント チャネルの詳細については、「、<ph id="ph1">&lt;xref:System.ServiceModel.ChannelFactory%601&gt;</ph>クラスと<bpt id="p1">[</bpt>WCF クライアントの概要<ept id="p1">](~/docs/framework/wcf/wcf-client-overview.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="134" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Using a <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> class or interface to inherit from another <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> class or interface extends the parent contract.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> クラスまたはインターフェイスを使用して別の <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> クラスまたはインターフェイスから継承すると、親コントラクトが拡張されます。</target>       </trans-unit>
+        <trans-unit id="135" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>For example, if an <ph id="ph1">`IChildContract`</ph> interface is marked with <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> and inherited from another service contract interface, <ph id="ph3">`IParentContract`</ph>, the <ph id="ph4">`IChildContract`</ph> service contract contains the methods of both <ph id="ph5">`IParentContract`</ph> and <ph id="ph6">`IChildContract`</ph>.</source>
+          <target state="translated">たとえば、<ph id="ph1">`IChildContract`</ph> インターフェイスが <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> でマークされ、別のサービス コントラクト インターフェイスである <ph id="ph3">`IParentContract`</ph> から継承された場合、<ph id="ph4">`IChildContract`</ph> サービス コントラクトには、<ph id="ph5">`IParentContract`</ph> と <ph id="ph6">`IChildContract`</ph> の両方のメソッドが含まれます。</target>       </trans-unit>
+        <trans-unit id="136" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Extending contracts (whether on classes or interfaces) is very similar to extending managed classes and interfaces.</source>
+          <target state="translated">コントラクト (クラスまたはインターフェイス) の拡張は、マネージ クラスとマネージ インターフェイスの拡張とほとんど同じです。</target>       </trans-unit>
+        <trans-unit id="137" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The most flexible approach to creating services is to define service contract interfaces first and then have your service class implement that interface.</source>
+          <target state="translated">サービスを作成する最も柔軟な方法は、最初にサービス コントラクト インターフェイスを定義し、その後、サービス クラスでそのインターフェイスを実装することです。</target>       </trans-unit>
+        <trans-unit id="138" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>(This is also the simplest way to build your services if you must implement service contracts that have been defined by others.) Building services directly by marking a class with <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> and its methods with <ph id="ph2">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> works when the service exposes only one contract (but that contract can be exposed by more than one endpoint).</source>
+          <target state="translated">(これは、定義済みのサービス コントラクトを実装する必要がある場合に、サービスを構築するための最も簡単な方法でもあります)。クラスを <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> でマークし、メソッドを <ph id="ph2">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> でマークすることで直接サービスを構築する方法は、サービスが 1 つのコントラクトを公開する場合に適しています (ただし、そのコントラクトは、複数のエンドポイントによって公開できます)。</target>       </trans-unit>
+        <trans-unit id="139" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>Use the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph> property to indicate another service contract that, when bound together with the original service contract, define a message exchange that can flow in two ways independently.</source>
+          <target state="translated">使用して、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph>を元のサービス コントラクトとバインドされている場合を定義するフローであることができましていない 2 つの方法で独立してメッセージ交換は、別のサービス コントラクトを示すプロパティです。</target>       </trans-unit>
+        <trans-unit id="140" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>For details, see <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph>.</source>
+          <target state="translated">詳細については、「<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph>」を参照してください。</target>       </trans-unit>
+        <trans-unit id="141" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The following code example shows how to apply the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> to an interface to define a service contract with one service method, indicated by the <ph id="ph2">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph>.</source>
+          <target state="translated">次のコード例は、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> をインターフェイスに適用し、<ph id="ph2">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> によって示される 1 つのサービス メソッドを持つサービス コントラクトを定義する方法を示しています。</target>       </trans-unit>
+        <trans-unit id="142" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>In this case, the protection level required of bindings for all messages is <ph id="ph1">&lt;xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType&gt;</ph>.</source>
+          <target state="translated">この場合、すべてのメッセージのバインドで要求される保護レベルは <ph id="ph1">&lt;xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="143" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The code example then implements that contract on the <ph id="ph1">`SampleService`</ph> class.</source>
+          <target state="translated">その後、このコード例では、定義したコントラクトを <ph id="ph1">`SampleService`</ph> クラスで実装します。</target>       </trans-unit>
+        <trans-unit id="144" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The following code example shows a simple configuration file for the preceding service that creates one endpoint.</source>
+          <target state="translated">次のコード例は、上のサービス用の 1 つのエンドポイントを作成する単純な構成ファイルを示しています。</target>       </trans-unit>
+        <trans-unit id="145" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.ServiceModel.ServiceContractAttribute">
+          <source>The following code example shows a simple client that invokes the preceding <ph id="ph1">`SampleService`</ph>.</source>
+          <target state="translated">次のコード例は、上の <ph id="ph1">`SampleService`</ph> を呼び出す単純なクライアントを示しています。</target>       </trans-unit>
+        <trans-unit id="146" translate="yes" xml:space="preserve" uid="M:System.ServiceModel.ServiceContractAttribute.#ctor">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.ServiceModel.ServiceContractAttribute" /&gt;</ph> class.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.ServiceModel.ServiceContractAttribute" /&gt;</ph> クラスの新しいインスタンスを初期化します。</target>       </trans-unit>
+        <trans-unit id="147" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.ServiceModel.ServiceContractAttribute.#ctor">
+          <source>The constructor creates an instance of the attribute with no session requirements, no callback contract, and the default name and namespace.</source>
+          <target state="translated">このコンストラクターは、セッション要件もコールバック コントラクトもない、既定の名前と名前空間を使用する属性を持つインスタンスを作成します。</target>       </trans-unit>
+        <trans-unit id="148" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>Gets or sets the type of callback contract when the contract is a duplex contract.</source>
+          <target state="translated">コントラクトが双方向コントラクトの場合のコールバック コントラクトの型を取得または設定します。</target>       </trans-unit>
+        <trans-unit id="149" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>A <ph id="ph1">&lt;see cref="T:System.Type" /&gt;</ph> that indicates the callback contract.</source>
+          <target state="translated">コールバック コントラクトを示す <ph id="ph1">&lt;see cref="T:System.Type" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="150" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>The default is <ph id="ph1">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated">既定値は、<ph id="ph1">&lt;see langword="null" /&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="151" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>Specify an interface in the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph> property that represents the required opposite contract in a two-way (or duplex) message exchange.</source>
+          <target state="translated">双方向 (二重) メッセージ交換に必要な逆のコントラクトを表すインターフェイスを、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A&gt;</ph> プロパティに指定します。</target>       </trans-unit>
+        <trans-unit id="152" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>This enables client applications to listen for inbound operation calls that the server-side service application can send independently of client activity.</source>
+          <target state="translated">これにより、クライアント アプリケーションは、サーバー側のサービス アプリケーションがクライアントのアクティビティとは無関係に送信できる受信操作呼び出しをリッスンできます。</target>       </trans-unit>
+        <trans-unit id="153" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>Callback contracts that have one-way operations represent calls from the service that the client can handle.</source>
+          <target state="translated">一方向操作を持つコールバック コントラクトは、クライアントが処理できるサービスからの呼び出しを表します。</target>       </trans-unit>
+        <trans-unit id="154" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> attribute is ignored on callback contracts.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> 属性は、コールバック コントラクトでは無視されます。</target>       </trans-unit>
+        <trans-unit id="155" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>To configure runtime behavior of callback objects, use the <ph id="ph1">&lt;xref:System.ServiceModel.CallbackBehaviorAttribute?displayProperty=nameWithType&gt;</ph>.</source>
+          <target state="translated">コールバック オブジェクトのランタイム動作を構成するには、<ph id="ph1">&lt;xref:System.ServiceModel.CallbackBehaviorAttribute?displayProperty=nameWithType&gt;</ph> を使用します。</target>       </trans-unit>
+        <trans-unit id="156" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>The following code example shows a service that specifies a callback contract, which indicates that a service of type <ph id="ph1">`IDuplexHello`</ph> must have a correspondent that implements a service of type <ph id="ph2">`IHelloCallbackContract`</ph>.</source>
+          <target state="translated">次のコード例は、<ph id="ph1">`IDuplexHello`</ph> 型のサービスには <ph id="ph2">`IHelloCallbackContract`</ph> 型のサービスを実装する相手が必要であることを示すコールバック コントラクトを指定するサービスを示しています。</target>       </trans-unit>
+        <trans-unit id="157" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.CallbackContract">
+          <source>In addition, <ph id="ph1">`IHelloCallbackContract`</ph> implements a one-way callback method, enabling the service to call the client without waiting for a reply to support a distributed, event-driven client.</source>
+          <target state="translated">さらに、<ph id="ph1">`IHelloCallbackContract`</ph> は、一方向のコールバック メソッドを実装します。これにより、サービスは、クライアントからの応答を待たずにクライアントを呼び出すことができ、分散型でイベント駆動型のクライアントをサポートすることができます。</target>       </trans-unit>
+        <trans-unit id="158" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.ConfigurationName">
+          <source>Gets or sets the name used to locate the service in an application configuration file.</source>
+          <target state="translated">アプリケーション構成ファイル内でサービスを検索するために使用される名前を取得または設定します。</target>       </trans-unit>
+        <trans-unit id="159" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ConfigurationName">
+          <source>The name used to locate the service element in an application configuration file.</source>
+          <target state="translated">アプリケーション構成ファイル内でサービス要素を検索するために使用される名前。</target>       </trans-unit>
+        <trans-unit id="160" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ConfigurationName">
+          <source>The default is the name of the service implementation class.</source>
+          <target state="translated">既定の名前は、サービス実装クラスの名前です。</target>       </trans-unit>
+        <trans-unit id="161" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ConfigurationName">
+          <source>To set the value by which the configuration system locates a contract value in the configuration file, see <ph id="ph1">&lt;xref:System.ServiceModel.ServiceBehaviorAttribute.ConfigurationName%2A&gt;</ph>.</source>
+          <target state="translated">構成システムがそれを使用して構成ファイル内でコントラクト値を検索する値を設定する場合は、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceBehaviorAttribute.ConfigurationName%2A&gt;</ph> を参照してください。</target>       </trans-unit>
+        <trans-unit id="162" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.ConfigurationName">
+          <source>The value is null.</source>
+          <target state="translated">値が null です。</target>       </trans-unit>
+        <trans-unit id="163" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.ConfigurationName">
+          <source>The value is an empty string.</source>
+          <target state="translated">値が空の文字列です。</target>       </trans-unit>
+        <trans-unit id="164" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel">
+          <source>Gets a value that indicates whether the member has a protection level assigned.</source>
+          <target state="translated">メンバーに保護レベルが割り当てられているかどうかを示す値を取得します。</target>       </trans-unit>
+        <trans-unit id="165" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel">
+          <source><ph id="ph1">&lt;see langword="true" /&gt;</ph> if the <ph id="ph2">&lt;see cref="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel" /&gt;</ph> property is not <ph id="ph3">&lt;see cref="F:System.Net.Security.ProtectionLevel.None" /&gt;</ph>; otherwise, <ph id="ph4">&lt;see langword="false" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph2">&lt;see cref="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel" /&gt;</ph> プロパティが <ph id="ph3">&lt;see cref="F:System.Net.Security.ProtectionLevel.None" /&gt;</ph> でない場合は <ph id="ph1">&lt;see langword="true" /&gt;</ph>。それ以外の場合は <ph id="ph4">&lt;see langword="false" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="166" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel">
+          <source>The default is <ph id="ph1">&lt;see langword="false" /&gt;</ph>.</source>
+          <target state="translated">既定値は、<ph id="ph1">&lt;see langword="false" /&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="167" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel%2A&gt;</ph> property indicates whether a protection level value other than <ph id="ph2">`false`</ph> has been set for the contract.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel%2A&gt;</ph> プロパティは、<ph id="ph2">`false`</ph> 以外の値がコントラクトに設定されているかどうかを示します。</target>       </trans-unit>
+        <trans-unit id="168" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.Name">
+          <source>Gets or sets the name for the <ph id="ph1">&lt;see langword="&amp;lt;portType&amp;gt;" /&gt;</ph> element in Web Services Description Language (WSDL).</source>
+          <target state="translated">Web サービス記述言語 (WSDL) での <ph id="ph1">&lt;see langword="&amp;lt;portType&amp;gt;" /&gt;</ph> 要素の名前を取得または設定します。</target>       </trans-unit>
+        <trans-unit id="169" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Name">
+          <source>The default value is the name of the class or interface to which the <ph id="ph1">&lt;see cref="T:System.ServiceModel.ServiceContractAttribute" /&gt;</ph> is applied.</source>
+          <target state="translated">既定値は <ph id="ph1">&lt;see cref="T:System.ServiceModel.ServiceContractAttribute" /&gt;</ph> が適用されたクラスまたはインターフェイスの名前です。</target>       </trans-unit>
+        <trans-unit id="170" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Name">
+          <source>Use the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> and the <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> properties to control the name and namespace of the <ph id="ph3">`&lt;portType&gt;`</ph> element in WSDL.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> プロパティと <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> プロパティを使用して、WSDL での <ph id="ph3">`&lt;portType&gt;`</ph> 要素の名前と名前空間を制御します。</target>       </trans-unit>
+        <trans-unit id="171" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Name">
+          <source>The following code example shows how to use the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> and <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> properties of the <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> to set the corresponding values in WSDL.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> の <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> と <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> のプロパティを使用して、WSDL の対応する値を設定する方法のコード例を次に示します。</target>       </trans-unit>
+        <trans-unit id="172" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Name">
+          <source>The following code example shows an <ph id="ph1">[!INCLUDE[indigo1](~/includes/indigo1-md.md)]</ph> client for the preceding service that imported WSDL using the <bpt id="p1">[</bpt>ServiceModel Metadata Utility Tool (Svcutil.exe)<ept id="p1">](~/docs/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe.md)</ept>.</source>
+          <target state="translated">次のコード例は、 <ph id="ph1">[!INCLUDE[indigo1](~/includes/indigo1-md.md)]</ph> WSDL を使用してインポートした前のサービス用のクライアント、 <bpt id="p1">[</bpt>ServiceModel メタデータ ユーティリティ ツール (Svcutil.exe)<ept id="p1">](~/docs/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="173" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Name">
+          <source>This client uses a <ph id="ph1">`HelloWorldProxy`</ph> client rather than a <ph id="ph2">`SampleServiceProxy`</ph> client (as is the case with the sample in the Example section of <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph>).</source>
+          <target state="translated">このクライアントは、(「<ph id="ph1">`HelloWorldProxy`</ph>」の「使用例」のセクションにあるサンプルと同様に) <ph id="ph2">`SampleServiceProxy`</ph> クライアントではなく <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> クライアントを使用します。</target>       </trans-unit>
+        <trans-unit id="174" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.Name">
+          <source>The value is null.</source>
+          <target state="translated">値が null です。</target>       </trans-unit>
+        <trans-unit id="175" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.Name">
+          <source>The value is an empty string.</source>
+          <target state="translated">値が空の文字列です。</target>       </trans-unit>
+        <trans-unit id="176" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.Namespace">
+          <source>Gets or sets the namespace of the <ph id="ph1">&lt;see langword="&amp;lt;portType&amp;gt;" /&gt;</ph> element in Web Services Description Language (WSDL).</source>
+          <target state="translated">Web サービス記述言語 (WSDL) での <ph id="ph1">&lt;see langword="&amp;lt;portType&amp;gt;" /&gt;</ph> 要素の名前空間を取得または設定します。</target>       </trans-unit>
+        <trans-unit id="177" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Namespace">
+          <source>The WSDL namespace of the <ph id="ph1">&lt;see langword="&amp;lt;portType&amp;gt;" /&gt;</ph> element.</source>
+          <target state="translated"><ph id="ph1">&lt;see langword="&amp;lt;portType&amp;gt;" /&gt;</ph> 要素の WSDL 名前空間。</target>       </trans-unit>
+        <trans-unit id="178" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Namespace">
+          <source>The default value is "<ph id="ph1">http://tempuri.org</ph>".</source>
+          <target state="translated">既定値は "<ph id="ph1">http://tempuri.org</ph>" です。</target>       </trans-unit>
+        <trans-unit id="179" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Namespace">
+          <source>The following code example shows how to use the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> and <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> properties of the <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> to set the corresponding values in WSDL.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.Name%2A&gt;</ph> の <ph id="ph2">&lt;xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A&gt;</ph> と <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> のプロパティを使用して、WSDL の対応する値を設定する方法のコード例を次に示します。</target>       </trans-unit>
+        <trans-unit id="180" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Namespace">
+          <source>The following code example shows an <ph id="ph1">[!INCLUDE[indigo1](~/includes/indigo1-md.md)]</ph> client for the preceding service that imported WSDL using the <bpt id="p1">[</bpt>ServiceModel Metadata Utility Tool (Svcutil.exe)<ept id="p1">](~/docs/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe.md)</ept>.</source>
+          <target state="translated">次のコード例は、 <ph id="ph1">[!INCLUDE[indigo1](~/includes/indigo1-md.md)]</ph> WSDL を使用してインポートした前のサービス用のクライアント、 <bpt id="p1">[</bpt>ServiceModel メタデータ ユーティリティ ツール (Svcutil.exe)<ept id="p1">](~/docs/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="181" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.Namespace">
+          <source>This client uses a <ph id="ph1">`HelloWorldClient`</ph> client rather than a <ph id="ph2">`SampleServiceClient`</ph> client (as is the case with the sample in the Example section of <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph>).</source>
+          <target state="translated">このクライアントは、(「<ph id="ph1">`HelloWorldClient`</ph>」の「使用例」のセクションにあるサンプルと同様に) <ph id="ph2">`SampleServiceClient`</ph> クライアントではなく <ph id="ph3">&lt;xref:System.ServiceModel.ServiceContractAttribute&gt;</ph> クライアントを使用します。</target>       </trans-unit>
+        <trans-unit id="182" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>Specifies whether the binding for the contract must support the value of the <ph id="ph1">&lt;see cref="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel" /&gt;</ph> property.</source>
+          <target state="translated">コントラクトのバインディングで、<ph id="ph1">&lt;see cref="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel" /&gt;</ph> プロパティの値をサポートする必要があるかどうかを指定します。</target>       </trans-unit>
+        <trans-unit id="183" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>One of the <ph id="ph1">&lt;see cref="T:System.Net.Security.ProtectionLevel" /&gt;</ph> values.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.Net.Security.ProtectionLevel" /&gt;</ph> 値のいずれか 1 つ。</target>       </trans-unit>
+        <trans-unit id="184" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>The default is <ph id="ph1">&lt;see cref="F:System.Net.Security.ProtectionLevel.None" /&gt;</ph>.</source>
+          <target state="translated">既定値は、<ph id="ph1">&lt;see cref="F:System.Net.Security.ProtectionLevel.None" /&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="185" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>Use the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A&gt;</ph> property to specify the degree to which the contract binding requires encryption, digital signatures, or both for endpoints that expose the contract.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A&gt;</ph> プロパティを使用して、コントラクトを公開するエンドポイントに対して暗号化、デジタル署名、またはその両方がコントラクトのバインドで必要とされる程度を指定します。</target>       </trans-unit>
+        <trans-unit id="186" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>The value set here is the default value for all operation messages including faults.</source>
+          <target state="translated">ここで設定する値は、エラーを含むすべての操作メッセージの既定値となります。</target>       </trans-unit>
+        <trans-unit id="187" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>It is important to remember that the protection behavior at runtime is the combination of the protection-level values set on the following properties.</source>
+          <target state="translated">ランタイムでの保護動作は、次のプロパティで設定された保護レベル値の組み合わせであることに注意してください。</target>       </trans-unit>
+        <trans-unit id="188" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>These properties have a hierarchical structure.</source>
+          <target state="translated">こうしたプロパティは、階層構造を持ちます。</target>       </trans-unit>
+        <trans-unit id="189" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>Setting the outermost value establishes the default setting for all narrower scopes unless a different value for a narrower scope is explicitly set.</source>
+          <target state="translated">最も外側の値を設定すると、それより狭いスコープで異なる値を明示的に設定していなければ、より狭いスコープでその既定の設定が定まります。</target>       </trans-unit>
+        <trans-unit id="190" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>In this case, the outer value remains the default for all narrower scopes with the exception of that specifically set.</source>
+          <target state="translated">この場合、外側の値は特に設定された値を除いて、それより狭いすべてのスコープで既定の設定として残ります。</target>       </trans-unit>
+        <trans-unit id="191" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>For example, if <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A?displayProperty=nameWithType&gt;</ph> is set to <ph id="ph2">&lt;xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType&gt;</ph> and no other narrower scopes have protection level settings, all messages in an operation contract are encrypted and signed.</source>
+          <target state="translated">たとえば、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A?displayProperty=nameWithType&gt;</ph> が <ph id="ph2">&lt;xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType&gt;</ph> に設定され、他のより狭いスコープに保護レベル設定が存在しない場合、操作コントラクト内のすべてのメッセージが暗号化および署名されます。</target>       </trans-unit>
+        <trans-unit id="192" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>If, however, one of those operations has the <ph id="ph1">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> set to <ph id="ph2">&lt;xref:System.Net.Security.ProtectionLevel.Sign?displayProperty=nameWithType&gt;</ph>, then the messages for that operation are signed but all other messages in the contract are encrypted and signed.</source>
+          <target state="translated">ただし、こうした操作の 1 つで <ph id="ph1">&lt;xref:System.ServiceModel.OperationContractAttribute&gt;</ph> が <ph id="ph2">&lt;xref:System.Net.Security.ProtectionLevel.Sign?displayProperty=nameWithType&gt;</ph> に設定されている場合、その操作のメッセージは署名されますが、コントラクト内の他のすべてのメッセージは暗号化および署名されます。</target>       </trans-unit>
+        <trans-unit id="193" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>For details about protection levels and their assumptions and scopes, see <bpt id="p1">[</bpt>Understanding Protection Level<ept id="p1">](~/docs/framework/wcf/understanding-protection-level.md)</ept>.</source>
+          <target state="translated">保護レベル、前提条件、およびスコープに関する詳細については、「<bpt id="p1">[</bpt>について保護レベル<ept id="p1">](~/docs/framework/wcf/understanding-protection-level.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="194" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>The scopes at which these values are set are:</source>
+          <target state="translated">こうした値が設定されるスコープは次のとおりです。</target>       </trans-unit>
+        <trans-unit id="195" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.MessageContractMemberAttribute.ProtectionLevel%2A?displayProperty=nameWithType&gt;</ph> property on <ph id="ph2">&lt;xref:System.ServiceModel.MessageHeaderAttribute?displayProperty=nameWithType&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.MessageContractMemberAttribute.ProtectionLevel%2A?displayProperty=nameWithType&gt;</ph> の <ph id="ph2">&lt;xref:System.ServiceModel.MessageHeaderAttribute?displayProperty=nameWithType&gt;</ph> プロパティ。</target>       </trans-unit>
+        <trans-unit id="196" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.MessageContractMemberAttribute.ProtectionLevel%2A?displayProperty=nameWithType&gt;</ph> property on <ph id="ph2">&lt;xref:System.ServiceModel.MessageBodyMemberAttribute?displayProperty=nameWithType&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.MessageContractMemberAttribute.ProtectionLevel%2A?displayProperty=nameWithType&gt;</ph> の <ph id="ph2">&lt;xref:System.ServiceModel.MessageBodyMemberAttribute?displayProperty=nameWithType&gt;</ph> プロパティ。</target>       </trans-unit>
+        <trans-unit id="197" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>When there is no protection level explicitly specified on the contract and the underlying binding supports security (whether at the transport or message level), the effective protection level for the whole contract is <ph id="ph1">&lt;xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType&gt;</ph>.</source>
+          <target state="translated">コントラクト上で明示的に指定された保護レベルが存在せず、基になるバインドで (トランスポート レベルまたはメッセージ レベルを問わず) セキュリティをサポートする場合、コントラクト全体の有効な保護レベルは <ph id="ph1">&lt;xref:System.Net.Security.ProtectionLevel.EncryptAndSign?displayProperty=nameWithType&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="198" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>If the binding does not support security (such as <ph id="ph1">&lt;xref:System.ServiceModel.BasicHttpBinding&gt;</ph>), the effective <ph id="ph2">&lt;xref:System.Net.Security.ProtectionLevel?displayProperty=nameWithType&gt;</ph> is <ph id="ph3">&lt;xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType&gt;</ph> for the whole contract.</source>
+          <target state="translated">バインドで (<ph id="ph1">&lt;xref:System.ServiceModel.BasicHttpBinding&gt;</ph> などの) セキュリティをサポートしない場合、コントラクト全体の有効な <ph id="ph2">&lt;xref:System.Net.Security.ProtectionLevel?displayProperty=nameWithType&gt;</ph> は <ph id="ph3">&lt;xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="199" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>The result is that depending upon the endpoint binding, clients can require different message or transport level security protection even when the contract specifies <ph id="ph1">&lt;xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType&gt;</ph>.</source>
+          <target state="translated">したがって、コントラクトで <ph id="ph1">&lt;xref:System.Net.Security.ProtectionLevel.None?displayProperty=nameWithType&gt;</ph> を指定している場合でも、エンドポイント バインドによってはクライアントが要求するメッセージ レベルまたはトランスポート レベルのセキュリティ保護が異なる場合があります。</target>       </trans-unit>
+        <trans-unit id="200" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel">
+          <source>The value is not one of the <ph id="ph1">&lt;see cref="T:System.Net.Security.ProtectionLevel" /&gt;</ph> values.</source>
+          <target state="translated">値が、<ph id="ph1">&lt;see cref="T:System.Net.Security.ProtectionLevel" /&gt;</ph> 値ではありません。</target>       </trans-unit>
+        <trans-unit id="201" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>Gets or sets whether sessions are allowed, not allowed or required.</source>
+          <target state="translated">セッションが許可されるか、許可されないか、または必要であるかを示す値を取得または設定します。</target>       </trans-unit>
+        <trans-unit id="202" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>A <ph id="ph1">&lt;see cref="T:System.ServiceModel.SessionMode" /&gt;</ph> that indicates whether sessions are allowed, not allowed, or required.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.ServiceModel.SessionMode" /&gt;</ph> は、セッションが許可されるか、許可されないか、または必要であるかを示します。</target>       </trans-unit>
+        <trans-unit id="203" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>Use the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A&gt;</ph> property to require bindings that support sessions between endpoints.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A&gt;</ph> プロパティを使用して、バインドでエンドポイント間のセッションをサポートすることを要求します。</target>       </trans-unit>
+        <trans-unit id="204" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>A session is a way of correlating a set of messages exchanged between two or more endpoints.</source>
+          <target state="translated">セッションとは、2 つ以上のエンドポイント間で交換される一連のメッセージを相互に関連付ける方法のことです。</target>       </trans-unit>
+        <trans-unit id="205" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>If your service supports channel sessions, you can then use the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A&gt;</ph> property to specify the relationship between instances your service contract implementation and the channel session.</source>
+          <target state="translated">サービスがチャネル セッションをサポートする場合は、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A&gt;</ph> プロパティを使用して、サービス コントラクトが実装するインスタンスとチャネルセッションの関係を指定できます。</target>       </trans-unit>
+        <trans-unit id="206" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>If a binding does not support sessions, an exception is thrown.</source>
+          <target state="translated">バインドがセッションをサポートしない場合は、例外がスローされます。</target>       </trans-unit>
+        <trans-unit id="207" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>For example, if the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A&gt;</ph> property is set to <ph id="ph2">&lt;xref:System.ServiceModel.SessionMode.Required?displayProperty=nameWithType&gt;</ph> and the <ph id="ph3">&lt;xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A&gt;</ph> property is set to <ph id="ph4">&lt;xref:System.ServiceModel.InstanceContextMode.PerSession&gt;</ph>, clients can use the same connection to make repeated calls to the same service object.</source>
+          <target state="translated">たとえば、<ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A&gt;</ph> プロパティを <ph id="ph2">&lt;xref:System.ServiceModel.SessionMode.Required?displayProperty=nameWithType&gt;</ph>、<ph id="ph3">&lt;xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A&gt;</ph> プロパティを <ph id="ph4">&lt;xref:System.ServiceModel.InstanceContextMode.PerSession&gt;</ph> に設定した場合、クライアントは、同じ接続を使用して同じサービス オブジェクトを繰り返し呼び出すことができます。</target>       </trans-unit>
+        <trans-unit id="208" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>For more information about sessions and service instances, see <bpt id="p1">[</bpt>Using Sessions<ept id="p1">](~/docs/framework/wcf/using-sessions.md)</ept> and <bpt id="p2">[</bpt>Sessions, Instancing, and Concurrency<ept id="p2">](~/docs/framework/wcf/feature-details/sessions-instancing-and-concurrency.md)</ept>.</source>
+          <target state="translated">セッションとサービス インスタンスの詳細については、次を参照してください。<bpt id="p1">[</bpt>セッションを使用した<ept id="p1">](~/docs/framework/wcf/using-sessions.md)</ept>と<bpt id="p2">[</bpt>セッション、インスタンス化、および同時実行<ept id="p2">](~/docs/framework/wcf/feature-details/sessions-instancing-and-concurrency.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="209" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>A channel that supports sessions supports the default association of a service instance with a particular session.</source>
+          <target state="translated">セッションをサポートするチャネルは、特定のセッションとのサービス インスタンスの既定の関連付けをサポートします。</target>       </trans-unit>
+        <trans-unit id="210" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>However, different session implementations support different features in addition to session-based instancing control.</source>
+          <target state="translated">ただし、セッションの実装が異なれば、セッション ベースのインスタンス作成の制御に加えてサポートされる機能も異なります。</target>       </trans-unit>
+        <trans-unit id="211" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>WCF provides four types of sessions that you can use to provide sessionful application behavior; each type of session provides additional behavior specific to the type of session it is.</source>
+          <target state="translated">WCF には、4 種類のセッションの多いアプリケーションの動作を提供する使用できるセッションが用意されています各型のセッションでは、セッションは、その型に固有の追加動作を提供します。</target>       </trans-unit>
+        <trans-unit id="212" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.Channels.SecurityBindingElement?displayProperty=nameWithType&gt;</ph> supports security sessions, in which both ends of communication have agreed upon an encryption and/or digital signature process; all messages are correlated with that specific secure conversation.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.Channels.SecurityBindingElement?displayProperty=nameWithType&gt;</ph> は セキュリティ セッションをサポートします。このセッションでは、通信の両側が暗号化またはデジタル署名、あるいはその両方の処理を行うことに合意し、すべてのメッセージはセキュリティで保護されたメッセージ交換に関連付けられます。</target>       </trans-unit>
+        <trans-unit id="213" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>For more information, see <bpt id="p1">[</bpt>Securing Services<ept id="p1">](~/docs/framework/wcf/securing-services.md)</ept>.</source>
+          <target state="translated">詳細については、次を参照してください。 <bpt id="p1">[</bpt>Services のセキュリティ保護<ept id="p1">](~/docs/framework/wcf/securing-services.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="214" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>For example, the <ph id="ph1">&lt;xref:System.ServiceModel.WSHttpBinding?displayProperty=nameWithType&gt;</ph>, which contains support for both security sessions and reliable sessions, by default uses only a secure session which encrypts and digitally signs messages.</source>
+          <target state="translated">たとえば、セキュリティ セッションと信頼できるセッションの両方のサポートを含む <ph id="ph1">&lt;xref:System.ServiceModel.WSHttpBinding?displayProperty=nameWithType&gt;</ph> は、既定では、メッセージを暗号化してデジタル署名を行うセキュリティで保護されたセッションのみを使用します。</target>       </trans-unit>
+        <trans-unit id="215" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.NetTcpBinding?displayProperty=nameWithType&gt;</ph> supports the sessions exposed by the TCP/IP connections to ensure that all messages are correlated by the connection session at the socket level.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.NetTcpBinding?displayProperty=nameWithType&gt;</ph> は、TCP/IP 接続によって公開されるセッションをサポートし、接続セッションにより、すべてのメッセージがソケット レベルで関連付けられるようにします。</target>       </trans-unit>
+        <trans-unit id="216" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.Channels.ReliableSessionBindingElement?displayProperty=nameWithType&gt;</ph>, which implements the WS-ReliableMessaging specification, provides support for reliable sessions in which messages are delivered in order and exactly once, enabling confidence even when messages travel across multiple nodes during the conversation.</source>
+          <target state="translated">WS-ReliableMessaging 仕様を実装する <ph id="ph1">&lt;xref:System.ServiceModel.Channels.ReliableSessionBindingElement?displayProperty=nameWithType&gt;</ph> は、メッセージが順に 1 回だけ配信される、信頼できるセッションをサポートしているため、メッセージがその交換時に複数のノードを通過するときでも信頼性を実現します。</target>       </trans-unit>
+        <trans-unit id="217" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>For more information, see <bpt id="p1">[</bpt>Reliable Sessions<ept id="p1">](~/docs/framework/wcf/feature-details/reliable-sessions.md)</ept>.</source>
+          <target state="translated">詳細については、次を参照してください。<bpt id="p1">[</bpt>信頼できるセッション<ept id="p1">](~/docs/framework/wcf/feature-details/reliable-sessions.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="218" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>The <ph id="ph1">&lt;xref:System.ServiceModel.NetMsmqBinding?displayProperty=nameWithType&gt;</ph> provides MSMQ datagram sessions.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.NetMsmqBinding?displayProperty=nameWithType&gt;</ph> は、MSMQ データグラム セッションを提供します。</target>       </trans-unit>
+        <trans-unit id="219" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>For more information, see <bpt id="p1">[</bpt>Queues in WCF<ept id="p1">](~/docs/framework/wcf/feature-details/queues-in-wcf.md)</ept>.</source>
+          <target state="translated">詳細については、次を参照してください。 <bpt id="p1">[</bpt>WCF のキュー<ept id="p1">](~/docs/framework/wcf/feature-details/queues-in-wcf.md)</ept>です。</target>       </trans-unit>
+        <trans-unit id="220" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>Remember that setting the <ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A&gt;</ph> property does not specify the type of session the contract requires, only that it requires one.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A&gt;</ph> プロパティを設定すると、コントラクトが必要とするセッションの種類は指定されず、コントラクトがセッションを必要とすることだけが指定されることに注意してください。</target>       </trans-unit>
+        <trans-unit id="221" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>The following service contract requires that configured bindings use sessions when interacting with <ph id="ph1">`SampleDuplexHello`</ph> service implementations.</source>
+          <target state="translated">次のサービス コントラクトは、<ph id="ph1">`SampleDuplexHello`</ph> サービス実装とメッセージ交換するときに、構成されたバインドでセッションを使用することを要求します。</target>       </trans-unit>
+        <trans-unit id="222" translate="yes" xml:space="preserve" uid="P:System.ServiceModel.ServiceContractAttribute.SessionMode">
+          <source>The value is not one of the <ph id="ph1">&lt;see cref="T:System.ServiceModel.SessionMode" /&gt;</ph> values.</source>
+          <target state="translated">値が、<ph id="ph1">&lt;see cref="T:System.ServiceModel.SessionMode" /&gt;</ph> 値ではありません。</target>       </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
