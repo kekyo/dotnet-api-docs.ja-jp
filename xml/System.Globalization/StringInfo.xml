@@ -1,1131 +1,522 @@
-<Type Name="StringInfo" FullName="System.Globalization.StringInfo">
-  <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="8b5036f65cb27e101515e7c29074c5f48fc631dd" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
-    <Meta Name="ms.translationtype" Value="HT" />
-    <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-  </Metadata>
-  <TypeSignature Language="C#" Value="public class StringInfo" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit StringInfo extends System.Object" />
-  <TypeSignature Language="DocId" Value="T:System.Globalization.StringInfo" />
-  <TypeSignature Language="VB.NET" Value="Public Class StringInfo" />
-  <TypeSignature Language="C++ CLI" Value="public ref class StringInfo" />
-  <AssemblyInfo>
-    <AssemblyName>System.Globalization</AssemblyName>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-    <AssemblyVersion>4.0.10.0</AssemblyVersion>
-  </AssemblyInfo>
-  <AssemblyInfo>
-    <AssemblyName>mscorlib</AssemblyName>
-    <AssemblyVersion>2.0.5.0</AssemblyVersion>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-  </AssemblyInfo>
-  <AssemblyInfo>
-    <AssemblyName>netstandard</AssemblyName>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-  </AssemblyInfo>
-  <AssemblyInfo>
-    <AssemblyName>System.Runtime</AssemblyName>
-    <AssemblyVersion>4.2.0.0</AssemblyVersion>
-    <AssemblyVersion>4.2.1.0</AssemblyVersion>
-  </AssemblyInfo>
-  <Base>
-    <BaseTypeName>System.Object</BaseTypeName>
-  </Base>
-  <Interfaces />
-  <Attributes>
-    <Attribute>
-      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
-    </Attribute>
-  </Attributes>
-  <Docs>
-    <summary>
-      <span data-ttu-id="601c7-101">文字列をテキスト要素に分割し、そのテキスト要素を反復処理する機能を提供します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="601c7-101">Provides functionality to split a string into text elements and to iterate through those text elements.</span>
-      </span>
-    </summary>
-    <remarks>
-      <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-102">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-102">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="601c7-103">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</span><span class="sxs-lookup"><span data-stu-id="601c7-103">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="601c7-104">[Unicode 標準](http://go.microsoft.com/fwlink/?linkid=37123)、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-104">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="601c7-105">Unicode 標準定義組み合わせ文字のシーケンスとして基本文字と 1 つまたは複数の結合文字の組み合わせ。</span><span class="sxs-lookup"><span data-stu-id="601c7-105">The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="601c7-106">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</span><span class="sxs-lookup"><span data-stu-id="601c7-106">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="601c7-107"><xref:System.Globalization.StringInfo>クラスでは、個人ではなく、テキスト要素の系列として文字列を使用することができます<xref:System.Char>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="601c7-107">The <xref:System.Globalization.StringInfo> class enables you to work with a string as a series of textual elements rather than individual <xref:System.Char> objects.</span></span>  
-  
- <span data-ttu-id="601c7-108">インスタンスを作成、<xref:System.Globalization.StringInfo>を指定した文字列を表すオブジェクト、次のいずれかを行うことができます。</span><span class="sxs-lookup"><span data-stu-id="601c7-108">To instantiate a <xref:System.Globalization.StringInfo> object that represents a specified string, you can do either of the following:</span></span>  
-  
--   <span data-ttu-id="601c7-109">呼び出す、<xref:System.Globalization.StringInfo.%23ctor%28System.String%29>コンス トラクター、文字列を渡すとする、<xref:System.Globalization.StringInfo>オブジェクトは、引数として表すことです。</span><span class="sxs-lookup"><span data-stu-id="601c7-109">Call the <xref:System.Globalization.StringInfo.%23ctor%28System.String%29> constructor and pass it the string that the <xref:System.Globalization.StringInfo> object is to represent as an argument.</span></span>  
-  
--   <span data-ttu-id="601c7-110">既定値を呼び出す<xref:System.Globalization.StringInfo.%23ctor>コンス トラクター、文字列を割り当てると、<xref:System.Globalization.StringInfo>を表すオブジェクトを<xref:System.Globalization.StringInfo.String%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="601c7-110">Call the default <xref:System.Globalization.StringInfo.%23ctor> constructor, and assign the string that the <xref:System.Globalization.StringInfo> object is to represent to the <xref:System.Globalization.StringInfo.String%2A> property.</span></span>  
-  
- <span data-ttu-id="601c7-111">2 つの方法で文字列内の個々 のテキスト要素を使用することができます。</span><span class="sxs-lookup"><span data-stu-id="601c7-111">You can work with the individual text elements in a string in two ways:</span></span>  
-  
--   <span data-ttu-id="601c7-112">で、それぞれのテキスト要素を列挙しています。</span><span class="sxs-lookup"><span data-stu-id="601c7-112">By enumerating each text element.</span></span> <span data-ttu-id="601c7-113">これを行うを呼び出す、<xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A>メソッドを繰り返し呼び出しと、<xref:System.Globalization.TextElementEnumerator.MoveNext%2A>メソッドで返された<xref:System.Globalization.TextElementEnumerator>オブジェクトのメソッドが戻るまで`false`です。</span><span class="sxs-lookup"><span data-stu-id="601c7-113">To do this, you call the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method, and then repeatedly call the <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> method on the returned <xref:System.Globalization.TextElementEnumerator> object until the method returns `false`.</span></span>  
-  
--   <span data-ttu-id="601c7-114">呼び出して、<xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A>をそれぞれのテキスト要素の開始インデックスを含む配列を取得します。</span><span class="sxs-lookup"><span data-stu-id="601c7-114">By calling the <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> method to retrieve an array that contains the starting index of each text element.</span></span> <span data-ttu-id="601c7-115">これらのインデックスを渡すことによって、個々 のテキスト要素を取得することができますし、<xref:System.Globalization.StringInfo.SubstringByTextElements%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="601c7-115">You can then retrieve individual text elements by passing these indexes to the <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> method.</span></span>  
-  
- <span data-ttu-id="601c7-116">次の例では、文字列内のテキスト要素の操作の両方の方法を示します。</span><span class="sxs-lookup"><span data-stu-id="601c7-116">The following example illustrates both ways of working with the text elements in a string.</span></span> <span data-ttu-id="601c7-117">これには、2 つの文字列を作成します。</span><span class="sxs-lookup"><span data-stu-id="601c7-117">It creates two strings:</span></span>  
-  
--   <span data-ttu-id="601c7-118">`strCombining`、複数の 3 つのテキスト要素を含むアラビア語の文字の文字列である<xref:System.Char>オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="601c7-118">`strCombining`, which is a string of Arabic characters that includes three text elements with multiple <xref:System.Char> objects.</span></span> <span data-ttu-id="601c7-119">テキストの最初の要素は、基本文字アラビア語文字 ALEF (U +0-627) アラビア語 HAMZA 下続けて (U +0-655) およびアラビア語 KASRA (U +0 0650)。</span><span class="sxs-lookup"><span data-stu-id="601c7-119">The first text element is the base character ARABIC LETTER ALEF (U+-627) followed by ARABIC HAMZA BELOW (U+-655) and ARABIC KASRA (U+0650).</span></span> <span data-ttu-id="601c7-120">2 つ目のテキスト要素は、アラビア語の文字も (U +0 0647) アラビア語 FATHA 続けて (U +0-64E)。</span><span class="sxs-lookup"><span data-stu-id="601c7-120">The second text element is ARABIC LETTER HEH (U+0647) followed by ARABIC FATHA (U+-64E).</span></span> <span data-ttu-id="601c7-121">3 番目のテキスト要素は、アラビア語の LETTTER BEH (U +0 0628) アラビア語 DAMMATAN (U +0 064 C) が続きます。</span><span class="sxs-lookup"><span data-stu-id="601c7-121">The third text element is ARABIC LETTTER BEH (U+0628) followed by ARABIC DAMMATAN (U+064C).</span></span>  
-  
--   <span data-ttu-id="601c7-122">`strSurrogates`、次の 3 つのサロゲート ペアを含む文字列である: ギリシャ語 ACROPHONIC 5 才能 (U +0 10148) 補助多言語面 U +0、補助表意文字平面とプライベート ユーザー領域から U + F1001 から 20026 からです。</span><span class="sxs-lookup"><span data-stu-id="601c7-122">`strSurrogates`, which is a string that includes three surrogate pairs: GREEK ACROPHONIC FIVE TALENTS (U+10148) from the Supplementary Multilingual Plane, U+20026 from the Supplementary Ideographic Plane, and U+F1001 from the private user area.</span></span> <span data-ttu-id="601c7-123">各文字の utf-16 エンコーディングは、サロゲート ペアの下位サロゲート続けて上位サロゲートで構成されます。</span><span class="sxs-lookup"><span data-stu-id="601c7-123">The UTF-16 encoding of each character is a surrogate pair that consists of a high surrogate followed by a low surrogate.</span></span>  
-  
- <span data-ttu-id="601c7-124">1 回によって各文字列が解析、<xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A>メソッドしてから、<xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="601c7-124">Each string is parsed once by the <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> method and then by the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method.</span></span> <span data-ttu-id="601c7-125">正しく、どちらの方法は 2 つの文字列内のテキスト要素を解析し、解析操作の結果を表示します。</span><span class="sxs-lookup"><span data-stu-id="601c7-125">Both methods correctly parse the text elements in the two strings and display the results of the parsing operation.</span></span>  
-  
- [!code-csharp[System.Globalization.StringInfo.Class#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.globalization.stringinfo.class/cs/indexing1.cs#1)]
- [!code-vb[System.Globalization.StringInfo.Class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.globalization.stringinfo.class/vb/indexing1.vb#1)]  
-  
-   
-  
-## Examples  
- <span data-ttu-id="601c7-126">この例を使用する方法を示しています、<xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A>と<xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A>のメソッド、<xref:System.Globalization.StringInfo>サロゲートと組み合わせ文字を含む文字列を操作するクラス。</span><span class="sxs-lookup"><span data-stu-id="601c7-126">This example shows how to use the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> and <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> methods of the <xref:System.Globalization.StringInfo> class to manipulate a string that contains surrogate and combining characters.</span></span>  
-  
- [!code-cpp[stringinfo#1](~/samples/snippets/cpp/VS_Snippets_CLR/StringInfo/cpp/StringInfo.cpp#1)]
- [!code-csharp[stringinfo#1](~/samples/snippets/csharp/VS_Snippets_CLR/StringInfo/CS/StringInfo.cs#1)]
- [!code-vb[stringinfo#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StringInfo/vb/stringinfo.vb#1)]  
-  
- ]]></format>
-    </remarks>
-    <block subset="none" type="usage">
-      <para>
-        <span data-ttu-id="601c7-127">内部では、メソッド、<see cref="T:System.Globalization.StringInfo" />クラスのメソッドを呼び出す、<see cref="T:System.Globalization.CharUnicodeInfo" />文字のカテゴリを決めるクラスをします。</span>
-        <span class="sxs-lookup">
-          <span data-stu-id="601c7-127">Internally, the methods of the <see cref="T:System.Globalization.StringInfo" /> class call the methods of the <see cref="T:System.Globalization.CharUnicodeInfo" /> class to determine character categories.</span>
-        </span>
-        <span data-ttu-id="601c7-128">以降で、 [!INCLUDE[net_v462](~/includes/net-v462-md.md)]、文字の分類がに基づいて[、Unicode Standard, Version 8.0.0](http://unicode.org/versions/Unicode8.0.0)です。</span>
-        <span class="sxs-lookup">
-          <span data-stu-id="601c7-128">Starting with the [!INCLUDE[net_v462](~/includes/net-v462-md.md)], character classification is based on [The Unicode Standard, Version 8.0.0](http://unicode.org/versions/Unicode8.0.0).</span>
-        </span>
-        <span data-ttu-id="601c7-129">[!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]を通じて、 [!INCLUDE[net_v461](~/includes/net-v461-md.md)]、基にして[、Unicode Standard, Version 6.3.0](http://www.unicode.org/versions/Unicode6.3.0/)です。</span>
-        <span class="sxs-lookup">
-          <span data-stu-id="601c7-129">For the [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)] through the [!INCLUDE[net_v461](~/includes/net-v461-md.md)], it is based on [The Unicode Standard, Version 6.3.0](http://www.unicode.org/versions/Unicode6.3.0/).</span>
-        </span>
-      </para>
-    </block>
-  </Docs>
-  <Members>
-    <MemberGroup MemberName=".ctor">
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="601c7-130">
-            <see cref="T:System.Globalization.StringInfo" /> クラスの新しいインスタンスを初期化します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-130">Initializes a new instance of the <see cref="T:System.Globalization.StringInfo" /> class.</span>
-          </span>
-        </summary>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public StringInfo ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.#ctor" />
-      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; StringInfo();" />
-      <MemberType>Constructor</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Parameters />
-      <Docs>
-        <summary>
-          <span data-ttu-id="601c7-131">
-            <see cref="T:System.Globalization.StringInfo" /> クラスの新しいインスタンスを初期化します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-131">Initializes a new instance of the <see cref="T:System.Globalization.StringInfo" /> class.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-132">新しい値<xref:System.Globalization.StringInfo>オブジェクトは、空の文字列に初期化 ("") です。</span><span class="sxs-lookup"><span data-stu-id="601c7-132">The value of the new <xref:System.Globalization.StringInfo> object is initialized to the empty string ("").</span></span> <span data-ttu-id="601c7-133">使用してそれを別の文字列を割り当てることができます、<xref:System.Globalization.StringInfo.String%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="601c7-133">You can assign another string to it by using the <xref:System.Globalization.StringInfo.String%2A> property.</span></span>  <span data-ttu-id="601c7-134">インスタンス化することも、<xref:System.Globalization.StringInfo>を呼び出すことによって、1 つの手順で指定した文字列を表すオブジェクト、<xref:System.Globalization.StringInfo.%23ctor%28System.String%29>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="601c7-134">You can also instantiate a <xref:System.Globalization.StringInfo> object that represents a specified string in a single step by calling the <xref:System.Globalization.StringInfo.%23ctor%28System.String%29> constructor.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <altmember cref="F:System.String.Empty" />
-      </Docs>
-    </Member>
-    <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public StringInfo (string value);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string value) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.#ctor(System.String)" />
-      <MemberSignature Language="VB.NET" Value="Public Sub New (value As String)" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; StringInfo(System::String ^ value);" />
-      <MemberType>Constructor</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Parameters>
-        <Parameter Name="value" Type="System.String" />
-      </Parameters>
-      <Docs>
-        <param name="value">
-          <span data-ttu-id="601c7-135">この <see cref="T:System.Globalization.StringInfo" /> オブジェクトを初期化する文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-135">A string to initialize this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="601c7-136">
-            <see cref="T:System.Globalization.StringInfo" /> クラスの新しいインスタンスを指定された文字列に初期化します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-136">Initializes a new instance of the <see cref="T:System.Globalization.StringInfo" /> class to a specified string.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-137">このコンス トラクターは、オブジェクトの値の引数を割り当てます<xref:System.Globalization.StringInfo.String%2A>プロパティです。</span><span class="sxs-lookup"><span data-stu-id="601c7-137">This constructor assigns the value argument to the object's <xref:System.Globalization.StringInfo.String%2A> property.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="601c7-138">
-            <paramref name="value" /> は <see langword="null" />です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-138">
-              <paramref name="value" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <Member MemberName="Equals">
-      <MemberSignature Language="C#" Value="public override bool Equals (object value);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance bool Equals(object value) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.Equals(System.Object)" />
-      <MemberSignature Language="VB.NET" Value="Public Overrides Function Equals (value As Object) As Boolean" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; override bool Equals(System::Object ^ value);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Attributes>
-        <Attribute>
-          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
-        </Attribute>
-      </Attributes>
-      <ReturnValue>
-        <ReturnType>System.Boolean</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="value" Type="System.Object" />
-      </Parameters>
-      <Docs>
-        <param name="value">
-          <span data-ttu-id="601c7-139">オブジェクト。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-139">An object.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="601c7-140">現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトが指定されたオブジェクトと等しいかどうかを示します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-140">Indicates whether the current <see cref="T:System.Globalization.StringInfo" /> object is equal to a specified object.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="601c7-141">
-            <paramref name="value" /> パラメーターが <see cref="T:System.Globalization.StringInfo" /> オブジェクトであり、<see cref="P:System.Globalization.StringInfo.String" /> プロパティがこの <see cref="P:System.Globalization.StringInfo.String" /> オブジェクトの <see cref="T:System.Globalization.StringInfo" /> プロパティと等しい場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-141">
-              <see langword="true" /> if the <paramref name="value" /> parameter is a <see cref="T:System.Globalization.StringInfo" /> object and its <see cref="P:System.Globalization.StringInfo.String" /> property equals the <see cref="P:System.Globalization.StringInfo.String" /> property of this <see cref="T:System.Globalization.StringInfo" /> object; otherwise, <see langword="false" />.</span>
-          </span>
-        </returns>
-        <remarks>To be added.</remarks>
-        <altmember cref="Overload:System.String.Equals" />
-      </Docs>
-    </Member>
-    <Member MemberName="GetHashCode">
-      <MemberSignature Language="C#" Value="public override int GetHashCode ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 GetHashCode() cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetHashCode" />
-      <MemberSignature Language="VB.NET" Value="Public Overrides Function GetHashCode () As Integer" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int GetHashCode();" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Attributes>
-        <Attribute>
-          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
-        </Attribute>
-      </Attributes>
-      <ReturnValue>
-        <ReturnType>System.Int32</ReturnType>
-      </ReturnValue>
-      <Parameters />
-      <Docs>
-        <summary>
-          <span data-ttu-id="601c7-142">現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトの値のハッシュ コードを計算します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-142">Calculates a hash code for the value of the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="601c7-143">この <see cref="T:System.Globalization.StringInfo" /> オブジェクトの文字列値に基づく 32 ビット符号付き整数ハッシュ コード。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-143">A 32-bit signed integer hash code based on the string value of this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-144">動作<xref:System.Globalization.StringInfo.GetHashCode%2A>はその実装は、共通言語ランタイムの 1 つのバージョン別に異なる可能性がありますに依存します。</span><span class="sxs-lookup"><span data-stu-id="601c7-144">The behavior of <xref:System.Globalization.StringInfo.GetHashCode%2A> is dependent on its implementation, which might change from one version of the common language runtime to another.</span></span> <span data-ttu-id="601c7-145">パフォーマンスを向上させるためにこのエラーが発生<xref:System.Globalization.StringInfo.GetHashCode%2A>です。</span><span class="sxs-lookup"><span data-stu-id="601c7-145">This might happen to improve the performance of <xref:System.Globalization.StringInfo.GetHashCode%2A>.</span></span> <span data-ttu-id="601c7-146">動作をさせる<xref:System.Globalization.StringInfo.GetHashCode%2A>定数、アプリケーションはランタイムの実装をオーバーライドする必要があります<xref:System.Globalization.StringInfo.GetHashCode%2A>決して変更に既知の実装を持つ。</span><span class="sxs-lookup"><span data-stu-id="601c7-146">To make the behavior of <xref:System.Globalization.StringInfo.GetHashCode%2A> constant, the application should override the runtime implementation of <xref:System.Globalization.StringInfo.GetHashCode%2A> with an implementation known to never change.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <altmember cref="M:System.String.GetHashCode" />
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="GetNextTextElement">
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="601c7-147">指定した文字列の最初のテキスト要素を取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-147">Gets the first text element in a specified string.</span>
-          </span>
-        </summary>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="GetNextTextElement">
-      <MemberSignature Language="C#" Value="public static string GetNextTextElement (string str);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig string GetNextTextElement(string str) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetNextTextElement(System.String)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function GetNextTextElement (str As String) As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::String ^ GetNextTextElement(System::String ^ str);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="601c7-148">テキスト要素の取得元の文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-148">The string from which to get the text element.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="601c7-149">指定した文字列の最初のテキスト要素を取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-149">Gets the first text element in a specified string.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="601c7-150">指定した文字列の最初のテキスト要素を格納している文字列を取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-150">A string containing the first text element in the specified string.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-151">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-151">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="601c7-152">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</span><span class="sxs-lookup"><span data-stu-id="601c7-152">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="601c7-153">[Unicode 標準](http://go.microsoft.com/fwlink/?linkid=37123)、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-153">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="601c7-154">[Unicode 標準](http://go.microsoft.com/fwlink/?linkid=37123)組み合わせを定義する基本文字と 1 つまたは複数の結合文字の組み合わせとしてシーケンスを文字です。</span><span class="sxs-lookup"><span data-stu-id="601c7-154">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="601c7-155">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</span><span class="sxs-lookup"><span data-stu-id="601c7-155">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="601c7-156">このメソッドには、最初のテキスト要素のみを返します。</span><span class="sxs-lookup"><span data-stu-id="601c7-156">This method only returns the first text element.</span></span> <span data-ttu-id="601c7-157">文字列のテキスト要素を反復処理にアプリケーションを使用する必要があります、<xref:System.Globalization.TextElementEnumerator>によって生成されたオブジェクト、<xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="601c7-157">To iterate through the text elements of the string, the application should use the <xref:System.Globalization.TextElementEnumerator> object generated by the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="601c7-158">
-            <paramref name="str" /> は <see langword="null" />です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-158">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <altmember cref="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)" />
-        <altmember cref="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)" />
-      </Docs>
-    </Member>
-    <Member MemberName="GetNextTextElement">
-      <MemberSignature Language="C#" Value="public static string GetNextTextElement (string str, int index);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig string GetNextTextElement(string str, int32 index) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function GetNextTextElement (str As String, index As Integer) As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::String ^ GetNextTextElement(System::String ^ str, int index);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-        <Parameter Name="index" Type="System.Int32" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="601c7-159">テキスト要素の取得元の文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-159">The string from which to get the text element.</span>
-          </span>
-        </param>
-        <param name="index">
-          <span data-ttu-id="601c7-160">テキスト要素が開始する位置の、0 から始まるインデックス番号。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-160">The zero-based index at which the text element starts.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="601c7-161">指定した文字列の指定したインデックスにあるテキスト要素を取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-161">Gets the text element at the specified index of the specified string.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="601c7-162">指定した文字列の指定したインデックスにあるテキスト要素を格納している文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-162">A string containing the text element at the specified index of the specified string.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-163">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-163">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="601c7-164">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</span><span class="sxs-lookup"><span data-stu-id="601c7-164">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="601c7-165">[Unicode 標準](http://go.microsoft.com/fwlink/?linkid=37123)、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-165">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="601c7-166">Unicode 標準定義組み合わせ文字のシーケンスとして基本文字と 1 つまたは複数の結合文字の組み合わせ。</span><span class="sxs-lookup"><span data-stu-id="601c7-166">The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="601c7-167">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</span><span class="sxs-lookup"><span data-stu-id="601c7-167">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="601c7-168">このメソッドには、指定したインデックスから始まる部分文字列の最初のテキスト要素のみを返します。</span><span class="sxs-lookup"><span data-stu-id="601c7-168">This method only returns the first text element of the substring that starts at the specified index.</span></span> <span data-ttu-id="601c7-169">文字列のテキスト要素を反復処理にアプリケーションを使用する必要があります、<xref:System.Globalization.TextElementEnumerator>によって生成された、<xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="601c7-169">To iterate through the text elements of the string, the application should use the <xref:System.Globalization.TextElementEnumerator> generated by the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="601c7-170">
-            <paramref name="str" /> は <see langword="null" />です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-170">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="601c7-171">
-            <paramref name="index" /> は <paramref name="str" /> の有効なインデックスの範囲外です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-171">
-              <paramref name="index" /> is outside the range of valid indexes for <paramref name="str" />.</span>
-          </span>
-        </exception>
-        <altmember cref="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)" />
-        <altmember cref="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)" />
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="GetTextElementEnumerator">
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="601c7-172">文字列のテキスト要素を反復処理する列挙子を返します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-172">Returns an enumerator that iterates through the text elements of a string.</span>
-          </span>
-        </summary>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="GetTextElementEnumerator">
-      <MemberSignature Language="C#" Value="public static System.Globalization.TextElementEnumerator GetTextElementEnumerator (string str);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Globalization.TextElementEnumerator GetTextElementEnumerator(string str) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTextElementEnumerator (str As String) As TextElementEnumerator" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Globalization::TextElementEnumerator ^ GetTextElementEnumerator(System::String ^ str);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Globalization.TextElementEnumerator</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="601c7-173">反復処理対象の文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-173">The string to iterate through.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="601c7-174">文字列全体のテキスト要素を反復処理する列挙子を返します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-174">Returns an enumerator that iterates through the text elements of the entire string.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="601c7-175">文字列全体の <see cref="T:System.Globalization.TextElementEnumerator" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-175">A <see cref="T:System.Globalization.TextElementEnumerator" /> for the entire string.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-176">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-176">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="601c7-177">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</span><span class="sxs-lookup"><span data-stu-id="601c7-177">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="601c7-178">[Unicode 標準](http://go.microsoft.com/fwlink/?linkid=37123)、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-178">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="601c7-179">Unicode 標準定義組み合わせ文字のシーケンスとして基本文字と 1 つまたは複数の結合文字の組み合わせ。</span><span class="sxs-lookup"><span data-stu-id="601c7-179">The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="601c7-180">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</span><span class="sxs-lookup"><span data-stu-id="601c7-180">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="601c7-181">テキスト要素の列挙子は、文字列内のデータを読み取る場合にのみ使用します。基になる文字列を変更できません。</span><span class="sxs-lookup"><span data-stu-id="601c7-181">The text element enumerator is used only to read data in the string; it cannot modify the underlying string.</span></span> <span data-ttu-id="601c7-182">列挙子には、文字列への排他アクセスがありません。</span><span class="sxs-lookup"><span data-stu-id="601c7-182">The enumerator does not have exclusive access to the string.</span></span>  
-  
- <span data-ttu-id="601c7-183">列挙子は無効な状態では要素の前に、最初のテキスト文字列または文字列の最後のテキスト要素の後に配置されている場合です。</span><span class="sxs-lookup"><span data-stu-id="601c7-183">The enumerator is in an invalid state if it is positioned before the first text element in the string or after the last text element in the string.</span></span> <span data-ttu-id="601c7-184">列挙子は、状態が無効ですが、呼び出す<xref:System.Globalization.TextElementEnumerator.Current%2A>例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="601c7-184">When the enumerator is in an invalid state, calling <xref:System.Globalization.TextElementEnumerator.Current%2A> throws an exception.</span></span>  
-  
- <span data-ttu-id="601c7-185">最初に、列挙子は、文字列の最初のテキスト要素の前に位置付けられます。</span><span class="sxs-lookup"><span data-stu-id="601c7-185">Initially, the enumerator is positioned before the first text element in the string.</span></span> <span data-ttu-id="601c7-186"><xref:System.Globalization.TextElementEnumerator.Reset%2A> を実行した場合も、列挙子はこの位置に戻されます。</span><span class="sxs-lookup"><span data-stu-id="601c7-186"><xref:System.Globalization.TextElementEnumerator.Reset%2A> also brings the enumerator back to this position.</span></span> <span data-ttu-id="601c7-187">そのため、列挙子を作成した後、または後<xref:System.Globalization.TextElementEnumerator.Reset%2A>が呼び出されると、<xref:System.Globalization.TextElementEnumerator.MoveNext%2A>の値を読み取る前に、文字列の最初のテキスト要素に列挙子を進めるに呼び出す必要があります<xref:System.Globalization.TextElementEnumerator.Current%2A>です。</span><span class="sxs-lookup"><span data-stu-id="601c7-187">Therefore, after an enumerator is created or after <xref:System.Globalization.TextElementEnumerator.Reset%2A> is called, <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> must be called to advance the enumerator to the first text element of the string before reading the value of <xref:System.Globalization.TextElementEnumerator.Current%2A>.</span></span>  
-  
- <span data-ttu-id="601c7-188"><xref:System.Globalization.TextElementEnumerator.Current%2A> は、<xref:System.Globalization.TextElementEnumerator.MoveNext%2A> または <xref:System.Globalization.TextElementEnumerator.Reset%2A> が呼び出されるまでは同じオブジェクトを返します。</span><span class="sxs-lookup"><span data-stu-id="601c7-188"><xref:System.Globalization.TextElementEnumerator.Current%2A> returns the same object until either <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> or <xref:System.Globalization.TextElementEnumerator.Reset%2A> is called.</span></span>  
-  
- <span data-ttu-id="601c7-189">列挙子が無効な状態および呼び出し元はもう一度、文字列の末尾が渡されると、<xref:System.Globalization.TextElementEnumerator.MoveNext%2A>返します`false`です。</span><span class="sxs-lookup"><span data-stu-id="601c7-189">After the end of the string is passed, the enumerator is again in an invalid state and calling <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> returns `false`.</span></span> <span data-ttu-id="601c7-190">呼び出す<xref:System.Globalization.TextElementEnumerator.Current%2A>最後の呼び出しは例外をスロー<xref:System.Globalization.TextElementEnumerator.MoveNext%2A>返される`false`です。</span><span class="sxs-lookup"><span data-stu-id="601c7-190">Calling <xref:System.Globalization.TextElementEnumerator.Current%2A> throws an exception if the last call to <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> returned `false`.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="601c7-191">次のコード例を呼び出すことを示しています、<xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="601c7-191">The following code example demonstrates calling the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method.</span></span> <span data-ttu-id="601c7-192">このコード例に示されている例の一部である、<xref:System.Globalization.StringInfo>クラスです。</span><span class="sxs-lookup"><span data-stu-id="601c7-192">This code example is part of a larger example provided for the <xref:System.Globalization.StringInfo> class.</span></span>  
-  
- [!code-cpp[stringinfo#1](~/samples/snippets/cpp/VS_Snippets_CLR/StringInfo/cpp/StringInfo.cpp#1)]
- [!code-csharp[stringinfo#1](~/samples/snippets/csharp/VS_Snippets_CLR/StringInfo/CS/StringInfo.cs#1)]
- [!code-vb[stringinfo#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StringInfo/vb/stringinfo.vb#1)]  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="601c7-193">
-            <paramref name="str" /> は <see langword="null" />です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-193">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <altmember cref="T:System.Globalization.TextElementEnumerator" />
-      </Docs>
-    </Member>
-    <Member MemberName="GetTextElementEnumerator">
-      <MemberSignature Language="C#" Value="public static System.Globalization.TextElementEnumerator GetTextElementEnumerator (string str, int index);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Globalization.TextElementEnumerator GetTextElementEnumerator(string str, int32 index) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTextElementEnumerator (str As String, index As Integer) As TextElementEnumerator" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Globalization::TextElementEnumerator ^ GetTextElementEnumerator(System::String ^ str, int index);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Globalization.TextElementEnumerator</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-        <Parameter Name="index" Type="System.Int32" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="601c7-194">反復処理対象の文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-194">The string to iterate through.</span>
-          </span>
-        </param>
-        <param name="index">
-          <span data-ttu-id="601c7-195">反復処理を開始する位置の、0 から始まるインデックス番号。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-195">The zero-based index at which to start iterating.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="601c7-196">指定したインデックスから開始する文字列のテキスト要素を反復処理する列挙子を返します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-196">Returns an enumerator that iterates through the text elements of the string, starting at the specified index.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="601c7-197">
-            <paramref name="index" /> から開始する文字列の <see cref="T:System.Globalization.TextElementEnumerator" />。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-197">A <see cref="T:System.Globalization.TextElementEnumerator" /> for the string starting at <paramref name="index" />.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-198">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-198">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="601c7-199">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</span><span class="sxs-lookup"><span data-stu-id="601c7-199">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="601c7-200">[Unicode 標準](http://go.microsoft.com/fwlink/?linkid=37123)、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-200">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="601c7-201">Unicode 標準定義組み合わせ文字のシーケンスとして基本文字と 1 つまたは複数の結合文字の組み合わせ。</span><span class="sxs-lookup"><span data-stu-id="601c7-201">The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="601c7-202">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</span><span class="sxs-lookup"><span data-stu-id="601c7-202">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="601c7-203">テキスト要素の列挙子は、文字列内のデータを読み取る場合にのみ使用します。基になる文字列を変更できません。</span><span class="sxs-lookup"><span data-stu-id="601c7-203">The text element enumerator is used only to read data in the string; it cannot modify the underlying string.</span></span> <span data-ttu-id="601c7-204">列挙子には、文字列への排他アクセスがありません。</span><span class="sxs-lookup"><span data-stu-id="601c7-204">The enumerator does not have exclusive access to the string.</span></span>  
-  
- <span data-ttu-id="601c7-205">列挙子は無効な状態では要素の前に、最初のテキスト文字列または文字列の最後のテキスト要素の後に配置されている場合です。</span><span class="sxs-lookup"><span data-stu-id="601c7-205">The enumerator is in an invalid state if it is positioned before the first text element in the string or after the last text element in the string.</span></span> <span data-ttu-id="601c7-206">列挙子は、状態が無効ですが、呼び出す<xref:System.Globalization.TextElementEnumerator.Current%2A>例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="601c7-206">When the enumerator is in an invalid state, calling <xref:System.Globalization.TextElementEnumerator.Current%2A> throws an exception.</span></span>  
-  
- <span data-ttu-id="601c7-207">最初に、列挙子は、文字列の最初のテキスト要素の前に位置付けられます。</span><span class="sxs-lookup"><span data-stu-id="601c7-207">Initially, the enumerator is positioned before the first text element in the string.</span></span> <span data-ttu-id="601c7-208"><xref:System.Globalization.TextElementEnumerator.Reset%2A> を実行した場合も、列挙子はこの位置に戻されます。</span><span class="sxs-lookup"><span data-stu-id="601c7-208"><xref:System.Globalization.TextElementEnumerator.Reset%2A> also brings the enumerator back to this position.</span></span> <span data-ttu-id="601c7-209">そのため、列挙子を作成した後、または後<xref:System.Globalization.TextElementEnumerator.Reset%2A>が呼び出されると、<xref:System.Globalization.TextElementEnumerator.MoveNext%2A>の値を読み取る前に、文字列の最初のテキスト要素に列挙子を進めるに呼び出す必要があります<xref:System.Globalization.TextElementEnumerator.Current%2A>です。</span><span class="sxs-lookup"><span data-stu-id="601c7-209">Therefore, after an enumerator is created or after <xref:System.Globalization.TextElementEnumerator.Reset%2A> is called, <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> must be called to advance the enumerator to the first text element of the string before reading the value of <xref:System.Globalization.TextElementEnumerator.Current%2A>.</span></span>  
-  
- <span data-ttu-id="601c7-210"><xref:System.Globalization.TextElementEnumerator.Current%2A> は、<xref:System.Globalization.TextElementEnumerator.MoveNext%2A> または <xref:System.Globalization.TextElementEnumerator.Reset%2A> が呼び出されるまでは同じオブジェクトを返します。</span><span class="sxs-lookup"><span data-stu-id="601c7-210"><xref:System.Globalization.TextElementEnumerator.Current%2A> returns the same object until either <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> or <xref:System.Globalization.TextElementEnumerator.Reset%2A> is called.</span></span>  
-  
- <span data-ttu-id="601c7-211">列挙子が無効な状態および呼び出し元はもう一度、文字列の末尾が渡されると、<xref:System.Globalization.TextElementEnumerator.MoveNext%2A>返します`false`です。</span><span class="sxs-lookup"><span data-stu-id="601c7-211">After the end of the string is passed, the enumerator is again in an invalid state and calling <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> returns `false`.</span></span> <span data-ttu-id="601c7-212">呼び出す<xref:System.Globalization.TextElementEnumerator.Current%2A>最後の呼び出しは例外をスロー<xref:System.Globalization.TextElementEnumerator.MoveNext%2A>返される`false`です。</span><span class="sxs-lookup"><span data-stu-id="601c7-212">Calling <xref:System.Globalization.TextElementEnumerator.Current%2A> throws an exception if the last call to <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> returned `false`.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="601c7-213">
-            <paramref name="str" /> は <see langword="null" />です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-213">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="601c7-214">
-            <paramref name="index" /> は <paramref name="str" /> の有効なインデックスの範囲外です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-214">
-              <paramref name="index" /> is outside the range of valid indexes for <paramref name="str" />.</span>
-          </span>
-        </exception>
-        <altmember cref="T:System.Globalization.TextElementEnumerator" />
-      </Docs>
-    </Member>
-    <Member MemberName="LengthInTextElements">
-      <MemberSignature Language="C#" Value="public int LengthInTextElements { get; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance int32 LengthInTextElements" />
-      <MemberSignature Language="DocId" Value="P:System.Globalization.StringInfo.LengthInTextElements" />
-      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property LengthInTextElements As Integer" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int LengthInTextElements { int get(); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Int32</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="601c7-215">現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクト内のテキスト要素数を取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-215">Gets the number of text elements in the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="601c7-216">この <see cref="T:System.Globalization.StringInfo" /> オブジェクトの、基本文字、サロゲート ペア、結合文字シーケンスの数。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-216">The number of base characters, surrogate pairs, and combining character sequences in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </value>
-        <remarks>To be added.</remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="ParseCombiningCharacters">
-      <MemberSignature Language="C#" Value="public static int[] ParseCombiningCharacters (string str);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig int32[] ParseCombiningCharacters(string str) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function ParseCombiningCharacters (str As String) As Integer()" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static cli::array &lt;int&gt; ^ ParseCombiningCharacters(System::String ^ str);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Int32[]</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="601c7-217">検索対象の文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-217">The string to search.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="601c7-218">指定した文字列の各基本文字、上位サロゲート、または制御文字のインデックスを返します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-218">Returns the indexes of each base character, high surrogate, or control character within the specified string.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="601c7-219">指定した文字列の各基本文字、上位サロゲート、または制御文字の、0 から始まるインデックス番号を格納している整数の配列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-219">An array of integers that contains the zero-based indexes of each base character, high surrogate, or control character within the specified string.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-220">[Unicode 標準](http://go.microsoft.com/fwlink/?linkid=37123)、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-220">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="601c7-221">上位サロゲートが u+d800 から U+DBFF の範囲の Unicode コード ポイントと、下位サロゲートが u+dc00 から U+DFFF までの範囲内での Unicode コード ポイント。</span><span class="sxs-lookup"><span data-stu-id="601c7-221">A high surrogate is a Unicode code point in the range U+D800 through U+DBFF and a low surrogate is a Unicode code point in the range U+DC00 through U+DFFF.</span></span>  
-  
- <span data-ttu-id="601c7-222">制御文字は、Unicode 値は U +0 007F または u+0000 を通じて U +0 001 f または u+0080 U +0 009 f からの範囲内で文字です。</span><span class="sxs-lookup"><span data-stu-id="601c7-222">A control character is a character for which the Unicode value is U+007F or in the range U+0000 through U+001F or U+0080 through U+009F.</span></span>  
-  
- <span data-ttu-id="601c7-223">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</span><span class="sxs-lookup"><span data-stu-id="601c7-223">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="601c7-224">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</span><span class="sxs-lookup"><span data-stu-id="601c7-224">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="601c7-225">[Unicode 標準](http://go.microsoft.com/fwlink/?linkid=37123)組み合わせを定義する基本文字と 1 つまたは複数の結合文字の組み合わせとしてシーケンスを文字です。</span><span class="sxs-lookup"><span data-stu-id="601c7-225">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="601c7-226">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</span><span class="sxs-lookup"><span data-stu-id="601c7-226">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="601c7-227">場合、組み合わせ文字シーケンスが有効でないそのシーケンスのすべての組み合わせ文字も返されます。</span><span class="sxs-lookup"><span data-stu-id="601c7-227">If a combining character sequence is invalid, every combining character in that sequence is also returned.</span></span>  
-  
- <span data-ttu-id="601c7-228">結果の配列内の各インデックスは、テキストの要素、つまり、基本文字または上位サロゲートのインデックスの先頭です。</span><span class="sxs-lookup"><span data-stu-id="601c7-228">Each index in the resulting array is the beginning of a text element, that is, the index of the base character or the high surrogate.</span></span>  
-  
- <span data-ttu-id="601c7-229">各要素の長さは、簡単に連続するインデックス間の差として計算します。</span><span class="sxs-lookup"><span data-stu-id="601c7-229">The length of each element is easily computed as the difference between successive indexes.</span></span> <span data-ttu-id="601c7-230">配列の長さ以下に、文字列の長さは常になります。</span><span class="sxs-lookup"><span data-stu-id="601c7-230">The length of the array will always be less than or equal to the length of the string.</span></span> <span data-ttu-id="601c7-231">このメソッドはたとえば、文字列"\u4f00\u302a\ud800\udc00\u4f01"を指定するには、インデックス 0、2、および 4 を返します。</span><span class="sxs-lookup"><span data-stu-id="601c7-231">For example, given the string "\u4f00\u302a\ud800\udc00\u4f01", this method returns the indexes 0, 2, and 4.</span></span>  
-  
-## <a name="equivalent-members"></a><span data-ttu-id="601c7-232">同等のメンバー</span><span class="sxs-lookup"><span data-stu-id="601c7-232">Equivalent Members</span></span>  
- <span data-ttu-id="601c7-233">.NET Framework version 2.0 以降、<xref:System.Globalization.StringInfo.SubstringByTextElements%2A>メソッドおよび<xref:System.Globalization.StringInfo.LengthInTextElements%2A>プロパティによって提供される機能の使いやすい実装を提供する、<xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="601c7-233">Starting in version 2.0 of the .NET Framework, the <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> method and <xref:System.Globalization.StringInfo.LengthInTextElements%2A> property provide an easy to use implementation of the functionality offered by the <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> method.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="601c7-234">次のコード例を呼び出すことを示しています、<xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A>メソッドです。</span><span class="sxs-lookup"><span data-stu-id="601c7-234">The following code example demonstrates calling the <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> method.</span></span> <span data-ttu-id="601c7-235">このコード例に示されている例の一部である、<xref:System.Globalization.StringInfo>クラスです。</span><span class="sxs-lookup"><span data-stu-id="601c7-235">This code example is part of a larger example provided for the <xref:System.Globalization.StringInfo> class.</span></span>  
-  
- [!code-cpp[stringinfo#1](~/samples/snippets/cpp/VS_Snippets_CLR/StringInfo/cpp/StringInfo.cpp#1)]
- [!code-csharp[stringinfo#1](~/samples/snippets/csharp/VS_Snippets_CLR/StringInfo/CS/StringInfo.cs#1)]
- [!code-vb[stringinfo#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StringInfo/vb/stringinfo.vb#1)]  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="601c7-236">
-            <paramref name="str" /> は <see langword="null" />です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-236">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <altmember cref="Overload:System.Globalization.StringInfo.SubstringByTextElements" />
-        <altmember cref="P:System.Globalization.StringInfo.LengthInTextElements" />
-      </Docs>
-    </Member>
-    <Member MemberName="String">
-      <MemberSignature Language="C#" Value="public string String { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance string String" />
-      <MemberSignature Language="DocId" Value="P:System.Globalization.StringInfo.String" />
-      <MemberSignature Language="VB.NET" Value="Public Property String As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ String { System::String ^ get(); void set(System::String ^ value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="601c7-237">現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトの値を取得または設定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-237">Gets or sets the value of the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="601c7-238">現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトの値である文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-238">The string that is the value of the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-239">ときに、<xref:System.Globalization.StringInfo>オブジェクトをインスタンス化すると、その<xref:System.Globalization.StringInfo.String%2A>プロパティは、次の値のいずれかに設定します。</span><span class="sxs-lookup"><span data-stu-id="601c7-239">When a <xref:System.Globalization.StringInfo> object is instantiated, its <xref:System.Globalization.StringInfo.String%2A> property is set to one of the following values:</span></span>  
-  
--   <span data-ttu-id="601c7-240"><xref:System.String.Empty?displayProperty=nameWithType> 場合、既定<xref:System.Globalization.StringInfo.%23ctor>と呼びます。</span><span class="sxs-lookup"><span data-stu-id="601c7-240"><xref:System.String.Empty?displayProperty=nameWithType> if the default  <xref:System.Globalization.StringInfo.%23ctor> is called.</span></span> <span data-ttu-id="601c7-241">使用して、<xref:System.Globalization.StringInfo.String%2A>文字列を割り当てるプロパティをこの<xref:System.Globalization.StringInfo>rperesents のオブジェクトします。</span><span class="sxs-lookup"><span data-stu-id="601c7-241">You should then use the <xref:System.Globalization.StringInfo.String%2A> property to assign the string that this <xref:System.Globalization.StringInfo> object rperesents.</span></span>  
-  
--   <span data-ttu-id="601c7-242">として文字列が指定された、`value`への引数、<xref:System.Globalization.StringInfo.%23ctor%28System.String%29>コンス トラクターです。</span><span class="sxs-lookup"><span data-stu-id="601c7-242">The string supplied as the `value` argument to the <xref:System.Globalization.StringInfo.%23ctor%28System.String%29> constructor.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="601c7-243">設定操作の値が <see langword="null" /> です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-243">The value in a set operation is <see langword="null" />.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="SubstringByTextElements">
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="601c7-244">現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトからテキスト要素の部分文字列を取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-244">Retrieves a substring of text elements from the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </summary>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="SubstringByTextElements">
-      <MemberSignature Language="C#" Value="public string SubstringByTextElements (int startingTextElement);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string SubstringByTextElements(int32 startingTextElement) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)" />
-      <MemberSignature Language="VB.NET" Value="Public Function SubstringByTextElements (startingTextElement As Integer) As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::String ^ SubstringByTextElements(int startingTextElement);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="startingTextElement" Type="System.Int32" />
-      </Parameters>
-      <Docs>
-        <param name="startingTextElement">
-          <span data-ttu-id="601c7-245">この <see cref="T:System.Globalization.StringInfo" /> オブジェクトのテキスト要素の 0 から始まるインデックス。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-245">The zero-based index of a text element in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="601c7-246">指定されたテキスト要素から最後のテキスト要素までの範囲内で、現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトからテキスト要素の部分文字列を取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-246">Retrieves a substring of text elements from the current <see cref="T:System.Globalization.StringInfo" /> object starting from a specified text element and continuing through the last text element.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="601c7-247">
-            <paramref name="startingTextElement" /> パラメーターで指定されたテキスト要素インデックスから、このオブジェクトの最後のテキスト要素までの範囲内にある、この <see cref="T:System.Globalization.StringInfo" /> オブジェクトのテキスト要素の部分文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-247">A substring of text elements in this <see cref="T:System.Globalization.StringInfo" /> object, starting from the text element index specified by the <paramref name="startingTextElement" /> parameter and continuing through the last text element in this object.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-248">インデックス 0 ~ 4 から 5 つのテキスト要素で構成される文字列を検討してください。</span><span class="sxs-lookup"><span data-stu-id="601c7-248">Consider a string that consists of five text elements, indexed from 0 through 4.</span></span> <span data-ttu-id="601c7-249">場合、`startingTextElement`パラメーターが 1 の<xref:System.Globalization.StringInfo.SubstringByTextElements%2A>メソッドは、インデックスは 1、2、3、および 4 のテキスト要素で構成される部分文字列を返します。</span><span class="sxs-lookup"><span data-stu-id="601c7-249">If the `startingTextElement` parameter is 1, the  <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> method returns a substring that consists of the text elements for which the indexes are 1, 2, 3, and 4.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="601c7-250">
-            <paramref name="startingTextElement" /> が 0 未満です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-250">
-              <paramref name="startingTextElement" /> is less than zero.</span>
-          </span>
-          <span data-ttu-id="601c7-251">- または -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-251">-or-</span>
-          </span>
-          <span data-ttu-id="601c7-252">現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトの値である文字列は、空の文字列 ("") です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-252">The string that is the value of the current <see cref="T:System.Globalization.StringInfo" /> object is the empty string ("").</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <Member MemberName="SubstringByTextElements">
-      <MemberSignature Language="C#" Value="public string SubstringByTextElements (int startingTextElement, int lengthInTextElements);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string SubstringByTextElements(int32 startingTextElement, int32 lengthInTextElements) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)" />
-      <MemberSignature Language="VB.NET" Value="Public Function SubstringByTextElements (startingTextElement As Integer, lengthInTextElements As Integer) As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::String ^ SubstringByTextElements(int startingTextElement, int lengthInTextElements);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="startingTextElement" Type="System.Int32" />
-        <Parameter Name="lengthInTextElements" Type="System.Int32" />
-      </Parameters>
-      <Docs>
-        <param name="startingTextElement">
-          <span data-ttu-id="601c7-253">この <see cref="T:System.Globalization.StringInfo" /> オブジェクトのテキスト要素の 0 から始まるインデックス。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-253">The zero-based index of a text element in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </param>
-        <param name="lengthInTextElements">
-          <span data-ttu-id="601c7-254">取得するテキスト要素の数。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-254">The number of text elements to retrieve.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="601c7-255">指定されたテキスト要素から指定された数のテキスト要素までの範囲内で、現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトからテキスト要素の部分文字列を取得します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-255">Retrieves a substring of text elements from the current <see cref="T:System.Globalization.StringInfo" /> object starting from a specified text element and continuing through the specified number of text elements.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="601c7-256">この <see cref="T:System.Globalization.StringInfo" /> オブジェクト内のテキスト要素の部分文字列。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-256">A substring of text elements in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-          <span data-ttu-id="601c7-257">部分文字列は、<paramref name="lengthInTextElements" /> パラメーターで指定された数のテキスト要素で構成され、<paramref name="startingTextElement" /> パラメーターで指定されたテキスト要素インデックスから開始します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-257">The substring consists of the number of text elements specified by the <paramref name="lengthInTextElements" /> parameter and starts from the text element index specified by the <paramref name="startingTextElement" /> parameter.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="601c7-258">インデックス 0 ~ 4 から 5 つのテキスト要素で構成される文字列を検討してください。</span><span class="sxs-lookup"><span data-stu-id="601c7-258">Consider a string that consists of five text elements, indexed from 0 through 4.</span></span> <span data-ttu-id="601c7-259">場合、`startingTextElement`パラメーターが 1 と`lengthInTextElements`パラメーターは、3、<xref:System.Globalization.StringInfo.SubstringByTextElements%2A>メソッドは、インデックスは 1、2、および 3 をテキスト要素で構成される部分文字列を返します。</span><span class="sxs-lookup"><span data-stu-id="601c7-259">If the `startingTextElement` parameter is 1 and the `lengthInTextElements` parameter is 3, the <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> method returns a substring that consists of the text elements for which the indexes are 1, 2, and 3.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="601c7-260">
-            <paramref name="startingTextElement" /> が 0 未満です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-260">
-              <paramref name="startingTextElement" /> is less than zero.</span>
-          </span>
-          <span data-ttu-id="601c7-261">- または -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-261">-or-</span>
-          </span>
-          <span data-ttu-id="601c7-262">
-            <paramref name="startingTextElement" /> は、現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトの値である文字列の長さ以上です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-262">
-              <paramref name="startingTextElement" /> is greater than or equal to the length of the string that is the value of the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-          <span data-ttu-id="601c7-263">- または -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-263">-or-</span>
-          </span>
-          <span data-ttu-id="601c7-264">
-            <paramref name="lengthInTextElements" /> が 0 未満です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-264">
-              <paramref name="lengthInTextElements" /> is less than zero.</span>
-          </span>
-          <span data-ttu-id="601c7-265">- または -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-265">-or-</span>
-          </span>
-          <span data-ttu-id="601c7-266">現在の <see cref="T:System.Globalization.StringInfo" /> オブジェクトの値である文字列は、空の文字列 ("") です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-266">The string that is the value of the current <see cref="T:System.Globalization.StringInfo" /> object is the empty string ("").</span>
-          </span>
-          <span data-ttu-id="601c7-267">- または -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-267">-or-</span>
-          </span>
-          <span data-ttu-id="601c7-268">
-            <paramref name="startingTextElement" /> + <paramref name="lengthInTextElements" /> は、この <see cref="T:System.Globalization.StringInfo" /> オブジェクト内のテキスト要素の数より大きいインデックスを指定します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="601c7-268">
-              <paramref name="startingTextElement" /> + <paramref name="lengthInTextElements" /> specify an index that is greater than the number of text elements in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-  </Members>
-</Type>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" original="StringInfo.xml" source-language="en-US" target-language="ja-JP">
+    <header>
+      <tool tool-id="mdxliff" tool-name="mdxliff" tool-version="1.0-efd8310" tool-company="Microsoft" />
+      <xliffext:skl_file_name xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">5e05b5b2-d481-4262-b7b7-7de7ac2afe07dfcadf1280b7a99ae67ace6278f0fb80976a6481.skl</xliffext:skl_file_name>
+      <xliffext:version xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">1.2</xliffext:version>
+      <xliffext:ms.openlocfilehash xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">dfcadf1280b7a99ae67ace6278f0fb80976a6481</xliffext:ms.openlocfilehash>
+      <xliffext:ms.sourcegitcommit xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">df6cf590aa3087f6c7c202712eee781c6a3c8f96</xliffext:ms.sourcegitcommit>
+      <xliffext:ms.lasthandoff xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">05/07/2018</xliffext:ms.lasthandoff>
+      <xliffext:moniker_ids xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">netcore-1.0,netcore-1.1,netcore-2.0,netcore-2.1,netframework-4.5.1,netframework-4.5.2,netframework-4.5,netframework-4.6.1,netframework-4.6.2,netframework-4.6,netframework-4.7.1,netframework-4.7.2,netframework-4.7,netstandard-1.0,netstandard-1.1,netstandard-1.2,netstandard-1.3,netstandard-1.4,netstandard-1.6,netstandard-2.0,xamarinandroid-7.1,xamarinios-10.8,xamarinmac-3.0</xliffext:moniker_ids>
+    </header>
+    <body>
+      <group id="content" extype="content">
+        <trans-unit id="101" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Provides functionality to split a string into text elements and to iterate through those text elements.</source>
+          <target state="translated">文字列をテキスト要素に分割し、そのテキスト要素を反復処理する機能を提供します。</target>       </trans-unit>
+        <trans-unit id="102" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</target>       </trans-unit>
+        <trans-unit id="103" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</target>       </trans-unit>
+        <trans-unit id="104" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Unicode 標準<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept>、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</target>       </trans-unit>
+        <trans-unit id="105" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated">Unicode 標準定義組み合わせ文字のシーケンスとして基本文字と 1 つまたは複数の結合文字の組み合わせ。</target>       </trans-unit>
+        <trans-unit id="106" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</target>       </trans-unit>
+        <trans-unit id="107" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> class enables you to work with a string as a series of textual elements rather than individual <ph id="ph2">&lt;xref:System.Char&gt;</ph> objects.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph>クラスでは、個人ではなく、テキスト要素の系列として文字列を使用することができます<ph id="ph2">&lt;xref:System.Char&gt;</ph>オブジェクト。</target>       </trans-unit>
+        <trans-unit id="108" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>To instantiate a <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> object that represents a specified string, you can do either of the following:</source>
+          <target state="translated">インスタンスを作成、<ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph>を指定した文字列を表すオブジェクト、次のいずれかを行うことができます。</target>       </trans-unit>
+        <trans-unit id="109" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Call the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph> constructor and pass it the string that the <ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph> object is to represent as an argument.</source>
+          <target state="translated">呼び出す、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph>コンス トラクター、文字列を渡すとする、<ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph>オブジェクトは、引数として表すことです。</target>       </trans-unit>
+        <trans-unit id="110" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Call the default <ph id="ph1">&lt;xref:System.Globalization.StringInfo.%23ctor&gt;</ph> constructor, and assign the string that the <ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph> object is to represent to the <ph id="ph3">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property.</source>
+          <target state="translated">既定値を呼び出す<ph id="ph1">&lt;xref:System.Globalization.StringInfo.%23ctor&gt;</ph>コンス トラクター、文字列を割り当てると、<ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph>を表すオブジェクトを<ph id="ph3">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph>プロパティです。</target>       </trans-unit>
+        <trans-unit id="111" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>You can work with the individual text elements in a string in two ways:</source>
+          <target state="translated">2 つの方法で文字列内の個々 のテキスト要素を使用することができます。</target>       </trans-unit>
+        <trans-unit id="112" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>By enumerating each text element.</source>
+          <target state="translated">で、それぞれのテキスト要素を列挙しています。</target>       </trans-unit>
+        <trans-unit id="113" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>To do this, you call the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method, and then repeatedly call the <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> method on the returned <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph> object until the method returns <ph id="ph4">`false`</ph>.</source>
+          <target state="translated">これを行うを呼び出す、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph>メソッドを繰り返し呼び出しと、<ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph>メソッドで返された<ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph>オブジェクトのメソッドが戻るまで<ph id="ph4">`false`</ph>です。</target>       </trans-unit>
+        <trans-unit id="114" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>By calling the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> method to retrieve an array that contains the starting index of each text element.</source>
+          <target state="translated">呼び出して、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph>をそれぞれのテキスト要素の開始インデックスを含む配列を取得します。</target>       </trans-unit>
+        <trans-unit id="115" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>You can then retrieve individual text elements by passing these indexes to the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> method.</source>
+          <target state="translated">これらのインデックスを渡すことによって、個々 のテキスト要素を取得することができますし、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph>メソッドです。</target>       </trans-unit>
+        <trans-unit id="116" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The following example illustrates both ways of working with the text elements in a string.</source>
+          <target state="translated">次の例では、文字列内のテキスト要素の操作の両方の方法を示します。</target>       </trans-unit>
+        <trans-unit id="117" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>It creates two strings:</source>
+          <target state="translated">これには、2 つの文字列を作成します。</target>       </trans-unit>
+        <trans-unit id="118" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source><ph id="ph1">`strCombining`</ph>, which is a string of Arabic characters that includes three text elements with multiple <ph id="ph2">&lt;xref:System.Char&gt;</ph> objects.</source>
+          <target state="translated"><ph id="ph1">`strCombining`</ph>、複数の 3 つのテキスト要素を含むアラビア語の文字の文字列である<ph id="ph2">&lt;xref:System.Char&gt;</ph>オブジェクト。</target>       </trans-unit>
+        <trans-unit id="119" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The first text element is the base character ARABIC LETTER ALEF (U+-627) followed by ARABIC HAMZA BELOW (U+-655) and ARABIC KASRA (U+0650).</source>
+          <target state="translated">テキストの最初の要素は、基本文字アラビア語文字 ALEF (U +0-627) アラビア語 HAMZA 下続けて (U +0-655) およびアラビア語 KASRA (U +0 0650)。</target>       </trans-unit>
+        <trans-unit id="120" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The second text element is ARABIC LETTER HEH (U+0647) followed by ARABIC FATHA (U+-64E).</source>
+          <target state="translated">2 つ目のテキスト要素は、アラビア語の文字も (U +0 0647) アラビア語 FATHA 続けて (U +0-64E)。</target>       </trans-unit>
+        <trans-unit id="121" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The third text element is ARABIC LETTTER BEH (U+0628) followed by ARABIC DAMMATAN (U+064C).</source>
+          <target state="translated">3 番目のテキスト要素は、アラビア語の LETTTER BEH (U +0 0628) アラビア語 DAMMATAN (U +0 064 C) が続きます。</target>       </trans-unit>
+        <trans-unit id="122" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source><ph id="ph1">`strSurrogates`</ph>, which is a string that includes three surrogate pairs: GREEK ACROPHONIC FIVE TALENTS (U+10148) from the Supplementary Multilingual Plane, U+20026 from the Supplementary Ideographic Plane, and U+F1001 from the private user area.</source>
+          <target state="translated"><ph id="ph1">`strSurrogates`</ph>、次の 3 つのサロゲート ペアを含む文字列である: ギリシャ語 ACROPHONIC 5 才能 (U +0 10148) 補助多言語面 U +0、補助表意文字平面とプライベート ユーザー領域から U + F1001 から 20026 からです。</target>       </trans-unit>
+        <trans-unit id="123" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The UTF-16 encoding of each character is a surrogate pair that consists of a high surrogate followed by a low surrogate.</source>
+          <target state="translated">各文字の utf-16 エンコーディングは、サロゲート ペアの下位サロゲート続けて上位サロゲートで構成されます。</target>       </trans-unit>
+        <trans-unit id="124" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Each string is parsed once by the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> method and then by the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method.</source>
+          <target state="translated">1 回によって各文字列が解析、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph>メソッドしてから、<ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph>メソッドです。</target>       </trans-unit>
+        <trans-unit id="125" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Both methods correctly parse the text elements in the two strings and display the results of the parsing operation.</source>
+          <target state="translated">正しく、どちらの方法は 2 つの文字列内のテキスト要素を解析し、解析操作の結果を表示します。</target>       </trans-unit>
+        <trans-unit id="126" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>This example shows how to use the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> and <ph id="ph2">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> methods of the <ph id="ph3">&lt;xref:System.Globalization.StringInfo&gt;</ph> class to manipulate a string that contains surrogate and combining characters.</source>
+          <target state="translated">この例を使用する方法を示しています、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph>と<ph id="ph2">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph>のメソッド、<ph id="ph3">&lt;xref:System.Globalization.StringInfo&gt;</ph>サロゲートと組み合わせ文字を含む文字列を操作するクラス。</target>       </trans-unit>
+        <trans-unit id="127" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Internally, the methods of the <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> class call the methods of the <ph id="ph2">&lt;see cref="T:System.Globalization.CharUnicodeInfo" /&gt;</ph> class to determine character categories.</source>
+          <target state="translated">内部では、メソッド、<ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>クラスのメソッドを呼び出す、<ph id="ph2">&lt;see cref="T:System.Globalization.CharUnicodeInfo" /&gt;</ph>文字のカテゴリを決めるクラスをします。</target>       </trans-unit>
+        <trans-unit id="128" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Starting with the <ph id="ph1">[!INCLUDE[net_v462](~/includes/net-v462-md.md)]</ph>, character classification is based on <bpt id="p1">[</bpt>The Unicode Standard, Version 8.0.0<ept id="p1">](https://unicode.org/versions/Unicode8.0.0)</ept>.</source>
+          <target state="translated">以降で、 <ph id="ph1">[!INCLUDE[net_v462](~/includes/net-v462-md.md)]</ph>、文字の分類がに基づいて<bpt id="p1">[</bpt>、Unicode Standard, Version 8.0.0<ept id="p1">](https://unicode.org/versions/Unicode8.0.0)</ept>です。</target>       </trans-unit>
+        <trans-unit id="129" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>For the <ph id="ph1">[!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]</ph> through the <ph id="ph2">[!INCLUDE[net_v461](~/includes/net-v461-md.md)]</ph>, it is based on <bpt id="p1">[</bpt>The Unicode Standard, Version 6.3.0<ept id="p1">](https://www.unicode.org/versions/Unicode6.3.0/)</ept>.</source>
+          <target state="translated"><ph id="ph1">[!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]</ph>を通じて、 <ph id="ph2">[!INCLUDE[net_v461](~/includes/net-v461-md.md)]</ph>、基にして<bpt id="p1">[</bpt>、Unicode Standard, Version 6.3.0<ept id="p1">](https://www.unicode.org/versions/Unicode6.3.0/)</ept>です。</target>       </trans-unit>
+        <trans-unit id="130" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> class.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> クラスの新しいインスタンスを初期化します。</target>       </trans-unit>
+        <trans-unit id="131" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.#ctor">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> class.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> クラスの新しいインスタンスを初期化します。</target>       </trans-unit>
+        <trans-unit id="132" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.#ctor">
+          <source>The value of the new <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> object is initialized to the empty string ("").</source>
+          <target state="translated">新しい値<ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph>オブジェクトは、空の文字列に初期化 ("") です。</target>       </trans-unit>
+        <trans-unit id="133" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.#ctor">
+          <source>You can assign another string to it by using the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property.</source>
+          <target state="translated">使用してそれを別の文字列を割り当てることができます、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph>プロパティです。</target>       </trans-unit>
+        <trans-unit id="134" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.#ctor">
+          <source>You can also instantiate a <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> object that represents a specified string in a single step by calling the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph> constructor.</source>
+          <target state="translated">インスタンス化することも、<ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph>を呼び出すことによって、1 つの手順で指定した文字列を表すオブジェクト、<ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph>コンス トラクターです。</target>       </trans-unit>
+        <trans-unit id="135" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.#ctor(System.String)">
+          <source>A string to initialize this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">この <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトを初期化する文字列。</target>       </trans-unit>
+        <trans-unit id="136" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.#ctor(System.String)">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> class to a specified string.</source>
+          <target state="translated"><ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> クラスの新しいインスタンスを指定された文字列に初期化します。</target>       </trans-unit>
+        <trans-unit id="137" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.#ctor(System.String)">
+          <source>This constructor assigns the value argument to the object's <ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property.</source>
+          <target state="translated">このコンス トラクターは、オブジェクトの値の引数を割り当てます<ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph>プロパティです。</target>       </trans-unit>
+        <trans-unit id="138" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.#ctor(System.String)">
+          <source><ph id="ph1">&lt;paramref name="value" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="value" /&gt;</ph> は <ph id="ph2">&lt;see langword="null" /&gt;</ph>です。</target>       </trans-unit>
+        <trans-unit id="139" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.Equals(System.Object)">
+          <source>An object.</source>
+          <target state="translated">オブジェクト。</target>       </trans-unit>
+        <trans-unit id="140" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.Equals(System.Object)">
+          <source>Indicates whether the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object is equal to a specified object.</source>
+          <target state="translated">現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトが指定されたオブジェクトと等しいかどうかを示します。</target>       </trans-unit>
+        <trans-unit id="141" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.Equals(System.Object)">
+          <source><ph id="ph1">&lt;see langword="true" /&gt;</ph> if the <ph id="ph2">&lt;paramref name="value" /&gt;</ph> parameter is a <ph id="ph3">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object and its <ph id="ph4">&lt;see cref="P:System.Globalization.StringInfo.String" /&gt;</ph> property equals the <ph id="ph5">&lt;see cref="P:System.Globalization.StringInfo.String" /&gt;</ph> property of this <ph id="ph6">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object; otherwise, <ph id="ph7">&lt;see langword="false" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph2">&lt;paramref name="value" /&gt;</ph> パラメーターが <ph id="ph3">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトであり、<ph id="ph4">&lt;see cref="P:System.Globalization.StringInfo.String" /&gt;</ph> プロパティがこの <ph id="ph5">&lt;see cref="P:System.Globalization.StringInfo.String" /&gt;</ph> オブジェクトの <ph id="ph6">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> プロパティと等しい場合は <ph id="ph1">&lt;see langword="true" /&gt;</ph>。それ以外の場合は <ph id="ph7">&lt;see langword="false" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="142" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>Calculates a hash code for the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトの値のハッシュ コードを計算します。</target>       </trans-unit>
+        <trans-unit id="143" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>A 32-bit signed integer hash code based on the string value of this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">この <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトの文字列値に基づく 32 ビット符号付き整数ハッシュ コード。</target>       </trans-unit>
+        <trans-unit id="144" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>The behavior of <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph> is dependent on its implementation, which might change from one version of the common language runtime to another.</source>
+          <target state="translated">動作<ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph>はその実装は、共通言語ランタイムの 1 つのバージョン別に異なる可能性がありますに依存します。</target>       </trans-unit>
+        <trans-unit id="145" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>This might happen to improve the performance of <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph>.</source>
+          <target state="translated">パフォーマンスを向上させるためにこのエラーが発生<ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph>です。</target>       </trans-unit>
+        <trans-unit id="146" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>To make the behavior of <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph> constant, the application should override the runtime implementation of <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph> with an implementation known to never change.</source>
+          <target state="translated">動作をさせる<ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph>定数、アプリケーションはランタイムの実装をオーバーライドする必要があります<ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph>決して変更に既知の実装を持つ。</target>       </trans-unit>
+        <trans-unit id="147" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Gets the first text element in a specified string.</source>
+          <target state="translated">指定した文字列の最初のテキスト要素を取得します。</target>       </trans-unit>
+        <trans-unit id="148" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>The string from which to get the text element.</source>
+          <target state="translated">テキスト要素の取得元の文字列。</target>       </trans-unit>
+        <trans-unit id="149" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>Gets the first text element in a specified string.</source>
+          <target state="translated">指定した文字列の最初のテキスト要素を取得します。</target>       </trans-unit>
+        <trans-unit id="150" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>A string containing the first text element in the specified string.</source>
+          <target state="translated">指定した文字列の最初のテキスト要素を格納している文字列を取得します。</target>       </trans-unit>
+        <trans-unit id="151" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</target>       </trans-unit>
+        <trans-unit id="152" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</target>       </trans-unit>
+        <trans-unit id="153" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Unicode 標準<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept>、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</target>       </trans-unit>
+        <trans-unit id="154" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Unicode 標準<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept>組み合わせを定義する基本文字と 1 つまたは複数の結合文字の組み合わせとしてシーケンスを文字です。</target>       </trans-unit>
+        <trans-unit id="155" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</target>       </trans-unit>
+        <trans-unit id="156" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>This method only returns the first text element.</source>
+          <target state="translated">このメソッドには、最初のテキスト要素のみを返します。</target>       </trans-unit>
+        <trans-unit id="157" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>To iterate through the text elements of the string, the application should use the <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph> object generated by the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method.</source>
+          <target state="translated">文字列のテキスト要素を反復処理にアプリケーションを使用する必要があります、<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph>によって生成されたオブジェクト、<ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph>メソッドです。</target>       </trans-unit>
+        <trans-unit id="158" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="str" /&gt;</ph> は <ph id="ph2">&lt;see langword="null" /&gt;</ph>です。</target>       </trans-unit>
+        <trans-unit id="159" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The string from which to get the text element.</source>
+          <target state="translated">テキスト要素の取得元の文字列。</target>       </trans-unit>
+        <trans-unit id="160" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The zero-based index at which the text element starts.</source>
+          <target state="translated">テキスト要素が開始する位置の、0 から始まるインデックス番号。</target>       </trans-unit>
+        <trans-unit id="161" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>Gets the text element at the specified index of the specified string.</source>
+          <target state="translated">指定した文字列の指定したインデックスにあるテキスト要素を取得します。</target>       </trans-unit>
+        <trans-unit id="162" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>A string containing the text element at the specified index of the specified string.</source>
+          <target state="translated">指定した文字列の指定したインデックスにあるテキスト要素を格納している文字列。</target>       </trans-unit>
+        <trans-unit id="163" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</target>       </trans-unit>
+        <trans-unit id="164" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</target>       </trans-unit>
+        <trans-unit id="165" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Unicode 標準<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept>、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</target>       </trans-unit>
+        <trans-unit id="166" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated">Unicode 標準定義組み合わせ文字のシーケンスとして基本文字と 1 つまたは複数の結合文字の組み合わせ。</target>       </trans-unit>
+        <trans-unit id="167" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</target>       </trans-unit>
+        <trans-unit id="168" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>This method only returns the first text element of the substring that starts at the specified index.</source>
+          <target state="translated">このメソッドには、指定したインデックスから始まる部分文字列の最初のテキスト要素のみを返します。</target>       </trans-unit>
+        <trans-unit id="169" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>To iterate through the text elements of the string, the application should use the <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph> generated by the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method.</source>
+          <target state="translated">文字列のテキスト要素を反復処理にアプリケーションを使用する必要があります、<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph>によって生成された、<ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph>メソッドです。</target>       </trans-unit>
+        <trans-unit id="170" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="str" /&gt;</ph> は <ph id="ph2">&lt;see langword="null" /&gt;</ph>です。</target>       </trans-unit>
+        <trans-unit id="171" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="index" /&gt;</ph> is outside the range of valid indexes for <ph id="ph2">&lt;paramref name="str" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="index" /&gt;</ph> は <ph id="ph2">&lt;paramref name="str" /&gt;</ph> の有効なインデックスの範囲外です。</target>       </trans-unit>
+        <trans-unit id="172" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Returns an enumerator that iterates through the text elements of a string.</source>
+          <target state="translated">文字列のテキスト要素を反復処理する列挙子を返します。</target>       </trans-unit>
+        <trans-unit id="173" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The string to iterate through.</source>
+          <target state="translated">反復処理対象の文字列。</target>       </trans-unit>
+        <trans-unit id="174" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>Returns an enumerator that iterates through the text elements of the entire string.</source>
+          <target state="translated">文字列全体のテキスト要素を反復処理する列挙子を返します。</target>       </trans-unit>
+        <trans-unit id="175" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>A <ph id="ph1">&lt;see cref="T:System.Globalization.TextElementEnumerator" /&gt;</ph> for the entire string.</source>
+          <target state="translated">文字列全体の <ph id="ph1">&lt;see cref="T:System.Globalization.TextElementEnumerator" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="176" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</target>       </trans-unit>
+        <trans-unit id="177" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</target>       </trans-unit>
+        <trans-unit id="178" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Unicode 標準<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept>、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</target>       </trans-unit>
+        <trans-unit id="179" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated">Unicode 標準定義組み合わせ文字のシーケンスとして基本文字と 1 つまたは複数の結合文字の組み合わせ。</target>       </trans-unit>
+        <trans-unit id="180" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</target>       </trans-unit>
+        <trans-unit id="181" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The text element enumerator is used only to read data in the string; it cannot modify the underlying string.</source>
+          <target state="translated">テキスト要素の列挙子は、文字列内のデータを読み取る場合にのみ使用します。基になる文字列を変更できません。</target>       </trans-unit>
+        <trans-unit id="182" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The enumerator does not have exclusive access to the string.</source>
+          <target state="translated">列挙子には、文字列への排他アクセスがありません。</target>       </trans-unit>
+        <trans-unit id="183" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The enumerator is in an invalid state if it is positioned before the first text element in the string or after the last text element in the string.</source>
+          <target state="translated">列挙子は無効な状態では要素の前に、最初のテキスト文字列または文字列の最後のテキスト要素の後に配置されている場合です。</target>       </trans-unit>
+        <trans-unit id="184" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>When the enumerator is in an invalid state, calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> throws an exception.</source>
+          <target state="translated">列挙子は、状態が無効ですが、呼び出す<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>例外をスローします。</target>       </trans-unit>
+        <trans-unit id="185" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>Initially, the enumerator is positioned before the first text element in the string.</source>
+          <target state="translated">最初に、列挙子は、文字列の最初のテキスト要素の前に位置付けられます。</target>       </trans-unit>
+        <trans-unit id="186" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> also brings the enumerator back to this position.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> を実行した場合も、列挙子はこの位置に戻されます。</target>       </trans-unit>
+        <trans-unit id="187" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>Therefore, after an enumerator is created or after <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> is called, <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> must be called to advance the enumerator to the first text element of the string before reading the value of <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>.</source>
+          <target state="translated">そのため、列挙子を作成した後、または後<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph>が呼び出されると、<ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph>の値を読み取る前に、文字列の最初のテキスト要素に列挙子を進めるに呼び出す必要があります<ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>です。</target>       </trans-unit>
+        <trans-unit id="188" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> returns the same object until either <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> or <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> is called.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> は、<ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> または <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> が呼び出されるまでは同じオブジェクトを返します。</target>       </trans-unit>
+        <trans-unit id="189" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>After the end of the string is passed, the enumerator is again in an invalid state and calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> returns <ph id="ph2">`false`</ph>.</source>
+          <target state="translated">列挙子が無効な状態および呼び出し元はもう一度、文字列の末尾が渡されると、<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph>返します<ph id="ph2">`false`</ph>です。</target>       </trans-unit>
+        <trans-unit id="190" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>Calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> throws an exception if the last call to <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> returned <ph id="ph3">`false`</ph>.</source>
+          <target state="translated">呼び出す<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>最後の呼び出しは例外をスロー<ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph>返される<ph id="ph3">`false`</ph>です。</target>       </trans-unit>
+        <trans-unit id="191" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The following code example demonstrates calling the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method.</source>
+          <target state="translated">次のコード例を呼び出すことを示しています、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph>メソッドです。</target>       </trans-unit>
+        <trans-unit id="192" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>This code example is part of a larger example provided for the <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> class.</source>
+          <target state="translated">このコード例に示されている例の一部である、<ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph>クラスです。</target>       </trans-unit>
+        <trans-unit id="193" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="str" /&gt;</ph> は <ph id="ph2">&lt;see langword="null" /&gt;</ph>です。</target>       </trans-unit>
+        <trans-unit id="194" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The string to iterate through.</source>
+          <target state="translated">反復処理対象の文字列。</target>       </trans-unit>
+        <trans-unit id="195" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The zero-based index at which to start iterating.</source>
+          <target state="translated">反復処理を開始する位置の、0 から始まるインデックス番号。</target>       </trans-unit>
+        <trans-unit id="196" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>Returns an enumerator that iterates through the text elements of the string, starting at the specified index.</source>
+          <target state="translated">指定したインデックスから開始する文字列のテキスト要素を反復処理する列挙子を返します。</target>       </trans-unit>
+        <trans-unit id="197" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>A <ph id="ph1">&lt;see cref="T:System.Globalization.TextElementEnumerator" /&gt;</ph> for the string starting at <ph id="ph2">&lt;paramref name="index" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph2">&lt;paramref name="index" /&gt;</ph> から開始する文字列の <ph id="ph1">&lt;see cref="T:System.Globalization.TextElementEnumerator" /&gt;</ph>。</target>       </trans-unit>
+        <trans-unit id="198" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</target>       </trans-unit>
+        <trans-unit id="199" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</target>       </trans-unit>
+        <trans-unit id="200" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Unicode 標準<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept>、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</target>       </trans-unit>
+        <trans-unit id="201" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated">Unicode 標準定義組み合わせ文字のシーケンスとして基本文字と 1 つまたは複数の結合文字の組み合わせ。</target>       </trans-unit>
+        <trans-unit id="202" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</target>       </trans-unit>
+        <trans-unit id="203" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The text element enumerator is used only to read data in the string; it cannot modify the underlying string.</source>
+          <target state="translated">テキスト要素の列挙子は、文字列内のデータを読み取る場合にのみ使用します。基になる文字列を変更できません。</target>       </trans-unit>
+        <trans-unit id="204" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The enumerator does not have exclusive access to the string.</source>
+          <target state="translated">列挙子には、文字列への排他アクセスがありません。</target>       </trans-unit>
+        <trans-unit id="205" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The enumerator is in an invalid state if it is positioned before the first text element in the string or after the last text element in the string.</source>
+          <target state="translated">列挙子は無効な状態では要素の前に、最初のテキスト文字列または文字列の最後のテキスト要素の後に配置されている場合です。</target>       </trans-unit>
+        <trans-unit id="206" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>When the enumerator is in an invalid state, calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> throws an exception.</source>
+          <target state="translated">列挙子は、状態が無効ですが、呼び出す<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>例外をスローします。</target>       </trans-unit>
+        <trans-unit id="207" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>Initially, the enumerator is positioned before the first text element in the string.</source>
+          <target state="translated">最初に、列挙子は、文字列の最初のテキスト要素の前に位置付けられます。</target>       </trans-unit>
+        <trans-unit id="208" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> also brings the enumerator back to this position.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> を実行した場合も、列挙子はこの位置に戻されます。</target>       </trans-unit>
+        <trans-unit id="209" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>Therefore, after an enumerator is created or after <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> is called, <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> must be called to advance the enumerator to the first text element of the string before reading the value of <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>.</source>
+          <target state="translated">そのため、列挙子を作成した後、または後<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph>が呼び出されると、<ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph>の値を読み取る前に、文字列の最初のテキスト要素に列挙子を進めるに呼び出す必要があります<ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>です。</target>       </trans-unit>
+        <trans-unit id="210" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> returns the same object until either <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> or <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> is called.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> は、<ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> または <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> が呼び出されるまでは同じオブジェクトを返します。</target>       </trans-unit>
+        <trans-unit id="211" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>After the end of the string is passed, the enumerator is again in an invalid state and calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> returns <ph id="ph2">`false`</ph>.</source>
+          <target state="translated">列挙子が無効な状態および呼び出し元はもう一度、文字列の末尾が渡されると、<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph>返します<ph id="ph2">`false`</ph>です。</target>       </trans-unit>
+        <trans-unit id="212" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>Calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> throws an exception if the last call to <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> returned <ph id="ph3">`false`</ph>.</source>
+          <target state="translated">呼び出す<ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>最後の呼び出しは例外をスロー<ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph>返される<ph id="ph3">`false`</ph>です。</target>       </trans-unit>
+        <trans-unit id="213" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="str" /&gt;</ph> は <ph id="ph2">&lt;see langword="null" /&gt;</ph>です。</target>       </trans-unit>
+        <trans-unit id="214" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="index" /&gt;</ph> is outside the range of valid indexes for <ph id="ph2">&lt;paramref name="str" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="index" /&gt;</ph> は <ph id="ph2">&lt;paramref name="str" /&gt;</ph> の有効なインデックスの範囲外です。</target>       </trans-unit>
+        <trans-unit id="215" translate="yes" xml:space="preserve" uid="P:System.Globalization.StringInfo.LengthInTextElements">
+          <source>Gets the number of text elements in the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクト内のテキスト要素数を取得します。</target>       </trans-unit>
+        <trans-unit id="216" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.LengthInTextElements">
+          <source>The number of base characters, surrogate pairs, and combining character sequences in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">この <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトの、基本文字、サロゲート ペア、結合文字シーケンスの数。</target>       </trans-unit>
+        <trans-unit id="217" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The string to search.</source>
+          <target state="translated">検索対象の文字列。</target>       </trans-unit>
+        <trans-unit id="218" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>Returns the indexes of each base character, high surrogate, or control character within the specified string.</source>
+          <target state="translated">指定した文字列の各基本文字、上位サロゲート、または制御文字のインデックスを返します。</target>       </trans-unit>
+        <trans-unit id="219" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>An array of integers that contains the zero-based indexes of each base character, high surrogate, or control character within the specified string.</source>
+          <target state="translated">指定した文字列の各基本文字、上位サロゲート、または制御文字の、0 から始まるインデックス番号を格納している整数の配列。</target>       </trans-unit>
+        <trans-unit id="220" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Unicode 標準<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept>、場所のペアの最初の単位が上位サロゲート、2 番目の下位サロゲートの 2 つのコード単位のシーケンスで構成される 1 つの抽象文字のコード化文字表現として、サロゲート ペアを定義します。</target>       </trans-unit>
+        <trans-unit id="221" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>A high surrogate is a Unicode code point in the range U+D800 through U+DBFF and a low surrogate is a Unicode code point in the range U+DC00 through U+DFFF.</source>
+          <target state="translated">上位サロゲートが u+d800 から U+DBFF の範囲の Unicode コード ポイントと、下位サロゲートが u+dc00 から U+DFFF までの範囲内での Unicode コード ポイント。</target>       </trans-unit>
+        <trans-unit id="222" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>A control character is a character for which the Unicode value is U+007F or in the range U+0000 through U+001F or U+0080 through U+009F.</source>
+          <target state="translated">制御文字は、Unicode 値は U +0 007F または u+0000 を通じて U +0 001 f または u+0080 U +0 009 f からの範囲内で文字です。</target>       </trans-unit>
+        <trans-unit id="223" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">.NET Framework では、単一の文字、つまり、書記素として表示されるテキストの単位としてテキスト要素を定義します。</target>       </trans-unit>
+        <trans-unit id="224" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">テキストの要素は、基本文字、サロゲート ペア、または組み合わせ文字シーケンスです。</target>       </trans-unit>
+        <trans-unit id="225" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Unicode 標準<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept>組み合わせを定義する基本文字と 1 つまたは複数の結合文字の組み合わせとしてシーケンスを文字です。</target>       </trans-unit>
+        <trans-unit id="226" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">サロゲート ペアは、基本文字または組み合わせ文字を表すことができます。</target>       </trans-unit>
+        <trans-unit id="227" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>If a combining character sequence is invalid, every combining character in that sequence is also returned.</source>
+          <target state="translated">場合、組み合わせ文字シーケンスが有効でないそのシーケンスのすべての組み合わせ文字も返されます。</target>       </trans-unit>
+        <trans-unit id="228" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>Each index in the resulting array is the beginning of a text element, that is, the index of the base character or the high surrogate.</source>
+          <target state="translated">結果の配列内の各インデックスは、テキストの要素、つまり、基本文字または上位サロゲートのインデックスの先頭です。</target>       </trans-unit>
+        <trans-unit id="229" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The length of each element is easily computed as the difference between successive indexes.</source>
+          <target state="translated">各要素の長さは、簡単に連続するインデックス間の差として計算します。</target>       </trans-unit>
+        <trans-unit id="230" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The length of the array will always be less than or equal to the length of the string.</source>
+          <target state="translated">配列の長さ以下に、文字列の長さは常になります。</target>       </trans-unit>
+        <trans-unit id="231" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>For example, given the string "\u4f00\u302a\ud800\udc00\u4f01", this method returns the indexes 0, 2, and 4.</source>
+          <target state="translated">このメソッドはたとえば、文字列"\u4f00\u302a\ud800\udc00\u4f01"を指定するには、インデックス 0、2、および 4 を返します。</target>       </trans-unit>
+        <trans-unit id="232" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>Equivalent Members</source>
+          <target state="translated">同等のメンバー</target>       </trans-unit>
+        <trans-unit id="233" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>Starting in version 2.0 of the .NET Framework, the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> method and <ph id="ph2">&lt;xref:System.Globalization.StringInfo.LengthInTextElements%2A&gt;</ph> property provide an easy to use implementation of the functionality offered by the <ph id="ph3">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> method.</source>
+          <target state="translated">.NET Framework version 2.0 以降、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph>メソッドおよび<ph id="ph2">&lt;xref:System.Globalization.StringInfo.LengthInTextElements%2A&gt;</ph>プロパティによって提供される機能の使いやすい実装を提供する、<ph id="ph3">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph>メソッドです。</target>       </trans-unit>
+        <trans-unit id="234" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The following code example demonstrates calling the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> method.</source>
+          <target state="translated">次のコード例を呼び出すことを示しています、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph>メソッドです。</target>       </trans-unit>
+        <trans-unit id="235" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>This code example is part of a larger example provided for the <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> class.</source>
+          <target state="translated">このコード例に示されている例の一部である、<ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph>クラスです。</target>       </trans-unit>
+        <trans-unit id="236" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="str" /&gt;</ph> は <ph id="ph2">&lt;see langword="null" /&gt;</ph>です。</target>       </trans-unit>
+        <trans-unit id="237" translate="yes" xml:space="preserve" uid="P:System.Globalization.StringInfo.String">
+          <source>Gets or sets the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトの値を取得または設定します。</target>       </trans-unit>
+        <trans-unit id="238" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source>The string that is the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトの値である文字列。</target>       </trans-unit>
+        <trans-unit id="239" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source>When a <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> object is instantiated, its <ph id="ph2">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property is set to one of the following values:</source>
+          <target state="translated">ときに、<ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph>オブジェクトをインスタンス化すると、その<ph id="ph2">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph>プロパティは、次の値のいずれかに設定します。</target>       </trans-unit>
+        <trans-unit id="240" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source><ph id="ph1">&lt;xref:System.String.Empty?displayProperty=nameWithType&gt;</ph> if the default  <ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor&gt;</ph> is called.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.String.Empty?displayProperty=nameWithType&gt;</ph> 場合、既定<ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor&gt;</ph>と呼びます。</target>       </trans-unit>
+        <trans-unit id="241" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source>You should then use the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property to assign the string that this <ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph> object rperesents.</source>
+          <target state="translated">使用して、<ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph>文字列を割り当てるプロパティをこの<ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph>rperesents のオブジェクトします。</target>       </trans-unit>
+        <trans-unit id="242" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source>The string supplied as the <ph id="ph1">`value`</ph> argument to the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph> constructor.</source>
+          <target state="translated">として文字列が指定された、<ph id="ph1">`value`</ph>への引数、<ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph>コンス トラクターです。</target>       </trans-unit>
+        <trans-unit id="243" translate="yes" xml:space="preserve" uid="P:System.Globalization.StringInfo.String">
+          <source>The value in a set operation is <ph id="ph1">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated">設定操作の値が <ph id="ph1">&lt;see langword="null" /&gt;</ph> です。</target>       </trans-unit>
+        <trans-unit id="244" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Retrieves a substring of text elements from the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトからテキスト要素の部分文字列を取得します。</target>       </trans-unit>
+        <trans-unit id="245" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>The zero-based index of a text element in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">この <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトのテキスト要素の 0 から始まるインデックス。</target>       </trans-unit>
+        <trans-unit id="246" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>Retrieves a substring of text elements from the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object starting from a specified text element and continuing through the last text element.</source>
+          <target state="translated">指定されたテキスト要素から最後のテキスト要素までの範囲内で、現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトからテキスト要素の部分文字列を取得します。</target>       </trans-unit>
+        <trans-unit id="247" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>A substring of text elements in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object, starting from the text element index specified by the <ph id="ph2">&lt;paramref name="startingTextElement" /&gt;</ph> parameter and continuing through the last text element in this object.</source>
+          <target state="translated"><ph id="ph2">&lt;paramref name="startingTextElement" /&gt;</ph> パラメーターで指定されたテキスト要素インデックスから、このオブジェクトの最後のテキスト要素までの範囲内にある、この <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトのテキスト要素の部分文字列。</target>       </trans-unit>
+        <trans-unit id="248" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>Consider a string that consists of five text elements, indexed from 0 through 4.</source>
+          <target state="translated">インデックス 0 ~ 4 から 5 つのテキスト要素で構成される文字列を検討してください。</target>       </trans-unit>
+        <trans-unit id="249" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>If the <ph id="ph1">`startingTextElement`</ph> parameter is 1, the  <ph id="ph2">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> method returns a substring that consists of the text elements for which the indexes are 1, 2, 3, and 4.</source>
+          <target state="translated">場合、<ph id="ph1">`startingTextElement`</ph>パラメーターが 1 の<ph id="ph2">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph>メソッドは、インデックスは 1、2、3、および 4 のテキスト要素で構成される部分文字列を返します。</target>       </trans-unit>
+        <trans-unit id="250" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> is less than zero.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> が 0 未満です。</target>       </trans-unit>
+        <trans-unit id="251" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- または -</target>       </trans-unit>
+        <trans-unit id="252" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>The string that is the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object is the empty string ("").</source>
+          <target state="translated">現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトの値である文字列は、空の文字列 ("") です。</target>       </trans-unit>
+        <trans-unit id="253" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>The zero-based index of a text element in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">この <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトのテキスト要素の 0 から始まるインデックス。</target>       </trans-unit>
+        <trans-unit id="254" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>The number of text elements to retrieve.</source>
+          <target state="translated">取得するテキスト要素の数。</target>       </trans-unit>
+        <trans-unit id="255" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>Retrieves a substring of text elements from the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object starting from a specified text element and continuing through the specified number of text elements.</source>
+          <target state="translated">指定されたテキスト要素から指定された数のテキスト要素までの範囲内で、現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトからテキスト要素の部分文字列を取得します。</target>       </trans-unit>
+        <trans-unit id="256" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>A substring of text elements in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">この <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクト内のテキスト要素の部分文字列。</target>       </trans-unit>
+        <trans-unit id="257" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>The substring consists of the number of text elements specified by the <ph id="ph1">&lt;paramref name="lengthInTextElements" /&gt;</ph> parameter and starts from the text element index specified by the <ph id="ph2">&lt;paramref name="startingTextElement" /&gt;</ph> parameter.</source>
+          <target state="translated">部分文字列は、<ph id="ph1">&lt;paramref name="lengthInTextElements" /&gt;</ph> パラメーターで指定された数のテキスト要素で構成され、<ph id="ph2">&lt;paramref name="startingTextElement" /&gt;</ph> パラメーターで指定されたテキスト要素インデックスから開始します。</target>       </trans-unit>
+        <trans-unit id="258" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>Consider a string that consists of five text elements, indexed from 0 through 4.</source>
+          <target state="translated">インデックス 0 ~ 4 から 5 つのテキスト要素で構成される文字列を検討してください。</target>       </trans-unit>
+        <trans-unit id="259" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>If the <ph id="ph1">`startingTextElement`</ph> parameter is 1 and the <ph id="ph2">`lengthInTextElements`</ph> parameter is 3, the <ph id="ph3">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> method returns a substring that consists of the text elements for which the indexes are 1, 2, and 3.</source>
+          <target state="translated">場合、<ph id="ph1">`startingTextElement`</ph>パラメーターが 1 と<ph id="ph2">`lengthInTextElements`</ph>パラメーターは、3、<ph id="ph3">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph>メソッドは、インデックスは 1、2、および 3 をテキスト要素で構成される部分文字列を返します。</target>       </trans-unit>
+        <trans-unit id="260" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> is less than zero.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> が 0 未満です。</target>       </trans-unit>
+        <trans-unit id="261" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- または -</target>       </trans-unit>
+        <trans-unit id="262" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> is greater than or equal to the length of the string that is the value of the current <ph id="ph2">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> は、現在の <ph id="ph2">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトの値である文字列の長さ以上です。</target>       </trans-unit>
+        <trans-unit id="263" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- または -</target>       </trans-unit>
+        <trans-unit id="264" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="lengthInTextElements" /&gt;</ph> is less than zero.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="lengthInTextElements" /&gt;</ph> が 0 未満です。</target>       </trans-unit>
+        <trans-unit id="265" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- または -</target>       </trans-unit>
+        <trans-unit id="266" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>The string that is the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object is the empty string ("").</source>
+          <target state="translated">現在の <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクトの値である文字列は、空の文字列 ("") です。</target>       </trans-unit>
+        <trans-unit id="267" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- または -</target>       </trans-unit>
+        <trans-unit id="268" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph><ph id="ph2"> + </ph><ph id="ph3">&lt;paramref name="lengthInTextElements" /&gt;</ph> specify an index that is greater than the number of text elements in this <ph id="ph4">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph><ph id="ph2"> + </ph><ph id="ph3">&lt;paramref name="lengthInTextElements" /&gt;</ph> は、この <ph id="ph4">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> オブジェクト内のテキスト要素の数より大きいインデックスを指定します。</target>       </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
