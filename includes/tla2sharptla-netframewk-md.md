@@ -1,1 +1,0 @@
-<span data-ttu-id="d79e5-101">フレームワーク</span><span class="sxs-lookup"><span data-stu-id="d79e5-101">Framework</span></span>

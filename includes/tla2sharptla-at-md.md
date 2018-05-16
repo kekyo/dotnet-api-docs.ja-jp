@@ -1,1 +1,0 @@
-<span data-ttu-id="dd907-101">支援技術</span><span class="sxs-lookup"><span data-stu-id="dd907-101">assistive technology</span></span>

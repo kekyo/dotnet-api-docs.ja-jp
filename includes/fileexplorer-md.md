@@ -1,1 +1,0 @@
-<span data-ttu-id="e104a-101">エクスプローラー</span><span class="sxs-lookup"><span data-stu-id="e104a-101">File Explorer</span></span>

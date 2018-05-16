@@ -1,1 +1,0 @@
-<span data-ttu-id="ef708-101">Windows 98</span><span class="sxs-lookup"><span data-stu-id="ef708-101">Windows 98</span></span>

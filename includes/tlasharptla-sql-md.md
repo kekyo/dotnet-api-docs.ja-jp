@@ -1,1 +1,0 @@
-<span data-ttu-id="15cab-101">構造化照会言語 (SQL)</span><span class="sxs-lookup"><span data-stu-id="15cab-101">Structured Query Language (SQL)</span></span>

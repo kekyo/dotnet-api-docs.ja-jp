@@ -1,1 +1,0 @@
-<span data-ttu-id="8c18c-101">4.6 以降、.NET ネイティブのみで使用できます</span><span class="sxs-lookup"><span data-stu-id="8c18c-101">Available since 4.6, .NET Native only</span></span>

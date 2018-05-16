@@ -1,1 +1,0 @@
-<span data-ttu-id="78620-101">4.7.2 以降で利用可能</span><span class="sxs-lookup"><span data-stu-id="78620-101">Available since 4.7.2</span></span>
