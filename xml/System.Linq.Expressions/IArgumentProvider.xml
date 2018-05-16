@@ -1,11 +1,4 @@
 <Type Name="IArgumentProvider" FullName="System.Linq.Expressions.IArgumentProvider">
-  <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="bb1b0a12225c49cd06302a4822210d08cda2957f" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
-    <Meta Name="ms.translationtype" Value="HT" />
-    <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-  </Metadata>
   <TypeSignature Language="C#" Value="public interface IArgumentProvider" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IArgumentProvider" />
   <TypeSignature Language="DocId" Value="T:System.Linq.Expressions.IArgumentProvider" />
@@ -29,100 +22,17 @@
   </AssemblyInfo>
   <Interfaces />
   <Docs>
-    <summary>
-      <span data-ttu-id="fa6fa-101">複数のツリー ノード (DynamicExpression、ElementInit、MethodCallExpression、InvocationExpression、NewExpression および InexExpression) の引数にアクセスするための内部インターフェイスを提供します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-101">Provides an internal interface for accessing the arguments of multiple tree nodes (DynamicExpression, ElementInit, MethodCallExpression, InvocationExpression, NewExpression, and InexExpression).</span>
-      </span>
-      <span data-ttu-id="fa6fa-102">この API を使用しないでください。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-102">You should not use this API.</span>
-      </span>
-      <span data-ttu-id="fa6fa-103">これは、DLL リファクタリングのためパブリックでのみ使用でき、内部パフォーマンスの最適化のためだけに存在します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-103">It is only public due to DLL refactoring and exists only for internal performance optimizations.</span>
-      </span>
-      <span data-ttu-id="fa6fa-104">これにより、2 つの最適化を図り、式ツリーのサイズを縮小できます。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-104">This enables two optimizations which reduce the size of expression trees.</span>
-      </span>
-      <span data-ttu-id="fa6fa-105">最初の最適化により、ツリー ノードは ReadOnlyCollection の代わりに IList&lt;T&gt; に保持されます。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-105">The first enables the tree nodes to hold onto an IList&lt;T&gt; instead of a ReadOnlyCollection.</span>
-      </span>
-      <span data-ttu-id="fa6fa-106">IList&lt;T&gt; は、各ノードの ReadOnlyCollection の割り当てコストを削減します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-106">IList&lt;T&gt; saves the cost of allocating the ReadOnlyCollection for each node.</span>
-      </span>
-      <span data-ttu-id="fa6fa-107">2 つ目の最適化により、特定の数の引数 (Block2、Block3、Block4 など) に保持される特殊なサブクラスを作成します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-107">The second enables creating specialized subclasses that hold onto a specific number of arguments (for example, Block2, Block3, Block4).</span>
-      </span>
-      <span data-ttu-id="fa6fa-108">そのため、これらのノードは ReadOnlyCollection およびその要素を格納するための配列の両方の割り当てを回避します。その結果、各ノードにつき 32 バイト節約されます。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-108">Therefore, these nodes avoid allocating both a ReadOnlyCollection and an array for storing their elements, saving 32 bytes per node.</span>
-      </span>
-      <span data-ttu-id="fa6fa-109">式ツリー ノードは引き続き、ReadOnlyCollections のオリジナル LINQ プロパティを公開します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-109">The expression tree nodes continue to expose the original LINQ properties of ReadOnlyCollections.</span>
-      </span>
-      <span data-ttu-id="fa6fa-110">ノードは、配列または配列に通常格納される要素を格納するフィールドを再利用することにより、これを行います。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-110">The nodes do this by re-using a field for storing both the array or an element that would normally be stored in the array.</span>
-      </span>
-      <span data-ttu-id="fa6fa-111">配列の場合、コレクションは ReadOnlyCollection&lt;T&gt; の代わりに IList&lt;T&gt; に型指定されます。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-111">For the array case, the collection is typed to IList&lt;T&gt; instead of ReadOnlyCollection&lt;T&gt;.</span>
-      </span>
-      <span data-ttu-id="fa6fa-112">ノードは最初に配列として構築されます。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-112">When the node is initially constructed it is an array.</span>
-      </span>
-      <span data-ttu-id="fa6fa-113">コンパイラがメンバーにアクセスするときに、このインターフェイスを使用します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-113">When the compiler accesses the members it uses this interface.</span>
-      </span>
-      <span data-ttu-id="fa6fa-114">配列要素へアクセスすることにより、配列を ReadOnlyCollection に昇格させます。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-114">Accessing array elements promotes the array to a ReadOnlyCollection.</span>
-      </span>
-      <span data-ttu-id="fa6fa-115">オブジェクトの場合、オブジェクトに型指定されたフィールドに最初の引数を格納します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-115">For the object case we store the first argument in a field typed to object.</span>
-      </span>
-      <span data-ttu-id="fa6fa-116">ノードが最初に構築されるときに、フィールドは式を保持します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-116">When the node is initially constructed, the field holds the Expression.</span>
-      </span>
-      <span data-ttu-id="fa6fa-117">コンパイラは、このインターフェイスから引数にアクセスし、最初の引数のアクセサーはExpression.ReturnObject を使用して、式または ReadOnlyCollection ケースを扱うオブジェクトを返します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-117">The compiler accesses arguments through this interface, and the accessor for the first argument uses Expression.ReturnObject to return the object that handles the Expression or ReadOnlyCollection case.</span>
-      </span>
-      <span data-ttu-id="fa6fa-118">ユーザーが ReadOnlyCollection にアクセスするときに、ReadOnlyCollection に直接格納するためオブジェクト フィールドが更新されます。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-118">When the user accesses the ReadOnlyCollection, then the object field is updated to hold directly onto the ReadOnlyCollection.</span>
-      </span>
-      <span data-ttu-id="fa6fa-119">式が一貫して同じ ReadOnlyCollection を返すことが重要です。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-119">It is important that the Expressions consistently return the same ReadOnlyCollection.</span>
-      </span>
-      <span data-ttu-id="fa6fa-120">そうでなければ、リライター ツリー ウォーカーが解除されます。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-120">Otherwise, the re-writer tree walker will break.</span>
-      </span>
-      <span data-ttu-id="fa6fa-121">LINQ v1 からの互換性に影響する変更点として、異なる ReadOnlyCollections が、同じ Expression ノードを形成します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-121">It is a breaking change from LINQ v1 to return different ReadOnlyCollections form the same Expression node.</span>
-      </span>
-      <span data-ttu-id="fa6fa-122">現在ユーザーは、オブジェクト ID を使用してノードが変更されたかどうかを確認できます。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-122">Currently users can rely on object identity to tell if the node has changed.</span>
-      </span>
-      <span data-ttu-id="fa6fa-123">ReadOnlyCollection をオーバー ロードされたフィールドに格納すると、メモリ使用を削減し、パブリック API の互換性を維持します。</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="fa6fa-123">Storing the ReadOnlyCollection in an overloaded field both reduces memory usage and maintains compatibility for the public API.</span>
-      </span>
-    </summary>
+    <summary><span data-ttu-id="fa6fa-101">複数のツリー ノード (DynamicExpression、ElementInit、MethodCallExpression、InvocationExpression、NewExpression および InexExpression) の引数にアクセスするための内部インターフェイスを提供します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-101">Provides an internal interface for accessing the arguments of multiple tree nodes (DynamicExpression, ElementInit, MethodCallExpression, InvocationExpression, NewExpression, and InexExpression).</span></span>  <span data-ttu-id="fa6fa-102">この API を使用しないでください。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-102">You should not use this API.</span></span>  <span data-ttu-id="fa6fa-103">これは、DLL リファクタリングのためパブリックでのみ使用でき、内部パフォーマンスの最適化のためだけに存在します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-103">It is only public due to DLL refactoring and exists only for internal performance optimizations.</span></span>  
+  
+ <span data-ttu-id="fa6fa-104">これにより、2 つの最適化を図り、式ツリーのサイズを縮小できます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-104">This enables two optimizations which reduce the size of expression trees.</span></span>  <span data-ttu-id="fa6fa-105">最初の最適化により、ツリー ノードは ReadOnlyCollection の代わりに IList&lt;T&gt; に保持されます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-105">The first enables the tree nodes to hold onto an IList&lt;T&gt; instead of a ReadOnlyCollection.</span></span>  <span data-ttu-id="fa6fa-106">IList&lt;T&gt; は、各ノードの ReadOnlyCollection の割り当てコストを削減します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-106">IList&lt;T&gt; saves the cost of allocating the ReadOnlyCollection for each node.</span></span>  <span data-ttu-id="fa6fa-107">2 つ目の最適化により、特定の数の引数 (Block2、Block3、Block4 など) に保持される特殊なサブクラスを作成します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-107">The second enables creating specialized subclasses that hold onto a specific number of arguments (for example, Block2, Block3, Block4).</span></span>  <span data-ttu-id="fa6fa-108">そのため、これらのノードは ReadOnlyCollection およびその要素を格納するための配列の両方の割り当てを回避します。その結果、各ノードにつき 32 バイト節約されます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-108">Therefore, these nodes avoid allocating both a ReadOnlyCollection and an array for storing their elements, saving 32 bytes per node.</span></span>  
+  
+ <span data-ttu-id="fa6fa-109">式ツリー ノードは引き続き、ReadOnlyCollections のオリジナル LINQ プロパティを公開します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-109">The expression tree nodes continue to expose the original LINQ properties of ReadOnlyCollections.</span></span>  <span data-ttu-id="fa6fa-110">ノードは、配列または配列に通常格納される要素を格納するフィールドを再利用することにより、これを行います。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-110">The nodes do this by re-using a field for storing both the array or an element that would normally be stored in the array.</span></span>  
+  
+ <span data-ttu-id="fa6fa-111">配列の場合、コレクションは ReadOnlyCollection&lt;T&gt; の代わりに IList&lt;T&gt; に型指定されます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-111">For the array case, the collection is typed to IList&lt;T&gt; instead of ReadOnlyCollection&lt;T&gt;.</span></span>  <span data-ttu-id="fa6fa-112">ノードは最初に配列として構築されます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-112">When the node is initially constructed it is an array.</span></span>  <span data-ttu-id="fa6fa-113">コンパイラがメンバーにアクセスするときに、このインターフェイスを使用します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-113">When the compiler accesses the members it uses this interface.</span></span>  <span data-ttu-id="fa6fa-114">配列要素へアクセスすることにより、配列を ReadOnlyCollection に昇格させます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-114">Accessing array elements promotes the array to a ReadOnlyCollection.</span></span>  
+  
+ <span data-ttu-id="fa6fa-115">オブジェクトの場合、オブジェクトに型指定されたフィールドに最初の引数を格納します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-115">For the object case we store the first argument in a field typed to object.</span></span>  <span data-ttu-id="fa6fa-116">ノードが最初に構築されるときに、フィールドは式を保持します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-116">When the node is initially constructed, the field holds the Expression.</span></span>  <span data-ttu-id="fa6fa-117">コンパイラは、このインターフェイスから引数にアクセスし、最初の引数のアクセサーはExpression.ReturnObject を使用して、式または ReadOnlyCollection ケースを扱うオブジェクトを返します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-117">The compiler accesses arguments through this interface, and the accessor for the first argument uses Expression.ReturnObject to return the object that handles the Expression or ReadOnlyCollection case.</span></span>  <span data-ttu-id="fa6fa-118">ユーザーが ReadOnlyCollection にアクセスするときに、ReadOnlyCollection に直接格納するためオブジェクト フィールドが更新されます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-118">When the user accesses the ReadOnlyCollection, then the object field is updated to hold directly onto the ReadOnlyCollection.</span></span>  
+  
+ <span data-ttu-id="fa6fa-119">式が一貫して同じ ReadOnlyCollection を返すことが重要です。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-119">It is important that the Expressions consistently return the same ReadOnlyCollection.</span></span>  <span data-ttu-id="fa6fa-120">そうでなければ、リライター ツリー ウォーカーが解除されます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-120">Otherwise, the re-writer tree walker will break.</span></span>  <span data-ttu-id="fa6fa-121">LINQ v1 からの互換性に影響する変更点として、異なる ReadOnlyCollections が、同じ Expression ノードを形成します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-121">It is a breaking change from LINQ v1 to return different ReadOnlyCollections form the same Expression node.</span></span>  <span data-ttu-id="fa6fa-122">現在ユーザーは、オブジェクト ID を使用してノードが変更されたかどうかを確認できます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-122">Currently users can rely on object identity to tell if the node has changed.</span></span>  <span data-ttu-id="fa6fa-123">ReadOnlyCollection をオーバー ロードされたフィールドに格納すると、メモリ使用を削減し、パブリック API の互換性を維持します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-123">Storing the ReadOnlyCollection in an overloaded field both reduces memory usage and maintains compatibility for the public API.</span></span></summary>
     <remarks>To be added.</remarks>
   </Docs>
   <Members>
@@ -153,26 +63,8 @@
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>
-          <span data-ttu-id="fa6fa-124">式ツリー ノードに引数の数を返します。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="fa6fa-124">Returns the number of arguments to the expression tree node.</span>
-          </span>
-          <span data-ttu-id="fa6fa-125">この型は使用しないでください。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="fa6fa-125">You should not use this type.</span>
-          </span>
-          <span data-ttu-id="fa6fa-126">これは、アセンブリ リファクタリングのためパブリックのみで、パフォーマンスの最適化のために内部で使用されます。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="fa6fa-126">It is only public due to assembly refactoring, and it is used internally for performance optimizations.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="fa6fa-127">式ツリー ノードに引数の数<see cref="T:System.Int32" />です。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="fa6fa-127">The number of arguments to the expression tree node as <see cref="T:System.Int32" />.</span>
-          </span>
-        </value>
+        <summary><span data-ttu-id="fa6fa-124">式ツリー ノードに引数の数を返します。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-124">Returns the number of arguments to the expression tree node.</span></span>  <span data-ttu-id="fa6fa-125">この型は使用しないでください。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-125">You should not use this type.</span></span>  <span data-ttu-id="fa6fa-126">これは、アセンブリ リファクタリングのためパブリックのみで、パフォーマンスの最適化のために内部で使用されます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-126">It is only public due to assembly refactoring, and it is used internally for performance optimizations.</span></span></summary>
+        <value><span data-ttu-id="fa6fa-127">式ツリー ノードに引数の数<see cref="T:System.Int32" />です。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-127">The number of arguments to the expression tree node as <see cref="T:System.Int32" />.</span></span></value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -206,33 +98,9 @@
         <Parameter Name="index" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="index">
-          <span data-ttu-id="fa6fa-128">引数のインデックス。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="fa6fa-128">The index of the argument.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="fa6fa-129">インデックスの引数を返し、インデックスが範囲外にある場合にスローします。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="fa6fa-129">Returns the argument at index, throwing if index is out of bounds.</span>
-          </span>
-          <span data-ttu-id="fa6fa-130">この型は使用しないでください。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="fa6fa-130">You should not use this type.</span>
-          </span>
-          <span data-ttu-id="fa6fa-131">これは、アセンブリ リファクタリングのためパブリックのみで、パフォーマンスの最適化のために内部で使用されます。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="fa6fa-131">It is only public due to assembly refactoring, and it is used internally for performance optimizations.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="fa6fa-132">
-            <see cref="T:System.Linq.Expressions.Expression" /> としてインデックスが範囲外にある場合にスローする、インデックスの引数。</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="fa6fa-132">The argument at index, throwing if index is out of bounds as <see cref="T:System.Linq.Expressions.Expression" />.</span>
-          </span>
-        </returns>
+        <param name="index"><span data-ttu-id="fa6fa-128">引数のインデックス。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-128">The index of the argument.</span></span></param>
+        <summary><span data-ttu-id="fa6fa-129">インデックスの引数を返し、インデックスが範囲外にある場合にスローします。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-129">Returns the argument at index, throwing if index is out of bounds.</span></span>  <span data-ttu-id="fa6fa-130">この型は使用しないでください。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-130">You should not use this type.</span></span>  <span data-ttu-id="fa6fa-131">これは、アセンブリ リファクタリングのためパブリックのみで、パフォーマンスの最適化のために内部で使用されます。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-131">It is only public due to assembly refactoring, and it is used internally for performance optimizations.</span></span></summary>
+        <returns><span data-ttu-id="fa6fa-132"><see cref="T:System.Linq.Expressions.Expression" /> としてインデックスが範囲外にある場合にスローする、インデックスの引数。</span><span class="sxs-lookup"><span data-stu-id="fa6fa-132">The argument at index, throwing if index is out of bounds as <see cref="T:System.Linq.Expressions.Expression" />.</span></span></returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
