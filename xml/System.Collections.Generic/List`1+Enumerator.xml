@@ -1,11 +1,11 @@
 <Type Name="List&lt;T&gt;+Enumerator" FullName="System.Collections.Generic.List&lt;T&gt;+Enumerator">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="6238be31faea3e1ea695a39d1455efce2f8d1223" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="329cf0e6fd8349fd996a2a07ddab3d47fabed2a6" />
+    <Meta Name="ms.sourcegitcommit" Value="3907f9a5780957d9c85af2e54c0a5bc2a5bf19ab" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30367636" />
+    <Meta Name="ms.lasthandoff" Value="06/13/2018" />
+    <Meta Name="ms.locfileid" Value="35417148" />
   </Metadata>
   <TypeSignature Language="C#" Value="public struct List&lt;T&gt;.Enumerator : System.Collections.Generic.IEnumerator&lt;T&gt;" />
   <TypeSignature Language="ILAsm" Value=".class nested public sequential ansi serializable sealed beforefieldinit List`1/Enumerator&lt;T&gt; extends System.ValueType implements class System.Collections.Generic.IEnumerator`1&lt;!T&gt;, class System.Collections.IEnumerator, class System.IDisposable" />
@@ -107,14 +107,13 @@
 ## Remarks  
  <xref:System.Collections.Generic.List%601.Enumerator.Current%2A> 次の条件のいずれかで定義されていません。  
   
--   列挙子の作成後すぐには、列挙子は、コレクション内の最初の要素の前に位置付けられます。   <xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A> 列挙子の値を読み取る前に、コレクションの最初の要素に進めるを呼び出す必要があります<xref:System.Collections.Generic.List%601.Enumerator.Current%2A>です。  
+- 列挙子はコレクションの最初の要素の前に位置付けられます。 列挙子を作成した後、または後に発生する、<xref:System.Collections.Generic.List%601.Enumerator.System%23Collections%23IEnumerator%23Reset%2A>メソッドが呼び出されます。 <xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A>列挙子の値を読み取る前に、コレクションの最初の要素に進めるメソッドを呼び出す必要があります、<xref:System.Collections.Generic.List%601.Enumerator.Current%2A>プロパティです。  
   
--   最後に呼び出した<xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A>返される`false`コレクションの末尾を示します。  
-  
- <xref:System.Collections.Generic.List%601.Enumerator.Current%2A> は、<xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A> が呼び出されるまでは同じオブジェクトを返します。 <xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A> は、<xref:System.Collections.Generic.List%601.Enumerator.Current%2A> を次の要素に設定します。 間で、一覧が変更された場合<xref:System.Collections.IEnumerator.MoveNext%2A>と<xref:System.Collections.IEnumerator.Current%2A>、<xref:System.Collections.IEnumerator.Current%2A>列挙子が無効になった場合でもに設定されている要素を返します。  
-  
-> [!NOTE]
->  パフォーマンスを向上させるには、このプロパティは例外をスローしません、列挙子が最初の要素の前に、または最後の要素の後に配置されている場合。 プロパティの値は定義されません。 代わりに、例外を取得するキャスト、<xref:System.Collections.Generic.List%601.Enumerator>を<xref:System.Collections.IEnumerator?displayProperty=nameWithType>インターフェイスを使用する前にします。  
+- 最後に呼び出した<xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A>返される`false`コレクションの末尾を示す、列挙子がコレクションの最後の要素の後に配置します。
+
+- 列挙子は、追加、変更、または削除する要素など、コレクションで行われた変更により無効になりました。
+
+ <xref:System.Collections.Generic.List%601.Enumerator.Current%2A> 連続して呼び出すと、列挙子の位置を移動しません<xref:System.Collections.Generic.List%601.Enumerator.Current%2A>されるまで、同じオブジェクトを返す<xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A>または<xref:System.Collections.Generic.List%601.Enumerator.System%23Collections%23IEnumerator%23Reset%2A>と呼びます。  
   
  ]]></format>
         </remarks>
@@ -190,8 +189,7 @@
       <Parameters />
       <Docs>
         <summary>列挙子を <see cref="T:System.Collections.Generic.List`1" /> の次の要素に進めます。</summary>
-        <returns>
-          列挙子が次の要素に正常に進んだ場合は <see langword="true" />。列挙子がコレクションの末尾を越えた場合は <see langword="false" />。</returns>
+        <returns>列挙子が次の要素に正常に進んだ場合は <see langword="true" />。列挙子がコレクションの末尾を越えた場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -245,17 +243,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Collections.IEnumerator.Current%2A> 次の条件のいずれかで定義されていません。  
+ <xref:System.Collections.Generic.List%601.Enumerator.System%23Collections%23IEnumerator%23Current%2A> 次の条件のいずれかで定義されていません。  
   
--   列挙子が作成されるとすぐまたは後すぐに、コレクション内の最初の要素の前に、列挙子が配置されている<xref:System.Collections.IEnumerator.Reset%2A>と呼びます。 <xref:System.Collections.IEnumerator.MoveNext%2A> 列挙子の値を読み取る前に、コレクションの最初の要素に進めるを呼び出す必要があります<xref:System.Collections.IEnumerator.Current%2A>です。  
+- 列挙子はコレクションの最初の要素の前に位置付けられます。 列挙子を作成した後、または後に発生する、<xref:System.Collections.Generic.List%601.Enumerator.System%23Collections%23IEnumerator%23Reset%2A>メソッドが呼び出されます。 <xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A>列挙子の値を読み取る前に、コレクションの最初の要素に進めるメソッドを呼び出す必要があります、<xref:System.Collections.Generic.List%601.Enumerator.System%23Collections%23IEnumerator%23Current%2A>プロパティです。  
   
--   最後に呼び出した<xref:System.Collections.IEnumerator.MoveNext%2A>返される`false`コレクションの末尾を示します。  
-  
- <xref:System.Collections.IEnumerator.Current%2A> まで同じオブジェクトを返します<xref:System.Collections.IEnumerator.MoveNext%2A>または<xref:System.Collections.IEnumerator.Reset%2A>と呼びます。 <xref:System.Collections.IEnumerator.MoveNext%2A> は、<xref:System.Collections.IEnumerator.Current%2A> を次の要素に設定します。 間で、一覧が変更された場合<xref:System.Collections.IEnumerator.MoveNext%2A>と<xref:System.Collections.IEnumerator.Current%2A>、<xref:System.Collections.IEnumerator.Current%2A>列挙子が無効になった場合でもに設定されている要素を返します。  
+- 最後に呼び出した<xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A>返される`false`コレクションの末尾を示す、列挙子がコレクションの最後の要素の後に配置します。
+
+- 列挙子は、追加、変更、または削除する要素など、コレクションで行われた変更により無効になりました。
+
+ <xref:System.Collections.Generic.List%601.Enumerator.System%23Collections%23IEnumerator%23Current%2A> 連続して呼び出すと、列挙子の位置を移動しません<xref:System.Collections.Generic.List%601.Enumerator.System%23Collections%23IEnumerator%23Current%2A>されるまで、同じオブジェクトを返す<xref:System.Collections.Generic.List%601.Enumerator.MoveNext%2A>または<xref:System.Collections.Generic.List%601.Enumerator.System%23Collections%23IEnumerator%23Reset%2A>と呼びます。  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">列挙子は、コレクションの最初の要素の前または最後の要素の後に配置されています。</exception>
         <altmember cref="M:System.Collections.IEnumerator.MoveNext" />
         <altmember cref="M:System.Collections.IEnumerator.Reset" />
         <altmember cref="T:System.Collections.IEnumerator" />
