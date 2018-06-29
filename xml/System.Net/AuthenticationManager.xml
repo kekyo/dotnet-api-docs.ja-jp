@@ -1,17 +1,18 @@
 <Type Name="AuthenticationManager" FullName="System.Net.AuthenticationManager">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ea45447b9690b774a446653fd361d963bc6300d3" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="e1c61f84f768d1468b1eada6f1e535de9ec0816e" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30470186" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36549523" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class AuthenticationManager" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit AuthenticationManager extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Net.AuthenticationManager" />
   <TypeSignature Language="VB.NET" Value="Public Class AuthenticationManager" />
   <TypeSignature Language="C++ CLI" Value="public ref class AuthenticationManager" />
+  <TypeSignature Language="F#" Value="type AuthenticationManager = class" />
   <AssemblyInfo>
     <AssemblyName>System</AssemblyName>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
@@ -31,7 +32,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>クライアント認証プロセス中に呼び出される認証モジュールを管理します。</summary>
+    <summary>Manages the authentication modules called during the client authentication process.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -62,6 +63,7 @@
       <MemberSignature Language="DocId" Value="M:System.Net.AuthenticationManager.Authenticate(System.String,System.Net.WebRequest,System.Net.ICredentials)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function Authenticate (challenge As String, request As WebRequest, credentials As ICredentials) As Authorization" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Net::Authorization ^ Authenticate(System::String ^ challenge, System::Net::WebRequest ^ request, System::Net::ICredentials ^ credentials);" />
+      <MemberSignature Language="F#" Value="static member Authenticate : string * System.Net.WebRequest * System.Net.ICredentials -&gt; System.Net.Authorization" Usage="System.Net.AuthenticationManager.Authenticate (challenge, request, credentials)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
@@ -86,11 +88,11 @@
         <Parameter Name="credentials" Type="System.Net.ICredentials" />
       </Parameters>
       <Docs>
-        <param name="challenge">インターネット リソースが返すチャレンジ。</param>
-        <param name="request">認証チャレンジを開始した <see cref="T:System.Net.WebRequest" />。</param>
-        <param name="credentials">この要求と関連付けられている <see cref="T:System.Net.ICredentials" />。</param>
-        <summary>認証要求に応答できる最初のモジュールを検出するには、各登録済み認証モジュールを呼び出します。</summary>
-        <returns>承認試行の結果を格納する <see cref="T:System.Net.Authorization" /> クラスのインスタンス。 チャレンジに応答する認証モジュールがない場合、このメソッドは <see langword="null" /> を返します。</returns>
+        <param name="challenge">The challenge returned by the Internet resource.</param>
+        <param name="request">The <see cref="T:System.Net.WebRequest" /> that initiated the authentication challenge.</param>
+        <param name="credentials">The <see cref="T:System.Net.ICredentials" /> associated with this request.</param>
+        <summary>Calls each registered authentication module to find the first module that can respond to the authentication request.</summary>
+        <returns>An instance of the <see cref="T:System.Net.Authorization" /> class containing the result of the authorization attempt. If there is no authentication module to respond to the challenge, this method returns <see langword="null" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -104,15 +106,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="challenge" /> は <see langword="null" />です。  
-  
- - または -  
-  
- <paramref name="request" /> は <see langword="null" />です。  
-  
- - または -  
-  
- <paramref name="credentials" /> は <see langword="null" />です。</exception>
+          <paramref name="challenge" /> is <see langword="null" />.  -or-  <paramref name="request" /> is <see langword="null" />.  -or-  <paramref name="credentials" /> is <see langword="null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="CredentialPolicy">
@@ -121,6 +115,7 @@
       <MemberSignature Language="DocId" Value="P:System.Net.AuthenticationManager.CredentialPolicy" />
       <MemberSignature Language="VB.NET" Value="Public Shared Property CredentialPolicy As ICredentialPolicy" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::Net::ICredentialPolicy ^ CredentialPolicy { System::Net::ICredentialPolicy ^ get(); void set(System::Net::ICredentialPolicy ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.CredentialPolicy : System.Net.ICredentialPolicy with get, set" Usage="System.Net.AuthenticationManager.CredentialPolicy" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
@@ -140,9 +135,8 @@
         <ReturnType>System.Net.ICredentialPolicy</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>
-          <see cref="T:System.Net.HttpWebRequest" /> クラスを使用して行われるリソース要求に使用される資格情報ポリシーを取得または設定します。</summary>
-        <value>要求と共に資格情報が送信されるかどうかを決定する <see cref="T:System.Net.ICredentialPolicy" /> インターフェイスを実装するオブジェクト。 既定値は <see langword="null" /> です。</value>
+        <summary>Gets or sets the credential policy to be used for resource requests made using the <see cref="T:System.Net.HttpWebRequest" /> class.</summary>
+        <value>実装するオブジェクト、<see cref="T:System.Net.ICredentialPolicy" />資格情報が要求と共に送信されるかどうかを決定するインターフェイスです。 既定値は <see langword="null" /> です。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -169,6 +163,7 @@
       <MemberSignature Language="DocId" Value="P:System.Net.AuthenticationManager.CustomTargetNameDictionary" />
       <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property CustomTargetNameDictionary As StringDictionary" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::Collections::Specialized::StringDictionary ^ CustomTargetNameDictionary { System::Collections::Specialized::StringDictionary ^ get(); };" />
+      <MemberSignature Language="F#" Value="member this.CustomTargetNameDictionary : System.Collections.Specialized.StringDictionary" Usage="System.Net.AuthenticationManager.CustomTargetNameDictionary" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
@@ -193,9 +188,8 @@
         <ReturnType>System.Collections.Specialized.StringDictionary</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>
-          <see cref="T:System.Net.WebRequest" /> およびその派生クラスを使用して行われた要求に対する Kerberos 認証中にホストを識別するために使用されるサービス プリンシパル名 (SPN) を格納したディクショナリを取得します。</summary>
-        <value>ホスト情報で構成されているキーの SPN 値を格納している書き込み可能な <see cref="T:System.Collections.Specialized.StringDictionary" />。</value>
+        <summary>Gets the dictionary that contains Service Principal Names (SPNs) that are used to identify hosts during Kerberos authentication for requests made using <see cref="T:System.Net.WebRequest" /> and its derived classes.</summary>
+        <value>書き込み可能な<see cref="T:System.Collections.Specialized.StringDictionary" />ホスト情報のキーで構成されるは、SPN 値を含むです。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -232,6 +226,7 @@
       <MemberSignature Language="DocId" Value="M:System.Net.AuthenticationManager.PreAuthenticate(System.Net.WebRequest,System.Net.ICredentials)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function PreAuthenticate (request As WebRequest, credentials As ICredentials) As Authorization" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Net::Authorization ^ PreAuthenticate(System::Net::WebRequest ^ request, System::Net::ICredentials ^ credentials);" />
+      <MemberSignature Language="F#" Value="static member PreAuthenticate : System.Net.WebRequest * System.Net.ICredentials -&gt; System.Net.Authorization" Usage="System.Net.AuthenticationManager.PreAuthenticate (request, credentials)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
@@ -255,10 +250,10 @@
         <Parameter Name="credentials" Type="System.Net.ICredentials" />
       </Parameters>
       <Docs>
-        <param name="request">インターネット リソースへの <see cref="T:System.Net.WebRequest" />。</param>
-        <param name="credentials">要求に関連付けられている <see cref="T:System.Net.ICredentials" />。</param>
-        <summary>要求の事前認証を行います。</summary>
-        <returns>要求を事前認証できる場合は <see cref="T:System.Net.Authorization" /> クラスのインスタンス、それ以外の場合は <see langword="null" /> です。 <paramref name="credentials" /> が <see langword="null" /> の場合、このメソッドは <see langword="null" /> を返します。</returns>
+        <param name="request">A <see cref="T:System.Net.WebRequest" /> to an Internet resource.</param>
+        <param name="credentials">The <see cref="T:System.Net.ICredentials" /> associated with the request.</param>
+        <summary>Preauthenticates a request.</summary>
+        <returns>An instance of the <see cref="T:System.Net.Authorization" /> class if the request can be preauthenticated; otherwise, <see langword="null" />. If <paramref name="credentials" /> is <see langword="null" />, this method returns <see langword="null" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -270,7 +265,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="request" /> は <see langword="null" />です。</exception>
+          <paramref name="request" /> is <see langword="null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Register">
@@ -279,6 +274,7 @@
       <MemberSignature Language="DocId" Value="M:System.Net.AuthenticationManager.Register(System.Net.IAuthenticationModule)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub Register (authenticationModule As IAuthenticationModule)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Register(System::Net::IAuthenticationModule ^ authenticationModule);" />
+      <MemberSignature Language="F#" Value="static member Register : System.Net.IAuthenticationModule -&gt; unit" Usage="System.Net.AuthenticationManager.Register authenticationModule" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
@@ -301,8 +297,8 @@
         <Parameter Name="authenticationModule" Type="System.Net.IAuthenticationModule" />
       </Parameters>
       <Docs>
-        <param name="authenticationModule">認証マネージャーに登録する <see cref="T:System.Net.IAuthenticationModule" />。</param>
-        <summary>認証マネージャーに認証モジュールを登録します。</summary>
+        <param name="authenticationModule">The <see cref="T:System.Net.IAuthenticationModule" /> to register with the authentication manager.</param>
+        <summary>Registers an authentication module with the authentication manager.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -321,8 +317,8 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="authenticationModule" /> は <see langword="null" />です。</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">アンマネージ コードを実行します。 <see cref="T:System.Security.Permissions.SecurityPermissionFlag" /> (関連する列挙体)</permission>
+          <paramref name="authenticationModule" /> is <see langword="null" />.</exception>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">アンマネージ コードを実行します。 関連する列挙値:<see cref="T:System.Security.Permissions.SecurityPermissionFlag" />です。</permission>
       </Docs>
     </Member>
     <Member MemberName="RegisteredModules">
@@ -331,6 +327,7 @@
       <MemberSignature Language="DocId" Value="P:System.Net.AuthenticationManager.RegisteredModules" />
       <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property RegisteredModules As IEnumerator" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::Collections::IEnumerator ^ RegisteredModules { System::Collections::IEnumerator ^ get(); };" />
+      <MemberSignature Language="F#" Value="member this.RegisteredModules : System.Collections.IEnumerator" Usage="System.Net.AuthenticationManager.RegisteredModules" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
@@ -350,8 +347,9 @@
         <ReturnType>System.Collections.IEnumerator</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>認証マネージャーに登録されている認証モジュールの一覧を取得します。</summary>
-        <value>登録済み認証モジュールの読み取りを有効にする <see cref="T:System.Collections.IEnumerator" />。</value>
+        <summary>Gets a list of authentication modules that are registered with the authentication manager.</summary>
+        <value>
+          <see cref="T:System.Collections.IEnumerator" />読み取られる登録済みの認証モジュールを有効にします。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -378,7 +376,7 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>登録済みモジュールの一覧から認証モジュールを削除します。</summary>
+        <summary>Removes authentication modules from the list of registered modules.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="Unregister">
@@ -387,6 +385,7 @@
       <MemberSignature Language="DocId" Value="M:System.Net.AuthenticationManager.Unregister(System.Net.IAuthenticationModule)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub Unregister (authenticationModule As IAuthenticationModule)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Unregister(System::Net::IAuthenticationModule ^ authenticationModule);" />
+      <MemberSignature Language="F#" Value="static member Unregister : System.Net.IAuthenticationModule -&gt; unit" Usage="System.Net.AuthenticationManager.Unregister authenticationModule" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
@@ -409,8 +408,8 @@
         <Parameter Name="authenticationModule" Type="System.Net.IAuthenticationModule" />
       </Parameters>
       <Docs>
-        <param name="authenticationModule">登録されたモジュールの一覧から削除する <see cref="T:System.Net.IAuthenticationModule" />。</param>
-        <summary>登録済みモジュールの一覧から指定した認証モジュールを削除します。</summary>
+        <param name="authenticationModule">The <see cref="T:System.Net.IAuthenticationModule" /> to remove from the list of registered modules.</param>
+        <summary>Removes the specified authentication module from the list of registered modules.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -429,9 +428,9 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="authenticationModule" /> は <see langword="null" />です。</exception>
-        <exception cref="T:System.InvalidOperationException">指定した <see cref="T:System.Net.IAuthenticationModule" /> は登録されていません。</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">アンマネージ コードを実行します。 <see cref="T:System.Security.Permissions.SecurityPermissionFlag" /> (関連する列挙体)</permission>
+          <paramref name="authenticationModule" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">The specified <see cref="T:System.Net.IAuthenticationModule" /> is not registered.</exception>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">アンマネージ コードを実行します。 関連する列挙値:<see cref="T:System.Security.Permissions.SecurityPermissionFlag" />です。</permission>
       </Docs>
     </Member>
     <Member MemberName="Unregister">
@@ -440,6 +439,7 @@
       <MemberSignature Language="DocId" Value="M:System.Net.AuthenticationManager.Unregister(System.String)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub Unregister (authenticationScheme As String)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Unregister(System::String ^ authenticationScheme);" />
+      <MemberSignature Language="F#" Value="static member Unregister : string -&gt; unit" Usage="System.Net.AuthenticationManager.Unregister authenticationScheme" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
@@ -462,8 +462,8 @@
         <Parameter Name="authenticationScheme" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="authenticationScheme">削除するモジュールの認証方式。</param>
-        <summary>登録済みモジュールの一覧から指定した認証方式の認証モジュールを削除します。</summary>
+        <param name="authenticationScheme">The authentication scheme of the module to remove.</param>
+        <summary>Removes authentication modules with the specified authentication scheme from the list of registered modules.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -482,9 +482,9 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="authenticationScheme" /> は <see langword="null" />です。</exception>
-        <exception cref="T:System.InvalidOperationException">この認証方式のモジュールは登録されていません。</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">アンマネージ コードを実行します。 <see cref="T:System.Security.Permissions.SecurityPermissionFlag" /> (関連する列挙体)</permission>
+          <paramref name="authenticationScheme" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">A module for this authentication scheme is not registered.</exception>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">アンマネージ コードを実行します。 関連する列挙値:<see cref="T:System.Security.Permissions.SecurityPermissionFlag" />です。</permission>
       </Docs>
     </Member>
   </Members>
