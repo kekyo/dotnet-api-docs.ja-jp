@@ -1,17 +1,18 @@
 <Type Name="TraceFilter" FullName="System.Diagnostics.TraceFilter">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="18fe63a9a7b42b098551cb5e85c2df08fe0c53cf" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="ca1e3c5e1752dd5229800a883262885ed83e3515" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30398246" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36673788" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class TraceFilter" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit TraceFilter extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Diagnostics.TraceFilter" />
   <TypeSignature Language="VB.NET" Value="Public MustInherit Class TraceFilter" />
   <TypeSignature Language="C++ CLI" Value="public ref class TraceFilter abstract" />
+  <TypeSignature Language="F#" Value="type TraceFilter = class" />
   <AssemblyInfo>
     <AssemblyName>System.Diagnostics.TraceSource</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
@@ -80,6 +81,7 @@
       <MemberSignature Language="DocId" Value="M:System.Diagnostics.TraceFilter.ShouldTrace(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String,System.Object[],System.Object,System.Object[])" />
       <MemberSignature Language="VB.NET" Value="Public MustOverride Function ShouldTrace (cache As TraceEventCache, source As String, eventType As TraceEventType, id As Integer, formatOrMessage As String, args As Object(), data1 As Object, data As Object()) As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract bool ShouldTrace(System::Diagnostics::TraceEventCache ^ cache, System::String ^ source, System::Diagnostics::TraceEventType eventType, int id, System::String ^ formatOrMessage, cli::array &lt;System::Object ^&gt; ^ args, System::Object ^ data1, cli::array &lt;System::Object ^&gt; ^ data);" />
+      <MemberSignature Language="F#" Value="abstract member ShouldTrace : System.Diagnostics.TraceEventCache * string * System.Diagnostics.TraceEventType * int * string * obj[] * obj * obj[] -&gt; bool" Usage="traceFilter.ShouldTrace (cache, source, eventType, id, formatOrMessage, args, data1, data)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Diagnostics.TraceSource</AssemblyName>
@@ -120,8 +122,7 @@
         <param name="data1">トレース データ オブジェクト。</param>
         <param name="data">トレース データ オブジェクトの配列。</param>
         <summary>派生クラスでのオーバーライドの際に、トレース リスナーでイベントをトレースするかどうかを決定します。</summary>
-        <returns>
-          指定したイベントをトレースする場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <returns>指定したイベントをトレースする場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -135,19 +136,7 @@
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>このメソッドの実装を返す必要があります<see langword="true" />場合は渡されたパラメーターで指定されたイベントをトレースする必要があります。 それ以外の場合、メソッドが返す必要があります<see langword="false" />です。 たとえば、のみのエラー イベントをリスナーに通過を許可するフィルターを調べる必要があります、<paramref name="eventType" />パラメーターと戻り値<see langword="true" />トレース イベントの種類のレベルに設定されている場合<see cref="F:System.Diagnostics.TraceEventType.Error" />返すか大きい値です。 それ以外の場合、または<see langword="false" />です。  
-  
- 処理するメソッドの実装を準備する必要があります<see langword="null" />で、次のパラメーター: <paramref name="args" />、 <paramref name="data1" />、 <paramref name="data" />、 <paramref name="formatOrMessage" />、および<paramref name="cache" />です。 パラメーター値が場合<see langword="null" />パラメーターは、イベントの一部ではありません。 たとえば場合、<paramref name="args" />パラメーターは<see langword="null" />イベントには、引数がないことを意味します。 場合、<paramref name="data" />パラメーターは<see langword="null" />、1 つまたはゼロのデータ オブジェクトが存在し、します。 1 つのデータ オブジェクトがある場合に記載されます、<paramref name="data1" />パラメーター。 単一のデータ オブジェクトとデータ オブジェクトの配列を区別する理由は、パフォーマンスのためです。 ここでは通常、1 つのオブジェクトをトレースすると、専用の場合、オブジェクト配列を作成する必要はありません。 場合、<paramref name="data" />パラメーターではありません<see langword="null" />、<paramref name="data1" />パラメーターもすることはできません<see langword="null" />です。  
-  
- 保証される、<paramref name="source" />パラメーターではありません<see langword="null" />と空の文字列ではありません ("") です。  
-  
- 必要に応じて、メソッドの実装は、次の例外をスローすることができます。  
-  
--   <paramref name="source" /> が <see langword="null" /> の場合は <see cref="T:System.ArgumentNullException" />。  
-  
--   <see cref="T:System.ArgumentException" /> 場合<paramref name="eventType" />のいずれかではない、<see cref="T:System.Diagnostics.TraceEventType" />値。  
-  
--   メソッドの実装に関係のない例外です。 たとえば、<see cref="T:System.Threading.ThreadAbortException" />です。</para>
+          <para>このメソッドの実装を返す必要があります<see langword="true" />場合は渡されたパラメーターで指定されたイベントをトレースする必要があります。それ以外の場合、メソッドが返す必要があります<see langword="false" />です。たとえば、のみのエラー イベントをリスナーに通過を許可するフィルターを調べる必要があります、<paramref name="eventType" />パラメーターと戻り値<see langword="true" />トレース イベントの種類のレベルに設定されている場合<see cref="F:System.Diagnostics.TraceEventType.Error" />返すか大きい値です。 それ以外の場合、または<see langword="false" />です。処理するメソッドの実装を準備する必要があります<see langword="null" />で、次のパラメーター: <paramref name="args" />、 <paramref name="data1" />、 <paramref name="data" />、 <paramref name="formatOrMessage" />、および<paramref name="cache" />です。パラメーター値が場合<see langword="null" />パラメーターは、イベントの一部ではありません。たとえば場合、<paramref name="args" />パラメーターは<see langword="null" />イベントには、引数がないことを意味します。場合、<paramref name="data" />パラメーターは<see langword="null" />、1 つまたはゼロのデータ オブジェクトが存在し、します。1 つのデータ オブジェクトがある場合に記載されます、<paramref name="data1" />パラメーター。単一のデータ オブジェクトとデータ オブジェクトの配列を区別する理由は、パフォーマンスのためです。ここでは通常、1 つのオブジェクトをトレースすると、専用の場合、オブジェクト配列を作成する必要はありません。場合、<paramref name="data" />パラメーターではありません<see langword="null" />、<paramref name="data1" />パラメーターもすることはできません<see langword="null" />です。保証される、<paramref name="source" />パラメーターではありません<see langword="null" />と空の文字列ではありません ("") です。メソッドの実装が必要に応じて、次の例外をスローすることができます:-<see cref="T:System.ArgumentNullException" />場合<paramref name="source" />は<see langword="null" />します。 -<see cref="T:System.ArgumentException" />場合<paramref name="eventType" />のいずれかではない、<see cref="T:System.Diagnostics.TraceEventType" />値。 メソッドの実装に関係のない例外です。たとえば、<see cref="T:System.Threading.ThreadAbortException" />です。</para>
         </block>
       </Docs>
     </Member>
