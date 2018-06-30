@@ -1,17 +1,18 @@
 <Type Name="IDuplexSession" FullName="System.ServiceModel.Channels.IDuplexSession">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="89db8df12be0427a200fdb3f6b65d6b7b48cb5e1" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="924faaf9f577ebfc1406664d0df46f423e4839e0" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30506526" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36621715" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IDuplexSession : System.ServiceModel.Channels.IInputSession, System.ServiceModel.Channels.IOutputSession" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IDuplexSession implements class System.ServiceModel.Channels.IInputSession, class System.ServiceModel.Channels.IOutputSession, class System.ServiceModel.Channels.ISession" />
   <TypeSignature Language="DocId" Value="T:System.ServiceModel.Channels.IDuplexSession" />
   <TypeSignature Language="VB.NET" Value="Public Interface IDuplexSession&#xA;Implements IInputSession, IOutputSession" />
   <TypeSignature Language="C++ CLI" Value="public interface class IDuplexSession : System::ServiceModel::Channels::IInputSession, System::ServiceModel::Channels::IOutputSession" />
+  <TypeSignature Language="F#" Value="type IDuplexSession = interface&#xA;    interface IInputSession&#xA;    interface IOutputSession&#xA;    interface ISession" />
   <AssemblyInfo>
     <AssemblyName>System.ServiceModel</AssemblyName>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
@@ -61,6 +62,7 @@
       <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.IDuplexSession.BeginCloseOutputSession(System.AsyncCallback,System.Object)" />
       <MemberSignature Language="VB.NET" Value="Public Function BeginCloseOutputSession (callback As AsyncCallback, state As Object) As IAsyncResult" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; IAsyncResult ^ BeginCloseOutputSession(AsyncCallback ^ callback, System::Object ^ state);" />
+      <MemberSignature Language="F#" Value="abstract member BeginCloseOutputSession : AsyncCallback * obj -&gt; IAsyncResult" Usage="iDuplexSession.BeginCloseOutputSession (callback, state)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
@@ -102,6 +104,7 @@
       <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.IDuplexSession.BeginCloseOutputSession(System.TimeSpan,System.AsyncCallback,System.Object)" />
       <MemberSignature Language="VB.NET" Value="Public Function BeginCloseOutputSession (timeout As TimeSpan, callback As AsyncCallback, state As Object) As IAsyncResult" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; IAsyncResult ^ BeginCloseOutputSession(TimeSpan timeout, AsyncCallback ^ callback, System::Object ^ state);" />
+      <MemberSignature Language="F#" Value="abstract member BeginCloseOutputSession : TimeSpan * AsyncCallback * obj -&gt; IAsyncResult" Usage="iDuplexSession.BeginCloseOutputSession (timeout, callback, state)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
@@ -155,6 +158,7 @@
       <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />
       <MemberSignature Language="VB.NET" Value="Public Sub CloseOutputSession ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void CloseOutputSession();" />
+      <MemberSignature Language="F#" Value="abstract member CloseOutputSession : unit -&gt; unit" Usage="iDuplexSession.CloseOutputSession " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
@@ -185,17 +189,7 @@
         </remarks>
         <block subset="none" type="overrides">
           <para>
-            <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> は、セッションを所有する <see cref="T:System.ServiceModel.Channels.IDuplexSessionChannel" /> と対話できるセッション メソッドです。 具体的には、セッションの有効期間とチャネルの有効期間をまとめると、次のようになります (TCP および信頼性の高いセッションとセキュリティを想定した場合)。  
-  
--   チャネルで <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> が呼び出される前に <see cref="M:System.ServiceModel.ICommunicationObject.Close" /> が呼び出された場合は、<see cref="M:System.ServiceModel.ICommunicationObject.Close" /> は <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> が終了するのを待つ必要があります。  
-  
--   チャネルが <see cref="F:System.ServiceModel.CommunicationState.Created" /> 状態または <see cref="F:System.ServiceModel.CommunicationState.Opening" /> 状態の場合は、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> は <see cref="T:System.InvalidOperationException" /> をスローする必要があります。  
-  
--   チャネルが <see cref="F:System.ServiceModel.CommunicationState.Faulted" /> 状態の場合は、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> は <see cref="T:System.ServiceModel.CommunicationObjectFaultedException" /> をスローする必要があります。  
-  
--   <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> がスローする場合、チャネルはエラーにする必要があります。  
-  
--   チャネル上の <see cref="M:System.ServiceModel.ICommunicationObject.Close" /> の実装では、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> を呼び出し、<see cref="M:System.ServiceModel.Channels.IInputChannel.Receive" /> が <see langword="null" /> を返すことを確認する必要があります。これは、セッションのもう一方の側が <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> を呼び出したことを示します。</para>
+            <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> 対話できるセッション メソッドは、<see cref="T:System.ServiceModel.Channels.IDuplexSessionChannel" />セッションを所有しています。特に、(TCP および信頼性の高いセッションとセキュリティが) 同じように、チャネルの有効期間とセッションの有効期間が配置されている場合: - 場合<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />前に呼び出されます<see cref="M:System.ServiceModel.ICommunicationObject.Close" />、チャネルで呼び出される<see cref="M:System.ServiceModel.ICommunicationObject.Close" />を待機する<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />完了します。 場合は、チャネルは、<see cref="F:System.ServiceModel.CommunicationState.Created" />または<see cref="F:System.ServiceModel.CommunicationState.Opening" />状態、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />スローする必要があります、<see cref="T:System.InvalidOperationException" />です。 場合は、チャネルは、<see cref="F:System.ServiceModel.CommunicationState.Faulted" />状態、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />スローする必要があります、<see cref="T:System.ServiceModel.CommunicationObjectFaultedException" />です。 に場合、チャネルはエラー<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />をスローします。 -の実装<see cref="M:System.ServiceModel.ICommunicationObject.Close" />チャネルで呼び出す必要があります<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />ことを確認<see cref="M:System.ServiceModel.Channels.IInputChannel.Receive" />返します<see langword="null" />、ことを示します<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />がセッションの相手側から呼び出されました。</para>
         </block>
       </Docs>
     </Member>
@@ -205,6 +199,7 @@
       <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession(System.TimeSpan)" />
       <MemberSignature Language="VB.NET" Value="Public Sub CloseOutputSession (timeout As TimeSpan)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void CloseOutputSession(TimeSpan timeout);" />
+      <MemberSignature Language="F#" Value="abstract member CloseOutputSession : TimeSpan -&gt; unit" Usage="iDuplexSession.CloseOutputSession timeout" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
@@ -238,17 +233,7 @@
         </remarks>
         <block subset="none" type="overrides">
           <para>
-            <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> は、セッションを所有する <see cref="T:System.ServiceModel.Channels.IDuplexSessionChannel" /> と対話できるセッション メソッドです。 具体的には、セッションの有効期間とチャネルの有効期間をまとめると、次のようになります (TCP および信頼性の高いセッションとセキュリティを想定した場合)。  
-  
--   チャネルで <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> が呼び出される前に <see cref="M:System.ServiceModel.ICommunicationObject.Close" /> が呼び出された場合は、<see cref="M:System.ServiceModel.ICommunicationObject.Close" /> は <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> が終了するのを待つ必要があります。  
-  
--   チャネルが <see cref="F:System.ServiceModel.CommunicationState.Created" /> 状態または <see cref="F:System.ServiceModel.CommunicationState.Opening" /> 状態の場合は、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> は <see cref="T:System.InvalidOperationException" /> をスローする必要があります。  
-  
--   チャネルが <see cref="F:System.ServiceModel.CommunicationState.Faulted" /> 状態の場合は、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> は <see cref="T:System.ServiceModel.CommunicationObjectFaultedException" /> をスローする必要があります。  
-  
--   <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> がスローする場合、チャネルはエラーにする必要があります。  
-  
--   チャネル上の <see cref="M:System.ServiceModel.ICommunicationObject.Close" /> の実装では、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> を呼び出し、<see cref="M:System.ServiceModel.Channels.IInputChannel.Receive" /> が <see langword="null" /> を返すことを確認する必要があります。これは、セッションのもう一方の側が <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> を呼び出したことを示します。</para>
+            <see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" /> 対話できるセッション メソッドは、<see cref="T:System.ServiceModel.Channels.IDuplexSessionChannel" />セッションを所有しています。特に、(TCP および信頼性の高いセッションとセキュリティが) 同じように、チャネルの有効期間とセッションの有効期間が配置されている場合: - 場合<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />前に呼び出されます<see cref="M:System.ServiceModel.ICommunicationObject.Close" />、チャネルで呼び出される<see cref="M:System.ServiceModel.ICommunicationObject.Close" />を待機する<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />完了します。 場合は、チャネルは、<see cref="F:System.ServiceModel.CommunicationState.Created" />または<see cref="F:System.ServiceModel.CommunicationState.Opening" />状態、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />スローする必要があります、<see cref="T:System.InvalidOperationException" />です。 場合は、チャネルは、<see cref="F:System.ServiceModel.CommunicationState.Faulted" />状態、<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />スローする必要があります、<see cref="T:System.ServiceModel.CommunicationObjectFaultedException" />です。 に場合、チャネルはエラー<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />をスローします。 -の実装<see cref="M:System.ServiceModel.ICommunicationObject.Close" />チャネルで呼び出す必要があります<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />ことを確認<see cref="M:System.ServiceModel.Channels.IInputChannel.Receive" />返します<see langword="null" />ことを示すを<see cref="M:System.ServiceModel.Channels.IDuplexSession.CloseOutputSession" />がセッションの相手側から呼び出されました。</para>
         </block>
       </Docs>
     </Member>
@@ -258,6 +243,7 @@
       <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.IDuplexSession.EndCloseOutputSession(System.IAsyncResult)" />
       <MemberSignature Language="VB.NET" Value="Public Sub EndCloseOutputSession (result As IAsyncResult)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void EndCloseOutputSession(IAsyncResult ^ result);" />
+      <MemberSignature Language="F#" Value="abstract member EndCloseOutputSession : IAsyncResult -&gt; unit" Usage="iDuplexSession.EndCloseOutputSession result" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
