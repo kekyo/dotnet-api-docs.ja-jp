@@ -1,17 +1,18 @@
 <Type Name="SafeHandle" FullName="System.Runtime.InteropServices.SafeHandle">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="6c4334868cde5130ed9da65bfda7e798c24b12cd" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="a48931738181122e75f0ec0a410b8d3e63a6436d" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30480626" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36537784" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class SafeHandle : System.Runtime.ConstrainedExecution.CriticalFinalizerObject, IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi abstract beforefieldinit SafeHandle extends System.Runtime.ConstrainedExecution.CriticalFinalizerObject implements class System.IDisposable" />
   <TypeSignature Language="DocId" Value="T:System.Runtime.InteropServices.SafeHandle" />
   <TypeSignature Language="VB.NET" Value="Public MustInherit Class SafeHandle&#xA;Inherits CriticalFinalizerObject&#xA;Implements IDisposable" />
   <TypeSignature Language="C++ CLI" Value="public ref class SafeHandle abstract : System::Runtime::ConstrainedExecution::CriticalFinalizerObject, IDisposable" />
+  <TypeSignature Language="F#" Value="type SafeHandle = class&#xA;    inherit CriticalFinalizerObject&#xA;    interface IDisposable" />
   <AssemblyInfo>
     <AssemblyName>System.Runtime.Handles</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
@@ -50,7 +51,7 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>オペレーティング システム ハンドルのラッパー クラスを表します。 このクラスは継承する必要があります。</summary>
+    <summary>Represents a wrapper class for operating system handles. This class must be inherited.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -67,7 +68,7 @@
 ## <a name="why-safehandle"></a>なぜ SafeHandle しますか?  
  .NET Framework version 2.0 では、すべてのオペレーティング システムでハンドルをカプセル化でしただけ前に、<xref:System.IntPtr>マネージ ラッパー オブジェクト。 これには、ネイティブ コードと相互運用する便利な手段がでしたが、ハンドルが予期せず中止スレッドまたはスタック オーバーフローなど、非同期の例外によってリークする可能性があります。 これらの非同期の例外は、オペレーティング システム リソースのクリーンアップに支障をきたすと、アプリでほぼどこでも発生することができます。  
   
- 上書きを<xref:System.Object.Finalize%2A?displayProperty=nameWithType>メソッドがアンマネージ リソースのクリーンアップを許可するときにオブジェクトがガベージ コレクション、状況によっては、ファイナライズ可能なオブジェクトを再要求できるガベージによって、プラットフォーム内のメソッドの実行中にコレクションが呼び出しです。 ファイナライザーは、そのプラットフォームに渡されたハンドルを解放呼び出し、破損を処理する可能性があります。 プラットフォームの中に、メソッドがブロックされている間、ハンドルを解放もでしたなど、ファイルの読み取り中に呼び出しを起動します。  
+ 上書きを<xref:System.Object.Finalize%2A?displayProperty=nameWithType>メソッドがアンマネージ リソースのクリーンアップを許可するときにオブジェクトがガベージ コレクション、状況によっては、ファイナライズ可能なオブジェクトはプラットフォーム内のメソッドの実行中にガベージ コレクションによって回収されることができますを呼び出す呼び出しです。 ファイナライザーは、そのプラットフォームに渡されたハンドルを解放呼び出し、破損を処理する可能性があります。 プラットフォームの中に、メソッドがブロックされている間、ハンドルを解放もでしたなど、ファイルの読み取り中に呼び出しを起動します。  
   
  ほど、Windows では、積極的にハンドルを再利用、ためハンドルでしたリサイクルされ機密データを含めることができる他のリソースをポイントします。 これは、リサイクル攻撃と呼ばれますとことができますデータが破損する可能性のあるセキュリティの脅威となります。  
   
@@ -119,11 +120,7 @@
     <permission cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand">継承時の完全な信頼。 このメンバーは、部分的に信頼されたコードでは継承できません。</permission>
     <permission cref="T:System.Security.SecurityCriticalAttribute">直前の呼び出し元に対する完全な信頼が必要です。 このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</permission>
     <block subset="none" type="overrides">
-      <para>派生したクラスを作成する<see cref="T:System.Runtime.InteropServices.SafeHandle" />、作成し、オペレーティング システム ハンドルを解放する方法を理解する必要があります。 別のハンドル型の一部を使用しているために、このプロセスは異なる、 [CloseHandle](https://msdn.microsoft.com/library/windows/desktop/ms724211.aspx)関数は、具体的な関数をなど使用して他のユーザーに対し[UnmapViewOfFile](https://msdn.microsoft.com/library/windows/desktop/aa366882.aspx)または[FindClose](https://msdn.microsoft.com/library/windows/desktop/aa364413.aspx). このための派生クラスを作成する必要があります<see cref="T:System.Runtime.InteropServices.SafeHandle" />にセーフ ハンドルをラップするオペレーティング システム ハンドルの種類ごとにします。  
-  
- <see cref="T:System.Runtime.InteropServices.SafeHandle" /> から継承する場合は、<see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" /> メンバーと <see cref="M:System.Runtime.InteropServices.SafeHandle.ReleaseHandle" /> メンバーをオーバーライドする必要があります。  
-  
- 無効なハンドル値を表す値を持つ基底コンス トラクターを呼び出す既定のコンス トラクターを提供することも必要があります、<see cref="T:System.Boolean" />ネイティブ ハンドルが所有しているかどうかを示す値、<see cref="T:System.Runtime.InteropServices.SafeHandle" />し、その結果、ときに解放する必要があります<see cref="T:System.Runtime.InteropServices.SafeHandle" />は破棄されました。</para>
+      <para>派生したクラスを作成する<see cref="T:System.Runtime.InteropServices.SafeHandle" />、作成し、オペレーティング システム ハンドルを解放する方法を理解する必要があります。別のハンドル型に [CloseHandle] を使用するものもあるために、このプロセスは異なる (https://msdn.microsoft.com/library/windows/desktop/ms724211.aspx)関数は、[UnmapViewOfFile] などの特定の関数を使用して他のユーザーに対し (https://msdn.microsoft.com/library/windows/desktop/aa366882.aspx)または [FindClose] (https://msdn.microsoft.com/library/windows/desktop/aa364413.aspx)です。このための派生クラスを作成する必要があります<see cref="T:System.Runtime.InteropServices.SafeHandle" />にセーフ ハンドルをラップするオペレーティング システム ハンドルの種類ごとにします。<see cref="T:System.Runtime.InteropServices.SafeHandle" /> から継承する場合は、<see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" /> メンバーと <see cref="M:System.Runtime.InteropServices.SafeHandle.ReleaseHandle" /> メンバーをオーバーライドする必要があります。無効なハンドル値を表す値を持つ基底コンス トラクターを呼び出す既定のコンス トラクターを提供することも必要があります、<see cref="T:System.Boolean" />ネイティブ ハンドルが所有しているかどうかを示す値、<see cref="T:System.Runtime.InteropServices.SafeHandle" />し、その結果、ときに解放する必要があります<see cref="T:System.Runtime.InteropServices.SafeHandle" />は破棄されました。</para>
     </block>
     <altmember cref="N:Microsoft.Win32.SafeHandles" />
     <altmember cref="T:System.Runtime.InteropServices.CriticalHandle" />
@@ -153,6 +150,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.#ctor(System.IntPtr,System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Protected Sub New (invalidHandleValue As IntPtr, ownsHandle As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; SafeHandle(IntPtr invalidHandleValue, bool ownsHandle);" />
+      <MemberSignature Language="F#" Value="new System.Runtime.InteropServices.SafeHandle : nativeint * bool -&gt; System.Runtime.InteropServices.SafeHandle" Usage="new System.Runtime.InteropServices.SafeHandle (invalidHandleValue, ownsHandle)" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -187,10 +185,10 @@
         <Parameter Name="ownsHandle" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="invalidHandleValue">無効なハンドルの値 (通常は 0 または -1)。  <see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" /> の実装では、この値に対して <see langword="true" /> を返す必要があります。</param>
+        <param name="invalidHandleValue">The value of an invalid handle (usually 0 or -1).  Your implementation of <see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" /> should return <see langword="true" /> for this value.</param>
         <param name="ownsHandle">
-          終了処理中に <see langword="true" /> によってハンドルを確実に解放する場合は <see cref="T:System.Runtime.InteropServices.SafeHandle" />。それ以外の場合は <see langword="false" /> (お勧めしません)。</param>
-        <summary>指定した無効なハンドル値を使用して、<see cref="T:System.Runtime.InteropServices.SafeHandle" /> クラスの新しいインスタンスを初期化します。</summary>
+          <see langword="true" /> to reliably let <see cref="T:System.Runtime.InteropServices.SafeHandle" /> release the handle during the finalization phase; otherwise, <see langword="false" /> (not recommended).</param>
+        <summary>Initializes a new instance of the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class with the specified invalid handle value.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -199,7 +197,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.TypeLoadException">派生クラスがアンマネージ コードのアクセス許可なしにアセンブリに存在しています。</exception>
+        <exception cref="T:System.TypeLoadException">The derived class resides in an assembly without unmanaged code access permission.</exception>
         <permission cref="F:System.Security.Permissions.SecurityAction.InheritanceDemand">継承時の完全な信頼。 このメンバーは、部分的に信頼されたコードでは継承できません。</permission>
         <permission cref="T:System.Security.SecurityCriticalAttribute">直前の呼び出し元に対する完全な信頼が必要です。 このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</permission>
       </Docs>
@@ -210,6 +208,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.Close" />
       <MemberSignature Language="VB.NET" Value="Public Sub Close ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void Close();" />
+      <MemberSignature Language="F#" Value="member this.Close : unit -&gt; unit" Usage="safeHandle.Close " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -238,7 +237,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>リソースを解放するためのハンドルをマークします。</summary>
+        <summary>Marks the handle for releasing and freeing resources.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -261,6 +260,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.DangerousAddRef(System.Boolean@)" />
       <MemberSignature Language="VB.NET" Value="Public Sub DangerousAddRef (ByRef success As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void DangerousAddRef(bool % success);" />
+      <MemberSignature Language="F#" Value="member this.DangerousAddRef :  -&gt; unit" Usage="safeHandle.DangerousAddRef success" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -298,9 +298,8 @@
       </Parameters>
       <Docs>
         <param name="success">
-          参照カウンターが正常にインクリメントされた場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</param>
-        <summary>
-          <see cref="T:System.Runtime.InteropServices.SafeHandle" /> インスタンスの参照カウンターを手動でインクリメントします。</summary>
+          <see langword="true" /> if the reference counter was successfully incremented; otherwise, <see langword="false" />.</param>
+        <summary>Manually increments the reference counter on <see cref="T:System.Runtime.InteropServices.SafeHandle" /> instances.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -322,6 +321,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.DangerousGetHandle" />
       <MemberSignature Language="VB.NET" Value="Public Function DangerousGetHandle () As IntPtr" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; IntPtr DangerousGetHandle();" />
+      <MemberSignature Language="F#" Value="member this.DangerousGetHandle : unit -&gt; nativeint" Usage="safeHandle.DangerousGetHandle " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -356,10 +356,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>
-          <see cref="F:System.Runtime.InteropServices.SafeHandle.handle" /> フィールドの値を戻します。</summary>
-        <returns>
-          <see langword="IntPtr" /> フィールドの値を表す <see cref="F:System.Runtime.InteropServices.SafeHandle.handle" />。 ハンドルが <see cref="M:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid" /> で無効としてマークされている場合にも、このメソッドは元のハンドル値を返すため、返される値が古い値である可能性があります。</returns>
+        <summary>Returns the value of the <see cref="F:System.Runtime.InteropServices.SafeHandle.handle" /> field.</summary>
+        <returns>An <see langword="IntPtr" /> representing the value of the <see cref="F:System.Runtime.InteropServices.SafeHandle.handle" /> field. If the handle has been marked invalid with <see cref="M:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid" />, this method still returns the original handle value, which can be a stale value.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -380,6 +378,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.DangerousRelease" />
       <MemberSignature Language="VB.NET" Value="Public Sub DangerousRelease ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void DangerousRelease();" />
+      <MemberSignature Language="F#" Value="member this.DangerousRelease : unit -&gt; unit" Usage="safeHandle.DangerousRelease " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -414,8 +413,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>
-          <see cref="T:System.Runtime.InteropServices.SafeHandle" /> インスタンスの参照カウンターを手動でデクリメントします。</summary>
+        <summary>Manually decrements the reference counter on a <see cref="T:System.Runtime.InteropServices.SafeHandle" /> instance.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -437,8 +435,7 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>
-          <see cref="T:System.Runtime.InteropServices.SafeHandle" /> クラスによって使用されているリソースを解放します。</summary>
+        <summary>Releases the resources used by the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="Dispose">
@@ -447,6 +444,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.Dispose" />
       <MemberSignature Language="VB.NET" Value="Public Sub Dispose ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Dispose();" />
+      <MemberSignature Language="F#" Value="abstract member Dispose : unit -&gt; unit&#xA;override this.Dispose : unit -&gt; unit" Usage="safeHandle.Dispose " />
       <MemberType>Method</MemberType>
       <Implements>
         <InterfaceMember>M:System.IDisposable.Dispose</InterfaceMember>
@@ -487,8 +485,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>
-          <see cref="T:System.Runtime.InteropServices.SafeHandle" /> クラスによって使用されているすべてのリソースを解放します。</summary>
+        <summary>Releases all resources used by the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -511,6 +508,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.Dispose(System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Protected Overridable Sub Dispose (disposing As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual void Dispose(bool disposing);" />
+      <MemberSignature Language="F#" Value="abstract member Dispose : bool -&gt; unit&#xA;override this.Dispose : bool -&gt; unit" Usage="safeHandle.Dispose disposing" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -551,8 +549,8 @@
       </Parameters>
       <Docs>
         <param name="disposing">
-          通常の破棄操作を実行する場合は <see langword="true" />。ハンドルを終了する場合は <see langword="false" />。</param>
-        <summary>通常の破棄操作を実行するかどうかを指定して、<see cref="T:System.Runtime.InteropServices.SafeHandle" /> クラスによって使用されているアンマネージ リソースを解放します。</summary>
+          <see langword="true" /> for a normal dispose operation; <see langword="false" /> to finalize the handle.</param>
+        <summary>Releases the unmanaged resources used by the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class specifying whether to perform a normal dispose operation.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -570,6 +568,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.Finalize" />
       <MemberSignature Language="VB.NET" Value="Finalize ()" />
       <MemberSignature Language="C++ CLI" Value="!SafeHandle ()" />
+      <MemberSignature Language="F#" Value="override this.Finalize : unit -&gt; unit" Usage="safeHandle.Finalize " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -604,7 +603,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>ハンドルに関連付けられたすべてのリソースを解放します。</summary>
+        <summary>Frees all resources associated with the handle.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -623,6 +622,7 @@
       <MemberSignature Language="DocId" Value="F:System.Runtime.InteropServices.SafeHandle.handle" />
       <MemberSignature Language="VB.NET" Value="Protected handle As IntPtr " />
       <MemberSignature Language="C++ CLI" Value="protected: IntPtr handle;" />
+      <MemberSignature Language="F#" Value="val mutable handle : nativeint" Usage="System.Runtime.InteropServices.SafeHandle.handle" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -651,7 +651,7 @@
         <ReturnType>System.IntPtr</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>ラップするハンドルを指定します。</summary>
+        <summary>Specifies the handle to be wrapped.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -668,6 +668,7 @@
       <MemberSignature Language="DocId" Value="P:System.Runtime.InteropServices.SafeHandle.IsClosed" />
       <MemberSignature Language="VB.NET" Value="Public ReadOnly Property IsClosed As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool IsClosed { bool get(); };" />
+      <MemberSignature Language="F#" Value="member this.IsClosed : bool" Usage="System.Runtime.InteropServices.SafeHandle.IsClosed" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -701,9 +702,8 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>ハンドルが閉じているかどうかを示す値を取得します。</summary>
-        <value>
-          ハンドルが閉じている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
+        <summary>Gets a value indicating whether the handle is closed.</summary>
+        <value>ハンドルが閉じている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -725,6 +725,7 @@
       <MemberSignature Language="DocId" Value="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" />
       <MemberSignature Language="VB.NET" Value="Public MustOverride ReadOnly Property IsInvalid As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract property bool IsInvalid { bool get(); };" />
+      <MemberSignature Language="F#" Value="member this.IsInvalid : bool" Usage="System.Runtime.InteropServices.SafeHandle.IsInvalid" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -758,9 +759,8 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>派生クラスでオーバーライドされると、ハンドル値が無効かどうかを示す値を取得します。</summary>
-        <value>
-          ハンドル値が無効な場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
+        <summary>When overridden in a derived class, gets a value indicating whether the handle value is invalid.</summary>
+        <value>ハンドル値が無効な場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -787,6 +787,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.ReleaseHandle" />
       <MemberSignature Language="VB.NET" Value="Protected MustOverride Function ReleaseHandle () As Boolean" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract bool ReleaseHandle();" />
+      <MemberSignature Language="F#" Value="abstract member ReleaseHandle : unit -&gt; bool" Usage="safeHandle.ReleaseHandle " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -821,9 +822,9 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>派生クラスでオーバーライドされると、ハンドルを解放するために必要なコードを実行します。</summary>
+        <summary>When overridden in a derived class, executes the code required to free the handle.</summary>
         <returns>
-          ハンドルが正常に解放された場合は <see langword="true" />。深刻なエラーが発生した場合は <see langword="false" />。 この場合、[releaseHandleFailed](~/docs/framework/debug-trace-profile/releasehandlefailed-mda.md) マネージ デバッグ アシスタントが生成されます。</returns>
+          <see langword="true" /> if the handle is released successfully; otherwise, in the event of a catastrophic failure, <see langword="false" />. In this case, it generates a [releaseHandleFailed](~/docs/framework/debug-trace-profile/releasehandlefailed-mda.md) Managed Debugging Assistant.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -854,6 +855,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.SetHandle(System.IntPtr)" />
       <MemberSignature Language="VB.NET" Value="Protected Sub SetHandle (handle As IntPtr)" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; void SetHandle(IntPtr handle);" />
+      <MemberSignature Language="F#" Value="member this.SetHandle : nativeint -&gt; unit" Usage="safeHandle.SetHandle handle" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -890,8 +892,8 @@
         <Parameter Name="handle" Type="System.IntPtr" />
       </Parameters>
       <Docs>
-        <param name="handle">使用する既存のハンドル。</param>
-        <summary>ハンドルを指定した既存のハンドルに設定します。</summary>
+        <param name="handle">The pre-existing handle to use.</param>
+        <summary>Sets the handle to the specified pre-existing handle.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -909,6 +911,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeHandle.SetHandleAsInvalid" />
       <MemberSignature Language="VB.NET" Value="Public Sub SetHandleAsInvalid ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetHandleAsInvalid();" />
+      <MemberSignature Language="F#" Value="member this.SetHandleAsInvalid : unit -&gt; unit" Usage="safeHandle.SetHandleAsInvalid " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Handles</AssemblyName>
@@ -943,7 +946,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>今後は使用しないものとしてハンドルをマークします。</summary>
+        <summary>Marks a handle as no longer used.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
