@@ -1,24 +1,25 @@
 <Type Name="IWeakEventListener" FullName="System.Windows.IWeakEventListener">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="3a1bf86fcc21c642d34254ee3721d50b914beee5" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="7c3b1a2e5ca5345941bf0defae6b6b61e709598f" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30676106" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36459043" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IWeakEventListener" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IWeakEventListener" />
   <TypeSignature Language="DocId" Value="T:System.Windows.IWeakEventListener" />
   <TypeSignature Language="VB.NET" Value="Public Interface IWeakEventListener" />
   <TypeSignature Language="C++ CLI" Value="public interface class IWeakEventListener" />
+  <TypeSignature Language="F#" Value="type IWeakEventListener = interface" />
   <AssemblyInfo>
     <AssemblyName>WindowsBase</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Interfaces />
   <Docs>
-    <summary>WeakEvent パターンと <see cref="T:System.Windows.WeakEventManager" /> を通じてイベントを受信するクラスにイベント リスニング サポートを提供します。</summary>
+    <summary>Provides event listening support for classes that expect to receive events through the WeakEvent pattern and a <see cref="T:System.Windows.WeakEventManager" />.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -42,6 +43,7 @@
       <MemberSignature Language="DocId" Value="M:System.Windows.IWeakEventListener.ReceiveWeakEvent(System.Type,System.Object,System.EventArgs)" />
       <MemberSignature Language="VB.NET" Value="Public Function ReceiveWeakEvent (managerType As Type, sender As Object, e As EventArgs) As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; bool ReceiveWeakEvent(Type ^ managerType, System::Object ^ sender, EventArgs ^ e);" />
+      <MemberSignature Language="F#" Value="abstract member ReceiveWeakEvent : Type * obj * EventArgs -&gt; bool" Usage="iWeakEventListener.ReceiveWeakEvent (managerType, sender, e)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>WindowsBase</AssemblyName>
@@ -56,12 +58,12 @@
         <Parameter Name="e" Type="System.EventArgs" />
       </Parameters>
       <Docs>
-        <param name="managerType">このメソッドを呼び出す <see cref="T:System.Windows.WeakEventManager" /> の型。</param>
-        <param name="sender">イベントを発生させたオブジェクト。</param>
-        <param name="e">イベント データ。</param>
-        <summary>中央のイベント マネージャーからイベントを受信します。</summary>
+        <param name="managerType">The type of the <see cref="T:System.Windows.WeakEventManager" /> calling this method.</param>
+        <param name="sender">Object that originated the event.</param>
+        <param name="e">Event data.</param>
+        <summary>Receives events from the centralized event manager.</summary>
         <returns>
-          リスナーがイベントを処理した場合は <see langword="true" />。 リスナーが処理しないイベントに対してそのリスナーを登録した場合、[!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] の <see cref="T:System.Windows.WeakEventManager" /> 処理ではエラーと見なされます。 ただし、リスナーが認識または処理しないイベントを受信した場合は、このメソッドは <see langword="false" /> を返します。</returns>
+          <see langword="true" /> if the listener handled the event. It is considered an error by the <see cref="T:System.Windows.WeakEventManager" /> handling in [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] to register a listener for an event that the listener does not handle. Regardless, the method should return <see langword="false" /> if it receives an event that it does not recognize or handle.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -74,9 +76,7 @@
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>このメソッドは、受信側がリスナー リスト内にあるすべての可能なイベントを受信するものです。 受信の種類を確認する必要があります複数のイベントをリッスンしているクラスを実装する場合に特に<paramref name="managerType" />呼び出しイベントを知るためにパラメーターに対応します。 これが、各イベント、パターンの一部である必要があります専用理由<see cref="T:System.Windows.WeakEventManager" />です。 また、<paramref name="e" />パラメーターが、一般的なとして型指定された<see cref="T:System.EventArgs" />です。 そのため、順序でイベント データを使用して特定のプロパティを取得、実装が特定のイベントのデータ型にキャストする必要があります。  
-  
- 基づいたイベントの id を確認した後は、通常、<see cref="T:System.Windows.WeakEventManager" />型、実装には、プライベート クラス ハンドラーを呼び出す必要があります。 クラス ハンドラーで、まったく同じクラス ハンドラーを使用して追加の従来のイベント パターンを通じて追加のリスナーのイベントを処理するために使用可能性がありますあるいは<see langword="+=" />イベント送信者にします。 次の例では、大まかな実装のテンプレートを説明します。</para>
+          <para>このメソッドは、受信側がリスナー リスト内にあるすべての可能なイベントを受信するものです。受信の種類を確認する必要があります複数のイベントをリッスンしているクラスを実装する場合に特に<paramref name="managerType" />呼び出しイベントを知るためにパラメーターに対応します。これが、各イベント、パターンの一部である必要があります専用理由<see cref="T:System.Windows.WeakEventManager" />です。また、<paramref name="e" />パラメーターが、一般的なとして型指定された<see cref="T:System.EventArgs" />です。そのため、順序でイベント データを使用して特定のプロパティを取得、実装が特定のイベントのデータ型にキャストする必要があります。基づいたイベントの id を確認した後は、通常、<see cref="T:System.Windows.WeakEventManager" />型、実装には、プライベート クラス ハンドラーを呼び出す必要があります。クラス ハンドラーで、まったく同じクラス ハンドラーを使用して追加の従来のイベント パターンを通じて追加のリスナーのイベントを処理するために使用可能性がありますあるいは<see langword="+=" />イベント送信者にします。次の例では、大まかな実装のテンプレートを説明します。</para>
         </block>
         <altmember cref="T:System.Windows.WeakEventManager" />
       </Docs>
