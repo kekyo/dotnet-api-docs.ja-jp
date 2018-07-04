@@ -1,17 +1,18 @@
 <Type Name="HostExecutionContextManager" FullName="System.Threading.HostExecutionContextManager">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="337b99b403a59e4a7487df4f72ffc3a0d47b18e5" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="b2fef4c3d4247a4ae14335602fc0f7df245c3de2" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30527386" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36605946" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class HostExecutionContextManager" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit HostExecutionContextManager extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Threading.HostExecutionContextManager" />
   <TypeSignature Language="VB.NET" Value="Public Class HostExecutionContextManager" />
   <TypeSignature Language="C++ CLI" Value="public ref class HostExecutionContextManager" />
+  <TypeSignature Language="F#" Value="type HostExecutionContextManager = class" />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
@@ -31,12 +32,12 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>共通言語ランタイム ホストが実行コンテキストのフロー (移行) に参加するための機能を提供します。</summary>
+    <summary>Provides the functionality that allows a common language runtime host to participate in the flow, or migration, of the execution context.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合、現在<xref:System.AppDomainManager>への参照を持つ、<xref:System.Threading.HostExecutionContextManager>でその<xref:System.AppDomainManager.HostExecutionContextManager%2A>プロパティを共通言語ランタイム マネージャーを呼び出し、毎回の呼び出しを<xref:System.Threading.ExecutionContext.Run%2A?displayProperty=nameWithType>メソッド発生すると、ホストが、実行コンテキストのフローに参加できるようにします。  
+ 場合、現在<xref:System.AppDomainManager>への参照を持つ、<xref:System.Threading.HostExecutionContextManager>でその<xref:System.AppDomainManager.HostExecutionContextManager%2A>プロパティを共通言語ランタイム マネージャーを呼び出し、毎回の呼び出しを<xref:System.Threading.ExecutionContext.Run%2A?displayProperty=nameWithType>メソッド発生すると、実行のフローに参加するホストを許可するにはコンテキスト。  
   
  ]]></format>
     </remarks>
@@ -65,8 +66,7 @@
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>
-          <see cref="T:System.Threading.HostExecutionContextManager" /> クラスの新しいインスタンスを初期化します。</summary>
+        <summary>Initializes a new instance of the <see cref="T:System.Threading.HostExecutionContextManager" /> class.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -76,6 +76,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.HostExecutionContextManager.Capture" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Function Capture () As HostExecutionContext" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Threading::HostExecutionContext ^ Capture();" />
+      <MemberSignature Language="F#" Value="abstract member Capture : unit -&gt; System.Threading.HostExecutionContext&#xA;override this.Capture : unit -&gt; System.Threading.HostExecutionContext" Usage="hostExecutionContextManager.Capture " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -96,8 +97,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>現在のスレッドからホストの実行コンテキストをキャプチャします。</summary>
-        <returns>現在のスレッドのホストの実行コンテキストを表す <see cref="T:System.Threading.HostExecutionContext" /> オブジェクト。</returns>
+        <summary>Captures the host execution context from the current thread.</summary>
+        <returns>A <see cref="T:System.Threading.HostExecutionContext" /> object representing the host execution context of the current thread.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -114,6 +115,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.HostExecutionContextManager.Revert(System.Object)" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Sub Revert (previousState As Object)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Revert(System::Object ^ previousState);" />
+      <MemberSignature Language="F#" Value="abstract member Revert : obj -&gt; unit&#xA;override this.Revert : obj -&gt; unit" Usage="hostExecutionContextManager.Revert previousState" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -141,8 +143,8 @@
         <Parameter Name="previousState" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="previousState">復元する以前のコンテキストの状態。</param>
-        <summary>ホストの実行コンテキストを以前の状態に復元します。</summary>
+        <param name="previousState">The previous context state to revert to.</param>
+        <summary>Restores the host execution context to its prior state.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -152,15 +154,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.InvalidOperationException">
-          <paramref name="previousState" /> は <see langword="null" />です。  
-  
- - または -  
-  
- <paramref name="previousState" /> が現在のスレッドで作成されませんでした。  
-  
- - または -  
-  
- <paramref name="previousState" /> が <see cref="T:System.Threading.HostExecutionContext" /> の前回の状態ではありません。</exception>
+          <paramref name="previousState" /> is <see langword="null" />.  -or-  <paramref name="previousState" /> was not created on the current thread.  -or-  <paramref name="previousState" /> is not the last state for the <see cref="T:System.Threading.HostExecutionContext" />.</exception>
         <permission cref="T:System.Security.SecurityCriticalAttribute">直前の呼び出し元に対する完全な信頼が必要です。 このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</permission>
       </Docs>
     </Member>
@@ -169,6 +163,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance object SetHostExecutionContext(class System.Threading.HostExecutionContext hostExecutionContext) cil managed" />
       <MemberSignature Language="DocId" Value="M:System.Threading.HostExecutionContextManager.SetHostExecutionContext(System.Threading.HostExecutionContext)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Object ^ SetHostExecutionContext(System::Threading::HostExecutionContext ^ hostExecutionContext);" />
+      <MemberSignature Language="F#" Value="abstract member SetHostExecutionContext : System.Threading.HostExecutionContext -&gt; obj&#xA;override this.SetHostExecutionContext : System.Threading.HostExecutionContext -&gt; obj" Usage="hostExecutionContextManager.SetHostExecutionContext hostExecutionContext" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -191,10 +186,9 @@
         <Parameter Name="hostExecutionContext" Type="System.Threading.HostExecutionContext" />
       </Parameters>
       <Docs>
-        <param name="hostExecutionContext">設定する <see cref="T:System.Threading.HostExecutionContext" />。</param>
-        <summary>現在のホストの実行コンテキストを、指定したホストの実行コンテキストに設定します。</summary>
-        <returns>
-          <see cref="T:System.Threading.HostExecutionContext" /> を前の状態に復元するためのオブジェクト。</returns>
+        <param name="hostExecutionContext">The <see cref="T:System.Threading.HostExecutionContext" /> to be set.</param>
+        <summary>Sets the current host execution context to the specified host execution context.</summary>
+        <returns>An object for restoring the <see cref="T:System.Threading.HostExecutionContext" /> to its previous state.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -206,11 +200,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.InvalidOperationException">
-          キャプチャ操作で <paramref name="hostExecutionContext" /> が取得されませんでした。  
-  
- - または -  
-  
- <paramref name="hostExecutionContext" /> が前の <see cref="M:System.Threading.HostExecutionContextManager.SetHostExecutionContext(System.Threading.HostExecutionContext)" /> メソッド呼び出しの引数になっています。</exception>
+          <paramref name="hostExecutionContext" /> was not acquired through a capture operation.  -or-  <paramref name="hostExecutionContext" /> has been the argument to a previous <see cref="M:System.Threading.HostExecutionContextManager.SetHostExecutionContext(System.Threading.HostExecutionContext)" /> method call.</exception>
         <permission cref="T:System.Security.SecurityCriticalAttribute">直前の呼び出し元に対する完全な信頼が必要です。 このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</permission>
       </Docs>
     </Member>

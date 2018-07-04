@@ -1,17 +1,18 @@
 <Type Name="SafeBuffer" FullName="System.Runtime.InteropServices.SafeBuffer">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="75b109650bc09c5660bda32818a0982011ca6ad0" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="4ae608e76ba34ab749a3808caed20854fa075f21" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30480046" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36633896" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class SafeBuffer : Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit SafeBuffer extends Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid implements class System.IDisposable" />
   <TypeSignature Language="DocId" Value="T:System.Runtime.InteropServices.SafeBuffer" />
   <TypeSignature Language="VB.NET" Value="Public MustInherit Class SafeBuffer&#xA;Inherits SafeHandleZeroOrMinusOneIsInvalid" />
   <TypeSignature Language="C++ CLI" Value="public ref class SafeBuffer abstract : Microsoft::Win32::SafeHandles::SafeHandleZeroOrMinusOneIsInvalid" />
+  <TypeSignature Language="F#" Value="type SafeBuffer = class&#xA;    inherit SafeHandleZeroOrMinusOneIsInvalid&#xA;    interface IDisposable" />
   <AssemblyInfo>
     <AssemblyName>System.Runtime.InteropServices</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
@@ -37,7 +38,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>読み取り用および書き込み用に使用できる管理されたメモリ バッファーを提供します。 管理されたバッファーの外部にあるメモリにアクセスしようとした場合 (アンダーランおよびオーバーラン)、例外が発生します。</summary>
+    <summary>Provides a controlled memory buffer that can be used for reading and writing. Attempts to access memory outside the controlled buffer (underruns and overruns) raise exceptions.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -62,6 +63,7 @@
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.#ctor(System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Protected Sub New (ownsHandle As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; SafeBuffer(bool ownsHandle);" />
+      <MemberSignature Language="F#" Value="new System.Runtime.InteropServices.SafeBuffer : bool -&gt; System.Runtime.InteropServices.SafeBuffer" Usage="new System.Runtime.InteropServices.SafeBuffer ownsHandle" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -87,9 +89,8 @@
       </Parameters>
       <Docs>
         <param name="ownsHandle">
-          終了処理中にハンドルを確実にリリースする場合は <see langword="true" />。信頼性の高いリリースを実行しない場合は <see langword="false" /> (お勧めしません)。</param>
-        <summary>
-          <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> クラスの新しいインスタンスを作成し、バッファー ハンドルを安全に解放するかどうかを指定します。</summary>
+          <see langword="true" /> to reliably release the handle during the finalization phase; <see langword="false" /> to prevent reliable release (not recommended).</param>
+        <summary>Creates a new instance of the <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> class, and specifies whether the buffer handle is to be reliably released.</summary>
         <remarks>To be added.</remarks>
         <permission cref="T:System.Security.SecurityCriticalAttribute">直前の呼び出し元に対する完全な信頼が必要です。 このメンバーは、部分的に信頼されているまたは透過的なコードで使用することはできません。</permission>
       </Docs>
@@ -99,6 +100,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void AcquirePointer(unsigned int8*&amp; pointer) cil managed" />
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.AcquirePointer(System.Byte*@)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void AcquirePointer(System::Byte* % pointer);" />
+      <MemberSignature Language="F#" Value="member this.AcquirePointer :  -&gt; unit" Usage="safeBuffer.AcquirePointer pointer" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -134,10 +136,8 @@
         <Parameter Name="pointer" Type="System.Byte*&amp;" RefType="ref" />
       </Parameters>
       <Docs>
-        <param name="pointer">
-          <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> オブジェクト内からポインターを受け取るための参照渡しされるバイト ポインター。 このポインターは、このメソッドを呼び出す前に <see langword="null" /> に設定する必要があります。</param>
-        <summary>
-          <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> オブジェクトからメモリ ブロックのポインターを取得します。</summary>
+        <param name="pointer">A byte pointer, passed by reference, to receive the pointer from within the <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> object. You must set this pointer to <see langword="null" /> before you call this method.</param>
+        <summary>Obtains a pointer from a <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> object for a block of memory.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -167,8 +167,7 @@ finally {
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">
-          <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> メソッドが呼び出されていません。</exception>
+        <exception cref="T:System.InvalidOperationException">The <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> method has not been called.</exception>
       </Docs>
     </Member>
     <Member MemberName="ByteLength">
@@ -177,6 +176,7 @@ finally {
       <MemberSignature Language="DocId" Value="P:System.Runtime.InteropServices.SafeBuffer.ByteLength" />
       <MemberSignature Language="VB.NET" Value="Public ReadOnly Property ByteLength As ULong" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::UInt64 ByteLength { System::UInt64 get(); };" />
+      <MemberSignature Language="F#" Value="member this.ByteLength : uint64" Usage="System.Runtime.InteropServices.SafeBuffer.ByteLength" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -206,11 +206,10 @@ finally {
         <ReturnType>System.UInt64</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>バッファーのサイズを取得します (バイト単位)。</summary>
-        <value>メモリ バッファー内のバイト数。</value>
+        <summary>Gets the size of the buffer, in bytes.</summary>
+        <value>メモリ バッファーのバイト数。</value>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.InvalidOperationException">
-          <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> メソッドが呼び出されていません。</exception>
+        <exception cref="T:System.InvalidOperationException">The <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> method has not been called.</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="Initialize">
@@ -224,7 +223,7 @@ finally {
         <AssemblyVersion>4.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>割り当てるメモリ バッファーのサイズを指定します。 このメソッドは、<see cref="T:System.Runtime.InteropServices.SafeBuffer" /> インスタンスを使用する前に呼び出す必要があります。</summary>
+        <summary>Specifies the size of the memory buffer to allocate. You must call this method before you use the <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> instance.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="Initialize">
@@ -233,6 +232,7 @@ finally {
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.Initialize(System.UInt64)" />
       <MemberSignature Language="VB.NET" Value="Public Sub Initialize (numBytes As ULong)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void Initialize(System::UInt64 numBytes);" />
+      <MemberSignature Language="F#" Value="member this.Initialize : uint64 -&gt; unit" Usage="safeBuffer.Initialize numBytes" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -265,15 +265,11 @@ finally {
         <Parameter Name="numBytes" Type="System.UInt64" />
       </Parameters>
       <Docs>
-        <param name="numBytes">バッファー内のバイト数。</param>
-        <summary>メモリ領域の割り当てサイズを定義します (バイト単位)。 このメソッドは、<see cref="T:System.Runtime.InteropServices.SafeBuffer" /> インスタンスを使用する前に呼び出す必要があります。</summary>
+        <param name="numBytes">The number of bytes in the buffer.</param>
+        <summary>Defines the allocation size of the memory region in bytes. You must call this method before you use the <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> instance.</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="numBytes" /> が 0 未満です。  
-  
- - または -  
-  
- <paramref name="numBytes" /> が、利用できるアドレス空間を超えています。</exception>
+          <paramref name="numBytes" /> is less than zero.  -or-  <paramref name="numBytes" /> is greater than the available address space.</exception>
       </Docs>
     </Member>
     <Member MemberName="Initialize">
@@ -282,6 +278,7 @@ finally {
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.Initialize(System.UInt32,System.UInt32)" />
       <MemberSignature Language="VB.NET" Value="Public Sub Initialize (numElements As UInteger, sizeOfEachElement As UInteger)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void Initialize(System::UInt32 numElements, System::UInt32 sizeOfEachElement);" />
+      <MemberSignature Language="F#" Value="member this.Initialize : uint32 * uint32 -&gt; unit" Usage="safeBuffer.Initialize (numElements, sizeOfEachElement)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -315,9 +312,9 @@ finally {
         <Parameter Name="sizeOfEachElement" Type="System.UInt32" />
       </Parameters>
       <Docs>
-        <param name="numElements">バッファー内の要素の数。</param>
-        <param name="sizeOfEachElement">バッファー内の各要素のサイズ。</param>
-        <summary>指定された要素数および要素サイズを使用して、メモリ バッファーの割り当てサイズを指定します。 このメソッドは、<see cref="T:System.Runtime.InteropServices.SafeBuffer" /> インスタンスを使用する前に呼び出す必要があります。</summary>
+        <param name="numElements">The number of elements in the buffer.</param>
+        <param name="sizeOfEachElement">The size of each element in the buffer.</param>
+        <summary>Specifies the allocation size of the memory buffer by using the specified number of elements and element size. You must call this method before you use the <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> instance.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -327,15 +324,7 @@ finally {
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="numElements" /> が 0 未満です。  
-  
- - または -  
-  
- <paramref name="sizeOfEachElement" /> が 0 未満です。  
-  
- - または -  
-  
- <paramref name="numElements" /> に <paramref name="sizeOfEachElement" /> を乗算した値が、利用できるアドレス空間を超えています。</exception>
+          <paramref name="numElements" /> is less than zero.  -or-  <paramref name="sizeOfEachElement" /> is less than zero.  -or-  <paramref name="numElements" /> multiplied by <paramref name="sizeOfEachElement" /> is greater than the available address space.</exception>
       </Docs>
     </Member>
     <Member MemberName="Initialize&lt;T&gt;">
@@ -344,6 +333,7 @@ finally {
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.Initialize``1(System.UInt32)" />
       <MemberSignature Language="VB.NET" Value="Public Sub Initialize(Of T As Structure) (numElements As UInteger)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; where T : value class void Initialize(System::UInt32 numElements);" />
+      <MemberSignature Language="F#" Value="member this.Initialize : uint32 -&gt; unit (requires 'T : struct)" Usage="safeBuffer.Initialize numElements" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -385,16 +375,12 @@ finally {
         <Parameter Name="numElements" Type="System.UInt32" />
       </Parameters>
       <Docs>
-        <typeparam name="T">メモリを割り当てる対象の値型。</typeparam>
-        <param name="numElements">メモリを割り当てる対象の値型の要素の数。</param>
-        <summary>値型の数を指定して、メモリ領域の割り当てサイズを定義します。 このメソッドは、<see cref="T:System.Runtime.InteropServices.SafeBuffer" /> インスタンスを使用する前に呼び出す必要があります。</summary>
+        <typeparam name="T">メモリを割り当てる値の型。</typeparam>
+        <param name="numElements">The number of elements of the value type to allocate memory for.</param>
+        <summary>Defines the allocation size of the memory region by specifying the number of value types. You must call this method before you use the <see cref="T:System.Runtime.InteropServices.SafeBuffer" /> instance.</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="numElements" /> が 0 未満です。  
-  
- - または -  
-  
- <paramref name="numElements" /> と各要素のサイズを乗算した値が、利用できるアドレス空間を超えています。</exception>
+          <paramref name="numElements" /> is less than zero.  -or-  <paramref name="numElements" /> multiplied by the size of each element is greater than the available address space.</exception>
       </Docs>
     </Member>
     <Member MemberName="IsInvalid">
@@ -403,6 +389,7 @@ finally {
       <MemberSignature Language="DocId" Value="P:System.Runtime.InteropServices.SafeBuffer.IsInvalid" />
       <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property IsInvalid As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property bool IsInvalid { bool get(); };" />
+      <MemberSignature Language="F#" Value="member this.IsInvalid : bool" Usage="System.Runtime.InteropServices.SafeBuffer.IsInvalid" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -427,6 +414,7 @@ finally {
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.Read``1(System.UInt64)" />
       <MemberSignature Language="VB.NET" Value="Public Function Read(Of T As Structure) (byteOffset As ULong) As T" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; where T : value class T Read(System::UInt64 byteOffset);" />
+      <MemberSignature Language="F#" Value="member this.Read : uint64 -&gt; 'T (requires 'T : struct)" Usage="safeBuffer.Read byteOffset" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -471,13 +459,12 @@ finally {
         <Parameter Name="byteOffset" Type="System.UInt64" />
       </Parameters>
       <Docs>
-        <typeparam name="T">読み取る値型。</typeparam>
-        <param name="byteOffset">値型を読み取る位置。 アライメントの問題を考慮する必要があります。</param>
-        <summary>メモリの指定されたオフセット位置の値型を読み取ります。</summary>
-        <returns>メモリから読み取られた値型。</returns>
+        <typeparam name="T">値の型を読み取る。</typeparam>
+        <param name="byteOffset">The location from which to read the value type. You may have to consider alignment issues.</param>
+        <summary>Reads a value type from memory at the specified offset.</summary>
+        <returns>The value type that was read from memory.</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.InvalidOperationException">
-          <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> メソッドが呼び出されていません。</exception>
+        <exception cref="T:System.InvalidOperationException">The <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> method has not been called.</exception>
         <altmember cref="M:System.Runtime.InteropServices.SafeBuffer.Write``1(System.UInt64,``0)" />
       </Docs>
     </Member>
@@ -487,6 +474,7 @@ finally {
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.ReadArray``1(System.UInt64,``0[],System.Int32,System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Public Sub ReadArray(Of T As Structure) (byteOffset As ULong, array As T(), index As Integer, count As Integer)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; where T : value class void ReadArray(System::UInt64 byteOffset, cli::array &lt;T&gt; ^ array, int index, int count);" />
+      <MemberSignature Language="F#" Value="member this.ReadArray : uint64 * 'T[] * int * int -&gt; unit (requires 'T : struct)" Usage="safeBuffer.ReadArray (byteOffset, array, index, count)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -534,24 +522,19 @@ finally {
         <Parameter Name="count" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <typeparam name="T">読み取る値型。</typeparam>
-        <param name="byteOffset">読み取りを開始する位置。</param>
-        <param name="array">データを書き込む先の出力配列。</param>
-        <param name="index">書き込みが開始される出力配列内の位置。</param>
-        <param name="count">入力配列から読み取って出力配列に書き込む値型の数。</param>
-        <summary>メモリの指定したオフセットから指定した数の値型を読み取り、指定したインデックスから始まる配列にそれらを書き込みます。</summary>
+        <typeparam name="T">値の型を読み取る。</typeparam>
+        <param name="byteOffset">The location from which to start reading.</param>
+        <param name="array">The output array to write to.</param>
+        <param name="index">The location in the output array to begin writing to.</param>
+        <param name="count">The number of value types to read from the input array and to write to the output array.</param>
+        <summary>Reads the specified number of value types from memory starting at the offset, and writes them into an array starting at the index.</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="index" /> が 0 未満です。  
-  
- - または -  
-  
- <paramref name="count" /> が 0 未満です。</exception>
+          <paramref name="index" /> is less than zero.  -or-  <paramref name="count" /> is less than zero.</exception>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="array" /> は <see langword="null" />です。</exception>
-        <exception cref="T:System.ArgumentException">配列の長さからインデックスを減算した値が <paramref name="count" /> 未満です。</exception>
-        <exception cref="T:System.InvalidOperationException">
-          <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> メソッドが呼び出されていません。</exception>
+          <paramref name="array" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">The length of the array minus the index is less than <paramref name="count" />.</exception>
+        <exception cref="T:System.InvalidOperationException">The <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> method has not been called.</exception>
         <altmember cref="M:System.Runtime.InteropServices.SafeBuffer.WriteArray``1(System.UInt64,``0[],System.Int32,System.Int32)" />
       </Docs>
     </Member>
@@ -561,6 +544,7 @@ finally {
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.ReleasePointer" />
       <MemberSignature Language="VB.NET" Value="Public Sub ReleasePointer ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void ReleasePointer();" />
+      <MemberSignature Language="F#" Value="member this.ReleasePointer : unit -&gt; unit" Usage="safeBuffer.ReleasePointer " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -591,8 +575,7 @@ finally {
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>
-          <see cref="M:System.Runtime.InteropServices.SafeBuffer.AcquirePointer(System.Byte*@)" /> メソッドによって取得されたポインターを解放します。</summary>
+        <summary>Releases a pointer that was obtained by the <see cref="M:System.Runtime.InteropServices.SafeBuffer.AcquirePointer(System.Byte*@)" /> method.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -601,8 +584,7 @@ finally {
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">
-          <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> メソッドが呼び出されていません。</exception>
+        <exception cref="T:System.InvalidOperationException">The <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> method has not been called.</exception>
       </Docs>
     </Member>
     <Member MemberName="Write&lt;T&gt;">
@@ -611,6 +593,7 @@ finally {
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.Write``1(System.UInt64,``0)" />
       <MemberSignature Language="VB.NET" Value="Public Sub Write(Of T As Structure) (byteOffset As ULong, value As T)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; where T : value class void Write(System::UInt64 byteOffset, T value);" />
+      <MemberSignature Language="F#" Value="member this.Write : uint64 * 'T -&gt; unit (requires 'T : struct)" Usage="safeBuffer.Write (byteOffset, value)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -656,10 +639,10 @@ finally {
         <Parameter Name="value" Type="T" />
       </Parameters>
       <Docs>
-        <typeparam name="T">書き込む値型。</typeparam>
-        <param name="byteOffset">書き込みを開始する位置。 アライメントの問題を考慮する必要があります。</param>
-        <param name="value">書き込む値。</param>
-        <summary>値型をメモリの指定した位置に書き込みます。</summary>
+        <typeparam name="T">値の型を記述します。</typeparam>
+        <param name="byteOffset">The location at which to start writing. You may have to consider alignment issues.</param>
+        <param name="value">The value to write.</param>
+        <summary>Writes a value type to memory at the given location.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -672,8 +655,7 @@ finally {
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">
-          <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> メソッドが呼び出されていません。</exception>
+        <exception cref="T:System.InvalidOperationException">The <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> method has not been called.</exception>
         <altmember cref="M:System.Runtime.InteropServices.SafeBuffer.Read``1(System.UInt64)" />
       </Docs>
     </Member>
@@ -683,6 +665,7 @@ finally {
       <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.SafeBuffer.WriteArray``1(System.UInt64,``0[],System.Int32,System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Public Sub WriteArray(Of T As Structure) (byteOffset As ULong, array As T(), index As Integer, count As Integer)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; where T : value class void WriteArray(System::UInt64 byteOffset, cli::array &lt;T&gt; ^ array, int index, int count);" />
+      <MemberSignature Language="F#" Value="member this.WriteArray : uint64 * 'T[] * int * int -&gt; unit (requires 'T : struct)" Usage="safeBuffer.WriteArray (byteOffset, array, index, count)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.InteropServices</AssemblyName>
@@ -730,12 +713,12 @@ finally {
         <Parameter Name="count" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <typeparam name="T">書き込む値型。</typeparam>
-        <param name="byteOffset">書き込み先のメモリ内の位置。</param>
-        <param name="array">入力配列。</param>
-        <param name="index">読み取りを開始する配列内のオフセット。</param>
-        <param name="count">書き込む値型の数。</param>
-        <summary>入力配列内の指定した位置からバイトを読み取ることによって、指定した数の値型をメモリ位置に書き込みます。</summary>
+        <typeparam name="T">値の型を記述します。</typeparam>
+        <param name="byteOffset">The location in memory to write to.</param>
+        <param name="array">The input array.</param>
+        <param name="index">The offset in the array to start reading from.</param>
+        <param name="count">The number of value types to write.</param>
+        <summary>Writes the specified number of value types to a memory location by reading bytes starting from the specified location in the input array.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -745,12 +728,11 @@ finally {
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="array" /> は <see langword="null" />です。</exception>
+          <paramref name="array" /> is <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="index" /> または <paramref name="count" /> が 0 未満です。</exception>
-        <exception cref="T:System.ArgumentException">入力配列の長さから <paramref name="index" /> を減算した値が <paramref name="count" /> 未満です。</exception>
-        <exception cref="T:System.InvalidOperationException">
-          <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> メソッドが呼び出されていません。</exception>
+          <paramref name="index" /> or <paramref name="count" /> is less than zero.</exception>
+        <exception cref="T:System.ArgumentException">The length of the input array minus <paramref name="index" /> is less than <paramref name="count" />.</exception>
+        <exception cref="T:System.InvalidOperationException">The <see cref="Overload:System.Runtime.InteropServices.SafeBuffer.Initialize" /> method has not been called.</exception>
         <altmember cref="M:System.Runtime.InteropServices.SafeBuffer.ReadArray``1(System.UInt64,``0[],System.Int32,System.Int32)" />
       </Docs>
     </Member>
