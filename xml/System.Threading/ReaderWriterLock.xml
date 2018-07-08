@@ -1,11 +1,11 @@
 <Type Name="ReaderWriterLock" FullName="System.Threading.ReaderWriterLock">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ed9a740eab700d16f5778c2b6c1ce675521e870e" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="eceaf936001c4e98e1bf97071c933f2a511a4a69" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36605891" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37754694" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class ReaderWriterLock : System.Runtime.ConstrainedExecution.CriticalFinalizerObject" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit ReaderWriterLock extends System.Runtime.ConstrainedExecution.CriticalFinalizerObject" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type ReaderWriterLock = class&#xA;    inherit CriticalFinalizerObject" />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -29,6 +31,7 @@
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Runtime.ConstrainedExecution.CriticalFinalizerObject</BaseTypeName>
+    <BaseTypeName FrameworkAlternate="netframework-1.1">System.Object</BaseTypeName>
   </Base>
   <Interfaces />
   <Attributes>
@@ -46,39 +49,39 @@
 > [!IMPORTANT]
 >  [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] には、<xref:System.Threading.ReaderWriterLockSlim> と <xref:System.Threading.ReaderWriterLock> という 2 つのリーダー/ライター ロックがあります。 すべての新規開発で、<xref:System.Threading.ReaderWriterLockSlim> を使用することをお勧めします。 <xref:System.Threading.ReaderWriterLockSlim> は <xref:System.Threading.ReaderWriterLock> と似ていますが、再帰の規則や、ロック状態のアップグレードおよびダウングレードの規則が簡素化されています。 <xref:System.Threading.ReaderWriterLockSlim> は、デッドロックの可能性を大幅に回避します。 さらに、<xref:System.Threading.ReaderWriterLockSlim> のパフォーマンスは <xref:System.Threading.ReaderWriterLock> と比較して格段に優れています。  
   
- <xref:System.Threading.ReaderWriterLock> リソースへのアクセスを同期するために使用されます。 任意の時点で、いずれかの複数のスレッドの同時実行の読み取りアクセスまたは単一のスレッドの書き込みアクセスできます。 まれに、リソースが変更されている状況では、`ReaderWriterLock`などの単純な時間での 1 つのロックよりスループットを向上を提供<xref:System.Threading.Monitor>です。  
+ <xref:System.Threading.ReaderWriterLock> リソースへのアクセスを同期に使用されます。 任意の時点で、複数のスレッドの同時実行の読み取りアクセスまたは 1 つのスレッドへの書き込みアクセスできます。 まれに、リソースが変更されているような状況で、`ReaderWriterLock`など、単純な時間での 1 つのロックよりもスループットの向上を提供します。<xref:System.Threading.Monitor>します。  
   
- `ReaderWriterLock` 多くのアクセスは読み取り、書き込みは頻繁には、および短い期間の最適なは。 複数のリーダーの代替と単一ライターは、リーダーでもライターが長時間にわたってブロックできるようにします。  
+ `ReaderWriterLock` 多くのアクセスは読み取り、書き込みは頻繁には、短時間のでは最適です。 複数のリーダーの代替と単一のライター、リーダーもライターが長時間にわたってブロックされているようにします。  
   
 > [!NOTE]
->  長期にわたってロックのリーダーまたはライター ロックを保持するいると、他のスレッドが処理を続行できなくされます。 最適なパフォーマンスは、書き込みの時間を最小限に抑える、アプリケーションを再構築を検討してください。  
+>  長時間にわたってロックのリーダーまたはライター ロックを保持するいると、他のスレッドがされます。 最適なパフォーマンスを書き込みの期間を最小化するアプリケーションを再構築を検討してください。  
   
- ロックまたはライター ロックでは、両方ではなく、同時に、スレッドは、リーダーを保持できます。 使用することができます、リーダー ロックをライター ロックを取得するために解放するのではなく<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>と<xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A>です。  
+ ロックまたはライター ロックでは、同時に両方ではなく、スレッドは、リーダーを保持できます。 リーダー ロックを解放する、ライター ロックを取得するには、代わりに使用することができます<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>と<xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A>します。  
   
  再帰的なロックの要求は、ロックのロック カウントを増やします。  
   
- リーダーとライターとは別にキューにあります。 スレッドがライター ロックを解放すると、その時点で、リーダーのキューで待機しているすべてのスレッドは、リーダー ロックが許可されます。ときにリーダー ロックをすべてがリリースされた、次のスレッドで待機している、ライター、ライター ロックが許可された場合、キューに表示され、します。 つまり、`ReaderWriterLock`リーダーのコレクションと 1 つのライターの代替です。  
+ リーダーとライターは、個別にキューイングされます。 スレッドがライター ロックを解放すると、その時点で、リーダーのキューで待機しているすべてのスレッドは、リーダー ロックが許可されます。ときにリーダー ロックをすべてがリリースされたライターで [次へ] のスレッドが待機している、いずれかがライター ロックが許可された場合、キューに表示され、します。 つまり、`ReaderWriterLock`交互に 1 つのライターとリーダーのコレクション。  
   
- ライター キュー内のスレッドが待機中のアクティブ リーダー ロックが解放されるため、新しいリーダー ロックを要求するスレッドは、リーダーのキューに蓄積されます。 自身の要求が与えられていない場合でも、者既存リーダー ロック; への同時アクセスを共有する可能性があります。これにより、リーダーによって無期限進行を妨げているに対してライターを保護します。  
+ ライター キュー内のスレッドはアクティブなリーダー ロックが解放されるを待機している間、新しいリーダー ロックを要求するスレッドがリーダーのキューに蓄積されます。 ユーザーに対する要求は許可されていない場合でも、既存のリーダー ロック ホルダー; での同時アクセスを共有する可能性があります。これにより、リーダーで無期限にブロックされているに対してライターを保護します。  
   
- ほとんどのメソッドでロックの獲得、`ReaderWriterLock`タイムアウト値をそのまま使用します。 アプリケーションでデッドロックを回避するのにには、タイムアウトを使用します。 たとえば、スレッドが 1 つのリソースにライター ロックを取得し、2 番目のリソースで、リーダー ロックを要求可能性があります。その間は、別のスレッドは、2 番目のリソースにライター ロックを取得し、最初のリーダー ロックを要求します。 タイムアウトを使用しない場合、スレッドのデッドロック。  
+ ほとんどのメソッドでロックを取得するため、`ReaderWriterLock`タイムアウト値を受け取ります。 アプリケーションでデッドロックを回避するのにには、タイムアウトを使用します。 など、スレッドを 1 つのリソースのライター ロックの取得し、2 番目のリソースで、リーダー ロックを要求し可能性があります。それまでは、別のスレッドは、2 番目のリソースにライター ロックを取得し、最初のリーダー ロックを要求します。 タイムアウトを使用している場合を除き、スレッドのデッドロック。  
   
- メソッドが、スローすることによって、呼び出し元スレッドにコントロールを返します、タイムアウト期限が切れた場合、ロック要求が許可されていない、<xref:System.ApplicationException>です。 スレッドは、この例外をキャッチし、[次へ] を実行するアクションを決定できます。  
+ メソッドが、スローすることによって、呼び出し元スレッドにコントロールを返します、タイムアウト期限ロック要求が与えられていない場合は、<xref:System.ApplicationException>します。 スレッドは、この例外をキャッチし、[次へ] を実行するには、どのようなアクションを判断できます。  
   
- タイムアウトはミリ秒単位で表されます。 使用する場合、<xref:System.TimeSpan?displayProperty=nameWithType>タイムアウトを指定するに使用される値がによって表される整数のミリ秒単位の合計数、<xref:System.TimeSpan>です。 次の表は、ミリ秒単位で有効なタイムアウト値を示します。  
+ タイムアウトはミリ秒単位で表されます。 使用する場合、<xref:System.TimeSpan?displayProperty=nameWithType>に使用される値によって表される整数のミリ秒単位の合計数は、タイムアウトを指定する、<xref:System.TimeSpan>します。 次の表では、ミリ秒単位で有効なタイムアウト値を示します。  
   
 |[値]|説明|  
 |-----------|-----------------|  
-|-1|スレッドは、所要時間に関係なく、ロックが取得されるまで待機します。 整数のタイムアウト、定数を指定するメソッドの<xref:System.Threading.Timeout.Infinite>使用できます。|  
-|0|スレッドは、ロックの取得を待機しません。 かどうか、ロックをすぐに取得できない、メソッドを返します。|  
+|-1|スレッドは、時間に関係なく、ロックが取得されるまで待機します。 整数のタイムアウト、定数を指定するメソッドの<xref:System.Threading.Timeout.Infinite>ことができます。|  
+|0|スレッドは、ロックの取得を待機しません。 かどうか、ロックを直ちに取得できない、メソッドを返します。|  
 |>0|ミリ秒数単位の待機時間。|  
   
- -1 以外の負の値のタイムアウト値は許可されません。 -1 以外の負の整数を指定すると、0 のタイムアウト値が代わりに使用されます。 (つまり、メソッドを返します、待機せず、ロックをすぐに取得できない場合。)指定した場合、 <xref:System.TimeSpan> 、負の値を-1 以外のミリ秒数を表す<xref:System.ArgumentOutOfRangeException>がスローされます。  
+ -1 の場合を除き、負のタイムアウト値は許可されません。 -1 以外の負の整数を指定する場合は、0 のタイムアウト値が代わりに使用されます。 (つまり、メソッドを返します、待機せず、ロックを直ちに取得できない場合。)指定した場合、 <xref:System.TimeSpan> -1 以外のミリ秒数が負の値を表す<xref:System.ArgumentOutOfRangeException>がスローされます。  
   
    
   
 ## Examples  
- 次の例で使用する方法、<xref:System.Threading.ReaderWriterLock>共有リソースを保護するのには、整数値がという名前`resource`は同時に読み取りし、複数のスレッドによって排他的書き込み。 なお、<xref:System.Threading.ReaderWriterLock>はクラス レベルで宣言されているすべてのスレッドに表示されるようです。  
+ 次の例では、使用する方法、<xref:System.Threading.ReaderWriterLock>整数値という名前の共有リソースを保護する`resource`、つまり複数のスレッドによって排他的に同時に読み取りおよび書き込み。 なお、<xref:System.Threading.ReaderWriterLock>はクラス レベルで宣言されているすべてのスレッドに表示されるようにします。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.ReaderWriterLock#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#1)]
@@ -98,6 +101,8 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -120,7 +125,7 @@
 ## Examples  
  次のコード例は、<xref:System.Threading.ReaderWriterLock> クラスの新しいインスタンスを作成する方法を示しています。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -153,6 +158,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -178,23 +185,23 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.AcquireReaderLock%2A> 少なくとも 1 つのスレッドがライター ロックを待機している場合または別のスレッドがライター ロックをブロックします。  
+ <xref:System.Threading.ReaderWriterLock.AcquireReaderLock%2A> 別のスレッドがライター ロックがある場合、または少なくとも 1 つのスレッドがライター ロックを待機している場合をブロックします。  
   
 > [!NOTE]
->  現在のスレッドは、ライター ロックを既に持っている場合、リーダー ロックは取得されません。 代わりに、ライター ロックのロック カウントがインクリメントされます。 これは、スレッドがライター ロックでブロックすることを防ぎます。 結果は、呼び出した場合と同じでは正確に<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>、および呼び出しを<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>はライター ロックを解放する場合に必要です。  
+>  現在のスレッドがライター ロックを既に持っている場合、リーダー ロックは取得されません。 代わりに、ライター ロックのロック カウントがインクリメントされます。 これは、スレッドがライター ロックでブロックすることを防ぎます。 結果は、呼び出した場合と同じではまったく<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>への呼び出しを追加および<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>ライター ロックを解放する場合に必要です。  
   
- `AcquireReaderLock` 再帰的なリーダー ロック要求をサポートしています。 スレッドできます AcquireReaderLock を複数回呼び出し、毎回ロック カウントをインクリメントします。 呼び出す必要があります<xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A>を呼び出すたびに 1 回`AcquireReaderLock`です。 代わりに、呼び出すことができます<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>をすぐにゼロにロックの数を減らすためにします。  
+ `AcquireReaderLock` 再帰的なリーダー ロック要求をサポートしています。 つまり、スレッドできます AcquireReaderLock を複数回呼び出しごとにロック カウントをインクリメントします。 呼び出す必要があります<xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A>呼び出すたびに 1 回`AcquireReaderLock`します。 代わりに、呼び出すことができます<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>すぐにゼロにロックの数を減らします。  
   
- 再帰的なロックの要求は必ずリーダー キューに要求元のスレッドをかけることがなく、すぐに許可されます。 注意、して再帰的なロックを使用して、長期にわたってライター ロック要求がブロックされないようにします。  
+ 再帰的なロックの要求はキュー リーダーの要求元のスレッドをかけることがなく、すぐに許可常に。 慎重に再帰的なロックを使用して、長期にわたってライター ロック要求がブロックされないようにします。  
   
- 有効なタイムアウト値を参照してください。<xref:System.Threading.ReaderWriterLock>です。  
+ 有効なタイムアウト値は、次を参照してください。<xref:System.Threading.ReaderWriterLock>します。  
   
    
   
 ## Examples  
- 次のコード例では、取得し、リーダー ロックを解放する方法と、要求がタイムアウトしたときにスローされる例外を処理する方法を示します。  
+ 次のコード例では、取得およびがリーダー ロックを解放する方法と、要求がタイムアウトしたときにスローされる例外を処理する方法を示します。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -222,6 +229,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -247,16 +256,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.AcquireReaderLock%2A> 少なくとも 1 つのスレッドがライター ロックを待機している場合または別のスレッドがライター ロックをブロックします。  
+ <xref:System.Threading.ReaderWriterLock.AcquireReaderLock%2A> 別のスレッドがライター ロックがある場合、または少なくとも 1 つのスレッドがライター ロックを待機している場合をブロックします。  
   
 > [!NOTE]
->  現在のスレッドは、ライター ロックを既に持っている場合、リーダー ロックは取得されません。 代わりに、ライター ロックのロック カウントがインクリメントされます。 これは、スレッドがライター ロックでブロックすることを防ぎます。 結果は、呼び出した場合と同じでは正確に<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>、および呼び出しを<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>はライター ロックを解放する場合に必要です。  
+>  現在のスレッドがライター ロックを既に持っている場合、リーダー ロックは取得されません。 代わりに、ライター ロックのロック カウントがインクリメントされます。 これは、スレッドがライター ロックでブロックすることを防ぎます。 結果は、呼び出した場合と同じではまったく<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>への呼び出しを追加および<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>ライター ロックを解放する場合に必要です。  
   
- `AcquireReaderLock` 再帰的なリーダー ロック要求をサポートしています。 スレッドできます AcquireReaderLock を複数回呼び出し、毎回ロック カウントをインクリメントします。 呼び出す必要があります<xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A>を呼び出すたびに 1 回`AcquireReaderLock`です。 代わりに、呼び出すことができます<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>をすぐにゼロにロックの数を減らすためにします。  
+ `AcquireReaderLock` 再帰的なリーダー ロック要求をサポートしています。 つまり、スレッドできます AcquireReaderLock を複数回呼び出しごとにロック カウントをインクリメントします。 呼び出す必要があります<xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A>呼び出すたびに 1 回`AcquireReaderLock`します。 代わりに、呼び出すことができます<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>すぐにゼロにロックの数を減らします。  
   
- 再帰的なロックの要求は必ずリーダー キューに要求元のスレッドをかけることがなく、すぐに許可されます。 注意、して再帰的なロックを使用して、長期にわたってライター ロック要求がブロックされないようにします。  
+ 再帰的なロックの要求はキュー リーダーの要求元のスレッドをかけることがなく、すぐに許可常に。 慎重に再帰的なロックを使用して、長期にわたってライター ロック要求がブロックされないようにします。  
   
- 有効なタイムアウト値を参照してください。<xref:System.Threading.ReaderWriterLock>です。  
+ 有効なタイムアウト値は、次を参照してください。<xref:System.Threading.ReaderWriterLock>します。  
   
  ]]></format>
         </remarks>
@@ -286,6 +295,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -311,25 +322,25 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、別のスレッドがリーダー ロックまたは書き込みロックをブロックします。 複数の同時実行リーダー ロックの代わりにライター ロックする方法については、次を参照してください。、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このメソッドは、別のスレッドがリーダー ロックまたはロックをライターをブロックします。 複数の同時実行リーダー ロックをライター ロック交互に設定する方法については、次を参照してください。、<xref:System.Threading.ReaderWriterLock>クラス。  
   
- 既にリーダー ロックを保持しているスレッドが 2 つの方法のいずれかでライター ロックを取得できます: を呼び出す前に、リーダー ロックを解放<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>、または呼び出すことによって<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>です。  
+ 既にリーダー ロックを持つスレッドが 2 つの方法のいずれかでライター ロックを取得できます。 呼び出しの前に、リーダー ロックを解放することによって<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>、または呼び出すことによって<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>します。  
   
 > [!CAUTION]
->  スレッドが呼び出す場合`AcquireWriterLock`リーダー ロックがまだあるときに、リーダー ロックでブロック以外の場合は、スレッドはデッドロック状態無限のタイムアウトが指定されている場合。 このようなデッドロックを避けるためには、次のように使用します。<xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A>を現在のスレッドがリーダー ロックを既にかどうかを判断します。  
+>  スレッドを呼び出す場合`AcquireWriterLock`リーダー ロックがまだある間は、リーダー ロックを独自のブロックは、無限のタイムアウトが指定されている場合、スレッドがデッドロックします。 このようなデッドロックを回避するには、次のように使用します。<xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A>を現在のスレッドがリーダー ロックを既にかどうかを判断します。  
   
- `AcquireWriterLock` 再帰的なライター ロック要求をサポートしています。 スレッドを呼び出すことができます、 `AcquireWriterLock` 、複数回これロック カウントをインクリメントするたびにします。 呼び出す必要があります<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>を呼び出すたびに 1 回`AcquireWriterLock`です。 代わりに、呼び出すことができます<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>をすぐにゼロにロックの数を減らすためにします。  
+ `AcquireWriterLock` 再帰的なライター ロック要求をサポートしています。 つまり、スレッドを呼び出すことができます`AcquireWriterLock`複数回、このロック カウントをインクリメントするたびにします。 呼び出す必要があります<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>呼び出すたびに 1 回`AcquireWriterLock`します。 代わりに、呼び出すことができます<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>すぐにゼロにロックの数を減らします。  
   
  再帰的なロックの要求は必ずライター キューに要求元のスレッドをかけることがなく、すぐに許可されます。  
   
- 有効なタイムアウト値を参照してください。<xref:System.Threading.ReaderWriterLock>です。  
+ 有効なタイムアウト値は、次を参照してください。<xref:System.Threading.ReaderWriterLock>します。  
   
    
   
 ## Examples  
- 次のコード例では、取得し、ライター ロックを解放する方法と、要求がタイムアウトしたときにスローされる例外を処理する方法を示します。  
+ 次のコード例では、取得、およびライター ロックを解放する方法と、要求がタイムアウトしたときにスローされる例外を処理する方法を示します。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -357,6 +368,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -382,18 +395,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、別のスレッドがリーダー ロックまたは書き込みロックをブロックします。 複数の同時実行リーダー ロックの代わりにライター ロックする方法については、次を参照してください。、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このメソッドは、別のスレッドがリーダー ロックまたはロックをライターをブロックします。 複数の同時実行リーダー ロックをライター ロック交互に設定する方法については、次を参照してください。、<xref:System.Threading.ReaderWriterLock>クラス。  
   
- 既にリーダー ロックを保持しているスレッドが 2 つの方法のいずれかでライター ロックを取得できます: を呼び出す前に、リーダー ロックを解放<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>、または呼び出すことによって<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>です。  
+ 既にリーダー ロックを持つスレッドが 2 つの方法のいずれかでライター ロックを取得できます。 呼び出しの前に、リーダー ロックを解放することによって<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>、または呼び出すことによって<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>します。  
   
 > [!CAUTION]
->  スレッドが呼び出す場合`AcquireWriterLock`リーダー ロックがまだあるときに、リーダー ロックでブロック以外の場合は、スレッドはデッドロック状態無限のタイムアウトが指定されている場合。 このようなデッドロックを避けるためには、次のように使用します。<xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A>を現在のスレッドがリーダー ロックを既にかどうかを判断します。  
+>  スレッドを呼び出す場合`AcquireWriterLock`リーダー ロックがまだある間は、リーダー ロックを独自のブロックは、無限のタイムアウトが指定されている場合、スレッドがデッドロックします。 このようなデッドロックを回避するには、次のように使用します。<xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A>を現在のスレッドがリーダー ロックを既にかどうかを判断します。  
   
- `AcquireWriterLock` 再帰的なライター ロック要求をサポートしています。 スレッドを呼び出すことができます、 `AcquireWriterLock` 、複数回これロック カウントをインクリメントするたびにします。 呼び出す必要があります<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>を呼び出すたびに 1 回`AcquireWriterLock`です。 代わりに、呼び出すことができます<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>をすぐにゼロにロックの数を減らすためにします。  
+ `AcquireWriterLock` 再帰的なライター ロック要求をサポートしています。 つまり、スレッドを呼び出すことができます`AcquireWriterLock`複数回、このロック カウントをインクリメントするたびにします。 呼び出す必要があります<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>呼び出すたびに 1 回`AcquireWriterLock`します。 代わりに、呼び出すことができます<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>すぐにゼロにロックの数を減らします。  
   
  再帰的なロックの要求は必ずライター キューに要求元のスレッドをかけることがなく、すぐに許可されます。  
   
- 有効なタイムアウト値を参照してください。<xref:System.Threading.ReaderWriterLock>です。  
+ 有効なタイムアウト値は、次を参照してください。<xref:System.Threading.ReaderWriterLock>します。  
   
  ]]></format>
         </remarks>
@@ -413,6 +426,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -439,16 +454,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用することができます<xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A>と`AnyWritersSince`アプリケーションのパフォーマンスを向上させるためにします。 たとえば、スレッドがリーダー ロックを保持しているときに取得した情報をキャッシュする可能性があります。 解放した後、ロックを取得した場合、スレッドを使用できる`AnyWritersSince`を決定するかどうか他のスレッドがリソース以外に、一時的に書き込まれたかどうか、キャッシュされた情報を使用できます。 この手法は、高価です。 ここでは、ロックで保護された情報を読み取る役立ちますたとえば、データベース クエリを実行しています。  
+ 使用することができます<xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A>と`AnyWritersSince`アプリケーションのパフォーマンスを向上させるためにします。 たとえば、スレッドがリーダー ロックを保持しているときに取得した情報をキャッシュする可能性があります。 解放して、ロックを取得した場合、後に、スレッドが使用できる`AnyWritersSince`を判断するかどうか他のスレッドがリソース間に書き込むかどうかキャッシュされた情報を使用できます。 この手法は便利な読み取りロックで保護された情報は高価です。たとえば、データベース クエリを実行しています。  
   
- 呼び出し元は、シーケンス番号を使用するために、リーダー ロックまたは書き込みロック保持する必要があります。  
+ 呼び出し元は、シーケンス番号を使用するためにリーダー ロックまたはライター ロックを保持する必要があります。  
   
    
   
 ## Examples  
- 次のコード例を使用する方法を示しています、<xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A>メソッドおよび<xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A>別のスレッドが現在のスレッドからは保護されたリソースのロックをライターを取得するかどうかを決定するプロパティが最後にライター ロックを保持します。  
+ 次のコード例を使用する方法を示しています、<xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A>メソッドと<xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A>別のスレッドが現在のスレッドから、保護されたリソースのライター ロックを取得するかどうかを確認するには最後にライター ロックを保持します。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -474,6 +489,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -500,19 +517,19 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A> 再帰的なロック数に関係なく、ライター ロックを解放し、リーダー ロックをライター ロックにアップグレードする前に、スレッドによって保持されたを復元します。 リーダー ロックのロック カウントが復元されます。  
+ <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A> 再帰的なロック カウントに関係なく、ライター ロックを解放し、リーダー ロックをライター ロックにアップグレードする前に、スレッドによって保持されたを復元します。 リーダー ロックのロック カウントが復元されます。  
   
 > [!NOTE]
->  `DowngradeFromWriterLock` 受け付ける、<xref:System.Threading.LockCookie>呼び出すことによって取得<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>です。 使用しないで、`LockCookie`によって返される<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>です。  
+>  `DowngradeFromWriterLock` 受け付ける、<xref:System.Threading.LockCookie>呼び出すことによって取得<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>します。 使用しないでください、`LockCookie`によって返される<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>します。  
   
- スレッドをブロックしませんライター ロックからダウン グレードするとき、ライター ロックが解放されるときに、すべてのリーダー ロック要求が与えられているために、他のスレッドがライター ロックを待機している場合でも。  
+ スレッドはブロックされませんがライター ロックからダウン グレードするとき場合でも、他のスレッドがライター ロックが解放されるときに、すべてのリーダー ロック要求が与えられているため、ライター ロックを待機しています。  
   
    
   
 ## Examples  
  次のコード例では、リーダー ロックを要求、リーダー ロックをライター ロックにアップグレードし、もう一度、リーダー ロックにダウン グレードする方法を示します。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -541,6 +558,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -559,7 +577,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ガベージ コレクター<xref:System.Threading.ReaderWriterLock.Finalize%2A>ときに、現在<xref:System.Threading.ReaderWriterLock>オブジェクトが完了する準備ができています。  
+ ガベージ コレクター<xref:System.Threading.ReaderWriterLock.Finalize%2A>ときに、現在<xref:System.Threading.ReaderWriterLock>オブジェクトが完了するを準備します。  
   
  ]]></format>
         </remarks>
@@ -575,6 +593,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -602,7 +622,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- 次のコード例を使用する方法を示しています`IsReaderLockHeld`デッドロックを回避します。  
+ 次のコード例は、使用する方法を示します`IsReaderLockHeld`デッドロックを回避します。  
   
  [!code-cpp[System.Threading.ReaderWriterLock.IsWriterLockHeld#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock.IsWriterLockHeld/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.ReaderWriterLock.IsWriterLockHeld#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock.IsWriterLockHeld/CS/source.cs#1)]
@@ -622,6 +642,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -649,7 +671,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- 次のコード例に示しますをライター ロックを保持しているスレッドで、リーダー ロックを取得しようと`ReaderWriterLock`リーダー ロックを付与しませんが、代わりにライター ロックのロック カウントをインクリメントします。  
+ 次のコード例を示しますライター ロックを保持しているスレッドで、リーダー ロックの取得を試行したときに`ReaderWriterLock`リーダー ロックを許可することはありませんが、代わりに、ライター ロックのロック カウントをインクリメントします。  
   
  [!code-cpp[System.Threading.ReaderWriterLock.IsWriterLockHeld#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock.IsWriterLockHeld/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.ReaderWriterLock.IsWriterLockHeld#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock.IsWriterLockHeld/CS/source.cs#1)]
@@ -669,6 +691,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -692,14 +716,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> リーダー ロックまたは再帰的なロック数に関係なく、ライター ロックを解放します。 ロック数など、ロックの状態を復元するには渡します、<xref:System.Threading.LockCookie>に<xref:System.Threading.ReaderWriterLock.RestoreLock%2A>です。  
+ <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> リーダー ロックまたは再帰的なロックの数に関係なく、ライター ロックを解放します。 ロック数など、ロックの状態を復元するには、渡す、<xref:System.Threading.LockCookie>に<xref:System.Threading.ReaderWriterLock.RestoreLock%2A>します。  
   
    
   
 ## Examples  
- 次のコード例を使用する方法を示しています、<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>を後で、ロックの状態を復元する方法と、スレッドを何度に関係なく、ロックを解放するメソッドが取得されました。  
+ 次のコード例を使用する方法を示しています、<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>後で、ロックの状態を復元する方法と、スレッドによって取得された回数に関係なく、ロックを解放するメソッド。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -725,6 +749,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -752,17 +778,17 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A> ロック カウントをデクリメントします。 カウントが 0 になったときに、ロックが解放されます。  
+ <xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A> ロック カウントをデクリメントします。 カウントがゼロに達すると、ロックが解放されます。  
   
 > [!NOTE]
->  スレッドにライター ロックがある場合は、呼び出す`ReleaseReaderLock`呼び出すことと同じ効果<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>です。 ロックがスレッドがない場合は、呼び出す`ReleaseReaderLock`スロー、<xref:System.ApplicationException>です。  
+>  スレッドがライター ロックの場合、呼び出す`ReleaseReaderLock`呼び出しと同じ効果<xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>します。 呼び出して、スレッドがロックを持たない場合`ReleaseReaderLock`スロー、<xref:System.ApplicationException>します。  
   
    
   
 ## Examples  
- 次のコード例では、取得し、リーダー ロックを解放する方法と、要求がタイムアウトしたときにスローされる例外を処理する方法を示します。  
+ 次のコード例では、取得およびがリーダー ロックを解放する方法と、要求がタイムアウトしたときにスローされる例外を処理する方法を示します。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -789,6 +815,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -816,17 +844,17 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> ライター ロック カウントをデクリメントします。 カウントには、ゼロに達すると、ライター ロックは解放されます。  
+ <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> ライター ロック カウントをデクリメントします。 カウントがゼロに達すると、ライター ロックは解放されます。  
   
 > [!NOTE]
->  スレッドに、リーダー ロックまたはロックしない場合は、呼び出す`ReleaseWriterLock`スロー、<xref:System.ApplicationException>です。  
+>  スレッドは、リーダー ロックまたはロックしないが、呼び出す`ReleaseWriterLock`スロー、<xref:System.ApplicationException>します。  
   
    
   
 ## Examples  
- 次のコード例では、取得し、ライター ロックを解放する方法と、要求がタイムアウトしたときにスローされる例外を処理する方法を示します。  
+ 次のコード例では、取得、およびライター ロックを解放する方法と、要求がタイムアウトしたときにスローされる例外を処理する方法を示します。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -853,6 +881,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -879,21 +909,21 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- によって復元状態`RestoreLock`再帰的なロック数が含まれています。  
+ によって復元状態`RestoreLock`再帰的なロックの数が含まれています。  
   
- スレッドがブロックを別のスレッドがライター ロックを取得した後、または別のスレッドがリーダー ロックまたは書き込みロックが取得した後にライター ロックを復元しようとすると、リーダー ロックを復元しようとするとします。 `RestoreLock`タイムアウトを受け入れません。 可能なデッドロックを回避するように注意する必要があります。  
+ スレッドがブロックまたは別のスレッドがライター ロックを獲得後、別のスレッドがリーダー ロックまたはライター ロックが取得後にライター ロックを復元しようとすると、リーダー ロックを復元しようとするとします。 `RestoreLock`タイムアウトは受け入れません。 デッドロックの可能性を回避するために注意してください。  
   
 > [!CAUTION]
->  呼び出しの前に`RestoreLock`への呼び出し以降取得したすべてのロックを解放したことを確認<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>です。 たとえば、スレッドはデッドロック状態リーダー ロックを取得し、以前のライター ロックの復元を試みます。 使用して<xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A>と<xref:System.Threading.ReaderWriterLock.IsWriterLockHeld%2A>をこのようなその他のロックを検出します。  
+>  呼び出しの前に`RestoreLock`の呼び出し以降に取得したすべてのロックを解放したことを確認<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>します。 たとえば、スレッドはデッドロック状態、リーダー ロックを取得し、以前のライター ロックを復元しようとし、場合。 使用<xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A>と<xref:System.Threading.ReaderWriterLock.IsWriterLockHeld%2A>をこのような追加のロックを検出します。  
   
- 使用しないで、<xref:System.Threading.LockCookie>から返された<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>です。  
+ 使用しないでください、<xref:System.Threading.LockCookie>から返された<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>します。  
   
    
   
 ## Examples  
- 次のコード例を使用する方法を示しています、<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>を後で、ロックの状態を復元する方法と、スレッドを何度に関係なく、ロックを解放するメソッドが取得されました。  
+ 次のコード例を使用する方法を示しています、<xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>後で、ロックの状態を復元する方法と、スレッドによって取得された回数に関係なく、ロックを解放するメソッド。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -931,6 +961,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -958,23 +990,23 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- スレッドを呼び出すと`UpgradeToWriterLock`ロック カウントに関係なく、リーダー ロックが解放され、スレッドがライター ロックをキューの末尾に移動します。 したがって、他のスレッドがライター ロックが許可されるは、アップグレードを要求したスレッドの前に、リソースに書き込むことがあります。  
+ スレッドを呼び出すと`UpgradeToWriterLock`ロック カウントに関係なく、リーダー ロックが解放され、スレッドがライター ロックのキューの末尾に移動します。 そのため、他のスレッドがライター ロックが許可されるは、アップグレードを要求したスレッドの前に、リソースに書き込む可能性があります。  
   
 > [!IMPORTANT]
->  呼び出したスレッドまでタイムアウト例外はスローされません、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>メソッドは、リーダー ロックを取得できます。 ライター ロックを待機している他のスレッドがない場合は、この直ちに行われます。 ただし、別のスレッドがライター ロックをキューに登録する場合、スレッドを呼び出した関数、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>すべて現在リーダーが、ロックを解放し、1 つのスレッドが取得およびライター ロックを解放するまで、メソッドがリーダー ロックを再取得できません。 これは、true の場合でも、ライター ロックを要求したその他のスレッドを要求して、現在のスレッドが呼び出された後に、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>メソッドです。  
+>  呼び出したスレッドまでのタイムアウトの例外はスローされません、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>メソッドは、リーダー ロックを取得できます。 ライター ロックを待機している他のスレッドがない場合は、これは直ちに行われます。 ただし、別のスレッドがライター ロックをキューに格納している場合、スレッドを呼び出す、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>現在のすべてのリーダーが、ロックを解放し、1 つのスレッドが取得され、ライター ロックを解放するまで、メソッドがリーダー ロックを再取得できません。 これは、現在のスレッドが呼び出された後、他のスレッドがライター ロックが要求された要求する場合でも、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>メソッド。  
   
- ロックの状態を復元するには、呼び出す<xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A>を使用して、<xref:System.Threading.LockCookie>によって返される`UpgradeToWriterLock`です。 これを使用しないでください`LockCookie`で<xref:System.Threading.ReaderWriterLock.RestoreLock%2A>です。  
+ ロックの状態を復元するには、呼び出す<xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A>を使用して、<xref:System.Threading.LockCookie>によって返される`UpgradeToWriterLock`します。 これを使用しないでください`LockCookie`で<xref:System.Threading.ReaderWriterLock.RestoreLock%2A>します。  
   
- スレッドがリーダー ロックを持たない場合は使用しないで`UpgradeToWriterLock`です。 代わりに、<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A> を使用してください。  
+ スレッドがリーダー ロックを持たない場合は使用しないで`UpgradeToWriterLock`します。 代わりに、<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A> を使用してください。  
   
- 有効なタイムアウト値を参照してください。<xref:System.Threading.ReaderWriterLock>です。  
+ 有効なタイムアウト値は、次を参照してください。<xref:System.Threading.ReaderWriterLock>します。  
   
    
   
 ## Examples  
  次のコード例では、リーダー ロックを要求、リーダー ロックをライター ロックにアップグレードし、もう一度、リーダー ロックにダウン グレードする方法を示します。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -1002,6 +1034,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1029,16 +1063,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- スレッドを呼び出すと`UpgradeToWriterLock`ロック カウントに関係なく、リーダー ロックが解放され、スレッドがライター ロックをキューの末尾に移動します。 したがって、他のスレッドがライター ロックが許可されるは、アップグレードを要求したスレッドの前に、リソースに書き込むことがあります。  
+ スレッドを呼び出すと`UpgradeToWriterLock`ロック カウントに関係なく、リーダー ロックが解放され、スレッドがライター ロックのキューの末尾に移動します。 そのため、他のスレッドがライター ロックが許可されるは、アップグレードを要求したスレッドの前に、リソースに書き込む可能性があります。  
   
 > [!IMPORTANT]
->  呼び出したスレッドまでタイムアウト例外はスローされません、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>メソッドは、リーダー ロックを取得できます。 ライター ロックを待機している他のスレッドがない場合は、この直ちに行われます。 ただし、別のスレッドがライター ロックをキューに登録する場合、スレッドを呼び出した関数、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>すべて現在リーダーが、ロックを解放し、1 つのスレッドが取得およびライター ロックを解放するまで、メソッドがリーダー ロックを再取得できません。 これは、true の場合でも、ライター ロックを要求したその他のスレッドを要求して、現在のスレッドが呼び出された後に、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>メソッドです。  
+>  呼び出したスレッドまでのタイムアウトの例外はスローされません、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>メソッドは、リーダー ロックを取得できます。 ライター ロックを待機している他のスレッドがない場合は、これは直ちに行われます。 ただし、別のスレッドがライター ロックをキューに格納している場合、スレッドを呼び出す、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>現在のすべてのリーダーが、ロックを解放し、1 つのスレッドが取得され、ライター ロックを解放するまで、メソッドがリーダー ロックを再取得できません。 これは、現在のスレッドが呼び出された後、他のスレッドがライター ロックが要求された要求する場合でも、<xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>メソッド。  
   
- ロックの状態を復元するには、呼び出す<xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A>を使用して、<xref:System.Threading.LockCookie>によって返される`UpgradeToWriterLock`です。 これを使用しないでください`LockCookie`で<xref:System.Threading.ReaderWriterLock.RestoreLock%2A>です。  
+ ロックの状態を復元するには、呼び出す<xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A>を使用して、<xref:System.Threading.LockCookie>によって返される`UpgradeToWriterLock`します。 これを使用しないでください`LockCookie`で<xref:System.Threading.ReaderWriterLock.RestoreLock%2A>します。  
   
- スレッドがリーダー ロックを持たない場合は使用しないで`UpgradeToWriterLock`です。 代わりに、<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A> を使用してください。  
+ スレッドがリーダー ロックを持たない場合は使用しないで`UpgradeToWriterLock`します。 代わりに、<xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A> を使用してください。  
   
- 有効なタイムアウト値を参照してください。<xref:System.Threading.ReaderWriterLock>です。  
+ 有効なタイムアウト値は、次を参照してください。<xref:System.Threading.ReaderWriterLock>します。  
   
  ]]></format>
         </remarks>
@@ -1058,6 +1092,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1080,18 +1116,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- シーケンス番号は、スレッドがライター ロックを取得するたびに増加します。 シーケンス番号を保存してに渡す<xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A>は後で、他のスレッドがライター ロックを当面の間に取得したかどうかを判断する場合。  
+ シーケンス番号は、スレッドがライター ロックを取得するたびに増加します。 シーケンス番号を保存してに渡す<xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A>は後で、他のスレッドがライター ロックをその間に取得したかどうかを判断する場合。  
   
- 使用することができます`WriterSeqNum`アプリケーションのパフォーマンスを向上させるためにします。 たとえば、スレッドがリーダー ロックを保持しているときに取得した情報をキャッシュする可能性があります。 スレッドを解放した後、ロックを取得した場合、呼び出すことで、他のスレッドがリソースに書き込まれたかどうかを決定できます`AnyWritersSince`以外の場合は、キャッシュされた情報を使用できます。 ロックで保護されている情報の読み取りが高価です。 この手法が有用です。たとえば、データベース クエリを実行しています。  
+ 使用することができます`WriterSeqNum`アプリケーションのパフォーマンスを向上させるためにします。 たとえば、スレッドがリーダー ロックを保持しているときに取得した情報をキャッシュする可能性があります。 スレッド解放した後、ロックを取得した場合、呼び出すことで、他のスレッドがリソースに書き込まれたかどうかを判断できます`AnyWritersSince`場合は、キャッシュされた情報を使用できます。 高価です。 読み取りロックで保護された情報がこの手法が有用です。たとえば、データベース クエリを実行しています。  
   
- 呼び出し元は、シーケンス番号を使用するために、リーダー ロックまたは書き込みロック保持する必要があります。  
+ 呼び出し元は、シーケンス番号を使用するためにリーダー ロックまたはライター ロックを保持する必要があります。  
   
    
   
 ## Examples  
- 次のコード例を使用する方法を示しています、<xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A>プロパティおよび<xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A>別のスレッドが現在のスレッドからは保護されたリソースのロックをライターを取得するかどうかを決定するメソッドが最後にライター ロックを保持します。  
+ 次のコード例を使用する方法を示しています、<xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A>プロパティおよび<xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A>別のスレッドが現在のスレッドから、保護されたリソースのライター ロックを取得するかどうかを判断するメソッドが最後にライター ロックを保持します。  
   
- このコードに示されている例の一部である、<xref:System.Threading.ReaderWriterLock>クラスです。  
+ このコードは示されている例の一部、<xref:System.Threading.ReaderWriterLock>クラス。  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]

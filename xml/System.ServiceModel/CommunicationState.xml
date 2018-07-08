@@ -1,11 +1,11 @@
 <Type Name="CommunicationState" FullName="System.ServiceModel.CommunicationState">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="7323a43e8848196c539ea243909fa8f0d12170e7" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="775a5d3263dd5d703f63d9fb5b5d3fd7c05a6810" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36611559" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37613331" />
   </Metadata>
   <TypeSignature Language="C#" Value="public enum CommunicationState" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed CommunicationState extends System.Enum" />
@@ -16,6 +16,7 @@
   <AssemblyInfo>
     <AssemblyName>System.ServiceModel</AssemblyName>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <AssemblyInfo>
@@ -54,23 +55,23 @@
   
 -   Closing  
   
- 通信オブジェクトは、状態が Created で構成できます。 たとえば、プロパティの変更や、イベントの登録を実行できます。 この状態にあるときは、入力または出力が発生することはありません。 したがって、たとえば、チャネルからのメッセージの送信または受信は、この状態中には実行できません。  
+ 通信オブジェクトは、Created 状態で構成できます。 たとえば、プロパティの変更や、イベントの登録を実行できます。 この状態にあるときは、入力または出力が発生することはありません。 したがって、たとえば、チャネルからのメッセージの送信または受信は、この状態中には実行できません。  
   
- 開くには、通信オブジェクトは入力時に一時的な状態、<xref:System.ServiceModel.ICommunicationObject.Open%2A>メソッドが呼び出されます。 派生クラスで特に指示しない限り、Opening 状態にあるオブジェクトは構成できません。 この遷移の状態を Created 状態からのみ入力できます。  
+ 開始は通信オブジェクトが入るときに一時的な状態、<xref:System.ServiceModel.ICommunicationObject.Open%2A>メソッドが呼び出されます。 派生クラスで特に指示しない限り、Opening 状態にあるオブジェクトは構成できません。 この遷移の状態は Created 状態からのみ入力できます。  
   
- 開いているプロセスが完了したら、Opened 状態への移行をオブジェクト。 Opened 状態への移行は、Opening 状態からのみ有効です。 派生クラスで特に指示しない限り、オブジェクトの構成はこの時点で無効になります。 この時点で、オブジェクトはメッセージを転送するために完全に使用可能です。  
+ オブジェクトを開いているプロセスが完了したら、Opened 状態に遷移します。 Opened 状態への移行は、Opening 状態からのみ有効です。 派生クラスで特に指示しない限り、オブジェクトの構成はこの時点で無効になります。 この時点で、オブジェクトはメッセージを転送するために完全に使用可能です。  
   
- 終了は、オブジェクトは入力時に一時的な状態、<xref:System.ServiceModel.ICommunicationObject.Close%2A>正常なシャット ダウンが呼び出されるメソッドまたはオブジェクトが中止されました。 この時点で、オブジェクトは使用不能になります (既に使用不能になっていない場合)。 この移行は Closed の状態を除く任意の状態から有効です。  
+ 終了は、オブジェクトが入るときに一時的な状態、<xref:System.ServiceModel.ICommunicationObject.Close%2A>グレースフル シャット ダウンのメソッドが呼び出されるか、オブジェクトが中断されました。 この時点で、オブジェクトは使用不能になります (既に使用不能になっていない場合)。 この移行は、Closed の状態を除く任意の状態からは有効です。  
   
- Closed の状態は破棄されるに相当し、オブジェクトの構成はまだ検査できます。  
+ Closed の状態は破棄に相当し、オブジェクトの構成はまだ検査できます。  
   
- Faulted 状態は、オブジェクトが、不要になった使用できます状態に移行ことを示すために使用されます。 これが発生する可能性がある主なシナリオには、次の 2 つがあります。  
+ Faulted 状態は、オブジェクトは、不要になったことできます状態に遷移したことを示すために使用されます。 これが発生する可能性がある主なシナリオには、次の 2 つがあります。  
   
 -   <xref:System.ServiceModel.ICommunicationObject.Open%2A> メソッドが何らかの理由で失敗した場合、オブジェクトは Faulted 状態に移行します。  
   
 -   セッション ベースのチャネルが、回復できないエラーを検出した場合は、Faulted 状態に移行します。 これは、たとえばプロトコル エラーが発生した (つまり、無効な時間にプロトコル メッセージを受信した) 場合や、リモート エンドポイントでセッションが中止された場合に発生することがあります。  
   
- Faulted 状態のオブジェクトが終了していないリソースを保持します。 Fault 状態にあるオブジェクトは、<xref:System.ServiceModel.ICommunicationObject.Abort%2A> メソッドを使用して閉じる必要があります。 場合<xref:System.ServiceModel.ICommunicationObject.Close%2A>が Faulted 状態にあるオブジェクトに対して呼び出される、<xref:System.ServiceModel.CommunicationObjectFaultedException>がスローされるため、オブジェクトが正常に終了することはできません。  
+ Faulted 状態にあるオブジェクトが閉じられていないと、リソースを保持します。 Fault 状態にあるオブジェクトは、<xref:System.ServiceModel.ICommunicationObject.Abort%2A> メソッドを使用して閉じる必要があります。 場合<xref:System.ServiceModel.ICommunicationObject.Close%2A>が Faulted の状態のオブジェクトで呼び出されます、<xref:System.ServiceModel.CommunicationObjectFaultedException>オブジェクトを正常に閉じることができないためがスローされます。  
   
  ]]></format>
     </remarks>
@@ -87,6 +88,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -114,6 +116,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -141,6 +144,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -168,6 +172,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -195,6 +200,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -222,6 +228,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
