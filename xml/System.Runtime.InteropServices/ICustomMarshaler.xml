@@ -1,11 +1,11 @@
 <Type Name="ICustomMarshaler" FullName="System.Runtime.InteropServices.ICustomMarshaler">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="39f080201b9247188e6562c5fd981137ce4f6fec" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="be96cf3b310b21cd1fb19adf1505581a78166d88" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36538232" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37637520" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface ICustomMarshaler" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract ICustomMarshaler" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type ICustomMarshaler = interface" />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -39,29 +41,29 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- マーシャラーは、従来の機能と新しいインターフェイス間のブリッジを提供します。 カスタム マーシャ リングすると、次の利点があります。  
+ マーシャラーは、以前の機能と新しいインターフェイス間のブリッジを提供します。 カスタム マーシャ リングには、次の利点が提供されます。  
   
--   また、新しいインターフェイスを実装しているサーバーを使用する古いインターフェイスを使用するように設計されたクライアント アプリケーションを使用できます。  
+-   新しいインターフェイスを実装するサーバーとも連携する以前のインターフェイスを使用するように設計されたクライアント アプリケーションができるようにします。  
   
--   古いインターフェイスを実装しているサーバーを使用するクライアント アプリケーションの新しいインターフェイスを使用するビルドを使用できます。  
+-   以前のインターフェイスを実装しているサーバーを使用するクライアント アプリケーションの新しいインターフェイスを使用するために構築できます。  
   
- マーシャ リング動作の違いを導入するか、コンポーネント オブジェクト モデル (COM) を別の方法で公開されるインターフェイスがある場合は、相互運用マーシャラーを使用する代わりに、カスタム マーシャラーを設計することができます。 カスタム マーシャラーを使用すると、.NET Framework コンポーネントを新規と既存の COM コンポーネントの違いを最小限に抑えることができます。  
+ 別のマーシャ リング動作を導入するか、コンポーネント オブジェクト モデル (COM) を別の方法で公開されるインターフェイスを使っている場合は、相互運用マーシャラーを使用する代わりに、カスタム マーシャラーをデザインできます。 カスタム マーシャラーを使用すると、新しい .NET Framework コンポーネントと既存の COM コンポーネントの違いを最小限に抑えることができます。  
   
- たとえばと呼ばれる管理対象のインターフェイスを開発している`INew`です。 このインターフェイスは、標準の COM 呼び出し可能ラッパー (CCW) を介して COM に公開される、ときに同じメソッドは、マネージ インターフェイスとし、相互運用マーシャラーに組み込まれているマーシャ リング規則を使用します。 たとえば、既知の COM インターフェイスが呼び出されること`IOld`と同じ機能が既に提供されて、`INew`インターフェイスです。 カスタム マーシャラーを設計することでは、アンマネージ実装を提供できる`IOld`のマネージ実装への呼び出しを代行する、`INew`インターフェイスです。 したがって、カスタム マーシャラーは、マネージ コードとアンマネージ インターフェイス間の仲介役として機能します。  
+ たとえばと呼ばれるマネージ インターフェイスを開発している`INew`します。 このインターフェイスは、標準の COM 呼び出し可能ラッパー (CCW) を COM に公開される、ときに同じメソッドは、マネージ インターフェイスとは、相互運用マーシャラーに組み込まれているマーシャ リング規則を使用します。 たとえば、よく知られている COM インターフェイスと呼ばれること`IOld`と同じ機能を既に提供されて、`INew`インターフェイス。 カスタム マーシャラーを設計することでの非管理対象の実装を行うことができます`IOld`のマネージ実装への呼び出しを単純にデリゲートされる、`INew`インターフェイス。 そのため、カスタム マーシャラーは、マネージ コードとアンマネージ インターフェイス間の仲介役として機能します。  
   
 > [!NOTE]
->  カスタム マーシャラーは、ディスパッチ専用インターフェイスでマネージ コードからアンマネージ コードに呼び出すときに呼び出されません。  
+>  カスタム マーシャラーは、ディスパッチ専用インターフェイスでマネージ コードからアンマネージ コードに呼び出す場合は呼び出されません。  
   
 ## <a name="defining-the-marshaling-type"></a>マーシャリング型の定義  
- カスタム マーシャラーを作成するには、マーシャ リングは、マネージ コードとアンマネージ インターフェイスを定義する必要があります。 これらのインターフェイスは、よく同じ機能を実行がマネージ コードとアンマネージ オブジェクトに異なる方法で公開されます。  
+ カスタム マーシャラーを作成するには、マーシャ リングするマネージ コードとアンマネージ インターフェイスを定義する必要があります。 これらのインターフェイスは、よく同じ機能を実行がマネージ コードとアンマネージ オブジェクトに異なる方法で公開されます。  
   
- マネージ コンパイラは、メタデータからマネージ インターフェイスを生成し、結果として得られるインターフェイスは他のマネージ インターフェイスのようになります。 次の例では、代表的なインターフェイスを示します。  
+ マネージ コンパイラがメタデータからマネージ インターフェイスを生成し、結果として得られるインターフェイスが他のマネージ インターフェイスのようになります。 次の例では、代表的なインターフェイスを示します。  
   
  [!code-cpp[System.Runtime.InteropServices.ICustomMarshaler#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cpp/source.cpp#1)]
  [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#1)]
  [!code-vb[System.Runtime.InteropServices.ICustomMarshaler#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/vb/source.vb#1)]  
   
- アンマネージ型のインターフェイス定義言語 (IDL) を定義して、Microsoft インターフェイス定義言語 (MIDL) コンパイラでコンパイルします。 Library ステートメント内のインターフェイスを定義し、次の例に示すように、ユニバーサル一意識別子 (UUID) 属性を持つインターフェイス ID を割り当てること。  
+ アンマネージ型のインターフェイス定義言語 (IDL) を定義し、Microsoft インターフェイス定義言語 (MIDL) コンパイラでコンパイルします。 ライブラリのステートメント内でインターフェイスを定義し、次の例に示すように、ユニバーサル一意識別子 (UUID) 属性を持つインターフェイス ID を割り当てます、します。  
   
 ```  
  [uuid(9B2BAADA-0705-11D3-A0CD-00C04FA35826)]  
@@ -72,50 +74,50 @@ library OldLib {
 }  
 ```  
   
- MIDL コンパイラでは、いくつかの出力ファイルを生成します。 出力ファイル Old_i.c 定義、インターフェイスが Old.idl で定義されている場合、`const`次の例で示すように、インターフェイスのインターフェイス id (IID) 変数です。  
+ MIDL コンパイラは、いくつかの出力ファイルを生成します。 出力ファイル Old_i.c が定義されて Old.idl でインターフェイスが定義されている場合、`const`インターフェイスのインターフェイス id (IID) 変数例を次に示します。  
   
 ```  
 const IID IID_IOld = {0x9B2BAADD,0x0705,0x11D3,{0xA0,0xCD,0x00,0xC0,0x4F,0xA3,0x58,0x26}};  
 ```  
   
- Old.h ファイルも、MIDL によって生成されます。 C++ ソース コードに含めることができるインターフェイスの C++ の定義が含まれています。  
+ Old.h ファイルは、MIDL によっても生成されます。 C++ ソース コードに含めることができるインターフェイスの C++ 定義が含まれています。  
   
 ## <a name="implementing-the-icustommarshaler-interface"></a>ICustomMarshaler インターフェイスの実装  
- カスタム マーシャラーを実装する必要があります、<xref:System.Runtime.InteropServices.ICustomMarshaler>ランタイムに適切なラッパーを提供するインターフェイスです。  
+ カスタム マーシャラーを実装する必要があります、<xref:System.Runtime.InteropServices.ICustomMarshaler>ランタイムに適切なラッパーを提供するインターフェイス。  
   
- 次の c# コードでは、すべてのカスタム マーシャラーで実装する必要がある基本インターフェイスを表示します。  
+ 次の c# コードでは、すべてのカスタム マーシャラーで実装する必要がある基本インターフェイスが表示されます。  
   
  [!code-cpp[System.Runtime.InteropServices.ICustomMarshaler#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cpp/source.cpp#2)]
  [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#2)]
  [!code-vb[System.Runtime.InteropServices.ICustomMarshaler#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/vb/source.vb#2)]  
   
- <xref:System.Runtime.InteropServices.ICustomMarshaler>インターフェイスには、換算のサポート、クリーンアップのサポート、およびマーシャ リングするデータに関する情報を提供するメソッドが含まれています。  
+ <xref:System.Runtime.InteropServices.ICustomMarshaler>インターフェイスには、変換のサポートやクリーンアップのサポート、マーシャ リングするデータに関する情報を提供するメソッドが含まれています。  
   
 |操作の種類|ICustomMarshaler メソッド|説明|  
 |-----------------------|-----------------------------|-----------------|  
-|(ネイティブ コードからマネージ コードに) 変換|<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A>|マネージ オブジェクトに、ネイティブのデータへのポインターをマーシャ リングします。 このメソッドは、引数として渡されるアンマネージ インターフェイスをマーシャ リングできるカスタム ランタイム呼び出し可能ラッパー (RCW) を返します。 マーシャラーは、その型のカスタム RCW のインスタンスを返す必要があります。|  
-|変換 (マネージ コードからネイティブ コード)|<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A>|ネイティブ データへのポインターにマネージ オブジェクトをマーシャ リングします。 このメソッドは、カスタム COM 呼び出し可能ラッパー (CCW) を引数として渡されるマネージ インターフェイスをマーシャ リングできるを返します。 マーシャラーは、その型のカスタムの CCW のインスタンスを返す必要があります。|  
-|クリーンアップ (ネイティブ コード)|<xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpNativeData%2A>|使用すると、ネイティブ データ (CCW) によって返されるをクリーンアップするマーシャラー、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A>メソッドです。|  
-|クリーンアップ (マネージ コード)|<xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpManagedData%2A>|使用すると、マネージ データ (RCW) によって返されるをクリーンアップするマーシャラー、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A>メソッドです。|  
+|(ネイティブ コードからマネージ コードに) 変換|<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A>|マネージ オブジェクトには、ネイティブのデータへのポインターをマーシャ リングします。 このメソッドは、引数として渡されるアンマネージ インターフェイスのマーシャ リングできるカスタム ランタイム呼び出し可能ラッパー (RCW) を返します。 マーシャラーは、カスタム RCW をその型のインスタンスを返す必要があります。|  
+|変換 (マネージ コードからネイティブ コード)|<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A>|ネイティブのデータへのポインターには、マネージ オブジェクトをマーシャ リングします。 このメソッドは、カスタム COM 呼び出し可能ラッパー (CCW) を引数として渡されるマネージ インターフェイスのマーシャ リングできるを返します。 マーシャラーは、その型のカスタムの CCW のインスタンスを返す必要があります。|  
+|(ネイティブ コードのクリーンアップ|<xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpNativeData%2A>|使用するマーシャラーがによって返されるネイティブのデータ (CCW) をクリーンアップする、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A>メソッド。|  
+|(マネージ コード) のクリーンアップ|<xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpManagedData%2A>|使用するマーシャラーがによって返される管理対象のデータ (RCW) をクリーンアップする、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A>メソッド。|  
 |(ネイティブ コード) に関する情報|<xref:System.Runtime.InteropServices.ICustomMarshaler.GetNativeDataSize%2A>|マーシャ リングされるアンマネージ データのサイズを返します。|  
   
 ### <a name="conversion"></a>変換  
  <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A?displayProperty=nameWithType>  
   
- マネージ オブジェクトに、ネイティブのデータへのポインターをマーシャ リングします。 このメソッドは、引数として渡されるアンマネージ インターフェイスをマーシャ リングできるカスタム ランタイム呼び出し可能ラッパー (RCW) を返します。 マーシャラーは、その型のカスタム RCW のインスタンスを返す必要があります。  
+ マネージ オブジェクトには、ネイティブのデータへのポインターをマーシャ リングします。 このメソッドは、引数として渡されるアンマネージ インターフェイスのマーシャ リングできるカスタム ランタイム呼び出し可能ラッパー (RCW) を返します。 マーシャラーは、カスタム RCW をその型のインスタンスを返す必要があります。  
   
  <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A?displayProperty=nameWithType>  
   
- ネイティブ データへのポインターにマネージ オブジェクトをマーシャ リングします。 このメソッドは、カスタム COM 呼び出し可能ラッパー (CCW) を引数として渡されるマネージ インターフェイスをマーシャ リングできるを返します。 マーシャラーは、その型のカスタムの CCW のインスタンスを返す必要があります。  
+ ネイティブのデータへのポインターには、マネージ オブジェクトをマーシャ リングします。 このメソッドは、カスタム COM 呼び出し可能ラッパー (CCW) を引数として渡されるマネージ インターフェイスのマーシャ リングできるを返します。 マーシャラーは、その型のカスタムの CCW のインスタンスを返す必要があります。  
   
 ### <a name="cleanup"></a>クリーンアップ  
  <xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpNativeData%2A?displayProperty=nameWithType>  
   
- 使用すると、ネイティブ データ (CCW) によって返されるをクリーンアップするマーシャラー、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A>メソッドです。  
+ 使用するマーシャラーがによって返されるネイティブのデータ (CCW) をクリーンアップする、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A>メソッド。  
   
  <xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpManagedData%2A?displayProperty=nameWithType>  
   
- 使用すると、マネージ データ (RCW) によって返されるをクリーンアップするマーシャラー、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A>メソッドです。  
+ 使用するマーシャラーがによって返される管理対象のデータ (RCW) をクリーンアップする、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A>メソッド。  
   
 ### <a name="size-information"></a>サイズの情報  
  <xref:System.Runtime.InteropServices.ICustomMarshaler.GetNativeDataSize%2A?displayProperty=nameWithType>  
@@ -123,36 +125,36 @@ const IID IID_IOld = {0x9B2BAADD,0x0705,0x11D3,{0xA0,0xCD,0x00,0xC0,0x4F,0xA3,0x
  マーシャ リングされるアンマネージ データのサイズを返します。  
   
 ## <a name="implementing-the-getinstance-method"></a>GetInstance メソッドを実装します。  
- 実装するだけでなく、<xref:System.Runtime.InteropServices.ICustomMarshaler>インターフェイス、カスタム マーシャラーを実装する必要があります、`static`呼び出されるメソッド`GetInstance`を受け入れる、<xref:System.String>をパラメーターとしての戻り値の型を持つ<xref:System.Runtime.InteropServices.ICustomMarshaler>します。 これは、`static`メソッドは、カスタム マーシャラーのインスタンスをインスタンス化する共通言語ランタイムの COM 相互運用層によって呼び出されます。 渡される文字列`GetInstance`メソッドが返されるカスタム マーシャラーのカスタマイズに使用できるクッキーです。  
+ 実装するだけでなく、<xref:System.Runtime.InteropServices.ICustomMarshaler>インターフェイス、カスタム マーシャラーを実装する必要があります、`static`メソッドと呼ばれる`GetInstance`を受け入れる、<xref:System.String>をパラメーターとしての戻り値の型であり<xref:System.Runtime.InteropServices.ICustomMarshaler>します。 これは、`static`メソッドは、カスタム マーシャラーのインスタンスをインスタンス化する共通言語ランタイムの COM の相互運用層によって呼び出されます。 渡される文字列`GetInstance`はメソッドが返されるカスタム マーシャラーのカスタマイズに使用できるクッキーです。  
   
 ```  
 static ICustomMarshaler *GetInstance(String *pstrCookie);  
 ```  
   
-## <a name="applying-marshalasattribute"></a>MarshalAsAttribute を適用します。  
- カスタム マーシャラーを使用して、適用する必要があります、<xref:System.Runtime.InteropServices.MarshalAsAttribute>属性をパラメーターまたはマーシャ リングされるフィールドです。  
+## <a name="applying-marshalasattribute"></a>MarshalAsAttribute の適用  
+ カスタム マーシャラーを使用することを適用する必要があります、<xref:System.Runtime.InteropServices.MarshalAsAttribute>属性をパラメーターまたはマーシャ リングされるフィールド。  
   
- 渡す必要があります、<xref:System.Runtime.InteropServices.UnmanagedType.CustomMarshaler?displayProperty=nameWithType>列挙体の値、<xref:System.Runtime.InteropServices.MarshalAsAttribute>コンス トラクターです。 さらに、指定する必要があります、<xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType>フィールドに名前付きパラメーターが次のいずれか。  
+ 渡す必要があります、<xref:System.Runtime.InteropServices.UnmanagedType.CustomMarshaler?displayProperty=nameWithType>列挙値を<xref:System.Runtime.InteropServices.MarshalAsAttribute>コンス トラクター。 さらに、指定する必要があります、<xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType>フィールドの名前付きパラメーターが次のいずれか。  
   
--   <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> (必須): カスタム マーシャラーのアセンブリ修飾名。 名前には、名前空間とカスタム マーシャラーのクラスを含める必要があります。 カスタム マーシャラーがで使用されているアセンブリで定義されていない場合が定義されているアセンブリの名前を指定する必要があります。  
+-   <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> (必須): カスタム マーシャラーのアセンブリ修飾名。 名前には、名前空間と、カスタム マーシャラーのクラスを含める必要があります。 カスタム マーシャラーがで使用されているアセンブリで定義されていない場合が定義されているアセンブリの名前を指定する必要があります。  
   
     > [!NOTE]
-    >  使用することができます、<xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef>の代わりにフィールド、<xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType>フィールドです。 <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef> 型を受け取り、指定する方が簡単です。  
+    >  使用することができます、<xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef>フィールドの代わりに、<xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType>フィールド。 <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef> 簡単に指定される型を受け取る。  
   
--   <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalCookie> (省略可能): カスタム マーシャラーに渡される cookie です。 Cookie を使用するには、マーシャラーに追加情報を提供します。 たとえば、同じマーシャラーを介してラッパーの番号を指定する場合に、cookie は、特定のラッパーを識別します。 渡される cookie、`GetInstance`マーシャラーのメソッドです。  
+-   <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalCookie> (省略可能): カスタム マーシャラーに渡されるクッキー。 Cookie を使用するには、マーシャラーに追加情報を提供します。 たとえば、同じマーシャラーを使用するラッパーの番号を入力すると、cookie は特定のラッパーを識別します。 Cookie に渡される、`GetInstance`マーシャラーのメソッド。  
   
- <xref:System.Runtime.InteropServices.MarshalAsAttribute>属性が、適切なラッパーをアクティブ化することができますので、カスタム マーシャラーを識別します。 共通言語ランタイムの相互運用機能のサービスは、属性を検査し、カスタム マーシャラー最初の時間をマーシャ リングする引数 (パラメーターやフィールド) のニーズを作成します。  
+ <xref:System.Runtime.InteropServices.MarshalAsAttribute>属性は、適切なラッパーがアクティブにすることができるために、カスタム マーシャラーを識別します。 共通言語ランタイムの相互運用機能のサービスは、属性を検査し、カスタム マーシャラーの最初の時間にマーシャ リングする引数 (パラメーターまたはフィールド) のニーズを作成します。  
   
- ランタイムが呼び出すし、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A>と<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A>メソッドの呼び出しを処理する、正しいラッパーをアクティブ化するカスタム マーシャラーをします。  
+ ランタイムを呼び出して、<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A>と<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A>メソッドの呼び出しを処理するために、正しいラッパーをアクティブ化するカスタム マーシャラーにします。  
   
-## <a name="using-a-custom-marshaler"></a>カスタム マーシャラーを使用します。  
- カスタム マーシャラーが完了したらは、特定の型のカスタム ラッパーとして使用することができます。 次の例は、定義を示しています、`IUserData`マネージ インターフェイス。  
+## <a name="using-a-custom-marshaler"></a>カスタム マーシャラーの使用  
+ カスタム マーシャラーが完了したらは、特定の型のカスタム ラッパーとして使用することができます。 次の例では、定義、`IUserData`マネージ インターフェイス。  
   
  [!code-cpp[System.Runtime.InteropServices.ICustomMarshaler#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cpp/source.cpp#3)]
  [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#3)]
  [!code-vb[System.Runtime.InteropServices.ICustomMarshaler#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/vb/source.vb#3)]  
   
- 次の例で、`IUserData`インターフェイスの使用、`NewOldMarshaler`をアンマネージ クライアント アプリケーションに渡すを有効にするカスタム マーシャラー、`IOld`へのインターフェイス、`DoSomeStuff`メソッドです。 管理対象の説明、`DoSomeStuff`メソッドは、`INew`一方、前の例で示すように、インターフェイスのアンマネージ バージョン`DoSomeStuff`受け取り、`IOld`インターフェイス ポインター、次の例で示すようにします。  
+ 次の例では、`IUserData`インターフェイスの使用、`NewOldMarshaler`カスタム マーシャラーに渡すアンマネージ クライアント アプリケーションを有効にする、`IOld`へのインターフェイス、`DoSomeStuff`メソッド。 管理対象の説明、`DoSomeStuff`メソッドは、`INew`インターフェイスには、前の例で示すように、アンマネージ バージョンの`DoSomeStuff`は、`IOld`インターフェイス ポインターを次の例に示すようにします。  
   
 ```  
 [uuid(9B2BAADA-0705-11D3-A0CD-00C04FA35826)]  
@@ -163,7 +165,7 @@ library UserLib {
 }  
 ```  
   
- マネージ定義をエクスポートすることによって生成されるタイプ ライブラリ`IUserData`標準の定義ではなく、この例に示すアンマネージ定義を生成します。 <xref:System.Runtime.InteropServices.MarshalAsAttribute>に適用された属性、`INew`のマネージ定義の引数、`DoSomeStuff`メソッド引数が次の例のように、カスタム マーシャラーを使用することを示します。  
+ マネージ定義をエクスポートすることによって生成されるタイプ ライブラリ`IUserData`標準の定義ではなく、この例に示すアンマネージの定義を生成します。 <xref:System.Runtime.InteropServices.MarshalAsAttribute>属性が適用されて、`INew`のマネージ定義内の引数、`DoSomeStuff`メソッドは、引数が、次の例として、カスタム マーシャラーを使用することを示します。  
   
  [!code-cpp[System.Runtime.InteropServices.ICustomMarshaler#4](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cpp/source.cpp#4)]
  [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#4)]
@@ -173,9 +175,9 @@ library UserLib {
  [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#5)]
  [!code-vb[System.Runtime.InteropServices.ICustomMarshaler#5](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/vb/source.vb#5)]  
   
- 前の例では、最初のパラメーターに提供される、<xref:System.Runtime.InteropServices.MarshalAsAttribute>属性は、<xref:System.Runtime.InteropServices.UnmanagedType.CustomMarshaler?displayProperty=nameWithType>列挙値`UnmanagedType.CustomMarshaler`です。  
+ 前の例では、最初のパラメーターが提供される、<xref:System.Runtime.InteropServices.MarshalAsAttribute>属性は、<xref:System.Runtime.InteropServices.UnmanagedType.CustomMarshaler?displayProperty=nameWithType>列挙値`UnmanagedType.CustomMarshaler`します。  
   
- 2 番目のパラメーターは、<xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType>フィールドには、カスタム マーシャラーのアセンブリ修飾名を提供します。 この名前は、名前空間とカスタム マーシャラーのクラス (`MarshalType="MyCompany.NewOldMarshaler"`)。  
+ 2 番目のパラメーターは、<xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType>フィールドで、カスタム マーシャラーのアセンブリ修飾名を提供します。 この名前は、名前空間と、カスタム マーシャラーのクラス (`MarshalType="MyCompany.NewOldMarshaler"`)。  
   
  ]]></format>
     </remarks>
@@ -191,6 +193,8 @@ library UserLib {
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -225,6 +229,8 @@ library UserLib {
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -259,6 +265,8 @@ library UserLib {
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -291,6 +299,8 @@ library UserLib {
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -326,6 +336,8 @@ library UserLib {
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
