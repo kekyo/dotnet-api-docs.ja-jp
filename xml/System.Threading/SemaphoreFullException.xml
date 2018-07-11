@@ -1,11 +1,11 @@
 <Type Name="SemaphoreFullException" FullName="System.Threading.SemaphoreFullException">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="465d12c63165fb84e4220d19a875fd17949ddf2c" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="3376f73eb9294bdba4a519f82e567653975fccf6" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36605975" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37548680" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class SemaphoreFullException : SystemException" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit SemaphoreFullException extends System.SystemException" />
@@ -29,6 +29,10 @@
     <AssemblyName>netstandard</AssemblyName>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Exception</BaseTypeName>
     <BaseTypeName FrameworkAlternate="netframework-4.5">System.SystemException</BaseTypeName>
@@ -48,19 +52,19 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- セマフォのカウントは、スレッドがセマフォに入るし、スレッドがセマフォを解放したときは増加するたびに減少します。 カウントが 0 の場合の後続の要求を他のスレッドがセマフォを解放するまでブロックします。 すべてのスレッドがセマフォを解放、ときにカウントが最大値で指定されて、セマフォが作成されたとき。 呼び出してスレッドをプログラミング エラーが発生した場合、<xref:System.Threading.Semaphore.Release%2A?displayProperty=nameWithType>メソッドをこの時点で、<xref:System.Threading.SemaphoreFullException>がスローされます。  
+ セマフォのカウントは、スレッドがセマフォに入るし、スレッドがセマフォを解放するときにインクリメントされますたびに減少します。 カウントが 0 の場合、後続の要求は他のスレッドがセマフォを解放するまでブロックします。 すべてのスレッドがセマフォを解放、ときにカウントが最大値で指定されて、セマフォが作成されたとき。 呼び出すスレッドをプログラミング エラーが発生した場合、<xref:System.Threading.Semaphore.Release%2A?displayProperty=nameWithType>メソッドをこの時点で、<xref:System.Threading.SemaphoreFullException>がスローされます。  
   
 > [!NOTE]
->  <xref:System.Threading.Semaphore>クラスへの呼び出しでスレッド id を適用しません、<xref:System.Threading.WaitHandle.WaitOne%2A?displayProperty=nameWithType>と<xref:System.Threading.Semaphore.Release%2A?displayProperty=nameWithType>メソッドです。 呼び出した同じスレッドの必要はありません<xref:System.Threading.WaitHandle.WaitOne%2A>を呼び出す<xref:System.Threading.Semaphore.Release%2A>です。  
+>  <xref:System.Threading.Semaphore>クラスへの呼び出しでスレッド id は強制されません、<xref:System.Threading.WaitHandle.WaitOne%2A?displayProperty=nameWithType>と<xref:System.Threading.Semaphore.Release%2A?displayProperty=nameWithType>メソッド。 呼び出した同じスレッドの必要はありません<xref:System.Threading.WaitHandle.WaitOne%2A>を呼び出す<xref:System.Threading.Semaphore.Release%2A>します。  
   
- <xref:System.Threading.SemaphoreFullException> 必ずしも、例外が発生したコードの問題です。 次のシナリオを検討してください: スレッド A とスレッド B を 2 つのカウントの最大値を持つセマフォを入力してください。 スレッド B にプログラミング エラーが原因でを呼び出す<xref:System.Threading.Semaphore.Release%2A>2 回、セマフォのカウントがいっぱいになるようです。 その結果、スレッド A と最終的に呼び出す<xref:System.Threading.Semaphore.Release%2A>、<xref:System.Threading.SemaphoreFullException>がスローされます。  
+ <xref:System.Threading.SemaphoreFullException> 例外が発生したコードの問題を必ずしも示していませんが。 次のシナリオを検討してください: スレッド A と B のスレッドがセマフォを持つ 2 つの最大数を入力します。 スレッド B でプログラミング エラーが原因でそれを呼び出す<xref:System.Threading.Semaphore.Release%2A>2 回、セマフォのカウントがいっぱいようにします。 その結果、スレッド A と最終的に呼び出して<xref:System.Threading.Semaphore.Release%2A>、<xref:System.Threading.SemaphoreFullException>がスローされます。  
   
  <xref:System.Threading.SemaphoreFullException> クラスのインスタンスの初期プロパティ値一覧については、<xref:System.Threading.SemaphoreFullException.%23ctor> コンストラクターに関するトピックを参照してください。  
   
    
   
 ## Examples  
- どのプログラミング エラーの 1 つのスレッドで発生する可能性が次のコード例を示しています、<xref:System.Threading.SemaphoreFullException>別のスレッドで: 2 つのスレッドがセマフォを入力します。 2 番目のスレッドは、最初のスレッドがタスクを実行して、2 回、セマフォを解放します。 最初のスレッドが終了して、セマフォを解放、セマフォのカウントは既にいっぱいと、例外がスローされます。  
+ 方法 1 つのスレッドでのプログラミング エラーが、発生する可能性。 次のコード例を示しています、<xref:System.Threading.SemaphoreFullException>別のスレッドで: 2 つのスレッドがセマフォを入力します。 2 番目のスレッドは、最初のスレッドには、タスクがまだ実行中に 2 回、セマフォを解放します。 最初のスレッドでは、終了するし、セマフォを解放、セマフォのカウントは既にいっぱいと例外がスローされます。  
   
  [!code-cpp[System.Threading.SemaphoreFullException#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.SemaphoreFullException/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.SemaphoreFullException#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.SemaphoreFullException/CS/source.cs#1)]
@@ -106,6 +110,10 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
       <Parameters />
       <Docs>
         <summary>
@@ -114,7 +122,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このコンス トラクター、 <xref:System.Exception.Message%2A> 「指定されたカウントをセマフォに追加するとするカウントの最大値を超える」などに、エラーを説明するシステム提供のメッセージの新しいインスタンスのプロパティ。 このメッセージには、現在のシステムのカルチャが考慮されます。  
+ このコンス トラクターの初期化、 <xref:System.Exception.Message%2A> 「セマフォに指定された数の追加をしまうカウントの最大値を超える」などに、エラーを説明するシステム提供のメッセージの新しいインスタンスのプロパティ。 このメッセージには、現在のシステムのカルチャが考慮されます。  
   
  <xref:System.Threading.SemaphoreFullException> クラスのインスタンスの初期プロパティ値を次の表に示します。  
   
@@ -152,6 +160,10 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
       <Parameters>
         <Parameter Name="message" Type="System.String" />
       </Parameters>
@@ -162,9 +174,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- コンテンツ`message`テキスト文字列は、例外に関する、ユーザーに通知します。 このコンストラクターの呼び出し元は、この文字列が現在のシステムのカルチャに合わせてローカライズ済みであることを確認しておく必要があります。  
+ コンテンツ`message`はテキスト文字列の例外についてユーザーに通知するものです。 このコンストラクターの呼び出し元は、この文字列が現在のシステムのカルチャに合わせてローカライズ済みであることを確認しておく必要があります。  
   
- 次の表のインスタンスの初期プロパティ値、<xref:System.Threading.SemaphoreFullException>クラスがこのコンス トラクターを使用して初期化します。  
+ 次の表のインスタンスの初期プロパティ値、<xref:System.Threading.SemaphoreFullException>クラスのこのコンス トラクターで初期化します。  
   
 |プロパティ|[値]|  
 |--------------|-----------|  
@@ -198,6 +210,10 @@
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
       <Parameters>
         <Parameter Name="info" Type="System.Runtime.Serialization.SerializationInfo" />
         <Parameter Name="context" Type="System.Runtime.Serialization.StreamingContext" />
@@ -210,7 +226,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このコンストラクターは、逆シリアル化中に、ストリームで送信された例外オブジェクトを再構築するために呼び出されます。 詳細については、次を参照してください。 [XML および SOAP シリアル化](~/docs/standard/serialization/xml-and-soap-serialization.md)です。  
+ このコンストラクターは、逆シリアル化中に、ストリームで送信された例外オブジェクトを再構築するために呼び出されます。 詳細については、次を参照してください。 [XML および SOAP シリアル化](~/docs/standard/serialization/xml-and-soap-serialization.md)します。  
   
  ]]></format>
         </remarks>
@@ -239,6 +255,10 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>

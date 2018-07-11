@@ -1,11 +1,11 @@
 <Type Name="LinqDataSource" FullName="System.Web.UI.WebControls.LinqDataSource">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="43113d93d80de9936c4290c834d8d861c9f352d4" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="dfda2c90a9c0a214d662eabe4e4583f819e9bbb3" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36581613" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37592723" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class LinqDataSource : System.Web.UI.WebControls.ContextDataSource, System.Web.DynamicData.IDynamicDataSource" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit LinqDataSource extends System.Web.UI.WebControls.ContextDataSource implements class System.Web.DynamicData.IDynamicDataSource, class System.Web.UI.IDataSource" />
@@ -15,10 +15,12 @@
   <TypeSignature Language="F#" Value="type LinqDataSource = class&#xA;    inherit ContextDataSource&#xA;    interface IDynamicDataSource&#xA;    interface IDataSource" />
   <AssemblyInfo>
     <AssemblyName>System.Web.Extensions</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Web.UI.WebControls.ContextDataSource</BaseTypeName>
+    <BaseTypeName FrameworkAlternate="netframework-3.5">System.Web.UI.DataSourceControl</BaseTypeName>
   </Base>
   <Interfaces>
     <Interface>
@@ -57,7 +59,7 @@
   
 -   [操作の順序](#order_of_operations)  
   
--   [データの順序](#ordering_data)  
+-   [データの並べ替え](#ordering_data)  
   
 -   [データのグループ化](#grouping_data)  
   
@@ -67,83 +69,83 @@
   
 -   [ストアド プロシージャの使用](#working_with_stored_procedures)  
   
--   [宣言型の構文](#declarative_syntax)  
+-   [宣言構文](#declarative_syntax)  
   
 <a name="introduction"></a>   
 ## <a name="introduction"></a>はじめに  
- 統合言語クエリ (LINQ) は、クエリ演算子のセットを定義するクエリ構文です。NET ベースのプログラミング言語です。 データ オブジェクトには、メモリ内のデータ コレクションまたはデータベースからデータを表すオブジェクトを指定できます。 取得したり、各操作に対する SQL コマンドを記述することがなく、データを変更できます。  
+ 統合言語クエリ (LINQ) は、クエリ演算子のセットを定義するクエリ構文です。NET ベースのプログラミング言語です。 データ オブジェクトには、メモリ内のデータ コレクションをまたはデータベースからデータを表すオブジェクトを指定できます。 取得したり、各操作に対する SQL コマンドを記述することがなく、データを変更できます。  
   
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロールでは、マークアップ テキストでプロパティを設定して、ASP.NET Web ページに LINQ を使用することができます。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールでは、LINQ to SQL を使用して、データ コマンドを自動的に生成します。 LINQ to SQL の詳細については、次を参照してください。 [LINQ to SQL](http://msdn.microsoft.com/library/73d13345-eece-471a-af40-4cc7a2f11655)です。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロールでは、ASP.NET Web ページで LINQ を使用してマークアップのテキストでプロパティを設定することができます。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータ コマンドを自動的に生成する LINQ to SQL を使用します。 LINQ to SQL の詳細については、次を参照してください。 [LINQ to SQL](http://msdn.microsoft.com/library/73d13345-eece-471a-af40-4cc7a2f11655)します。  
   
- メモリ内のデータ コレクションからデータを取得する際に設定する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>データ コレクションを格納するクラスにプロパティです。 設定する、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティをプロパティまたはフィールドをデータ コレクションを返します。 たとえば、という名前のクラスがある`Person`という名前のプロパティを格納している`FavoriteCities`文字列値の配列を返します。 その場合を設定する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティを`Person`設定と、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティを`FavoriteCities`です。  
+ 設定する、メモリ内のデータ コレクションからデータを取得するときに、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティをデータ コレクションを含むクラスにします。 設定する、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティをプロパティまたはフィールドをデータ コレクションを返します。 たとえば、という名前のクラスがある`Person`という名前のプロパティを格納している`FavoriteCities`文字列値の配列を返します。 その場合を設定する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティを`Person`設定と、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティを`FavoriteCities`します。  
   
- データベースのクエリを実行するときに、まず、データベースとそのテーブルを表すエンティティ クラスを作成する必要があります。 使用することができます、[!INCLUDE[vs_ordesigner_long](~/includes/vs-ordesigner-long-md.md)]または SqlMetal.exe ユーティリティは、これらのクラスを生成します。 設定する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティをデータベースを表すクラスを設定し、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティをデータベース テーブルを表すプロパティをします。  
+ データベースのクエリを実行するときに、まず、データベースとそのテーブルを表すエンティティ クラスを作成する必要があります。 使用することができます、[!INCLUDE[vs_ordesigner_long](~/includes/vs-ordesigner-long-md.md)]または、SqlMetal.exe ユーティリティは、これらのクラスを生成します。 設定する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティをデータベースを表すクラスにし、設定、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティをデータベース テーブルを表すプロパティ。  
   
 <a name="order_of_operations"></a>   
 ## <a name="order-of-operations"></a>操作の順序  
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、次の順序でのデータ操作を適用します。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロールには、次の順序でのデータ操作が適用されます。  
   
 1.  場所 (データが返されるレコードの指定)。  
   
-2.  順序 (並べ替え) ではします。  
+2.  順序 (並べ替え) では。  
   
-3.  グループ (値を共有するデータの集計レコード) ではします。  
+3.  グループ (値を共有するデータの集計レコード) では。  
   
-4.  (グループ化のデータの並べ替え) でグループを並べ替えます。  
+4.  Order By (並べ替えのグループ化されたデータ) のグループ。  
   
-5.  (どのフィールドまたはプロパティを返すの指定) を選択します。  
+5.  (どのフィールドまたはプロパティを返す指定) を選択します。  
   
-6.  (ユーザーが選択されているプロパティでデータ レコードの並べ替え) を自動で並べ替えます。  
+6.  自動並べ替え (ユーザーが選択したプロパティでデータ レコードの並べ替え) をダブルクリックします。  
   
-7.  自動ページ (ユーザーが選択されているデータ レコードのサブセットを取得)。  
+7.  自動ページ (ユーザーによって選択されたデータ レコードのサブセットを取得)。  
   
- 条件を追加することができます、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>クエリから返されるデータ レコードをフィルター選択するプロパティです。 場合、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティが設定されていない、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、データ オブジェクトからすべてのレコードを取得します。  
+ 条件を追加することができます、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティをクエリから返されるデータ レコードをフィルター処理します。 場合、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティが設定されていない、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータ オブジェクトからすべてのレコードを取得します。  
   
 <a name="ordering_data"></a>   
-## <a name="ordering-data"></a>データの順序  
- 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティを並べ替えるには、返されたデータからプロパティの名前を指定します。  
+## <a name="ordering-data"></a>データの並べ替え  
+ 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティから返されたデータを並べ替えるにはプロパティの名前を指定します。  
   
 > [!NOTE]
->  使用する場合、<xref:System.Web.UI.WebControls.LinqDataSource>で制御[!INCLUDE[ss2k](~/includes/ss2k-md.md)]または[!INCLUDE[ssEW](~/includes/ssew-md.md)]と<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティに設定されている`true`の値を指定する必要があります、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティです。 既定では、<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティは`true`します。 値を代入する場合、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを含める必要もありますすべての identity 列は、クエリで返されるプロパティの一覧にします。  
+>  使用すると、<xref:System.Web.UI.WebControls.LinqDataSource>で制御する[!INCLUDE[ss2k](~/includes/ss2k-md.md)]または[!INCLUDE[ssEW](~/includes/ssew-md.md)]と<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティに設定されて`true`で値を指定する必要があります、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティ。 既定で、<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティは`true`します。 値を割り当てる場合、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを含める必要がありますすべての identity 列で、クエリで返されるプロパティの一覧。  
   
 <a name="grouping_data"></a>   
 ## <a name="grouping-data"></a>データのグループ化  
- 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを指定するプロパティを使用してに同じ値を持つデータ レコードを統合します。 データをグループ化するときに含める`Key`と`It`が動的に作成されたプロパティで、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティです。 `Key`プロパティまたは複数のデータをグループ化に使用されたプロパティの値を参照します。 たとえば、という名前のプロパティによってグループ化する`Category`、`Key`プロパティにすべての一意の値が格納されます、`Category`プロパティです。 `It`プロパティはデータのグループ内の個々 のレコードのコレクションを参照します。 反復処理することができます、`It`プロパティをグループ化操作に統合されている個々 のレコードを取得します。 たとえば、という名前のプロパティによってグループ化する場合`Category`、`It`プロパティにはで共通の値を共有するすべての個々 のレコードが含まれています、`Category`プロパティです。  
+ 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティに同じ値を持つデータ レコードの統合を使用するプロパティを指定します。 データをグループ化するときに含めることができます`Key`と`It`でのプロパティを動的に作成されるが、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ。 `Key`プロパティまたは複数のデータをグループ化に使用されたプロパティの値を参照します。 たとえば、という名前のプロパティでグループ化する`Category`、`Key`プロパティ内のすべての一意の値が格納されます、`Category`プロパティ。 `It`プロパティはデータのグループ内の個々 のレコードのコレクションを参照します。 反復処理することができます、`It`プロパティをグループ化操作に統合されている個々 のレコードを取得します。 たとえば、という名前のプロパティでグループ化する`Category`、`It`プロパティにはで共通の値を共有するすべての個別のレコードが含まれています、`Category`プロパティ。  
   
- 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティをグループ化されたデータの並べ替えに使用するプロパティを指定します。 データをグループ化するときに、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティでは、グループ化されたデータ内の各レコードの並べ替え方法を指定します。  
+ 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティをグループ化されたデータの並べ替えに使用するプロパティを指定します。 データをグループ化するときに、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティは、グループ化されたデータ内の各レコードの並べ替え方法を指定します。  
   
- 既定では、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、データ オブジェクトからすべてのプロパティの値を取得します。 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを使用できるプロパティのサブセットを操作するかどうかを返すプロパティを指定します。 Select 操作が Where 句、後に適用される Order By と Group By 操作します。 そのため、Select 句で別名を作成する場合は、エイリアスは他の句で使用できません。  
+ 既定で、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータ オブジェクトからすべてのプロパティの値を取得します。 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを使用できるプロパティのサブセットを操作するかどうかに返すプロパティを指定します。 選択操作では、Where、後に適用される Order By と Group By 操作。 そのため、Select 句で別名を作成する場合は、エイリアスは他の句で使用できません。  
   
 <a name="data_modifications"></a>   
 ## <a name="data-modifications"></a>データ変更  
- 使用してデータの変更が有効にするかどうかを指定することができます、 <xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>、 <xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>、および<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>プロパティです。 データを変更するためのユーザー インターフェイス、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール通常を介して提供される、データ バインド コントロールなど、<xref:System.Web.UI.WebControls.DetailsView>コントロール。 設定に加えて<xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>、 <xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>、または<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>に`true`データの自動変更を有効にする次の条件が必要があります。  
+ 使用してデータの変更が有効になっているかどうかを指定することができます、 <xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>、 <xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>、および<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>プロパティ。 データを変更するためのユーザー インターフェイス、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、通常提供、データ バインド コントロールを介してなど、<xref:System.Web.UI.WebControls.DetailsView>コントロール。 設定だけでなく<xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>、 <xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>、または<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>に`true`データの自動変更を有効にする、次の条件が必要です。  
   
 -   <xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティに値を割り当てることができません。  
   
 -   <xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティに値を割り当てることができません。  
   
--   割り当てられているクラス、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティから派生しなければなりません<xref:System.Data.Linq.DataContext>です。  
+-   割り当てられているクラス、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティがから派生する必要があります<xref:System.Data.Linq.DataContext>します。  
   
--   割り当てられているプロパティ、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティから派生しなければなりません<xref:System.Data.Linq.Table%601>です。  
+-   プロパティに割り当てられている、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティがから派生する必要があります<xref:System.Data.Linq.Table%601>します。  
   
- 2 つの方法でデータ バインド コントロールに表示するプロパティを制限することができます。 設定するか、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティのサブセットにプロパティが追加することで、データ バインド コントロールのフィールドを定義できます<xref:System.Web.UI.WebControls.DataControlField>コントロール。 ただし、設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ、そのことを意味する自動更新、挿入、および削除操作を有効にできません。 使用可能なプロパティのサブセットを操作中に、データの自動変更を有効にする場合は設定しないでください、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティです。 代わりに、データ オブジェクトからすべてのプロパティを取得し、管理、データ バインド コントロールを使用して、どれが表示されます。 使用すると、<xref:System.Web.UI.WebControls.DetailsView>コントロールまたは<xref:System.Web.UI.WebControls.GridView>コントロールを設定する必要も、<xref:System.Web.UI.WebControls.DetailsView.AutoGenerateRows%2A>または<xref:System.Web.UI.WebControls.GridView.AutoGenerateColumns%2A>プロパティ`false`です。 これは、データ バインド コントロールが編集、およびデータを削除するためのボタンを自動的に追加することを防ぎます。 データ バインド コントロールに表示されていない任意の値は、ビュー ステートに格納されます。 渡すことが変更されていないデータ ソース データ更新を実行するとします。  
+ プロパティは、2 つの方法でデータ バインド コントロールに表示されるを制限することができます。 設定するか、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティのサブセットを追加することで、データ バインド コントロールのフィールドを定義できます<xref:System.Web.UI.WebControls.DataControlField>コントロール。 ただし、設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ、自動更新、挿入、および削除操作を有効に いることを意味します。 使用可能なプロパティのサブセットを操作するときに、データの自動変更を有効にする場合は設定しないでください、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ。 代わりに、データ オブジェクトからすべてのプロパティを取得し、管理、データ バインド コントロールを使用して表示します。 使用すると、<xref:System.Web.UI.WebControls.DetailsView>コントロールまたは<xref:System.Web.UI.WebControls.GridView>コントロールを設定する必要も、<xref:System.Web.UI.WebControls.DetailsView.AutoGenerateRows%2A>または<xref:System.Web.UI.WebControls.GridView.AutoGenerateColumns%2A>プロパティ`false`します。 これは、データ バインド コントロールが編集、およびデータを削除するためのボタンを自動的に追加することを防ぎます。 データ バインド コントロールに表示されていない任意の値は、ビュー ステートに格納されます。 渡される変更されていないデータ ソースにデータ更新が実行されるとします。  
   
 <a name="evaluating_value_at_run_time"></a>   
 ## <a name="evaluating-values-at-run-time"></a>実行時に値を評価します。  
- 評価する必要が値の並べ替え、実行時にフィルター処理、または値をグループ化するパラメーターを追加することができる場合、 <xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>、 <xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>、 <xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>、または<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。  
+ フィルター処理、並べ替え、実行時に値を評価するがある場合または値をグループ化するパラメーターを追加することができる場合、 <xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>、 <xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>、 <xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>、または<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。  
   
  既定値を指定する場合は、パラメーターを追加することができます、<xref:System.Web.UI.WebControls.LinqDataSource.InsertParameters%2A>コレクション。  
   
- 確認またはデータ操作が実行される前に、値を変更する場合は、処理、 <xref:System.Web.UI.WebControls.LinqDataSource.Deleting>、 <xref:System.Web.UI.WebControls.LinqDataSource.Inserting>、 <xref:System.Web.UI.WebControls.LinqDataSource.Selecting>、または<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント。 これらのイベントを処理できるは、データ操作をキャンセルするために、ユーザー入力に基づいてデータ クラスにプロパティを設定するときに発生した検証エラーを確認したりもできます。  
+ 処理することができますを確認またはデータの操作が実行される前に、値を変更する場合、 <xref:System.Web.UI.WebControls.LinqDataSource.Deleting>、 <xref:System.Web.UI.WebControls.LinqDataSource.Inserting>、 <xref:System.Web.UI.WebControls.LinqDataSource.Selecting>、または<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント。 データ操作をキャンセルするには、ユーザー入力に基づいてデータ クラスのプロパティを設定するときに発生した検証エラーを確認したりこれらのイベントを処理することもできます。  
   
- 値を確認するデータの操作が完了した後、処理、 <xref:System.Web.UI.WebControls.LinqDataSource.Deleted>、 <xref:System.Web.UI.WebControls.LinqDataSource.Inserted>、 <xref:System.Web.UI.WebControls.LinqDataSource.Selected>、または<xref:System.Web.UI.WebControls.LinqDataSource.Updated>イベント。  
+ データ操作が完了した後は、値を調べ、処理、 <xref:System.Web.UI.WebControls.LinqDataSource.Deleted>、 <xref:System.Web.UI.WebControls.LinqDataSource.Inserted>、 <xref:System.Web.UI.WebControls.LinqDataSource.Selected>、または<xref:System.Web.UI.WebControls.LinqDataSource.Updated>イベント。  
   
 <a name="working_with_stored_procedures"></a>   
 ## <a name="working-with-stored-procedures"></a>ストアド プロシージャの使用  
- 使用する、<xref:System.Web.UI.WebControls.LinqDataSource>のイベント ハンドラーを作成することで、ストアド プロシージャからデータを取得するコントロール、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント。 イベント ハンドラー メソッドを呼び出し、ストアド プロシージャを表すデータ コンテキスト クラス内とに、結果を設定、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs>オブジェクト。 自動更新を有効にする、insert、およびデータの削除操作をする場合、メソッドから返される必要がありますと型が一致で指定されている、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティです。 データ コンテキストのメソッドの作成の詳細については、次を参照してください。[する方法: ストアド プロシージャおよび関数 (O/r デザイナー) にマップされる DataContext の作成メソッド](http://msdn.microsoft.com/library/e7ca32f1-50b3-48af-ad92-ceafd749296a)です。  
+ 使用する、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールのイベント ハンドラーを作成して、ストアド プロシージャからデータを取得する、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント。 イベント ハンドラー、ストアド プロシージャを表すデータ コンテキスト クラスでメソッドを呼び出し、設定した結果、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs>オブジェクト。 自動更新を有効にする、insert、およびデータの削除操作する場合は、メソッドから返される型がで指定されている型を一致する必要があります、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティ。 データ コンテキストのメソッドを作成する方法の詳細については、次を参照してください。[方法: ストアド プロシージャおよび関数 (O/r デザイナー) にマップされる DataContext の作成メソッド](http://msdn.microsoft.com/library/e7ca32f1-50b3-48af-ad92-ceafd749296a)します。  
   
 <a name="declarative_syntax"></a>   
-## <a name="declarative-syntax"></a>宣言型の構文  
+## <a name="declarative-syntax"></a>宣言構文  
   
 ```  
 <asp:LinqDataSource  
@@ -196,27 +198,27 @@
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>という名前のエンティティ クラスからデータを取得するコントロール`Products`です。 使用して、そのエンティティ クラスが生成される可能性がありますが、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]または SqlMetal.exe ユーティリティです。 <xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティの値を持つレコードのみを返す、 `Price` 50 を超えるプロパティです。 A<xref:System.Web.UI.WebControls.GridView>コントロールにバインドする、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールにデータを表示します。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>という名前のエンティティ クラスからデータを取得するコントロール`Products`します。 使用してエンティティ クラスが生成される可能性がありますが、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]または SqlMetal.exe ユーティリティ。 <xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>で値があるレコードのみを返すプロパティを設定、 `Price` 50 を超えるプロパティ。 A<xref:System.Web.UI.WebControls.GridView>コントロールにバインドする、<xref:System.Web.UI.WebControls.LinqDataSource>データを表示するコントロール。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#5](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default5.aspx#5)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#5](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default5.aspx#5)]  
   
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>更新、削除、およびデータ ソースのレコードを挿入できるようにするコントロール。 A<xref:System.Web.UI.WebControls.DetailsView>コントロールにバインドする、<xref:System.Web.UI.WebControls.LinqDataSource>を制御しを参照してくださいおよびデータを変更することができます。 選択、更新、削除、またはレコードを挿入するために SQL コマンドが必要ないことに注意してください。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールを更新、削除、およびデータ ソースのレコードを挿入することができます。 A<xref:System.Web.UI.WebControls.DetailsView>コントロールにバインドする、<xref:System.Web.UI.WebControls.LinqDataSource>制御し、表示され、データを変更することができます。 選択、更新、削除、またはレコードを挿入するために SQL コマンドが必要ないことに注意してください。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default2.aspx#2)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default2.aspx#2)]  
   
- 次の例は、イベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>Web ページ内の値に基づいて、データ オブジェクトを設定するイベントです。  
+ 次の例は、イベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>Web ページ内の値に基づいてイベントをデータ オブジェクトを設定します。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSourceSelectEventArgs#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSourceSelectEventArgs/cs/Default3.aspx.cs#3)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSourceSelectEventArgs#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSourceSelectEventArgs/vb/Default3.aspx.vb#3)]  
   
- 例を次に、<xref:System.Web.UI.WebControls.LinqDataSource>制御されている 2 つの列でグループを構成します。 `Key`プロパティを 2 つのプロパティを持つオブジェクトを参照して`ProductCategory`と`Color`です。 によって表されるオブジェクト`It`(エイリアス) の名前を変更したが、`Products`です。 名前が変更された`Products`オブジェクトは、グループ内の個々 のレコードのコレクションを格納します。 各インスタンスにはからのすべての列が含まれて、`Products`テーブル。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールを 2 つの列でグループを構成します。 `Key`プロパティを 2 つのプロパティを持つオブジェクトを参照して`ProductCategory`と`Color`します。 によって表されるオブジェクト`It`(エイリアス) は名前が変更されましたが、`Products`します。 名前が変更された`Products`オブジェクトには、グループ内の個々 のレコードのコレクションが含まれています。 各インスタンスにはからのすべての列が含まれて、`Products`テーブル。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource.GroupBy#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.GroupBy/cs/Default.aspx#1)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource.GroupBy#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.GroupBy/vb/Default.aspx#1)]  
   
- 次の例は 2 つ<xref:System.Web.UI.WebControls.ListView>からデータを表示するコントロールを<xref:System.Web.UI.WebControls.LinqDataSource>前の例で制御します。 1 つ<xref:System.Web.UI.WebControls.ListView>グループ化されたデータと、その他のコントロールが表示されます<xref:System.Web.UI.WebControls.ListView>コントロールがそのグループに属している製品の個々 の名前を表示します。 入れ子になったデータ バインド コントロールの<xref:System.Web.UI.WebControls.BaseDataList.DataSource%2A>プロパティに設定されている`Products`のエイリアスは、これは、`It`オブジェクト。  
+ 次の例では 2 つ<xref:System.Web.UI.WebControls.ListView>からデータを表示するコントロール、<xref:System.Web.UI.WebControls.LinqDataSource>前の例で制御します。 1 つ<xref:System.Web.UI.WebControls.ListView>グループ化されたデータとその他のコントロールを表示します<xref:System.Web.UI.WebControls.ListView>コントロールがそのグループに属している製品の個別の名前を表示します。 入れ子になったデータ バインド コントロールの<xref:System.Web.UI.WebControls.BaseDataList.DataSource%2A>プロパティに設定されて`Products`のエイリアスである、`It`オブジェクト。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource.GroupBy#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.GroupBy/cs/Default.aspx#2)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource.GroupBy#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.GroupBy/vb/Default.aspx#2)]  
@@ -234,6 +236,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
@@ -253,6 +256,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -270,19 +274,19 @@
         <summary>
           <see cref="T:System.Web.UI.WebControls.LinqDataSource" /> コントロールが <see cref="P:System.Web.UI.WebControls.LinqDataSource.OrderByParameters" /> コレクション内の値に基づいて Order By 句を動的に作成するかどうかを示す値を取得または設定します。</summary>
         <value>
-          <see langword="true" /> 場合、<see cref="T:System.Web.UI.WebControls.LinqDataSource" />コントロールは、Order By 句を作成、それ以外の<see langword="false" />します。 既定値は、<see langword="false" /> です。</value>
+          <see langword="true" /> 場合、<see cref="T:System.Web.UI.WebControls.LinqDataSource" />コントロールが Order By 句を作成します。 そうしないと、<see langword="false" />します。 既定値は、<see langword="false" /> です。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 設定すると、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>プロパティを`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール内の値に基づいている Order By 句を動的に作成する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータを並べ替えるとき、最初のパラメーターと、各追加パラメーターのデータをさらに並べ替えます。 パラメーターを含む`null`または空の値は、Order By 句に含まれません。  
+ 設定すると、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>プロパティを`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール内の値に基づいている Order By 句を動的に作成する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、最初のパラメーターによって、データの並べ替えし、各追加のパラメーターのデータをさらに並べ替えます。 パラメーターが含まれている`null`または空の値は、Order By 句に含まれません。  
   
- 設定しない、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティと、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>に設定されている`true`パーサーは、Order By 句を動的に作成されるため、します。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは例外をスロー、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>に設定されている`true`と<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティの値が割り当てられます。  
+ 設定しないでください、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティと、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>に設定されている`true`パーサーは、Order By 句を動的に作成します。 <xref:System.Web.UI.WebControls.LinqDataSource>場合、コントロールが例外をスロー、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>に設定されている`true`と<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティの値が割り当てられます。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>と制御、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>に設定`true`です。 パラメーターが含まれている、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>から並べ替えプロパティに基づいてデータの名前をユーザー コレクションを選択、<xref:System.Web.UI.WebControls.DropDownList>コントロール。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールを<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>に設定`true`します。 パラメーターが含まれている、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>から注文プロパティに基づいてデータの名前をユーザー コレクションを選択、<xref:System.Web.UI.WebControls.DropDownList>コントロール。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#8](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default8.aspx#8)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#8](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default8.aspx#8)]  
@@ -304,6 +308,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -326,16 +331,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 設定すると、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティを`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、Where を動的に作成では、パラメーターから句、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。 追加する各パラメーター、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクションが必要です、<xref:System.Web.UI.WebControls.Parameter.Name%2A>プロパティをクエリが実行されるデータ オブジェクトのプロパティに一致する値に設定します。 自動的に生成された句はどこで確認するかどうかに指定された値、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション データ オブジェクトに一致するプロパティの値に等しい。 1 つ以上のパラメーターを指定する場合、パラメーターにリンク論理`AND`操作します。 パラメーターを含む`null`または Where 句で空の値が含まれていない句。  
+ 設定すると、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティを`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール、場所を動的に作成する句のパラメーターから、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。 各パラメーターに追加する、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクションが必要です、<xref:System.Web.UI.WebControls.Parameter.Name%2A>プロパティが照会されるデータ オブジェクトのプロパティに一致する値に設定します。 自動的に生成された句が指定された値がであるかどうかを確認は、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション データ オブジェクトに一致するプロパティの値に等しい。 パラメーターが論理リンクは 1 つ以上のパラメーターを指定する場合`AND`操作。 パラメーターが含まれている`null`または空の値は、where は含まれていない句。  
   
- 自動的に生成された<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>句が等価性のみをテストできますおよびのみを持つパラメーターをリンクできる、`AND`操作します。 設定しないでください、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティを`true`等しいかどうかをテストしないその条件を追加する必要がある場合、またはパラメーターに関連付ける必要がある場合、`OR`操作します。 設定して、これらのタスクを行うことができます、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティを`false`内のプレース ホルダーを追加して、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>内の各パラメーターのプロパティ、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。 <xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティ、各プレース ホルダー名をはじめ、@ 記号。  
+ 自動的に生成された<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>句が等しいかどうかのみをテストでき、パラメーターでのみをリンクすることができます、`AND`操作。 設定しないでください、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティを`true`等しいかどうかをテストしません条件を追加する必要がある場合、またはパラメーターに関連した場合、`OR`操作。 設定して、これらのタスクを行うことができます、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティを`false`内のプレース ホルダーを追加して、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>内の各パラメーターのプロパティ、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。 <xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティ、各プレース ホルダー名を付ける、@ 記号。  
   
- 設定しない、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティと、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティは`true`パーサーは、Where を動的に作成されるため、句。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは例外をスロー、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティは`true`と<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティの値が割り当てられます。  
+ 設定しない、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティと、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティは`true`パーサーは、Where を動的に作成するため、句。 <xref:System.Web.UI.WebControls.LinqDataSource>場合、コントロールが例外をスロー、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティは`true`と<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティの値が割り当てられます。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>と制御、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>に設定`true`です。 A<xref:System.Web.UI.WebControls.GridView>コントロールにバインドする、<xref:System.Web.UI.WebControls.LinqDataSource>クエリから返されるデータを表示します。 A<xref:System.Web.UI.WebControls.DropDownList>コントロールが次の 3 つの値が入力されます。 パラメーターが含まれている、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>設定した名前を持つコレクション`Category,`データ オブジェクトのプロパティのいずれかに一致します。 その<xref:System.Web.UI.WebControls.ControlParameter.ControlID%2A>の ID に設定されて、<xref:System.Web.UI.WebControls.DropDownList>コントロール。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールが自動的に作成、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>からユーザーを選択する値に基づいて、レコードをフィルターするプロパティ、<xref:System.Web.UI.WebControls.DropDownList>コントロール。 クエリには、レコードが返されますが`Category`プロパティから、ユーザーが選択した値に一致する、<xref:System.Web.UI.WebControls.DropDownList>コントロール。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールを<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>に設定`true`します。 A<xref:System.Web.UI.WebControls.GridView>コントロールにバインドする、<xref:System.Web.UI.WebControls.LinqDataSource>クエリから返されるデータを表示します。 A<xref:System.Web.UI.WebControls.DropDownList>コントロールが含まれるは 3 つの値に設定されます。 パラメーターが含まれている、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>設定名前を持つコレクション`Category,`データ オブジェクトのプロパティのいずれかに一致します。 その<xref:System.Web.UI.WebControls.ControlParameter.ControlID%2A>の ID に設定されて、<xref:System.Web.UI.WebControls.DropDownList>コントロール。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールが自動的に作成、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>からユーザーが選択した値に基づいてレコードをフィルターするプロパティ、<xref:System.Web.UI.WebControls.DropDownList>コントロール。 クエリのレコードを返すが`Category`プロパティから、ユーザーが選択した値に一致する、<xref:System.Web.UI.WebControls.DropDownList>コントロール。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#7](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default7.aspx#7)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#7](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default7.aspx#7)]  
@@ -354,6 +359,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -374,12 +380,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 設定、<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティを`true`でページングを有効にする、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 データをページにユーザーを有効にするには、接続へのページングのインターフェイスを提供するデータ バインド コントロール、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティに設定されている`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータ バインド コントロール内の 1 つのページのための十分なレコードだけを取得します。 使用して、<xref:System.Linq.Enumerable.Skip%2A>と<xref:System.Linq.Enumerable.Take%2A>を現在のページのレコードを取得するメソッド。  
+ 設定、<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティを`true`でページングを有効にする、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 データをページにユーザーを有効にする接続へのページングのインターフェイスを提供するデータ バインド コントロールを<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティに設定されて`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータ バインド コントロール内の 1 つのページのための十分なレコードだけを取得します。 使用して、<xref:System.Linq.Enumerable.Skip%2A>と<xref:System.Linq.Enumerable.Take%2A>を現在のページのレコードを取得するメソッド。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールを<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティに設定`true`と<xref:System.Web.UI.WebControls.GridView>コントロールにバインドされている、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 <xref:System.Web.UI.WebControls.GridView.AllowPaging%2A>のプロパティ、<xref:System.Web.UI.WebControls.GridView>コントロールに設定されて`true`がデータをユーザー ページをできるようにするインターフェイスを提供します。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールを<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティに設定`true`と<xref:System.Web.UI.WebControls.GridView>コントロールにバインドされている、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 <xref:System.Web.UI.WebControls.GridView.AllowPaging%2A>のプロパティ、<xref:System.Web.UI.WebControls.GridView>に設定されているコントロール`true`できるように、データ ページをユーザー インターフェイスを提供します。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default.aspx#1)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default.aspx#1)]  
@@ -398,6 +404,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -418,16 +425,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、データを並べ替えるための 2 つの方法をサポートしています。 使用することができます、<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>または実行時の並べ替えを有効にするプロパティが設定できる、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>デザイン時の並べ替えを定義するプロパティです。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、データの並べ替えの 2 つのアプローチをサポートしています。 使用することができます、<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>または実行時の並べ替えを有効にするプロパティを設定できる、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>デザイン時に並べ替えを定義するプロパティ。  
   
- 設定、<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>プロパティを`true`で並べ替えを有効にする<xref:System.Web.UI.WebControls.LinqDataSource>データ バインド コントロールから、並べ替え式に基づいているコントロール。 データ バインド コントロールでは、実行時に、並べ替えに使用するプロパティを選択するユーザーを有効にするインターフェイスを提供します。  
+ 設定、<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>プロパティを`true`で並べ替えを有効にする、<xref:System.Web.UI.WebControls.LinqDataSource>データ バインド コントロールの並べ替え式に基づいているコントロール。 データ バインド コントロールは、ユーザーは、並べ替えに使用するプロパティの実行時に選択できるようにするインターフェイスを提供します。  
   
- プログラムで設定してデータが返されます順序を設定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティをプロパティまたはプロパティの並べ替えに使用します。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティがプロパティに設定され、<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>プロパティは`true`で式の後に、データ バインド コントロールから並べ替え式が適用される、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティです。 そのため、データの最終的な並べ替えを決定します。  
+ 設定によってデータが返される順序をプログラムで設定できる、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティまたはプロパティの並べ替えに使用するプロパティ。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティがプロパティに設定し、<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>プロパティは`true`で式の後に、データ バインド コントロールの並べ替え式が適用される、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティ。 そのため、データの最終的な並べ替えを指定します。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールを<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>プロパティに設定`true`と<xref:System.Web.UI.WebControls.GridView>コントロールにバインドされている、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 <xref:System.Web.UI.WebControls.GridView.AllowSorting%2A>のプロパティ、<xref:System.Web.UI.WebControls.GridView>コントロールに設定されている`true`ユーザーがデータを並べ替えできるインターフェイスを提供します。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールを<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>プロパティに設定`true`と<xref:System.Web.UI.WebControls.GridView>コントロールにバインドされている、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 <xref:System.Web.UI.WebControls.GridView.AllowSorting%2A>のプロパティ、<xref:System.Web.UI.WebControls.GridView>に設定されているコントロール`true`ユーザー データを並べ替えできるようにするインターフェイスを提供します。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default.aspx#1)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default.aspx#1)]  
@@ -446,6 +453,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -462,11 +470,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理、<xref:System.Web.UI.WebControls.LinqDataSource.ContextCreated>コンテキスト型のオブジェクトを確認またはオブジェクトの作成中に発生する例外を確認するイベントです。 コンテキスト型のオブジェクトを取得する、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>このイベントに関連付けられているオブジェクト。 データの操作中に発生した例外を取得する、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティです。  
+ 処理、<xref:System.Web.UI.WebControls.LinqDataSource.ContextCreated>イベント コンテキスト タイプ オブジェクトを確認またはオブジェクトの作成中に発生する例外を確認します。 コンテキスト型のオブジェクトを取得する、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>このイベントに関連付けられているオブジェクト。 データの操作中に発生した例外を取得する、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティ。  
   
- コンテキスト型オブジェクトでは、select、update、insert、および削除操作中に作成され、要求全体で再利用します。  
+ コンテキスト タイプ オブジェクトは、select、update、insert、および削除操作中に作成され、要求全体で再利用されます。  
   
- 1 回の場合、イベントは発生しませんがあります。 これは、プログラムで設定する場合、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>プロパティ中にオブジェクトを<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント。 追加の条件は、元のいずれかの値を表示状態、または内のオブジェクトに格納する必要はありません、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>プロパティを実装して、<xref:System.Data.Linq.ITable>インターフェイスです。  
+ 1 つの時間が、イベントが発生しない場合があります。 これは、プログラムで設定すると、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>プロパティ中にオブジェクトを<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント。 追加の条件がビュー状態、または内のオブジェクトに格納される元のいずれかの値がないこと、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>プロパティの実装、<xref:System.Data.Linq.ITable>インターフェイス。  
   
  ]]></format>
         </remarks>
@@ -482,6 +490,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -498,16 +507,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 既定では、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールで指定されている型のインスタンスを作成、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティです。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、オブジェクトのインスタンスを作成するデータ コンテキスト オブジェクトの既定のコンス トラクターを呼び出します。 既定以外のコンス トラクターを使用する必要がかで指定されたものとは異なるオブジェクトを作成する必要がある可能性が、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティです。 その場合は、処理する必要があります、<xref:System.Web.UI.WebControls.LinqDataSource.ContextCreating>イベント データ コンテキスト オブジェクトを手動で作成します。  
+ 既定で、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールで指定されている型のインスタンスを作成、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティ。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、オブジェクトのインスタンスを作成するデータ コンテキスト オブジェクトの既定のコンス トラクターを呼び出します。 既定以外のコンス トラクターを使用する必要があるかで指定されたものとは異なるオブジェクトを作成する必要が、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティ。 その場合は、処理する必要があります、<xref:System.Web.UI.WebControls.LinqDataSource.ContextCreating>イベントを手動でデータ コンテキスト オブジェクトを作成します。  
   
- コンテキスト型のオブジェクトは、select、update、insert、および削除操作中に作成されます。  
+ コンテキスト タイプ オブジェクトは、select、update、insert、および削除操作中に作成されます。  
   
- 1 回の場合、イベントは発生しませんがあります。 これは、プログラムで設定する場合、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>プロパティのイベント ハンドラー内のオブジェクトを<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント。 追加の条件は、元のいずれかの値を表示状態、または内のオブジェクトに格納する必要はありません、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>プロパティを実装して、<xref:System.Data.Linq.ITable>インターフェイスです。  
+ 1 つの時間が、イベントが発生しない場合があります。 これは、プログラムで設定すると、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>プロパティのイベント ハンドラー内のオブジェクトを<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント。 追加の条件がビュー状態、または内のオブジェクトに格納される元のいずれかの値がないこと、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Result%2A>プロパティの実装、<xref:System.Data.Linq.ITable>インターフェイス。  
   
    
   
 ## Examples  
- 次の例は、中に既定以外のコンス トラクターを使用して、データ コンテキスト オブジェクトを作成する方法を示しています、<xref:System.Web.UI.WebControls.LinqDataSource.ContextCreating>イベント。 オブジェクトを代入して、<xref:System.Web.UI.WebControls.LinqDataSourceContextEventArgs.ObjectInstance%2A>プロパティです。  
+ 次の例では、中に既定以外のコンス トラクターを使用して、データ コンテキスト オブジェクトを作成する方法を示しています、<xref:System.Web.UI.WebControls.LinqDataSource.ContextCreating>イベント。 コードをオブジェクトに割り当てます、<xref:System.Web.UI.WebControls.LinqDataSourceContextEventArgs.ObjectInstance%2A>プロパティ。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSource.ContextCreating#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.ContextCreating/cs/Default.aspx.cs#1)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSource.ContextCreating#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.ContextCreating/vb/Default.aspx.vb#1)]  
@@ -526,6 +535,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -542,7 +552,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextDisposing>を手動でオブジェクトを破棄する場合、またはクリーンアップ操作は、オブジェクトに固有のオブジェクトが破棄される前に実行するイベントです。  
+ 処理する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextDisposing>イベントを手動でオブジェクトを破棄する場合、またはを実行するクリーンアップ、オブジェクトが破棄される前に、オブジェクトに固有であります。  
   
  ]]></format>
         </remarks>
@@ -558,6 +568,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -578,27 +589,27 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用すると、<xref:System.Web.UI.WebControls.LinqDataSource>メモリ内のデータ コレクションまたはデータベースからデータを取得するコントロールを 2 つのプロパティを指定する必要があります。 最初は、データ ソースを表すデータ コンテキスト クラスです。 2 つ目は、データを含むデータ コンテキスト クラスのプロパティです。 設定する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティ データ コンテキスト クラスの名前を設定、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティ データを格納しているデータ コレクションをします。  
+ 使用すると、<xref:System.Web.UI.WebControls.LinqDataSource>メモリ内のデータ コレクションまたはデータベースからデータを取得するコントロールを 2 つのプロパティを指定する必要があります。 最初は、データ ソースを表すデータ コンテキスト クラスです。 2 つ目は、データを含むデータ コンテキスト クラスのプロパティです。 設定する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティ データ コンテキスト クラスの名前を設定、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティをデータが含まれるデータのコレクション。  
   
- たとえば、データベースからデータを取得するときに設定、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティをデータベースを表すクラスの名前にします。 設定も、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティをデータベース内のテーブルを表すプロパティ。 データベースからクラスを生成するには、使用、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]または SqlMetal.exe ユーティリティを自動的にこれらのクラスを生成します。  
+ たとえば、データベースからデータを取得すると設定、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティをデータベースを表すクラスの名前にします。 設定しても、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティをデータベース内のテーブルを表すプロパティ。 データベースからクラスを生成するには、使用、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]またはそれらのクラスを自動的に生成する SqlMetal.exe ユーティリティ。  
   
- 配列などのメモリ内のデータ コレクションからデータを取得する場合、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティ配列プロパティが含まれているクラスの名前にします。 設定して、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティの配列を取得するプロパティです。  
+ 配列など、メモリ内のデータ コレクションからデータを取得する場合、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティ配列プロパティが含まれるクラスの名前にします。 設定し、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティを配列を取得するプロパティ。  
   
- 自動更新を有効にするには、挿入、または削除操作を<xref:System.Web.UI.WebControls.LinqDataSource>に割り当てられているクラスを制御する、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティから派生しなければなりません<xref:System.Data.Linq.DataContext>です。 さらに、プロパティは割り当て、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティから派生しなければなりません<xref:System.Data.Linq.Table%601>です。 必要な自動更新を有効にする insert、またはしない削除操作、割り当てることができますをクラスの任意の型の名前、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティです。  
+ 自動更新を有効にするのには、挿入、または削除操作を<xref:System.Web.UI.WebControls.LinqDataSource>コントロールに割り当てられているクラス、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティがから派生する必要があります<xref:System.Data.Linq.DataContext>します。 さらに、プロパティに割り当てられている、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティがから派生する必要があります<xref:System.Data.Linq.Table%601>します。 クラスの任意の型の名前を割り当てることができる場合、いない必要がありますの自動更新を有効にする insert、または削除操作、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティ。  
   
- クラスのインスタンスからデータを選択する方法については、次を参照してください。、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>プロパティです。  
+ クラスのインスタンスからデータを選択する方法については、次を参照してください。、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>プロパティ。  
   
    
   
 ## Examples  
- 次の例は、設定する方法を示します、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>を文字列の配列を含むクラスのプロパティです。 クラスにプロパティを設定する方法も示しています (によって生成された、 [!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]) を表すデータベース。  
+ 次の例は、設定する方法を示します、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティを文字列の配列を含むクラスにします。 クラスにプロパティを設定する方法も示します (によって生成された、 [!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]) データベースを表します。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Overview#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Overview/cs/Default.aspx#2)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Overview#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Overview/vb/Default.aspx#2)]  
   
- という名前のクラス`ExampleDataContext`を表すデータベース テーブルが表示されないようにこの例ではします。 この例を実行するは、名前付き Example.dbml テーブルをドラッグして、上にムービーをという名前の LINQ に SQL クラスを追加することによってこのクラスを作成する必要があります、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]です。 という名前のクラス`ExampleDataContext`という名前のプロパティと`Movies`が生成されます。  
+ という名前のクラス`ExampleDataContext`表しますデータベース テーブルが表示されないことこの例では。 この例を動作させるには、名前付き Example.dbml テーブルをドラッグして、上にムービーをという名前の LINQ に SQL クラスを追加することでこのクラスを作成する必要があります、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]します。 という名前のクラス`ExampleDataContext`という名前のプロパティで`Movies`が生成されます。  
   
- 次の例は、という名前のクラスを示しています。`MovieLibrary`で参照されている、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。  
+ 次の例は、という名前のクラスを示しています。`MovieLibrary`内で参照される、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSource_Overview#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Overview/cs/App_Code/MovieLibrary.cs#1)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSource_Overview#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Overview/vb/App_Code/MovieLibrary.vb#1)]  
@@ -639,6 +650,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -652,7 +664,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- カスタム ビューを提供するには、派生クラスでは、このメソッドをオーバーライドすることができます。  
+ カスタム ビューを提供するには、派生クラスでこのメソッドをオーバーライドできます。  
   
  ]]></format>
         </remarks>
@@ -668,6 +680,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -686,7 +699,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 通常がありませんを呼び出して、<xref:System.Web.UI.WebControls.LinqDataSource.Delete%2A>コードからメソッドです。 使用すると、<xref:System.Web.UI.WebControls.LinqDataSource>データ バインド コントロール、データ バインド コントロールでは自動的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Delete%2A>メソッドは、ユーザーがレコードを削除する操作とします。 明示的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Delete%2A>メソッド データを削除するための独自のプロセスを作成するときにします。 たとえばを呼び出すことができます、<xref:System.Web.UI.WebControls.LinqDataSource.Delete%2A>データ バインド コントロールの外部イベントに基づいて、このメソッドは、レコードを削除するとします。  
+ 通常を呼び出す必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.Delete%2A>コードからメソッド。 使用すると、<xref:System.Web.UI.WebControls.LinqDataSource>データ バインド コントロールをデータ バインド コントロールでは自動的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Delete%2A>メソッド、ユーザーがレコードを削除する操作。 明示的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Delete%2A>メソッド データを削除するための独自のプロセスを作成するときにします。 たとえば、呼び出すことができます、<xref:System.Web.UI.WebControls.LinqDataSource.Delete%2A>方法レコードを削除する場合、データ バインド コントロールの外部イベントに基づいています。  
   
  ]]></format>
         </remarks>
@@ -702,6 +715,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -718,7 +732,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理、 <xref:System.Web.UI.WebControls.LinqDataSource.Deleted> delete 操作から例外をキャッチする場合、または操作が完了した後、出力パラメーターを検査するイベントです。 出力パラメーターを取得することができます、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>イベント ハンドラーに渡されるオブジェクト。  
+ 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Deleted>イベント、削除操作から例外をキャッチするか、操作が完了した後、出力パラメーターを確認します。 出力パラメーターを取得することができます、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>イベント ハンドラーに渡されるオブジェクト。  
   
  ]]></format>
         </remarks>
@@ -734,6 +748,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -772,6 +787,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -788,14 +804,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>を削除する、削除操作の前に値を変更または削除操作をキャンセルするデータ クラスからのデータの検証エラーを検査するオブジェクトを検証するイベントです。 <xref:System.Web.UI.WebControls.LinqDataSource>パスを制御する<xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs>オブジェクトのイベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>イベント。 <xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs>オブジェクトには、データが削除され、削除操作をキャンセルすることができますが含まれています。 データ クラスをスローする場合、 <xref:System.Web.UI.WebControls.LinqDataSourceValidationException> 、例外、<xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs>オブジェクトにはで、その例外が含まれています、<xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs.Exception%2A>プロパティです。  
+ 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>イベントを削除する、削除操作で、前に値を変更する、または削除操作をキャンセルするデータ クラスからのデータ検証エラーを調査するオブジェクトを検証します。 <xref:System.Web.UI.WebControls.LinqDataSource>制御からパスを<xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs>オブジェクトのイベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>イベント。 <xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs>オブジェクトが削除され、削除操作をキャンセルすることができるデータが含まれています。 場合は、データ クラスがスローされます、 <xref:System.Web.UI.WebControls.LinqDataSourceValidationException> 、例外、<xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs>オブジェクトにはで、その例外が含まれています、<xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs.Exception%2A>プロパティ。  
   
- かどうかのイベント ハンドラーで例外がスローされます、<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>イベント、そのイベント ハンドラーで例外を処理する必要があります。 例外は、のイベント ハンドラーに渡すことはできません、<xref:System.Web.UI.WebControls.LinqDataSource.Deleted>イベント (を通じて、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>オブジェクト)。 <xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティには、後にスローされた例外だけが含まれています、<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>イベント。  
+ イベント ハンドラーで例外がスローされます、<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>イベント、そのイベント ハンドラーで例外を処理する必要があります。 イベント ハンドラーに例外を渡すことはできません、<xref:System.Web.UI.WebControls.LinqDataSource.Deleted>イベント (を通じて、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>オブジェクト)。 <xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティには、後にスローされる例外のみが含まれています、<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>イベント。  
   
    
   
 ## Examples  
- 次の例は、イベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>イベント。 コードでは、プロパティに基づいて、削除操作のキャンセル、<xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs.OriginalObject%2A>プロパティと、Web ページからの値。 例では、ときに、`OnSale`プロパティに設定されている`true`、ユーザーを選択する必要があります、<xref:System.Web.UI.WebControls.CheckBox>コントロールをレコードが削除されることを確認します。  
+ 次の例は、イベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Deleting>イベント。 コード内のプロパティに基づいて、削除操作のキャンセル、<xref:System.Web.UI.WebControls.LinqDataSourceDeleteEventArgs.OriginalObject%2A>プロパティと、Web ページからの値。 例では、ときに、`OnSale`プロパティに設定されて`true`、ユーザーを選択する必要があります、<xref:System.Web.UI.WebControls.CheckBox>コントロールをレコードを削除することを確認します。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSource.Deleting#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Deleting/cs/Default.aspx.cs#1)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSource.Deleting#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Deleting/vb/Default.aspx.vb#1)]  
@@ -817,6 +833,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -838,14 +855,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 設定、<xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>プロパティを`true`を通じてデータ レコードを削除するユーザーを有効にするときに、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 ときに<xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>は`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは LINQ to SQL を使用してデータを削除するコマンドを自動的に作成します。 ユーザーなどを削除するレコードを選択できるインターフェイスを含める必要があります、<xref:System.Web.UI.WebControls.DetailsView>コントロール。  
+ 設定、<xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>プロパティを`true`を通じてデータ レコードを削除するユーザーを有効にする場合、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 ときに<xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>は`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータを削除するコマンドを自動的に作成する LINQ to SQL を使用します。 ユーザーなどを削除するレコードを選択できるようにするインターフェイスを含める必要があります、<xref:System.Web.UI.WebControls.DetailsView>コントロール。  
   
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロールが自動削除の各操作をサポートしていないときに、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティまたは<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティが設定します。 その場合は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、削除操作を試みた場合に例外をスローします。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは自動削除の操作をサポートしていませんときに、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティまたは<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを設定します。 その場合は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、削除操作を試みた場合に例外をスローします。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>を持つコントロールを<xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>'éý'`true`です。 A<xref:System.Web.UI.WebControls.DetailsView>コントロールは、データが表示され、ユーザーがデータ レコードを削除できるボタンを作成します。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>を持つコントロールを<xref:System.Web.UI.WebControls.LinqDataSource.EnableDelete%2A>設定`true`します。 A<xref:System.Web.UI.WebControls.DetailsView>コントロールは、データが表示され、ユーザーがデータ レコードを削除できるボタンを作成します。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default2.aspx#2)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default2.aspx#2)]  
@@ -867,6 +884,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -888,14 +906,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 設定、<xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>プロパティを`true`から新しいデータ レコードを挿入するユーザーを有効にするときに、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 ときに<xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>は`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータを挿入するコマンドを自動的に作成する LINQ to SQL を使用します。 ユーザーがなど、新しいレコードを挿入できるインターフェイスを含める必要があります、<xref:System.Web.UI.WebControls.DetailsView>コントロール。  
+ 設定、<xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>プロパティを`true`を介して新しいデータ レコードを挿入するユーザーを有効にする場合、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 ときに<xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>は`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールでは、LINQ to SQL を使用して、自動的にデータを挿入するコマンドを作成します。 ユーザーなど、新しいレコードを挿入できるようにするインターフェイスを含める必要があります、<xref:System.Web.UI.WebControls.DetailsView>コントロール。  
   
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロールが自動挿入操作をサポートしていないときに、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティまたは<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティが設定します。 その場合は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、挿入操作を試みた場合に例外をスローします。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロールが自動挿入操作をサポートしないときに、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティまたは<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを設定します。 その場合は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、挿入操作を試みた場合に例外をスローします。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>を持つコントロールを<xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>'éý'`true`です。 A<xref:System.Web.UI.WebControls.DetailsView>コントロールは、データを表示し、モード、ユーザーが作成し、新しいレコードの保存を挿入するコントロールを切り替えるボタンが表示されます。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>を持つコントロールを<xref:System.Web.UI.WebControls.LinqDataSource.EnableInsert%2A>設定`true`します。 A<xref:System.Web.UI.WebControls.DetailsView>コントロールは、データが表示され、挿入モードのユーザーが作成および新しいレコードを保存するコントロールを切り替えるボタンが表示されます。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default2.aspx#2)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default2.aspx#2)]  
@@ -914,6 +932,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -934,9 +953,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.WebControls.LinqDataSource.EnableObjectTracking%2A>プロパティは、LINQ に SQL データ コンテキストのオブジェクトからデータを選択するときにのみ使用します。  
+ <xref:System.Web.UI.WebControls.LinqDataSource.EnableObjectTracking%2A>プロパティは、SQL に LINQ データ コンテキスト オブジェクトからデータを選択するときにのみ使用します。  
   
- 読み取り専用のデータをやり取りする場合、設定、<xref:System.Web.UI.WebControls.LinqDataSource.EnableObjectTracking%2A>プロパティを`false`データが変更されているかどうかを決定するキャッシュされませんのでパフォーマンスが向上します。 ただし、クエリの遅延実行も無効にします。 このプロパティに設定する必要があります`true`クエリの遅延実行を使用する場合。  
+ 読み取り専用データをやり取りするときに、設定、<xref:System.Web.UI.WebControls.LinqDataSource.EnableObjectTracking%2A>プロパティを`false`データが変更されているかどうかを決定するキャッシュされないために、パフォーマンスが向上します。 ただし、クエリの遅延実行も無効にします。 このプロパティに設定する必要があります`true`クエリの遅延実行を使用する場合。  
   
  ]]></format>
         </remarks>
@@ -956,6 +975,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -977,20 +997,73 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 設定、<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>プロパティを`true`を使用してデータ レコードを更新するユーザーを有効にするときに、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 ときに<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>は`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータを更新するコマンドを自動的に作成する LINQ to SQL を使用します。 ユーザーがなど、レコードを更新できるインターフェイスを含める必要があります、<xref:System.Web.UI.WebControls.DetailsView>コントロール。  
+ 設定、<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>プロパティを`true`を使用してデータ レコードを更新するユーザーを有効にする場合、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 ときに<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>は`true`、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールでは、LINQ to SQL を使用して、自動的にデータを更新するコマンドを作成します。 ユーザーなど、レコードを更新できるようにするインターフェイスを含める必要があります、<xref:System.Web.UI.WebControls.DetailsView>コントロール。  
   
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロールが自動更新操作をサポートしていないときに、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティまたは<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティが設定します。 その場合は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、更新操作を試みた場合に例外をスローします。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、自動更新の操作をサポートしないときに、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティまたは<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを設定します。 その場合は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、更新操作を試みた場合に例外をスローします。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>を持つコントロールを<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>'éý'`true`です。 A<xref:System.Web.UI.WebControls.DetailsView>コントロールは、データが表示され、ユーザーがデータ レコードを更新できるボタンを作成します。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>を持つコントロールを<xref:System.Web.UI.WebControls.LinqDataSource.EnableUpdate%2A>設定`true`します。 A<xref:System.Web.UI.WebControls.DetailsView>コントロールは、データが表示され、ユーザーがデータ レコードを更新できるボタンを作成します。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default2.aspx#2)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default2.aspx#2)]  
   
  ]]></format>
         </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetView">
+      <MemberSignature Language="C#" Value="protected override System.Web.UI.DataSourceView GetView (string viewName);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.Web.UI.DataSourceView GetView(string viewName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.LinqDataSource.GetView(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Function GetView (viewName As String) As DataSourceView" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override System::Web::UI::DataSourceView ^ GetView(System::String ^ viewName);" />
+      <MemberSignature Language="F#" Value="override this.GetView : string -&gt; System.Web.UI.DataSourceView" Usage="linqDataSource.GetView viewName" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Web.UI.IDataSource.GetView(System.String)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.UI.DataSourceView</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="viewName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="viewName">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetViewNames">
+      <MemberSignature Language="C#" Value="protected override System.Collections.ICollection GetViewNames ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.Collections.ICollection GetViewNames() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.LinqDataSource.GetViewNames" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Function GetViewNames () As ICollection" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override System::Collections::ICollection ^ GetViewNames();" />
+      <MemberSignature Language="F#" Value="override this.GetViewNames : unit -&gt; System.Collections.ICollection" Usage="linqDataSource.GetViewNames " />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Web.UI.IDataSource.GetViewNames</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.ICollection</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="GroupBy">
@@ -1003,6 +1076,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1023,15 +1097,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを同じ値を持つデータ レコードを統合するために使用するプロパティを指定します。 たとえば、設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを`Name`が同じである、クエリ内のすべてのレコード`Name`プロパティの値は 1 つの統合されたレコードとして返されます。  
+ 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティに同じ値を持つデータ レコードを統合するために使用するプロパティを指定します。 たとえば、設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを`Name`が同じクエリ内のすべてのレコード`Name`プロパティの値は 1 つの統合されたレコードとして返されます。  
   
- 1 つ以上のプロパティを割り当てることができます、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティ内のすべてのプロパティを囲むことによって、`new`関数し、コンマを使用して、各プロパティを分離します。 プロパティでグループ化する場合など、`Name`し`Category`、設定、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを`new(Name, Category)`です。  
+ 1 つ以上のプロパティを割り当てることができます、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティ内のすべてのプロパティを囲むことで、`new`関数とコンマを使用して各プロパティを分離することです。 など、プロパティでグループ化する`Name`し`Category`、設定、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを`new(Name, Category)`します。  
   
- グループ化に使用されるプロパティの値は、という名前の生成されたプロパティを通じて返される`Key`です。 含める、`Key`プロパティに、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティをグループ化された値を取得します。 設定することができます、`Key`プロパティを使用して別名を`As`キーワード、ですが、別名を使用する必要はありません。 たとえば、設定することがあります、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>という名前のプロパティをプロパティ`Category`です。 統合の値を取得することができます、`Category`プロパティを設定して、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを`new(Key As ProductCategory)`です。  
+ という名前の生成されたプロパティによってグループ化に使用されるプロパティの値が返されます`Key`します。 含める、`Key`プロパティ、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティをグループ化された値を取得します。 設定することができます、`Key`プロパティを使用してエイリアスを`As`キーワードが別名を使用する必要はありません。 たとえば、設定することがあります、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティという名前のプロパティを`Category`します。 統合の値を取得することができます、`Category`プロパティを設定して、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを`new(Key As ProductCategory)`します。  
   
- 含めることによって、グループ内の個々 のレコードにアクセスすることができます、`It`プロパティに、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティです。 `It`プロパティには、グループ化されたプロパティの値を共有するレコードのコレクションが含まれています。 反復処理することができます、`It`個々 のレコードを取得するプロパティです。  
+ グループ内の個々 のレコードを含めることによってアクセスできる、`It`プロパティ、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ。 `It`プロパティにはでグループ化されたプロパティの値を持つレコードのコレクションが含まれています。 反復処理することができます、`It`個々 のレコードを取得するプロパティ。  
   
- <xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティは集計メソッドでよく使用します。 次の集計メソッドを使用することができます。  
+ <xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティは、集計メソッドと共によく使用されます。 次の集計メソッドを使用することができます。  
   
 -   `Count()`  
   
@@ -1049,22 +1123,22 @@
   
 -   `All(` *条件* `)`  
   
- 詳細については、次を参照してください。 [NIB: LinqDataSource Web サーバー コントロールの概要](http://msdn.microsoft.com/library/104cfc3f-7385-47d3-8a51-830dfa791136)と[する方法: グループおよび LinqDataSource コントロールを使用してデータを集計](http://msdn.microsoft.com/library/b922cf69-251f-4158-b405-ea960993a1af)です。  
+ 詳細については、次を参照してください。 [NIB: LinqDataSource Web サーバー コントロールの概要](http://msdn.microsoft.com/library/104cfc3f-7385-47d3-8a51-830dfa791136)と[方法: グループと LinqDataSource コントロールを使用してデータを集計](http://msdn.microsoft.com/library/b922cf69-251f-4158-b405-ea960993a1af)します。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>という名前のプロパティによって返されるデータをグループ化するコントロール`Category`です。 共有の値を返し、グループ化されたレコードの平均価格を計算します。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>という名前のプロパティによって返されるデータをグループ化コントロール`Category`します。 共有の値を返し、グループ化されたレコードの平均価格を計算します。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default3.aspx#3)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default3.aspx#3)]  
   
- 例を次に、<xref:System.Web.UI.WebControls.LinqDataSource>制御されている 2 つの列でグループを構成します。 `Key`プロパティを 2 つのプロパティを持つオブジェクトを参照して`ProductCategory`と`Color`です。 によって表されるオブジェクト`It`名前が変更`Products`です。 名前が変更された`Products`オブジェクトには、グループ内の個々 のレコードのコレクションが含まれ、各インスタンスには、Products テーブルからのすべての列が含まれています。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールを 2 つの列でグループを構成します。 `Key`プロパティを 2 つのプロパティを持つオブジェクトを参照して`ProductCategory`と`Color`します。 によって表されるオブジェクト`It`名前が変更された`Products`します。 名前が変更された`Products`オブジェクト、グループ内の個々 のレコードのコレクションを格納して、各インスタンスには、Products テーブルからすべての列が含まれています。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource.GroupBy#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.GroupBy/cs/Default.aspx#1)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource.GroupBy#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.GroupBy/vb/Default.aspx#1)]  
   
- 次の例は 2 つ<xref:System.Web.UI.WebControls.ListView>からデータを表示するコントロールを<xref:System.Web.UI.WebControls.LinqDataSource>前の例で制御します。 1 つ<xref:System.Web.UI.WebControls.ListView>グループ化されたデータと、その他のコントロールが表示されます<xref:System.Web.UI.WebControls.ListView>コントロールがそのグループに属している製品の個々 の名前を表示します。 入れ子になったデータ バインド コントロールの<xref:System.Web.UI.WebControls.BaseDataList.DataSource%2A>プロパティに設定されている`Products`のエイリアスは、これは、`It`オブジェクト。  
+ 次の例では 2 つ<xref:System.Web.UI.WebControls.ListView>からデータを表示するコントロールを<xref:System.Web.UI.WebControls.LinqDataSource>前の例で制御します。 1 つ<xref:System.Web.UI.WebControls.ListView>グループ化されたデータとその他のコントロールを表示します<xref:System.Web.UI.WebControls.ListView>コントロールがそのグループに属している製品の個別の名前を表示します。 入れ子になったデータ バインド コントロールの<xref:System.Web.UI.WebControls.BaseDataList.DataSource%2A>プロパティに設定されて`Products`のエイリアスである、`It`オブジェクト。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource.GroupBy#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.GroupBy/cs/Default.aspx#2)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource.GroupBy#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.GroupBy/vb/Default.aspx#2)]  
@@ -1083,6 +1157,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1112,13 +1187,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>実行時に、Group By 句を作成するコレクション。 通常は使用しません、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>コレクション データをグループ化します。 代わりに、使用することができます、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティです。 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>場合のみ、Group By 句内の値のコレクションは、実行時に設定する必要があり、その値がプロパティ名ではありません。 たとえば、使用して、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>コレクション データをグループ化するかどうかに基づいて、`LastName`データ レコードのプロパティがユーザーによって提供される値に等しい。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>実行時に、Group By 句を作成するコレクション。 使用しない通常、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>コレクション データをグループ化します。 代わりに、使用、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティ。 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>のみと Group By 句内の値のコレクションは、実行時に設定する必要があり、その値は、プロパティ名ではありません。 たとえば、使用して、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>コレクション データをグループ化するかどうかに基づいて、`LastName`データ レコードのプロパティがユーザーによって指定された値に等しい。  
   
- プロパティでデータをグループ化するし、そのプロパティは実行時に設定する必要はありませんでグループ化プロパティを定義できます、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティです。 たとえば、データベース テーブルから値を返すでグループ化された`LastName`設定、 <xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A> 「姓」パラメーターを使用せずにします。 プロパティによって動的にデータをグループ化する場合は、イベント ハンドラーを作成、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベントとカスタマイズ、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティに応じて。  
+ プロパティでデータをグループ化して、そのプロパティは実行時に設定する必要はない場合、は、グループ化プロパティを定義できます、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティ。 たとえば、データベース テーブルから値を返すでグループ化された`LastName`設定<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>"LastName"パラメーターを指定せずにします。 プロパティによって動的にデータをグループ化する場合のイベント ハンドラーを作成、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベントをカスタマイズして、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティに応じて。  
   
- パラメーターの値として、プロパティの名前を割り当てることはできません、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>コレクション。 パラメーターを追加する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>する条件を追加する場合に、コレクション、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを実行時に設定する必要があります。  
+ 内のパラメーターの値としてプロパティの名前を割り当てることはできません、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>コレクション。 パラメーターを追加する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>する条件を追加する場合に、コレクション、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを実行時に設定する必要があります。  
   
- 値を設定する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>コレクション、各パラメーターに名前を割り当てるし、追加するにプレース ホルダー、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>という名前のパラメーターのプロパティです。 Group By 句で各パラメーター名をはじめ、@ 記号。  
+ 値を設定する、<xref:System.Web.UI.WebControls.LinqDataSource.GroupByParameters%2A>各パラメーターに名前を割り当て、コレクションと内のプレース ホルダーを追加し、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティを名前付きパラメーター。 Group By 句で使用した場合は、各パラメーター名を付ける、@ 記号。  
   
  ]]></format>
         </remarks>
@@ -1134,6 +1209,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1150,12 +1226,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 通常がありませんを呼び出して、<xref:System.Web.UI.WebControls.LinqDataSource.Insert%2A>コードからメソッドです。 データ バインド コントロールが自動的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Insert%2A>メソッドは、ユーザーが新しいレコードを挿入する操作とします。 明示的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Insert%2A>メソッド データを挿入するための独自のプロセスを作成するときにします。  
+ 通常を呼び出す必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.Insert%2A>コードからメソッド。 データ バインド コントロールが自動的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Insert%2A>メソッド、ユーザーが新しいレコードを挿入する操作。 明示的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Insert%2A>メソッド データを挿入するための独自のプロセスを作成するときにします。  
   
    
   
 ## Examples  
- 次の例では、プログラムで、ユーザーがボタンをクリックした後、データ ソースで新しいレコードを挿入する方法を示します。 コードを渡します、<xref:System.Collections.Specialized.ListDictionary>既定値を格納しているオブジェクトの値を<xref:System.Web.UI.WebControls.LinqDataSource.Insert%2A>メソッドです。  
+ 次の例では、プログラムで、ユーザーがボタンをクリックした後に新しいレコードをデータ ソースに挿入する方法を示します。 このコードでは、<xref:System.Collections.Specialized.ListDictionary>既定値を格納しているオブジェクトの値を<xref:System.Web.UI.WebControls.LinqDataSource.Insert%2A>メソッド。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSource.Insert#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Insert/cs/Default2.aspx.cs#1)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSource.Insert#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Insert/vb/Default2.aspx.vb#1)]  
@@ -1179,6 +1255,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1195,12 +1272,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Inserted>挿入操作から例外をキャッチする場合、または挿入操作が完了した後に値を調べイベント。 使用して、新しい値を取得することができます、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>イベント ハンドラーに渡されるオブジェクト。 たとえば、使用することができます、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>新しいデータのレコードのデータベースによって生成された id プロパティを取得するオブジェクト。  
+ 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Inserted>挿入操作から例外をキャッチする場合、または挿入操作が完了した後に、値を確認するイベントです。 新しい値を取得することができます、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>イベント ハンドラーに渡されるオブジェクト。 たとえば、使用することができます、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>データの新しいレコードのデータベースによって生成される identity プロパティを取得するオブジェクト。  
   
    
   
 ## Examples  
- 次の例は、イベント ハンドラーを作成する方法を示しています、<xref:System.Web.UI.WebControls.LinqDataSource.Inserted>例外をチェックし、新しいレコードの id プロパティを取得するイベントです。  
+ 次の例では、イベント ハンドラーを作成する方法を示しています、<xref:System.Web.UI.WebControls.LinqDataSource.Inserted>イベント例外をチェックし、新しいレコードの id プロパティを取得します。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSourceStatusEventArgs#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSourceStatusEventArgs/cs/Default.aspx#1)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSourceStatusEventArgs#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSourceStatusEventArgs/vb/Default.aspx#1)]  
@@ -1219,6 +1296,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1235,16 +1313,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>を挿入する、insert 操作の前に値を変更または挿入操作をキャンセルするデータ クラスからのデータの検証エラーを検査するオブジェクトを検証するイベントです。 <xref:System.Web.UI.WebControls.LinqDataSourceInsertEventArgs>このイベントには、データ ソースに挿入する新しいオブジェクトが含まれており、オブジェクトがイベント ハンドラーに渡されます。  
+ 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>を挿入する、または挿入操作をキャンセルして、挿入操作の前に値を変更するデータ クラスからのデータ検証エラーを調査するオブジェクトを検証するイベントです。 <xref:System.Web.UI.WebControls.LinqDataSourceInsertEventArgs>にこのイベントには、データ ソースに挿入する新しいオブジェクトが含まれています、イベント ハンドラーに渡されるオブジェクト。  
   
- 挿入操作中に検証エラーが発生した場合、<xref:System.Web.UI.WebControls.LinqDataSourceInsertEventArgs>オブジェクトには、データ クラスによってスローされる検証例外が含まれています。 挿入する値がデータ クラスでプロパティの型と一致しない場合、またはカスタムの検証チェックに合格していない場合、検証エラーが発生します。 イベント ハンドラーで、<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>イベント、検証の例外を取得して、適切なアクションを実行することができます。  
+ 挿入操作中に検証エラーが発生した場合、<xref:System.Web.UI.WebControls.LinqDataSourceInsertEventArgs>オブジェクトには、データ クラスによってスローされる検証例外が含まれています。 挿入する値が、データ クラスのプロパティの型と一致しない場合、またはカスタム検証チェックに合格していない場合、検証エラーが発生します。 イベント ハンドラーで、<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>イベント、検証例外を取得し、適切なアクションを実行することができます。  
   
- かどうかのイベント ハンドラーで例外がスローされます、<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>イベント、そのイベント ハンドラーで例外を処理する必要があります。 例外は、のイベント ハンドラーに渡すことはできません、<xref:System.Web.UI.WebControls.LinqDataSource.Inserted>イベント (を通じて、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>オブジェクト)。 <xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティには、後にスローされた例外だけが含まれています、<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>イベント。  
+ イベント ハンドラーで例外がスローされます、<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>イベント、そのイベント ハンドラーで例外を処理する必要があります。 イベント ハンドラーに例外を渡すことはできません、<xref:System.Web.UI.WebControls.LinqDataSource.Inserted>イベント (を通じて、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>オブジェクト)。 <xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティには、後にスローされる例外のみが含まれています、<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>イベント。  
   
    
   
 ## Examples  
- 次の例は、イベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>挿入操作の前にデータを変更するイベントです。 オブジェクトから、<xref:System.Web.UI.WebControls.LinqDataSourceInsertEventArgs.NewObject%2A>プロパティがという名前の型にキャスト`Product`です。 `DateModified`のプロパティ、`Product`オブジェクトが現在の日付と時刻に設定します。  
+ 次の例は、イベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Inserting>挿入操作の前にデータを変更します。 オブジェクトから、<xref:System.Web.UI.WebControls.LinqDataSourceInsertEventArgs.NewObject%2A>プロパティがという名前の型にキャスト`Product`します。 `DateModified`のプロパティ、`Product`オブジェクトが現在の日付と時刻に設定します。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSource.Inserting#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Inserting/cs/Default.aspx.cs#1)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSource.Inserting#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Inserting/vb/Default.aspx.vb#1)]  
@@ -1282,7 +1360,7 @@ protected void LinqDataSource_Inserting(object sender,
 }  
 ```  
   
- 前の例では、検証の例外を取得します。 値がプロパティの型と一致しない場合、例外がスローされる可能性があります。 次の例のようなカスタマイズされたチェックからもスロー可能性があります。 `OnAgeChanging`メソッドでは、ことを確認の数、`Age`プロパティは負の値ではありません。  
+ 前の例では、検証例外を取得します。 値がプロパティの型と一致しない場合、例外がスローされます。 次の例のようにカスタマイズされたチェックからスロー可能性があります。 `OnAgeChanging`ことを確認するメソッドの数、`Age`プロパティが負でないです。  
   
 ```csharp  
 partial void  OnAgeChanging(int? value)  
@@ -1316,6 +1394,7 @@ End Sub
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1345,20 +1424,44 @@ End Sub
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 挿入操作に必要な値が渡される通常、<xref:System.Web.UI.WebControls.LinqDataSource>データ バインドされたコントロールによって制御します。 Insert、既定値を指定するときに値を定義や空の値に変換するかどうかを指定する`null`です。 ユーザーが値を指定しない場合に処理する必要がある値に対してのみ、挿入される値ごとにパラメーターを指定する必要はありません。  
+ 通常、挿入操作のために必要な値に渡される、<xref:System.Web.UI.WebControls.LinqDataSource>データ バインド コントロールがコントロール。 挿入パラメーター、既定値を提供する場合に、値または空の値に変換するかどうかを定義を指定する`null`します。 ユーザーが値を指定しない場合に処理する必要があります値に対してのみ、挿入されるすべての値にパラメーターを用意する必要はありません。  
   
- 指定する値、<xref:System.Web.UI.WebControls.LinqDataSource.InsertParameters%2A>コレクションは、データ ソースで定義されているが、データ コントロールにバインドされていないフィールドでのみ使用します。 たとえば、データベース テーブルに列名、アドレス、および郵便番号、名前付きであると仮定しますが、<xref:System.Web.UI.WebControls.ListView>名前と住所のフィールドにのみ、テーブルにバインドされているコントロールがバインドされています。 内の値、<xref:System.Web.UI.WebControls.LinqDataSource.InsertParameters%2A>コレクションは、PostalCode フィールドに対してのみ使用されます。 これらは、名前と住所のフィールドの使用されません。 これは、それらのフィールドの値が入力されていない場合でも当てはまります。 かどうか、データ バインド コントロール自動生成するデータのすべてのフィールドのソース フィールドから値のない、<xref:System.Web.UI.WebControls.LinqDataSource.InsertParameters%2A>コレクションを使用します。  
+ 指定した値、<xref:System.Web.UI.WebControls.LinqDataSource.InsertParameters%2A>コレクションは、データ ソースで定義されているが、データ コントロールにバインドされていないフィールドに対してのみ使用します。 たとえば、名前、アドレス、および郵便番号、という名前の列、データベース テーブルがあるとしますが、<xref:System.Web.UI.WebControls.ListView>名前と住所のフィールドにのみ、テーブルにバインドされているコントロールがバインドされています。 内の値、 <xref:System.Web.UI.WebControls.LinqDataSource.InsertParameters%2A> PostalCode フィールドのみのコレクションを使用します。 これらは名前と住所のフィールドに使用されません。 これは、これらのフィールドの値が入力されていない場合でも当てはまります。 かどうか、データ バインド コントロールによって、データ内のすべてのフィールドのソース フィールドから値のない、<xref:System.Web.UI.WebControls.LinqDataSource.InsertParameters%2A>コレクションを使用します。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>で既定値を提供するパラメーターを持つコントロール、<xref:System.Web.UI.WebControls.LinqDataSource.InsertParameters%2A>コレクション。 ユーザーがの値を指定しない場合、`Category`プロパティ、パラメーターによって提供される既定値は、データベースに保存します。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource>で既定値を提供するパラメーターを持つコントロール、<xref:System.Web.UI.WebControls.LinqDataSource.InsertParameters%2A>コレクション。 ユーザーがの値を指定しない場合、`Category`プロパティ、パラメーターによって提供される既定値は、データベースに保存されます。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#9](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default9.aspx#9)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#9](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default9.aspx#9)]  
   
  ]]></format>
         </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LoadViewState">
+      <MemberSignature Language="C#" Value="protected override void LoadViewState (object savedState);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void LoadViewState(object savedState) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.LinqDataSource.LoadViewState(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Sub LoadViewState (savedState As Object)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override void LoadViewState(System::Object ^ savedState);" />
+      <MemberSignature Language="F#" Value="override this.LoadViewState : obj -&gt; unit" Usage="linqDataSource.LoadViewState savedState" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="savedState" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="savedState">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="OnInit">
@@ -1371,6 +1474,7 @@ End Sub
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1396,6 +1500,7 @@ End Sub
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1422,6 +1527,7 @@ End Sub
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1442,19 +1548,19 @@ End Sub
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティから返されるデータの並べ替えに使用するプロパティを指定します。 データの並べ替えプロパティが元のデータ ソースに存在する必要がありますに含まれる必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティです。 スペースを追加して`Ascending`、 `ASC`、 `Descending`、または`DESC`内のプロパティを<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>順序付けされたデータを返す方法を指定するために文字列です。  
+ 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティから返されるデータの並べ替えに使用するプロパティを指定します。 データの並べ替えのプロパティは、元のデータ ソースに存在する必要がありますに含まれることはありません、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ。 スペースを追加して`Ascending`、 `ASC`、 `Descending`、または`DESC`プロパティに、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>順序付けられたデータを返す方法を指定するには文字列です。  
   
- 1 つ以上のプロパティを指定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>コンマを使用して各プロパティを分離することによりプロパティです。 たとえば、という名前のプロパティ順に`LastName`と`FirstName`、設定されて、 <xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A> 「姓、名」にプロパティです。  
+ 1 つ以上のプロパティを行うことができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティはコンマを使用して各プロパティを区切ります。 という名前のプロパティの並べ替え順などに`LastName`と`FirstName`設定、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティを"LastName、FirstName"にします。  
   
 > [!NOTE]
->  使用する場合、<xref:System.Web.UI.WebControls.LinqDataSource>で制御[!INCLUDE[ss2k](~/includes/ss2k-md.md)]または[!INCLUDE[ssEW](~/includes/ssew-md.md)]と<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティに設定されている`true`の値を指定する必要があります、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティです。 既定では、<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティは`true`します。 値を代入する場合、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを含める必要もありますすべての identity 列は、クエリで返されるプロパティの一覧にします。  
+>  使用すると、<xref:System.Web.UI.WebControls.LinqDataSource>で制御する[!INCLUDE[ss2k](~/includes/ss2k-md.md)]または[!INCLUDE[ssEW](~/includes/ssew-md.md)]と<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティに設定されて`true`で値を指定する必要があります、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティ。 既定で、<xref:System.Web.UI.WebControls.LinqDataSource.AutoPage%2A>プロパティは`true`します。 値を割り当てる場合、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを含める必要がありますすべての identity 列で、クエリで返されるプロパティの一覧。  
   
- 場合、<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>プロパティに設定されている`true`、データ バインド コントロールに並べ替え式を渡すことができます、<xref:System.Web.UI.WebControls.LinqDataSource>実行時に制御します。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、適用した後、データ バインド コントロールから、並べ替え式に適用されます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティです。 したがって、データは、データ バインド コントロールからは、並べ替え式に従って返されます。  
+ 場合、<xref:System.Web.UI.WebControls.LinqDataSource.AutoSort%2A>プロパティに設定されて`true`、データ バインド コントロールに並べ替え式を渡すことができます、<xref:System.Web.UI.WebControls.LinqDataSource>実行時にコントロール。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、適用後に、データ バインド コントロールの並べ替え式に適用されます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティ。 そのため、データが、データ バインド コントロールの並べ替え式に従って返されます。  
   
    
   
 ## Examples  
- 次の例では、データを返しますの値に基づいて順序を逆に、`Category`プロパティです。  
+ 次の例では、データを返しますの値に基づいて順序を逆に、`Category`プロパティ。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default4.aspx#4)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default4.aspx#4)]  
@@ -1473,6 +1579,7 @@ End Sub
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1502,16 +1609,16 @@ End Sub
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>実行時に、Order By 句を作成するコレクション。 一般に設定する、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>プロパティを`true`へのパラメーターを追加すると、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>プロパティに設定されている`true`、内の各パラメーター、 <xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A> 、Order By 句に指定されている、シーケンス内にコレクションの要素を追加、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>プロパティは`true`パラメーターを順番に適用され、プレース ホルダーには一致していませんので名前を指定する必要はありません。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>実行時に、Order By 句を作成するコレクション。 一般に設定する、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>プロパティを`true`へのパラメーターを追加すると、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>プロパティに設定されて`true`、内の各パラメーター、 <xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A> 、Order By 句で指定されているシーケンス内にコレクションが追加、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A>プロパティは`true`パラメーターを順番に適用し、プレース ホルダーには一致していませんがあるために名前を指定する必要はありません。  
   
- Order By 句での実行時に値を設定する必要はない場合は、使用する必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。 内のデータの並べ替えに使用するフィールドを定義することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティです。 たとえば、データベース テーブルから値を返す順で`LastName`設定、 <xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A> 「姓」パラメーターを使用せずにします。  
+ Order By 句での実行時に値を設定していない場合は使用する必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション。 内のデータの並べ替えに使用するフィールドを定義することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティ。 たとえば、データベース テーブルから値を返すによって順序付けられた`LastName`設定<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>"LastName"パラメーターを指定せずにします。  
   
- パラメーターを設定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション内のプレース ホルダーにパラメーターに一致して、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティが、この方法が制限されているアプリケーション。 この方法では、パラメーターを使用すると、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクションは、列名を表すことはできません。 パラメーターの値に設定し、その値をプロパティに値を比較できます。 たとえば、プロパティの値は、パラメーターによって表される実行時の値より小さいかどうかに基づいてデータを注文できます。  
+ パラメーターを設定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクション内のプレース ホルダーにパラメーターに一致して、<xref:System.Web.UI.WebControls.LinqDataSource.OrderBy%2A>プロパティが、このアプローチによってアプリケーションが制限されています。 このアプローチでは、パラメーターを使用すると、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>コレクションは、列名を表すことはできません。 パラメーターの値に設定し、プロパティの値には、その値を比較できます。 たとえば、プロパティの値は、パラメーターによって表される実行時の値より小さいかどうかに基づいてデータを注文できます。  
   
    
   
 ## Examples  
- 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource> プロパティが <xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A> に設定された `true` コントロールを示したものです。 パラメーターが含まれている、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>から並べ替えプロパティに基づいてデータの名前をユーザー コレクションを選択、<xref:System.Web.UI.WebControls.DropDownList>コントロール。  
+ 次の例は、<xref:System.Web.UI.WebControls.LinqDataSource> プロパティが <xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateOrderByClause%2A> に設定された `true` コントロールを示したものです。 パラメーターが含まれている、<xref:System.Web.UI.WebControls.LinqDataSource.OrderByParameters%2A>から注文プロパティに基づいてデータの名前をユーザー コレクションを選択、<xref:System.Web.UI.WebControls.DropDownList>コントロール。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#8](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default8.aspx#8)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#8](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default8.aspx#8)]  
@@ -1530,6 +1637,7 @@ End Sub
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1545,28 +1653,28 @@ End Sub
       </ReturnValue>
       <Docs>
         <summary>グループ化されたデータの並べ替えに使用するフィールドを取得または設定します。</summary>
-        <value>グループの Order By 句の作成に使用される文字列。</value>
+        <value>Order Groups By 句の作成に使用される文字列。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティ データのグループの並べ替え方法を指定します。 たとえば、グループ化できます、`CategoryID`プロパティと各カテゴリ ID でグループの平均化し、並べ替え、`Price`プロパティです。  
+ 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティ データのグループの並べ替え方法を指定します。 グループ化できますなど、`CategoryID`プロパティおよびカテゴリ ID ごとにグループ化の平均値、並べ替え、`Price`プロパティ。  
   
- 設定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティ データをグループ化されている場合にのみです。 設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティ設定を指定せず、 <xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A> 、プロパティ、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは例外をスローします。  
+ 設定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティ データをグループ化した場合にのみです。 設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティ設定がない場合、<xref:System.Web.UI.WebControls.LinqDataSource.GroupBy%2A>プロパティ、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、例外をスローします。  
   
- データの並べ替えに使用されるプロパティは、データをグループに使用されるプロパティまたはグループ化されたデータの集計関数の結果のいずれかにする必要があります。 データの並べ替え方法を指定することができますに追加する場所と、文字列"Ascending"、"ASC"、"Descending"または"DESC"のプロパティ名、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>文字列。  
+ データの並べ替えに使用されるプロパティは、データをグループに使用されるプロパティまたはグループ化されたデータの集計関数の結果のいずれかである必要があります。 データの並べ替え方法を指定することができますに追加するスペースと"Ascending"、"ASC"、"Descending"または"DESC"の文字列内のプロパティ名、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>文字列。  
   
- 1 つ以上のプロパティを指定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティです。 コンマを使用して、各プロパティを区切ります。  
+ 1 つ以上のプロパティを指定する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティ。 コンマを使用して、各プロパティを区切ります。  
   
    
   
 ## Examples  
- 次の例では、2 つのプロパティを使用してデータをグループ化方法とそれらのプロパティのいずれかを使用してグループ化されたデータを並べ替える方法を示します。 という名前のテーブルからデータを`Products`という名前のプロパティを使用して、グループ化`CategoryID`と`Discontinued`です。 グループ化されたデータを並べ替えて、`CategoryID`プロパティです。  
+ 次の例では、2 つのプロパティを使用して、データをグループ化する方法とそれらのプロパティのいずれかを使用してグループ化されたデータを並べ替える方法を示します。 という名前のテーブルからデータ`Products`という名前のプロパティを使用して別にグループ化`CategoryID`と`Discontinued`します。 グループ化されたデータを並べ替えて、`CategoryID`プロパティ。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy/cs/Default.aspx#1)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy/vb/Default.aspx#1)]  
   
- 次の例では、集計関数の結果に基づいてソートする方法と、プロパティを使用してデータをグループ化する方法を示します。 データ、`Products`を使用してテーブルがグループ化、`CategoryID`プロパティです。 平均値に基づいて並べ替えられますが、`UnitPrice`各グループ内のプロパティです。  
+ 次の例は、プロパティを使用して、データをグループ化する方法と、集計関数の結果に基づいて並べ替える方法を示します。 データ、`Products`を使用してグループ化されたテーブル、`CategoryID`プロパティ。 平均値に基づいて並べ替えられますが、`UnitPrice`各グループ内のプロパティ。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy/cs/Default2.aspx#2)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy/vb/Default2.aspx#2)]  
@@ -1585,6 +1693,7 @@ End Sub
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1609,19 +1718,41 @@ End Sub
       </ReturnValue>
       <Docs>
         <summary>Order Groups By 句の作成に使用されるパラメーターのコレクションを取得します。</summary>
-        <value>グループの Order By 句の作成に使用されるパラメーター。</value>
+        <value>Order Groups By 句の作成に使用されるパラメーター。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>実行時に、グループの Order By 句を作成するコレクション。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>実行時に、Order Groups By 句を作成するコレクション。  
   
- 値を追加する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>コレクションは、グループの Order By 句の実行時に値を設定する必要がある時だけです。 使用して、データの並べ替えに使用されるフィールドを定義することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティです。  
+ 値を追加する、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>コレクション値を設定すると、Order Groups By 句での実行時にする必要があります。 使用して、データの並べ替えに使用されるフィールドを定義することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティ。  
   
- パラメーターを設定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>コレクション内のプレース ホルダーにパラメーターに一致して、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティです。 ただし、この方法では、パラメーターを使用すると、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>コレクションは、列名を表すことはできません。 これらの値を表す必要があります。 パラメーターの値に設定し、その値をプロパティを比較できます。 たとえば、プロパティの値は、パラメーターによって表される実行時の値より小さいかどうかに基づいてデータを注文できます。  
+ パラメーターを設定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>コレクション内のプレース ホルダーにパラメーターに一致して、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsBy%2A>プロパティ。 ただし、このアプローチでは、パラメーターを使用すると、<xref:System.Web.UI.WebControls.LinqDataSource.OrderGroupsByParameters%2A>コレクションは、列名を表すことはできません。 これらの値を表す必要があります。 パラメーターの値に設定し、プロパティにその値を比較できます。 たとえば、プロパティの値は、パラメーターによって表される実行時の値より小さいかどうかに基づいてデータを注文できます。  
   
  ]]></format>
         </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SaveViewState">
+      <MemberSignature Language="C#" Value="protected override object SaveViewState ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance object SaveViewState() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.LinqDataSource.SaveViewState" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Function SaveViewState () As Object" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override System::Object ^ SaveViewState();" />
+      <MemberSignature Language="F#" Value="override this.SaveViewState : unit -&gt; obj" Usage="linqDataSource.SaveViewState " />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="Select">
@@ -1634,6 +1765,7 @@ End Sub
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1654,25 +1786,25 @@ End Sub
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 設定しない場合、 <xref:System.Web.UI.WebControls.LinqDataSource.Select%2A> 、プロパティ、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、データ オブジェクトからすべてのプロパティ (データの列) を取得します。 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティまたはオブジェクトからプロパティのサブセットを取得するデータを取得するときに、新しい値を計算します。  
+ 設定しない場合、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがデータ オブジェクトからすべてのプロパティ (データの列) を取得します。 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティまたはオブジェクトからプロパティのサブセットを取得するデータを取得するときに、新しい値を計算します。  
   
- 設定を取得するプロパティを指定する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティによって返されるデータに追加するプロパティの名前をします。  
+ 設定を取得するプロパティを指定する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティに返されるデータに含めるプロパティの名前にします。  
   
- データ オブジェクトからプロパティのサブセットを取得する場合、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールで指定したプロパティのみを含むクラスを動的に作成する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティです。 データ オブジェクトのプロパティではないプロパティを計算する場合は、クラスが動的に作成されます。 このような場合は、クエリから返されるオブジェクトはで指定されているクラスのインスタンス、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティです。 代わりに、使用する必要があります、`new`メソッドで、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>新しいクラスがクエリから返されたことを示すプロパティです。 たとえば、のみを返す、`FirstName`と`LastName`プロパティを格納するオブジェクトから複数のこれらのプロパティを設定、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを`new(FirstName, LastName)`です。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールで指定した新しいクラスを動的に作成、`new`メソッドです。  
+ データ オブジェクトからプロパティのサブセットを取得する場合、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールで指定したプロパティのみを含むクラスを動的に作成する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ。 データ オブジェクトのプロパティではないプロパティを計算する場合は、クラスが動的に作成されます。 このような場合は、クエリから返されるオブジェクトでないで指定されているクラスのインスタンス、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティ。 代わりに、使用する必要があります、`new`メソッドで、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>を新しいクラスが、クエリから返されることを示すプロパティです。 たとえば、のみを返す、`FirstName`と`LastName`プロパティを含むオブジェクトから複数のこれらのプロパティを設定、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを`new(FirstName, LastName)`。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールで指定した新しいクラスを動的に作成、`new`メソッド。  
   
- 使用することができます、`As`キーワードを選択した値にエイリアスを割り当てます。 別名を割り当てた場合は、別名のプロパティを含める必要があります、`new`メソッドです。 任意のデータ バインド コントロールからの結果にバインドする、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、別名でプロパティを参照する必要があります。 たとえば、設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを`new(Region As SalesRegion, Revenue / 1000 As RevenueThousands)`、データ バインド コントロールが 2 つのプロパティにアクセスできる`SalesRegion`と`RevenueThousands`です。  
+ 使用することができます、`As`にエイリアスを選択した値に割り当てるキーワード。 別名を割り当てた場合は、別名のプロパティを含める必要があります、`new`メソッド。 任意のデータ バインド コントロールからの結果にバインドする、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、エイリアスを使用してプロパティを参照する必要があります。 たとえば、設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティを`new(Region As SalesRegion, Revenue / 1000 As RevenueThousands)`、データ バインド コントロールが 2 つのプロパティにアクセスできる`SalesRegion`と`RevenueThousands`。  
   
- 使用する、`new`で機能、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>条件に従ってプロパティが次の表に一覧表示します。  
+ 使用する、`new`で機能、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>条件に従ってプロパティが次の表にリストされています。  
   
 |選択|新規のを使用します。|例|  
 |------------|----------------|-------------|  
-|1 つのプロパティです。|`new` 必要ありません。|`Select="Category"`|  
-|複数のプロパティです。|`new` 必要です。|`Select="new(Cateogry, Name)"`|  
+|1 つのプロパティ。|`new` 必要ありません。|`Select="Category"`|  
+|複数のプロパティ。|`new` 必要です。|`Select="new(Cateogry, Name)"`|  
 |別名を持つ複数のプロパティまたは 1 です。|`new` 必要です。|`Select="new(Category As CategoryGroup)"`|  
   
- データの自動変更を有効にするデータ オブジェクトからのすべてのプロパティを表示したくない場合は設定しないでください、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティです。 代わりに、管理、データ バインド コントロールを表示します。 使用すると、<xref:System.Web.UI.WebControls.DetailsView>コントロールまたは<xref:System.Web.UI.WebControls.GridView>コントロールを設定する必要も、<xref:System.Web.UI.WebControls.DetailsView.AutoGenerateRows%2A>または<xref:System.Web.UI.WebControls.GridView.AutoGenerateColumns%2A>プロパティを`false`です。 データ バインド コントロールに表示されていない任意の値は、ビュー ステートに格納されます。 渡すことが変更されていないデータ ソース データ更新を実行するとします。  
+ データの自動変更を有効にするデータ オブジェクトからすべてのプロパティを表示したくない場合は設定しないでください、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ。 代わりに、データ バインド コントロールを通じて表示を管理します。 使用すると、<xref:System.Web.UI.WebControls.DetailsView>コントロールまたは<xref:System.Web.UI.WebControls.GridView>コントロールを設定する必要も、<xref:System.Web.UI.WebControls.DetailsView.AutoGenerateRows%2A>または<xref:System.Web.UI.WebControls.GridView.AutoGenerateColumns%2A>プロパティを`false`します。 データ バインド コントロールに表示されていない任意の値は、ビュー ステートに格納されます。 渡される変更されていないデータ ソースにデータ更新が実行されるとします。  
   
- 集計のメソッドを含めることができます、クエリ内のデータをグループ化すると、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティです。 次の集計メソッドを使用することができます。  
+ 集計メソッドを含めることができます、クエリ内のデータをグループ化すると、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ。 次の集計メソッドを使用することができます。  
   
 -   `Count()`  
   
@@ -1690,21 +1822,21 @@ End Sub
   
 -   `All(` *条件* `)`  
   
- 詳細については、次を参照してください。 [NIB: LinqDataSource Web サーバー コントロールの概要](http://msdn.microsoft.com/library/104cfc3f-7385-47d3-8a51-830dfa791136)と[する方法: グループおよび LinqDataSource コントロールを使用してデータを集計](http://msdn.microsoft.com/library/b922cf69-251f-4158-b405-ea960993a1af)です。  
+ 詳細については、次を参照してください。 [NIB: LinqDataSource Web サーバー コントロールの概要](http://msdn.microsoft.com/library/104cfc3f-7385-47d3-8a51-830dfa791136)と[方法: グループと LinqDataSource コントロールを使用してデータを集計](http://msdn.microsoft.com/library/b922cf69-251f-4158-b405-ea960993a1af)します。  
   
- データをグループ化するときに含める`Key`と`It`が動的に作成されたプロパティで、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティです。 `Key`プロパティまたは複数のデータをグループ化に使用されたプロパティの値を参照します。 たとえば、という名前のプロパティによってグループ化する場合`Category`、`Key`プロパティに一意の値ごとに格納されます、`Category`プロパティです。 `It`プロパティはデータのグループ内の個々 のレコードのコレクションを参照します。 反復処理することができます、`It`プロパティをグループ化操作に統合されている個々 のレコードを取得します。 たとえば、という名前のプロパティによってグループ化する場合`Category`、`It`プロパティにはで共通の値を共有するすべての個々 のレコードが含まれています、`Category`プロパティです。  
+ データをグループ化するときに含めることができます`Key`と`It`でのプロパティを動的に作成されるが、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ。 `Key`プロパティまたは複数のデータをグループ化に使用されたプロパティの値を参照します。 たとえば、という名前のプロパティでグループ化する`Category`、`Key`プロパティは、一意の各値が格納されます、`Category`プロパティ。 `It`プロパティはデータのグループ内の個々 のレコードのコレクションを参照します。 反復処理することができます、`It`プロパティをグループ化操作に統合されている個々 のレコードを取得します。 たとえば、という名前のプロパティでグループ化する`Category`、`It`プロパティにはで共通の値を共有するすべての個別のレコードが含まれています、`Category`プロパティ。  
   
- 含める場合は、`It`キーワード、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>データをグループ化すると、プロパティのエイリアスを割り当てる必要があります、`It`キーワード。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールは例外をスロー`It`エイリアスはありません。 エイリアスを割り当てることができます、`Key`キーワードが、これは必要ありません。  
+ 含める場合は、`It`キーワード、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ データをグループ化するときに、エイリアスを割り当てる必要があります、`It`キーワード。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロール場合、例外がスローされます`It`エイリアスはありません。 エイリアスを割り当てることができます、`Key`キーワードが、これは必要ありません。  
   
    
   
 ## Examples  
- 次の例は、設定する方法を示します、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティのデータ オブジェクトのプロパティのサブセットをします。  
+ 次の例は、設定する方法を示します、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティをデータ オブジェクトのプロパティのサブセットです。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#10](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default10.aspx#10)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#10](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default10.aspx#10)]  
   
- 次の例では、データをグループ化に使用されているプロパティの値を取得して、グループ化されたレコードの平均値を取得する方法を示します。 `Key`キーワードには、データをグループ化するために使用されているプロパティが含まれています。 この例では`Key`から共有の値を含む、`ProductCategory`プロパティです。  
+ 次の例は、グループ化されたレコードの平均値を取得するデータをグループ化に使用されているプロパティの値を取得する方法を示しています。 `Key`キーワードには、データをグループ化するために使用されているプロパティが含まれています。 この例で`Key`から共有の値を含む、`ProductCategory`プロパティ。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default3.aspx#3)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default3.aspx#3)]  
@@ -1723,6 +1855,7 @@ End Sub
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1739,7 +1872,7 @@ End Sub
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Selected>データ取得操作から例外をキャッチする場合、または取得操作が完了した後、データ オブジェクトを検査するイベントです。 オブジェクトがから利用可能な<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>イベント ハンドラーに渡されるオブジェクト。  
+ 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Selected>イベント データの取得操作から例外をキャッチするか、取得操作が完了した後、データ オブジェクトを調べます。 オブジェクトは、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>イベント ハンドラーに渡されるオブジェクト。  
   
  ]]></format>
         </remarks>
@@ -1755,6 +1888,7 @@ End Sub
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1771,23 +1905,23 @@ End Sub
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>次のタスクを実行するためにイベント。  
+ 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベントは、次のタスクを実行するには。  
   
 -   データの取得のパラメーターを変更します。  
   
 -   プログラムでクエリを生成します。  
   
--   並べ替えとページングの値を変更します。  
+-   並べ替えやページングの値を変更します。  
   
--   カスタムの並べ替えとページングを実行します。  
+-   カスタムの並べ替えやページングを実行します。  
   
 -   データ取得操作をキャンセルします。  
   
- <xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs>このイベントには、データ取得操作のパラメーターが含まれており、イベント ハンドラーに渡されるオブジェクト。 内のパラメーターを変更することができます、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>クエリを実行または新しい結果セットを作成して割り当てるをする前に、イベント ハンドラー、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>プロパティです。  
+ <xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs>にこのイベントには、データ取得操作のパラメーターが含まれています、イベント ハンドラーに渡されるオブジェクト。 パラメーターを変更することができます、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>クエリを実行または新しい結果セットを作成してに割り当てる前に、イベント ハンドラー、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>プロパティ。  
   
- カスタムの並べ替えまたはこのイベントは、コントロールにバインドされているによって制限される可能性がありますのハンドラーでページングを実装する機能、<xref:System.Web.UI.WebControls.LinqDataSource>です。 たとえばの列見出し、<xref:System.Web.UI.WebControls.GridView>コントロールがクリックされると、コントロールが自動並べ替えする可能性がありますオーバーライドする任意の順序を確立、イベント ハンドラーを実行します。  
+ カスタムの並べ替えまたはこのイベントは、コントロールにバインドされているによって制限される可能性がありますのハンドラーでのページングを実装する機能、<xref:System.Web.UI.WebControls.LinqDataSource>します。 たとえば、列ヘッダーの<xref:System.Web.UI.WebControls.GridView>コントロールがクリックされると、コントロールは、自動並べ替えする可能性がありますオーバーライドの任意の順序を確立、イベント ハンドラーを実行します。  
   
- かどうかのイベント ハンドラーで例外がスローされます、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント、そのイベント ハンドラーで例外を処理する必要があります。 例外は、のイベント ハンドラーに渡すことはできません、<xref:System.Web.UI.WebControls.LinqDataSource.Selected>イベント (を通じて、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>オブジェクト)。 <xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティには、後にスローされた例外だけが含まれています、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント。  
+ イベント ハンドラーで例外がスローされます、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント、そのイベント ハンドラーで例外を処理する必要があります。 イベント ハンドラーに例外を渡すことはできません、<xref:System.Web.UI.WebControls.LinqDataSource.Selected>イベント (を通じて、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>オブジェクト)。 <xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティには、後にスローされる例外のみが含まれています、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベント。  
   
    
   
@@ -1797,7 +1931,7 @@ End Sub
  [!code-csharp[System.Web.UI.WebControls.LinqDataSourceSelectEventArgs#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSourceSelectEventArgs/cs/Default3.aspx.cs#3)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSourceSelectEventArgs#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSourceSelectEventArgs/vb/Default3.aspx.vb#3)]  
   
- 次の例を割り当てる方法を示しています、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>をストアド プロシージャを表すメソッドから返されるオブジェクトのプロパティです。  
+ 次の例を割り当てる方法を示しています、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>プロパティをストアド プロシージャを表すメソッドから返されるオブジェクト。  
   
 ```vb  
 Protected Sub LinqDataSource_Selecting(ByVal sender As Object, _  
@@ -1830,6 +1964,7 @@ protected void LinqDataSource_Selecting(object sender,
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1859,18 +1994,18 @@ protected void LinqDataSource_Selecting(object sender,
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>実行時に、Select 句を作成するコレクション。 パラメーターを追加する、 <xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A> Select 句での実行時の値を使用するときのコレクション。 たとえばへのパラメーターを追加することができます、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>ユーザーのプロファイルでは、プロパティを表すコレクション。 データ ソースから新しい値を計算するのに、そのプロパティと値を使用することができますし、します。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>実行時に、Select 句を作成するコレクション。 パラメーターを追加する、 <xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A> Select 句で実行時の値を使用するときのコレクション。 パラメーターを追加するなど、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>ユーザーのプロファイルのプロパティを表すコレクション。 データ ソースから新しい値を計算するのに、そのプロパティと値を使用することができます。  
   
- Select 句での実行時に値を設定する必要はない場合は、使用する必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>コレクション。 取得するプロパティを定義することができます、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティです。 例については、返される、`FirstName`と`LastName`データベース テーブルから値を設定<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>"firstname、LastName"パラメーターを使用せずします。  
+ Select 句での実行時に値を設定していない場合は使用する必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>コレクション。 取得するプロパティを定義することができます、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ。 たとえば、返される、`FirstName`と`LastName`、データベース テーブルから値を設定<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>"FirstName、LastName"にパラメーターを指定せず。  
   
- 値を設定する、 <xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A> 、コレクション内のプレース ホルダーを追加する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>名前付きパラメーターのプロパティです。 各パラメーター名をはじめ、Select 句で、@ 記号。  
+ 値を設定する、 <xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A> 、コレクション内のプレース ホルダーを追加する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティの名前付きパラメーター。 Select 句で使用した場合は、各パラメーター名を付ける、@ 記号。  
   
- 内のパラメーターを使用することはできません、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>プロパティ名を表すコレクション。 動的に設定する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティ、プロパティの名前をイベント ハンドラーを作成する、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベントとカスタマイズ、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティに応じて。  
+ パラメーターを使用することはできません、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>プロパティ名を表すコレクション。 動的に設定する、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティに、プロパティの名前のイベント ハンドラーを作成する、<xref:System.Web.UI.WebControls.LinqDataSource.Selecting>イベントをカスタマイズして、<xref:System.Web.UI.WebControls.LinqDataSource.Select%2A>プロパティに応じて。  
   
    
   
 ## Examples  
- 次の例では、ユーザー指定の値を使用して、返されるデータの値を計算する方法を示します。 ユーザーは、製造日の数を表すテキスト ボックスに値を入力することができます。 その値は、製品の製造に日数を表すデータベースからの値で除算されます。 返される値では、指定した日数で製造可能な製品の数を示します。 ユーザーの入力をを通じて Select コマンドに含まれる、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>コレクション。  
+ 次の例は、ユーザーが指定した値を使用して、返されるデータの値を計算する方法を示しています。 ユーザーは、製造日数を表すテキスト ボックスに値を入力できます。 その値は、製品の製造に日数を表すデータベースからの値で除算されます。 返される値は、製品の数を指定した日数で製造できることを示します。 を通じて Select コマンドに含まれているユーザーの入力、<xref:System.Web.UI.WebControls.LinqDataSource.SelectParameters%2A>コレクション。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource.SelectParameters#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.SelectParameters/cs/Default.aspx#1)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource.SelectParameters#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.SelectParameters/vb/Default.aspx#1)]  
@@ -1889,6 +2024,7 @@ protected void LinqDataSource_Selecting(object sender,
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1909,13 +2045,13 @@ protected void LinqDataSource_Selecting(object sender,
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 既定では、ときに更新および削除操作を有効になっている、<xref:System.Web.UI.WebControls.LinqDataSource>ビューステートへのすべてのレコードのコントロールが元の値を格納します。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールがすべてのプライマリ キーの値を格納し、すべてのプロパティでマークされていない`UpdateCheck.Never`で、`Column`属性。 設定する、`UpdateCheck`のプロパティ、`Column`属性、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]です。  
+ 既定では、ときに更新および削除操作が有効になって、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがビューステートへのすべてのレコードを元の値を格納します。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールがすべての主キーの値を格納し、すべてのプロパティでマークされていない`UpdateCheck.Never`で、`Column`属性。 設定する、`UpdateCheck`のプロパティ、`Column`属性、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]します。  
   
- LINQ to SQL を更新またはデータの削除、前に、データ ソース内の現在の値と比較をビュー ステートの値を確認します。 値が一致しない場合、データ ソースのレコードが変更されました。 その場合は、LINQ to SQL 例外をスローしは更新を続行または削除しない操作します。 LINQ to SQL の詳細については、次を参照してください。 [LINQ to SQL](http://msdn.microsoft.com/library/73d13345-eece-471a-af40-4cc7a2f11655)です。  
+ LINQ to SQL を更新またはデータの削除、前に、データ ソースの現在の値に対するビューステートの値を確認します。 値が一致しない場合は、データ ソースのレコードが変更されました。 その場合は、LINQ to SQL が例外をスローし、更新を続行やしません削除操作。 LINQ to SQL の詳細については、次を参照してください。 [LINQ to SQL](http://msdn.microsoft.com/library/73d13345-eece-471a-af40-4cc7a2f11655)します。  
   
- ビュー内の元の値を格納する状態は、ページ サイズが不必要に大きくなる可能性があり、悪意のあるユーザーに機密データを公開できます。 設定して値をビュー ステートを格納する無効にすることができます、<xref:System.Web.UI.WebControls.LinqDataSource.StoreOriginalValuesInViewState%2A>プロパティを`false`です。 これを行う場合は、データが変更されていないかどうかを確認する、独自の方法を指定する必要があります。 設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.StoreOriginalValuesInViewState%2A>プロパティを`false`、元の値は、データ バインド コントロールのビュー ステートに残りません。 その場合は、LINQ to SQL では、データの整合性を確認できません。 LINQ to SQL をデータ ソース内のデータが実際に変更されていない場合でも、データの競合を示す例外がスローされます。  
+ ビュー内の元の値を格納する状態がページ サイズが不必要に大きくなる可能性し、悪意のあるユーザーに機密データを公開することができます。 ビュー ステートの値を格納する設定を無効にした、<xref:System.Web.UI.WebControls.LinqDataSource.StoreOriginalValuesInViewState%2A>プロパティを`false`します。 これを行う場合は、データが変更されていないことを確認する方法を提供する必要があります。 設定した場合、<xref:System.Web.UI.WebControls.LinqDataSource.StoreOriginalValuesInViewState%2A>プロパティを`false`、元の値は、データ バインド コントロールのビュー ステートに保存されません。 その場合は、LINQ to SQL は、データの整合性を検証することはできません。 LINQ to SQL をデータ ソース内のデータが実際に変更されていない場合でも、データの競合を示す例外がスローされます。  
   
- 基になるデータ ソースが更新中に自動的に更新されるタイムスタンプ フィールドが含まれている場合は、ビュー ステートにその値だけを格納できます。 エンティティ クラスでタイムスタンプ プロパティに設定する場合は、`IsVersion=true`とすべてのプロパティに設定`UpdateCheck.Never`です。 タイムスタンプ フィールドは、そのレコード内のデータが変更されるたびに、データベースによって自動的に更新、ために、LINQ to SQL は、データが変更された場合は、その値から決定します。 これにより、ビュー状態のサイズを削減し、公開されている機密データがありません。 LINQ to SQL はチェック、データの整合性ビュー内のタイムスタンプ値を比較することによって、データベース内のタイムスタンプ値と状態。 詳細については、次を参照してください。[チュートリアル: データの整合性を確認する LinqDataSource コントロールにタイムスタンプを使用して](http://msdn.microsoft.com/library/e7700162-4f05-4130-81f7-3be1361027fa)です。  
+ 基になるデータ ソースに更新中に自動的に更新されるタイムスタンプ フィールドが含まれている場合は、ビュー ステートにその値だけを格納できます。 エンティティ クラスでタイムスタンプ プロパティを設定する場合、`IsVersion=true`とすべてのプロパティに設定`UpdateCheck.Never`します。 タイムスタンプ フィールドはそのレコード内のデータが変更されるたびに自動的に更新、データベース、ために、LINQ to SQL は、データが変更された場合は、その値から決定します。 これにより、ビュー ステートのサイズを小さくと、公開されている機密データがありません。 LINQ to SQL の整合性をチェック データ ビューで、タイムスタンプの値を比較することによって、データベース内のタイムスタンプ値と状態。 詳細については、次を参照してください。[チュートリアル: データの整合性を確認する LinqDataSource コントロールとタイムスタンプを使用した](http://msdn.microsoft.com/library/e7700162-4f05-4130-81f7-3be1361027fa)します。  
   
  ]]></format>
         </remarks>
@@ -1934,6 +2070,7 @@ protected void LinqDataSource_Selecting(object sender,
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1965,6 +2102,7 @@ protected void LinqDataSource_Selecting(object sender,
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1994,6 +2132,7 @@ protected void LinqDataSource_Selecting(object sender,
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2014,6 +2153,7 @@ protected void LinqDataSource_Selecting(object sender,
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -2034,31 +2174,52 @@ protected void LinqDataSource_Selecting(object sender,
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 設定、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティのプロパティまたはフィールドを取得するデータを表す名前にします。 データベース テーブルに接続するときに、プロパティの名前は通常、テーブルの名前と同じです。 メモリ内のデータ コレクションに接続するときの設定、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティをプロパティやデータ コレクションを返すフィールドの名前にします。  
+ 設定、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティを取得するデータを表すフィールドまたはプロパティの名前にします。 データベース テーブルに接続するときにプロパティの名前は通常、テーブルの名前と同じ。 メモリ内のデータのコレクションに接続するときは、設定、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティをプロパティまたはデータ コレクションを返すフィールドの名前にします。  
   
- 任意の種類を返すプロパティを割り当てることができます、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>取得操作のプロパティです。 プロパティによって表されるオブジェクトを実装しないかどうか<xref:System.Collections.IEnumerable>、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールがのインスタンスでオブジェクトを自動的に折り返されます、<xref:System.Collections.IEnumerable>オブジェクト。  
+ 任意の種類を返すプロパティを割り当てることができます、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>取得の操作のプロパティ。 かどうか、プロパティで表されるオブジェクトを実装しません<xref:System.Collections.IEnumerable>、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールでは、オブジェクトのインスタンスでラップ自動的に、<xref:System.Collections.IEnumerable>オブジェクト。  
   
- 自動更新を有効にするのには、挿入、または削除の各操作に割り当てられているクラス、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティがから派生する必要があります<xref:System.Data.Linq.DataContext>とプロパティに割り当てられている、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティから派生しなければなりません<xref:System.Data.Linq.Table%601>です。  
+ 自動更新を有効にするのには、挿入、または削除の各操作に割り当てられているクラス、<xref:System.Web.UI.WebControls.LinqDataSource.ContextTypeName%2A>プロパティがから派生する必要があります<xref:System.Data.Linq.DataContext>とプロパティに割り当てられている、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティがから派生する必要があります<xref:System.Data.Linq.Table%601>します。  
   
- クラスのインスタンスからデータを選択する方法については、次を参照してください。、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>プロパティです。  
+ クラスのインスタンスからデータを選択する方法については、次を参照してください。、<xref:System.Web.UI.WebControls.LinqDataSourceSelectEventArgs.Result%2A>プロパティ。  
   
    
   
 ## Examples  
- 次の例は 2 つ<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 いずれかで<xref:System.Web.UI.WebControls.LinqDataSource>コントロール、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティがクラスでプロパティに設定します。 そのプロパティは、文字列の配列を返します。 もう一方の<xref:System.Web.UI.WebControls.LinqDataSource>コントロール、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティは、データベース テーブルを表すプロパティに設定します。  
+ 次の例では 2 つ<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。 いずれかで<xref:System.Web.UI.WebControls.LinqDataSource>コントロール、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティがクラスのプロパティに設定します。 そのプロパティは、文字列の配列を返します。 もう一方の<xref:System.Web.UI.WebControls.LinqDataSource>コントロール、<xref:System.Web.UI.WebControls.LinqDataSource.TableName%2A>プロパティは、データベース テーブルを表すプロパティに設定されます。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Overview#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Overview/cs/Default.aspx#2)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Overview#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Overview/vb/Default.aspx#2)]  
   
- という名前のクラス`ExampleDataContext`を表すデータベース テーブルが表示されないようにこの例ではします。 この例を実行するは、名前付き Example.dbml テーブルをドラッグしては、上にムービーをという名前の SQL クラスを LINQ を追加することでこのクラスを作成する必要があります、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]です。 という名前のクラス`ExampleDataContext`という名前のプロパティと`Movies`が生成されます。  
+ という名前のクラス`ExampleDataContext`表しますデータベース テーブルが表示されないことこの例では。 この例を動作させるには、LINQ を名前付き Example.dbml テーブルをドラッグしては、上にムービーをという名前の SQL クラスに追加することでこのクラスを作成する必要があります、[!INCLUDE[vs_ordesigner_short](~/includes/vs-ordesigner-short-md.md)]します。 という名前のクラス`ExampleDataContext`という名前のプロパティで`Movies`が生成されます。  
   
- 次の例は、という名前のクラスを示しています。`MovieLibrary`で参照されている、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。  
+ 次の例は、という名前のクラスを示しています。`MovieLibrary`内で参照される、<xref:System.Web.UI.WebControls.LinqDataSource>コントロール。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSource_Overview#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Overview/cs/App_Code/MovieLibrary.cs#1)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSource_Overview#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Overview/vb/App_Code/MovieLibrary.vb#1)]  
   
  ]]></format>
         </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TrackViewState">
+      <MemberSignature Language="C#" Value="protected override void TrackViewState ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void TrackViewState() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.UI.WebControls.LinqDataSource.TrackViewState" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Sub TrackViewState ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override void TrackViewState();" />
+      <MemberSignature Language="F#" Value="override this.TrackViewState : unit -&gt; unit" Usage="linqDataSource.TrackViewState " />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="Update">
@@ -2071,6 +2232,7 @@ protected void LinqDataSource_Selecting(object sender,
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2091,12 +2253,12 @@ protected void LinqDataSource_Selecting(object sender,
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 通常がありませんを呼び出して、<xref:System.Web.UI.WebControls.LinqDataSource.Update%2A>コードからメソッドです。 データ バインド コントロールが自動的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Update%2A>メソッドは、ユーザーがレコードを更新する操作とします。 明示的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Update%2A>メソッド データを更新するための独自のプロセスを作成するときにします。  
+ 通常を呼び出す必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.Update%2A>コードからメソッド。 データ バインド コントロールが自動的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Update%2A>メソッド、ユーザーがレコードを更新する操作。 明示的に呼び出す、<xref:System.Web.UI.WebControls.LinqDataSource.Update%2A>メソッド データを更新するための独自のプロセスを作成するときにします。  
   
    
   
 ## Examples  
- 次の例では、プログラムによって、ユーザーがボタンをクリックした後、データ ソース内のレコードを更新する方法を示します。 コードを渡します、<xref:System.Collections.Specialized.ListDictionary>キーの値を格納しているオブジェクト、 <xref:System.Collections.Specialized.ListDictionary> 、元の値を格納しているオブジェクトと<xref:System.Collections.Specialized.ListDictionary>に新しい値を格納しているオブジェクト、<xref:System.Web.UI.WebControls.LinqDataSource.Update%2A>メソッドです。  
+ 次の例では、プログラムによって、ユーザーがボタンをクリックした後、データ ソース内のレコードを更新する方法を示します。 このコードでは、<xref:System.Collections.Specialized.ListDictionary>キーの値を含むオブジェクトを<xref:System.Collections.Specialized.ListDictionary>、元の値を格納しているオブジェクトと<xref:System.Collections.Specialized.ListDictionary>に新しい値を含むオブジェクト、<xref:System.Web.UI.WebControls.LinqDataSource.Update%2A>メソッド。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSource.Update#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Update/cs/Default2.aspx.cs#1)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSource.Update#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Update/vb/Default3.aspx.vb#1)]  
@@ -2120,6 +2282,7 @@ protected void LinqDataSource_Selecting(object sender,
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -2136,7 +2299,7 @@ protected void LinqDataSource_Selecting(object sender,
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Updated>更新操作が完了した後、更新操作から例外をキャッチする、またはの値を調べ、イベント出力パラメーターです。 出力パラメーターは、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>イベント ハンドラーに渡されるオブジェクト。  
+ 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Updated>更新操作が完了した後、イベントの値を確認するまたは更新操作から例外をキャッチする出力パラメーター。 出力パラメーターは、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>イベント ハンドラーに渡されるオブジェクト。  
   
  ]]></format>
         </remarks>
@@ -2152,6 +2315,7 @@ protected void LinqDataSource_Selecting(object sender,
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -2190,6 +2354,7 @@ protected void LinqDataSource_Selecting(object sender,
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -2206,16 +2371,16 @@ protected void LinqDataSource_Selecting(object sender,
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Updating>を更新する、更新操作の前に値を変更するか、更新操作をキャンセルするデータ クラスからのデータの検証エラーを検査するオブジェクトを検証するイベントです。 <xref:System.Web.UI.WebControls.LinqDataSourceUpdateEventArgs>イベント ハンドラーに渡されるオブジェクトには、元のオブジェクトと更新されたオブジェクトの両方が含まれています。  
+ 処理、<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベントを更新する、更新操作では前に、の値を変更または更新操作をキャンセルするデータ クラスからのデータ検証エラーを調査するオブジェクトを検証します。 <xref:System.Web.UI.WebControls.LinqDataSourceUpdateEventArgs>イベント ハンドラーに渡されるオブジェクトには、元のオブジェクトと、更新されたオブジェクトの両方が含まれています。  
   
- 更新操作中に検証エラーが発生した場合、<xref:System.Web.UI.WebControls.LinqDataSourceInsertEventArgs>オブジェクトには、データ クラスによってスローされる検証例外が含まれています。 検証エラーは、値を更新するデータ クラスでプロパティの型に一致しない場合、またはカスタムの検証チェックに合格していない場合に発生します。 イベント ハンドラーで、<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント、検証の例外を取得して、適切なアクションを実行することができます。  
+ 更新操作中に検証エラーが発生した場合、<xref:System.Web.UI.WebControls.LinqDataSourceInsertEventArgs>オブジェクトには、データ クラスによってスローされる検証例外が含まれています。 検証エラーは、更新する値が、データ クラスのプロパティの型と一致しない場合、またはカスタム検証チェックに合格していない場合に発生します。 イベント ハンドラーで、<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント、検証例外を取得し、適切なアクションを実行することができます。  
   
- かどうかのイベント ハンドラーで例外がスローされます、<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント、そのイベント ハンドラーで例外を処理する必要があります。 例外は、のイベント ハンドラーに渡すことはできません、<xref:System.Web.UI.WebControls.LinqDataSource.Updated>イベント (を通じて、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>オブジェクト)。 <xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティには、後にスローされた例外だけが含まれています、<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント。  
+ イベント ハンドラーで例外がスローされます、<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント、そのイベント ハンドラーで例外を処理する必要があります。 イベント ハンドラーに例外を渡すことはできません、<xref:System.Web.UI.WebControls.LinqDataSource.Updated>イベント (を通じて、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>のプロパティ、<xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs>オブジェクト)。 <xref:System.Web.UI.WebControls.LinqDataSourceStatusEventArgs.Exception%2A>プロパティには、後にスローされる例外のみが含まれています、<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント。  
   
    
   
 ## Examples  
- 次の例は、イベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント。 コードからプロパティを比較し、<xref:System.Web.UI.WebControls.LinqDataSourceUpdateEventArgs.OriginalObject%2A>プロパティおよび<xref:System.Web.UI.WebControls.LinqDataSourceUpdateEventArgs.NewObject%2A>プロパティに値が変更されたかどうかを参照してください。 値が変更すると、値の場合、<xref:System.Web.UI.WebControls.LinqDataSourceUpdateEventArgs.NewObject%2A>プロパティに設定されている`true`です。  
+ 次の例は、イベント ハンドラーを<xref:System.Web.UI.WebControls.LinqDataSource.Updating>イベント。 コードからプロパティを比較し、<xref:System.Web.UI.WebControls.LinqDataSourceUpdateEventArgs.OriginalObject%2A>プロパティと<xref:System.Web.UI.WebControls.LinqDataSourceUpdateEventArgs.NewObject%2A>プロパティに値が変更されたかどうかを参照してください。 値が変更すると、値の場合、<xref:System.Web.UI.WebControls.LinqDataSourceUpdateEventArgs.NewObject%2A>プロパティに設定されて`true`します。  
   
  [!code-csharp[System.Web.UI.WebControls.LinqDataSource.Updating#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Updating/cs/Default.aspx.cs#1)]
  [!code-vb[System.Web.UI.WebControls.LinqDataSource.Updating#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource.Updating/vb/Default.aspx.vb#1)]  
@@ -2253,7 +2418,7 @@ protected void LinqDataSource_Updating(object sender,
 }  
 ```  
   
- 前の例では、検証の例外を取得します。 値がプロパティの型と一致しない場合、例外がスローされる可能性があります。 次の例のようなカスタマイズされたチェックからもスロー可能性があります。 `OnAgeChanging`メソッドでは、ことを確認の数、`Age`プロパティは負の値ではありません。  
+ 前の例では、検証例外を取得します。 値がプロパティの型と一致しない場合、例外がスローされます。 次の例のようにカスタマイズされたチェックからスロー可能性があります。 `OnAgeChanging`ことを確認するメソッドの数、`Age`プロパティが負でないです。  
   
 ```csharp  
 partial void  OnAgeChanging(int? value)  
@@ -2290,6 +2455,7 @@ End Sub
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -2310,28 +2476,28 @@ End Sub
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティをクエリから返されるレコードの条件を指定します。 構文、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティは、c# での LINQ Where 句の構文と同じです。  
+ 使用する、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティをクエリから返されるレコードの条件を指定します。 構文、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティは、c# での LINQ の Where 句の構文と同じです。  
   
- ブール値に評価される式を指定するに式が評価されると`true`特定の行の行が結果セットに含まれます。 式は、次の例のようにと比較するには、列名、比較演算子、および値から構成されます。  
+ 結果のブール値では、式を指定する式を評価する場合と`true`特定の行の行が結果セットに含まれます。 式は、次の例に示すようと比較するには、列名、比較演算子、および値から構成されます。  
   
 ```  
 <asp:LinqDataSource ... Where="Price > 50"...>  
 ```  
   
- 論理によってリンクされている複数の式を指定する`AND`または`OR`演算子を使用する`&&`論理 AND 演算子としてと`||`として次の例で示すように、論理 OR 演算子。  
+ 論理によってリンクされている複数の式を指定する`AND`または`OR`演算子を使用する`&&`として論理 AND 演算子と`||`として次の例に示すように、論理 OR 演算子。  
   
 ```  
 <asp:LinqDataSource ... Where="Price > 50 && Price < 100"...>  
 <asp:LinqDataSource ... Where="Price <= 50 || Price >= 100"...>  
 ```  
   
- リテラル文字列の値に対してプロパティをテストする場合は、リテラル文字列値を二重引用符で囲む必要があります。 これを行うマークアップで、囲む、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>句の値を次の例で示すように、単一引用符で。  
+ リテラル文字列値に対してプロパティをテストする場合は、リテラル文字列値を二重引用符で囲む必要があります。 マークアップを囲む、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>句の値に次の例で示すように、単一引用符で。  
   
 ```  
 <asp:LinqDataSource ... Where='Category = "Sports"' ... >  
 ```  
   
- コード内のリテラル文字列値をテストするには、次の例で示すように、二重引用符を挿入するために使用する言語を適切なエスケープ文字を使用します。  
+ コード内のリテラル文字列値に対してテストするには、次の例に示すように二重引用符を挿入するために使用する言語を適切なエスケープ文字を使用します。  
   
 ```vb  
 LinqDataSource1.Where = "Category = ""Sports"""  
@@ -2341,7 +2507,7 @@ LinqDataSource1.Where = "Category = ""Sports"""
 LinqDataSource1.Where = "Category = \"Sports\"";  
 ```  
   
- 文字列がより大きいか別の文字列よりも小さいかどうかをテストする場合は、メソッドを使用する必要があります、<xref:System.String>クラスを使用せずに`<`または`>`列名と文字列値間の演算子。 次の例より大きい、またはより大きい「スポーツ」と等しいより小さいより小さいか等しい、カテゴリ値を持つ行を選択する方法を示します。  
+ メソッドを使用する必要があります、文字列がより大きい、または別の文字列より小さいかどうかをテストする場合、<xref:System.String>クラスを使用してではなく`<`または`>`列の名前と値の文字列間の演算子。 次の例より大きい、またはより大きい、または「スポーツ」と等しく、小さいより小さいか等しい、カテゴリ値を持つ行を選択する方法を示します。  
   
 ```  
 <asp:LinqDataSource ... Where='Category.CompareTo("Sports") < 0' ... >  
@@ -2350,23 +2516,23 @@ LinqDataSource1.Where = "Category = \"Sports\"";
 <asp:LinqDataSource ... Where='Category.CompareTo("Sports") >= 0' ... >  
 ```  
   
- 他のメソッドを使用することも、<xref:System.String>クラスなど<xref:System.String.StartsWith%2A>、 <xref:System.String.EndsWith%2A>、および<xref:System.String.Contains%2A>です。 文字列を比較する方法の詳細については、次を参照してください。[文字列の比較](~/docs/standard/base-types/comparing.md)です。 場所の詳細については句の構文を参照してください[c# 演算子](http://msdn.microsoft.com/library/0301e31f-22ad-49af-ac3c-d5eae7f0ac43)と[場所句](~/docs/csharp/language-reference/keywords/where-clause.md)です。  
+ 他のメソッドを使用することも、<xref:System.String>クラスなど、 <xref:System.String.StartsWith%2A>、<xref:System.String.EndsWith%2A>と<xref:System.String.Contains%2A>します。 文字列を比較する方法の詳細については、次を参照してください。[文字列の比較](~/docs/standard/base-types/comparing.md)します。 場所の詳細については、句の構文を参照してください[c# 演算子](http://msdn.microsoft.com/library/0301e31f-22ad-49af-ac3c-d5eae7f0ac43)と[場所句](~/docs/csharp/language-reference/keywords/where-clause.md)。  
   
- Web ページを作成する場合に定義する静的な値に基づくフィルター処理、だけでなく実行時に評価されるに基づいて動的な値をフィルター処理できます。 名前付きパラメーターを含める場合は、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティ値のプレース ホルダーとして機能します。 一致する名前を持つパラメーターを追加、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。  
+ Web ページを作成する場合に定義する静的な値に基づくフィルター処理、だけでなく実行時に評価されるに基づいて動的な値をフィルター処理できます。 その場合は、名前付きパラメーターが含まれる、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティ値のプレース ホルダーとして機能します。 一致する名前を持つパラメーターを追加、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。  
   
- また、設定することができます、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティを`true`でパラメーターを定義し、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティは`true`で名前付きパラメーターを含める必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティです。 代わりに、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールは、Where を自動的に生成句内のパラメーターから、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>プロパティです。  
+ また、設定、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティを`true`にパラメーターを定義し、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。 ときに、<xref:System.Web.UI.WebControls.LinqDataSource.AutoGenerateWhereClause%2A>プロパティは`true`で名前付きパラメーターを含める必要はありません、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティ。 代わりに、<xref:System.Web.UI.WebControls.LinqDataSource>コントロールが Where を自動的に生成句のパラメーターから、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>プロパティ。  
   
- データをフィルター処理方法の詳細については、次を参照してください。[チュートリアル: を選択すると、LinqDataSource GridView コントロールとデータのサブセットをフィルター処理](http://msdn.microsoft.com/library/c1cca3e8-86e4-4e69-a29f-1c05b91f2205)です。  
+ データをフィルター処理する方法の詳細については、次を参照してください。[チュートリアル: 選択すると、LinqDataSource コントロールと GridView コントロールとデータのサブセットをフィルター処理](http://msdn.microsoft.com/library/c1cca3e8-86e4-4e69-a29f-1c05b91f2205)します。  
   
    
   
 ## Examples  
- 次の例では、静的な条件に基づくクエリから返されたデータをフィルター処理する方法を示します。  
+ 次の例では、静的な条件に基づくクエリから返されるデータをフィルター処理する方法を示します。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#5](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default5.aspx#5)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#5](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default5.aspx#5)]  
   
- 次の例では、実行時にユーザーによって提供される値に基づいてデータをフィルター処理する方法を示します。 この例では、<xref:System.Web.UI.WebControls.DropDownList>コントロールと<xref:System.Web.UI.WebControls.GridView>コントロールがページに表示されます。 ユーザーが内の値の 1 つを選択するときに、<xref:System.Web.UI.WebControls.DropDownList>コントロール、<xref:System.Web.UI.WebControls.LinqDataSource>からコントロールを選択、`Products`テーブルを持つ行のみ`UserPrice`値を選択した値にします。 <xref:System.Web.UI.WebControls.GridView>コントロールは、フィルター選択されたデータを表示します。  
+ 次の例では、実行時に、ユーザーによって提供される値に基づいてデータをフィルター処理する方法を示します。 この例では、<xref:System.Web.UI.WebControls.DropDownList>コントロールと<xref:System.Web.UI.WebControls.GridView>コントロールは、ページに表示されます。 ユーザーが内の値のいずれかを選択するときに、<xref:System.Web.UI.WebControls.DropDownList>コントロール、<xref:System.Web.UI.WebControls.LinqDataSource>からコントロールを選択します、`Products`テーブルを持つ行のみ`UserPrice`値と等しく、選択した値。 <xref:System.Web.UI.WebControls.GridView>コントロールは、フィルター選択されたデータを表示します。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#6](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default6.aspx#6)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#6](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default6.aspx#6)]  
@@ -2388,6 +2554,7 @@ LinqDataSource1.Where = "Category = \"Sports\"";
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -2417,16 +2584,16 @@ LinqDataSource1.Where = "Category = \"Sports\"";
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、 <xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A> Where を作成するコレクション実行時の句。 パラメーターを追加する、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>をプログラムで、Where 句で 1 つまたは複数の条件を設定する場合に、コレクション句。 たとえば、姓の値と等しい、レコードをデータベース テーブルを検索する場合があります、<xref:System.Web.UI.WebControls.TextBox>コントロール。 パラメーターを追加する場合は、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>テキスト ボックスの値のコレクション。  
+ <xref:System.Web.UI.WebControls.LinqDataSource>コントロール内のパラメーターを使用して、 <xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A> Where を作成するコレクション実行時に句。 パラメーターを追加する、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクションで、1 つまたは複数の条件をプログラムで設定する場合に句。 たとえば、姓の値と等しく、レコードをデータベース テーブルを検索する場合があります、<xref:System.Web.UI.WebControls.TextBox>コントロール。 その場合は、パラメーターを追加する、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>テキスト ボックスの値のコレクション。  
   
- Where 句で、実行時に値を設定する必要はない場合、句がありませんを使用する、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。 取得するフィールドを定義することができます、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティです。 例については、データベース テーブルから値を返す場所`LastName`equals"Adams"マークアップでは、設定、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティを`'LastName = "Adams"'`パラメーターを使用せずします。  
+ 実行時に値を設定する必要はありませんがある場合、句がありませんを使用する、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション。 取得するフィールドを定義することができます、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティ。 たとえば、データベース テーブルから値を返す場所`LastName`マークアップでは、equals"Adams"の設定、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>プロパティを`'LastName = "Adams"'`パラメーターを指定せず。  
   
- 値を設定する、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>コレクション、各パラメーターに名前を割り当てるし、追加するにプレース ホルダー、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>そのパラメーターのプロパティです。 Where 句で各パラメーターの名前を付けます、@ 記号。  
+ 値を設定する、<xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A>各パラメーターに名前を割り当て、コレクションと内のプレース ホルダーを追加し、<xref:System.Web.UI.WebControls.LinqDataSource.Where%2A>そのパラメーターのプロパティ。 Where 句では、各パラメーター名を付ける、@ 記号。  
   
    
   
 ## Examples  
- 次の例を使用する方法を示しています、 <xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A> Where を動的に作成するコレクション句。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールで値を持つすべてのレコードが返されます、`Price`でユーザーが選択されている値よりも大きい列、<xref:System.Web.UI.WebControls.DropDownList>コントロール。  
+ 次の例は、使用する方法を示します、 <xref:System.Web.UI.WebControls.LinqDataSource.WhereParameters%2A> Where を動的に作成するコレクション句。 <xref:System.Web.UI.WebControls.LinqDataSource>コントロールで値を持つすべてのレコードを返します、`Price`でユーザーが選択されている値よりも大きい列、<xref:System.Web.UI.WebControls.DropDownList>コントロール。  
   
  [!code-aspx-csharp[System.Web.UI.WebControls.LinqDataSource_Simple#6](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/cs/Default6.aspx#6)]
  [!code-aspx-vb[System.Web.UI.WebControls.LinqDataSource_Simple#6](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.LinqDataSource_Simple/vb/Default6.aspx#6)]  
