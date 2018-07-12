@@ -1,11 +1,11 @@
 <Type Name="ContextExchangeMechanism" FullName="System.ServiceModel.Channels.ContextExchangeMechanism">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="433656842150ed58a18e0987d34a2b164231a71b" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="af79b503cc30b8212bfd4524b7ac1e678e7a00fc" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36422480" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37621615" />
   </Metadata>
   <TypeSignature Language="C#" Value="public enum ContextExchangeMechanism" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed ContextExchangeMechanism extends System.Enum" />
@@ -16,6 +16,10 @@
   <AssemblyInfo>
     <AssemblyName>System.ServiceModel</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.WorkflowServices</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Enum</BaseTypeName>
@@ -35,13 +39,13 @@
   
  サービス エンドポイントでコンテキスト交換プロトコルのサポートを必要とする場合は、公開されたポリシーにこの条件を明示できます。 SOAP レベルでコンテキスト交換プロトコルをサポートするためのクライアント条件を表しているポリシー アサーションや、HTTP クッキー サポートの有効化を必要とするポリシー アサーションはエンドポイントによって発行できます。 このアサーションはサービスのポリシー内に生成されます。生成は次のように、<xref:System.ServiceModel.Channels.ContextBindingElement.ContextExchangeMechanism%2A> プロパティの値によって制御します。  
   
--   HttpCookie、次のアサーションが生成されます。  
+-   HttpCookie の次のアサーションが生成されます。  
   
     ```  
     <HttpUseCookie xmlns="http://schemas.xmlsoap.org/soap/http"/>  
     ```  
   
--   ContextSoapHeader、次のアサーションが生成されます。  
+-   ContextSoapHeader の次のアサーションが生成されます。  
   
     ```  
     <IncludeContext   
@@ -49,9 +53,9 @@
     protectionLevel="Sign" />  
     ```  
   
- HttpCookie 列挙体は、トランスポート層で実装されます。 この列挙体は、クライアントが最初の要求を行い、これに対応する返信サービスによってコンテキストが返信される単一方向通信で使用することができます。 その後サービスとクライアント間でやり取りされるすべてのメッセージには、そのメッセージ交換が持続している間、コンテキストが含まれます。 HTTP トランスポートと HTTP クッキーを使用できるようにすることに同意するクライアントを使用するサービス エンドポイントのアプリケーション コンテキストを交換する HttpCookie 列挙体に利用できます。 HTTP クッキーを使用してコンテキストを伝達する場合は、トランスポート セキュリティを使用して保護する必要があります。 この機構は HTTP 以外のトランスポートで使用することはできません。  
+ HttpCookie 列挙体は、トランスポート層で実装されます。 この列挙体は、クライアントが最初の要求を行い、これに対応する返信サービスによってコンテキストが返信される単一方向通信で使用することができます。 その後サービスとクライアント間でやり取りされるすべてのメッセージには、そのメッセージ交換が持続している間、コンテキストが含まれます。 HTTP トランスポートと HTTP クッキーを使用できるようにすることに同意しているクライアントを使用するサービス エンドポイント、アプリケーション コンテキストを交換 HttpCookie 列挙型を使用できます。 HTTP クッキーを使用してコンテキストを伝達する場合は、トランスポート セキュリティを使用して保護する必要があります。 この機構は HTTP 以外のトランスポートで使用することはできません。  
   
- ContextSoapHeader 列挙では、代わりに、カスタム コンテキスト チャネルに実装され、HTTP 以外のトランスポートと要求/応答や双方向セッションなど、他のメッセージ交換パターンで使用できるを提供します。 このコンテキスト交換プロトコルでは、HTTP クッキーの機能に相当する SOAP ベースの機能がトランスポート層で提供されています。 このプロトコルには、コンテキスト情報を表すための新しい `wsc:Context` SOAP ヘッダーが導入されています。 `wsc:Context` ヘッダーは、WS-Addressing ヘッダーを保護しなければならないのと同じ理由から、送信中に変更されないように保護する必要があります。着信時、これらのヘッダーを使用して正しいワークフロー インスタンスにメッセージがディスパッチされます。 したがって、バインドにメッセージ保護機能がある場合は、SOAP レベルまたはトランスポート レベルで `wsc:Context` ヘッダーにデジタル署名を適用する必要があります。  
+ ContextSoapHeader 列挙体は、カスタム コンテキスト チャネルで実装され、HTTP 以外のトランスポートと要求/応答、双方向セッションなどの他のメッセージ交換パターンで使用できる別の方法を提供します。 このコンテキスト交換プロトコルでは、HTTP クッキーの機能に相当する SOAP ベースの機能がトランスポート層で提供されています。 このプロトコルには、コンテキスト情報を表すための新しい `wsc:Context` SOAP ヘッダーが導入されています。 `wsc:Context` ヘッダーは、WS-Addressing ヘッダーを保護しなければならないのと同じ理由から、送信中に変更されないように保護する必要があります。着信時、これらのヘッダーを使用して正しいワークフロー インスタンスにメッセージがディスパッチされます。 したがって、バインドにメッセージ保護機能がある場合は、SOAP レベルまたはトランスポート レベルで `wsc:Context` ヘッダーにデジタル署名を適用する必要があります。  
   
  チャネル レイヤーでは、<xref:System.ServiceModel.Channels.ContextMessageProperty> を使用して、アプリケーション層とコンテキストを送受信します。  
   
@@ -70,6 +74,10 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.WorkflowServices</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.ServiceModel.Channels.ContextExchangeMechanism</ReturnType>
@@ -90,6 +98,10 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.WorkflowServices</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.ServiceModel.Channels.ContextExchangeMechanism</ReturnType>
