@@ -22,7 +22,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>An abstract base class that represents a cache for nonces.</summary>
+    <summary>nonce のキャッシュを表す抽象基本クラス。</summary>
     <remarks>To be added.</remarks>
     <block subset="none" type="overrides">
       <para>オーバーライドする必要があります、<see cref="M:System.ServiceModel.Security.NonceCache.CheckNonce(System.Byte[])" />と<see cref="M:System.ServiceModel.Security.NonceCache.TryAddNonce(System.Byte[])" />メソッドです。</para>
@@ -42,7 +42,8 @@
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>Called from constructors in derived classes to initialize the <see cref="T:System.ServiceModel.Security.NonceCache" /> class.</summary>
+        <summary>
+          <see cref="T:System.ServiceModel.Security.NonceCache" /> クラスを初期化するために、派生クラスのコンストラクターから呼び出されます。</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -62,10 +63,10 @@
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Gets or sets the maximum size of the cache specified as the number of nonces that the cache can contain.</summary>
-        <value>キャッシュの最大サイズは、キャッシュを含めることができる検証済みの nonce の数として指定します。</value>
+        <summary>キャッシュを含めることができる限り、その領域の数で指定されたキャッシュの最大サイズを取得または設定します。</summary>
+        <value>キャッシュの最大サイズ。キャッシュに格納可能な nonce の数として指定します。</value>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">An attempt to set a value that is less than zero occurs.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">ゼロ未満の値を設定しようとしました。</exception>
       </Docs>
     </Member>
     <Member MemberName="CachingTimeSpan">
@@ -84,10 +85,11 @@
         <ReturnType>System.TimeSpan</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Gets or sets the maximum timespan after which a nonce is deleted from the cache.</summary>
-        <value>Nonce がキャッシュから削除する最大期間。 この値は、2 回以上、最大クロック スキュー リプレイ ウィンドウのサイズに追加をする必要があります。</value>
+        <summary>その領域だけがキャッシュから削除される最大時間間隔を取得または設定します。</summary>
+        <value>nonce がキャッシュから削除されるまでの最大期間。 この値は、再生ウィンドウのサイズに追加される時刻の最大のずれの 2 倍以上である必要があります。</value>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">An attempt to set a value that is less than <see cref="F:System.TimeSpan.Zero" /> occurs.  -or-  An attempt to set a value greater than the allowed maximum occurs.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <see cref="F:System.TimeSpan.Zero" /> 未満の値を設定しようとしました。  または、許可される最大値よりも大きい値を設定しようとしました。</exception>
       </Docs>
     </Member>
     <Member MemberName="CheckNonce">
@@ -109,10 +111,9 @@
         <Parameter Name="nonce" Type="System.Byte[]" />
       </Parameters>
       <Docs>
-        <param name="nonce">The nonce to check.</param>
-        <summary>When overridden in a derived class, returns a value that indicates whether the specified nonce is already in the cache.</summary>
-        <returns>
-          <see langword="true" /> if the specified nonce is already in the cache; otherwise, <see langword="false" />.</returns>
+        <param name="nonce">確認対象の nonce。</param>
+        <summary>派生クラス内でオーバーライドされると、指定した nonce が既にキャッシュにあるかどうかを示す値を返します。</summary>
+        <returns>指定された nonce が既にキャッシュに含まれている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -135,10 +136,9 @@
         <Parameter Name="nonce" Type="System.Byte[]" />
       </Parameters>
       <Docs>
-        <param name="nonce">The nonce to add to the cache.</param>
-        <summary>When overridden in a derived class, attempts to add the specified nonce to the cache.</summary>
-        <returns>
-          <see langword="true" /> if the nonce was added to the cache; otherwise, <see langword="false" />.</returns>
+        <param name="nonce">キャッシュに追加する nonce。</param>
+        <summary>派生クラスでオーバーライドされると、指定した nonce をキャッシュに追加しようとします。</summary>
+        <returns>nonce が正常にキャッシュに追加された場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

@@ -25,7 +25,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>Provides a set of static (Shared in Visual Basic) methods for working with dataflow blocks.</summary>
+    <summary>データフロー ブロックを操作する静的 (Visual Basic の場合は共有) メソッドのセットを提供します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -61,12 +61,14 @@
         <Parameter Name="source" Type="System.Threading.Tasks.Dataflow.ISourceBlock&lt;TOutput&gt;" RefType="this" />
       </Parameters>
       <Docs>
-        <typeparam name="TOutput">ソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source">The source to wrap.</param>
-        <summary>Creates a new <see cref="T:System.IObservable`1" /> abstraction over the <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" />.</summary>
-        <returns>An <see cref="T:System.IObservable`1" /> that enables observers to be subscribed to the source.</returns>
+        <typeparam name="TOutput">ソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source">ラップするソース。</param>
+        <summary>
+          <see cref="T:System.IObservable`1" /> の新しい <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" /> 抽象化を作成します。</summary>
+        <returns>オブザーバーがソースにサブスクライブされるのを可能にする <see cref="T:System.IObservable`1" />。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The <paramref name="source" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="source" /> が <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="AsObserver&lt;TInput&gt;">
@@ -94,10 +96,11 @@
         <Parameter Name="target" Type="System.Threading.Tasks.Dataflow.ITargetBlock&lt;TInput&gt;" RefType="this" />
       </Parameters>
       <Docs>
-        <typeparam name="TInput">ターゲット ブロックによって受け入れられる入力の種類を指定します。</typeparam>
-        <param name="target">The target to wrap.</param>
-        <summary>Creates a new <see cref="T:System.IObserver`1" /> abstraction over the  <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" />.</summary>
-        <returns>An observer that wraps the target block.</returns>
+        <typeparam name="TInput">ターゲット ブロックが受け取る入力の種類を指定します。</typeparam>
+        <param name="target">ラップするターゲット。</param>
+        <summary>
+          <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> の新しい <see cref="T:System.IObserver`1" /> 抽象化を作成します。</summary>
+        <returns>ターゲット ブロックをラップするオブザーバー。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -130,16 +133,17 @@
         <Parameter Name="action2" Type="System.Action&lt;T2&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">最初のソースに含まれるデータの種類を指定します。</typeparam>
-        <typeparam name="T2">2 番目のソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source1">The first source.</param>
-        <param name="action1">The handler to execute on data from the first source.</param>
-        <param name="source2">The second source.</param>
-        <param name="action2">The handler to execute on data from the second source.</param>
-        <summary>Monitors two dataflow sources, invoking the provided handler for whichever source makes data available first.</summary>
-        <returns>A  <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous choice. If both sources are completed prior to the choice completing, the resulting task will be canceled. When one of the sources has data available and successfully propagates it to the choice, the resulting task will complete when the handler completes; if the handler throws an exception, the task will end in the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state and will contain the unhandled exception. Otherwise, the task will end with its <see cref="P:System.Threading.Tasks.Task`1.Result" /> set to either 0 or 1 to represent the first or second source, respectively.  This method will only consume an element from one of the two data sources, never both.</returns>
+        <typeparam name="T1">最初のソースに格納されるデータの種類を指定します。</typeparam>
+        <typeparam name="T2">2 番目のソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source1">1 番目のソース。</param>
+        <param name="action1">最初のソースからのデータで実行するハンドラー。</param>
+        <param name="source2">2 番目のソース。</param>
+        <param name="action2">2 番目のソースからのデータで実行するハンドラー。</param>
+        <summary>2 つのデータ フロー ソースを監視し、データが最初に使用できるようになったソースに対して、指定したハンドラーを呼び出します。</summary>
+        <returns>非同期の選択項目を表す <see cref="T:System.Threading.Tasks.Task`1" />。 両方のソースが選択の完了前に完了すると、結果のタスクは取り消されます。 いずれかのソースに使用できるデータがあり、それを選択内容に正常に反映した場合、ハンドラーの完了時に結果のタスクが完了します。ハンドラーが例外をスローした場合、タスクは <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> 状態で終了し、未処理の例外が含まれます。 それ以外の場合、タスクは最初または 2 つ目のソースを表すためにそれぞれ <see cref="P:System.Threading.Tasks.Task`1.Result" /> が 0 または 1 に設定された状態で終了します。  このメソッドは、2 つのデータ ソースのいずれかからのみ要素を使用します。両方のデータ ソースから要素を使用することはありません。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The <paramref name="source1" /> is <see langword="null" />.  -or-  The  <paramref name="action1" /> is <see langword="null" />.  -or-  The <paramref name="source2" /> is <see langword="null" />.  -or-  The <paramref name="action2" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="source1" /> が <see langword="null" /> です。  または、<paramref name="action1" /> が <see langword="null" /> です。  または、<paramref name="source2" /> が <see langword="null" /> です。  または、<paramref name="action2" /> が <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Choose&lt;T1,T2&gt;">
@@ -171,17 +175,18 @@
         <Parameter Name="dataflowBlockOptions" Type="System.Threading.Tasks.Dataflow.DataflowBlockOptions" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">最初のソースに含まれるデータの種類を指定します。</typeparam>
-        <typeparam name="T2">2 番目のソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source1">The first source.</param>
-        <param name="action1">The handler to execute on data from the first source.</param>
-        <param name="source2">The second source.</param>
-        <param name="action2">The handler to execute on data from the second source.</param>
-        <param name="dataflowBlockOptions">The options with which to configure this choice.</param>
-        <summary>Monitors two dataflow sources, invoking the provided handler for whichever source makes data available first.</summary>
-        <returns>A  <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous choice. If both sources are completed prior to the choice completing, or if the <see cref="T:System.Threading.CancellationToken" /> provided as part of <paramref name="dataflowBlockOptions" /> is canceled prior to the choice completing, the resulting task will be canceled. When one of the sources has data available and successfully propagates it to the choice, the resulting task will complete when the handler completes; if the handler throws an exception, the task will end in the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state and will contain the unhandled exception. Otherwise, the task will end with its <see cref="P:System.Threading.Tasks.Task`1.Result" /> set to either 0 or 1 to represent the first or second source, respectively.</returns>
+        <typeparam name="T1">最初のソースに格納されるデータの種類を指定します。</typeparam>
+        <typeparam name="T2">2 番目のソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source1">1 番目のソース。</param>
+        <param name="action1">最初のソースからのデータで実行するハンドラー。</param>
+        <param name="source2">2 番目のソース。</param>
+        <param name="action2">2 番目のソースからのデータで実行するハンドラー。</param>
+        <param name="dataflowBlockOptions">この選択の構成に使用するオプション。</param>
+        <summary>2 つのデータ フロー ソースを監視し、データが最初に使用できるようになったソースに対して、指定したハンドラーを呼び出します。</summary>
+        <returns>非同期の選択項目を表す <see cref="T:System.Threading.Tasks.Task`1" />。 両方のソースが選択の完了前に完了するか、<paramref name="dataflowBlockOptions" /> の一部として提供された <see cref="T:System.Threading.CancellationToken" /> が選択の完了前に取り消される場合、結果のタスクは取り消されます。 いずれかのソースに使用できるデータがあり、それを選択内容に正常に反映した場合、ハンドラーの完了時に結果のタスクが完了します。ハンドラーが例外をスローした場合、タスクは <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> 状態で終了し、未処理の例外が含まれます。 それ以外の場合、タスクは最初または 2 つ目のソースを表すためにそれぞれ <see cref="P:System.Threading.Tasks.Task`1.Result" /> が 0 または 1 に設定された状態で終了します。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The <paramref name="source1" /> is <see langword="null" />.  -or-  The <paramref name="action1" /> is <see langword="null" />.  -or-  The <paramref name="source2" /> is <see langword="null" />.  -or-  The <paramref name="action2" /> is <see langword="null" />.  -or-  The <paramref name="dataflowBlockOptions" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="source1" /> が <see langword="null" /> です。  または、<paramref name="action1" /> が <see langword="null" /> です。  または、<paramref name="source2" /> が <see langword="null" /> です。  または、<paramref name="action2" /> が <see langword="null" /> です。  または、<paramref name="dataflowBlockOptions" /> が <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Choose&lt;T1,T2,T3&gt;">
@@ -216,19 +221,20 @@
         <Parameter Name="action3" Type="System.Action&lt;T3&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">最初のソースに含まれるデータの種類を指定します。</typeparam>
-        <typeparam name="T2">2 番目のソースに含まれるデータの種類を指定します。</typeparam>
-        <typeparam name="T3">3 番目のソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source1">The first source.</param>
-        <param name="action1">The handler to execute on data from the first source.</param>
-        <param name="source2">The second source.</param>
-        <param name="action2">The handler to execute on data from the second source.</param>
-        <param name="source3">The third source.</param>
-        <param name="action3">The handler to execute on data from the third source.</param>
-        <summary>Monitors three dataflow sources, invoking the provided handler for whichever source makes data available first.</summary>
-        <returns>A  <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous choice. If all sources are completed prior to the choice completing, the resulting task will be canceled. When one of the sources has data available and successfully propagates it to the choice, the resulting task will complete when the handler completes; if the handler throws an exception, the task will end in the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state and will contain the unhandled exception. Otherwise, the task will end with its <see cref="P:System.Threading.Tasks.Task`1.Result" /> set to the 0-based index of the source.  This method will only consume an element from one of the data sources, never more than one.</returns>
+        <typeparam name="T1">最初のソースに格納されるデータの種類を指定します。</typeparam>
+        <typeparam name="T2">2 番目のソースに格納されるデータの種類を指定します。</typeparam>
+        <typeparam name="T3">3 番目のソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source1">1 番目のソース。</param>
+        <param name="action1">最初のソースからのデータで実行するハンドラー。</param>
+        <param name="source2">2 番目のソース。</param>
+        <param name="action2">2 番目のソースからのデータで実行するハンドラー。</param>
+        <param name="source3">3 番目のソース。</param>
+        <param name="action3">3 番目のソースのデータで実行するハンドラー。</param>
+        <summary>3 つのデータ フロー ソースを監視し、データが最初に使用できるようになったソースに対して、指定したハンドラーを呼び出します。</summary>
+        <returns>非同期の選択項目を表す <see cref="T:System.Threading.Tasks.Task`1" />。 すべてのソースが選択の完了前に完了すると、結果のタスクは取り消されます。 いずれかのソースに使用できるデータがあり、それを選択内容に正常に反映した場合、ハンドラーの完了時に結果のタスクが完了します。ハンドラーが例外をスローした場合、タスクは <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> 状態で終了し、未処理の例外が含まれます。 それ以外の場合、タスクは <see cref="P:System.Threading.Tasks.Task`1.Result" /> がソースの 0 から始まるインデックスに設定された状態で終了します。  このメソッドは、1 つのデータ ソースからのみ要素を使用します。複数のデータ ソースから要素を使用することはありません。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The <paramref name="source1" /> is <see langword="null" />.  -or-  The <paramref name="action1" /> is <see langword="null" />.  -or-  The <paramref name="source2" /> is <see langword="null" />.  -or-  The <paramref name="action2" /> is <see langword="null" />.  -or-  The <paramref name="source3" /> is <see langword="null" />.  -or-  The <paramref name="action3" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="source1" /> が <see langword="null" /> です。  または、<paramref name="action1" /> が <see langword="null" /> です。  または、<paramref name="source2" /> が <see langword="null" /> です。  または、<paramref name="action2" /> が <see langword="null" /> です。  または、<paramref name="source3" /> が <see langword="null" /> です。  または、<paramref name="action3" /> が <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Choose&lt;T1,T2,T3&gt;">
@@ -263,20 +269,21 @@
         <Parameter Name="dataflowBlockOptions" Type="System.Threading.Tasks.Dataflow.DataflowBlockOptions" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">最初のソースに含まれるデータの種類を指定します。</typeparam>
-        <typeparam name="T2">2 番目のソースに含まれるデータの種類を指定します。</typeparam>
-        <typeparam name="T3">3 番目のソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source1">The first source.</param>
-        <param name="action1">The handler to execute on data from the first source.</param>
-        <param name="source2">The second source.</param>
-        <param name="action2">The handler to execute on data from the second source.</param>
-        <param name="source3">The third source.</param>
-        <param name="action3">The handler to execute on data from the third source.</param>
-        <param name="dataflowBlockOptions">The options with which to configure this choice.</param>
-        <summary>Monitors three dataflow sources, invoking the provided handler for whichever source makes data available first.</summary>
-        <returns>A  <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous choice. If all sources are completed prior to the choice completing, or if the <see cref="T:System.Threading.CancellationToken" /> provided as part of <paramref name="dataflowBlockOptions" /> is canceled prior to the choice completing, the resulting task will be canceled. When one of the sources has data available and successfully propagates it to the choice, the resulting task will complete when the handler completes; if the handler throws an exception, the task will end in the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state and will contain the unhandled exception. Otherwise, the task will end with its <see cref="P:System.Threading.Tasks.Task`1.Result" /> set to the 0-based index of the source.  This method will only consume an element from one of the data sources, never more than one. If cancellation is requested after an element has been received, the cancellation request will be ignored, and the relevant handler will be allowed to execute.</returns>
+        <typeparam name="T1">最初のソースに格納されるデータの種類を指定します。</typeparam>
+        <typeparam name="T2">2 番目のソースに格納されるデータの種類を指定します。</typeparam>
+        <typeparam name="T3">3 番目のソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source1">1 番目のソース。</param>
+        <param name="action1">最初のソースからのデータで実行するハンドラー。</param>
+        <param name="source2">2 番目のソース。</param>
+        <param name="action2">2 番目のソースからのデータで実行するハンドラー。</param>
+        <param name="source3">3 番目のソース。</param>
+        <param name="action3">3 番目のソースのデータで実行するハンドラー。</param>
+        <param name="dataflowBlockOptions">この選択の構成に使用するオプション。</param>
+        <summary>3 つのデータ フロー ソースを監視し、データが最初に使用できるようになったソースに対して、指定したハンドラーを呼び出します。</summary>
+        <returns>非同期の選択項目を表す <see cref="T:System.Threading.Tasks.Task`1" />。 すべてのソースが選択の完了前に完了するか、<paramref name="dataflowBlockOptions" /> の一部として提供された <see cref="T:System.Threading.CancellationToken" /> が選択の完了前に取り消される場合、結果のタスクは取り消されます。 いずれかのソースに使用できるデータがあり、それを選択内容に正常に反映した場合、ハンドラーの完了時に結果のタスクが完了します。ハンドラーが例外をスローした場合、タスクは <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> 状態で終了し、未処理の例外が含まれます。 それ以外の場合、タスクは <see cref="P:System.Threading.Tasks.Task`1.Result" /> がソースの 0 から始まるインデックスに設定された状態で終了します。  このメソッドは、1 つのデータ ソースからのみ要素を使用します。複数のデータ ソースから要素を使用することはありません。 要素が受信された後で取り消しが要求された場合、取り消し要求は無視され、関連するハンドラーの実行が許可されます。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The <paramref name="source1" /> is <see langword="null" />.  -or-  The <paramref name="action1" /> is <see langword="null" />.  -or-  The <paramref name="source2" /> is <see langword="null" />.  -or-  The <paramref name="action2" /> is <see langword="null" />.  -or-  The <paramref name="source3" /> is <see langword="null" />.  -or-  The <paramref name="action3" /> is <see langword="null" />.  -or-  The <paramref name="dataflowBlockOptions" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="source1" /> が <see langword="null" /> です。  または、<paramref name="action1" /> が <see langword="null" /> です。  または、<paramref name="source2" /> が <see langword="null" /> です。  または、<paramref name="action2" /> が <see langword="null" /> です。  または、<paramref name="source3" /> が <see langword="null" /> です。  または、<paramref name="action3" /> が <see langword="null" /> です。  または、<paramref name="dataflowBlockOptions" /> が <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Encapsulate&lt;TInput,TOutput&gt;">
@@ -306,12 +313,12 @@
         <Parameter Name="source" Type="System.Threading.Tasks.Dataflow.ISourceBlock&lt;TOutput&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="TInput">ターゲットが必要な入力の種類を指定します。</typeparam>
-        <typeparam name="TOutput">ソースによって生成される出力の種類を指定します。</typeparam>
-        <param name="target">The target to encapsulate.</param>
-        <param name="source">The source to encapsulate.</param>
-        <summary>Encapsulates a target and a source into a single propagator.</summary>
-        <returns>The encapsulated target and source.</returns>
+        <typeparam name="TInput">ターゲットが予期する入力のタイプを指定します。</typeparam>
+        <typeparam name="TOutput">ソースで作成される出力のタイプを指定します。</typeparam>
+        <param name="target">カプセル化するターゲット。</param>
+        <param name="source">カプセル化するソース。</param>
+        <summary>ターゲットとソースを単一の伝達子にカプセル化します。</summary>
+        <returns>カプセル化されたターゲットとソース。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -364,13 +371,15 @@ batchBlock.Complete();
         <Parameter Name="target" Type="System.Threading.Tasks.Dataflow.ITargetBlock&lt;TOutput&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="TOutput">ソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source">The source from which to link.</param>
-        <param name="target">The <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> to which to connect the source.</param>
-        <summary>Links the <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" /> to the specified  <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" />.</summary>
-        <returns>An <see cref="T:System.IDisposable" /> that, upon calling <see langword="Dispose" />, will unlink the source from the target.</returns>
+        <typeparam name="TOutput">ソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source">リンク元のソース。</param>
+        <param name="target">ソースの接続先の <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" />。</param>
+        <summary>指定した <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> に <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" /> をリンクします。</summary>
+        <returns>
+          <see langword="Dispose" /> の呼び出し時にソースをターゲットからリンク解除する <see cref="T:System.IDisposable" />。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The <paramref name="source" /> is <see langword="null" />.  -or-  The <paramref name="target" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="source" /> が <see langword="null" /> です。  または、<paramref name="target" /> が <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="LinkTo&lt;TOutput&gt;">
@@ -400,14 +409,16 @@ batchBlock.Complete();
         <Parameter Name="predicate" Type="System.Predicate&lt;TOutput&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="TOutput">ソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source">The source from which to link.</param>
-        <param name="target">The  <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> to which to connect the source.</param>
-        <param name="predicate">The filter a message must pass in order for it to propagate from the source to the target.</param>
-        <summary>Links the <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" /> to the specified  <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> using the specified filter.</summary>
-        <returns>An <see cref="T:System.IDisposable" /> that, upon calling <see langword="Dispose" />, will unlink the source from the target.</returns>
+        <typeparam name="TOutput">ソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source">リンク元のソース。</param>
+        <param name="target">ソースの接続先の <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" />。</param>
+        <param name="predicate">メッセージをソースからターゲットに伝達するために渡す必要のあるフィルター。</param>
+        <summary>指定したフィルターを使用して、指定した <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> に <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" /> をリンクします。</summary>
+        <returns>
+          <see langword="Dispose" /> の呼び出し時にソースをターゲットからリンク解除する <see cref="T:System.IDisposable" />。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The <paramref name="source" /> is <see langword="null" />.  -or-  The <paramref name="target" /> is <see langword="null" />.  -or-  The <paramref name="predicate" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="source" /> が <see langword="null" /> です。  または、<paramref name="target" /> が <see langword="null" /> です。  または、<paramref name="predicate" /> が <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="LinkTo&lt;TOutput&gt;">
@@ -438,15 +449,17 @@ batchBlock.Complete();
         <Parameter Name="predicate" Type="System.Predicate&lt;TOutput&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="TOutput">ソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source">The source from which to link.</param>
-        <param name="target">The  <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> to which to connect the source.</param>
-        <param name="linkOptions">One of the enumeration values that specifies how to configure a link between dataflow blocks.</param>
-        <param name="predicate">The filter a message must pass in order for it to propagate from the source to the target.</param>
-        <summary>Links the  <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" /> to the specified  <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> using the specified filter.</summary>
-        <returns>An <see cref="T:System.IDisposable" /> that, upon calling <see langword="Dispose" />, will unlink the source from the target.</returns>
+        <typeparam name="TOutput">ソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source">リンク元のソース。</param>
+        <param name="target">ソースの接続先の <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" />。</param>
+        <param name="linkOptions">データ フロー ブロック間のリンクを構成する方法を指定する列挙値の 1 つ。</param>
+        <param name="predicate">メッセージをソースからターゲットに伝達するために渡す必要のあるフィルター。</param>
+        <summary>指定したフィルターを使用して、指定した <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> に <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" /> をリンクします。</summary>
+        <returns>
+          <see langword="Dispose" /> の呼び出し時にソースをターゲットからリンク解除する <see cref="T:System.IDisposable" />。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The  <paramref name="source" /> is null (Nothing in Visual Basic).  -or-  The  <paramref name="target" /> is null (Nothing in Visual Basic).  -or-  The  <paramref name="linkOptions" /> is null (Nothing in Visual Basic).  -or-  The  <paramref name="predicate" /> is null (Nothing in Visual Basic).</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="source" /> は null (Visual Basic では Nothing) です。  または、<paramref name="target" /> は null (Visual Basic では Nothing) です。  または、<paramref name="linkOptions" /> は null (Visual Basic では Nothing) です。  または、<paramref name="predicate" /> は null (Visual Basic では Nothing) です。</exception>
       </Docs>
     </Member>
     <Member MemberName="NullTarget&lt;TInput&gt;">
@@ -472,9 +485,9 @@ batchBlock.Complete();
       </TypeParameters>
       <Parameters />
       <Docs>
-        <typeparam name="TInput">メッセージ ブロックの型を受け入れることができます。</typeparam>
-        <summary>Gets a target block that synchronously accepts all messages offered to it and drops them.</summary>
-        <returns>A <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> that accepts and subsequently drops all offered messages.</returns>
+        <typeparam name="TInput">このブロックが受け入れるメッセージの型。</typeparam>
+        <summary>提供されるすべてのメッセージを同期的に受け入れてドロップするターゲット ブロックを取得します。</summary>
+        <returns>提供されたメッセージをすべて受け入れた後破棄する <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" />。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -503,10 +516,10 @@ batchBlock.Complete();
         <Parameter Name="source" Type="System.Threading.Tasks.Dataflow.ISourceBlock&lt;TOutput&gt;" RefType="this" />
       </Parameters>
       <Docs>
-        <typeparam name="TOutput">ソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source">The source to monitor.</param>
-        <summary>Provides a <see cref="T:System.Threading.Tasks.Task`1" /> that asynchronously monitors the source for available output.</summary>
-        <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that informs of whether and when more output is available. If, when the task completes, its <see cref="P:System.Threading.Tasks.Task`1.Result" /> is <see langword="true" />, more output is available in the source (though another consumer of the source may retrieve the data).  If it returns <see langword="false" />, more output is not and will never be available, due to the source completing prior to output being available.</returns>
+        <typeparam name="TOutput">ソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source">監視するソース。</param>
+        <summary>使用できる出力のソースを非同期的に監視する <see cref="T:System.Threading.Tasks.Task`1" /> を提供します。</summary>
+        <returns>詳細の出力の有無といつ使用できるかを通知する <see cref="T:System.Threading.Tasks.Task`1" />。 タスクの完了時に、<see cref="P:System.Threading.Tasks.Task`1.Result" /> が <see langword="true" /> の場合は、ソース内のより多くの出力を利用できます (ソースの他のコンシューマーもデータを取得することがあります)。  <see langword="false" /> が返される場合、出力が使用可能になる前にソースが完了するため、出力は今後も使用できなくなります。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -535,11 +548,11 @@ batchBlock.Complete();
         <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
       </Parameters>
       <Docs>
-        <typeparam name="TOutput">ソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source">The source to monitor.</param>
-        <param name="cancellationToken">The cancellation token with which to cancel the asynchronous operation.</param>
-        <summary>Provides a  <see cref="T:System.Threading.Tasks.Task`1" /> that asynchronously monitors the source for available output.</summary>
-        <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that informs of whether and when more output is available. If, when the task completes, its <see cref="P:System.Threading.Tasks.Task`1.Result" /> is <see langword="true" />, more output is available in the source (though another consumer of the source may retrieve the data). If it returns <see langword="false" />, more output is not and will never be available, due to the source completing prior to output being available.</returns>
+        <typeparam name="TOutput">ソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source">監視するソース。</param>
+        <param name="cancellationToken">非同期操作をキャンセルするキャンセル トークン。</param>
+        <summary>使用できる出力のソースを非同期的に監視する <see cref="T:System.Threading.Tasks.Task`1" /> を提供します。</summary>
+        <returns>詳細の出力の有無といつ使用できるかを通知する <see cref="T:System.Threading.Tasks.Task`1" />。 タスクの完了時に、<see cref="P:System.Threading.Tasks.Task`1.Result" /> が <see langword="true" /> の場合は、ソース内のより多くの出力を利用できます (ソースの他のコンシューマーもデータを取得することがあります)。 <see langword="false" /> が返される場合、出力が使用可能になる前にソースが完了するため、出力は今後も使用できなくなります。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -569,12 +582,12 @@ batchBlock.Complete();
         <Parameter Name="item" Type="TInput" />
       </Parameters>
       <Docs>
-        <typeparam name="TInput">ターゲット ブロックによって受け入れられるデータの種類を指定します。</typeparam>
-        <param name="target">The target block.</param>
-        <param name="item">The item being offered to the target.</param>
-        <summary>Posts an item to the <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" />.</summary>
-        <returns>
-          <see langword="true" /> if the item was accepted by the target block; otherwise, <see langword="false" />.</returns>
+        <typeparam name="TInput">ターゲット ブロックが受け取るデータの種類を指定します。</typeparam>
+        <param name="target">対象となるブロック。</param>
+        <param name="item">ターゲットに提供される項目。</param>
+        <summary>
+          <see cref="T:System.Threading.Tasks.Dataflow.ITargetBlock`1" /> に項目をポストします。</summary>
+        <returns>項目がターゲット ブロックによって受け入れられた場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -611,13 +624,13 @@ batchBlock.Complete();
       </Parameters>
       <Docs>
         <typeparam name="TOutput">ソースに含まれるデータの型。</typeparam>
-        <param name="source">The source from which to receive the value.</param>
-        <summary>Synchronously receives a value from a specified source.</summary>
-        <returns>The received value.</returns>
+        <param name="source">値を受信する元のソース。</param>
+        <summary>指定されたソースから値を同期的に受信します。</summary>
+        <returns>受け取った値。</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="source" /> is <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">No item could be received from the source.</exception>
+          <paramref name="source" /> は <see langword="null" />です。</exception>
+        <exception cref="T:System.InvalidOperationException">ソースから項目を受信できませんでした。</exception>
       </Docs>
     </Member>
     <Member MemberName="Receive&lt;TOutput&gt;">
@@ -646,10 +659,10 @@ batchBlock.Complete();
       </Parameters>
       <Docs>
         <typeparam name="TOutput">ソースに含まれるデータの型。</typeparam>
-        <param name="source">The source from which to receive the value.</param>
-        <param name="cancellationToken">The token to use to cancel the receive operation.</param>
-        <summary>Synchronously receives a value from a specified source and provides a token to cancel the operation.</summary>
-        <returns>The received value.</returns>
+        <param name="source">値を受信する元のソース。</param>
+        <param name="cancellationToken">受信操作を取り消すために使用するトークン。</param>
+        <summary>同期的に指定したソースから値を受け取り、操作をキャンセルするトークンを提供します。</summary>
+        <returns>受け取った値。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -659,9 +672,9 @@ batchBlock.Complete();
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="source" /> is <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">No item could be received from the source.</exception>
-        <exception cref="T:System.OperationCanceledException">The operation was canceled before an item was received from the source.</exception>
+          <paramref name="source" /> は <see langword="null" />です。</exception>
+        <exception cref="T:System.InvalidOperationException">ソースから項目を受信できませんでした。</exception>
+        <exception cref="T:System.OperationCanceledException">操作は、ソースから項目を受け取る前に取り消されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="Receive&lt;TOutput&gt;">
@@ -691,10 +704,10 @@ batchBlock.Complete();
       </Parameters>
       <Docs>
         <typeparam name="TOutput">ソースに含まれるデータの型。</typeparam>
-        <param name="source">The source from which to receive the value.</param>
-        <param name="timeout">The maximum time interval, in milliseconds, to wait for the synchronous operation to complete, or an interval that represents -1 milliseconds to wait indefinitely.</param>
-        <summary>Synchronously receives a value from a specified source, observing an optional time-out period.</summary>
-        <returns>The received value.</returns>
+        <param name="source">値を受信する元のソース。</param>
+        <param name="timeout">同期操作が完了するまで待機する最大時間間隔 (ミリ秒単位)。-1 ミリ秒を設定すると無制限に待機します。</param>
+        <summary>同期的に指定したソースから値を受信し、オプションのタイムアウト期間を確認します。</summary>
+        <returns>受け取った値。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -704,11 +717,11 @@ batchBlock.Complete();
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="timeout" /> is a negative number other than -1 milliseconds, which represents an infinite time-out period.  -or-  <paramref name="timeout" /> is greater than <see cref="F:System.Int32.MaxValue" />.</exception>
+          <paramref name="timeout" /> は -1 ミリ秒以外の負数です。-1 は無制限のタイムアウト期間を表します。  または、<paramref name="timeout" /> が <see cref="F:System.Int32.MaxValue" /> を超えています。</exception>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="source" /> is <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">No item could be received from the source.</exception>
-        <exception cref="T:System.TimeoutException">The specified time-out expired before an item was received from the source.</exception>
+          <paramref name="source" /> は <see langword="null" />です。</exception>
+        <exception cref="T:System.InvalidOperationException">ソースから項目を受信できませんでした。</exception>
+        <exception cref="T:System.TimeoutException">項目をソースから受け取る前に、指定されたタイムアウトの時間になりました。</exception>
       </Docs>
     </Member>
     <Member MemberName="Receive&lt;TOutput&gt;">
@@ -738,11 +751,11 @@ batchBlock.Complete();
       </Parameters>
       <Docs>
         <typeparam name="TOutput">ソースに含まれるデータの型。</typeparam>
-        <param name="source">The source from which to receive the value.</param>
-        <param name="timeout">The maximum time interval, in milliseconds, to wait for the synchronous operation to complete, or an interval that represents -1 milliseconds to wait indefinitely.</param>
-        <param name="cancellationToken">The token to use to cancel the receive operation.</param>
-        <summary>Synchronously receives a value from a specified source, providing a token to cancel the operation and observing an optional time-out interval.</summary>
-        <returns>The received value.</returns>
+        <param name="source">値を受信する元のソース。</param>
+        <param name="timeout">同期操作が完了するまで待機する最大時間間隔 (ミリ秒単位)。-1 ミリ秒を設定すると無制限に待機します。</param>
+        <param name="cancellationToken">受信操作を取り消すために使用するトークン。</param>
+        <summary>同期的に操作をキャンセルするトークンを提供し、オプションのタイムアウト間隔を確認する指定したソースから値を受け取ります。</summary>
+        <returns>受け取った値。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -751,12 +764,13 @@ batchBlock.Complete();
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">The <paramref name="source" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="source" /> が <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="timeout" /> is a negative number other than -1 milliseconds, which represents an infinite time-out period.  -or-  <paramref name="timeout" /> is greater than <see cref="F:System.Int32.MaxValue" />.</exception>
-        <exception cref="T:System.InvalidOperationException">No item could be received from the source.</exception>
-        <exception cref="T:System.TimeoutException">The specified time-out expired before an item was received from the source.</exception>
-        <exception cref="T:System.OperationCanceledException">The operation was canceled before an item was received from the source.</exception>
+          <paramref name="timeout" /> は -1 ミリ秒以外の負数です。-1 は無制限のタイムアウト期間を表します。  または、<paramref name="timeout" /> が <see cref="F:System.Int32.MaxValue" /> を超えています。</exception>
+        <exception cref="T:System.InvalidOperationException">ソースから項目を受信できませんでした。</exception>
+        <exception cref="T:System.TimeoutException">項目をソースから受け取る前に、指定されたタイムアウトの時間になりました。</exception>
+        <exception cref="T:System.OperationCanceledException">操作は、ソースから項目を受け取る前に取り消されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="ReceiveAsync&lt;TOutput&gt;">
@@ -785,12 +799,12 @@ batchBlock.Complete();
       </Parameters>
       <Docs>
         <typeparam name="TOutput">ソースに含まれるデータの型。</typeparam>
-        <param name="source">The source from which to receive the value.</param>
-        <summary>Asynchronously receives a value from a specified source.</summary>
-        <returns>A task that represents the asynchronous receive operation. When an item value is successfully received from the source, the returned task is completed and its <see cref="P:System.Threading.Tasks.Task`1.Result" /> returns the received value. If an item value cannot be retrieved because the source is empty and completed , an <see cref="T:System.InvalidOperationException" /> exception is thrown in the returned task.</returns>
+        <param name="source">値を受信する元のソース。</param>
+        <summary>指定されたソースから値を非同期的に受信します。</summary>
+        <returns>非同期の受信操作を表すタスク。 項目値をソースから正常に受け取った場合、返されたタスクが完了し、<see cref="P:System.Threading.Tasks.Task`1.Result" /> が受け取った値を返します。 ソースが空で完了しているために項目の値が取得できない場合には、返されたタスクで <see cref="T:System.InvalidOperationException" /> 例外がスローされます。</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="source" /> is <see langword="null" />.</exception>
+          <paramref name="source" /> は <see langword="null" />です。</exception>
       </Docs>
     </Member>
     <Member MemberName="ReceiveAsync&lt;TOutput&gt;">
@@ -818,14 +832,14 @@ batchBlock.Complete();
         <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
       </Parameters>
       <Docs>
-        <typeparam name="TOutput">ソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source">The source from which to receive the value.</param>
-        <param name="cancellationToken">The token to use to cancel the receive operation.</param>
-        <summary>Asynchronously receives a value from a specified source and provides a token to cancel the operation.</summary>
-        <returns>A task that represents the asynchronous receive operation. When a value is successfully received from the source, the returned task is completed and its <see cref="P:System.Threading.Tasks.Task`1.Result" /> returns the value. If a value cannot be retrieved because cancellation was requested, the returned task is canceled. If the value cannot be retrieved because the source is empty and completed , an <see cref="T:System.InvalidOperationException" /> exception is thrown in the returned task.</returns>
+        <typeparam name="TOutput">ソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source">値を受信する元のソース。</param>
+        <param name="cancellationToken">受信操作を取り消すために使用するトークン。</param>
+        <summary>非同期に指定したソースから値を受け取り、操作をキャンセルするトークンを提供します。</summary>
+        <returns>非同期の受信操作を表すタスク。 値をソースから正常に受け取った場合、返されたタスクが完了し、<see cref="P:System.Threading.Tasks.Task`1.Result" /> が値を返します。 キャンセルが要求されたため値を取得できない場合には、返されたタスクはキャンセルされます。 ソースが空で完了しているために値が取得できない場合には、返されたタスクの <see cref="T:System.InvalidOperationException" /> 例外がスローされます。</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="source" /> is <see langword="null" />.</exception>
+          <paramref name="source" /> は <see langword="null" />です。</exception>
       </Docs>
     </Member>
     <Member MemberName="ReceiveAsync&lt;TOutput&gt;">
@@ -855,15 +869,15 @@ batchBlock.Complete();
       </Parameters>
       <Docs>
         <typeparam name="TOutput">ソースに含まれるデータの型。</typeparam>
-        <param name="source">The source from which to receive the value.</param>
-        <param name="timeout">The maximum time interval, in milliseconds, to wait for the synchronous operation to complete, or an interval that represents -1 milliseconds to wait indefinitely.</param>
-        <summary>Asynchronously receives a value from a specified source, observing an optional time-out period.</summary>
-        <returns>A task that represents the asynchronous receive operation. When a value is successfully received from the source, the returned task is completed and its <see cref="P:System.Threading.Tasks.Task`1.Result" /> returns the value. If a value cannot be retrieved because the time-out expired, the returned task is canceled. If the value cannot be retrieved because the source is empty and completed , an <see cref="T:System.InvalidOperationException" /> exception is thrown in the returned task.</returns>
+        <param name="source">値を受信する元のソース。</param>
+        <param name="timeout">同期操作が完了するまで待機する最大時間間隔 (ミリ秒単位)。-1 ミリ秒を設定すると無制限に待機します。</param>
+        <summary>非同期に指定したソースから値を受信し、オプションのタイムアウト期間を確認します。</summary>
+        <returns>非同期の受信操作を表すタスク。 値をソースから正常に受け取った場合、返されたタスクが完了し、<see cref="P:System.Threading.Tasks.Task`1.Result" /> が値を返します。 タイムアウトの時間が経過したため値を取得できない場合には、返されたタスクはキャンセルされます。 ソースが空で完了しているために値が取得できない場合には、返されたタスクの <see cref="T:System.InvalidOperationException" /> 例外がスローされます。</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="source" /> is <see langword="null" />.</exception>
+          <paramref name="source" /> は <see langword="null" />です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="timeout" /> is a negative number other than -1 milliseconds, which represents an infinite time-out period.  -or-  <paramref name="timeout" /> is greater than <see cref="F:System.Int32.MaxValue" />.</exception>
+          <paramref name="timeout" /> は -1 ミリ秒以外の負数です。-1 は無制限のタイムアウト期間を表します。  または、<paramref name="timeout" /> が <see cref="F:System.Int32.MaxValue" /> を超えています。</exception>
       </Docs>
     </Member>
     <Member MemberName="ReceiveAsync&lt;TOutput&gt;">
@@ -893,16 +907,16 @@ batchBlock.Complete();
       </Parameters>
       <Docs>
         <typeparam name="TOutput">ソースに含まれるデータの型。</typeparam>
-        <param name="source">The source from which to receive the value.</param>
-        <param name="timeout">The maximum time interval, in milliseconds, to wait for the synchronous operation to complete, or an interval that represents -1 milliseconds to wait indefinitely.</param>
-        <param name="cancellationToken">The token which may be used to cancel the receive operation.</param>
-        <summary>Asynchronously receives a value from a specified source, providing a token to cancel the operation and observing an optional time-out interval.</summary>
-        <returns>A task that represents the asynchronous receive operation. When a value is successfully received from the source, the returned task is completed and its <see cref="P:System.Threading.Tasks.Task`1.Result" /> returns the value. If a value cannot be retrieved because the time-out expired or cancellation was requested, the returned task is canceled. If the value cannot be retrieved because the source is empty and completed, an <see cref="T:System.InvalidOperationException" /> exception is thrown in the returned task.</returns>
+        <param name="source">値を受信する元のソース。</param>
+        <param name="timeout">同期操作が完了するまで待機する最大時間間隔 (ミリ秒単位)。-1 ミリ秒を設定すると無制限に待機します。</param>
+        <param name="cancellationToken">受信操作を取り消すために使用できるトークン。</param>
+        <summary>非同期に操作をキャンセルするトークンを提供し、オプションのタイムアウト間隔を確認する指定したソースから値を受け取ります。</summary>
+        <returns>非同期の受信操作を表すタスク。 値をソースから正常に受け取った場合、返されたタスクが完了し、<see cref="P:System.Threading.Tasks.Task`1.Result" /> が値を返します。 タイムアウトの時間が経過するか、キャンセルが要求されたため値を取得できない場合には、返されたタスクはキャンセルされます。 ソースが空で完了しているために値が取得できない場合には、返されたタスクの <see cref="T:System.InvalidOperationException" /> 例外がスローされます。</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="source" /> is <see langword="null" />.</exception>
+          <paramref name="source" /> は <see langword="null" />です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="timeout" /> is a negative number other than -1 milliseconds, which represents an infinite time-out period.  -or-  <paramref name="timeout" /> is greater than <see cref="F:System.Int32.MaxValue" />.</exception>
+          <paramref name="timeout" /> は -1 ミリ秒以外の負数です。-1 は無制限のタイムアウト期間を表します。  または、<paramref name="timeout" /> が <see cref="F:System.Int32.MaxValue" /> を超えています。</exception>
       </Docs>
     </Member>
     <Member MemberName="SendAsync&lt;TInput&gt;">
@@ -931,13 +945,14 @@ batchBlock.Complete();
         <Parameter Name="item" Type="TInput" />
       </Parameters>
       <Docs>
-        <typeparam name="TInput">ターゲットに送信するデータの種類を指定します。</typeparam>
-        <param name="target">The target to which to post the data.</param>
-        <param name="item">The item being offered to the target.</param>
-        <summary>Asynchronously offers a message to the target message block, allowing for postponement.</summary>
-        <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous send. If the target accepts and consumes the offered element during the call to <see cref="M:System.Threading.Tasks.Dataflow.DataflowBlock.SendAsync``1(System.Threading.Tasks.Dataflow.ITargetBlock{``0},``0)" />, upon return from the call the resulting <see cref="T:System.Threading.Tasks.Task`1" /> will be completed and its <see cref="P:System.Threading.Tasks.Task`1.Result" /> property will return <see langword="true" />. If the target declines the offered element during the call, upon return from the call the resulting <see cref="T:System.Threading.Tasks.Task`1" /> will be completed and its <see cref="P:System.Threading.Tasks.Task`1.Result" /> property will return <see langword="false" />. If the target postpones the offered element, the element will be buffered until such time that the target consumes or releases it, at which point the task will complete, with its <see cref="P:System.Threading.Tasks.Task`1.Result" /> indicating whether the message was consumed. If the target never attempts to consume or release the message, the returned task will never complete.</returns>
+        <typeparam name="TInput">ターゲットにポストするデータ型を指定します。</typeparam>
+        <param name="target">データをポストするターゲット。</param>
+        <param name="item">ターゲットに提供される項目。</param>
+        <summary>ターゲット メッセージ ブロックにメッセージを非同期的に提供し、遅延を可能にします。</summary>
+        <returns>非同期送信を表す <see cref="T:System.Threading.Tasks.Task`1" />。 ターゲットが <see cref="M:System.Threading.Tasks.Dataflow.DataflowBlock.SendAsync``1(System.Threading.Tasks.Dataflow.ITargetBlock{``0},``0)" /> の呼び出し中に提供された要素を受け入れて使用する場合、呼び出しから戻ったときに、結果の <see cref="T:System.Threading.Tasks.Task`1" /> が完了し、その <see cref="P:System.Threading.Tasks.Task`1.Result" /> プロパティは <see langword="true" /> を返します。 ターゲットが呼び出し中に提供された要素を拒否する場合、呼び出しから戻ったときに、結果の <see cref="T:System.Threading.Tasks.Task`1" /> が完了し、その <see cref="P:System.Threading.Tasks.Task`1.Result" /> プロパティは <see langword="false" /> を返します。 提供された要素をターゲットが延期する場合、要素はターゲットが要素を使用または解放するまでバッファリングされます。要素が使用または解放された時点でタスクは完了し、<see cref="P:System.Threading.Tasks.Task`1.Result" /> はメッセージが使用されたかどうかを示します。 ターゲットがメッセージを使用または解放しようとしない場合、返されたタスクは完了しません。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The <paramref name="target" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="target" /> が <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="SendAsync&lt;TInput&gt;">
@@ -966,14 +981,15 @@ batchBlock.Complete();
         <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
       </Parameters>
       <Docs>
-        <typeparam name="TInput">ターゲットに送信するデータの種類を指定します。</typeparam>
-        <param name="target">The target to which to post the data.</param>
-        <param name="item">The item being offered to the target.</param>
-        <param name="cancellationToken">The cancellation token with which to request cancellation of the send operation.</param>
-        <summary>Asynchronously offers a message to the target message block, allowing for postponement.</summary>
-        <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous send.  If the target accepts and consumes the offered element during the call to SendAsync, upon return from the call the resulting <see cref="T:System.Threading.Tasks.Task`1" /> will be completed and its <c>Result</c> property will return true.  If the target declines the offered element during the call, upon return from the call the resulting <see cref="T:System.Threading.Tasks.Task`1" /> will be completed and its <c>Result</c> property will return false. If the target postpones the offered element, the element will be buffered until such time that the target consumes or releases it, at which point the Task will complete, with its <c>Result</c> indicating whether the message was consumed. If the target never attempts to consume or release the message, the returned task will never complete.  If cancellation is requested before the target has successfully consumed the sent data, the returned task will complete in the Canceled state and the data will no longer be available to the target.</returns>
+        <typeparam name="TInput">ターゲットにポストするデータ型を指定します。</typeparam>
+        <param name="target">データをポストするターゲット。</param>
+        <param name="item">ターゲットに提供される項目。</param>
+        <param name="cancellationToken">送信操作のキャンセルを要求するキャンセル トークン。</param>
+        <summary>ターゲット メッセージ ブロックにメッセージを非同期的に提供し、遅延を可能にします。</summary>
+        <returns>非同期送信を表す <see cref="T:System.Threading.Tasks.Task`1" />。  ターゲットが SendAsync の呼び出し中に提供された要素を受け入れて使用する場合、呼び出しから戻ったときに、結果の <see cref="T:System.Threading.Tasks.Task`1" /> が完了し、その <c>Result</c> プロパティは true を返します。  ターゲットが呼び出し中に提供された要素を拒否する場合、呼び出しから戻ったときに、結果の <see cref="T:System.Threading.Tasks.Task`1" /> が完了し、その <c>Result</c> プロパティは false を返します。 提供された要素をターゲットが延期する場合、要素はターゲットが要素を使用または解放するまでバッファリングされます。要素が使用または解放された時点でタスクは完了し、<c>Result</c> はメッセージが使用されたかどうかを示します。 ターゲットがメッセージを使用または解放しようとしない場合、返されたタスクは完了しません。  送信されたデータをターゲットが正常に使用し終わる前に取り消しが要求された場合、返されるタスクは取り消された状態で完了し、データはターゲットで使用できなくなります。</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">The  <paramref name="target" /> is null (Nothing in Visual Basic).</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="target" /> は null (Visual Basic では Nothing) です。</exception>
       </Docs>
     </Member>
     <Member MemberName="TryReceive&lt;TOutput&gt;">
@@ -1002,12 +1018,12 @@ batchBlock.Complete();
         <Parameter Name="item" Type="TOutput&amp;" RefType="out" />
       </Parameters>
       <Docs>
-        <typeparam name="TOutput">ソースに含まれるデータの種類を指定します。</typeparam>
-        <param name="source">The source from which to receive.</param>
-        <param name="item">The item received from the source.</param>
-        <summary>Attempts to synchronously receive an item from the <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" />.</summary>
-        <returns>
-          <see langword="true" /> if an item could be received; otherwise, <see langword="false" />.</returns>
+        <typeparam name="TOutput">ソースに格納されるデータの種類を指定します。</typeparam>
+        <param name="source">受信元のソース。</param>
+        <param name="item">ソースから受信された項目。</param>
+        <summary>
+          <see cref="T:System.Threading.Tasks.Dataflow.ISourceBlock`1" /> から使用可能な出力項目を同期的に受信します。</summary>
+        <returns>項目を受信できた場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
