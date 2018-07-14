@@ -1,11 +1,11 @@
 <Type Name="TaskScheduler" FullName="System.Threading.Tasks.TaskScheduler">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="4d9adf13c8a7e851e5512c4b8b0e6ada78afa563" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="9101875b3c768590b23db0c0c08ee17d09fc5e38" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36407621" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37609223" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class TaskScheduler" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit TaskScheduler extends System.Object" />
@@ -54,31 +54,31 @@
   
  既定のタスク スケジューラは、負荷分散、スループット最大化のためのスレッドのインジェクション/リタイヤ、および全体のパフォーマンスの向上のためのワーク スティーリングを提供する .NET Framework 4 スレッド プールに基づいています。 ほとんどのシナリオでは、既定のタスク スケジューラで十分です。  
   
- <xref:System.Threading.Tasks.TaskScheduler>クラスは、すべてのカスタマイズ可能なスケジュール ロジックの拡張ポイントとしても機能します。  タスクの実行、およびスケジュールされたタスクをスケジュールする方法をデバッガーに公開するなど、メカニズムが含まれます。 特別な機能を必要とする場合は、カスタム スケジューラを作成して、特定のタスクまたはクエリに対して有効にします。  
+ <xref:System.Threading.Tasks.TaskScheduler>クラスは、すべてのカスタマイズ可能なスケジュール ロジックの拡張ポイントとしても機能します。  タスクの実行、およびスケジュールされたタスクをスケジュールする方法をデバッガーに公開するなど、メカニズムが含まれます。 特別な機能を必要とする場合は、カスタム スケジューラを作成し、特定のタスクまたはクエリに対して有効にします。  
   
  このトピックの内容:  
 [既定のタスク スケジューラと、スレッド プール](#Default)  
- [ローカル キューとの比較にグローバル キュー](#Queues)  
+ [グローバル キューとローカル キューの比較](#Queues)  
  [ワーク スティー リング](#Stealing)  
  [実行時間の長いタスク](#LongRunning)  
  [タスクのインライン展開](#Inlining)  
-[同期コンテキストの指定](#Sync)  
+[同期コンテキストを指定します。](#Sync)  
   
 <a name="Default"></a>   
 ## <a name="the-default-task-scheduler-and-the-thread-pool"></a>既定のタスク スケジューラと、スレッド プール  
- タスク並列ライブラリおよび PLINQ の既定のスケジューラで表される、.NET Framework スレッド プールを使用して、<xref:System.Threading.ThreadPool>クラス、キューに置き、作業を実行します。 スレッド プールによって提供される情報を使用して、<xref:System.Threading.Tasks.Task>粒度の細かい並列化 (有効期間が短い作業単位) 並列タスクや並列クエリよく表すを効率的にサポートする型。  
+ タスク並列ライブラリおよび PLINQ の既定のスケジューラによって表される .NET Framework のスレッド プールを使用して、<xref:System.Threading.ThreadPool>クラス、キューに作業を実行します。 スレッド プールによって提供される情報を使用して、<xref:System.Threading.Tasks.Task>並列タスクや並列クエリよく表すきめ細かな並列 (有効期間が短い作業単位) を効率的にサポートする型。  
   
 <a name="Queues"></a>   
-### <a name="the-global-queue-vs-local-queues"></a>ローカル キューとの比較にグローバル キュー  
- スレッド プールでは、グローバル FIFO (先入れ、先出し) 作業の各アプリケーション ドメインのスレッドのキューを保持します。 プログラムを呼び出すたびに、 <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A?displayProperty=nameWithType> (または<xref:System.Threading.ThreadPool.UnsafeQueueUserWorkItem%2A?displayProperty=nameWithType>)、メソッドは、この共有キューに配置、および作業最終的にキューから取り出され、次に利用可能になるスレッドにします。 .NET Framework 4 以降ではこのキューが改善されましたに似たロック制御不要のアルゴリズムを使用して、<xref:System.Collections.Concurrent.ConcurrentQueue%601>クラスです。 このロック制御不要の実装を使用するは、スレッド プールは、キューに入れ、作業項目は、キューの場合に、短時間を費やしています。 このパフォーマンスの利点は、スレッド プールを使用するすべてのプログラムで使用可能です。  
+### <a name="the-global-queue-vs-local-queues"></a>グローバル キューとローカル キューの比較  
+ スレッド プールでは、グローバル FIFO (先入れ、先出し) 作業の各アプリケーション ドメイン内のスレッドのキューを保持します。 プログラムを呼び出すたびに、 <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A?displayProperty=nameWithType> (または<xref:System.Threading.ThreadPool.UnsafeQueueUserWorkItem%2A?displayProperty=nameWithType>) メソッドでは、処理はこの共有キューに配置があり、最終的に、キューから削除できるようになります次のスレッドにします。 以降、.NET Framework 4 では、このキューが改善されましたに似たロック制御不要のアルゴリズムを使用して、<xref:System.Collections.Concurrent.ConcurrentQueue%601>クラス。 このロック制御不要の実装を使用すると、スレッド プールは、ときにキューに配置し、作業項目は、キューの時間を費やしています。 このパフォーマンス上の利点は、スレッド プールを使用するすべてのプログラムで使用可能です。  
   
- トップレベル タスクは、別のタスクのコンテキストで作成されないタスクのことで、他の作業項目と同様にグローバル キューに配置されます。 ただし、別のタスクのコンテキストで作成される入れ子のタスクまたは子タスクは、まったく異なる方法で処理されます。 子タスクまたは入れ子のタスクは、親タスクが実行されているスレッドに固有のローカル キューに配置されます。 親タスクはトップレベルのタスクである場合もあれば、別のタスクの子である場合もあります。 このスレッドは、追加の作業を処理する準備が整ったら、最初にローカル キューを検索します。 作業項目がローカル キューで待機している場合は、それらにすばやくアクセスできます。 ローカル キューは、後入れ先出しの順序でキャッシュの局所性を保持し、競合を減らすには、(LIFO) アクセスします。 子タスクと入れ子になったタスクの詳細については、次を参照してください。[アタッチとデタッチされた子タスク](~/docs/standard/parallel-programming/attached-and-detached-child-tasks.md)です。  
+ トップレベル タスクは、別のタスクのコンテキストで作成されないタスクのことで、他の作業項目と同様にグローバル キューに配置されます。 ただし、別のタスクのコンテキストで作成される入れ子のタスクまたは子タスクは、まったく異なる方法で処理されます。 子タスクまたは入れ子のタスクは、親タスクが実行されているスレッドに固有のローカル キューに配置されます。 親タスクはトップレベルのタスクである場合もあれば、別のタスクの子である場合もあります。 このスレッドは、追加の作業を処理する準備が整ったら、最初にローカル キューを検索します。 作業項目がローカル キューで待機している場合は、それらにすばやくアクセスできます。 ローカルのキューは、後入れ先出し順序をキャッシュの局所性を維持し、競合を減らすには、(LIFO) にアクセスします。 子タスクと入れ子になったタスクの詳細については、次を参照してください。[アタッチとデタッチされた子タスク](~/docs/standard/parallel-programming/attached-and-detached-child-tasks.md)します。  
   
- ローカル キューを使用するにグローバル キューに負荷が減るだけでなく、データの局所性も活用します。 頻繁にキュー、ローカルの作業項目の物理的に近くにあるメモリ参照データ構造です。 このような場合は、データは既にキャッシュ後、最初のタスクは実行し、すばやくアクセスできます。 両方[Parallel LINQ (PLINQ)](~/docs/standard/parallel-programming/parallel-linq-plinq.md)と<xref:System.Threading.Tasks.Parallel>を使用して入れ子になったタスクと子タスクを広範囲に、クラスし、ローカル作業キューを使用する重要なことを実現します。  
+ ローカル キューの使用は、グローバル キューでの負荷が減るだけでなく、データの局所性も活用します。 ローカルの作業項目キューに頻繁にメモリ内で互いに物理的には参照データの構造体。 このような場合は、データが既にキャッシュ内の最初のタスクが実行しにすばやくアクセスできます。 両方[Parallel LINQ (PLINQ)](~/docs/standard/parallel-programming/parallel-linq-plinq.md) 、<xref:System.Threading.Tasks.Parallel>使用して入れ子になったタスクと子タスクが幅広く、クラスし、ローカル作業キューを使用して重要なスピードアップが実現します。  
   
 <a name="Stealing"></a>   
 ### <a name="work-stealing"></a>ワーク スティー リング  
- .NET Framework 4 以降では、スレッド プール機能も確認するスレッドがとどまっているないアイドル作業が担当するキューの中に、ワーク スティー リング アルゴリズムです。 スレッド プールのスレッドは、追加の作業を処理する準備が整ったら、最初にローカル キューの先頭を探します。次にグローバル キューを探し、最後に他のスレッドのローカル キューを探します。 別のスレッドのローカル キューで作業項目が見つかった場合、作業を効率的に実行できるように、最初にヒューリスティックを適用します。 できる場合は、キューで FIFO の順序) の末尾から、作業項目。 これにより、各ローカル キューでの競合が減り、データの局所性が保持されます。 このアーキテクチャは、スレッド プール負荷を分散旧バージョンより効率的に作業に役立ちます。  
+ 以降、.NET Framework 4 では、スレッド プールはまた、確認するスレッドがあるないアイドル状態キューに作業が他のユーザーも中に、ワーク スティー リング アルゴリズムを機能します。 スレッド プールのスレッドは、追加の作業を処理する準備が整ったら、最初にローカル キューの先頭を探します。次にグローバル キューを探し、最後に他のスレッドのローカル キューを探します。 別のスレッドのローカル キューで作業項目が見つかった場合、作業を効率的に実行できるように、最初にヒューリスティックを適用します。 可能な場合は、(FIFO の順序) の末尾から作業項目をキューします。 これにより、各ローカル キューでの競合が減り、データの局所性が保持されます。 このアーキテクチャでは、スレッド プールの負荷を分散旧バージョンよりも効率的に作業を支援します。  
   
 <a name="LongRunning"></a>   
 ### <a name="long-running-tasks"></a>実行時間の長いタスク  
@@ -86,40 +86,40 @@
   
 <a name="Inlining"></a>   
 ### <a name="task-inlining"></a>タスクのインライン展開  
- 一部の場合に、<xref:System.Threading.Tasks.Task>待機が実行されることが同期的に、待機操作を実行しているスレッドでします。 これによって、追加のスレッドが不要にし、それ以外の場合がブロックされている既存のスレッドを使用して、代わりに、パフォーマンスが向上します。 これは再入によるエラーを防ぐためには、タスクのインライン展開のみが発生した関連するスレッドのローカル キューで待機対象が見つかったときにします。  
+ いくつかの場合に、<xref:System.Threading.Tasks.Task>待機は、その可能性があります同期的にスレッドで実行する、待機操作を実行しています。 これにより、追加のスレッドの必要性を回避し、代わりに、それ以外の場合がブロックされている既存のスレッドを使用してパフォーマンスが向上します。 タスクのインライン展開入起因するエラーを防ぐためには、関連するスレッドのローカルのキューで待機対象が見つかった場合にのみ発生します。  
   
 <a name="Sync"></a>   
-## <a name="specifying-a-synchronization-context"></a>同期コンテキストの指定  
+## <a name="specifying-a-synchronization-context"></a>同期コンテキストを指定します。  
  <xref:System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext%2A?displayProperty=nameWithType> メソッドを使用すると、タスクが特定のスレッドで実行されるようにスケジュールできます。 これは、Windows フォームや Windows Presentation Foundation などのフレームワークで役立ちます。これらのフレームワークでは、多くの場合、ユーザー インターフェイス オブジェクトへのアクセスが、その UI オブジェクトが作成されたスレッドで実行されているコードに制限されるからです。  
   
- 次の例では、 <xref:System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext%2A?displayProperty=nameWithType> Windows Presentation Foundation (WPF) アプリケーションでは、ユーザー インターフェイス (UI) コントロールが作成された同じスレッドでタスクをスケジュールする方法です。   例では、指定したディレクトリからランダムに選択されているイメージを作成します。 WPF オブジェクトは、読み込みし、画像をサイズ変更に使用されます。 生のピクセルを使用するタスクに渡されて、<xref:System.Threading.Tasks.Parallel.For%2A>ラージ 1 バイト配列にピクセル データを書き込むループします。 同期は必要ありませんので、2 つのタイルが同じ配列の要素を占有します。 その他のいずれかのタイルとは別にそれらの位置が計算されるため、タイルを任意の順序で記述もできます。 大きな配列がイメージ コントロールにピクセル データが読み込まれる場所が UI スレッドで実行されるタスクに渡されます。  
+ 次の例では、 <xref:System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext%2A?displayProperty=nameWithType> Windows Presentation Foundation (WPF) アプリケーションでは、ユーザー インターフェイス (UI) コントロールが作成されている同じスレッドでタスクをスケジュールする方法。   例では、指定したディレクトリからランダムに選択されているイメージの寄せ集めを作成します。 WPF オブジェクトは、読み込みし、イメージのサイズ変更に使用されます。 生のピクセルが使用するタスクに渡されるし、<xref:System.Threading.Tasks.Parallel.For%2A>ループを大きな 1 バイト配列にピクセル データを書き込みます。 同期は必要ありませんので、2 つのタイルが同じ配列の要素を占有します。 その他のいずれかのタイルとは別にそれらの位置が計算されるため、タイルを任意の順序で記述こともできます。 大きな配列は、ピクセル データはイメージ コントロールを読み込む、UI スレッドで実行されるタスクに渡されます。  
   
- 例では、UI スレッドからのデータを移動するには、並列ループを使用して、変更および<xref:System.Threading.Tasks.Task>オブジェクト、し、それを UI スレッドで実行されるタスクに渡します。 この方法は、タスク並列ライブラリを使用して、WPF API でサポートされていないか十分な速さを操作する必要がある場合に便利です。 WPF ではイメージ表さを作成する別の方法を使用して、<xref:System.Windows.Controls.WrapPanel?displayProperty=nameWithType>を制御し、イメージを追加します。 <xref:System.Windows.Controls.WrapPanel>タイルの配置の作業を処理します。 ただし、この作業は、UI スレッドでのみ実行できます。  
+ 例では、UI スレッドからのデータを移動、並列ループを使用して、変更、および<xref:System.Threading.Tasks.Task>オブジェクト、し、それを UI スレッドで実行されるタスクに渡します。 このアプローチは、タスク並列ライブラリを使用して、WPF API でサポートされていないか、十分な速度でない操作を実行する必要がある場合に便利です。 WPF の寄せ集めでは、イメージを作成することもできますが、使用する、<xref:System.Windows.Controls.WrapPanel?displayProperty=nameWithType>を制御し、イメージを追加します。 <xref:System.Windows.Controls.WrapPanel>タイルの配置の作業を処理します。 ただし、この作業は、UI スレッドでのみ実行できます。  
   
  [!code-csharp[TPL_SyncContext#01](~/samples/snippets/csharp/VS_Snippets_Misc/tpl_synccontext/cs/mainwindow.xaml.cs#01)]
  [!code-vb[TPL_SyncContext#01](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl_synccontext/vb/MainWindow.xaml.vb#01)]  
   
- 例を作成するには、Visual Studio での WPF アプリケーション プロジェクトを作成し、任意の名前を割り当てます。 次の操作を行います。  
+ 例を作成するには、Visual Studio で WPF アプリケーション プロジェクトを作成して、任意の名前を割り当てます。 次の操作を行います。  
   
-1.  デザイン ビューで、ドラッグ、<xref:System.Windows.Controls.Image>から制御、**ツールボックス**デザイン画面にします。 XAML ビューで、"Left"と水平方向の配置を指定します サイズは、実行時にコントロールが動的にサイズ変更は、するためには関係ありません。 「イメージ」の既定の名前をそのまま使用します。  
+1.  デザイン ビューで、ドラッグ、<xref:System.Windows.Controls.Image>コントロールから、**ツールボックス**デザイン サーフェイスにします。 XAML ビューでは、"Left。"としての水平方向の配置を指定します。 実行時にコントロールの動的にサイズ変更があるために、サイズは関係ありません。 「イメージ」の既定の名前をそのまま使用します。  
   
-2.  ドラッグ、<xref:System.Windows.Controls.Button>から制御、**ツールボックス**アプリケーション ウィンドウの左下の部分にします。 追加ボタンをダブルクリックして、<xref:System.Windows.Controls.Primitives.ButtonBase.Click>イベント ハンドラー。 XAML ビューで、指定、 <xref:System.Windows.Controls.ContentControl.Content%2A> 「表さようにする」と"Left"としての水平方向の配置を指定して、ボタンのプロパティです。 "Button"既定の名前をそのまま使用します。  
+2.  ドラッグ、<xref:System.Windows.Controls.Button>コントロールから、**ツールボックス**アプリケーション ウィンドウの左下の部分にします。 追加ボタンをダブルクリックして、<xref:System.Windows.Controls.Primitives.ButtonBase.Click>イベント ハンドラー。 XAML ビューで指定、 <xref:System.Windows.Controls.ContentControl.Content%2A> 「ようにする、Mosaic」と「左」として、水平方向の配置を指定すると、ボタンのプロパティ。 既定の名前、"button"をそのまま使用します。  
   
-3.  この例のコードを MainWindow.xaml.cs または MainWindow.xaml.vb ファイルの内容全体を置き換えます。 ワークスペースの名前がプロジェクト名と一致していることを確認してください。  
+3.  この例のコードを MainWindow.xaml.cs または MainWindow.xaml.vb ファイルの内容全体を置き換えます。 ワークスペースの名前がプロジェクト名と一致することを確認します。  
   
-4.  この例では、C:\Users\Public\Pictures\Sample Pictures をという名前のディレクトリから JPEG イメージを読み取り\\です。 ディレクトリを作成および、いくつかのイメージを配置またはイメージを含むその他のディレクトリを参照するパスを変更します。  
+4.  この例では、C:\Users\Public\Pictures\Sample Pictures という名前のディレクトリから JPEG イメージを読み取り\\します。 いずれかディレクトリを作成し、そこには、一部のイメージを配置またはイメージを含むその他のディレクトリを参照するパスを変更します。  
   
- この例では、いくつかの制限があります。 たとえば、のみ 32 ビットごとのピクセルのイメージがサポートされています。によって他の形式でのイメージが破損している、<xref:System.Windows.Media.Imaging.BitmapImage>サイズ変更操作中にオブジェクト。 また、ソース イメージする必要がありますすべてタイルのサイズよりも大きいです。 これ以上の手順としては、複数のピクセル形式やファイルのサイズを処理する機能を追加できます。  
+ この例では、いくつかの制限があります。 たとえば、のみ 32 ビットごとのピクセルのイメージがサポートされています。他の形式でイメージが破損している、<xref:System.Windows.Media.Imaging.BitmapImage>サイズ変更操作中にオブジェクト。 また、ソース イメージすべてありますタイルのサイズより大きい。 さらに練習では、複数のピクセル形式とファイルのサイズを処理する機能を追加できます。  
   
    
   
 ## Examples  
- 次の例から取得、 [、.NET Framework 4 による並列プログラミングのサンプル](http://go.microsoft.com/fwlink/?LinkID=165717)MSDN コード ギャラリー Web サイトです。  アプリで使用されるスレッドの数を制限するカスタムのタスク スケジューラを作成します。 2 つのタスクのセットを起動し、タスクおよびタスクが実行されているスレッドに関する情報を表示します。  
+ 次の例がから取得した、 [、.NET Framework 4 による並列プログラミングのサンプル](http://go.microsoft.com/fwlink/?LinkID=165717)MSDN コード ギャラリー Web サイト。  アプリで使用されるスレッドの数を制限するカスタム タスク スケジューラを作成します。 2 つのタスクのセットを起動し、タスクとタスクが実行されているスレッドに関する情報を表示します。  
   
  [!code-csharp[TPL_Schedulers#02](~/samples/snippets/csharp/VS_Snippets_Misc/tpl_schedulers/cs/limitex1.cs#02)]
  [!code-vb[TPL_Schedulers#02](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl_schedulers/vb/module2.vb#02)]  
   
- さらに、いくつかのサンプル タスク スケジューラが使用可能なコード ギャラリー: [、.NET Framework 4 による並列プログラミングのサンプル](http://go.microsoft.com/fwlink/?LinkID=165717)です。  
+ さらに、いくつかのサンプル タスク スケジューラが使用可能なコード ギャラリー: [、.NET Framework 4 による並列プログラミングのサンプル](http://go.microsoft.com/fwlink/?LinkID=165717)します。  
   
  ]]></format>
     </remarks>
@@ -196,7 +196,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- タスク内で呼び出されていない場合<xref:System.Threading.Tasks.TaskScheduler.Current%2A>が返されます、<xref:System.Threading.Tasks.TaskScheduler.Default%2A>スケジューラです。  
+ タスク内から呼び出されていない場合<xref:System.Threading.Tasks.TaskScheduler.Current%2A>が返されます、<xref:System.Threading.Tasks.TaskScheduler.Default%2A>スケジューラ。  
   
  詳細については、「<xref:System.Threading.Tasks.TaskScheduler>」を参照してください。  
   
@@ -241,10 +241,31 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。  
+ 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)します。  
   
  ]]></format>
         </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Finalize">
+      <MemberSignature Language="C#" Value="~TaskScheduler ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Finalize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskScheduler.Finalize" />
+      <MemberSignature Language="VB.NET" Value="Finalize ()" />
+      <MemberSignature Language="C++ CLI" Value="!TaskScheduler ()" />
+      <MemberSignature Language="F#" Value="override this.Finalize : unit -&gt; unit" Usage="taskScheduler.Finalize " />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="FromCurrentSynchronizationContext">
@@ -286,9 +307,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- すべて<xref:System.Threading.Tasks.Task>に返されたインスタンスのキューに置かれたスケジューラを呼び出すことによって実行される、<xref:System.Threading.SynchronizationContext.Post%2A>メソッドのコンテキストでします。  
+ すべて<xref:System.Threading.Tasks.Task>に返されたインスタンスのキューに置かれたスケジューラを呼び出すことによって実行される、<xref:System.Threading.SynchronizationContext.Post%2A>そのコンテキストでのメソッド。  
   
- 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。  
+ 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)します。  
   
  ]]></format>
         </remarks>
@@ -338,9 +359,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 派生したクラス<xref:System.Threading.Tasks.TaskScheduler>デバッガーとの統合をサポートするためにこのメソッドを実装します。 デバッガーは、データへのアクセスを要求したときに、.NET Framework はこのメソッドを呼び出すだけです。 列挙子の返されたタスクにアクセスするためのユーティリティをデバッグしてがスキャンされますこのスケジューラはこの情報は、ユーザー インターフェイスでの表現を提供するデバッガーを有効にすると、現在キューに登録します。  
+ 派生したクラス<xref:System.Threading.Tasks.TaskScheduler>デバッガーとの統合をサポートするためにこのメソッドを実装します。 デバッガーは、データへのアクセスを要求したときに、.NET Framework はこのメソッドを呼び出すだけです。 列挙型の返されたタスクにアクセスするためのユーティリティをデバッグして走査するこのスケジューラはこの情報は、ユーザー インターフェイスでの表現を提供するデバッガーを有効にすると、現在キューに登録します。  
   
- ことが重要でこのメソッドが呼び出されると、プロセスの他のすべてのスレッドが凍結されることに注意してください。 そのため、ブロックにつながる可能性のあるその他のスレッドとの同期を避けるために重要なです。 同期が必要です。 このメソッドでロックを取得できない場合は、デバッガーがハングアップしないように例外をスローする必要があります。 次の例では、c# の方法の 1 つを示しています。  
+ このメソッドが呼び出されると、その他のすべてのプロセス スレッドが凍結されることに注意してください。 そのため、ブロックにつながる可能性のあるその他のスレッドとの同期を回避するために重要です。 同期が必要に応じて、このメソッドでロックを取得できない場合は、デバッガーが停止しないように例外をスローする必要があります。 次の例では、c# の方法の 1 つを示しています。  
   
 ```  
 protected override IEnumerable<Task> GetScheduledTasks()  
@@ -361,11 +382,11 @@ protected override IEnumerable<Task> GetScheduledTasks()
     }}  
 ```  
   
- さらに、このメソッドは、返される列挙可能なは、グローバルな表示状態を変更する必要があります。  
+ さらに、このメソッドは、返される列挙可能なは、任意のグローバルな表示状態を変更する必要があります。  
   
- 返される列挙可能な null ではありません。 現在、キューに置かれたタスクはありません、列挙可能な空が代わりに返されます。  
+ 列挙可能な返される null ではありません。 現在、キューに置かれたタスクはありません、空白の列挙型が代わりに返されます。  
   
- カスタムのデバッガーを実装している開発者は、このメソッドを直接呼び出すべきではありませんが、内部ラッパー メソッドを使用して`GetScheduledTasksForDebugger`代わりに:`internal Task[] GetScheduledTasksForDebugger()`です。 このラッパー メソッドは、列挙可能なのではなくタスクの配列を返します。 アクティブなスケジューラのリストを取得するには、内部のメソッドを使用`internal static TaskScheduler[] GetTaskSchedulersForDebugger()`です。 この静的メソッドは、アクティブなすべての配列を返します<xref:System.Threading.Tasks.TaskScheduler>インスタンス。 使用してできます`GetScheduledTasksForDebugger`スケジュールされたタスクの一覧を取得するには、各スケジューラ インスタンスにします。  
+ カスタムのデバッガーを実装している開発者はこのメソッドを直接呼び出すべきではありませんが、内部のラッパー メソッドを使用する必要があります`GetScheduledTasksForDebugger`代わりに:`internal Task[] GetScheduledTasksForDebugger()`します。 このラッパー メソッドは、列挙型ではなくタスクの配列を返します。 アクティブなスケジューラの一覧を取得するには、内部のメソッドを使用して`internal static TaskScheduler[] GetTaskSchedulersForDebugger()`します。 この静的メソッドは、アクティブなすべての配列を返します<xref:System.Threading.Tasks.TaskScheduler>インスタンス。 使用することができますし、`GetScheduledTasksForDebugger`スケジュールされたタスクの一覧を取得するには、各スケジューラ インスタンス。  
   
  ]]></format>
         </remarks>
@@ -409,7 +430,7 @@ protected override IEnumerable<Task> GetScheduledTasks()
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。  
+ 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)します。  
   
  ]]></format>
         </remarks>
@@ -452,7 +473,7 @@ protected override IEnumerable<Task> GetScheduledTasks()
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。  
+ 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)します。  
   
  ]]></format>
         </remarks>
@@ -502,11 +523,11 @@ protected override IEnumerable<Task> GetScheduledTasks()
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 派生したクラス<xref:System.Threading.Tasks.TaskScheduler>スケジューラでスケジュールされているタスクをそのまま使用するには、このメソッドを実装します。  
+ 派生したクラス<xref:System.Threading.Tasks.TaskScheduler>タスク スケジューラでスケジュール設定をそのまま使用するには、このメソッドを実装します。  
   
- 一般的な実装では、いずれかの時点が後でそれらのタスクが実行されたスレッドにより処理されると、内部データ構造で、タスクに保存します。  
+ 一般的な実装は、今後のいくつか時にそれらのタスクを実行するスレッドによって処理されますが、内部データ構造で、タスクを保存します。  
   
- このメソッドは、.NET Framework によって呼び出されるだけを目的とし、派生クラスによって直接呼び出すことはできません。 これは、システムの一貫性を維持する必要があります。  
+ このメソッドは、.NET Framework によって呼び出されるだけを目的とし、派生クラスによって直接呼び出さないようにしてください。 これは、システムの整合性を維持するために必要です。  
   
  ]]></format>
         </remarks>
@@ -560,9 +581,9 @@ protected override IEnumerable<Task> GetScheduledTasks()
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。  
+ 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)します。  
   
- このメソッド内で実行が、finally ブロックです。したがって、返す必要があります可能な限り早くそのためなどのリソース<xref:System.Threading.CancellationTokenRegistration>オブジェクトは、適切なタイミングで破棄することができます。  
+ このメソッドで実行、finally ブロックです。そのため返すことは可能な限り早くそのためなどのリソース<xref:System.Threading.CancellationTokenRegistration>適切なタイミングでのオブジェクトを破棄することができます。  
   
  ]]></format>
         </remarks>
@@ -616,9 +637,9 @@ protected override IEnumerable<Task> GetScheduledTasks()
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- スケジューラの実装が付属して<xref:System.Threading.Tasks.Task>いずれかで実行されるインスタンス、<xref:System.Threading.Tasks.TaskScheduler.QueueTask%2A>メソッドまたは<xref:System.Threading.Tasks.TaskScheduler.TryExecuteTaskInline%2A>メソッドです。 スケジューラと見なさを指定されたタスクを実行する適切なときに<xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A>これを行うために使用する必要があります。 アクションの呼び出し、例外処理、状態管理、およびライフ サイクル管理を含め、タスクの実行のすべての側面を tryexecutetask です。  
+ スケジューラの実装が付属<xref:System.Threading.Tasks.Task>いずれかで実行されるインスタンス、<xref:System.Threading.Tasks.TaskScheduler.QueueTask%2A>メソッドまたは<xref:System.Threading.Tasks.TaskScheduler.TryExecuteTaskInline%2A>メソッド。 スケジューラと見なさ、指定されたタスクを実行する適切なときに<xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A>これを行うために使用する必要があります。 アクションの呼び出し、例外処理、状態管理、およびライフ サイクル管理を含め、タスクの実行のすべての側面を tryexecutetask します。  
   
- <xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A> .NET Framework インフラストラクチャによってこのスケジューラに提供されたタスクのみ使用する必要があります。 カスタムのメカニズムを通じて取得した任意のタスクの実行には使用できません。  
+ <xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A> .NET Framework インフラストラクチャによってこのスケジューラに指定されたタスクだけ使用する必要があります。 カスタム メカニズム経由で取得した任意のタスクを実行する場合に使用する必要がありますされません。  
   
  ]]></format>
         </remarks>
@@ -673,13 +694,13 @@ protected override IEnumerable<Task> GetScheduledTasks()
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 派生したクラス<xref:System.Threading.Tasks.TaskScheduler>タスク オブジェクトでの待機を開始したスレッドで、タスクのインラインの実行をサポートするには、この関数を実装します。 インライン実行がオプションであり、false を返すことによって、要求が拒否される可能性があります。 ただしより多くのタスクをことがインライン化できません、ほど、スケジューラは拡大縮小されます。 実際には、スケジューラ インライン展開少なすぎる可能性があるデッドロック発生しやすくします。 適切な実装は、スケジューラによって保証されたポリシーで要求の実行が正常がインライン展開できるようにします。 たとえば、スケジューラは、タスクを実行する専用のスレッドを使用する場合のインライン展開要求したスレッドからは成功します。  
+ 派生したクラス<xref:System.Threading.Tasks.TaskScheduler>タスク オブジェクトでの待機を開始したスレッドでタスクのインライン実行をサポートするには、この関数を実装します。 インライン実行は任意であり、false を返すことによって、要求が拒否されます。 ただしより多くのタスクをことができますインライン化、ほど、スケジューラが拡張されます。 実際には、スケジューラをインライン展開少なすぎる可能性がありますにデッドロックが発生しやすい。 適切な実装では、スケジューラによって保証されたポリシーの下で実行する要求をインラインでは正常に確認してください。 たとえば、スケジューラは、タスクを実行する専用スレッドを使用して、そのスレッドからのインライン化の要求は成功します。  
   
- スケジューラは、インラインの実行を実行する場合は、その要求を実行、基本の TaskScheduler を呼び出すことによって<xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A>メソッドの戻り値を反映する、指定されたタスク オブジェクト。 インライン展開要求を許可することに決めた場合、その内部データ構造体からインライン展開のタスクを削除するスケジューラに適切な場合もあります。 ただし、こと状況によっては、スケジューラ必要がありますをインライン展開するタスクを使っていない提供されていたを<xref:System.Threading.Tasks.TaskScheduler.QueueTask%2A>メソッドです。  
+ スケジューラをインライン実行を実行する場合、その要求を実行、基本の TaskScheduler を呼び出すと<xref:System.Threading.Tasks.TaskScheduler.TryExecuteTask%2A>メソッド戻り値を伝達する、指定されたタスク オブジェクト。 インライン化の要求を許可することに決めた場合、その内部データ構造体からインライン展開のタスクを削除する scheduler の適切な場合があります。 ただしを特定の状況でスケジューラを必要がありますをインライン化するタスクを使って以前指定されていないを<xref:System.Threading.Tasks.TaskScheduler.QueueTask%2A>メソッド。  
   
- 派生されるスケジューラは、その呼び出し元のスレッドがそれ自身のスケジューリング枝葉と同じ特定のタスクを実行するために適切な実行ポリシーが関係していることを確認します。  
+ 派生のスケジューラは、ことは、呼び出し元のスレッドがそれ自身のスケジューリングに関して特定のタスクを実行するための適切な実行ポリシーを懸念していることを確認します。  
   
- 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)です。  
+ 詳細については、次を参照してください。[タスク スケジューラ](http://msdn.microsoft.com/library/638f8ea5-21db-47a2-a934-86e1e961bf65)します。  
   
  ]]></format>
         </remarks>
@@ -733,9 +754,9 @@ protected override IEnumerable<Task> GetScheduledTasks()
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このアプリケーション ドメイン全体のイベントは、トリガーから例外のエスカレーションのポリシー (、既定では、プロセスを終了します) を回避するためのメカニズムを提供します。  
+ このアプリケーション ドメインのイベントがトリガーされない例外エスカレーション ポリシー (既定では、プロセスを終了します) を回避するためのメカニズムを提供します。  
   
- タスクに基づく非同期コードを記述する開発者向け容易にできるように、[!INCLUDE[net_v45](~/includes/net-v45-md.md)]観察されない例外の既定の例外動作を変更します。 観察されない例外が発生させる、<xref:System.Threading.Tasks.TaskScheduler.UnobservedTaskException>例外、プロセスは既定でに終了しません。 代わりに、例外は、イベント ハンドラーが例外を監視するかどうかに関係なく、イベントが発生した後、ランタイムによって処理されます。 この動作を構成することができます。 以降で、[!INCLUDE[net_v45](~/includes/net-v45-md.md)]の動作に戻すには、構成要素を使用することができます、[!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]およびプロセスを終了します。  
+ タスク ベースの非同期コードを記述する開発者向けに容易にできるように、[!INCLUDE[net_v45](~/includes/net-v45-md.md)]監視されていない例外の既定の例外動作を変更します。 監視されていない例外も発生させる、<xref:System.Threading.Tasks.TaskScheduler.UnobservedTaskException>例外では、既定では、プロセスが終了しません。 代わりに、例外は、イベント ハンドラーが例外を監視するかどうかに関係なく、イベントが発生した後、ランタイムによって処理されます。 この動作を構成できます。 以降では、 [!INCLUDE[net_v45](~/includes/net-v45-md.md)]、構成要素を使用するの動作に戻すことができます、[!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]プロセスの終了。  
   
 ```xml  
 <configuration>   
