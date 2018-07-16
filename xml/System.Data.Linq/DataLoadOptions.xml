@@ -1,11 +1,11 @@
 <Type Name="DataLoadOptions" FullName="System.Data.Linq.DataLoadOptions">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="34c67048240be5b4d33ed067657848792722a711" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="4d7a1641f923121f7dc6f5ac9f8bc574e9cf05e1" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36689380" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37680937" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class DataLoadOptions" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit DataLoadOptions extends System.Object" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type DataLoadOptions = class" />
   <AssemblyInfo>
     <AssemblyName>System.Data.Linq</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -29,19 +30,19 @@
 ## Remarks  
   
 ## <a name="general"></a>全般  
- オブジェクトに対してクエリを実行すると、要求したオブジェクトだけが実際に取得されます。 *関連*オブジェクトは自動的に同時にフェッチされません。 (詳細については、次を参照してください[リレーションシップ間でクエリを実行する](~/docs/framework/data/adonet/sql/linq/querying-across-relationships.md)。)。  
+ オブジェクトに対してクエリを実行すると、要求したオブジェクトだけが実際に取得されます。 *関連*オブジェクトが同時に自動的にフェッチされていません。 (詳細については、次を参照してください[リレーションシップ間でクエリを実行する](~/docs/framework/data/adonet/sql/linq/querying-across-relationships.md)。)。  
   
- <xref:System.Data.Linq.DataLoadOptions>クラスは、指定された関連データの即時読み込みを実現するために 2 つのメソッドを提供します。 <xref:System.Data.Linq.DataLoadOptions.LoadWith%2A>メイン ターゲットに関連するデータの即時読み込みメソッドを使用します。 <xref:System.Data.Linq.DataLoadOptions.AssociateWith%2A>メソッドにより、関連するオブジェクトをフィルター処理します。  
+ <xref:System.Data.Linq.DataLoadOptions>クラスが指定された関連データの即時読み込みを実現するために 2 つのメソッドを提供します。 <xref:System.Data.Linq.DataLoadOptions.LoadWith%2A>メイン ターゲットに関連するデータの即時読み込みメソッドを使用します。 <xref:System.Data.Linq.DataLoadOptions.AssociateWith%2A>メソッドにより、関連オブジェクトをフィルター処理します。  
   
 ## <a name="rules"></a>ルール  
  次の規則に注意してくださいに関する<xref:System.Data.Linq.DataLoadOptions>使用状況。  
   
 -   割り当て、<xref:System.Data.Linq.DataLoadOptions>を<xref:System.Data.Linq.DataContext>最初のクエリが実行された後に例外が生成されます。  
   
--   変更、<xref:System.Data.Linq.DataLoadOptions>に割り当てた後、<xref:System.Data.Linq.DataContext>例外が生成されます  
+-   変更を<xref:System.Data.Linq.DataLoadOptions>に割り当てた後、<xref:System.Data.Linq.DataContext>例外が生成されます  
   
 ## <a name="cycle-handling"></a>サイクルの処理  
- <xref:System.Data.Linq.DataLoadOptions.LoadWith%2A> および<xref:System.Data.Linq.DataLoadOptions.AssociateWith%2A>ディレクティブは、サイクルを作成しないでください。 このようなグラフの例を次に示します。  
+ <xref:System.Data.Linq.DataLoadOptions.LoadWith%2A> <xref:System.Data.Linq.DataLoadOptions.AssociateWith%2A>ディレクティブは、サイクルを作成しないでください。 このようなグラフの例を次に示します。  
   
 -   例 1: 自己再帰  
   
@@ -53,9 +54,9 @@
   
     -   `dlo.LoadWith <Order>(o => o.Customer);`  
   
--   例 3: 長いサイクル  
+-   例 3: サイクルが長い  
   
-     これは、適切な正規化されたモデルで発生しませんが可能です。  
+     適切に正規化されたモデルでは発生しませんも可能です。  
   
     -   `dlo.LoadWith <A>(a => a.Bs);`  
   
@@ -67,26 +68,26 @@
   
     -   `dlo.AssociateWith<A>(a=>a.As.Where(a=>a.Id=33));`  
   
--   例 5: 長い再帰的サブクエリ  
+-   例 5: 長い再帰サブクエリ  
   
     -   `dlo.AssociateWith<A>(a=>a.Bs.Where(b=>b.Id==3));`  
   
     -   `dlo.AssociateWith<B>(b=>b.As.Where(a=>a.Id==3));`  
   
- 次に、これらのシナリオで発生するのに役立ついくつかの一般的な規則を理解します。  
+ これらのシナリオで発生するイベントを理解するのに役立ついくつかの一般的な規則を次に示します。  
   
- **LoadWith**への各呼び出し<xref:System.Data.Linq.DataLoadOptions.LoadWith%2A>をグラフにサイクルが導入されているかどうかを確認します。 ある場合、例 1 のように、2 および 3、例外がスローされます。  
+ **LoadWith**への各呼び出し<xref:System.Data.Linq.DataLoadOptions.LoadWith%2A>をグラフにサイクルが導入されているかどうかを確認します。 例 1 のようにがありますが、2、3、例外がスローされます。  
   
  **AssociateWith**実行時にエンジンでは、式内のリレーションシップには、既存のサブクエリ句は当てはまりません。  
   
--   例 4 で、`Where`すべてに対して句が実行される`A`、ものだけでなくサブために、フィルター、サブクエリ式自体によって (再帰的であること)  
+-   例 4 で、`Where`すべてに対して句が実行される`A`、(再帰的になる) ために、このだけでなくは、サブ サブクエリ式自体でフィルター処理  
   
--   例 5 で最初`Where`句は、すべてに適用されます、`B`にサブクエリがある場合でも、s`B`です。 2 番目`Where`句は、すべてに適用されます、`A`で導かれるサブクエリがある場合でも s`A`です。  
+-   例 5 で最初の`Where`句がすべてに適用される、`B`にサブクエリがある場合でも、s`B`します。 2 番目の`Where`句がすべてに適用される、`A`で導かれるサブクエリがある場合でも s`A`します。  
   
    
   
 ## Examples  
- 取得するとき`Customers`、Northwind サンプル データベースからを使用して<xref:System.Data.Linq.DataLoadOptions>ことを指定する`Orders`もを取得します。 うち、どのサブセットを指定することもできます。`Orders`を取得します。  
+ 取得する場合`Customers`、Northwind サンプル データベースから使用できます<xref:System.Data.Linq.DataLoadOptions>ことを指定する`Orders`を取得するもです。 うち、どのサブセットを指定することもできます。`Orders`を取得します。  
   
  ]]></format>
     </remarks>
@@ -101,6 +102,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Linq</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
@@ -119,6 +121,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Linq</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -134,7 +137,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 次の例では、内側のループ反復のみもの`Orders`今日を出荷されていません。  
+ 次の例では、内側のループがもののみを反復処理`Orders`今日が出荷されていません。  
   
    
   
@@ -156,6 +159,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Linq</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -168,19 +172,19 @@
         <Parameter Name="expression" Type="System.Linq.Expressions.Expression&lt;System.Func&lt;T,System.Object&gt;&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="T">に対してクエリが実行する型。  型が割り当てられていない場合は、例外がスローされます。</typeparam>
+        <typeparam name="T">クエリする型。  型が割り当てられていない場合は、例外がスローされます。</typeparam>
         <param name="expression">Identifies the query to be used on a particular one-to-many field or property. Note the following:  If the expression does not start with a field or property that represents a one-to-many relationship, an exception is thrown.  If an operator other than a valid operator appears in the expression, an exception is thrown. Valid operators are as follows:  Where  OrderBy  ThenBy  OrderByDescending  ThenByDescending  Take</param>
         <summary>Filters objects retrieved for a particular relationship.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- サイクルを回避する方法については、次を参照してください。<xref:System.Data.Linq.DataLoadOptions>です。  
+ サイクルを回避する方法については、次を参照してください。<xref:System.Data.Linq.DataLoadOptions>します。  
   
    
   
 ## Examples  
- 次の例では、内側のループ反復のみもの`Orders`今日を出荷されていません。  
+ 次の例では、内側のループがもののみを反復処理`Orders`今日が出荷されていません。  
   
  [!code-csharp[System.Data.Linq.DataLoadOptions#1](~/samples/snippets/csharp/VS_Snippets_Data/system.data.linq.dataloadoptions/cs/program.cs#1)]
  [!code-vb[System.Data.Linq.DataLoadOptions#1](~/samples/snippets/visualbasic/VS_Snippets_Data/system.data.linq.dataloadoptions/vb/module1.vb#1)]  
@@ -249,6 +253,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Linq</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -286,6 +291,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Linq</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -298,16 +304,16 @@
         <Parameter Name="expression" Type="System.Linq.Expressions.Expression&lt;System.Func&lt;T,System.Object&gt;&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="T">に対してクエリが実行する型。  この型が割り当てられていない場合は、例外がスローされます。</typeparam>
+        <typeparam name="T">クエリする型。  この型が割り当てられていない場合は、例外がスローされます。</typeparam>
         <param name="expression">Identifies the field or property to be retrieved.  If the expression does not identify a field or property that represents a one-to-one or one-to-many relationship, an exception is thrown.</param>
         <summary>Specifies which sub-objects to retrieve when a query is submitted for an object of type T.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- リレーションシップの 2 つのレベルの読み込みを指定することはできません (たとえば、 `Orders.OrderDetails`)。 これらのシナリオでは、2 つの異なるを指定する必要があります<xref:System.Data.Linq.DataLoadOptions.LoadWith%2A>メソッドです。  
+ リレーションシップの 2 つのレベルの読み込みを指定することはできません (たとえば、 `Orders.OrderDetails`)。 これらのシナリオでは、2 つの異なるを指定する必要があります<xref:System.Data.Linq.DataLoadOptions.LoadWith%2A>メソッド。  
   
- 繰り返しを避けるためには、「解説」を参照してください。」の「<xref:System.Data.Linq.DataLoadOptions>です。  
+ 循環を避けるためには、「解説」を参照してください。 セクション<xref:System.Data.Linq.DataLoadOptions>します。  
   
    
   
