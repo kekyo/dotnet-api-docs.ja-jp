@@ -1,11 +1,11 @@
 <Type Name="ScriptManager" FullName="System.Web.UI.ScriptManager">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="95c5186420f4885f7f4fc7e3ffbffd256c17e246" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="b82c646ee023f3228d9b6ef77146c12a2daf52d6" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36576449" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37588109" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class ScriptManager : System.Web.UI.Control, System.Web.UI.IPostBackDataHandler, System.Web.UI.IPostBackEventHandler, System.Web.UI.IScriptManager" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi ScriptManager extends System.Web.UI.Control implements class System.Web.UI.IPostBackDataHandler, class System.Web.UI.IPostBackEventHandler, class System.Web.UI.IScriptManager" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type ScriptManager = class&#xA;    inherit Control&#xA;    interface IPostBackDataHandler&#xA;    interface IPostBackEventHandler&#xA;    interface IScriptManager" />
   <AssemblyInfo>
     <AssemblyName>System.Web.Extensions</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -63,7 +64,7 @@
   
 -   [部分ページ レンダリング](#partial_page_rendering)  
   
--   [マスター ページ、ユーザー コントロール、およびその他の子コンポーネントでは、ScriptManager コントロールの使用](#using_the_scriptmanager_control_with_master_pages__user_controls__and_other_child_components)  
+-   [マスター ページ、ユーザー コントロール、およびその他の子コンポーネントで ScriptManager コントロールの使用](#using_the_scriptmanager_control_with_master_pages__user_controls__and_other_child_components)  
   
 -   [スクリプトの管理と登録](#script_management_and_registration)  
   
@@ -73,25 +74,25 @@
   
 -   [エラー処理](#error_handling)  
   
--   [宣言型の構文](#declarative_syntax)  
+-   [宣言構文](#declarative_syntax)  
   
 <a name="introduction"></a>   
 ## <a name="introduction"></a>はじめに  
- <xref:System.Web.UI.ScriptManager>コントロールは ASP.NET での Ajax 機能をサーバーの全体です。 コントロールは、ページ上のすべての ASP.NET Ajax リソースを管理します。 これには、ブラウザーに Microsoft Ajax ライブラリ スクリプトをダウンロードしを使用して有効になっている部分ページ更新をコーディネートが含まれます<xref:System.Web.UI.UpdatePanel>コントロール。 さらに、<xref:System.Web.UI.ScriptManager>コントロールでは、以下を実行することができます。  
+ <xref:System.Web.UI.ScriptManager>コントロールは ASP.NET の Ajax 機能の中心となります。 コントロールは、ページ上のすべての ASP.NET Ajax リソースを管理します。 これには、ブラウザーに Microsoft Ajax Library のスクリプトをダウンロードしを使用して有効になっている部分ページ更新をコーディネートが含まれます<xref:System.Web.UI.UpdatePanel>コントロール。 さらに、<xref:System.Web.UI.ScriptManager>コントロールでは、以下を実行することができます。  
   
--   部分ページ更新プログラムと互換性があるスクリプトを登録します。 スクリプトと、コア ライブラリの依存関係を管理するために登録する任意のスクリプトが Microsoft Ajax ライブラリ スクリプトの後に読み込まれます。  
+-   部分ページ更新プログラムと互換性があるスクリプトを登録します。 スクリプトとコア ライブラリ間の依存関係を管理するために登録する必要があるスクリプトは、Microsoft Ajax Library のスクリプトの後に読み込まれます。  
   
--   指定するかどうかを解放またはデバッグ スクリプトがブラウザーに送信されます。  
+-   指定するかどうかのリリースまたはデバッグ スクリプトがブラウザーに送信されます。  
   
--   アクセスを提供する Web サービス メソッド スクリプトからを持つ Web サービスを登録することによって、<xref:System.Web.UI.ScriptManager>コントロール。  
+-   持つ Web サービスを登録することによって、スクリプトから Web サービス メソッドにアクセスを提供、<xref:System.Web.UI.ScriptManager>コントロール。  
   
--   これらのサービスを登録することによってクライアント スクリプトからアプリケーション サービスの ASP.NET 認証、ロール、およびプロファイルへのアクセスを提供、<xref:System.Web.UI.ScriptManager>コントロール。  
+-   これらのサービスを登録することによって ASP.NET 認証、ロール、およびプロファイルへのアクセスをクライアント スクリプトからアプリケーションのサービス提供、<xref:System.Web.UI.ScriptManager>コントロール。  
   
--   ECMAScript (JavaScript)、およびおよびブラウザー内の関数のカルチャに固有の表示を有効にします。  
+-   ECMAScript (JavaScript)、およびブラウザーで関数のカルチャに固有の表示を有効にします。  
   
--   使用してスタンドアロンのスクリプト ファイルや埋め込みのスクリプト ファイルのローカリゼーション リソースへのアクセス、<xref:System.Web.UI.ScriptReferenceBase.ResourceUICultures%2A>のプロパティ、<xref:System.Web.UI.ScriptReference>コントロール。  
+-   埋め込みスクリプト ファイル、またはスタンドアロン スクリプト ファイルのローカリゼーション リソースにアクセスを使用して、<xref:System.Web.UI.ScriptReferenceBase.ResourceUICultures%2A>のプロパティ、<xref:System.Web.UI.ScriptReference>コントロール。  
   
--   実装するサーバー コントロールの登録、<xref:System.Web.UI.IExtenderControl>または<xref:System.Web.UI.IScriptControl>インターフェイスを持つ、<xref:System.Web.UI.ScriptManager>制御クライアント コンポーネントおよび動作に必要なスクリプトが表示されるようにします。  
+-   実装するサーバー コントロールの登録、<xref:System.Web.UI.IExtenderControl>または<xref:System.Web.UI.IScriptControl>とのインターフェイス、<xref:System.Web.UI.ScriptManager>制御によって、クライアント コンポーネントと動作に必要なスクリプトが表示されるようにします。  
   
 <a name="partial_page_rendering"></a>   
 ## <a name="partial-page-rendering"></a>部分ページ レンダリング  
@@ -99,92 +100,92 @@
   
 -   <xref:System.Web.UI.ScriptManager>コントロールの<xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A>プロパティである必要があります`true`(既定値)。  
   
--   少なくとも 1 つあります<xref:System.Web.UI.UpdatePanel>ページ上のコントロールです。  
+-   少なくとも 1 つあります<xref:System.Web.UI.UpdatePanel>ページ上のコントロール。  
   
 -   <xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>プロパティである必要があります`true`(既定値)。 場合、<xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>プロパティが明示的に設定されていない、その値はブラウザーの機能に基づいています。  
   
- 値をオーバーライドすることができます、<xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A>中またはページの前に、実行時にプロパティ<xref:System.Web.UI.Control.Init>イベント。 ページの後にこのプロパティを変更しようとする場合<xref:System.Web.UI.Control.Init>イベントが発生した、<xref:System.InvalidOperationException>例外がスローされます。  
+ 値を上書きすることができます、<xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A>中またはページの前に、実行時にプロパティ<xref:System.Web.UI.Control.Init>イベント。 ページの後にこのプロパティを変更しようとする場合<xref:System.Web.UI.Control.Init>イベントが発生した、<xref:System.InvalidOperationException>例外がスローされます。  
   
- 部分ページ レンダリングをサポートされている場合、<xref:System.Web.UI.ScriptManager>コントロールは非同期ポストバックおよび部分ページ更新を有効にするスクリプトを表示します。 使用して更新するページの領域が指定されている<xref:System.Web.UI.UpdatePanel>コントロール。 <xref:System.Web.UI.ScriptManager>コントロールは非同期ポストバックを処理し、更新する必要があるページの領域のみを更新します。 部分ページ レンダリングの詳細については、次を参照してください。[部分ページ レンダリングの概要](http://msdn.microsoft.com/library/5c12736d-d9e9-464a-9388-3fe0f9f49e49)です。 更新プログラムを実行する条件の詳細については、次を参照してください。 [UpdatePanel コントロールの概要](http://msdn.microsoft.com/library/29a2265d-9674-4c19-b70e-e5560ee9689a)です。  
+ 部分ページ レンダリングがサポートされている場合、<xref:System.Web.UI.ScriptManager>コントロールが非同期ポストバックおよび部分ページ更新を有効にするスクリプトを表示します。 使用して更新するページの領域が指定されている<xref:System.Web.UI.UpdatePanel>コントロール。 <xref:System.Web.UI.ScriptManager>コントロールが非同期ポストバックを処理し、更新する必要があるページの領域のみを更新します。 部分ページ レンダリングの詳細については、次を参照してください。[部分ページ レンダリングの概要](http://msdn.microsoft.com/library/5c12736d-d9e9-464a-9388-3fe0f9f49e49)します。 更新が発生する条件の詳細については、次を参照してください。 [UpdatePanel コントロールの概要](http://msdn.microsoft.com/library/29a2265d-9674-4c19-b70e-e5560ee9689a)します。  
   
 <a name="using_the_scriptmanager_control_with_master_pages__user_controls__and_other_child_components"></a>   
-## <a name="using-the-scriptmanager-control-with-master-pages-user-controls-and-other-child-components"></a>マスター ページ、ユーザー コントロール、およびその他の子コンポーネントでは、ScriptManager コントロールの使用  
- ページには、1 つだけ含めることができます<xref:System.Web.UI.ScriptManager>その階層内のコントロールです。 親ページで既に場合に、サービスと入れ子になったページ、ユーザー コントロール、またはコンポーネントのスクリプトを登録する、<xref:System.Web.UI.ScriptManager>コントロールを使用して、<xref:System.Web.UI.ScriptManagerProxy>コントロール。 詳細については、次を参照してください[マスター ページで UpdatePanel コントロールの使用。](http://msdn.microsoft.com/library/b1c974d5-a6b2-4bb3-a3cc-61dd9dc0e1d6)  
+## <a name="using-the-scriptmanager-control-with-master-pages-user-controls-and-other-child-components"></a>マスター ページ、ユーザー コントロール、およびその他の子コンポーネントで ScriptManager コントロールの使用  
+ ページは 1 つだけを含めることができます<xref:System.Web.UI.ScriptManager>その階層内のコントロール。 親ページで既に場合に、サービスと入れ子になったページやユーザー コントロール、コンポーネントのスクリプトを登録する、<xref:System.Web.UI.ScriptManager>コントロールを使用して、<xref:System.Web.UI.ScriptManagerProxy>コントロール。 詳細については、次を参照してください[でマスター ページの UpdatePanel コントロールの使用。](http://msdn.microsoft.com/library/b1c974d5-a6b2-4bb3-a3cc-61dd9dc0e1d6)  
   
 <a name="script_management_and_registration"></a>   
 ## <a name="script-management-and-registration"></a>スクリプトの管理と登録  
- <xref:System.Web.UI.ScriptManager>コントロールでは、ページの一部として表示される、スクリプトを登録することができます。 <xref:System.Web.UI.ScriptManager>コントロール登録メソッドは、次の 3 つのカテゴリに分類されます。  
+ <xref:System.Web.UI.ScriptManager>コントロールでは、ページの一部として、レンダリングされるスクリプトを登録することができます。 <xref:System.Web.UI.ScriptManager>コントロール登録メソッドは、次の 3 つのカテゴリに分けることができます。  
   
--   Microsoft Ajax ライブラリにスクリプトの依存関係が保持されることを保証できるメソッドを登録します。  
+-   登録メソッドが Microsoft Ajax Library のスクリプトの依存関係を維持することを保証します。  
   
--   登録メソッドを Microsoft Ajax ライブラリに依存しませんと互換性がある<xref:System.Web.UI.UpdatePanel>コントロール。  
+-   登録メソッドは、Microsoft Ajax Library に依存しませんと互換性のある<xref:System.Web.UI.UpdatePanel>コントロール。  
   
--   使用をサポートする登録メソッド<xref:System.Web.UI.UpdatePanel>コントロール。  
+-   操作をサポートする登録メソッド<xref:System.Web.UI.UpdatePanel>コントロール。  
   
- 作成して asp.net Ajax スクリプトを使用する方法の詳細については、次を参照してください。 [Microsoft Ajax ライブラリを使用してカスタム クライアント スクリプトを作成する](http://msdn.microsoft.com/library/285e3a65-b42e-42c5-952d-baf184057899)です。  
+ 作成し、asp.net Ajax スクリプトを使用する方法の詳細については、次を参照してください。 [Microsoft Ajax Library を使用してカスタム クライアント スクリプトを作成する](http://msdn.microsoft.com/library/285e3a65-b42e-42c5-952d-baf184057899)します。  
   
-### <a name="registering-script-that-is-dependent-on-the-microsoft-ajax-library"></a>Microsoft Ajax ライブラリに依存しているスクリプトを登録します。  
- 次のメソッドを使用すると、Microsoft Ajax ライブラリへの依存関係が保持されることが保証されるようにスクリプト ファイルを登録します。  
+### <a name="registering-script-that-is-dependent-on-the-microsoft-ajax-library"></a>Microsoft Ajax ライブラリに依存するスクリプトを登録します。  
+ 次のメソッドを使用すると、Microsoft Ajax ライブラリへの依存関係が維持されていることを保証するようにスクリプト ファイルを登録します。  
   
 |メソッド|定義|  
 |------------|----------------|  
-|<xref:System.Web.UI.ScriptManager.RegisterScriptControl%2A>|実装するサーバー コントロールを登録、<xref:System.Web.UI.IScriptControl>クライアント オブジェクトを定義するために使用するインターフェイスです。 <xref:System.Web.UI.ScriptManager>コントロールは、クライアントをサポートしているスクリプトを表示します。|  
-|<xref:System.Web.UI.ScriptManager.RegisterExtenderControl%2A>|実装するサーバー コントロールを登録、<xref:System.Web.UI.IExtenderControl>クライアント オブジェクトを定義するために使用するインターフェイスです。 <xref:System.Web.UI.ScriptManager>コントロールは、クライアントをサポートしているスクリプトを表示します。|  
+|<xref:System.Web.UI.ScriptManager.RegisterScriptControl%2A>|実装するサーバー コントロールの登録、<xref:System.Web.UI.IScriptControl>クライアント オブジェクトの定義に使用されるインターフェイス。 <xref:System.Web.UI.ScriptManager>コントロールは、クライアント オブジェクトをサポートするスクリプトを表示します。|  
+|<xref:System.Web.UI.ScriptManager.RegisterExtenderControl%2A>|実装するサーバー コントロールの登録、<xref:System.Web.UI.IExtenderControl>クライアント オブジェクトの定義に使用されるインターフェイス。 <xref:System.Web.UI.ScriptManager>コントロールは、クライアント オブジェクトをサポートするスクリプトを表示します。|  
   
-### <a name="registering-partial-page-update-compatible-scripts"></a>部分ページ更新プログラムの互換性のあるスクリプトを登録します。  
- Microsoft Ajax ライブラリに依存しませんと互換性があるスクリプト ファイルを登録する、次のメソッドを使用することができます<xref:System.Web.UI.UpdatePanel>コントロール。 これらのメソッドは、の同様のメソッドに対応して、<xref:System.Web.UI.ClientScriptManager>コントロール。 内部で使用するスクリプトをレンダリングする場合は、<xref:System.Web.UI.UpdatePanel>のメソッドを呼び出すことを確認してください、制御、<xref:System.Web.UI.ScriptManager>コントロール。  
+### <a name="registering-partial-page-update-compatible-scripts"></a>部分ページ更新プログラムの互換性のあるスクリプトの登録  
+ 次のメソッドを使用してするは、Microsoft Ajax Library に依存しませんと互換性のあるスクリプト ファイルを登録する<xref:System.Web.UI.UpdatePanel>コントロール。 これらのメソッドは、の同様のメソッドに対応、<xref:System.Web.UI.ClientScriptManager>コントロール。 内部で使用するスクリプトをレンダリングする場合は、<xref:System.Web.UI.UpdatePanel>制御のメソッドを呼び出すかどうかを確認してください、<xref:System.Web.UI.ScriptManager>コントロール。  
   
 |メソッド|定義|  
 |------------|----------------|  
 |<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>|JavaScript 配列に値を追加します。 配列が存在しない場合は作成されます。|  
-|<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%2A>|表示、`script`要素の後に、ページの始め`<form>`タグ。 スクリプトは、文字列パラメーターとして指定されます。|  
-|<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>|表示、`script`要素の後に、ページの始め`<form>`タグ。 設定して、スクリプトのコンテンツが指定されて、`src`属性をスクリプト ファイルを指す URL にします。|  
-|<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>|表示、`script`要素の後に、ページの始め`<form>`タグ。 スクリプトの内容は、アセンブリ内のリソース名を指定します。 `src`アセンブリから名前付きのスクリプトを取得する HTTP ハンドラーへの呼び出しで URL を持つ属性が自動的に設定されます。|  
-|<xref:System.Web.UI.ScriptManager.RegisterExpandoAttribute%2A>|指定したコントロールのマークアップ内の名前と値のカスタム属性ペア (expando) を表示します。|  
-|<xref:System.Web.UI.ScriptManager.RegisterHiddenField%2A>|非表示フィールドを表示します。|  
-|<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%2A>|応答で実行されるスクリプトを登録、`form`要素の`submit`イベント。 `onSubmit`属性が指定されたスクリプトを参照します。|  
-|<xref:System.Web.UI.ScriptManager.RegisterStartupScript%2A>|ページの終わりの直前に起動スクリプト ブロックをレンダリング`</form>`タグ。 表示するために、スクリプトは、文字列パラメーターとして指定されます。|  
+|<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%2A>|レンダリングを`script`要素の後に、ページの開始`<form>`タグ。 スクリプトは、文字列パラメーターとして指定されます。|  
+|<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>|レンダリングを`script`要素の後に、ページの開始`<form>`タグ。 スクリプトの内容が設定で指定された、`src`属性をスクリプト ファイルを指す URL。|  
+|<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>|レンダリングを`script`要素の後に、ページの開始`<form>`タグ。 スクリプトの内容は、アセンブリ内のリソース名を指定します。 `src`アセンブリから名前付きのスクリプトを取得する HTTP ハンドラーへの呼び出しによって URL を持つ属性が自動的に設定されます。|  
+|<xref:System.Web.UI.ScriptManager.RegisterExpandoAttribute%2A>|指定したコントロールのマークアップで名前/値のカスタム (expando) 属性ペアを表示します。|  
+|<xref:System.Web.UI.ScriptManager.RegisterHiddenField%2A>|非表示フィールドをレンダリングします。|  
+|<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%2A>|応答で実行されるスクリプトを登録、`form`要素の`submit`イベント。 `onSubmit`属性は、指定したスクリプトを参照します。|  
+|<xref:System.Web.UI.ScriptManager.RegisterStartupScript%2A>|ページの終了直前にスタートアップ スクリプト ブロックをレンダリング`</form>`タグ。 表示するために、スクリプトは、文字列パラメーターとして指定されます。|  
   
- メソッドを登録するときに、スクリプトの種類/キー ペアを指定します。 同じタイプ/キー ペアでスクリプトが既に登録されている場合、新しいスクリプトが登録されていません。 同様に、既に型/リソース名のペアをスクリプトを登録する場合がある、`script`リソースを参照する要素は追加されません。 以前に登録された属性の expando 属性を登録するときに例外がスローされます。 配列の値の重複する登録が許可されます。  
+ メソッドを登録するときに、スクリプトの種類/キー ペアを指定します。 同じタイプ/キー ペアのスクリプトが既に登録されている場合、新しいスクリプトが登録されていません。 同様に、既に型/リソース名のペアをスクリプトを登録した場合に存在、`script`リソースを参照する要素は追加されません。 以前に登録された属性の expando 属性を登録するときに例外がスローされます。 配列の値の重複する登録が許可されます。  
   
- 呼び出すと、<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>または<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>メソッド、インライン関数を実行するスクリプトを登録しないようにします。 代わりに、イベント ハンドラーのような関数定義またはアプリケーション用のカスタムのクラス定義を含むスクリプトを登録します。  
+ 呼び出すと、<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>または<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>メソッド、インライン関数を実行するスクリプトを登録しないようにします。 代わりに、イベント ハンドラーのような関数の定義や、アプリケーションのカスタム クラス定義を含むスクリプトを登録します。  
   
 ### <a name="registration-methods-for-updatepanel-controls"></a>UpdatePanel コントロールの登録メソッド  
- 使用すると、部分ページ更新をカスタマイズする、次のメソッドを使用することができます<xref:System.Web.UI.UpdatePanel>コントロール。  
+ 次のメソッドを使用して、使用する場合は、部分ページ更新をカスタマイズする<xref:System.Web.UI.UpdatePanel>コントロール。  
   
 |メソッド|定義|  
 |------------|----------------|  
 |<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>|コントロールを非同期ポストバックのトリガーとして登録します。|  
 |<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>|部分ページ レンダリング中にカスタム データをコントロールに送信します。|  
-|<xref:System.Web.UI.ScriptManager.RegisterDispose%2A>|Dispose のスクリプト内にあるコントロールを登録、<xref:System.Web.UI.UpdatePanel>コントロール。 このスクリプトは、<xref:System.Web.UI.UpdatePanel> コントロールが更新または削除されるときに実行されます。 Dispose メソッドは、クライアント コンポーネント、Microsoft Ajax ライブラリの一部であるし、コンポーネントを使用できなくする場合は、リソースを解放する必要があることに使用されます。|  
-|<xref:System.Web.UI.ScriptManager.RegisterPostBackControl%2A>|コントロールは、完全なポストバックのトリガーとして登録します。 このメソッドは内部のコントロールの使用、<xref:System.Web.UI.UpdatePanel>本来は非同期ポストバックを実行するコントロール。|  
+|<xref:System.Web.UI.ScriptManager.RegisterDispose%2A>|内にあるコントロールの破棄スクリプトを登録、<xref:System.Web.UI.UpdatePanel>コントロール。 このスクリプトは、<xref:System.Web.UI.UpdatePanel> コントロールが更新または削除されるときに実行されます。 Dispose メソッドは、クライアント コンポーネントは、Microsoft Ajax Library の一部であると、あるコンポーネントを使用できなくする場合は、リソースを解放するのに使用されます。|  
+|<xref:System.Web.UI.ScriptManager.RegisterPostBackControl%2A>|コントロールは、完全なポストバックのトリガーとして登録します。 このメソッドは内部のコントロールの使用、<xref:System.Web.UI.UpdatePanel>それ以外の場合、非同期ポストバックを実行するコントロール。|  
   
 <a name="web_service_references"></a>   
 ## <a name="web-service-references"></a>Web サービスの参照  
- Web サービスを作成することでクライアント スクリプトから呼び出せるを登録することができます、<xref:System.Web.UI.ServiceReference>オブジェクトとに追加すること、<xref:System.Web.UI.ScriptManager.Services%2A>のコレクション、<xref:System.Web.UI.ScriptManager>コントロール。 ASP.NET クライアント プロキシ オブジェクトによって生成される各<xref:System.Web.UI.ServiceReference>内のオブジェクト、<xref:System.Web.UI.ScriptManager.Services%2A>コレクション。 プログラムで追加することができます<xref:System.Web.UI.ServiceReference>オブジェクトを<xref:System.Web.UI.ScriptManager.Services%2A>実行時に Web サービスを登録するコレクション。  
+ 作成して、クライアント スクリプトから呼び出される Web サービスを登録することができます、<xref:System.Web.UI.ServiceReference>オブジェクトとに追加すること、<xref:System.Web.UI.ScriptManager.Services%2A>のコレクション、<xref:System.Web.UI.ScriptManager>コントロール。 ASP.NET クライアント プロキシ オブジェクトによって生成される各<xref:System.Web.UI.ServiceReference>オブジェクト、<xref:System.Web.UI.ScriptManager.Services%2A>コレクション。 プログラムで追加することができます<xref:System.Web.UI.ServiceReference>オブジェクトを<xref:System.Web.UI.ScriptManager.Services%2A>実行時に Web サービスを登録するコレクション。  
   
- スクリプトで Web サービスにアクセスする方法の詳細については、次を参照してください。 [ASP.NET AJAX でクライアント スクリプトを Web サービスを公開する](http://msdn.microsoft.com/library/fe3f6e9e-0acd-44c9-bf0f-0a8598fc13b8)と[ASP.NET AJAX でクライアント スクリプトから Web サービスを呼び出す](http://msdn.microsoft.com/library/fc06c224-f01a-45be-94af-bd71afbc07b0)です。  
+ スクリプトで Web サービスにアクセスする方法の詳細については、次を参照してください。 [ASP.NET AJAX でクライアント スクリプトを Web サービスを公開する](http://msdn.microsoft.com/library/fe3f6e9e-0acd-44c9-bf0f-0a8598fc13b8)と[ASP.NET AJAX でクライアント スクリプトから Web サービスを呼び出す](http://msdn.microsoft.com/library/fc06c224-f01a-45be-94af-bd71afbc07b0)します。  
   
 <a name="localization"></a>   
 ## <a name="localization"></a>ローカリゼーション  
- <xref:System.Web.UI.ScriptManager>コントロールをポイントするアセンブリまたはスタンドアロンのスクリプト ファイルに埋め込まれているいずれかのスクリプト ファイルは適切なローカライズされたスクリプト ファイルを取得するには、表示されたページの参照が生成されます。  
+ <xref:System.Web.UI.ScriptManager>コントロールがレンダリングされたページを適切なローカライズされたスクリプト ファイルのアセンブリまたはスタンドアロン スクリプト ファイルに埋め込まれているいずれかのスクリプト ファイルを指す参照を生成します。  
   
- ときに、<xref:System.Web.UI.ScriptManager.EnableScriptLocalization%2A>プロパティに設定されている`true`、<xref:System.Web.UI.ScriptManager>コントロールが存在する場合、現在のカルチャ (ローカライズされた文字列など) のローカライズされたリソースを取得します。 <xref:System.Web.UI.ScriptManager>コントロールには、ローカライズされたリソースを使用するため、次の機能が用意されています。  
+ ときに、<xref:System.Web.UI.ScriptManager.EnableScriptLocalization%2A>プロパティに設定されて`true`、<xref:System.Web.UI.ScriptManager>コントロールが存在する場合、現在のカルチャ (ローカライズされた文字列) などのローカライズされたリソースを取得します。 <xref:System.Web.UI.ScriptManager>コントロールがローカライズされたリソースを使用するために、次の機能を提供します。  
   
--   **スクリプト アセンブリに埋め込まれているファイル**です。 <xref:System.Web.UI.ScriptManager>コントロールは、ブラウザーに送信するには、どのカルチャに固有のカルチャまたはフォールバック カルチャのスクリプト ファイルを決定します。 これは、カルチャに固有の使用で<xref:System.Resources.NeutralResourcesLanguageAttribute>アセンブリ属性、(存在する場合)、アセンブリ、およびブラウザーの UI カルチャに同梱されているリソース。  
+-   **スクリプト ファイルをアセンブリに埋め込まれている**します。 <xref:System.Web.UI.ScriptManager>コントロールがブラウザーに送信するには、どのカルチャに固有またはフォールバック カルチャ スクリプト ファイルを決定します。 これは、カルチャに固有を使用して、<xref:System.Resources.NeutralResourcesLanguageAttribute>アセンブリ属性、(ある場合)、アセンブリ、およびブラウザーの UI カルチャをパッケージ化されたリソース。  
   
--   **スタンドアロンのスクリプト ファイル**です。 <xref:System.Web.UI.ScriptManager>コントロールを使用してサポートされている UI カルチャのリストを定義する、<xref:System.Web.UI.ScriptReferenceBase.ResourceUICultures%2A>のプロパティ、<xref:System.Web.UI.ScriptReference>オブジェクト。  
+-   **スタンドアロン スクリプト ファイル**します。 <xref:System.Web.UI.ScriptManager>コントロールを使用してサポートされている UI カルチャのリストを定義する、<xref:System.Web.UI.ScriptReferenceBase.ResourceUICultures%2A>のプロパティ、<xref:System.Web.UI.ScriptReference>オブジェクト。  
   
--   **デバッグ モードで**です。 <xref:System.Web.UI.ScriptManager>コントロールはデバッグ情報を含むカルチャに固有のスクリプト ファイルを表示しようとしています。 たとえば、ページがデバッグ モードでは、現在のカルチャが en MX に設定されている場合は、コントロールをレンダリングなど、名前が指定されているスクリプト ファイル`scriptname`.en いる、ファイルが存在する場合。 適切なフォールバック カルチャのデバッグ ファイルが表示されるファイルが存在しない場合  
+-   **デバッグ モードで**します。 <xref:System.Web.UI.ScriptManager>コントロールは、デバッグ情報を含むカルチャに固有のスクリプト ファイルを表示しようとしています。 たとえば、ページがデバッグ モードでは、現在のカルチャが英語 MX に設定されて、コントロールがレンダリングなどの名前を持つスクリプト ファイル`scriptname`.en いる、ファイルが存在する場合。 適切なフォールバック カルチャのデバッグ ファイルを表示するファイルが存在しない場合  
   
- リソースをローカライズする方法の詳細については、次を参照してください。[コンポーネント ライブラリの概要のローカライズ リソース](http://msdn.microsoft.com/library/e6b15435-57c1-4dd1-9bd3-5d4c509685bb)です。  
+ リソースをローカライズする方法の詳細については、次を参照してください。[コンポーネント ライブラリの概要のリソースをローカライズ](http://msdn.microsoft.com/library/e6b15435-57c1-4dd1-9bd3-5d4c509685bb)します。  
   
 <a name="error_handling"></a>   
 ## <a name="error-handling"></a>エラー処理  
- 非同期ポストバック中にページ エラーが発生したときに、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>イベントが発生します。 サーバーでエラーがクライアントに送信される方法によって異なります、 <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> 、プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクションです。 詳細については、次を参照してください。 [UpdatePanel コントロール用のエラー処理のカスタマイズ](http://msdn.microsoft.com/library/e15e7ffb-e4b2-4a89-b99e-16624a5861d0)です。  
+ 非同期ポストバック中にページ エラーが発生した場合、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>イベントが発生します。 サーバーでエラーがクライアントに送信される方法によって異なります、<xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A>プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクション。 詳細については、次を参照してください。 [UpdatePanel コントロールのエラー処理のカスタマイズ](http://msdn.microsoft.com/library/e15e7ffb-e4b2-4a89-b99e-16624a5861d0)します。  
   
 <a name="declarative_syntax"></a>   
-## <a name="declarative-syntax"></a>宣言型の構文  
+## <a name="declarative-syntax"></a>宣言構文  
   
 ```  
 <asp:ScriptManager  
@@ -253,25 +254,25 @@
    
   
 ## Examples  
- 次の例を使用するためのさまざまなシナリオを示して、<xref:System.Web.UI.ScriptManager>コントロール。  
+ 次の例では、さまざまなシナリオを使用するため、<xref:System.Web.UI.ScriptManager>コントロール。  
   
  **部分ページ更新を有効にします。**  
   
- 次の例を使用する方法を示しています、<xref:System.Web.UI.ScriptManager>部分ページ更新を有効にするコントロール。 この例では、<xref:System.Web.UI.WebControls.Calendar>と<xref:System.Web.UI.WebControls.DropDownList>コントロール内にある、<xref:System.Web.UI.UpdatePanel>コントロール。 既定では、値、<xref:System.Web.UI.UpdatePanel.UpdateMode%2A>プロパティは<xref:System.Web.UI.UpdatePanelUpdateMode.Always>、しの値、<xref:System.Web.UI.UpdatePanel.ChildrenAsTriggers%2A>プロパティは`true`します。 そのため、パネルの子コントロールには、非同期ポストバックが発生します。  
+ 次の例は、使用する方法を示します、<xref:System.Web.UI.ScriptManager>部分ページ更新を有効にするコントロール。 この例で、<xref:System.Web.UI.WebControls.Calendar>と<xref:System.Web.UI.WebControls.DropDownList>コントロール内にある、<xref:System.Web.UI.UpdatePanel>コントロール。 既定の値で、<xref:System.Web.UI.UpdatePanel.UpdateMode%2A>プロパティは<xref:System.Web.UI.UpdatePanelUpdateMode.Always>、しの値、<xref:System.Web.UI.UpdatePanel.ChildrenAsTriggers%2A>プロパティは`true`します。 そのため、パネルの子コントロールには、非同期ポストバックが発生します。  
   
  [!code-aspx-csharp[System.Web.UI.UpdatePanel#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.UpdatePanel/CS/UpdatePanelExample1CS.aspx#1)]
  [!code-aspx-vb[System.Web.UI.UpdatePanel#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.UpdatePanel/VB/UpdatePanelExample1VB.aspx#1)]  
   
- **部分ページ更新エラーの処理と、スクリプトを登録します。**  
+ **部分ページ更新エラーを処理して、スクリプトの登録**  
   
- 次の例では、カスタム エラー部分ページ更新中に処理を提供する方法を示します。 既定では、部分ページ更新中にエラーが発生したときに、JavaScript のメッセージ ボックスが表示されます。 この例では、カスタム エラー ハンドラーを提供することで処理を使用して、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>イベントを設定したり、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>イベント ハンドラーのプロパティです。 設定することも、<xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A>部分ページ更新中にエラーが発生したときに、Web.config ファイルのカスタム エラー セクションを使用する方法を指定するプロパティです。 この例では、既定値では、<xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A>プロパティを使用します。 つまり、Web.config ファイルに要素が含まれている場合は、その要素決まりますエラーを表示する方法です。 詳細については、次を参照してください。 [customErrors 要素 (ASP.NET 設定スキーマ)](http://msdn.microsoft.com/library/288c32e2-df1f-4548-abda-de6b4cb989a6)です。  
+ 次の例では、カスタムのエラーが部分ページ更新中に処理を提供する方法を示します。 既定では、部分ページ更新プログラムの中にエラーが発生したときに、JavaScript のメッセージ ボックスが表示されます。 カスタム エラー ハンドラーを提供することで処理を使用する方法を示します、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>イベント、および設定して、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>イベント ハンドラーのプロパティ。 設定することも、<xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A>部分ページ更新中にエラーが発生したときに、Web.config ファイルのカスタム エラー セクションを使用する方法を指定するプロパティ。 この例では、既定値で、<xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A>プロパティを使用します。 つまり、Web.config ファイルに、要素が含まれている場合は、その要素決まりますエラーを表示する方法。 詳細については、次を参照してください。 [customErrors 要素 (ASP.NET 設定スキーマ)](http://msdn.microsoft.com/library/288c32e2-df1f-4548-abda-de6b4cb989a6)します。  
   
  [!code-aspx-csharp[System.Web.UI.ScriptManager.OnAsyncPostBackError#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.OnAsyncPostBackError/CS/default.aspx#1)]
  [!code-aspx-vb[System.Web.UI.ScriptManager.OnAsyncPostBackError#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.OnAsyncPostBackError/VB/default.aspx#1)]  
   
  **ブラウザーに表示される日時のグローバル化**  
   
- 次の例は、設定する方法を示します、<xref:System.Web.UI.ScriptManager.EnableScriptGlobalization%2A>プロパティをクライアント スクリプトは、ブラウザーで、カルチャ固有の日付と時刻を表示できるようにします。 この例で、`Culture`ディレクティブの属性に設定されている`auto`です。 その結果、現在のブラウザー設定で指定されている最初の言語は、カルチャと、ページの UI カルチャを決定します。 詳細については、次を参照してください。[する方法: ASP.NET Web ページのグローバリゼーションのカルチャおよび UI カルチャを設定](http://msdn.microsoft.com/library/76091f86-f967-4687-a40f-de87bd8cc9a0)です。  
+ 次の例は、設定する方法を示します、<xref:System.Web.UI.ScriptManager.EnableScriptGlobalization%2A>プロパティ クライアント スクリプトは、ブラウザーで、カルチャ固有の日付と時刻を表示できるようにします。 この例で、`Culture`ディレクティブの属性に設定されて`auto`します。 その結果、カルチャおよび UI カルチャのページの現在のブラウザー設定で指定されている最初の言語を決定します。 詳細については、次を参照してください。[方法: ASP.NET Web ページのグローバリゼーション用のカルチャおよび UI カルチャを設定する](http://msdn.microsoft.com/library/76091f86-f967-4687-a40f-de87bd8cc9a0)します。  
   
  [!code-aspx-csharp[System.Web.UI.ScriptManager.EnableScriptGlobalization#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.EnableScriptGlobalization/CS/default.aspx#1)]
  [!code-aspx-vb[System.Web.UI.ScriptManager.EnableScriptGlobalization#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.EnableScriptGlobalization/VB/default.aspx#1)]  
@@ -295,6 +296,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
@@ -305,7 +307,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このコンス トラクターで使用される内部のフィールド、<xref:System.Web.UI.ScriptManager>ページ、コントロール、および展開の情報を追跡するために管理します。  
+ このコンス トラクターで使用される内部フィールドの初期化、<xref:System.Web.UI.ScriptManager>コントロール ページ、コントロール、および展開の情報を追跡します。  
   
  ]]></format>
         </remarks>
@@ -322,7 +324,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- これらのメソッド オーバー ロードを使用すると、ブラウザーでサーバーの状態、および必要に応じて履歴エントリのタイトルを定義できます。 履歴ポイントを作成するときにシリアル化され、暗号化されたデータが Web ページの URL に追加およびブラウザーの履歴スタックにエントリが含まれます。 状態データを使用すると、後続サーバー ナビゲーション イベントが発生したときにページを再作成します。 詳細については、次を参照してください。[を管理するブラウザーの履歴を使用してサーバーを制御](http://msdn.microsoft.com/library/bad617c8-f84c-4d94-8852-60af400810e9)です。  
+ これらのメソッド オーバー ロードを使用すると、ブラウザーで server state、および必要に応じて、履歴エントリのタイトルを定義できます。 履歴ポイントを作成するときに、シリアル化および暗号化されたデータは Web ページの URL に付加され、エントリがブラウザーの履歴スタックに含まれています。 状態データを使用すると、後続サーバーのナビゲーション イベントが発生したときにページを再作成します。 詳細については、次を参照してください。[ブラウザー履歴サーバーを使用したのコントロールを管理する](http://msdn.microsoft.com/library/bad617c8-f84c-4d94-8852-60af400810e9)します。  
   
  ]]></format>
         </remarks>
@@ -338,6 +340,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -355,9 +358,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 状態データの 1 つ以上のキー/値ペアを保存するときに、履歴ポイントを作成するのにには、このメソッドを使用します。 履歴ポイントを作成するときにシリアル化され、暗号化されたデータが Web ページの URL に追加およびブラウザーの履歴スタックにエントリが含まれます。 場合、`title`パラメーターは`null`、Web ページのタイトルの履歴スタック内の状態エントリのタイトルとして使用されます。  
+ 状態データの 1 つ以上のキー/値ペアを保存するときに、履歴ポイントを作成するのにには、このメソッドを使用します。 履歴ポイントを作成するときに、シリアル化および暗号化されたデータは Web ページの URL に付加され、エントリがブラウザーの履歴スタックに含まれています。 場合、`title`パラメーターが`null`、Web ページのタイトルの履歴スタックに状態エントリのタイトルとして使用されます。  
   
- 状態データを使用すると、後続サーバー ナビゲーション イベントが発生したときにページを再作成します。 詳細については、次を参照してください。[を管理するブラウザーの履歴を使用してサーバーを制御](http://msdn.microsoft.com/library/bad617c8-f84c-4d94-8852-60af400810e9)です。  
+ 状態データを使用すると、後続サーバーのナビゲーション イベントが発生したときにページを再作成します。 詳細については、次を参照してください。[ブラウザー履歴サーバーを使用したのコントロールを管理する](http://msdn.microsoft.com/library/bad617c8-f84c-4d94-8852-60af400810e9)します。  
   
  ]]></format>
         </remarks>
@@ -373,6 +376,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -390,9 +394,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 状態を識別するための値を保存するときに、履歴ポイントを作成するのにには、このメソッドを使用します。 履歴ポイントを作成するときにシリアル化され、暗号化されたデータが Web ページの URL に追加およびブラウザーの履歴スタックにエントリが含まれます。 Web ページのタイトルは、履歴スタック内の状態エントリのタイトルとして使用されます。  
+ 状態を識別するのに値を保存するときに、履歴ポイントを作成するのにには、このメソッドを使用します。 履歴ポイントを作成するときに、シリアル化および暗号化されたデータは Web ページの URL に付加され、エントリがブラウザーの履歴スタックに含まれています。 Web ページのタイトルは、履歴スタックに状態エントリのタイトルとして使用されます。  
   
- 状態データを使用すると、後続サーバー ナビゲーション イベントが発生したときにページを再作成します。 詳細については、次を参照してください。[を管理するブラウザーの履歴を使用してサーバーを制御](http://msdn.microsoft.com/library/bad617c8-f84c-4d94-8852-60af400810e9)です。  
+ 状態データを使用すると、後続サーバーのナビゲーション イベントが発生したときにページを再作成します。 詳細については、次を参照してください。[ブラウザー履歴サーバーを使用したのコントロールを管理する](http://msdn.microsoft.com/library/bad617c8-f84c-4d94-8852-60af400810e9)します。  
   
  ]]></format>
         </remarks>
@@ -408,6 +412,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -427,9 +432,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 状態と状態のタイトルを識別するのに値を保存するときに、履歴ポイントを作成するのにには、このメソッドを使用します。 履歴ポイントを作成するときにシリアル化され、暗号化されたデータが Web ページの URL に追加およびブラウザーの履歴スタックにエントリが含まれます。 場合、`title`パラメーターは`null`、Web ページのタイトルの履歴スタック内の状態エントリのタイトルとして使用されます。  
+ 状態と状態のタイトルを識別するのに値を保存するときに、履歴ポイントを作成するのにには、このメソッドを使用します。 履歴ポイントを作成するときに、シリアル化および暗号化されたデータは Web ページの URL に付加され、エントリがブラウザーの履歴スタックに含まれています。 場合、`title`パラメーターが`null`、Web ページのタイトルの履歴スタックに状態エントリのタイトルとして使用されます。  
   
- 状態データを使用すると、後続サーバー ナビゲーション イベントが発生したときにページを再作成します。 詳細については、次を参照してください。[を管理するブラウザーの履歴を使用してサーバーを制御](http://msdn.microsoft.com/library/bad617c8-f84c-4d94-8852-60af400810e9)です。  
+ 状態データを使用すると、後続サーバーのナビゲーション イベントが発生したときにページを再作成します。 詳細については、次を参照してください。[ブラウザー履歴サーバーを使用したのコントロールを管理する](http://msdn.microsoft.com/library/bad617c8-f84c-4d94-8852-60af400810e9)します。  
   
  ]]></format>
         </remarks>
@@ -492,7 +497,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用して、<xref:System.Web.UI.ScriptManager.AjaxFrameworkMode%2A>プロパティをすべての Microsoft Ajax スクリプト ファイルを無効にする、または各スクリプト ファイルを明示的に指定する、すべての Microsoft Ajax スクリプト ファイルを有効にします。  
+ 使用して、<xref:System.Web.UI.ScriptManager.AjaxFrameworkMode%2A>プロパティをすべての Microsoft Ajax スクリプト ファイルを無効にする、または個々 のスクリプト ファイルを明示的に含める、すべての Microsoft Ajax スクリプト ファイルを有効にします。  
   
    
   
@@ -525,6 +530,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -545,7 +551,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.AsyncPostBackError>非同期ポストバック中にページ エラーがあるときにイベントが発生します。 サーバーでエラーがクライアントに送信する方法によって異なります、 <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> 、プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクションです。  
+ <xref:System.Web.UI.ScriptManager.AsyncPostBackError>非同期ポストバック中にページ エラーがある場合に、イベントが発生します。 サーバーでエラーがクライアントに送信する方法によって異なります、<xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A>プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクション。  
   
  ]]></format>
         </remarks>
@@ -562,6 +568,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -578,12 +585,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.AsyncPostBackError>非同期ポストバック中にページ エラーがあるときにイベントが発生します。 サーバーでエラーがクライアントに送信する方法によって異なります、 <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> 、プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクションです。  
+ <xref:System.Web.UI.ScriptManager.AsyncPostBackError>非同期ポストバック中にページ エラーがある場合に、イベントが発生します。 サーバーでエラーがクライアントに送信する方法によって異なります、<xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A>プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクション。  
   
    
   
 ## Examples  
- 次の例は、処理する方法を示しています、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>イベントを設定する、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>サーバー例外エラー メッセージにプロパティ (をクライアントに送信されます)。  
+ 次の例では、処理する方法を示しています、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>を設定するイベント、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>サーバー例外のエラー メッセージにプロパティ (これは、クライアントに送信されます)。  
   
  [!code-aspx-csharp[System.Web.UI.ScriptManager.AsyncPostBackErrorMessage#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.AsyncPostBackErrorMessage/CS/ScriptManager_AsyncPostBackErrorMessageCS.aspx#1)]
  [!code-aspx-vb[System.Web.UI.ScriptManager.AsyncPostBackErrorMessage#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.AsyncPostBackErrorMessage/VB/ScriptManager_AsyncPostBackErrorMessageVB.aspx#1)]  
@@ -604,6 +611,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -624,12 +632,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.AsyncPostBackError>非同期ポストバック中にページ エラーがあるときにイベントが発生します。 サーバーでエラーがクライアントに送信する方法によって異なります、 <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> 、プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクションです。  
+ <xref:System.Web.UI.ScriptManager.AsyncPostBackError>非同期ポストバック中にページ エラーがある場合に、イベントが発生します。 サーバーでエラーがクライアントに送信する方法によって異なります、<xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A>プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクション。  
   
    
   
 ## Examples  
- 次の例は、処理する方法を示しています、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>イベントを設定する、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>サーバー例外エラー メッセージにプロパティ (をクライアントに送信されます)。  
+ 次の例では、処理する方法を示しています、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>を設定するイベント、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>サーバー例外のエラー メッセージにプロパティ (これは、クライアントに送信されます)。  
   
  [!code-aspx-csharp[System.Web.UI.ScriptManager.AsyncPostBackErrorMessage#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.AsyncPostBackErrorMessage/CS/ScriptManager_AsyncPostBackErrorMessageCS.aspx#1)]
  [!code-aspx-vb[System.Web.UI.ScriptManager.AsyncPostBackErrorMessage#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.AsyncPostBackErrorMessage/VB/ScriptManager_AsyncPostBackErrorMessageVB.aspx#1)]  
@@ -652,6 +660,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -671,11 +680,11 @@
 ## Remarks  
  <xref:System.Web.UI.ScriptManager.AsyncPostBackSourceElementID%2A>プロパティには、次のいずれかの非同期ポストバックを発生させたコントロール ID の値が含まれています。  
   
--   内にあるコントロールからのポストバック、<xref:System.Web.UI.UpdatePanel>いるコントロール<xref:System.Web.UI.UpdatePanel.ChildrenAsTriggers%2A>プロパティに設定されている`true`(既定)。  
+-   内にあるコントロールからポストバックを<xref:System.Web.UI.UpdatePanel>いるコントロール<xref:System.Web.UI.UpdatePanel.ChildrenAsTriggers%2A>プロパティに設定されて`true`(既定)。  
   
 -   ポストバックのトリガーであるコントロールから、<xref:System.Web.UI.UpdatePanel>コントロール。  
   
--   ポストバック後に呼び出すことによって登録されているコントロール、<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>のメソッド、<xref:System.Web.UI.ScriptManager>コントロール。  
+-   呼び出すことによって登録されているコントロールからポストバック、<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>のメソッド、<xref:System.Web.UI.ScriptManager>コントロール。  
   
  ]]></format>
         </remarks>
@@ -692,6 +701,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -721,6 +731,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -750,9 +761,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.AuthenticationServiceManager>このプロパティによって返されるオブジェクトは、ページに登録されている認証サービスを表します。 認証サービスを定義することができます、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。  
+ <xref:System.Web.UI.AuthenticationServiceManager>このプロパティによって返されるオブジェクトがページに登録されている認証サービスを表します。 認証サービスを定義することができます、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。  
   
- ASP.NET 認証サービスを使用したり、カスタム認証サービスを使用することができます。 マークアップでカスタムのサービスを追加するには含めることによって、`AuthenticationService`内の要素、`asp:ScriptManager`要素 ページで、次の例で示すようにします。  
+ ASP.NET 認証サービスを使用したり、カスタム認証サービスを使用できます。 マークアップで、カスタム サービスを追加するには含めることによって、`AuthenticationService`内の要素、 `asp:ScriptManager`  ページで、次の例に示す要素。  
   
 ```  
 <asp:ScriptManager ID="SM1" runat="server">  
@@ -760,7 +771,7 @@
 </asp:ScriptManager>  
 ```  
   
- プログラムによって構成することができます、<xref:System.Web.UI.AuthenticationServiceManager>オブジェクト。 登録されるサービス、<xref:System.Web.UI.ScriptManager>コントロール、ページの中に<xref:System.Web.UI.Control.PreRender>ライフ サイクル ステージです。  
+ プログラムで構成することができます、<xref:System.Web.UI.AuthenticationServiceManager>オブジェクト。 サービスに登録されて、<xref:System.Web.UI.ScriptManager>コントロール、ページの中に<xref:System.Web.UI.Control.PreRender>ライフ サイクル ステージ。  
   
  ]]></format>
         </remarks>
@@ -776,6 +787,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -791,7 +803,7 @@
       </ReturnValue>
       <Docs>
         <summary>クライアントで [Sys.Application.navigate](http://msdn.microsoft.com/library/79ac04af-18b4-4106-9ab7-9cb10fbd0b93) イベントを処理するメソッドの名前を取得または設定します。</summary>
-        <value>[Sys.Application.navigate] を処理するメソッドの名前 (http://msdn.microsoft.com/library/79ac04af-18b4-4106-9ab7-9cb10fbd0b93)クライアント上のイベントです。</value>
+        <value>[Sys.Application.navigate] を処理するメソッドの名前 (http://msdn.microsoft.com/library/79ac04af-18b4-4106-9ab7-9cb10fbd0b93)クライアント上のイベント。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -805,6 +817,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -834,7 +847,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 詳細については、次を参照してください。[複合スクリプトへのクライアント スクリプトの結合](http://msdn.microsoft.com/library/d0f608d0-b4c8-4795-990b-ede68c1239b3)です。  
+ 詳細については、次を参照してください。[複合スクリプトにクライアント スクリプトを組み合わせて](http://msdn.microsoft.com/library/d0f608d0-b4c8-4795-990b-ede68c1239b3)します。  
   
  ]]></format>
         </remarks>
@@ -850,6 +863,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -876,7 +890,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.EmptyPageUrl%2A>プロパティには、Ajax ブラウザーの履歴がサポートしています。  
+ <xref:System.Web.UI.ScriptManager.EmptyPageUrl%2A>プロパティは、Ajax ブラウザーの履歴をサポートしています。  
   
  ]]></format>
         </remarks>
@@ -912,7 +926,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このプロパティに設定しないで`true`設定した場合<xref:System.Web.UI.ScriptManager.LoadScriptsBeforeUI%2A>に`true`既にです。  
+ このプロパティ設定しないでください`true`設定した場合<xref:System.Web.UI.ScriptManager.LoadScriptsBeforeUI%2A>に`true`既に。  
   
  ]]></format>
         </remarks>
@@ -957,6 +971,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -977,7 +992,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用して、 <xref:System.Web.UI.ScriptManager.EnableHistory%2A> Web ページの履歴の管理を有効にするプロパティです。  
+ 使用して、 <xref:System.Web.UI.ScriptManager.EnableHistory%2A> Web ページの履歴の管理を有効にするプロパティ。  
   
  ]]></format>
         </remarks>
@@ -993,6 +1008,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1013,9 +1029,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ASP.NET ページへの静的ページ メソッドを追加でき、Web メソッドとしてマークすることができます。 個別の .asmx ファイルを作成することがなく、Web サービスに含まれていた場合と、スクリプトからこれらのメソッドを呼び出すことができます。 メソッドを作成する Web ページで、インポート、<xref:System.Web.Services>名前空間を追加し、<xref:System.Web.Services.WebMethodAttribute>属性を公開する、各静的メソッドです。 メソッドは public に設定する必要があります。  
+ ASP.NET ページに静的ページ メソッドを追加でき、Web メソッドとしてマークすることができます。 一部の個別の .asmx ファイルを作成することがなく、Web サービスの場合と、スクリプトからこれらのメソッドを呼び出すことができます。 ページ上の Web メソッドを作成するには、インポート、<xref:System.Web.Services>名前空間を追加し、<xref:System.Web.Services.WebMethodAttribute>属性を公開する、各静的メソッド。 メソッドは public に設定する必要があります。  
   
- 詳細については、次を参照してください。 [ASP.NET AJAX でクライアント スクリプトを Web サービスを公開する](http://msdn.microsoft.com/library/fe3f6e9e-0acd-44c9-bf0f-0a8598fc13b8)です。  
+ 詳細については、次を参照してください。 [ASP.NET AJAX でクライアント スクリプトを Web サービスを公開する](http://msdn.microsoft.com/library/fe3f6e9e-0acd-44c9-bf0f-0a8598fc13b8)します。  
   
  ]]></format>
         </remarks>
@@ -1031,6 +1047,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1051,9 +1068,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合でも、<xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A>プロパティは`true`、部分ページ レンダリングが行われない場合します。 ブラウザーが部分ページ レンダリングをサポートしていない可能性がありますまたは<xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>プロパティに設定されている`false`です。  
+ 場合でも、<xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A>プロパティは`true`、部分ページ レンダリングが発生しないことができます。 ブラウザーが部分ページ レンダリングをサポートしていない可能性がありますまたは<xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>プロパティに設定されて`false`します。  
   
- 値をオーバーライドすることができます、<xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A>中またはページの前に、実行時にプロパティ<xref:System.Web.UI.Control.Init>イベント。 ページの後にこのプロパティを変更しようとする場合<xref:System.Web.UI.Control.Init>イベントが発生した、<xref:System.InvalidOperationException>例外がスローされます。  
+ 値を上書きすることができます、<xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A>中またはページの前に、実行時にプロパティ<xref:System.Web.UI.Control.Init>イベント。 ページの後にこのプロパティを変更しようとする場合<xref:System.Web.UI.Control.Init>イベントが発生した、<xref:System.InvalidOperationException>例外がスローされます。  
   
  ]]></format>
         </remarks>
@@ -1073,6 +1090,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1094,7 +1112,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ときに、<xref:System.Web.UI.ScriptManager.EnableScriptGlobalization%2A>プロパティに設定されている`true`、メソッドなどのグローバル化のように ECMAScript (JavaScript) 関数は、カルチャに固有の情報を表示します。 ブラウザーで、サーバー コードで、または Web サイトの構成ファイルで、カルチャを設定できます。  
+ ときに、<xref:System.Web.UI.ScriptManager.EnableScriptGlobalization%2A>プロパティに設定されて`true`、メソッドなどのグローバル化された ECMAScript (JavaScript) 関数は、カルチャに固有の情報を表示します。 ブラウザーで、サーバー コードで、または Web サイトの構成ファイルでは、カルチャを設定できます。  
   
  ]]></format>
         </remarks>
@@ -1110,6 +1128,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1131,10 +1150,10 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ときに、<xref:System.Web.UI.ScriptManager.EnableScriptLocalization%2A>プロパティに設定されている`true`、<xref:System.Web.UI.ScriptManager>存在する場合にオブジェクトが現在のカルチャ用スクリプト ファイルを取得します。 たとえば、ページは、CustomScript.js というスクリプト ファイルを指定できます。 FR-CA にカルチャが設定されている場合、 <xref:System.Web.UI.ScriptManager> CustomScript.fr CA.js というスクリプト ファイルを取得するオブジェクトが試行されます。  
+ ときに、<xref:System.Web.UI.ScriptManager.EnableScriptLocalization%2A>プロパティに設定されて`true`、<xref:System.Web.UI.ScriptManager>存在する場合にオブジェクトが、現在のカルチャ用スクリプト ファイルを取得します。 たとえば、ページは、CustomScript.js というスクリプト ファイルを指定する可能性があります。 カルチャが FR-CA に設定されている場合、 <xref:System.Web.UI.ScriptManager> CustomScript.fr CA.js というスクリプト ファイルを取得するオブジェクトを試みます。  
   
 > [!NOTE]
->  スクリプト ファイルが 2 つの時刻を表示されないようにする、<xref:System.Web.UI.ScriptManager.EnableScriptLocalization%2A>非同期ポストバック中に、プロパティを変更しないでください。  
+>  スクリプト ファイルが 2 つの時刻が表示されていることを防ぐために、<xref:System.Web.UI.ScriptManager.EnableScriptLocalization%2A>非同期ポストバック中にプロパティを変更する必要がありません。  
   
  ]]></format>
         </remarks>
@@ -1150,6 +1169,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1172,7 +1192,7 @@
 ## Remarks  
   
 > [!WARNING]
->  このプロパティは***決して***に設定されている`false`運用 web サイトでします。  
+>  このプロパティにする必要があります***決して***に設定する`false`実稼働 web サイトにします。  
   
  ]]></format>
         </remarks>
@@ -1187,6 +1207,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1204,7 +1225,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- この静的メソッドを使用しているかどうか、<xref:System.Web.UI.ScriptManager>コントロールがページで、またはのプロパティおよびメソッドにアクセスする、<xref:System.Web.UI.ScriptManager>ときにわからない場合、ID を制御  
+ この静的メソッドを使用しているかどうかを<xref:System.Web.UI.ScriptManager>コントロールがページで、またはのメソッドとプロパティにアクセスする、<xref:System.Web.UI.ScriptManager>ときに不明な ID を制御します。  
   
  ]]></format>
         </remarks>
@@ -1222,6 +1243,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1247,6 +1269,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1261,7 +1284,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 登録されているクライアント スクリプト ブロック、<xref:System.Web.UI.ScriptManager>内にあるコントロールで使用するためのコントロール、<xref:System.Web.UI.UpdatePanel>コントロール。  
+ クライアント スクリプト ブロックに登録されている、<xref:System.Web.UI.ScriptManager>内にあるコントロールで使用するためのコントロール、<xref:System.Web.UI.UpdatePanel>コントロール。  
   
  ]]></format>
         </remarks>
@@ -1278,6 +1301,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1310,6 +1334,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1324,7 +1349,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- カスタム属性は、読み取りおよびクライアント スクリプトによって設定できる名前と値のペアです。  
+ カスタム属性は、読み取りし、クライアント スクリプトによって設定されることができますを名前/値ペアです。  
   
    
   
@@ -1349,6 +1374,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1375,6 +1401,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1413,6 +1440,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1427,7 +1455,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- スタートアップ スクリプトは、コントロールが開始されたときに実行される、コントロールに関連付けられているクライアント スクリプトです。  
+ スタートアップ スクリプトは、コントロールの開始時に実行されるコントロールに関連付けられているクライアント スクリプトです。  
   
    
   
@@ -1452,6 +1480,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1474,6 +1503,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1491,18 +1521,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.IsDebuggingEnabled%2A>プロパティから返される`false`次の条件のいずれかが true の場合。  
+ <xref:System.Web.UI.ScriptManager.IsDebuggingEnabled%2A>プロパティが返す`false`次の条件のいずれかが true の場合。  
   
--   構成ファイルの要素で、`retail`属性に設定されている`true`です。 これには、その他のすべての設定がオーバーライドされます。  
+-   構成ファイルの要素で、`retail`属性に設定されて`true`します。 これには、その他のすべての設定がオーバーライドされます。  
   
--   <xref:System.Web.UI.ScriptManager.ScriptMode%2A>プロパティに設定されている`Auto`または`Inherit`、デバッグが有効でないと、`compilation`アプリケーション ルートの Web.config ファイルのセクションです。  
+-   <xref:System.Web.UI.ScriptManager.ScriptMode%2A>プロパティに設定されて`Auto`または`Inherit`、デバッグを有効にしないと、`compilation`アプリケーション ルートの Web.config ファイルのセクション。  
   
 -   <xref:System.Web.UI.ScriptManager.ScriptMode%2A> プロパティが `Release` に設定されている。  
   
     > [!NOTE]
-    >  `debug`ディレクティブの属性では Ajax 対応の ASP.NET アプリケーションには影響しません。 <xref:System.Web.UI.ScriptManager>し、Web.config ファイルで、コントロールでの設定のみを使用してその<xref:System.Web.UI.ScriptManager.IsDebuggingEnabled%2A>と<xref:System.Web.UI.ScriptManager.ScriptMode%2A>デバッグ スクリプトをレンダリングするかどうかを決定するプロパティです。  
+    >  `debug`ディレクティブの属性では Ajax 対応 ASP.NET アプリケーションには影響しません。 <xref:System.Web.UI.ScriptManager>コントロール、Web.config ファイルと設定のみを使用してその<xref:System.Web.UI.ScriptManager.IsDebuggingEnabled%2A>と<xref:System.Web.UI.ScriptManager.ScriptMode%2A>デバッグ スクリプトをレンダリングするかどうかを決定するプロパティ。  
   
- 詳細については、次を参照してください。[デバッグおよび Ajax アプリケーションの概要のトレース](http://msdn.microsoft.com/library/92684ea0-7bb4-4a34-9203-3aa6394ce375)です。  
+ 詳細については、次を参照してください。[デバッグと Tracing Ajax Applications Overview](http://msdn.microsoft.com/library/92684ea0-7bb4-4a34-9203-3aa6394ce375)します。  
   
  ]]></format>
         </remarks>
@@ -1522,6 +1552,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1539,7 +1570,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用して、<xref:System.Web.UI.ScriptManager.IsInAsyncPostBack%2A>プロパティと組み合わせて、<xref:System.Web.UI.Page.IsPostBack%2A>最初のページ読み込み、部分ページ更新、およびページ全体の更新で区別するためにプロパティ<xref:System.Web.UI.Control.Load>、 <xref:System.Web.UI.Page.InitComplete>、または<xref:System.Web.UI.Control.PreRender>イベント。  
+ 使用して、<xref:System.Web.UI.ScriptManager.IsInAsyncPostBack%2A>プロパティと組み合わせて、<xref:System.Web.UI.Page.IsPostBack%2A>初期ページの読み込み、部分ページ更新とでページ全体の更新プログラムと区別するためにプロパティ<xref:System.Web.UI.Control.Load>、 <xref:System.Web.UI.Page.InitComplete>、または<xref:System.Web.UI.Control.PreRender>イベント。  
   
  ]]></format>
         </remarks>
@@ -1556,6 +1587,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1591,6 +1623,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1609,7 +1642,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.LoadPostData%2A>の機能を拡張するコントロールの開発者によってメソッドが、主に使用される、<xref:System.Web.UI.ScriptManager>コントロール。  
+ <xref:System.Web.UI.ScriptManager.LoadPostData%2A>の機能を拡張するメソッドは主に使用してコントロールの開発者、<xref:System.Web.UI.ScriptManager>コントロール。  
   
  ]]></format>
         </remarks>
@@ -1626,6 +1659,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1646,13 +1680,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.LoadScriptsBeforeUI%2A>プロパティを決定する方法でスクリプト、<xref:System.Web.UI.ScriptManager.Scripts%2A>ページ UI のマークアップの基準としたコレクションを読み込みます。  
+ <xref:System.Web.UI.ScriptManager.LoadScriptsBeforeUI%2A>プロパティを決定する方法でスクリプト、<xref:System.Web.UI.ScriptManager.Scripts%2A>コレクションは、ページの UI のマークアップを基準に読み込まれます。  
   
- ときに、<xref:System.Web.UI.ScriptManager.LoadScriptsBeforeUI%2A>プロパティは`true`、`script`ページの UI のマークアップが読み込まれる前に、要素が表示されます。 このシナリオでは、スクリプト内の UI 要素が定義されている場合、UI が完全に機能の読み込み時にします。 ただし、スクリプトでは、対象のインスタンスがまだ作成されていないマークアップで UI 要素にアクセスは、エラーが発生する可能性があります。 アクセスする前に、UI 要素が読み込まれることを確認するには、クラスのイベントを処理します。  
+ ときに、<xref:System.Web.UI.ScriptManager.LoadScriptsBeforeUI%2A>プロパティは`true`、`script`ページの UI のマークアップが読み込まれる前に、要素が表示されます。 このシナリオでスクリプトでは、UI 要素が定義されている場合、UI が完全に機能の読み込み時にします。 ただし、スクリプトが対象のインスタンスがまだ作成されていないマークアップで UI 要素にアクセスする場合、エラーが発生する可能性があります。 アクセスする前に、UI 要素が読み込まれることを確認するには、クラスのイベントを処理します。  
   
- ときに、<xref:System.Web.UI.ScriptManager.LoadScriptsBeforeUI%2A>プロパティは`false`、`script`ページの UI のマークアップが表示された後に要素が表示されます。 このシナリオでは、UI をより迅速に読み込みますが場合があります完全に機能追加の UI 要素を定義するスクリプトが読み込みを完了していない場合。  
+ ときに、<xref:System.Web.UI.ScriptManager.LoadScriptsBeforeUI%2A>プロパティは`false`、`script`ページの UI のマークアップが表示された後に要素が表示されます。 このシナリオで、UI がより迅速に読み込まれるなる場合が、完全に機能追加の UI 要素を定義するスクリプトが読み込みを完了していない場合。  
   
- このプロパティに設定しないで`true`設定した場合<xref:System.Web.UI.ScriptManager.EnableCdn%2A>に`true`既にです。  
+ このプロパティ設定しないでください`true`設定した場合<xref:System.Web.UI.ScriptManager.EnableCdn%2A>に`true`既に。  
   
  ]]></format>
         </remarks>
@@ -1670,6 +1704,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1686,7 +1721,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ユーザーがブラウザーの**戻る**ボタン、ブラウザー Url が移動前に表示した状態の履歴ポイントのデータを含む Url を含めることができます。 Web ページ内のクライアント コード検出した場合、URL に状態の履歴データが含まれている、サーバーのページに要求を行います。 これは、ポストバック イベントとして機能し、<xref:System.Web.UI.ScriptManagerProxy>サーバー コントロールを生成、`Navigate`イベント。 このイベントを処理し、イベントに渡される状態データを使用して、Web アプリケーションで必要に応じてページを再作成できます。  
+ ユーザーがブラウザーの**戻る**ボタンが移動前に表示した Url 履歴ポイントの状態データを含む Url を含めることができます。 Web ページ内のクライアント コードでは、URL に状態の履歴データが含まれているが検出される場合は、サーバーのページに、要求を行います。 ポストバックのイベントとして機能し、<xref:System.Web.UI.ScriptManagerProxy>サーバー コントロールを発生させます、`Navigate`イベント。 このイベントを処理して、イベントに渡される状態データを使用して、Web アプリケーションで、必要に応じてページを再作成することができます。  
   
  ]]></format>
         </remarks>
@@ -1702,6 +1737,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1718,12 +1754,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.AsyncPostBackError>非同期ポストバック中にページ エラーがあるときにイベントが発生します。 サーバーでエラーがクライアントに送信する方法によって異なります、 <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> 、プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクションです。  
+ <xref:System.Web.UI.ScriptManager.AsyncPostBackError>非同期ポストバック中にページ エラーがある場合に、イベントが発生します。 サーバーでエラーがクライアントに送信する方法によって異なります、<xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A>プロパティ、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>プロパティ、および Web.config ファイルのカスタム エラー セクション。  
   
    
   
 ## Examples  
- 次の例は、処理する方法を示しています、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>イベントを設定する、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>サーバー例外エラー メッセージにプロパティ (をクライアントに送信されます)。  
+ 次の例では、処理する方法を示しています、<xref:System.Web.UI.ScriptManager.AsyncPostBackError>を設定するイベント、<xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A>サーバー例外のエラー メッセージにプロパティ (これは、クライアントに送信されます)。  
   
  [!code-aspx-csharp[System.Web.UI.ScriptManager.AsyncPostBackErrorMessage#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.AsyncPostBackErrorMessage/CS/ScriptManager_AsyncPostBackErrorMessageCS.aspx#1)]
  [!code-aspx-vb[System.Web.UI.ScriptManager.AsyncPostBackErrorMessage#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.AsyncPostBackErrorMessage/VB/ScriptManager_AsyncPostBackErrorMessageVB.aspx#1)]  
@@ -1744,6 +1780,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1759,7 +1796,7 @@
         <remarks>To be added.</remarks>
         <exception cref="T:System.InvalidOperationException">ページ上には、<see cref="T:System.Web.UI.ScriptManager" /> の複数のインスタンスが存在します。</exception>
         <block subset="none" type="overrides">
-          <para>このメソッドをオーバーライドするときに呼び出す基本<see cref="M:System.Web.UI.ScriptManager.OnInit(System.EventArgs)" />ファイルのスクリプトを作成するためのメソッドが部分ページ レンダリングを正しく処理されます。</para>
+          <para>このメソッドをオーバーライドするときに呼び出す基本<see cref="M:System.Web.UI.ScriptManager.OnInit(System.EventArgs)" />ファイルのスクリプトを作成するためのメソッドが部分ページ レンダリングを正しく処理します。</para>
         </block>
       </Docs>
     </Member>
@@ -1773,6 +1810,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1789,13 +1827,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- DOM の詳細については、次を参照してください。、[レベル 1 のドキュメント オブジェクト モデル (DOM) の仕様](http://go.microsoft.com/fwlink/?LinkId=73305)World Wide Web Consortium (W3C) の Web サイトです。  
+ DOM の詳細については、次を参照してください。、[ドキュメント オブジェクト モデル (DOM)、レベル 1 の仕様](http://go.microsoft.com/fwlink/?LinkId=73305)、World Wide Web Consortium (W3C) の Web サイト。  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.InvalidOperationException">部分ページ要求を行うブラウザーは、少なくとも DOM レベル 1.0 はサポートしません。</exception>
         <block subset="none" type="overrides">
-          <para>このメソッドをオーバーライドするときに呼び出す基本<see cref="M:System.Web.UI.ScriptManager.OnPreRender(System.EventArgs)" />ブロックおよびサービスのスクリプトを作成するためのメソッドが部分ページ レンダリングを正しく処理されます。</para>
+          <para>このメソッドをオーバーライドするときに呼び出す基本<see cref="M:System.Web.UI.ScriptManager.OnPreRender(System.EventArgs)" />ブロックおよびサービスのスクリプトを作成するためのメソッドが部分ページ レンダリングを正しく処理します。</para>
         </block>
       </Docs>
     </Member>
@@ -1809,6 +1847,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1834,6 +1873,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1849,9 +1889,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、<xref:System.Web.UI.ScriptManager.OnPreRender%2A>ごとに 1 回、イベント ハンドラー<xref:System.Web.UI.ScriptReference>で、<xref:System.Web.UI.ScriptManager.Scripts%2A>コレクション。  
+ このメソッドを呼び出して、<xref:System.Web.UI.ScriptManager.OnPreRender%2A>イベント ハンドラーごとに 1 つ<xref:System.Web.UI.ScriptReference>で、<xref:System.Web.UI.ScriptManager.Scripts%2A>コレクション。  
   
- <xref:System.Web.UI.ScriptManager.ResolveScriptReference>イベントは、重複するスクリプトのエントリが解決された後に発生します。  
+ <xref:System.Web.UI.ScriptManager.ResolveScriptReference>スクリプトが重複するエントリが解決した後にイベントが発生します。  
   
  ポストバックまたは部分ページ更新中に個々 のスクリプト ブロックの動作を変更するには、このメソッドをオーバーライドします。  
   
@@ -1869,6 +1909,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -1898,9 +1939,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ProfileServiceManager>このプロパティによって返されるオブジェクトは、ページに登録されているプロファイル サービスを表します。 プロファイル サービスを定義することができます、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。  
+ <xref:System.Web.UI.ProfileServiceManager>このプロパティによって返されるオブジェクトがページに登録されているプロファイル サービスを表します。 プロファイル サービスを定義することができます、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。  
   
- ASP.NET プロファイル サービスを使用したり、カスタム プロファイル サービスを使用することができます。 マークアップでカスタムのサービスを追加するには含めることによって、`ProfileService`内の要素、`asp:ScriptManager`要素 ページで、次の例で示すようにします。  
+ ASP.NET プロファイル サービスを使用したり、カスタム プロファイル サービスを使用できます。 マークアップで、カスタム サービスを追加するには含めることによって、`ProfileService`内の要素、 `asp:ScriptManager`  ページで、次の例に示す要素。  
   
 ```  
 <asp:ScriptManager ID="SM1" runat="server">  
@@ -1909,7 +1950,7 @@
 </asp:ScriptManager>  
 ```  
   
- プログラムによって構成することができます、<xref:System.Web.UI.ProfileServiceManager>オブジェクト。 登録されるサービス、<xref:System.Web.UI.ScriptManager>コントロール、ページの中に<xref:System.Web.UI.Control.PreRender>ライフ サイクル ステージです。  
+ プログラムで構成することができます、<xref:System.Web.UI.ProfileServiceManager>オブジェクト。 サービスに登録されて、<xref:System.Web.UI.ScriptManager>コントロール、ページの中に<xref:System.Web.UI.Control.PreRender>ライフ サイクル ステージ。  
   
  ]]></format>
         </remarks>
@@ -1925,6 +1966,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1950,6 +1992,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1962,7 +2005,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.RaisePostDataChangedEvent%2A>の機能を拡張するコントロールの開発者によってメソッドが、主に使用される、<xref:System.Web.UI.ScriptManager>コントロール。 既定の実装の<xref:System.Web.UI.ScriptManager>コントロール、イベントは発生しません。  
+ <xref:System.Web.UI.ScriptManager.RaisePostDataChangedEvent%2A>の機能を拡張するメソッドは主に使用してコントロールの開発者、<xref:System.Web.UI.ScriptManager>コントロール。 既定の実装の<xref:System.Web.UI.ScriptManager>コントロール、イベントは発生しません。  
   
  ]]></format>
         </remarks>
@@ -1988,6 +2031,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2008,15 +2052,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>部分ページ レンダリングと互換性があるクライアント スクリプトの配列を登録するメソッドには、Microsoft Ajax ライブラリの依存関係がありません。 このメソッドは、配列、登録時に`control`内にあるコントロールを表します、<xref:System.Web.UI.UpdatePanel>コントロールが更新中です。 非同期ポストバックが発生するたびに配列を登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%28System.Web.UI.Page%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>メソッドをおよび部分ページ レンダリングと互換性があるクライアント スクリプトの配列を登録するには、Microsoft Ajax Library の依存関係がありません。 このメソッドは、配列を登録するときに`control`内にあるコントロールを表します、<xref:System.Web.UI.UpdatePanel>更新されているコントロール。 非同期ポストバックが発生するたびに配列を登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%28System.Web.UI.Page%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、配列の最初のページのレンダリング時に 1 つだけを登録する場合を使用して配列を登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterArrayDeclaration%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、配列の最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して配列を登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterArrayDeclaration%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
- <xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>メソッドは、配列で指定されている名前を持つかどうかを判断、`arrayName`パラメーターは既に登録されています。 このメソッドがで指定された値を追加するため場合、`arrayValue`です。 登録する配列を基づいているため、<xref:System.Collections.ArrayList>クラス、重複は許可されています。 登録済みの配列に名前を持つ場合、`arrayName`が存在しない配列の作成と内の値`arrayValue`それに追加されます。  
+ <xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>メソッドは、配列で指定されている名前を持つかどうかを判断、`arrayName`パラメーターは既に登録されています。 そのため、メソッドがで指定された値を追加する場合`arrayValue`します。 登録する配列が基づいているため、<xref:System.Collections.ArrayList>クラス、重複は許可されています。 登録済みの配列に名前を持つ場合、`arrayName`が存在しない配列の作成と内の値`arrayValue`が追加されます。  
   
- 配列の文字列リテラルは、単一引用符 (') または二重引用符をエスケープ (\\") で`arrayValue`です。  
+ 文字列リテラルを配列に含めるには、単一引用符 (') を使用して、または二重引用符をエスケープ (\\") で`arrayValue`します。  
   
- JavaScript が配列内の区切り記号としてコンマ (,) を処理することに注意してください。 コンマ区切りの文字列を渡すことによって複数の配列値を指定することができます`arrayValue`です。 コンマで 2 つの項目を区切ること`arrayValue`は呼び出すことと同じ、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>メソッド 2 回、それぞれに 1 回の項目。  
+ JavaScript が、配列内の区切り記号としてコンマ (,) を処理することに注意してください。 コンマ区切りの文字列を渡すことによって複数の配列の値を指定する`arrayValue`します。 コンマで 2 つの項目を区切る`arrayValue`呼び出しと同じですが、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>メソッドの 2 つの時刻ごとに 1 つの項目。  
   
  ]]></format>
         </remarks>
@@ -2034,6 +2078,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2054,9 +2099,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>部分ページ レンダリングと互換性があるクライアント スクリプトの配列を登録するメソッドには、Microsoft Ajax ライブラリの依存関係がありません。 このメソッドは、非同期ポストバックが発生するたびに、配列を登録します。 配列内にあるコントロールを登録する、<xref:System.Web.UI.UpdatePanel>コントロール パネルが更新されたときにのみ、配列が登録されていることを使用して、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%28System.Web.UI.Control%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>メソッドをおよび部分ページ レンダリングと互換性があるクライアント スクリプトの配列を登録するには、Microsoft Ajax Library の依存関係がありません。 このメソッドは、非同期ポストバックが発生するたびに、配列を登録します。 配列内にあるコントロールを登録する、<xref:System.Web.UI.UpdatePanel>制御パネルが更新されたときにのみ、配列が登録されているように、使用、<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%28System.Web.UI.Control%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、配列の最初のページのレンダリング時に 1 つだけを登録する場合を使用して配列を登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterArrayDeclaration%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、配列の最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して配列を登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterArrayDeclaration%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
  ]]></format>
         </remarks>
@@ -2077,6 +2122,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2092,21 +2138,21 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>メソッドでは、同期ポストバックの代わりに非同期ポストバックを実行するように、トリガーとして Web サーバー コントロールを登録することができます。 ときに、<xref:System.Web.UI.UpdatePanel.ChildrenAsTriggers%2A>のプロパティ、<xref:System.Web.UI.UpdatePanel>コントロールに設定されている`true`(既定値は、) 内のコントロールのポストバック、<xref:System.Web.UI.UpdatePanel>非同期ポストバック コントロールとして、コントロールが自動的に登録されています。  
+ <xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>メソッドでは、同期ポストバックではなく、非同期ポストバックを実行するように、トリガーとしての Web サーバー コントロールを登録することができます。 ときに、<xref:System.Web.UI.UpdatePanel.ChildrenAsTriggers%2A>のプロパティ、<xref:System.Web.UI.UpdatePanel>に設定されているコントロール`true`(既定では、) 内のコントロールのポストバック、<xref:System.Web.UI.UpdatePanel>コントロールが非同期ポストバック コントロールとして自動的に登録されています。  
   
- 使用して、<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>の外部のコントロールを登録するメソッド、<xref:System.Web.UI.UpdatePanel>可能性のある更新パネルのコンテンツを更新して、非同期ポストバックのトリガーと同様に制御します。 更新する、<xref:System.Web.UI.UpdatePanel>プログラムによってコントロールを呼び出し、<xref:System.Web.UI.UpdatePanel.Update%2A>メソッドです。  
+ 使用して、<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>外部コントロールを登録するメソッド、<xref:System.Web.UI.UpdatePanel>可能性のある更新パネルのコンテンツを更新して、非同期ポストバックのトリガーとしてコントロール。 更新する、<xref:System.Web.UI.UpdatePanel>プログラムでコントロールを呼び出し、<xref:System.Web.UI.UpdatePanel.Update%2A>メソッド。  
   
- 使用して宣言して、トリガーを追加することができます、`Triggers`の要素、<xref:System.Web.UI.UpdatePanel>コントロール。 Visual Studio で、デザイナーを使用して**UpdatePanelTrigger コレクション エディター**  ダイアログ ボックス。  
+ 使用して宣言によって、トリガーを追加することができます、`Triggers`の要素、<xref:System.Web.UI.UpdatePanel>コントロール。 Visual Studio で、デザイナーを使用して、 **UpdatePanelTrigger コレクション エディター**  ダイアログ ボックス。  
   
    
   
 ## Examples  
- 次の例を呼び出す方法を示します、<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>を登録するメソッド、<xref:System.Web.UI.WebControls.Button>制御の更新プログラムが実行されるよう、<xref:System.Web.UI.UpdatePanel>コントロールのコンテンツ。 <xref:System.Web.UI.WebControls.Button>コントロールが内部ではありません、<xref:System.Web.UI.UpdatePanel>コントロール。 2 つのボタンが表示されます:`Button1`と`Button2`です。 `Button1` パネルのコンテンツを更新し、`Button2`ページ全体を更新します。  
+ 次の例を呼び出す方法を示しています、<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>を登録するメソッド、<xref:System.Web.UI.WebControls.Button>の更新プログラムが実行されるように制御を<xref:System.Web.UI.UpdatePanel>コントロールの内容。 <xref:System.Web.UI.WebControls.Button>コントロールが内部ではない、<xref:System.Web.UI.UpdatePanel>コントロール。 2 つのボタンが表示されます:`Button1`と`Button2`します。 `Button1` パネルのコンテンツを更新し、`Button2`ページ全体を更新します。  
   
  [!code-aspx-csharp[System.Web.UI.ScriptManager.RegisterAsyncPostBackControl#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.RegisterAsyncPostBackControl/CS/ScriptManager1CS.aspx#1)]
  [!code-aspx-vb[System.Web.UI.ScriptManager.RegisterAsyncPostBackControl#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.RegisterAsyncPostBackControl/VB/ScriptManager1VB.aspx#1)]  
   
- 次の例を呼び出す方法を示します、<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>の更新プログラムが実行されるようにユーザーを登録するメソッドが制御、<xref:System.Web.UI.UpdatePanel>コントロールのコンテンツ。 最初の例では、ユーザー コントロールを使用し、ページを示します。 2 番目の例では、ユーザー コントロールを示します。  
+ 次の例を呼び出す方法を示しています、<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>の更新プログラムが実行されるようにユーザーを登録するメソッドが制御を<xref:System.Web.UI.UpdatePanel>コントロールの内容。 最初の例では、ユーザー コントロールを使用してページを示します。 2 番目の例では、ユーザー コントロールを示します。  
   
  [!code-aspx-csharp[System.Web.UI.ScriptManager.RegisterAsyncPostBackControl#2](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.RegisterAsyncPostBackControl/CS/ScriptManager2CS.aspx#2)]
  [!code-aspx-vb[System.Web.UI.ScriptManager.RegisterAsyncPostBackControl#2](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.RegisterAsyncPostBackControl/VB/ScriptManager2VB.aspx#2)]  
@@ -2141,6 +2187,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2165,13 +2212,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%2A>部分ページ レンダリングと互換性があるクライアント スクリプト ブロックを登録するメソッドには、Microsoft Ajax ライブラリの依存関係がありません。 このメソッドを使用して登録されているクライアント スクリプト ブロックは、ページに送信される場合にのみ`control`内にあるコントロールを表します、<xref:System.Web.UI.UpdatePanel>コントロールが更新中です。 非同期ポストバックが発生するたびに、スクリプト ブロックを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードします。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%2A>部分ページ レンダリングおよびと互換性があるクライアント スクリプト ブロックを登録するメソッドには、Microsoft Ajax Library の依存関係はありません。 このメソッドを使用して登録されているクライアント スクリプト ブロックは、ページに送信される場合にのみ`control`内にあるコントロールを表します、<xref:System.Web.UI.UpdatePanel>更新されているコントロール。 非同期ポストバックが発生するたびに、スクリプト ブロックを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、スクリプト ブロックの最初のページのレンダリング時に 1 つだけを登録する場合を使用してスクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、スクリプト ブロックの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、スクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
- 場合`addScriptTags`は`true`、<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%2A>メソッドは、追加`<script>`スクリプト ブロックの周囲のタグ。 渡す`false`を作成する場合`<script>`特定の属性を設定する場合など、タグ`<script>`タグ。 場合`addScriptTags`は`false`と`script`パラメーターには、複数のスクリプト ブロックが含まれる、例外がスローされます。  
+ 場合`addScriptTags`は`true`、<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%2A>メソッドは、追加`<script>`タグで、スクリプト ブロックを囲みます。 渡す`false`を作成する場合`<script>`固有の属性を設定する場合など、自分でタグ`<script>`タグ。 場合`addScriptTags`は`false`と`script`パラメーターに複数のスクリプト ブロックが含まれています、例外がスローされます。  
   
- <xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%2A>メソッドの開始後にスクリプト ブロックをページに追加する`<form>`タグ。 スクリプト ブロックは、登録されている順序と同じ順序で出力する保証はありません。 スクリプト ブロックの順序が重要な場合は、1 つの文字列に、スクリプト ブロックを連結 (たとえばを使用して、<xref:System.Text.StringBuilder>オブジェクト)、し、それらを 1 つのクライアント スクリプト ブロックとして登録します。  
+ <xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%2A>メソッド開始後にスクリプト ブロックをページに追加する`<form>`タグ。 スクリプト ブロックは、登録されているのと同じ順序で出力されるとは限りません。 スクリプト ブロックの順序が重要な場合は、1 つの文字列に、スクリプト ブロックを連結 (たとえばを使用して、<xref:System.Text.StringBuilder>オブジェクト) に、1 つのクライアント スクリプト ブロックとして登録します。  
   
    
   
@@ -2197,6 +2244,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2221,9 +2269,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドを使用して、スクリプト ブロックを登録するときに、スクリプトは非同期ポストバックが発生するたびに表示されます。 内にあるコントロールのスクリプト ブロックを登録する、<xref:System.Web.UI.UpdatePanel>スクリプトが登録されているように制御される場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新される、使用、<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードします。  
+ このメソッドを使用して、スクリプト ブロックを登録すると、非同期ポストバックが発生するたびに、スクリプトがレンダリングされます。 内にあるコントロールのスクリプト ブロックを登録する、<xref:System.Web.UI.UpdatePanel>コントロール スクリプトが登録されている場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新を使用して、<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、スクリプト ブロックの最初のページのレンダリング時に 1 つだけを登録する場合を使用してスクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、スクリプト ブロックの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、スクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
  ]]></format>
         </remarks>
@@ -2250,6 +2298,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2272,13 +2321,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>部分ページ更新内のページまたは参加しているページの一部のクライアント スクリプト ファイルを登録します。 このメソッドを使用して登録されているクライアント スクリプト ファイルは、ページに送信される場合にのみ、`control`内にあるコントロールを表します、<xref:System.Web.UI.UpdatePanel>コントロールが更新中です。 非同期ポストバックが発生するたびに、スクリプト ファイルを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>部分ページ更新内のページまたは参加しているページの一部のクライアント スクリプト ファイルを登録します。 このメソッドを使用して登録されているクライアント スクリプト ファイルが、ページに送信される場合にのみ、`control`内にあるコントロールを表します、<xref:System.Web.UI.UpdatePanel>更新されているコントロール。 非同期ポストバックが発生するたびにスクリプト ファイルを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、スクリプト ブロックの最初のページのレンダリング時に 1 つだけを登録する場合を使用してスクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、スクリプト ブロックの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、スクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
- <xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>メソッドは、ページ上のクライアント スクリプト ファイルを表示して、登録、`script`要素の開始タグが含まれています、`src`属性。 `url`パラメーターが設定に使用される、`src`属性。 Url を解決するを使用して、<xref:System.Web.UI.Control.ResolveClientUrl%2A>メソッドです。 このメソッドは、パスを解決するのには呼び出された URL のコンテキストを使用します。  
+ <xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>メソッドは、レンダリングすることにより、ページ上のクライアント スクリプト ファイルを登録、`script`要素の開始タグが含まれています、`src`属性。 `url`パラメーターを設定するため、`src`属性。 Url を解決するには、使用、<xref:System.Web.UI.Control.ResolveClientUrl%2A>メソッド。 このメソッドでは、パスを解決するのには呼び出された URL のコンテキストを使用します。  
   
- 両方の<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>と<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>メソッドは、ブラウザーにスクリプト ファイルを表示します。 同じ型とキー (の場合、スクリプト ファイル) または同じ種類とリソース名 (埋め込みリソース) のスクリプトは既に表示されて、スクリプトは再表示されません。  
+ 両方の<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>と<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>メソッドは、ブラウザーにスクリプト ファイルを表示します。 同じ型とキー (用スクリプト ファイルの場合) または同じ型と (埋め込みリソース) のリソース名のスクリプトは、既に表示は、スクリプトは再度表示されません。  
   
    
   
@@ -2303,6 +2352,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2324,9 +2374,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドを使用してスクリプト ファイルを登録するときに、スクリプトは非同期ポストバックが発生するたびに表示されます。 内にあるコントロールのスクリプト ファイルを登録する、<xref:System.Web.UI.UpdatePanel>スクリプトが登録されているように制御される場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新される、使用、<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
+ このメソッドを使用してスクリプト ファイルを登録すると、非同期ポストバックが発生するたびに、スクリプトがレンダリングされます。 内にあるコントロールのスクリプト ファイルを登録する、<xref:System.Web.UI.UpdatePanel>コントロール スクリプトが登録されている場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新を使用して、<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、スクリプト ブロックの最初のページのレンダリング時に 1 つだけを登録する場合を使用してスクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、スクリプト ブロックの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、スクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
  ]]></format>
         </remarks>
@@ -2354,6 +2404,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2373,13 +2424,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>部分ページ レンダリングと互換性があるスクリプトを登録するメソッドには、Microsoft Ajax ライブラリの依存関係がありません。 このメソッドを使用して登録されているスクリプト リソースが登録されている場合にのみ`control`内にあるコントロールを表します、<xref:System.Web.UI.UpdatePanel>コントロールは、更新します。 非同期ポストバックが発生するたびに、スクリプトを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードします。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>された部分ページ レンダリングを互換性のあるスクリプトを登録するメソッドには Microsoft Ajax Library の依存関係がありません。 このメソッドを使用して登録されているスクリプト リソースが登録されている場合にのみ`control`内にあるコントロールを表す、<xref:System.Web.UI.UpdatePanel>コントロールが更新されます。 非同期ポストバックが発生するたびにスクリプトを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、スクリプト ブロックの最初のページのレンダリング時に 1 つだけを登録する場合を使用してスクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、スクリプト ブロックの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、スクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
- <xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A> HTTP ハンドラーでアセンブリからのリソースへのアクセス時にメソッドを使用します。 このメソッドには内のリソース URL のコンテンツが含まれています、`script`要素。  
+ <xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>メソッドが HTTP ハンドラーでのアセンブリからリソースがアクセスされたときに使用されます。 このメソッドには、リソースの URL のコンテンツが含まれています、`script`要素。  
   
- 両方の<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>と<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>メソッドは、ブラウザーにスクリプト ファイルを読み込む。 同じ型とキー (の場合、スクリプト ファイル) または同じ種類とリソース名 (埋め込みリソース) のスクリプトは既に読み込まれている場合、スクリプトは再読み込みされません。  
+ 両方の<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>と<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>メソッドは、ブラウザーにスクリプト ファイルを読み込む。 同じ型とキー (用スクリプト ファイルの場合) または同じ型と (埋め込みリソース) のリソース名のスクリプトは既に読み込まれている場合、スクリプトが再読み込みされません。  
   
  ]]></format>
         </remarks>
@@ -2398,6 +2449,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2417,9 +2469,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドを使用してスクリプト ファイルを登録するときに、スクリプトは非同期ポストバックが発生するたびに表示されます。 内にあるコントロールのスクリプトを登録する、<xref:System.Web.UI.UpdatePanel>コントロール、スクリプトが登録されていることされる場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新される、使用、<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%29>このメソッドのオーバー ロードします。  
+ このメソッドを使用してスクリプト ファイルを登録すると、非同期ポストバックが発生するたびに、スクリプトがレンダリングされます。 内にあるコントロールのスクリプトを登録する、<xref:System.Web.UI.UpdatePanel>コントロール、スクリプトが登録されている場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新を使用して、<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、スクリプト ブロックの最初のページのレンダリング時に 1 つだけを登録する場合を使用してスクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、スクリプト ブロックの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、スクリプト ブロックを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterClientScriptBlock%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
  ]]></format>
         </remarks>
@@ -2446,6 +2498,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2463,19 +2516,19 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用して、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>が内のデータを受け取るコントロールかどうかに関係なく、非同期ポストバック中に、サーバーからクライアントにデータを送信する方法、<xref:System.Web.UI.UpdatePanel>コントロール。  
+ 使用して、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>が内のデータを受け取るコントロールかどうかに関係なく、非同期ポストバック中にデータをサーバーからクライアントに送信する方法、<xref:System.Web.UI.UpdatePanel>コントロール。  
   
- <xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>メソッドは、非同期ポストバック中のみ呼び出すことができます。 ポストバックが非同期かどうかを判断するのには、使用、<xref:System.Web.UI.ScriptManager.IsInAsyncPostBack%2A>プロパティです。 このメソッドをという名前のパラメーターを受け取るオーバー ロードを呼び出します。`isJsonSerialized`に設定されている`false`です。 ときに、`isJsonSerialized`にパラメーターが設定されている`false`文字列は JavaScript Object Notation (JSON) としてシリアル化されません。 JSON 形式の詳細については、次を参照してください。、 [JSON の紹介](http://go.microsoft.com/fwlink/?LinkId=77297)Web サイトです。  
+ <xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>メソッドは、非同期ポストバック中にのみ呼び出すことができます。 ポストバックが非同期かどうかを調べるには、<xref:System.Web.UI.ScriptManager.IsInAsyncPostBack%2A>プロパティ。 このメソッドをという名前のパラメーターを受け取るオーバー ロードを呼び出す`isJsonSerialized`に設定されている`false`します。 ときに、`isJsonSerialized`にパラメーターが設定されている`false`文字列は JavaScript Object Notation (JSON) としてシリアル化されません。 JSON 形式の詳細については、次を参照してください。、 [JSON の紹介](http://go.microsoft.com/fwlink/?LinkId=77297)Web サイト。  
   
- 登録されているデータ項目、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>メソッド中にクライアント スクリプトでアクセスできる、およびとオブジェクトのイベントです。 これらのイベントを処理する場合、カスタム データは、イベント引数オブジェクトに渡されます。 たとえば、イベントのハンドラーを指定する場合は、クラスでは、プロパティを公開するカスタム データが渡されます。  
+ 登録されているデータ項目、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>メソッド中にクライアント スクリプトでアクセスできる、およびオブジェクトのイベント。 これらのイベントを処理するときに、カスタムのデータは、イベント引数オブジェクトに渡されます。 たとえば、イベントのハンドラーを指定する場合にプロパティを公開するクラスをカスタム データが渡されます。  
   
    
   
 ## Examples  
- 次の例は、2 つにデータを送信する方法を示しています。<xref:System.Web.UI.WebControls.Label>非同期ポストバック中にページ上のコントロールです。 <xref:System.Web.UI.WebControls.Label>コントロールは、内部、<xref:System.Web.UI.UpdatePanel>コントロール。  
+ 次の例では、2 つにデータを送信する方法を示しています。<xref:System.Web.UI.WebControls.Label>非同期ポストバック中にページ上のコントロール。 <xref:System.Web.UI.WebControls.Label>コントロールは、内部、<xref:System.Web.UI.UpdatePanel>コントロール。  
   
 > [!NOTE]
->  この例で送信されるデータでは、例示のみです。 実際のアプリケーションでを使って、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>サーバーからカスタム データを送信する方法です。  
+>  この例で送信されるデータは、例示のみを目的です。 実際のアプリケーションで使用すると、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>サーバーからカスタム データを送信する方法。  
   
  [!code-aspx-csharp[System.Web.UI.ScriptManager.RegisterDataItem#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.RegisterDataItem/CS/ScriptManagerRegisterDataItemCS.aspx#1)]
  [!code-aspx-vb[System.Web.UI.ScriptManager.RegisterDataItem#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.RegisterDataItem/VB/ScriptManagerRegisterDataItemVB.aspx#1)]  
@@ -2500,6 +2553,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2520,21 +2574,21 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>が内のデータを受け取るコントロールかどうかに関係なく、非同期ポストバック中に、サーバーからクライアントにデータを送信する方法、<xref:System.Web.UI.UpdatePanel>コントロール。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>が内のデータを受け取るコントロールかどうかに関係なく、非同期ポストバック中にデータをサーバーからクライアントに送信する方法、<xref:System.Web.UI.UpdatePanel>コントロール。  
   
- 場合、`dataItem`に登録するパラメーター `control` JSON としてシリアル化されていない設定、`isJsonSerialized`パラメーターを`false`です。 これにより、クライアントに送信される各文字列に関数を使用する必要があります。 JSON 形式の詳細については、次を参照してください。、 [JSON の紹介](http://go.microsoft.com/fwlink/?LinkId=77297)Web サイトです。  
+ 場合、`dataItem`に登録するパラメーター `control` JSON としてシリアル化されない設定、`isJsonSerialized`パラメーターを`false`します。 これにより、クライアントに送信される各文字列の関数を使用する必要があります。 JSON 形式の詳細については、次を参照してください。、 [JSON の紹介](http://go.microsoft.com/fwlink/?LinkId=77297)Web サイト。  
   
- <xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>メソッドは、非同期ポストバック中のみ呼び出すことができます。 ポストバックが非同期かどうかを判断するのには、使用、<xref:System.Web.UI.ScriptManager.IsInAsyncPostBack%2A>プロパティです。  
+ <xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>メソッドは、非同期ポストバック中にのみ呼び出すことができます。 ポストバックが非同期かどうかを調べるには、<xref:System.Web.UI.ScriptManager.IsInAsyncPostBack%2A>プロパティ。  
   
- データ項目を使用して登録されている、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>メソッド中にクライアント スクリプトでアクセスできる、およびとオブジェクトのイベントです。 これらのイベントを処理する場合、カスタム データは、イベント引数オブジェクトに渡されます。 たとえば、イベントのハンドラーを指定する場合は、クラスでは、プロパティを公開するカスタム データが渡されます。  
+ 使用して登録されているデータ項目、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>メソッド中にクライアント スクリプトでアクセスできる、およびオブジェクトのイベント。 これらのイベントを処理するときに、カスタムのデータは、イベント引数オブジェクトに渡されます。 たとえば、イベントのハンドラーを指定する場合にプロパティを公開するクラスをカスタム データが渡されます。  
   
    
   
 ## Examples  
- 次の例は、2 つにデータを送信する方法を示しています。<xref:System.Web.UI.WebControls.Label>非同期ポストバック中にページ上のコントロールです。 <xref:System.Web.UI.WebControls.Label>コントロールは、内部、<xref:System.Web.UI.UpdatePanel>コントロール。 この例を受け取らないオーバー ロードを示しています、`isJsonSerialized`パラメーター。 それ以外の場合、オブジェクトのプロパティを取得するための手順は、そのオーバー ロードを使用していない場合と同じです。  
+ 次の例では、2 つにデータを送信する方法を示しています。<xref:System.Web.UI.WebControls.Label>非同期ポストバック中にページ上のコントロール。 <xref:System.Web.UI.WebControls.Label>コントロールは、内部、<xref:System.Web.UI.UpdatePanel>コントロール。 この例を受け取らないオーバー ロードを示しています、`isJsonSerialized`パラメーター。 それ以外の場合、オブジェクトのプロパティを取得するための手順は、そのオーバー ロードを使用していない場合と同じです。  
   
 > [!NOTE]
->  この例で送信されるデータでは、例示のみです。 実際のアプリケーションでを使って、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>サーバーからカスタム データを送信する方法です。 たとえば、クライアントに内部ではない要素を表示または非表示するかどうかに関する情報を送信するデータ項目を使用する可能性があります、<xref:System.Web.UI.UpdatePanel>コントロール。  
+>  この例で送信されるデータは、例示のみを目的です。 実際のアプリケーションで使用すると、<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>サーバーからカスタム データを送信する方法。 たとえば、クライアントの内側になっている要素を表示または非表示にするかどうかに関する情報を送信するデータ項目を使用できます、<xref:System.Web.UI.UpdatePanel>コントロール。  
   
  [!code-aspx-csharp[System.Web.UI.ScriptManager.RegisterDataItem#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.RegisterDataItem/CS/ScriptManagerRegisterDataItemCS.aspx#1)]
  [!code-aspx-vb[System.Web.UI.ScriptManager.RegisterDataItem#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.RegisterDataItem/VB/ScriptManagerRegisterDataItemVB.aspx#1)]  
@@ -2559,6 +2613,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2579,13 +2634,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用して、<xref:System.Web.UI.ScriptManager.RegisterDispose%2A>メソッドを登録する`dispose`内にあるコントロールのスクリプト、<xref:System.Web.UI.UpdatePanel>コントロール。 非同期ポストバック中に<xref:System.Web.UI.UpdatePanel>コントロールを更新、削除すると、または作成されたことができます。 パネルが更新または削除されたとき、いずれかの`dispose`内にあるコントロールに登録されているスクリプト、<xref:System.Web.UI.UpdatePanel>と呼ばれます。 ページの一般的な開発シナ リオでを呼び出す必要はありません、<xref:System.Web.UI.ScriptManager.RegisterDispose%2A>メソッドです。  
+ 使用して、<xref:System.Web.UI.ScriptManager.RegisterDispose%2A>メソッドを登録する`dispose`内にあるコントロールのスクリプトを<xref:System.Web.UI.UpdatePanel>コントロール。 非同期ポストバック中に<xref:System.Web.UI.UpdatePanel>更新、削除、または作成されたコントロール。 パネルが更新または削除する場合に、いずれかの`dispose`内にあるコントロールに登録されているスクリプト、<xref:System.Web.UI.UpdatePanel>と呼ばれます。 ページの一般的な開発シナ リオでは呼び出しする必要はありません、<xref:System.Web.UI.ScriptManager.RegisterDispose%2A>メソッド。  
   
- <xref:System.Web.UI.ScriptManager.RegisterDispose%2A>メソッドが使用するスクリプトを登録またはから継承するコントロールを作成するコントロールの開発者によってもの、<xref:System.Web.UI.IScriptControl>インターフェイスです。 たとえば、使用する場合があります、`dispose`コンポジションを使ったクライアントのコントロールを開発する場合のスクリプトを作成します。 実装する、コントロールで<xref:System.Web.UI.IScriptControl>し、個々 のコントロールをレンダリングします。 登録する、`dispose`メソッドなど、定義されているクライアント コンポーネントに対応しない任意の項目の`Sys.TextBox`します。 カスタム コントロールが Microsoft Ajax ライブラリ内のクライアント コンポーネントに対応する要素を作成する場合は登録する必要はありません、`dispose`スクリプト、ため`dispose`自動的に呼び出されます。 そのため、使用、<xref:System.Web.UI.ScriptManager.RegisterDispose%2A>のクライアント コンポーネント、Microsoft Ajax ライブラリの一部になっていて、コンポーネントを使用できなくする場合は、リソースを解放するメソッド。  
+ <xref:System.Web.UI.ScriptManager.RegisterDispose%2A>メソッドは、使用するためのスクリプトを登録またはコントロールを継承するクラスを作成するコントロールの開発者によって、<xref:System.Web.UI.IScriptControl>インターフェイス。 たとえば、使用する場合があります、 `dispose` composition を使用してクライアントのコントロールを開発する場合のスクリプトを作成します。 コントロールを実装する<xref:System.Web.UI.IScriptControl>し、個々 のコントロールをレンダリングします。 登録する、`dispose`メソッドなど、定義済みのクライアント コンポーネントに対応しない任意の項目の`Sys.TextBox`します。 カスタム コントロールが Microsoft Ajax Library 内のクライアント コンポーネントに対応する要素を作成する場合は登録する必要はありません、`dispose`スクリプト、ため`dispose`自動的に呼び出されます。 そのため、使用、<xref:System.Web.UI.ScriptManager.RegisterDispose%2A>クライアント コンポーネントは、Microsoft Ajax Library の一部であると、あるコンポーネントを使用できなくする場合は、リソースを解放するメソッド。  
   
- <xref:System.Web.UI.ScriptManager.RegisterDispose%2A>メソッドは、コントロールの複数回呼び出すことがあります。 複数のスクリプトは集計されます。 スクリプトの破棄の順序では、スクリプトが登録された順序と一致します。  
+ <xref:System.Web.UI.ScriptManager.RegisterDispose%2A>メソッドは、コントロールの複数回呼び出すことができます。 複数のスクリプトが集計されます。 スクリプトの破棄の順序では、スクリプトが登録された順序と一致します。  
   
- 登録する場合、`dispose`スクリプトに含まれていないコントロールを<xref:System.Web.UI.UpdatePanel>制御、例外がスローされます。 `dispose`間でスクリプトが呼び出される、およびクラスのイベントです。  
+ 登録する場合、`dispose`内にないコントロールのスクリプトを<xref:System.Web.UI.UpdatePanel>コントロール、例外がスローされます。 `dispose`間スクリプトが呼び出される、およびクラスのイベント。  
   
  ]]></format>
         </remarks>
@@ -2605,6 +2660,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2628,11 +2684,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterExpandoAttribute%2A>部分ページ レンダリングと互換性があるコントロールのカスタム (expando) プロパティを登録するメソッドには、Microsoft Ajax ライブラリの依存関係がありません。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterExpandoAttribute%2A>部分ページ レンダリングおよびと互換性があるコントロールのカスタム (expando) プロパティを登録するメソッドには、Microsoft Ajax Library の依存関係はありません。  
   
- <xref:System.Web.UI.ScriptManager.RegisterExpandoAttribute%2A>メソッドは、指定したコントロールのカスタム属性として名前/値ペアを登録します。 プロパティは、XHTML 互換性レンダリングされたコントロールのマークアップを保持するように ECMAScript (JavaScript) から動的に設定します。 設定`encode`に`true`動的プロパティの値に文字をエスケープする必要がある場合。  
+ <xref:System.Web.UI.ScriptManager.RegisterExpandoAttribute%2A>メソッドは、指定したコントロールのカスタム属性として名前/値ペアを登録します。 プロパティが、レンダリングされたコントロールのマークアップの XHTML の互換性を維持する ECMAScript (JavaScript) から動的に設定されます。 設定`encode`に`true`動的プロパティの値に文字をエスケープする必要がある場合。  
   
- 動的なプロパティを追加するコントロールが見つからない場合、スクリプト エラーが発生します。  
+ 動的プロパティの追加先となるコントロールが見つからない場合、スクリプト エラーが発生します。  
   
  ]]></format>
         </remarks>
@@ -2656,6 +2712,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2683,9 +2740,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、主にコントロールの開発者によって使用します。 呼び出す、<xref:System.Web.UI.ScriptManager.RegisterExtenderControl%2A>メソッド中にカスタム ASP.NET Ajax エクステンダー コントロールからその`onInit`ページにそのコントロールを登録するイベント ハンドラー。 部分ページ レンダリングに参加する ASP.NET Ajax エクステンダー コントロールを登録する必要があります。  
+ このメソッドは、主にコントロールの開発者によって使用します。 呼び出す、<xref:System.Web.UI.ScriptManager.RegisterExtenderControl%2A>メソッド中にカスタム ASP.NET Ajax エクステンダー コントロールからその`onInit`ページにコントロールを登録するイベント ハンドラー。 ASP.NET Ajax エクステンダー コントロールは、部分ページ レンダリングに参加登録する必要があります。  
   
- <xref:System.Web.UI.ScriptManager.RegisterExtenderControl%2A>メソッドは、エクステンダー コントロールおよび拡張するターゲット スクリプト コントロールの内部リストに指定されたエクステンダー コントロールを追加します。 この一覧は処理中に、<xref:System.Web.UI.Control.PreRender>イベント。  
+ <xref:System.Web.UI.ScriptManager.RegisterExtenderControl%2A>メソッドを拡張するターゲット スクリプト コントロールとエクステンダー コントロールの内部一覧に、指定したエクステンダー コントロールを追加します。 この一覧は処理中に、<xref:System.Web.UI.Control.PreRender>イベント。  
   
  ]]></format>
         </remarks>
@@ -2711,6 +2768,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2731,9 +2789,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterHiddenField%2A>部分ページ レンダリングと互換性がある非表示フィールドを登録するメソッドには、Microsoft Ajax ライブラリの依存関係がありません。 このメソッドは、フィールドを登録するコントロールの内側に非表示フィールドを登録、<xref:System.Web.UI.UpdatePanel>コントロールが更新中です。 非同期ポストバックが発生するたびに、隠しフィールドを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterHiddenField%28System.Web.UI.Page%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterHiddenField%2A>部分ページ レンダリングおよびと互換性がある非表示フィールドを登録するメソッドには、Microsoft Ajax Library の依存関係はありません。 このメソッドは、フィールドを登録するコントロールの内部に非表示フィールドを登録、<xref:System.Web.UI.UpdatePanel>更新されているコントロール。 非同期ポストバックが発生するたびに非表示フィールドを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterHiddenField%28System.Web.UI.Page%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し隠しフィールドの最初のページのレンダリング時に 1 つだけを登録する場合に使用する隠しフィールドを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterHiddenField%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連して、非表示フィールドの最初のページのレンダリング中に 1 つだけの時間を登録する場合は使用しなかったを非表示フィールドを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterHiddenField%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
  <xref:System.Web.UI.ScriptManager.RegisterHiddenField%2A>メソッドは、非表示を作成`input`レンダリングされた HTML ページ上の要素。  
   
@@ -2755,6 +2813,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2774,9 +2833,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterHiddenField%2A>部分ページ レンダリングと互換性がある非表示フィールドを登録するメソッドには、Microsoft Ajax ライブラリの依存関係がありません。 このメソッドは、非同期ポストバックが発生するたびに、非表示フィールドを登録します。 非表示フィールド内にあるコントロールの登録、<xref:System.Web.UI.UpdatePanel>コントロール パネルが更新されたときにのみ、フィールドが登録されていることを使用して、<xref:System.Web.UI.ScriptManager.RegisterHiddenField%28System.Web.UI.Control%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterHiddenField%2A>部分ページ レンダリングおよびと互換性がある非表示フィールドを登録するメソッドには、Microsoft Ajax Library の依存関係はありません。 このメソッドは、非同期ポストバックが発生するたびに、非表示フィールドを登録します。 内にあるコントロールの非表示フィールドを登録する、<xref:System.Web.UI.UpdatePanel>制御パネルが更新されたときにのみ、フィールドが登録されているように、使用、<xref:System.Web.UI.ScriptManager.RegisterHiddenField%28System.Web.UI.Control%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し隠しフィールドの最初のページのレンダリング時に 1 つだけを登録する場合に使用する隠しフィールドを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterHiddenField%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連して、非表示フィールドの最初のページのレンダリング中に 1 つだけの時間を登録する場合は使用しなかったを非表示フィールドを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterHiddenField%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
  ]]></format>
         </remarks>
@@ -2862,6 +2921,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2886,13 +2946,13 @@
 ## Remarks  
  <xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%2A>フォームが送信される前に実行されるスクリプトに追加の送信を変更またはキャンセルすることができます。  
   
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%2A>メソッドを表示するために、`onsubmit`ステートメント部分ページ レンダリングと互換性があると、Microsoft Ajax ライブラリの依存関係を持たない。 ステートメントを登録するコントロールが内部にある場合にのみこのメソッドを使用して登録されている JavaScript コードがページに送信される、<xref:System.Web.UI.UpdatePanel>コントロールが更新中です。 非同期ポストバックのたびにコードを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%2A>をレンダリングするメソッド、`onsubmit`ステートメント部分ページ レンダリングと互換性があると、Microsoft Ajax Library の依存関係がありません。 ステートメントを登録するコントロールが内部にある場合にのみ、ページにこのメソッドを使用して登録されている JavaScript コードが送信される、<xref:System.Web.UI.UpdatePanel>更新されているコントロール。 非同期ポストバックのたびにコードを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、ないコードの最初のページのレンダリング時に 1 つだけを登録する場合を使用する JavaScript コードを登録する場合、<xref:System.Web.UI.Page.RegisterOnSubmitStatement%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、コードの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、JavaScript コードを登録する場合、<xref:System.Web.UI.Page.RegisterOnSubmitStatement%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
- *スクリプト*のパラメーター、<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%2A>メソッドには、セミコロン (;) を使用して区切られた複数のスクリプト コマンドが含まれていることができます。  
+ *スクリプト*のパラメーター、<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%2A>メソッドは、セミコロン (;) を使用して区切られた複数のスクリプト コマンドを含めることができます。  
   
- HTML フォームの詳細については、`onsubmit`イベントを参照してください、 [World Wide Web コンソーシアム (W3C) の Web サイト](http://go.microsoft.com/fwlink/?linkid=37125)です。  
+ HTML フォームの詳細については、`onsubmit`イベントを参照してください、 [World Wide Web Consortium (W3C) の Web サイト](http://go.microsoft.com/fwlink/?linkid=37125)します。  
   
  ]]></format>
         </remarks>
@@ -2912,6 +2972,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2934,14 +2995,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドに JavaScript コードを登録することにより、スクリプトの非同期ポストバックが発生するたびに含まれるようにします。  
+ 非同期ポストバックが発生するたびに含まれるスクリプトは、このメソッドに JavaScript コードを登録します。  
   
 > [!NOTE]
->  以前の非同期ポストバックのコードは削除されません。 新しい非同期ポストバックの既存のコードにコードを追加する、`onsubmit`ステートメントです。  
+>  以前の非同期ポストバックのコードは削除されません。 新しい非同期ポストバックの既存のコードにコードを追加する、`onsubmit`ステートメント。  
   
- 内にあるコントロールのコードを登録する、<xref:System.Web.UI.UpdatePanel>制御コードが登録されているようにされる場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新される、使用、<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
+ 内にあるコントロールのコードを登録する、<xref:System.Web.UI.UpdatePanel>コントロール、コードが登録されている場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新を使用して、<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%2CSystem.String%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、ないコードの最初のページのレンダリング時に 1 つだけを登録する場合を使用する JavaScript コードを登録する場合、<xref:System.Web.UI.Page.RegisterOnSubmitStatement%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、コードの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、JavaScript コードを登録する場合、<xref:System.Web.UI.Page.RegisterOnSubmitStatement%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
  ]]></format>
         </remarks>
@@ -2962,6 +3023,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -2977,9 +3039,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用して、<xref:System.Web.UI.ScriptManager.RegisterPostBackControl%2A>内のポストバック コントロールを登録するメソッド、<xref:System.Web.UI.UpdatePanel>トリガーと同様に制御します。 このメソッドを使用して登録されているコントロールのみの更新ではなく全体のページを更新する、<xref:System.Web.UI.UpdatePanel>コントロールのコンテンツ。 このメソッドの外側にポストバック コントロールを登録すること、<xref:System.Web.UI.UpdatePanel>コントロールには影響がない既定ではこれらのコントロールを実行しないための非同期ポストバックします。  
+ 使用して、<xref:System.Web.UI.ScriptManager.RegisterPostBackControl%2A>内のポストバック コントロールを登録するメソッド、<xref:System.Web.UI.UpdatePanel>トリガーとしてコントロール。 このメソッドを使用して登録されているコントロールにのみ更新する代わりにページ全体が更新プログラム、<xref:System.Web.UI.UpdatePanel>コントロールの内容。 このメソッドの外部でポストバック コントロールを登録、<xref:System.Web.UI.UpdatePanel>コントロールには影響がない既定ではこれらのコントロールは実行されないため、非同期ポストバックします。  
   
- 使用して宣言して、トリガーを追加することができます、`Triggers`の要素、<xref:System.Web.UI.UpdatePanel>コントロール。 Visual Studio で、デザイナーを使用して**UpdatePanelTrigger コレクション エディター**  ダイアログ ボックス。  
+ 使用して宣言によって、トリガーを追加することができます、`Triggers`の要素、<xref:System.Web.UI.UpdatePanel>コントロール。 Visual Studio で、デザイナーを使用して、 **UpdatePanelTrigger コレクション エディター**  ダイアログ ボックス。  
   
  ]]></format>
         </remarks>
@@ -2999,6 +3061,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3024,9 +3087,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、主にコントロールの開発者によって使用します。 呼び出す、<xref:System.Web.UI.ScriptManager.RegisterScriptControl%2A>メソッド中にカスタム ASP.NET Ajax スクリプト コントロールからその`onInit`ページにそのコントロールを登録するイベント ハンドラー。 部分ページ レンダリングに参加する ASP.NET Ajax スクリプト コントロールを登録する必要があります。  
+ このメソッドは、主にコントロールの開発者によって使用します。 呼び出す、<xref:System.Web.UI.ScriptManager.RegisterScriptControl%2A>メソッド中にカスタム ASP.NET Ajax スクリプト コントロールからその`onInit`ページにコントロールを登録するイベント ハンドラー。 部分ページ レンダリングに参加する ASP.NET Ajax スクリプト コントロールを登録する必要があります。  
   
- <xref:System.Web.UI.ScriptManager.RegisterScriptControl%2A>メソッドは、中に処理されるスクリプト コントロールの内部リストに指定したエクステンダー コントロールを追加、<xref:System.Web.UI.Control.PreRender>イベント。  
+ <xref:System.Web.UI.ScriptManager.RegisterScriptControl%2A>メソッドでは、指定したエクステンダー コントロールを追加中に処理されるスクリプト コントロールの内部一覧に、<xref:System.Web.UI.Control.PreRender>イベント。  
   
  ]]></format>
         </remarks>
@@ -3056,6 +3119,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3072,12 +3136,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ExtenderControl>クラスの呼び出し、<xref:System.Web.UI.ScriptManager.RegisterScriptDescriptors%2A>メソッドでその<xref:System.Web.UI.Control.Render%2A>メソッドです。  
+ <xref:System.Web.UI.ExtenderControl>クラスが呼び出す、<xref:System.Web.UI.ScriptManager.RegisterScriptDescriptors%2A>メソッドでその<xref:System.Web.UI.Control.Render%2A>メソッド。  
   
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>派生した場合、<see cref="T:System.Web.UI.ExtenderControl" />クラスし、オーバーライド、<see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />メソッドは、基底クラス メソッドを呼び出さない、呼び出す必要があります、<see cref="M:System.Web.UI.ScriptManager.RegisterScriptDescriptors(System.Web.UI.IExtenderControl)" />メソッドです。これにより、<see cref="T:System.Web.UI.ScriptManager" />コントロールを表すクライアント オブジェクトをサポートするインスタンスのスクリプトをレンダリングするコントロール。</para>
+          <para>派生する場合、<see cref="T:System.Web.UI.ExtenderControl" />クラスし、オーバーライド、<see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />メソッドは基底クラスのメソッドを呼び出さない、呼び出す必要があります、<see cref="M:System.Web.UI.ScriptManager.RegisterScriptDescriptors(System.Web.UI.IExtenderControl)" />メソッド。これにより、<see cref="T:System.Web.UI.ScriptManager" />コントロールを表すクライアント オブジェクトをサポートするインスタンスのスクリプトを表示するコントロール。</para>
         </block>
         <altmember cref="M:System.Web.UI.ScriptManager.RegisterExtenderControl``1(``0,System.Web.UI.Control)" />
         <altmember cref="T:System.Web.UI.ScriptDescriptor" />
@@ -3096,6 +3160,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3112,12 +3177,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptControl>クラスの呼び出し、<xref:System.Web.UI.ScriptManager.RegisterScriptDescriptors%2A>メソッド中にその<xref:System.Web.UI.Control.Render%2A>イベント。  
+ <xref:System.Web.UI.ScriptControl>クラスが呼び出す、<xref:System.Web.UI.ScriptManager.RegisterScriptDescriptors%2A>メソッド中にその<xref:System.Web.UI.Control.Render%2A>イベント。  
   
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>派生した場合、<see cref="T:System.Web.UI.ScriptControl" />クラスし、オーバーライド、<see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />メソッドは、基底クラス メソッドを呼び出さない、呼び出す必要があります、<see cref="M:System.Web.UI.ScriptManager.RegisterScriptDescriptors(System.Web.UI.IScriptControl)" />メソッドです。これにより、<see cref="T:System.Web.UI.ScriptManager" />コントロールを表すクライアント オブジェクトをサポートするインスタンスのスクリプトをレンダリングするコントロール。</para>
+          <para>派生する場合、<see cref="T:System.Web.UI.ScriptControl" />クラスし、オーバーライド、<see cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />メソッドは基底クラスのメソッドを呼び出さない、呼び出す必要があります、<see cref="M:System.Web.UI.ScriptManager.RegisterScriptDescriptors(System.Web.UI.IScriptControl)" />メソッド。これにより、<see cref="T:System.Web.UI.ScriptManager" />コントロールを表すクライアント オブジェクトをサポートするインスタンスのスクリプトを表示するコントロール。</para>
         </block>
         <altmember cref="M:System.Web.UI.ScriptManager.RegisterScriptControl``1(``0)" />
         <altmember cref="T:System.Web.UI.ScriptDescriptor" />
@@ -3141,6 +3206,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3165,13 +3231,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 使用する、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%2A>部分ページ レンダリングと互換性があるページの起動スクリプト ブロックを登録するメソッドには Microsoft Ajax ライブラリの依存関係がありません。 内部ブロックを登録するコントロールにある場合にのみ、このメソッドを使用して登録されているスタートアップ スクリプト ブロックがページに送信されます、<xref:System.Web.UI.UpdatePanel>コントロールが更新中です。 非同期ポストバックが発生するたびに起動スクリプト ブロックを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードします。  
+ 使用する、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%2A>された部分ページ レンダリングを互換性のあるページの起動スクリプト ブロックを登録するメソッドには、Microsoft Ajax Library の依存関係がありません。 ブロックを登録するコントロールが内部にある場合にのみ、このメソッドを使用して登録されているスタートアップ スクリプト ブロックがページに送信される、<xref:System.Web.UI.UpdatePanel>更新されているコントロール。 非同期ポストバックが発生するたびに起動スクリプト ブロックを登録するには、使用、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%28System.Web.UI.Page%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、スクリプトの最初のページのレンダリング時に 1 つだけを登録する場合を使用してスタートアップ スクリプトを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterStartupScript%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、スクリプトの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、スタートアップ スクリプトを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterStartupScript%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
- スクリプト ブロックによって表示される、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%2A>ページ読み込みが完了したときに、ページのクライアントの前に、メソッドが実行される`onload`イベントが発生します。 起動スクリプト ブロックは、直前に表示する ASP.NET ページの下部にある、`</form>`タグ。  
+ によって表示されるスクリプト ブロック、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%2A>ページ読み込みの終了時に、ページのクライアントの前に、メソッドが実行される`onload`イベントが発生します。 起動スクリプト ブロックが直前に表示する ASP.NET ページの下部に配置されている、`</form>`タグ。  
   
- 起動スクリプト ブロックを使用して登録されている<xref:System.Web.UI.ScriptManager.RegisterStartupScript%2A>は登録されている同じ順序で出力されるとは限りません。 起動スクリプト ブロックの順序が重要な場合を使用して、<xref:System.Text.StringBuilder>オブジェクトを 1 つの文字列内のスクリプト ブロックを収集し、それらをすべてを 1 つのスタートアップ スクリプトとして登録します。  
+ 起動スクリプト ブロックを使用して登録されている<xref:System.Web.UI.ScriptManager.RegisterStartupScript%2A>登録されているのと同じ順序で出力されるとは限りません。 起動スクリプト ブロックの順序が重要な場合を使用して、<xref:System.Text.StringBuilder>オブジェクトの 1 つの文字列内のスクリプト ブロックを収集して、それらすべてを 1 つのスタートアップ スクリプトとして登録します。  
   
  ]]></format>
         </remarks>
@@ -3191,6 +3257,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3214,9 +3281,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドを使用すると、非同期ポストバックが発生するたびに含まれている起動スクリプト ブロックを登録できます。 内にあるコントロールのスクリプト ブロックを登録する、<xref:System.Web.UI.UpdatePanel>スクリプト ブロックが登録されているように制御される場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新される、使用、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードです。  
+ 含まれている非同期ポストバックが発生するたびに起動スクリプト ブロックを登録するのにには、このメソッドを使用します。 内にあるコントロールのスクリプト ブロックを登録する、<xref:System.Web.UI.UpdatePanel>コントロール、スクリプト ブロックが登録されている場合にのみ、<xref:System.Web.UI.UpdatePanel>コントロールが更新を使用して、<xref:System.Web.UI.ScriptManager.RegisterStartupScript%28System.Web.UI.Control%2CSystem.Type%2CSystem.String%2CSystem.String%2CSystem.Boolean%29>このメソッドのオーバー ロードします。  
   
- 部分ページ更新に関係し、スクリプトの最初のページのレンダリング時に 1 つだけを登録する場合を使用してスタートアップ スクリプトを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterStartupScript%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラスです。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティです。  
+ 部分ページ更新プログラムに関連し、スクリプトの最初のページのレンダリング中に 1 つだけの時間を登録する場合を使用して、スタートアップ スクリプトを登録する場合、<xref:System.Web.UI.ClientScriptManager.RegisterStartupScript%2A>のメソッド、<xref:System.Web.UI.ClientScriptManager>クラス。 参照を取得することができます、<xref:System.Web.UI.ClientScriptManager>オブジェクトから、<xref:System.Web.UI.Page.ClientScript%2A>ページのプロパティ。  
   
  ]]></format>
         </remarks>
@@ -3233,6 +3300,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3248,12 +3316,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドを拡張するコントロールの開発者によって使用、<xref:System.Web.UI.ScriptManager>コントロール。  
+ このメソッドは、拡張するコントロールの開発者によって使用されます、<xref:System.Web.UI.ScriptManager>コントロール。  
   
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>このメソッドをオーバーライドするときに呼び出す基本<see cref="M:System.Web.UI.ScriptManager.Render(System.Web.UI.HtmlTextWriter)" />メソッド、クラスを定義しているクライアント スクリプトがページに表示できるようにします。</para>
+          <para>このメソッドをオーバーライドするときに呼び出す基本<see cref="M:System.Web.UI.ScriptManager.Render(System.Web.UI.HtmlTextWriter)" />メソッド、クラスを定義するクライアント スクリプトがページに表示できるようにします。</para>
         </block>
         <altmember cref="M:System.Web.UI.Control.Render(System.Web.UI.HtmlTextWriter)" />
       </Docs>
@@ -3268,6 +3336,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -3293,6 +3362,7 @@
       <MemberType>Event</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -3310,7 +3380,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このイベントは 1 回の各メンバーに対して、<xref:System.Web.UI.ScriptManager.Scripts%2A>ページの中にコレクション<xref:System.Web.UI.Control.PreRender>イベント。 このイベントを使用すると、スクリプトがページに表示される前に、更新プログラムを実行できます。  
+ このイベントは、1 回の各メンバーに対して、<xref:System.Web.UI.ScriptManager.Scripts%2A>ページの中にコレクション<xref:System.Web.UI.Control.PreRender>イベント。 このイベントを使用して、スクリプトは、ページにレンダリングされる前に、すべての更新プログラムを実行します。  
   
  ]]></format>
         </remarks>
@@ -3326,6 +3396,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -3355,7 +3426,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.RoleServiceManager>このプロパティによって返されるオブジェクトは、ページに登録されている役割サービスを表します。 役割サービスを定義することができます、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。 ASP.NET 役割サービスを使用したり、カスタムのロール サービスを使用できます。 マークアップでカスタムのサービスを追加するには含めることによって、`RoleService`内の要素、 `asp:ScriptManager`  ページで、次の例のように要素。  
+ <xref:System.Web.UI.RoleServiceManager>このプロパティによって返されるオブジェクトは、ページに登録されている役割サービスを表します。 役割サービスを定義することができます、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。 ASP.NET ロール サービスを使用したり、カスタムのロール サービスを使用できます。 マークアップで、カスタム サービスを追加するには含めることによって、`RoleService`内の要素、 `asp:ScriptManager`  ページで、次の例に示すように要素。  
   
 ```  
 <asp:ScriptManager ID="SM1" runat="server">  
@@ -3363,7 +3434,7 @@
 </asp:ScriptManager>  
 ```  
   
- プログラムによって構成することができます、<xref:System.Web.UI.RoleServiceManager>オブジェクト。 登録されるサービス、<xref:System.Web.UI.ScriptManager>コントロール、ページの中に<xref:System.Web.UI.Control.PreRender>ライフ サイクル ステージです。  
+ プログラムで構成することができます、<xref:System.Web.UI.RoleServiceManager>オブジェクト。 サービスに登録されて、<xref:System.Web.UI.ScriptManager>コントロール、ページの中に<xref:System.Web.UI.Control.PreRender>ライフ サイクル ステージ。  
   
  ]]></format>
         </remarks>
@@ -3379,6 +3450,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -3399,21 +3471,21 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.ScriptMode%2A>プロパティを指定するかどうか、<xref:System.Web.UI.ScriptManager>コントロールのデバッグを表示またはクライアント スクリプト ライブラリのバージョンをリリースする必要があります。 この値は、構成ファイルとページ ディレクティブ内に設定されている値で置き換えることができます。  
+ <xref:System.Web.UI.ScriptManager.ScriptMode%2A>プロパティを指定するかどうか、<xref:System.Web.UI.ScriptManager>コントロールのデバッグをレンダリングまたはクライアント スクリプト ライブラリのバージョンをリリースする必要があります。 この値は、構成ファイルとページ ディレクティブ内に設定されている値で置き換えることができます。  
   
- 次の表は、このプロパティの有効な値を一覧表示します。  
+ 次の表では、このプロパティの有効な値を示します。  
   
 |[値]|定義|  
 |-----------|----------------|  
-|<xref:System.Web.UI.ScriptMode.Auto>|ライブラリが、Web ページで使用されるクライアント スクリプトのデバッグ バージョンと、`retail`構成要素の属性に設定されている`false`です。 それ以外の場合、クライアント スクリプト ライブラリのリリース バージョンが使用されます。|  
-|<xref:System.Web.UI.ScriptMode.Inherit>|適用すると、<xref:System.Web.UI.ScriptManager.ScriptMode%2A>のプロパティ、<xref:System.Web.UI.ScriptManager>オブジェクト、この値は同じで<xref:System.Web.UI.ScriptMode.Auto>です。|  
-|<xref:System.Web.UI.ScriptMode.Debug>|しない限り、Web ページにライブラリが使用されるクライアント スクリプトのデバッグ バージョン、`retail`構成要素の属性に設定されている`true`です。|  
-|<xref:System.Web.UI.ScriptMode.Release>|しない限り、Web ページでクライアント スクリプト ライブラリのリリース バージョンが使用されて、`retail`構成要素の属性に設定されている`false`です。|  
+|<xref:System.Web.UI.ScriptMode.Auto>|ライブラリは、Web ページで使用するクライアント スクリプトのデバッグ バージョンと、`retail`構成要素の属性に設定されて`false`します。 それ以外の場合、クライアント スクリプト ライブラリのリリース バージョンが使用されます。|  
+|<xref:System.Web.UI.ScriptMode.Inherit>|適用すると、<xref:System.Web.UI.ScriptManager.ScriptMode%2A>のプロパティ、<xref:System.Web.UI.ScriptManager>オブジェクト、この値は同じで<xref:System.Web.UI.ScriptMode.Auto>します。|  
+|<xref:System.Web.UI.ScriptMode.Debug>|しない限り、Web ページでライブラリが使用されるクライアント スクリプトのデバッグ バージョン、`retail`構成要素の属性に設定されて`true`します。|  
+|<xref:System.Web.UI.ScriptMode.Release>|しない限り、Web ページでクライアント スクリプト ライブラリのリリース バージョンが使用される、`retail`構成要素の属性に設定されて`false`します。|  
   
 > [!NOTE]
->  `debug`ディレクティブの属性では Ajax 対応の ASP.NET アプリケーションには影響しません。 <xref:System.Web.UI.ScriptManager>し、Web.config ファイルで、コントロールでの設定のみを使用してその<xref:System.Web.UI.ScriptManager.IsDebuggingEnabled%2A>と<xref:System.Web.UI.ScriptManager.ScriptMode%2A>デバッグ スクリプトをレンダリングするかどうかを決定するプロパティです。  
+>  `debug`ディレクティブの属性では Ajax 対応 ASP.NET アプリケーションには影響しません。 <xref:System.Web.UI.ScriptManager>コントロール、Web.config ファイルと設定のみを使用してその<xref:System.Web.UI.ScriptManager.IsDebuggingEnabled%2A>と<xref:System.Web.UI.ScriptManager.ScriptMode%2A>デバッグ スクリプトをレンダリングするかどうかを決定するプロパティ。  
   
- 詳細については、次を参照してください。[デバッグおよび Ajax アプリケーションの概要のトレース](http://msdn.microsoft.com/library/92684ea0-7bb4-4a34-9203-3aa6394ce375)です。  
+ 詳細については、次を参照してください。[デバッグと Tracing Ajax Applications Overview](http://msdn.microsoft.com/library/92684ea0-7bb4-4a34-9203-3aa6394ce375)します。  
   
  ]]></format>
         </remarks>
@@ -3432,6 +3504,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -3455,11 +3528,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.ScriptPath%2A>プロパティでは、絶対パス、相対パスを指定できます。 または ページですべてのスクリプトをアプリケーションの相対 URL をブロックします。 これは、現在の登録されているカスタムとサード パーティのスクリプト ブロックが含まれます<xref:System.Web.UI.ScriptManager>インスタンス。 <xref:System.Web.UI.ScriptManager.ScriptPath%2A>プロパティの設定は、通常の属性として宣言して、`ScriptManager`が、ページ上の要素をコードでも設定できます。  
+ <xref:System.Web.UI.ScriptManager.ScriptPath%2A>プロパティでは、絶対パス、相対パスを指定できます。 または、ページ上のすべてのスクリプトをアプリケーション相対 URL をブロックします。 これにより、現在登録されているカスタムとサード パーティ製のスクリプト ブロックが含まれます。<xref:System.Web.UI.ScriptManager>インスタンス。 <xref:System.Web.UI.ScriptManager.ScriptPath%2A>プロパティの設定は、通常の属性として宣言によって、`ScriptManager`が、ページ上の要素をコードでも設定することができます。  
   
- 場合、`path`属性または<xref:System.Web.UI.ScriptReferenceBase.Path%2A>プロパティに設定されて、<xref:System.Web.UI.ScriptReference>内のオブジェクト、<xref:System.Web.UI.ScriptManager.Scripts%2A>コレクション、path の値よりも優先、<xref:System.Web.UI.ScriptManager.ScriptPath%2A>の値<xref:System.Web.UI.ScriptReference>インスタンス。  
+ 場合、`path`属性または<xref:System.Web.UI.ScriptReferenceBase.Path%2A>プロパティに対して設定されて、<xref:System.Web.UI.ScriptReference>オブジェクト、<xref:System.Web.UI.ScriptManager.Scripts%2A>コレクション、path の値をオーバーライド、<xref:System.Web.UI.ScriptManager.ScriptPath%2A>を値<xref:System.Web.UI.ScriptReference>インスタンス。  
   
- ない場合は<xref:System.Web.UI.ScriptReferenceBase.Path%2A>値が指定されて、<xref:System.Web.UI.ScriptManager>コントロールで定義されているディレクトリ内で検索、<xref:System.Web.UI.ScriptManager.ScriptPath%2A>プロパティと解決のスクリプトを参照して、<xref:System.Web.UI.ScriptReference.Name%2A>または<xref:System.Web.UI.ScriptReference.Assembly%2A>プロパティです。  
+ ない場合は<xref:System.Web.UI.ScriptReferenceBase.Path%2A>値が指定されて、<xref:System.Web.UI.ScriptManager>コントロールで定義されているディレクトリの検索、<xref:System.Web.UI.ScriptManager.ScriptPath%2A>プロパティと解決のスクリプトを参照して、<xref:System.Web.UI.ScriptReference.Name%2A>または<xref:System.Web.UI.ScriptReference.Assembly%2A>プロパティ。  
   
  ]]></format>
         </remarks>
@@ -3489,7 +3562,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 静的な<xref:System.Web.UI.ScriptManager.ScriptResourceMapping%2A>プロパティから返される、<xref:System.Web.UI.ScriptResourceMapping>スクリプト リソース (スクリプトのリダイレクト) の場所を表すマッピングのコレクションを含めることができるオブジェクト。 名前または名前のアセンブリ/ペアに基づいてこのマッピングのコレクションをマップすることができを指していることができます、<xref:System.Web.UI.ScriptResourceDefinition>オブジェクト。  
+ 静的な<xref:System.Web.UI.ScriptManager.ScriptResourceMapping%2A>プロパティが返す、<xref:System.Web.UI.ScriptResourceMapping>スクリプト リソース (スクリプトのリダイレクト) の場所を表すマッピングのコレクションを含むことのできるオブジェクト。 名前または名前/アセンブリのペアに基づいてこのマッピングのコレクションをマップできるし、を指すことができます、<xref:System.Web.UI.ScriptResourceDefinition>オブジェクト。  
   
    
   
@@ -3514,7 +3587,7 @@ myScriptResDef.CdnDebugPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.
 ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptResDef)  
 ```  
   
- ASP.NET Web フォーム ページ (.aspx ファイル) のマークアップ内の次のマークアップを追加、`form`要素とすべての要素や jQuery スクリプトを使用するコードの前にします。  
+ ASP.NET Web フォーム ページ (.aspx ファイル) 用のマークアップで内で次のマークアップを追加、`form`要素とすべての要素または jQuery スクリプトを使用するコードの前にします。  
   
 ```  
 <asp:ScriptManager ID="sm1" runat="server">  
@@ -3538,6 +3611,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -3568,9 +3642,9 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptReferenceCollection>このプロパティによって返されるオブジェクトは、コレクションの<xref:System.Web.UI.ScriptReference>スクリプト ファイルを表すオブジェクト。 コレクションには、カスタム スクリプト ファイル、および ASP.NET が Ajax 機能のために必要なすべてのスクリプト ファイルへの参照が含まれています。 表示するためにカスタム スクリプト ファイルを定義することができます、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。  
+ <xref:System.Web.UI.ScriptReferenceCollection>このプロパティによって返されるオブジェクトのコレクションである<xref:System.Web.UI.ScriptReference>スクリプト ファイルを表すオブジェクト。 コレクションには、ASP.NET Ajax の機能のために必要なすべてのスクリプト ファイルおよびカスタム スクリプト ファイルへの参照が含まれています。 表示するためにカスタム スクリプト ファイルで定義できる、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。  
   
- スクリプト ファイルをマークアップ内のコレクションに追加するには追加することによって`asp:ScriptReference`要素を`Scripts`内のノード、`asp:ScriptManager`要素 ページで、次の例で示すようにします。  
+ スクリプト ファイルをマークアップ内のコレクションに追加するには追加することで`asp:ScriptReference`要素を`Scripts`内のノード、 `asp:ScriptManager`  ページで、次の例に示す要素。  
   
 ```  
 <asp:ScriptManager ID="SM1" runat="server">  
@@ -3580,11 +3654,11 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
 </asp:ScriptManager>  
 ```  
   
- 追加することも、<xref:System.Web.UI.ScriptReference>オブジェクトを<xref:System.Web.UI.ScriptManager.Scripts%2A>コレクションを使用してプログラムで、<xref:System.Collections.ObjectModel.Collection%601.Add%2A>のメソッド、<xref:System.Web.UI.ScriptReferenceCollection>クラスです。  
+ 追加することも、<xref:System.Web.UI.ScriptReference>オブジェクトを<xref:System.Web.UI.ScriptManager.Scripts%2A>コレクションを使用してプログラムで、<xref:System.Collections.ObjectModel.Collection%601.Add%2A>のメソッド、<xref:System.Web.UI.ScriptReferenceCollection>クラス。  
   
  <xref:System.Web.UI.ScriptManager>コントロールがコントロールの中にスクリプト ファイルを登録<xref:System.Web.UI.Control.PreRender>イベント。  
   
- <xref:System.Web.UI.ScriptManager.Scripts%2A>コレクションには、中核となる Microsoft Ajax ライブラリ スクリプトが含まれていません。 コア ライブラリ内のスクリプトは自動的に表示されます。登録することはありません、<xref:System.Web.UI.ScriptManager>コントロール。 ただし、コア スクリプトまたは任意のコントロールのスクリプトをオーバーライドし、スクリプトの別のバージョンに置き換える場合は、作成できます、そのバージョンを<xref:System.Web.UI.ScriptManager.Scripts%2A>コレクション。  
+ <xref:System.Web.UI.ScriptManager.Scripts%2A>コレクションに中核となる Microsoft Ajax Library のスクリプトが含まれていません。 コア ライブラリ内のスクリプトが自動的に表示されます。登録する必要がない、<xref:System.Web.UI.ScriptManager>コントロール。 ただし、コア スクリプトまたは任意のコントロールのスクリプトをオーバーライドし、スクリプトの別のバージョンを置換する場合にバージョンを追加できます、<xref:System.Web.UI.ScriptManager.Scripts%2A>コレクション。  
   
  ]]></format>
         </remarks>
@@ -3600,6 +3674,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -3629,9 +3704,9 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ServiceReferenceCollection>このプロパティによって返されるオブジェクトは、コレクションの<xref:System.Web.UI.ServiceReference>に登録されている Web サービスを表す、オブジェクト、<xref:System.Web.UI.ScriptManager>コントロール。 サービスを定義することができます、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。  
+ <xref:System.Web.UI.ServiceReferenceCollection>このプロパティによって返されるオブジェクトのコレクションである<xref:System.Web.UI.ServiceReference>に登録されている Web サービスを表すオブジェクト、<xref:System.Web.UI.ScriptManager>コントロール。 サービスを定義することができます、<xref:System.Web.UI.ScriptManager>コントロールまたは関連付けられている<xref:System.Web.UI.ScriptManagerProxy>コントロール。  
   
- マークアップで、コレクションに追加することでサービスを追加することができます、`asp:ServiceReference`要素を`Services`内の要素、 `asp:ScriptManager`  ページで、次の例のようにをインスタンス化します。  
+ マークアップ内のコレクションに追加することでサービスを追加することができます、`asp:ServiceReference`要素を`Services`内の要素、`asp:ScriptManager`インスタンス ページで、次の例に示すようにします。  
   
 ```  
 <asp:ScriptManager ID="SM1" runat="server">  
@@ -3641,9 +3716,9 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
 </asp:ScriptManager>  
 ```  
   
- プログラムでも追加することができます、<xref:System.Web.UI.ServiceReference>オブジェクトを<xref:System.Web.UI.ScriptManager.Services%2A>コレクションを使用して、<xref:System.Collections.ObjectModel.Collection%601.Add%2A>のメソッド、<xref:System.Web.UI.ServiceReferenceCollection>クラスです。  
+ プログラムで追加することができます、<xref:System.Web.UI.ServiceReference>オブジェクトを<xref:System.Web.UI.ScriptManager.Services%2A>コレクションを使用して、<xref:System.Collections.ObjectModel.Collection%601.Add%2A>のメソッド、<xref:System.Web.UI.ServiceReferenceCollection>クラス。  
   
- 登録されるサービス、<xref:System.Web.UI.ScriptManager>ページの中に<xref:System.Web.UI.Control.PreRender>ライフ サイクル ステージです。  
+ サービスに登録されて、<xref:System.Web.UI.ScriptManager>ページの中に<xref:System.Web.UI.Control.PreRender>ライフ サイクル ステージ。  
   
  ]]></format>
         </remarks>
@@ -3668,6 +3743,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3683,9 +3759,9 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.SetFocus%2A>のような方法は、機能、<xref:System.Web.UI.Page.SetFocus%2A>のメソッド、<xref:System.Web.UI.Page>クラスです。 どちらのメソッドは、Web ページ上のアクティブ コントロールを指定した ID を持つコントロールに設定します。 <xref:System.Web.UI.ScriptManager.SetFocus%2A>のメソッド、<xref:System.Web.UI.ScriptManager>非同期ポストバック中にフォーカスを設定するクラスを使用します。 ポストバックとページが最初に表示する際に中、<xref:System.Web.UI.ScriptManager.SetFocus%2A>メソッドの呼び出し、<xref:System.Web.UI.Page.SetFocus%2A>のメソッド、<xref:System.Web.UI.Page>クラスです。  
+ <xref:System.Web.UI.ScriptManager.SetFocus%2A>のような方法は、機能、<xref:System.Web.UI.Page.SetFocus%2A>のメソッド、<xref:System.Web.UI.Page>クラス。 どちらのメソッドは、Web ページ上のアクティブ コントロールを指定した ID を持つコントロールに設定します。 <xref:System.Web.UI.ScriptManager.SetFocus%2A>のメソッド、<xref:System.Web.UI.ScriptManager>非同期ポストバック中にフォーカスを設定するクラスを使用します。 ポストバックと、ページが最初にレンダリング中に、<xref:System.Web.UI.ScriptManager.SetFocus%2A>メソッドの呼び出し、<xref:System.Web.UI.Page.SetFocus%2A>のメソッド、<xref:System.Web.UI.Page>クラス。  
   
- 複数の呼び出しがある場合、<xref:System.Web.UI.ScriptManager.SetFocus%2A>メソッド、最後の呼び出しで、コントロールがフォーカスを受け取る。  
+ 複数の呼び出しがある場合、<xref:System.Web.UI.ScriptManager.SetFocus%2A>メソッドの最後の呼び出しで、コントロールがフォーカスを受け取る。  
   
  ]]></format>
         </remarks>
@@ -3702,6 +3778,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3717,9 +3794,9 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ScriptManager.SetFocus%2A>のような方法は、機能、<xref:System.Web.UI.Page.SetFocus%2A>のメソッド、<xref:System.Web.UI.Page>クラスです。 どちらのメソッドは、Web ページ上のアクティブ コントロールを指定したコントロールに設定します。 <xref:System.Web.UI.ScriptManager.SetFocus%2A>のメソッド、<xref:System.Web.UI.ScriptManager>非同期ポストバック中にフォーカスを設定するクラスを使用します。 ポストバックとページが最初に表示する際に中、<xref:System.Web.UI.ScriptManager.SetFocus%2A>メソッドの呼び出し、<xref:System.Web.UI.Page.SetFocus%2A>のメソッド、<xref:System.Web.UI.Page>クラスです。  
+ <xref:System.Web.UI.ScriptManager.SetFocus%2A>のような方法は、機能、<xref:System.Web.UI.Page.SetFocus%2A>のメソッド、<xref:System.Web.UI.Page>クラス。 どちらのメソッドは、Web ページ上のアクティブ コントロールを指定したコントロールに設定します。 <xref:System.Web.UI.ScriptManager.SetFocus%2A>のメソッド、<xref:System.Web.UI.ScriptManager>非同期ポストバック中にフォーカスを設定するクラスを使用します。 ポストバックと、ページが最初にレンダリング中に、<xref:System.Web.UI.ScriptManager.SetFocus%2A>メソッドの呼び出し、<xref:System.Web.UI.Page.SetFocus%2A>のメソッド、<xref:System.Web.UI.Page>クラス。  
   
- 複数の呼び出しがある場合、<xref:System.Web.UI.ScriptManager.SetFocus%2A>メソッド、最後の呼び出しで指定したコントロールがフォーカスを受け取る。  
+ 複数の呼び出しがある場合、<xref:System.Web.UI.ScriptManager.SetFocus%2A>メソッドの最後の呼び出しで指定したコントロールがフォーカスを受け取る。  
   
  ]]></format>
         </remarks>
@@ -3737,6 +3814,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -3757,19 +3835,19 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合、<xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A>プロパティに設定されている`false`、<xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>プロパティから返される`false`です。  
+ 場合、<xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A>プロパティに設定されて`false`、<xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>プロパティが返す`false`します。  
   
- 部分ページ レンダリングをサポートするかどうかを決定する既定のチェックを返します`true`次の条件が当てはまる場合。  
+ 部分ページ レンダリングがサポートされているかどうかを決定する既定のチェックを返します`true`次の条件が true の場合。  
   
--   <xref:System.Web.Configuration.HttpCapabilitiesBase.W3CDomVersion%2A>プロパティの値が 1.0 以上にする必要があります。  
+-   <xref:System.Web.Configuration.HttpCapabilitiesBase.W3CDomVersion%2A>プロパティ値が 1.0 以上にする必要があります。  
   
--   <xref:System.Web.Configuration.HttpCapabilitiesBase.EcmaScriptVersion%2A>プロパティの値が 1.0 以上にする必要があります。  
+-   <xref:System.Web.Configuration.HttpCapabilitiesBase.EcmaScriptVersion%2A>プロパティ値が 1.0 以上にする必要があります。  
   
--   <xref:System.Web.Configuration.HttpCapabilitiesBase.SupportsCallback%2A>にプロパティ値を設定する必要があります`true`です。  
+-   <xref:System.Web.Configuration.HttpCapabilitiesBase.SupportsCallback%2A>にプロパティ値を設定する必要があります`true`します。  
   
- ときに、<xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>プロパティが明示的に設定されている場合、これらのチェックは使用されません。  
+ ときに、<xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>プロパティが明示的に設定されている、これらのチェックは使用されません。  
   
- コントロールの開発者が使用する必要があります、<xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>部分ページ レンダリングをサポートするかどうかを決定するプロパティです。  
+ コントロールの開発者が使用する必要があります、<xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A>部分ページ レンダリングがサポートするかどうかを決定するプロパティ。  
   
  ]]></format>
         </remarks>
@@ -3788,6 +3866,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3823,6 +3902,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3852,6 +3932,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3896,6 +3977,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3922,6 +4004,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3952,6 +4035,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -3980,6 +4064,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -4006,6 +4091,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -4030,6 +4116,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -4060,6 +4147,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -4086,6 +4174,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -4117,6 +4206,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -4139,6 +4229,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -4170,6 +4261,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -4194,6 +4286,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -4204,7 +4297,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
           <AttributeName>System.ComponentModel.DesignerSerializationVisibility</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -4217,7 +4310,7 @@ ScriptManager.ScriptResourceMapping.AddDefinition("jquery", Nothing, myScriptRes
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.Control.Visible%2A>プロパティでオーバーライドされて、<xref:System.Web.UI.ScriptManager>クラスがこの値が設定されないようにします。 A<xref:System.NotImplementedException>値がこのプロパティに割り当てられている場合にエラーが発生します。  
+ <xref:System.Web.UI.Control.Visible%2A>プロパティでオーバーライドされて、<xref:System.Web.UI.ScriptManager>クラスがこの値が設定されないようにします。 A<xref:System.NotImplementedException>エラーは、このプロパティに値が割り当てられている場合に発生します。  
   
  ]]></format>
         </remarks>
