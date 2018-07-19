@@ -1,11 +1,11 @@
 <Type Name="DataflowBlock" FullName="System.Threading.Tasks.Dataflow.DataflowBlock">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="f558bf9a029763285a5fd334c30a979714b81d23" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="b1681b37f6256a345cba5980d6dd8e36899a63b3" />
+    <Meta Name="ms.sourcegitcommit" Value="44933aff38db926168781f50300446344189a04d" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36606937" />
+    <Meta Name="ms.lasthandoff" Value="07/16/2018" />
+    <Meta Name="ms.locfileid" Value="39064911" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class DataflowBlock" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit DataflowBlock extends System.Object" />
@@ -323,14 +323,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Encapsulate%2A>メソッドには、次の 2 つの既存のブロックが必要です。 ターゲット ブロック (を実装するクラスのインスタンス<xref:System.Threading.Tasks.Dataflow.ITargetBlock%601>) と、ソース ブロック (を実装するクラスのインスタンス<xref:System.Threading.Tasks.Dataflow.ISourceBlock%601>)。 <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Encapsulate%2A> 接続する内部クラスの新しいインスタンスを作成、<xref:System.Threading.Tasks.Dataflow.ITargetBlock%601>インターフェイスのメンバーに、`target`パラメーターおよび<xref:System.Threading.Tasks.Dataflow.ISourceBlock%601>インターフェイスのメンバーに、`source`パラメーター。  両方<xref:System.Threading.Tasks.Dataflow.ITargetBlock%601>と<xref:System.Threading.Tasks.Dataflow.ISourceBlock%601>から派生<xref:System.Threading.Tasks.Dataflow.IDataflowBlock>です。 ブロックの完了は、ターゲットへのソースから明示的に渡されます。 そのため、<xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Complete%2A>と<xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Fault%2A>中に、ターゲットに接続しているメソッド、<xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Completion%2A>プロパティがソースに接続します。  ときに、必ず半分が完了すると、ターゲットで最も適切な方法です完了半分を取得するソース。例えば：  
+ <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Encapsulate%2A>メソッドが 2 つの既存のブロックが必要です: ターゲット ブロック (実装するクラスのインスタンス<xref:System.Threading.Tasks.Dataflow.ITargetBlock%601>) とソース ブロック (実装するクラスのインスタンス<xref:System.Threading.Tasks.Dataflow.ISourceBlock%601>)。 <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Encapsulate%2A> 接続する内部クラスの新しいインスタンスを作成、<xref:System.Threading.Tasks.Dataflow.ITargetBlock%601>インターフェイスのメンバーに、`target`パラメーターおよび<xref:System.Threading.Tasks.Dataflow.ISourceBlock%601>インターフェイスのメンバーに、`source`パラメーター。  両方<xref:System.Threading.Tasks.Dataflow.ITargetBlock%601>と<xref:System.Threading.Tasks.Dataflow.ISourceBlock%601>から派生<xref:System.Threading.Tasks.Dataflow.IDataflowBlock>します。 ブロックの完了は、ターゲットをソースから明示的に渡されます。 そのため、<xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Complete%2A>と<xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Fault%2A>メソッドは、中にターゲットに接続している、<xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Completion%2A>プロパティがソースに接続します。  場合にそのことを確認する必要があります最適な方法で完了半分ソース半分が完了すると、ターゲット。例えば：  
   
  `target.Completion.ContinueWith(completion => source.Complete());`  
   
- または、完了ステータスを反映する場合は、このより高度なコードを使用することができます。  
+ または、完了の型を伝達する場合は、このより高度なコードを使用することができます。  
   
 ```  
-target.Completion.ContinueWith(completion => { if (completion.IsFaulted) 3   
+target.Completion.ContinueWith(completion => { if (completion.IsFaulted)    
   
 ((IDataflowBlock)batchBlock).Fault(completion.Exception);   
 else   
@@ -339,7 +339,7 @@ batchBlock.Complete();
   
 ```  
   
- 明示的にも、ターゲットからソースへのメッセージの伝達を指定する必要があります。 この明示的な接続の利点は、できること、2 つのカプセル化されたブロック間で制約のない処理を実行する自由です。 いずれかの方法を (ブロックは、デリゲートを受け取る) 場合、デリゲートをブロックに必要な処理をエンコードすることによって、またはそれらの間のブロックのサブネットワークに埋め込むことによってです。 受け取るデリゲート; ブロックを使用してより簡単です。たとえば、使用して<xref:System.Threading.Tasks.Dataflow.ActionBlock%601>、 <xref:System.Threading.Tasks.Dataflow.TransformBlock%602>、 <xref:System.Threading.Tasks.Dataflow.TransformManyBlock%602> (該当する場合)、またはカスタムのブロックを指定します。  
+ ターゲットからソースへのメッセージの伝達を明示的に提供する必要があります。 この明示的な接続の利点は、こと、2 つのカプセル化された要素の間の制約のない処理を実行する自由ができます。 いずれかの方法を (ブロックは、デリゲートを受け取る) の場合、デリゲートを要素に必要な処理をエンコードすることによって、またはそれらの間の要素のサブ ネットワークに埋め込むことによって。 簡単な方法は、デリゲートを受け取るブロックを使用することです。たとえば、使用して<xref:System.Threading.Tasks.Dataflow.ActionBlock%601>、 <xref:System.Threading.Tasks.Dataflow.TransformBlock%602>、 <xref:System.Threading.Tasks.Dataflow.TransformManyBlock%602> (該当する) 場合、またはカスタムのブロック。  
   
  ]]></format>
         </remarks>
@@ -592,7 +592,7 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドに同意するか、項目、ターゲット ブロックが発生しましたが、それ以外の場合、ターゲット ブロックの特別な意味で使用される、しない限り、実際に処理する項目の待機しません。 たとえば、<xref:System.Threading.Tasks.Dataflow.ActionBlock%601>からが返されます<xref:System.Threading.Tasks.Dataflow.DataflowBlock.Post%2A>ポストされたアイテムの入力キューに格納されているようになったら)。 ブロックの処理の観点から`Post`は非同期です。 ターゲット ブロックがそのサポートを延期するメッセージを提供またはでより多くの処理を行うことがあるブロック、`Post`実装では、使用を検討して<xref:System.Threading.Tasks.Dataflow.DataflowBlock.SendAsync%2A>、すぐに戻りし、投稿されたメッセージを延期する場合は、ターゲットが有効になります後でその後に利用して`SendAsync`を返します。  
+ ターゲット ブロックは、項目を承諾または拒否することにしましたが、実際に処理する項目を待機しませんターゲット ブロックの特別な意味で規定されているそれ以外の場合は、しない限り、このメソッドが返さない。 たとえば、<xref:System.Threading.Tasks.Dataflow.ActionBlock%601>から返す<xref:System.Threading.Tasks.Dataflow.DataflowBlock.Post%2A>その入力キューにポストされた項目が格納されているとすぐに)。 ブロックの処理の観点から`Post`は非同期です。 ターゲット ブロックがそのサポートを延期するメッセージ、提供されているかのブロックでより多くの処理を実行することがあります、`Post`実装の使用を検討<xref:System.Threading.Tasks.Dataflow.DataflowBlock.SendAsync%2A>はすぐに復帰して、投稿されたメッセージを延期するターゲットを有効になります後で使用した後、`SendAsync`を返します。  
   
  ]]></format>
         </remarks>
@@ -667,7 +667,7 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ソースには、この操作によって受信された項目が正常に提供される、同時実行の取り消し要求が発生した場合でもその項目が返されます。  
+ 場合は、ソースには、この操作で受信した項目が正常に提供される、同時実行の取り消し要求が発生した場合でも、その項目が返されます。  
   
  ]]></format>
         </remarks>
@@ -712,7 +712,7 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ソースには、この操作によって受信された項目が正常に提供される、同時実行のタイムアウトが発生した場合でもその項目が返されます。  
+ 場合は、ソースには、この操作で受信した項目が正常に提供される、同時実行のタイムアウトが発生した場合でも、その項目が返されます。  
   
  ]]></format>
         </remarks>
@@ -760,7 +760,7 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合は、ソースでは、この操作によって受信された項目の値が正常に提供される、同時実行のタイムアウトまたはキャンセル要求が発生した場合でも、その値が返されます。  
+ 場合は、ソースには、この操作で受信した項目の値が正常に提供される、同時実行のタイムアウトか取り消し要求が発生した場合でも、その値が返されます。  
   
  ]]></format>
         </remarks>
@@ -1028,9 +1028,9 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、移行元に項目を提供するまで待機しません。  
+ このメソッドは、ソースがある提供する項目になるまで待機しません。  
   
- 要素が使用できるかどうかが返されます。  
+ 要素が使用できるかどうかを返します。  
   
  ]]></format>
         </remarks>
