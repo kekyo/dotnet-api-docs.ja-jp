@@ -1,11 +1,11 @@
 <Type Name="TransactionManager" FullName="System.Transactions.TransactionManager">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="94a7df2187676486db82e4651339fa18685001a3" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="0ed5091b9916cf14169e9bf44326acc319defaca" />
+    <Meta Name="ms.sourcegitcommit" Value="01f28caab7b3f23878dd07b402a8dd48b9478c8c" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37608482" />
+    <Meta Name="ms.lasthandoff" Value="07/19/2018" />
+    <Meta Name="ms.locfileid" Value="39141825" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class TransactionManager" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed TransactionManager extends System.Object" />
@@ -241,8 +241,8 @@
         <Parameter Name="manager" Type="System.Guid" Index="0" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="resourceManagerIdentifier">To be added.</param>
-        <param name="manager">To be added.</param>
+        <param name="resourceManagerIdentifier">回復したリソースを一意に識別する <see cref="T:System.Guid" />。</param>
+        <param name="manager">回復したリソースを一意に識別する <see cref="T:System.Guid" />。</param>
         <summary>障害から回復したリソース マネージャーがすべての未解決のトランザクションへの再参加を終えたことを、トランザクション マネージャーに通知します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -250,7 +250,7 @@
 ## Remarks  
  呼び出すことによって、まず開始するときに、すべての永続的リソース マネージャーが回復を行う必要があります、<xref:System.Transactions.TransactionManager.Reenlist%2A>未処理トランザクションごとにメソッド。  すべての再参加を行うときにのみ呼び出す必要があります、resource manager<xref:System.Transactions.TransactionManager.RecoveryComplete%2A>します。  
   
- 回復の詳細については、次を参照してください。 [Performing Recovery](http://msdn.microsoft.com/library/d342c5c7-da64-4a4c-8e63-b52f4fbf2691)します。  
+ 回復の詳細については、次を参照してください。 [Performing Recovery](https://msdn.microsoft.com/library/d342c5c7-da64-4a4c-8e63-b52f4fbf2691)します。  
   
  **注**このメソッドを使用して<xref:System.Security.Permissions.SecurityAction.LinkDemand>されるを防ぐために信頼できないコードから呼び出されます。 ただし、直前の呼び出し元だけが所有する必要が、`FullTrust`アクセス許可セット。  
   
@@ -300,15 +300,44 @@
         <Parameter Name="notification" Type="System.Transactions.IEnlistmentNotification" Index="2" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="resourceManagerIdentifier">To be added.</param>
-        <param name="manager">To be added.</param>
-        <param name="recoveryInformation">To be added.</param>
-        <param name="recoveryInfo">To be added.</param>
-        <param name="enlistmentNotification">To be added.</param>
-        <param name="notification">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="resourceManagerIdentifier">リソース マネージャーを一意に識別する <see cref="T:System.Guid" />。</param>
+        <param name="manager">リソース マネージャーを一意に識別する <see cref="T:System.Guid" />。</param>
+        <param name="recoveryInformation">回復情報の追加情報を格納します。</param>
+        <param name="recoveryInfo">回復情報の追加情報を格納します。</param>
+        <param name="enlistmentNotification">
+          <see cref="T:System.Transactions.IEnlistmentNotification" /> を実装して通知を受け取るリソース オブジェクト。</param>
+        <param name="notification">
+          <see cref="T:System.Transactions.IEnlistmentNotification" /> を実装して通知を受け取るリソース オブジェクト。</param>
+        <summary>トランザクションに永続的な参加要素を再参加させます。</summary>
+        <returns>参加リストを示す <see cref="T:System.Transactions.Enlistment" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+## Remarks
+
+リソース マネージャーは、リソース障害の後にトランザクション参加要素を再参加させることにより、トランザクションの永続参加リストの解決を容易にします。
+
+`resourceManagerIdentifier`パラメーターは、リソース障害発生時のトランザクションの参加要素を一貫したラベル付けに使用します。 呼び出すときに、<xref:System.Transactions.TransactionManager.Reenlist%2A>メソッドでは、リソース マネージャーは、する必要があります提供同じ`resourceManagerIdentifier`として使用されていたと呼ばれる、<xref:System.Transactions.Transaction.EnlistDurable%2A>参加中に、メソッド、または<xref:System.Transactions.TransactionException>がスローされます。
+
+参加要素がこのメソッドを使用して再参加すると、トランザクションの結果に対応した <xref:System.Transactions.IEnlistmentNotification> のフェーズ 2 のメソッド (つまり、<xref:System.Transactions.IEnlistmentNotification.Commit%2A>、<xref:System.Transactions.IEnlistmentNotification.Rollback%2A>、または <xref:System.Transactions.IEnlistmentNotification.InDoubt%2A>) が必要に応じて呼び出されます。
+
+後に呼び出す必要がある、参加者が正常に再参加させる後、<xref:System.Transactions.TransactionManager.RecoveryComplete%2A>復旧を完了します。
+
+障害からリソース マネージャーの再起動時にのみ、このメソッドを呼び出す必要があります。 また、2 フェーズ コミットの最初の準備フェーズ中に、リソース マネージャーによってログ記録された未解決トランザクションのみを再参加させる必要があります。 無効な時間にこのメソッドを呼び出した場合、間違った結果が生成される可能性があります。
+
+トランザクション マネージャーが失敗すると、され、リソース マネージャーは、回復を実行します短時間のみが呼び出された後、<xref:System.Transactions.PreparingEnlistment.Prepared%2A>フェーズ 1 で 2 フェーズ コミット プロトコルの参加リストのメソッドは、リソース マネージャーは受信可能性がありますか、<xref:System.Transactions.IEnlistmentNotification.InDoubt%2A>または<xref:System.Transactions.IEnlistmentNotification.Rollback%2A>コールバック。
+
+回復の詳細については、次を参照してください。 [Performing Recovery](https://msdn.microsoft.com/library/d342c5c7-da64-4a4c-8e63-b52f4fbf2691)します。
+
+**注**このメソッドを使用して<xref:System.Security.Permissions.SecurityAction.LinkDemand>されるを防ぐために信頼できないコードから呼び出されます。 ただし、直前の呼び出し元だけが所有する必要が、`FullTrust`アクセス許可セット。
+
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <paramref name="recoveryInformation" /> が無効です。  または、<paramref name="recoveryInformation" /> 内のトランザクション マネージャー情報が、構成済みのトランザクション マネージャーと一致しません。  または、<paramref name="RecoveryInformation" /> が <see cref="N:System.Transactions" /> によって認識されません。</exception>
+        <exception cref="T:System.InvalidOperationException">指定した <paramref name="resourceManagerIdentifier" /> に対して、<see cref="M:System.Transactions.TransactionManager.RecoveryComplete(System.Guid)" /> が既に呼び出されています。 再参加が拒否されました。</exception>
+        <exception cref="T:System.Transactions.TransactionException">
+          <paramref name="resourceManagerIdentifier" /> が、<paramref name="recoveryInformation" /> 内で指定した回復情報の内容と一致しません。</exception>
       </Docs>
     </Member>
   </Members>

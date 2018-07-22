@@ -1,11 +1,11 @@
 <Type Name="IDtcTransaction" FullName="System.Transactions.IDtcTransaction">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="f546bfe822f05fb8c5a9ed8dcce7c243aa58a741" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="6b580259b61750d485800c0f9b9b67afaecbaed9" />
+    <Meta Name="ms.sourcegitcommit" Value="01f28caab7b3f23878dd07b402a8dd48b9478c8c" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37608816" />
+    <Meta Name="ms.lasthandoff" Value="07/19/2018" />
+    <Meta Name="ms.locfileid" Value="39142634" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IDtcTransaction" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IDtcTransaction" />
@@ -86,14 +86,23 @@
         <Parameter Name="whatever2" Type="System.Int32" Index="2" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="reason">To be added.</param>
-        <param name="manager">To be added.</param>
-        <param name="retaining">To be added.</param>
-        <param name="whatever">To be added.</param>
-        <param name="async">To be added.</param>
-        <param name="whatever2">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="reason">トランザクションが中止される理由を示すオプションの <see cref="T:System.EnterpriseServices.BOID" />。 このパラメーターに <see langword="null" /> を指定して、中止の理由が示されないようにすることもできます。</param>
+        <param name="manager">トランザクションが中止される理由を示すオプションの <see cref="T:System.EnterpriseServices.BOID" />。 このパラメーターに <see langword="null" /> を指定して、中止の理由が示されないようにすることもできます。</param>
+        <param name="retaining">この値は <see langword="false" /> にする必要があります。</param>
+        <param name="whatever">この値は <see langword="false" /> にする必要があります。</param>
+        <param name="async">
+          <c>async</c> が <see langword="true" /> の場合、非同期中止が実行されるため、呼び出し元は <see langword="ITransactionOutcomeEvents" /> を使用してトランザクションの結果を確認する必要があります。</param>
+        <param name="whatever2">
+          <c>whatever2</c> が <see langword="true" /> の場合、非同期中止が実行されるため、呼び出し元は <see langword="ITransactionOutcomeEvents" /> を使用してトランザクションの結果を確認する必要があります。</param>
+        <summary>トランザクションを中止します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ のみ使用するために、このインターフェイスのすべてのメソッドを実装しないでください、<xref:System.Transactions.TransactionInterop>の非管理対象のバージョンを表す内部的にクラス、<xref:System.EnterpriseServices.ITransaction>のインターフェイス、<xref:System.EnterpriseServices>名前空間。  
+  
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Commit">
@@ -136,14 +145,23 @@
         <Parameter Name="whatever3" Type="System.Int32" Index="2" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="retaining">To be added.</param>
-        <param name="whatever">To be added.</param>
-        <param name="commitType">To be added.</param>
-        <param name="whatever2">To be added.</param>
-        <param name="reserved">To be added.</param>
-        <param name="whatever3">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="retaining">この値は <see langword="false" /> にする必要があります。</param>
+        <param name="whatever">この値は <see langword="false" /> にする必要があります。</param>
+        <param name="commitType">OLE DB 列挙値 <see langword="XACTTC" /> から取得した値。</param>
+        <param name="whatever2">OLE DB 列挙値 <see langword="XACTTC" /> から取得した値。</param>
+        <param name="reserved">必ずゼロを指定します。</param>
+        <param name="whatever3">必ずゼロを指定します。</param>
+        <summary>トランザクションをコミットします。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ 値の`commitType`を参照してください`ITransaction::Commit`で OLE DB プログラマーズ リファレンス。  
+  
+ のみ使用するために、このインターフェイスのすべてのメソッドを実装しないでください、<xref:System.Transactions.TransactionInterop>の非管理対象のバージョンを表す内部的にクラス、<xref:System.EnterpriseServices.ITransaction>のインターフェイス、<xref:System.EnterpriseServices>名前空間。  
+  
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetTransactionInfo">
@@ -182,8 +200,8 @@
         <Parameter Name="whatever" Type="System.IntPtr" Index="0" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="transactionInformation">To be added.</param>
-        <param name="whatever">To be added.</param>
+        <param name="transactionInformation">トランザクションについての情報を受け取る、呼び出し元によって割り当てられた <see cref="T:System.EnterpriseServices.XACTTRANSINFO" /> 構造体のポインター。 この値は <see langword="null" /> にしないでください。</param>
+        <param name="whatever">トランザクションについての情報を受け取る、呼び出し元によって割り当てられた <see cref="T:System.EnterpriseServices.XACTTRANSINFO" /> 構造体のポインター。 この値は <see langword="null" /> にしないでください。</param>
         <summary>トランザクションに関する情報を取得します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
