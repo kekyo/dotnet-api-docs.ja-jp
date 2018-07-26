@@ -1,11 +1,11 @@
 <Type Name="XslTransform" FullName="System.Xml.Xsl.XslTransform">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="bde6eef3e191bd0a25d4c462afa81d1cbfd131ba" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="90f9aaa4f98d650b51fb98e9ae2d19d691591587" />
+    <Meta Name="ms.sourcegitcommit" Value="102d07546033d7818b72aa66d7a26c70235baedd" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37733116" />
+    <Meta Name="ms.lasthandoff" Value="07/23/2018" />
+    <Meta Name="ms.locfileid" Value="39202246" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class XslTransform" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit XslTransform extends System.Object" />
@@ -749,8 +749,14 @@
   
  証拠を提供するさまざまな方法はあります。 次の表では、一般的なユーザー シナリオを提供する証拠の種類について説明します。  
   
-    
+|シナリオ|提供する証拠の種類|  
+|--------------|---------------------------------|  
+|XSLT スタイル シートは自己完結型または信頼できるコード ベースから取得します。|アセンブリから証拠を使用します。<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;xslt.Load(xslReader, resolver, this.GetType().Assembly.Evidence);</code></pre>|  
+|XSLT スタイル シートが外部ソースにある場合。 ソースの出所がわかっている場合、検証可能な URL があります。|URL を使用して証拠を作成します。<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform();&#13;&#10; Evidence evidence = XmlSecureResolver.CreateEvidenceForUrl(stylesheetURL); &#13;&#10;xslt.Load(xslReader,resolver,evidence);</code></pre>|  
+|XSLT スタイル シートが外部ソースにある場合。 ソースの出所は不明。|証拠を `null` に設定します。 スクリプト ブロックは処理されません。XSLT `document()` 関数はサポートされません。特権を持つ拡張オブジェクトは許可されません。<br /><br /> さらに、設定することも、`resolver`パラメーター`null`します。 これにより`xsl:import`と`xsl:include`要素は処理されません。|  
+|XSLT スタイル シートが外部ソースにある場合。 ソースの出所が不明であるが、スクリプトのサポートが必要。|呼び出し元の証拠を要求します。 呼び出し元の API は、通常、証拠を提供する方法を提供する必要があります、<xref:System.Security.Policy.Evidence>クラス。|  
   
+     
 ## Examples  
  次の例では、XSLT 変換を実行する場所`xsltReader`は、<xref:System.Xml.XmlReader>スタイル シートを含んでいると`secureURL`作成に使用できる信頼された URL は、<xref:System.Security.Policy.Evidence>します。 <xref:System.Xml.XmlSecureResolver.CreateEvidenceForUrl%2A?displayProperty=nameWithType>メソッドの作成に使用<xref:System.Security.Policy.Evidence>これスタイル シートに適用されます。  
   
@@ -815,7 +821,14 @@
   
  証拠を提供するさまざまな方法はあります。 次の表では、一般的なユーザー シナリオを提供する証拠の種類について説明します。  
   
-  ]]></format>
+|シナリオ|提供する証拠の種類|  
+|--------------|---------------------------------|  
+|XSLT スタイル シートは自己完結型または信頼できるコード ベースから取得します。|アセンブリから証拠を使用します。<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;xslt.Load(style sheet, resolver, this.GetType().Assembly.Evidence);</code></pre>|  
+|XSLT スタイル シートが外部ソースにある場合。 ソースの出所がわかっている場合、検証可能な URL があります。|URL を使用して証拠を作成します。<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;Evidence evidence = XmlSecureResolver.CreateEvidenceForUrl(style sheetURL); &#13;&#10;xslt.Load(style sheet,resolver,evidence);</code></pre>|  
+|XSLT スタイル シートが外部ソースにある場合。 ソースの出所は不明。|証拠を `null` に設定します。 スクリプト ブロックは処理されません。XSLT `document()` 関数はサポートされません。特権を持つ拡張オブジェクトは許可されません。<br /><br /> さらに、設定することも、`resolver`パラメーター`null`します。 これにより`xsl:import`と`xsl:include`要素は処理されません。|  
+|XSLT スタイル シートが外部ソースにある場合。 ソースの出所が不明であるが、スクリプトのサポートが必要。|呼び出し元の証拠を要求します。 呼び出し元の API は、通常、証拠を提供する方法を提供する必要があります、<xref:System.Security.Policy.Evidence>クラス。|  
+  
+ ]]></format>
         </remarks>
         <exception cref="T:System.Xml.Xsl.XsltCompileException">読み込まれたリソースが、有効なスタイル シートではありません。</exception>
         <exception cref="T:System.Security.SecurityException">参照されているスタイル シートには、提供された証拠で許可されていない機能が必要です。  呼び出し元は証拠を提供しようとしましたが、<see langword="ControlEvidence" /> アクセス許可を持っていません。</exception>
@@ -873,11 +886,18 @@
   
  証拠を提供するさまざまな方法はあります。 次の表では、一般的なユーザー シナリオを提供する証拠の種類について説明します。  
   
-    
+|シナリオ|提供する証拠の種類|  
+|--------------|---------------------------------|  
+|XSLT スタイル シートは自己完結型または信頼できるコード ベースから取得します。|アセンブリから証拠を使用します。<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;xslt.Load(xslNav, resolver, this.GetType().Assembly.Evidence);</code></pre>|  
+|XSLT スタイル シートが外部ソースにある場合。 ソースの出所がわかっている場合、検証可能な URL があります。|URL を使用して証拠を作成します。<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;Evidence evidence = XmlSecureResolver.CreateEvidenceForUrl(style sheetURL); &#13;&#10;xslt.Load(xslNav,resolver,evidence);</code></pre>|  
+|XSLT スタイル シートが外部ソースにある場合。 ソースの出所は不明。|証拠を `null` に設定します。 スクリプト ブロックは処理されません。XSLT `document()` 関数はサポートされません。特権を持つ拡張オブジェクトは許可されません。<br /><br /> さらに、設定することも、`resolver`パラメーター`null`します。 これにより`xsl:import`と`xsl:include`要素は処理されません。|  
+|XSLT スタイル シートが外部ソースにある場合。 ソースの出所が不明であるが、スクリプトのサポートが必要。|呼び出し元の証拠を要求します。 呼び出し元の API は、通常、証拠を提供する方法を提供する必要があります、`Evidence`クラス。|  
+  
+   
   
 ## Examples  
  次の例では、外部ソースからスタイル シートを使用して XSLT 変換を実行します。 信頼されていないソースからスタイル シートが含まれているため、`resolver`と`evidence`パラメーターに設定されて`null`します。  
-  
+ 
  [!code-csharp[XslTransform.Load5#1](~/samples/snippets/csharp/VS_Snippets_Data/XslTransform.Load5/CS/trans_noev.cs#1)]
  [!code-vb[XslTransform.Load5#1](~/samples/snippets/visualbasic/VS_Snippets_Data/XslTransform.Load5/VB/trans_noev.vb#1)]  
   
