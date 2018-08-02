@@ -1,11 +1,11 @@
 <Type Name="ThreadPool" FullName="System.Threading.ThreadPool">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="7542193821586bc0241b3b3025f0ccf05510af2f" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="3affe4872ffccc66fbf65bb8eeb4555921416133" />
+    <Meta Name="ms.sourcegitcommit" Value="4303c81814c0b4fd5963444073ed25c176c5ddad" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37609236" />
+    <Meta Name="ms.lasthandoff" Value="07/31/2018" />
+    <Meta Name="ms.locfileid" Value="39361194" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class ThreadPool" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit ThreadPool extends System.Object" />
@@ -543,7 +543,9 @@
    
   
 ## Examples  
- 次の例では、タスクの情報を格納しているオブジェクトを作成する方法を示します。 スレッド プールで実行がキューに格納するタスクにそのオブジェクトを渡す方法も示します。  
+ 次の例では、.NET スレッド プールを使用して計算する、 `Fibonacci` 20 ~ 40 の間の 5 つの数値の結果。 各 `Fibonacci` の結果は `Fibonacci` クラスによって表され、このクラスには計算を実行する `ThreadPoolCallback` という名前のメソッドがあります。 `Fibonacci` の各値を表すオブジェクトが作成され、`ThreadPoolCallback` メソッドが <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A> に渡されます。このメソッドは、プール内の使用可能なスレッドを割り当てて、渡されたメソッドを実行します。  
+  
+ ため、各`Fibonacci`オブジェクトには、計算に準ランダムな値が指定し、各スレッドは、プロセッサ時間の競合は、ため、5 つすべての結果を計算するかかる事前にどれくらいの時間を知ることはできません。 そのため、各 `Fibonacci` オブジェクトには構築の間に <xref:System.Threading.ManualResetEvent> クラスのインスタンスを渡されます。 各オブジェクトが指定されたイベント オブジェクトに通知と、計算が完了すると、これにより、プライマリ スレッドで実行をブロック<xref:System.Threading.WaitHandle.WaitAll%2A>まで 5 つすべて`Fibonacci`オブジェクトが、結果を計算します。 その後、`Main` メソッドは各 `Fibonacci` の結果を表示します。
   
  [!code-cpp[System.Threading.ThreadPool QueueUserWorkItem1#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem1/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.ThreadPool QueueUserWorkItem1#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem1/CS/source.cs#1)]
