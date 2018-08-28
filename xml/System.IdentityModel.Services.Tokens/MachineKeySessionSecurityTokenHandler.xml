@@ -1,10 +1,10 @@
 <Type Name="MachineKeySessionSecurityTokenHandler" FullName="System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler">
   <Metadata>
     <Meta Name="ms.openlocfilehash" Value="2e1500621297c35468613c40c867ef1dbf001263" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.lasthandoff" Value="08/24/2018" />
     <Meta Name="ms.locfileid" Value="36482371" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class MachineKeySessionSecurityTokenHandler : System.IdentityModel.Tokens.SessionSecurityTokenHandler" />
@@ -27,22 +27,22 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 既定では、<xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler>クラスの使用、<xref:System.IdentityModel.ProtectedDataCookieTransform>クラスは、データ保護 API (DPAPI) を使用して、セッション トークンを保護します。 DPAPI は、ユーザーまたはコンピューターの資格情報を使用して保護を実装し、ユーザー プロファイルにキー データを格納します。 セッション トークンが署名され、1 台のコンピューター上で暗号化することを意味の検証または別のコンピューターでの暗号化を解除できません。  
+ 既定で、<xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler>クラスで使用、<xref:System.IdentityModel.ProtectedDataCookieTransform>クラスは、セッション トークンを保護するデータ保護 API (DPAPI) を使用します。 DPAPI は、ユーザーまたはコンピューターの資格情報を使用して保護を実装し、ユーザー プロファイルにキー データを格納します。 つまり、セッション トークンは署名され、1 台のコンピューター上で暗号化を検証または別のコンピューターでの暗号化を解除できません。  
   
- これに対し、<xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler>クラスの使用、<xref:System.IdentityModel.Services.MachineKeyTransform>で指定された暗号化マテリアルを使用して、セッション cookie のデータを保護するには、クラス、`<machineKey>`構成ファイル内の要素。 これは、同じキー (およびセッション トークン) を複数のコンピューターで使用できることを意味します。 これは、機能は、web ファームでアプリケーションを展開するときに特に重要です。 Windows Identity Foundation を使用して web ファームにデプロイされているアプリケーションを保護する方法の詳細については、次を参照してください。 [WIF および Web ファーム](~/docs/framework/security/wif-and-web-farms.md)です。  
+ これに対し、<xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler>クラスで使用、<xref:System.IdentityModel.Services.MachineKeyTransform>で指定された暗号化マテリアルを使用して、セッション cookie のデータを保護するには、クラス、`<machineKey>`構成ファイル内の要素。 これは、同じキー (およびのセッション トークン) を複数のコンピューターで使用できることを意味します。 これは、機能は、web ファームでアプリケーションがデプロイされた場合に特に重要です。 Windows Identity Foundation を使用して web ファームで展開されているアプリケーションを保護する方法の詳細については、次を参照してください。 [WIF および Web ファーム](~/docs/framework/security/wif-and-web-farms.md)します。  
   
- トークン ハンドラー コレクションに追加することで、<xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler> を使用するようにアプリケーションを構成します。 このようなハンドラーが存在する場合は、まず <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> (または <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> クラスから派生した任意のハンドラー) をトークン ハンドラー コレクションから削除する必要があります。 これは、ため<xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler>から派生した<xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler>トークン ハンドラーのコレクションが、指定された型の複数のハンドラーを含めることはできません。  
+ トークン ハンドラー コレクションに追加することで、<xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler> を使用するようにアプリケーションを構成します。 このようなハンドラーが存在する場合は、まず <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> (または <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> クラスから派生した任意のハンドラー) をトークン ハンドラー コレクションから削除する必要があります。 これは、ため<xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler>から派生した<xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler>トークン ハンドラー コレクションは、指定された型の複数のハンドラーを含めることはできません。  
   
    
   
 ## Examples  
- 次の XML は、ASP.NET を使用する方法を示します`<machineKey>`署名と暗号化キーを明示的に指定する構成要素。 `<machineKey>`下にある要素が指定されて、`<system.web>`構成ファイル内の要素。  
+ 次の XML は、ASP.NET を使用する方法を示します`<machineKey>`署名および暗号化キーを明示的に指定する構成要素。 `<machineKey>`で要素が指定されて、`<system.web>`構成ファイル内の要素。  
   
 ```xml  
 <machineKey compatibilityMode="Framework45" decryptionKey="CC510D … 8925E6" validationKey="BEAC8 … 6A4B1DE" />  
 ```  
   
- 次の XML は、<xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler> をトークン ハンドラー コレクションに追加する方法を示しています。 既定値<xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler>は、最初、コレクションから削除します。 トークン ハンドラーが構成されている、 [ &lt;securityTokenHandlers&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/securitytokenhandlers.md)要素。  
+ 次の XML は、<xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler> をトークン ハンドラー コレクションに追加する方法を示しています。 既定の<xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler>が最初に、コレクションから削除します。 トークン ハンドラーが構成されている、 [ &lt;securityTokenHandlers&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/securitytokenhandlers.md)要素。  
   
 ```xml  
 <securityTokenHandlers>  
