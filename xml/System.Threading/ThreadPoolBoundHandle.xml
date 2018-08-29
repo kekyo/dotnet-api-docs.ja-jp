@@ -1,11 +1,11 @@
 <Type Name="ThreadPoolBoundHandle" FullName="System.Threading.ThreadPoolBoundHandle">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="961a8fb7abc8eaeeddeeea04c397e2f12cf020dd" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="65ff656956141c60abfbc4761eb75463e9356eba" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36605416" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39778441" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class ThreadPoolBoundHandle : IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit ThreadPoolBoundHandle extends System.Object implements class System.IDisposable" />
@@ -36,7 +36,7 @@
     </Interface>
   </Interfaces>
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netstandard-2.0">
       <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
     </Attribute>
   </Attributes>
@@ -78,8 +78,11 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.7.1;netframework-4.7.2;netstandard-2.0">
           <AttributeName>System.CLSCompliant(false)</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netframework-4.7.1;netframework-4.7.2">
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -98,7 +101,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドによって返されるアンマネージ ポインターは、オーバー ラップされた I/O 操作で、オペレーティング システムに渡すことができます。 <xref:System.Threading.NativeOverlapped>まで物理メモリ内構造は固定されて、<xref:System.Threading.ThreadPoolBoundHandle.FreeNativeOverlapped%2A>メソッドが呼び出されます。  
+ オーバー ラップした I/O 操作で、オペレーティング システムには、このメソッドによって返されるアンマネージ ポインターを渡すことができます。 <xref:System.Threading.NativeOverlapped>まで物理メモリ内構造は固定されて、<xref:System.Threading.ThreadPoolBoundHandle.FreeNativeOverlapped%2A>メソッドが呼び出されます。  
   
  ]]></format>
         </remarks>
@@ -106,7 +109,10 @@
           <paramref name="preAllocated" /> は <see langword="null" />です。</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="preAllocated" /> は現在別の I/O 操作で使用中です。</exception>
-        <exception cref="T:System.ObjectDisposedException">このメソッドは <see cref="T:System.Threading.ThreadPoolBoundHandle" /> が破棄された後に呼び出されました。  または、このメソッドは <paramref name="preAllocated" /> が破棄された後に呼び出されました。</exception>
+        <exception cref="T:System.ObjectDisposedException">このメソッドは <see cref="T:System.Threading.ThreadPoolBoundHandle" /> が破棄された後に呼び出されました。  
+  
+- または - 
+このメソッドは <paramref name="preAllocated" /> が破棄された後に呼び出されました。</exception>
         <altmember cref="T:System.Threading.PreAllocatedOverlapped" />
       </Docs>
     </Member>
@@ -132,8 +138,11 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.7.1;netframework-4.7.2;netstandard-2.0">
           <AttributeName>System.CLSCompliant(false)</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netframework-4.7.1;netframework-4.7.2">
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -179,6 +188,11 @@
         <AssemblyName>mscorlib</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.7.1;netframework-4.7.2">
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Threading.ThreadPoolBoundHandle</ReturnType>
       </ReturnValue>
@@ -196,14 +210,23 @@
 ## Remarks  
  このメソッドは、ハンドルごと 1 回呼び出す必要があります。  
   
- <xref:System.Threading.ThreadPoolBoundHandle>オブジェクトの所有権を受け取らない`handle`; を呼び出す呼び出し元の責任において、そのまま<xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>です。  
+ <xref:System.Threading.ThreadPoolBoundHandle>オブジェクトの所有権を受け取らない`handle`; を呼び出す呼び出し元の責任は<xref:System.Runtime.InteropServices.SafeHandle.Dispose%2A>します。  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
           <paramref name="handle" /> は <see langword="null" />です。</exception>
         <exception cref="T:System.ArgumentException">
-          <paramref name="handle" /> は破棄されています。  または、<paramref name="handle" /> は有効な I/O ハンドルを参照していません。  または、<paramref name="handle" /> は重複 I/O 用に開かれていないハンドルを参照しています。  または、<paramref name="handle" /> は既にバインドされているハンドルを参照しています。</exception>
+          <paramref name="handle" /> は破棄されています。  
+  
+- または - 
+ <paramref name="handle" /> は有効な I/O ハンドルを参照していません。  
+  
+- または - 
+ <paramref name="handle" /> は重複 I/O 用に開かれていないハンドルを参照しています。  
+  
+- または - 
+ <paramref name="handle" /> は既にバインドされているハンドルを参照しています。</exception>
       </Docs>
     </Member>
     <Member MemberName="Dispose">
@@ -263,8 +286,11 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.7.1;netframework-4.7.2;netstandard-2.0">
           <AttributeName>System.CLSCompliant(false)</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netframework-4.7.1;netframework-4.7.2">
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -283,7 +309,7 @@
 ## Remarks  
   
 > [!CAUTION]
->  呼び出す必要があります、<xref:System.Threading.ThreadPoolBoundHandle.FreeNativeOverlapped%2A>メソッドを正確に 1 回にすべて<xref:System.Threading.NativeOverlapped>を使用して割り当てられたアンマネージ ポインター、<xref:System.Threading.ThreadPoolBoundHandle.AllocateNativeOverlapped%2A>メソッドです。 呼び出さない場合、<xref:System.Threading.ThreadPoolBoundHandle.FreeNativeOverlapped%2A>メソッド、メモリ リークが発生します。 呼び出す場合は、<xref:System.Threading.ThreadPoolBoundHandle.FreeNativeOverlapped%2A>メソッドと同じで複数回<xref:System.Threading.NativeOverlapped>アンマネージ ポインターは、メモリが破損します。  
+>  呼び出す必要があります、<xref:System.Threading.ThreadPoolBoundHandle.FreeNativeOverlapped%2A>メソッドを厳密に 1 回ですべて<xref:System.Threading.NativeOverlapped>を使用して割り当てられたアンマネージ ポインター、<xref:System.Threading.ThreadPoolBoundHandle.AllocateNativeOverlapped%2A>メソッド。 呼び出さない場合、<xref:System.Threading.ThreadPoolBoundHandle.FreeNativeOverlapped%2A>メソッドでは、メモリ リークが発生します。 呼び出す場合、<xref:System.Threading.ThreadPoolBoundHandle.FreeNativeOverlapped%2A>メソッドのメソッドが、同じ 2 回以上<xref:System.Threading.NativeOverlapped>アンマネージ ポインターは、メモリが破損します。  
   
  ]]></format>
         </remarks>
@@ -314,8 +340,11 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.7.1;netframework-4.7.2;netstandard-2.0">
           <AttributeName>System.CLSCompliant(false)</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netframework-4.7.1;netframework-4.7.2">
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -356,6 +385,11 @@
         <AssemblyName>mscorlib</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.7.1;netframework-4.7.2">
+          <AttributeName>get: System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Runtime.InteropServices.SafeHandle</ReturnType>
       </ReturnValue>
