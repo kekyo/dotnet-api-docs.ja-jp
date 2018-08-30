@@ -1,11 +1,11 @@
 <Type Name="DnsEndPoint" FullName="System.Net.DnsEndPoint">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="452414c29969d2f9f5115a4da2a2f3b74dd3b958" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="748c7b007a41e374cced38761c1fe30263928bf4" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36549490" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39887917" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class DnsEndPoint : System.Net.EndPoint" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit DnsEndPoint extends System.Net.EndPoint" />
@@ -38,7 +38,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint>クラスには、ホスト名または IP アドレスとホスト上のサービスに接続するアプリケーションで必要なリモート ポート情報が含まれています。 ホスト名またはサービスの IP アドレスとポート番号を組み合わせることによって、<xref:System.Net.DnsEndPoint>クラスのフォームへの接続がサービス をポイントします。  
+ <xref:System.Net.DnsEndPoint>クラスには、ホスト名または IP アドレスとホスト上のサービスに接続するアプリケーションで必要なリモート ポート情報が含まれています。 ホスト名またはサービスの IP アドレスとポート番号を組み合わせることで、<xref:System.Net.DnsEndPoint>接続クラスのフォームは、サービスをポイントします。  
   
  ]]></format>
     </remarks>
@@ -78,6 +78,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <Parameters>
         <Parameter Name="host" Type="System.String" />
         <Parameter Name="port" Type="System.Int32" />
@@ -91,9 +96,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.%23ctor%28System.String%2CSystem.Int32%29>コンス トラクターを初期化するために使用できる、<xref:System.Net.DnsEndPoint>クラスのホスト名または IP アドレスとポートを表す文字列を使用します。 このコンス トラクターを設定、<xref:System.Net.DnsEndPoint.AddressFamily%2A>プロパティを<xref:System.Net.Sockets.AddressFamily.Unknown>です。  
+ <xref:System.Net.DnsEndPoint.%23ctor%28System.String%2CSystem.Int32%29>コンス トラクターを初期化するために使用できる、<xref:System.Net.DnsEndPoint>クラスのホスト名または IP アドレスとポートを表す文字列を使用します。 このコンス トラクターの設定、<xref:System.Net.DnsEndPoint.AddressFamily%2A>プロパティを<xref:System.Net.Sockets.AddressFamily.Unknown>します。  
   
- このコンス トラクターを使用して IP の文字列表記ではなくホスト名でアドレスしている場合、アドレス ファミリの<xref:System.Net.DnsEndPoint>残ります<xref:System.Net.Sockets.AddressFamily.Unknown>使用後にします。 <xref:System.Net.DnsEndPoint.AddressFamily%2A>いずれかのプロパティ<xref:System.Net.Sockets.Socket>への呼び出しによって作成された、<xref:System.Net.Sockets.Socket.ConnectAsync%2A>メソッドは、接続が正常にすることができます、最初のアドレスのアドレス ファミリになります (必ずしも、最初のアドレスを解決する) を確立します。  
+ このコンス トラクターを使用して、ip アドレスの文字列表現ではなくホスト名でアドレスしている場合、アドレス ファミリの<xref:System.Net.DnsEndPoint>残ります<xref:System.Net.Sockets.AddressFamily.Unknown>使用後にもします。 <xref:System.Net.DnsEndPoint.AddressFamily%2A>プロパティを<xref:System.Net.Sockets.Socket>への呼び出しによって作成され、<xref:System.Net.Sockets.Socket.ConnectAsync%2A>メソッドは、接続が正常にすることが最初のアドレスのアドレス ファミリになります (必須ではありませんは、解決の最初のアドレス) を確立します。  
   
  ]]></format>
         </remarks>
@@ -102,7 +107,10 @@
         <exception cref="T:System.ArgumentNullException">
           <paramref name="host" /> パラメーターは <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="port" /> は <see cref="F:System.Net.IPEndPoint.MinPort" /> より小さい値です。  または、<paramref name="port" /> が <see cref="F:System.Net.IPEndPoint.MaxPort" /> を超えています。</exception>
+          <paramref name="port" /> は <see cref="F:System.Net.IPEndPoint.MinPort" /> より小さい値です。  
+  
+- または - 
+ <paramref name="port" /> が <see cref="F:System.Net.IPEndPoint.MaxPort" /> より大きくなっています。</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -145,16 +153,22 @@
 ## Remarks  
  <xref:System.Net.DnsEndPoint.%23ctor%28System.String%2CSystem.Int32%2CSystem.Net.Sockets.AddressFamily%29>コンス トラクターを初期化するために使用できる、<xref:System.Net.DnsEndPoint>クラスのホスト名または IP アドレス、ポート、およびアドレス ファミリを表す文字列を使用します。  
   
- コンス トラクターを使用して、IP アドレスの文字列形式ではなく、ホスト名、アドレス ファミリは、指定されたアドレス ファミリの値のアドレスが優先 DNS 解決を制限します。 として指定したアドレス ファミリをコンス トラクターを使用すると<xref:System.Net.Sockets.AddressFamily.Unknown>のアドレス ファミリ、<xref:System.Net.DnsEndPoint>残ります<xref:System.Net.Sockets.AddressFamily.Unknown>使用後にします。 <xref:System.Net.DnsEndPoint.AddressFamily%2A>いずれかのプロパティ<xref:System.Net.Sockets.Socket>への呼び出しによって作成された、<xref:System.Net.Sockets.Socket.ConnectAsync%2A>メソッドは、接続が正常にすることができます、最初のアドレスのアドレス ファミリになります (必ずしも、最初のアドレスを解決する) を確立します。  
+ コンス トラクターを使用して、IP アドレスの文字列表現ではなくホスト名と、アドレス ファミリは、指定したアドレス ファミリの値のアドレスが優先 DNS の解決を制限します。 として指定したアドレス ファミリをコンス トラクターを使用すると<xref:System.Net.Sockets.AddressFamily.Unknown>のアドレス ファミリ、<xref:System.Net.DnsEndPoint>残ります<xref:System.Net.Sockets.AddressFamily.Unknown>使用後にもします。 <xref:System.Net.DnsEndPoint.AddressFamily%2A>プロパティを<xref:System.Net.Sockets.Socket>への呼び出しによって作成され、<xref:System.Net.Sockets.Socket.ConnectAsync%2A>メソッドは、接続が正常にすることが最初のアドレスのアドレス ファミリになります (必須ではありませんは、解決の最初のアドレス) を確立します。  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">
-          <paramref name="host" /> パラメーターに空の文字列が含まれています。  または、<paramref name="addressFamily" /> が <see cref="F:System.Net.Sockets.AddressFamily.Unknown" /> です。</exception>
+          <paramref name="host" /> パラメーターに空の文字列が含まれています。  
+  
+- または - 
+ <paramref name="addressFamily" /> は <see cref="F:System.Net.Sockets.AddressFamily.Unknown" />です。</exception>
         <exception cref="T:System.ArgumentNullException">
           <paramref name="host" /> パラメーターは <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="port" /> は <see cref="F:System.Net.IPEndPoint.MinPort" /> より小さい値です。  または、<paramref name="port" /> が <see cref="F:System.Net.IPEndPoint.MaxPort" /> を超えています。</exception>
+          <paramref name="port" /> は <see cref="F:System.Net.IPEndPoint.MinPort" /> より小さい値です。  
+  
+- または - 
+ <paramref name="port" /> が <see cref="F:System.Net.IPEndPoint.MaxPort" /> より大きくなっています。</exception>
       </Docs>
     </Member>
     <Member MemberName="AddressFamily">
@@ -180,6 +194,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Net.Sockets.AddressFamily</ReturnType>
       </ReturnValue>
@@ -191,7 +210,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.AddressFamily%2A>プロパティのインスタンスのアドレス ファミリに示される、<xref:System.Net.DnsEndPoint>クラスです。  
+ <xref:System.Net.DnsEndPoint.AddressFamily%2A>プロパティのインスタンスのアドレス ファミリに示される、<xref:System.Net.DnsEndPoint>クラス。  
   
  ]]></format>
         </remarks>
@@ -234,7 +253,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.Equals%2A>メソッドは現在、比較<xref:System.Net.DnsEndPoint>インスタンス、`comparand`パラメーターを返す`true`2 つのインスタンスには、同一のエンドポイントが含まれている場合。  
+ <xref:System.Net.DnsEndPoint.Equals%2A>メソッドは現在、比較<xref:System.Net.DnsEndPoint>インスタンス、`comparand`パラメーターを返す`true`2 つのインスタンスには、同じエンドポイントが含まれている場合。  
   
  ]]></format>
         </remarks>
@@ -276,7 +295,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.GetHashCode%2A>メソッドのハッシュ コードを返します、<xref:System.Net.DnsEndPoint>です。 この値は、ハッシュ テーブル内のキーとして使用できます。  
+ <xref:System.Net.DnsEndPoint.GetHashCode%2A>メソッドのハッシュ コードを返します、<xref:System.Net.DnsEndPoint>します。 この値は、ハッシュ テーブル内のキーとして使用できます。  
   
  ]]></format>
         </remarks>
@@ -305,6 +324,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
@@ -315,7 +339,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.Host%2A>プロパティがのインスタンスの IP アドレスのホスト名または文字列表現を示す、<xref:System.Net.DnsEndPoint>クラスです。  
+ <xref:System.Net.DnsEndPoint.Host%2A>プロパティのインスタンスの IP アドレスのホスト名、または文字列表現を示す、<xref:System.Net.DnsEndPoint>クラス。  
   
  ]]></format>
         </remarks>
@@ -344,6 +368,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
@@ -390,7 +419,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.ToString%2A>メソッドは、アドレス ファミリ、ホスト名または IP アドレス文字列、およびポート番号を表す文字列を返します。  
+ <xref:System.Net.DnsEndPoint.ToString%2A>メソッドは、アドレス ファミリ、ホスト名または IP アドレスの文字列、およびポート番号を含む文字列を返します。  
   
  ]]></format>
         </remarks>
