@@ -1,11 +1,11 @@
 <Type Name="IDebugVsaScriptCodeItem" FullName="Microsoft.JScript.IDebugVsaScriptCodeItem">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="bb8d9da6fe5b1d99b44a2bb022911599a8121a49" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="66e914a30fcef7a41bbb9be46f214cbcc40fd42e" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37719119" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39832498" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IDebugVsaScriptCodeItem" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IDebugVsaScriptCodeItem" />
@@ -21,15 +21,15 @@
   </AssemblyInfo>
   <Interfaces />
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2">
       <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
     </Attribute>
-    <Attribute>
+    <Attribute FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2">
       <AttributeName>System.Runtime.InteropServices.Guid("6DFE759A-CB8B-4ca0-A973-1D04E0BF0B53")</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>Defines methods that evaluate expressions and parse strings. This interface is typically implemented by an object that represents a code block, and it is typically called by a debugger. This interface provides extra functionality that is needed by an IActiveScript host.</summary>
+    <summary>式の評価および文字列の解析を行うメソッドを定義します。 このインターフェイスは、通常、コード ブロックを表すオブジェクトによって実装され、デバッガーによって呼び出されます。 このインターフェイスは、IActiveScript ホストで必要な追加の機能を提供します。</summary>
     <remarks>To be added.</remarks>
     <forInternalUseOnly />
   </Docs>
@@ -53,8 +53,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>When implemented in a class, evaluates the block, expression, or statement represented by the code item and returns the value. It is typically called by a debugger that needs to evaluate an expression (in a Watch window, for example). For expressions, the value is the result of the expression. For blocks and statements, the resulting expression is the last expression calculated by the block or statement.</summary>
-        <returns>Returns a value that represents the evaluation of the statement, expression, or block.</returns>
+        <summary>クラスで実装される場合には、コード項目で表現されるブロック、式、またはステートメントを評価し、値を返します。 一般にこれは、ウォッチ ウィンドウ内などで、式の評価が必要になるデバッガーによって呼び出されます。 式の場合、この値はその式の戻り値になります。 ブロックとステートメントの場合、結果の式はそのブロックまたはステートメントで計算された最終的な式になります。</summary>
+        <returns>ステートメント、式、またはブロックの評価結果を表す値を返します。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -85,21 +85,21 @@
       </ReturnValue>
       <Parameters>
         <Parameter Name="input" Type="System.String" />
-        <Parameter Name="functionName" Type="System.String&amp;" RefType="out" />
-        <Parameter Name="nargs" Type="System.Int32&amp;" RefType="out" />
-        <Parameter Name="arguments" Type="System.String&amp;" RefType="out" />
-        <Parameter Name="returnType" Type="System.String&amp;" RefType="out" />
-        <Parameter Name="offset" Type="System.UInt64&amp;" RefType="out" />
+        <Parameter Name="functionName" Type="System.String" RefType="out" />
+        <Parameter Name="nargs" Type="System.Int32" RefType="out" />
+        <Parameter Name="arguments" Type="System.String" RefType="out" />
+        <Parameter Name="returnType" Type="System.String" RefType="out" />
+        <Parameter Name="offset" Type="System.UInt64" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="input">A well-formed named breakpoint string giving a function, optional argument list, and optional IL offset.</param>
-        <param name="functionName">Out parameter returning the name of the function parsed out of the input string, or the empty string if the input string is not well formed.</param>
-        <param name="nargs">Out parameter returning the number of arguments in the optional argument list. Returns zero if there is no arguments list or if the string is not well formed.</param>
-        <param name="arguments">Out parameter returning a space-separated list of the names of the types of all the arguments in the arguments list, or an empty string if the arguments list was missing or the input string was not well formed.</param>
-        <param name="returnType">Out parameter returning a string containing the return type of the function named in the input, or the empty string if the return type was missing or the input string was not well formed.</param>
-        <param name="offset">Unsigned long integer giving the IL offset from the input string, or zero if there was no IL offset or the string was not well formed.</param>
-        <summary>When implemented in a class, parses strings and returns the parsed-out information. This method is typically called by a debugger that needs to parse information about a breakpoint that is represented as a <see langword="string" />. The debugger might have a breakpoint typed in by the user in the form *functionname-arguments-ILoffset*. A named breakpoint string can have a complex format, for example, <c>F.B(C.D[], int, arg : double ) : C.Abc + 123.</c> The parameter list is optional, as is the IL offset.</summary>
-        <returns>Returns <see langword="true" /> if the named breakpoint is successfully parsed, <see langword="false" /> otherwise.</returns>
+        <param name="input">関数、省略可能な引数リスト、および省略可能な IL オフセットを指定する、整形式の名前付きブレークポイント文字列。</param>
+        <param name="functionName">入力文字列を解析した結果の関数の名前を返すか、または入力文字列が整形式でない場合に空の文字列を返す出力パラメーター。</param>
+        <param name="nargs">省略可能な引数リスト内の引数の数を返す出力パラメーター。 引数リストがないかまたは文字列が整形式でない場合は 0 を返します。</param>
+        <param name="arguments">引数リスト内にあるすべての引数の型名をスペースで区切ったリストとして返す出力パラメーター。引数リストが見つからないか入力文字列が整形式でない場合は空の文字列を返します。</param>
+        <param name="returnType">入力で指定された関数の戻り値の型が含まれた文字列を返す出力パラメーター。戻り値の型が見つからないか入力文字列が整形式でない場合は空の文字列を返します。</param>
+        <param name="offset">入力文字列から IL オフセットを指定する符号なしの長整数。IL オフセットがないか文字列が整形式でない場合は 0 を指定します。</param>
+        <summary>クラスで実装される場合、文字列を解析し、解析された出力情報を返します。 一般にこのメソッドは、<see langword="string" /> として表現されるブレークポイントについての情報を解析する必要があるデバッガーによって呼び出されます。 デバッガーには、ユーザーが *functionname-arguments-ILoffset* の形式で入力したブレークポイントが設定されている場合があります。 名前付きブレークポイント文字には、<c>F.B(C.D[], int, arg : double ) : C.Abc + 123</c> のような複雑な形式を与えることができます。 パラメーター一覧は、IL オフセットと同様に、オプションです。</summary>
+        <returns>名前付きブレークポイントが正常に解析される場合は <see langword="true" /> を返します。それ以外の場合は <see langword="false" /> を返します。</returns>
         <remarks>To be added.</remarks>
         <forInternalUseOnly />
       </Docs>

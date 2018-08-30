@@ -1,11 +1,11 @@
 <Type Name="BatchedJoinBlock&lt;T1,T2&gt;" FullName="System.Threading.Tasks.Dataflow.BatchedJoinBlock&lt;T1,T2&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="04c5866dab75dad15ebcd1c52ac654ad348f25f3" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="4dcdf8eb33b98e54952920d9c3eecf544d8286c6" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36606791" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39872801" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class BatchedJoinBlock&lt;T1,T2&gt; : System.Threading.Tasks.Dataflow.IReceivableSourceBlock&lt;Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;&gt;, System.Threading.Tasks.Dataflow.ISourceBlock&lt;Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit BatchedJoinBlock`2&lt;T1, T2&gt; extends System.Object implements class System.Threading.Tasks.Dataflow.IDataflowBlock, class System.Threading.Tasks.Dataflow.IReceivableSourceBlock`1&lt;class System.Tuple`2&lt;class System.Collections.Generic.IList`1&lt;!T1&gt;, class System.Collections.Generic.IList`1&lt;!T2&gt;&gt;&gt;, class System.Threading.Tasks.Dataflow.ISourceBlock`1&lt;class System.Tuple`2&lt;class System.Collections.Generic.IList`1&lt;!T1&gt;, class System.Collections.Generic.IList`1&lt;!T2&gt;&gt;&gt;" />
@@ -35,6 +35,14 @@
       <InterfaceName>System.Threading.Tasks.Dataflow.ISourceBlock&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;&gt;</InterfaceName>
     </Interface>
   </Interfaces>
+  <Attributes>
+    <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1">
+      <AttributeName>System.Diagnostics.DebuggerDisplay("{DebuggerDisplayContent,nq}")</AttributeName>
+    </Attribute>
+    <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1">
+      <AttributeName>System.Diagnostics.DebuggerTypeProxy(typeof(System.Threading.Tasks.Dataflow.BatchedJoinBlock`2/DebugView))</AttributeName>
+    </Attribute>
+  </Attributes>
   <Docs>
     <typeparam name="T1">ブロックの最初のターゲットが受け取るデータの種類を指定します。</typeparam>
     <typeparam name="T2">ブロックの 2 番目のターゲットが受け取るデータの種類を指定します。</typeparam>
@@ -156,7 +164,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 後<xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%602.Complete%2A>されましたデータフロー ブロックで呼び出されると、そのブロックが完了してその<xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%602.Completion%2A>タスクは、以前使用可能なすべてのデータを処理した後に、最終的な状態になる、します。 <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%602.Complete%2A> 発生すると、完了の待機をブロックしませんではなく、要求が開始されますが、実行すると、完了するまで待って、<xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%602.Completion%2A>タスクを使用することがあります。  
+ 後<xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%602.Complete%2A>されたデータフロー ブロックで呼び出されると、そのブロックは完了し、その<xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%602.Completion%2A>以前に使用可能なすべてのデータを処理した後、タスクは最終的な状態に入ります。 <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%602.Complete%2A> 発生すると、完了の待機をブロックしませんではなく、要求が開始されますが、発生すると、完了するまで待って、<xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%602.Completion%2A>タスクを使用することがあります。  
   
  ]]></format>
         </remarks>
@@ -190,7 +198,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- データ フロー ブロックは、それが処理中でないメッセージと、これ以上メッセージが処理されることを保証がされているときに完了したと見なされます。 返された<xref:System.Threading.Tasks.Task>関連するブロックが完了した場合は、完了した状態に遷移します。 移行、 <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>ブロックには、データ フロー ブロックのに従って正常に処理が完了したときの状態がセマンティクスを定義します。 移行、 <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Faulted>状態、データ フロー ブロックが未処理の例外によって処理の途中で処理を完了に移行すると、 <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Canceled>データ フロー ブロックが完了したときの状態キャンセル要求を受信したため途中で処理しています。 タスクが完了した場合、<xref:System.Threading.Tasks.TaskStatus.Faulted>状態、その`Exception`が返される、<xref:System.AggregateException>が失敗するブロックを引き起こした 1 つまたは複数の例外を含んでいます。  
+ データ フロー ブロックは、現在処理していないメッセージと、これ以上メッセージを処理しないことを保証がされているときに、完了と見なされます。 返された<xref:System.Threading.Tasks.Task>関連するブロックが完了したときに完了した状態に遷移が。 移行、 <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>ブロックには、データ フロー ブロックのに従って正常にその処理が完了するときの状態は、セマンティクスを定義します。 移行、 <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Faulted>データフロー ブロックが未処理の例外によって途中で処理を完了しからへの移行時の状態、 <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Canceled>データフロー ブロックが完了したときの状態取り消し要求を受け取ったため途中で処理します。 タスクが完了した場合、<xref:System.Threading.Tasks.TaskStatus.Faulted>状態、その`Exception`プロパティは、<xref:System.AggregateException>ブロックが失敗する原因となった 1 つまたは複数の例外を格納しています。  
   
  ]]></format>
         </remarks>
@@ -294,7 +302,7 @@
       <MemberSignature Language="C++ CLI" Value=" virtual Tuple&lt;System::Collections::Generic::IList&lt;T1&gt; ^, System::Collections::Generic::IList&lt;T2&gt; ^&gt; ^ System.Threading.Tasks.Dataflow.ISourceBlock&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;&gt;.ConsumeMessage(System::Threading::Tasks::Dataflow::DataflowMessageHeader messageHeader, System::Threading::Tasks::Dataflow::ITargetBlock&lt;Tuple&lt;System::Collections::Generic::IList&lt;T1&gt; ^, System::Collections::Generic::IList&lt;T2&gt; ^&gt; ^&gt; ^ target, [Runtime::InteropServices::Out] bool % messageConsumed) = System::Threading::Tasks::Dataflow::ISourceBlock&lt;Tuple&lt;System::Collections::Generic::IList&lt;T1&gt; ^, System::Collections::Generic::IList&lt;T2&gt; ^&gt; ^&gt;::ConsumeMessage;" />
       <MemberType>Method</MemberType>
       <Implements>
-        <InterfaceMember>M:System.Threading.Tasks.Dataflow.ISourceBlock`1.ConsumeMessage(System.Threading.Tasks.Dataflow.DataflowMessageHeader,System.Threading.Tasks.Dataflow.ITargetBlock{`0},System.Boolean@)</InterfaceMember>
+        <InterfaceMember>M:System.Threading.Tasks.Dataflow.ISourceBlock`1.ConsumeMessage(System.Threading.Tasks.Dataflow.DataflowMessageHeader,System.Threading.Tasks.Dataflow.ITargetBlock{`0},System.Boolean)</InterfaceMember>
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Threading.Tasks.Dataflow</AssemblyName>
@@ -309,7 +317,7 @@
       <Parameters>
         <Parameter Name="messageHeader" Type="System.Threading.Tasks.Dataflow.DataflowMessageHeader" />
         <Parameter Name="target" Type="System.Threading.Tasks.Dataflow.ITargetBlock&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;&gt;" />
-        <Parameter Name="messageConsumed" Type="System.Boolean&amp;" RefType="out" />
+        <Parameter Name="messageConsumed" Type="System.Boolean" RefType="out" />
       </Parameters>
       <Docs>
         <param name="messageHeader">To be added.</param>
@@ -457,7 +465,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 継承された<xref:System.Object>です。 使用して、<xref:System.Threading.Tasks.Dataflow.DataflowBlockOptions.NameFormat%2A>オプション。  
+ 継承された<xref:System.Object>します。 使用して、<xref:System.Threading.Tasks.Dataflow.DataflowBlockOptions.NameFormat%2A>オプション。  
   
  ]]></format>
         </remarks>
@@ -483,7 +491,7 @@
       </ReturnValue>
       <Parameters>
         <Parameter Name="filter" Type="System.Predicate&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;&gt;" />
-        <Parameter Name="item" Type="System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;&amp;" RefType="out" />
+        <Parameter Name="item" Type="System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;" RefType="out" />
       </Parameters>
       <Docs>
         <param name="filter">受信するために値で正常に渡す必要がある述語。  <c>filter</c> は <see langword="null" /> である可能性があります。その場合、すべての項目が渡されます。</param>
@@ -521,7 +529,7 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="items" Type="System.Collections.Generic.IList&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;&gt;&amp;" RefType="out" />
+        <Parameter Name="items" Type="System.Collections.Generic.IList&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;&gt;&gt;" RefType="out" />
       </Parameters>
       <Docs>
         <param name="items">ソースから受信された項目。</param>
@@ -533,7 +541,7 @@
 ## Remarks  
  このメソッドは、項目を提供するソースの待機をブロックしません。  
   
- 要素が使用できるかどうかを要素を確認してから返します。  
+ 要素の場合、オンにした後、要素が使用できるかどうかを返します。  
   
  ]]></format>
         </remarks>
