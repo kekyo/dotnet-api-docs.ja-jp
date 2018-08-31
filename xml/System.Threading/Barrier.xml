@@ -1,11 +1,11 @@
 <Type Name="Barrier" FullName="System.Threading.Barrier">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d271267ac0284159a3b1b51c2d7ecb5e4260d584" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="719976617af141ff2c2b5fa4cf1717f2e6def395" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36606333" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39998740" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Barrier : IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Barrier extends System.Object implements class System.IDisposable" />
@@ -38,10 +38,10 @@
     </Interface>
   </Interfaces>
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
       <AttributeName>System.Diagnostics.DebuggerDisplay("Participant Count={ParticipantCount},Participants Remaining={ParticipantsRemaining}")</AttributeName>
     </Attribute>
-    <Attribute>
+    <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
       <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
     </Attribute>
   </Attributes>
@@ -51,7 +51,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 到着したが、グループ内の各シグナル送信を一連のフェーズで、移動することによって、タスクのグループが連携して、<xref:System.Threading.Barrier>特定のフェーズでは、暗黙的にその他すべての到着を待機します。 同じ<xref:System.Threading.Barrier>の複数の段階で使用することができます。  
+ タスク グループを連携して、一連のフェーズに到着が通知グループ内の各場所を移動することによって、<xref:System.Threading.Barrier>フェーズと暗黙的に到着する他のすべてを待ちます。 同じ<xref:System.Threading.Barrier>複数フェーズのために使用できます。  
   
    
   
@@ -63,7 +63,7 @@
   
  ]]></format>
     </remarks>
-    <threadsafe>すべてのパブリックおよびプロテクト メンバー<see cref="T:System.Threading.Barrier" />はスレッド セーフであるとする必要がありますのみ Dispose を除き、複数のスレッドから同時に使用することがあるときに使用上の他のすべての操作、<see cref="T:System.Threading.Barrier" />が完了します。</threadsafe>
+    <threadsafe>すべてのパブリックおよびプロテクト メンバー<see cref="T:System.Threading.Barrier" />スレッド セーフであり、Dispose 必要がありますのみを除き、複数のスレッドから同時に使用できる際に使用されるその他のすべての操作を<see cref="T:System.Threading.Barrier" />完了しました。</threadsafe>
   </Docs>
   <Members>
     <MemberGroup MemberName=".ctor">
@@ -102,6 +102,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <Parameters>
         <Parameter Name="participantCount" Type="System.Int32" />
       </Parameters>
@@ -151,7 +156,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- `postPhaseAction`すべての参加者が 1 つのフェーズのバリアに到着した後に実行されるデリゲート。 参加者は、次のフェーズ postPhaseAction デリゲートの実行が完了するまでには解放されません。  
+ `postPhaseAction`すべての参加要素がバリアで 1 つのフェーズで到着した後に実行されるデリゲート。 参加者は、次のフェーズ postPhaseAction デリゲートの実行が完了するまでには解放されません。  
   
  ]]></format>
         </remarks>
@@ -194,12 +199,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- バリアは現在、フェーズの後の処理を実行して、フェーズの後の処理が完了して、バリアは、次のフェーズで移動するまで、この呼び出しがブロックされます。  
+ バリアは、フェーズの後のアクションを現在実行している、フェーズ後のアクションが完了して、バリアは、次のフェーズで移動するまで、この呼び出しがブロックされます。  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.ObjectDisposedException">現在のインスタンスは既に破棄されています。</exception>
-        <exception cref="T:System.InvalidOperationException">参加要素を追加すると、バリアの参加要素数が 32,767 を超えます。  または、メソッドは、フェーズ後アクション内から呼び出されました。</exception>
+        <exception cref="T:System.InvalidOperationException">参加要素を追加すると、バリアの参加要素数が 32,767 を超えます。  
+  
+- または - 
+メソッドは、フェーズ後アクション内から呼び出されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="AddParticipants">
@@ -240,13 +248,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- バリアは現在、フェーズの後の処理を実行して、フェーズの後の処理が完了して、バリアは、次のフェーズで移動するまで、この呼び出しがブロックされます。  
+ バリアは、フェーズの後のアクションを現在実行している、フェーズ後のアクションが完了して、バリアは、次のフェーズで移動するまで、この呼び出しがブロックされます。  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.ObjectDisposedException">現在のインスタンスは既に破棄されています。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="participantCount" /> が 0 未満です。  または、<paramref name="participantCount" /> 参加要素を追加すると、バリアの参加要素数が 32,767 を超えます。</exception>
+          <paramref name="participantCount" /> が 0 未満です。  
+  
+- または - 
+<paramref name="participantCount" /> 参加要素を追加すると、バリアの参加要素数が 32,767 を超えます。</exception>
         <exception cref="T:System.InvalidOperationException">メソッドは、フェーズ後アクション内から呼び出されました。</exception>
       </Docs>
     </Member>
@@ -274,6 +285,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
@@ -333,9 +349,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- `Dispose` を使い終わったら <xref:System.Threading.Barrier> を呼び出します。 `Dispose` メソッドによって、<xref:System.Threading.Barrier> は使用不可の状態になります。 呼び出した後`Dispose`へのすべての参照を解放する必要があります、<xref:System.Threading.Barrier>ガベージ コレクターがメモリを再利用できるようにする、<xref:System.Threading.Barrier>占有されていた。  
+ `Dispose` を使い終わったら <xref:System.Threading.Barrier> を呼び出します。 `Dispose` メソッドによって、<xref:System.Threading.Barrier> は使用不可の状態になります。 呼び出した後`Dispose`へのすべての参照を解放する必要があります、<xref:System.Threading.Barrier>ガベージ コレクターがメモリをクリアできるようにする、<xref:System.Threading.Barrier>によって占有されていた。  
   
- 詳細については、次を参照してください。[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)と[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)です。  
+ 詳細については、次を参照してください。[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)と[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)します。  
   
 > [!NOTE]
 >  `Dispose` への最後の参照を解放する前に、必ず <xref:System.Threading.Barrier> を呼び出してください。 そうしないと、ガベージ コレクターが <xref:System.Threading.Barrier> オブジェクトの `Finalize` メソッドを呼び出すまで、使用されているリソースは解放されません。  
@@ -377,12 +393,13 @@
       </Parameters>
       <Docs>
         <param name="disposing">マネージド リソースとアンマネージド リソースの両方を解放する場合は true、アンマネージド リソースだけを解放する場合は false。</param>
-        <summary>ph x="1" /&amp;gt; が使用しているアンマネージド リソースを解放します。オプションとして、マネージド リソースを解放することもできます。</summary>
+        <summary>
+          <see cref="T:System.Threading.Barrier" /> が使用しているアンマネージド リソースを解放します。オプションとして、マネージド リソースを解放することもできます。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ほとんどのメンバーとは異なり<xref:System.Threading.Barrier>Dispose がスレッド セーフであるとこのインスタンスの他のメンバーと同時に使用できません。  
+ ほとんどのメンバーとは異なり<xref:System.Threading.Barrier>Dispose がスレッド セーフでないし、このインスタンスの他のメンバーと同時に使用することはできません。  
   
  ]]></format>
         </remarks>
@@ -455,7 +472,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- フェーズ後アクション デリゲートの実行中に 0 にするか、ParticipantCount が 0 の場合があります。  
+ これは、エラーは、フェーズ後アクション デリゲートの実行中には 0 以上の ParticipantCount が 0 の場合。  
   
  ]]></format>
         </remarks>
@@ -485,6 +502,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
@@ -493,7 +515,10 @@
         <summary>参加要素が 1 つ削除されることを <see cref="T:System.Threading.Barrier" /> に通知します。</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ObjectDisposedException">現在のインスタンスは既に破棄されています。</exception>
-        <exception cref="T:System.InvalidOperationException">バリアでは、既に 0 個の参加要素があります。  または、メソッドは、フェーズ後アクション内から呼び出されました。</exception>
+        <exception cref="T:System.InvalidOperationException">バリアでは、既に 0 個の参加要素があります。  
+  
+- または - 
+メソッドは、フェーズ後アクション内から呼び出されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="RemoveParticipants">
@@ -533,13 +558,19 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合`participantCount`参加要素がバリアで既に待機している、この削除は、バリアを満たす、フェーズの後の処理が実行される、および削除されているこの参加要素がバリアに到達が正常に場合、すべての参加者がウェイクします。  
+ 場合`participantCount`参加要素がバリアに既に待機している、この削除は、バリアを満たす、フェーズ後のアクションを実行、および削除されるこの参加要素がバリアに到達が正常に場合、すべての参加者がウェイク アップします。  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.ObjectDisposedException">現在のインスタンスは既に破棄されています。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">参加要素の総数が、指定した <paramref name="participantCount" /> より小さくなっています。</exception>
-        <exception cref="T:System.InvalidOperationException">バリアでは、既に 0 個の参加要素があります。  または、メソッドは、フェーズ後アクション内から呼び出されました。  または、現在の参加要素数が、指定された participantCount より小さい値です。</exception>
+        <exception cref="T:System.InvalidOperationException">バリアでは、既に 0 個の参加要素があります。  
+  
+- または - 
+メソッドは、フェーズ後アクション内から呼び出されました。  
+  
+- または - 
+現在の参加要素数が、指定された participantCount より小さい値です</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="SignalAndWait">
@@ -751,7 +782,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合、`cancellationToken`信号かかりました無効で、前に取り消されました、<xref:System.OperationCanceledException>がスローされます、<xref:System.Threading.Barrier.ParticipantsRemaining%2A>値が減少しません。 場合、`cancellationToken`が取り消されていないかが、シグナルを反映し、後に取り消される<xref:System.Threading.Barrier.ParticipantsRemaining%2A>が減らさおよび no<xref:System.OperationCanceledException>がスローされます。  
+ 場合、`cancellationToken`シグナルした、前にキャンセルされました、<xref:System.OperationCanceledException>がスローされます、<xref:System.Threading.Barrier.ParticipantsRemaining%2A>値は、減らすことはできません。 場合、`cancellationToken`が取り消されないまたは信号を反映し、後にキャンセル<xref:System.Threading.Barrier.ParticipantsRemaining%2A>が減少し、ない<xref:System.OperationCanceledException>がスローされます。  
   
  ]]></format>
         </remarks>

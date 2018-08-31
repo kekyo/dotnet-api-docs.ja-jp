@@ -1,11 +1,11 @@
 <Type Name="Toolset" FullName="Microsoft.Build.Evaluation.Toolset">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ea8ec3b298507abec3154ba6ea36812060798ce2" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="0acb1685fc4773b6d4f058145bcdeef2a0150ff5" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36736882" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="40001046" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Toolset" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Toolset extends System.Object" />
@@ -22,7 +22,7 @@
   </Base>
   <Interfaces />
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2">
       <AttributeName>System.Diagnostics.DebuggerDisplay("ToolsVersion={ToolsVersion} ToolsPath={ToolsPath} #Properties={properties.Count}")</AttributeName>
     </Attribute>
   </Attributes>
@@ -32,7 +32,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- UNDONE: (danmose) 確認の不変性。 変更不可でない場合は、その toolsetVersion をインクリメントを所有しているプロジェクト コレクション/秒を通知するためのメカニズムを追加します。  
+ UNDONE: (danmose) レビューの不変性。 変更不可でない場合は、その toolsetVersion をインクリメントを所有しているプロジェクト コレクション/秒に通知するためのメカニズムを追加します。  
   
  ]]></format>
     </remarks>
@@ -58,6 +58,11 @@
         <AssemblyName>Microsoft.Build</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <Parameters>
         <Parameter Name="toolsVersion" Type="System.String" />
         <Parameter Name="toolsPath" Type="System.String" />
@@ -94,7 +99,9 @@
       <Docs>
         <param name="toolsVersion">ツールセットの名前</param>
         <param name="toolsPath">このツールセットのタスクとターゲットへのパス</param>
-        <param name="buildProperties">ツールセットに関連付けられているプロパティ。  null も指定できます。その場合、空のプロパティ グループが使用されます。</param>
+        <param name="buildProperties">ツールセットに関連付けられているプロパティ。  
+  
+null も指定できます。その場合、空のプロパティ グループが使用されます。</param>
         <param name="projectCollection">プロパティの取得元となるプロジェクト コレクション。</param>
         <param name="msbuildOverrideTasksPath">msbuild overridetasks ファイルを検索するパス。</param>
         <summary>指定したツール バージョン、ツール パス、およびビルド プロパティを使用して、ツールセットを作成します。 グローバル プロパティ、予約済みのプロパティ、および環境プロパティは、指定したプロジェクト コレクションから取得されます。</summary>
@@ -123,7 +130,9 @@
       <Docs>
         <param name="toolsVersion">ツールセットの名前です。</param>
         <param name="toolsPath">このツールセットのタスクとターゲットへのパス。</param>
-        <param name="buildProperties">ツールセットに関連付けられているプロパティ。  null も指定できます。その場合、空のプロパティ グループが使用されます。</param>
+        <param name="buildProperties">ツールセットに関連付けられているプロパティ。  
+  
+null も指定できます。その場合、空のプロパティ グループが使用されます。</param>
         <param name="projectCollection">プロパティの取得元となるプロジェクト コレクション。</param>
         <param name="subToolsets">このツールセットに追加するサブ ツールセットのセット。</param>
         <param name="msbuildOverrideTasksPath">msbuild overridetasks ファイルを検索するパス。 このツールセットに追加するサブ ツールセットのセット。</param>
@@ -153,9 +162,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合[!INCLUDE[vs_dev10_long](~/includes/vs-dev10-long-md.md)]は、基本ツールセットを使用して作成され、「10.0」のサブ ツールセットのバージョンを返します。  
+ 場合[!INCLUDE[vs_dev10_long](~/includes/vs-dev10-long-md.md)]は基本ツールセットを使用してインストールし、「10.0」のサブ ツールセット バージョンを返します。  
   
- それ以外の場合、見つかった最も高いバージョン管理されたサブツール セットを使用します。 Sub ツールセット バージョン番号の値に基づいて並べ替えられる数値。任意の他のサブ ツールセットの前は、検出された順序で一覧の先頭に付加されます。 使用可能なサブツール セットがない場合は null を返しますと[!INCLUDE[vs_dev10_long](~/includes/vs-dev10-long-md.md)]がインストールされていません。  
+ それ以外の場合、検出された最も高いバージョン管理されたサブツール セットを使用します。 サブ ツールセット バージョン番号では数値では順序付け任意の追加のサブ ツールセットの前は、検出された順序でリストの先頭に付加されます。 使用可能なサブツール セットがない場合は null を返しますと[!INCLUDE[vs_dev10_long](~/includes/vs-dev10-long-md.md)]がインストールされていません。  
   
  ]]></format>
         </remarks>
@@ -193,9 +202,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- "VisualStudioVersion"を自体ツールセットのプロパティとして設定すると場合、sub ツールセットのバージョンは、"VisualStudioVersion"に設定されます。  
+ "VisualStudioVersion"は、ツールセット自体のプロパティとして設定されている場合、サブツール セット バージョンは、"VisualStudioVersion"に設定されます。  
   
- それ以外の場合、サブ ツールセットのバージョンは、ツールセットの DefaultSubToolsetVersion に設定されます。  
+ それ以外の場合、サブツール セット バージョンは、ツールセットの DefaultSubToolsetVersion に設定されます。  
   
  ]]></format>
         </remarks>
@@ -229,13 +238,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- グローバル プロパティのグローバル プロパティのセットに存在する"VisualStudioVersion"渡された場合に、sub ツールセットのバージョンは、"VisualStudioVersion"に設定されます。  
+ 渡された"VisualStudioVersion"グローバル プロパティがグローバル プロパティのセットに存在する場合、サブツール セット バージョンは、"VisualStudioVersion"に設定されます。  
   
- それ以外の場合、"VisualStudioVersion"を自体ツールセットのプロパティとして設定すると場合、は、sub ツールセットのバージョンが"VisualStudioVersion"に設定されます。  
+ それ以外の場合、"VisualStudioVersion"は、ツールセット自体のプロパティとして設定されている場合は、サブツール セット バージョンが"VisualStudioVersion"に設定されます。  
   
- それ以外の場合、ソリューションのバージョンに対応するバージョンの Visual Studio (Visual Studio のバージョン ソリューション バージョン – 1 =) sub ツールセットのバージョンが Visual Studio のバージョンに設定し、既存のサブツール セットをマップに渡されました。  
+ 場合は、ソリューションのバージョンに対応するバージョンの Visual Studio (Visual Studio のバージョン = ソリューションのバージョン – 1) サブ ツールセットのバージョンが Visual Studio のバージョンに設定に、マップで、既存のサブ ツールセットに渡されます。  
   
- それ以外の場合、サブ ツールセットのバージョンは、ツールセットの DefaultSubToolsetVersion に設定されます。  
+ それ以外の場合、サブツール セット バージョンは、ツールセットの DefaultSubToolsetVersion に設定されます。  
   
  ]]></format>
         </remarks>
@@ -269,7 +278,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- サブツール セットのプロパティが見つからない場合は、基本ツールセットのプロパティを検索します。  
+ サブ ツールセットのプロパティが見つからない場合は、基本ツールセットのプロパティを検索します。  
   
  サブツール セットまたは基本ツールセットのプロパティが見つからない場合は、null を返します。  
   
@@ -331,6 +340,11 @@
         <AssemblyName>Microsoft.Build</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
@@ -341,7 +355,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- プロジェクトまたはターゲット ファイルでは、$ (msbuildtoolspath) に対応します。  
+ プロジェクトまたは targets ファイルで $(MSBuildToolsPath) に対応します。  
   
  ]]></format>
         </remarks>
@@ -359,6 +373,11 @@
         <AssemblyName>Microsoft.Build</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
