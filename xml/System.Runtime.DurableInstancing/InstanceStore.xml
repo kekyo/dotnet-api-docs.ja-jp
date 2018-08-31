@@ -1,11 +1,11 @@
 <Type Name="InstanceStore" FullName="System.Runtime.DurableInstancing.InstanceStore">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d14fb4c0552691179d47eb6e214410054e826b0f" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="8972e8c961043629bb8c0c72a45e02d752733a77" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36540127" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39993464" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class InstanceStore" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit InstanceStore extends System.Object" />
@@ -32,7 +32,7 @@
  永続化プロバイダーは、コマンドの実行が完了した後でも、TryCommand に渡されるハンドルの InstanceHandle.Free を呼び出すことができます。 ただし、永続化プロバイダーが InstanceHandle オブジェクトや InstanceOwner オブジェクトへの強参照を保持することはありません。これによって、InstanceStore がガベージ コレクトされない可能性があるためです。  
   
 > [!WARNING]
->  ワークフローの永続化されたワークフロー定義を変更することはできません。 ワークフロー定義が変更された場合、永続化した後、ワークフローが再読み込みされるときに、ワークフロー ランタイムがクラッシュします。  
+>  永続化されたワークフローのワークフロー定義を変更できません。 後で永続化ワークフロー定義が変更されると、ワークフローを再読み込み時にワークフロー ランタイムがクラッシュします。  
   
  ]]></format>
     </remarks>
@@ -134,7 +134,7 @@
  コマンドを実行できる場合、永続化プロバイダーは InstancePersistenceContext 上の関連するメソッドを呼び出し、コマンドの結果を返します。  
   
 > [!WARNING]
->  このメソッドとして宣言されていて`virtual`なく`abstract`実装はありません。 このメソッドは、機能を提供するためにオーバーライドする必要があります。  
+>  このメソッドとして宣言されている場合でも`virtual`なく`abstract`実装はありません。 このメソッドは、機能を提供するためにオーバーライドする必要があります。  
   
  ]]></format>
         </remarks>
@@ -292,6 +292,14 @@
         <AssemblyName>System.Runtime.DurableInstancing</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>set: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Runtime.DurableInstancing.InstanceOwner</ReturnType>
       </ReturnValue>
@@ -307,7 +315,7 @@
  DefaultInstanceOwner プロパティは、使用する必要がなくなったら null に設定する必要があります。 DefaultInstanceOwner が null でない場合は、InstanceStore オブジェクトはガベージ コレクトされない可能性があります。  
   
 > [!WARNING]
->  このメソッドとして宣言されていて`virtual`なく`abstract`実装はありません。 このメソッドは、機能を提供するためにオーバーライドする必要があります。  
+>  このメソッドとして宣言されている場合でも`virtual`なく`abstract`実装はありません。 このメソッドは、機能を提供するためにオーバーライドする必要があります。  
   
  ]]></format>
         </remarks>
@@ -373,7 +381,7 @@
 ## Remarks  
   
 > [!WARNING]
->  このメソッドとして宣言されていて`virtual`なく`abstract`実装はありません。 このメソッドは、機能を提供するためにオーバーライドする必要があります。  
+>  このメソッドとして宣言されている場合でも`virtual`なく`abstract`実装はありません。 このメソッドは、機能を提供するためにオーバーライドする必要があります。  
   
  ]]></format>
         </remarks>
@@ -439,9 +447,9 @@
  ホストは、<xref:System.Runtime.DurableInstancing.InstanceStore.Execute%2A> メソッドを呼び出して、永続化コマンドをインスタンス ハンドルに対して実行します。ホストは、<xref:System.Runtime.DurableInstancing.InstanceStore.CreateInstanceHandle%2A> メソッドを呼び出して、このインスタンス ハンドルを取得します。 インスタンス ハンドルは、インスタンス、インスタンス所有者、インスタンス ロックなどのコマンドのコンテキストとサブジェクトを表すエンティティにバインドできます。  インスタンス ハンドルに対して一度に発行できるコマンドは 1 つだけです。  
   
 > [!WARNING]
->  このメソッドを実行すると場合、<xref:System.Activities.DurableInstancing.CreateWorkflowOwnerCommand>が自動的に作成、<xref:System.Runtime.DurableInstancing.InstanceOwner>インスタンスにバインドします。 つまり、他のプロセスがれないことには、そのワークフローにアクセスできません。プロセスが終了した場合、ワークフローを回復または実行できません。 このようなワークフローをもう一度、実行した場合、<xref:System.Runtime.DurableInstancing.InstanceLockedException>がスローされます。  
+>  このメソッドを実行すると場合、<xref:System.Activities.DurableInstancing.CreateWorkflowOwnerCommand>が作成されます、<xref:System.Runtime.DurableInstancing.InstanceOwner>インスタンスにバインドします。 これは、できることを意味他のプロセスがないワークフロー; にアクセスするにはプロセスが終了した場合、ワークフローを復旧または実行できません。 ここでも、このようなワークフローが実行される場合、<xref:System.Runtime.DurableInstancing.InstanceLockedException>がスローされます。  
 >   
->  場合<xref:System.Activities.DurableInstancing.CreateWorkflowOwnerCommand>は使用しない、インスタンス ストアが作成されます、一時的な<xref:System.Runtime.DurableInstancing.InstanceOwner>プロセスの最後に削除されます。 ただし、終了した場合、プロセス、ワークフローの最後の永続化ポイントの前に、この例外がスローされますでの時間が指定されていない限り、 **HostLockRenewalPeriod**パラメーターの有効期限が切れました。  
+>  場合<xref:System.Activities.DurableInstancing.CreateWorkflowOwnerCommand>を使用しないインスタンス ストアは、一時パスワードが作成<xref:System.Runtime.DurableInstancing.InstanceOwner>プロセスの最後に削除されます。 ただし、終了した場合、プロセス、ワークフローの最後の永続化ポイントの前に、この例外がスローされますで一定期間が指定されていない限り、 **HostLockRenewalPeriod**パラメーターの有効期限が切れた。  
   
  ]]></format>
         </remarks>
