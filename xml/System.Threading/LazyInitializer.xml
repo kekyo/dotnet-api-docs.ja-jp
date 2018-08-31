@@ -1,11 +1,11 @@
 <Type Name="LazyInitializer" FullName="System.Threading.LazyInitializer">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d7d6511fffc182b113bbc69c98954d618ef23f1e" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="755905ca4152d31c2708d3f8171aedcdd452aa77" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36406900" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39998207" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class LazyInitializer" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit LazyInitializer extends System.Object" />
@@ -39,12 +39,12 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- これらのルーチンでは、アクセスされたときのみ、ターゲットが初期化されていることを確認する代わりに参照を使用して、遅延初期化の専用インスタンスを割り当てるに必要としないようにします。  
+ これらのルーチンでは、ターゲットがアクセスされたときに初期化されたことを確認する代わりに参照を使用して、専用の遅延初期化インスタンスを割り当てることを必要としないでください。  
   
    
   
 ## Examples  
- 次の例では、遅延初期化が既に発生したかどうかを追跡するために、ブール値を使用して値を初期化するために EnsureInitialized と相互排他ロックとして使用するオブジェクトを使用する方法を示します。  
+ 次の例では、EnsureInitialized を遅延初期化が既に過ぎているかどうかを追跡するためにブール値を使用して値を初期化し、相互排他ロックとして使用するオブジェクトを使用する方法を示します。  
   
 ```vb  
 Dim _data As ExpensiveData = Nothing  
@@ -65,7 +65,7 @@ ExpensiveData _data = null;
   
  ]]></format>
     </remarks>
-    <threadsafe>メソッド<see cref="T:System.Threading.LazyInitializer" />はスレッド セーフであると同時に複数のスレッドから呼び出される場合があります。</threadsafe>
+    <threadsafe>メソッド<see cref="T:System.Threading.LazyInitializer" />スレッド セーフでは、複数のスレッドから同時に呼び出すことができます。</threadsafe>
   </Docs>
   <Members>
     <MemberGroup MemberName="EnsureInitialized&lt;T&gt;">
@@ -114,7 +114,7 @@ ExpensiveData _data = null;
         </TypeParameter>
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
       </Parameters>
       <Docs>
         <typeparam name="T">初期化される参照の型。</typeparam>
@@ -125,11 +125,11 @@ ExpensiveData _data = null;
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、参照型でのみ使用可能性があります。 値型の初期化には、EnsureInitialized の他のオーバー ロードを参照してください。  
+ このメソッドは、参照型でのみ使用可能性があります。 値型の初期化を確認するには、EnsureInitialized の他のオーバー ロードを参照してください。  
   
- このメソッドは同時に使用できます複数のスレッドで初期化するために`target`です。  
+ このメソッドにことができますに同時に複数のスレッドによって初期化`target`します。  
   
- 複数のスレッドがこのメソッドを同時に複数のインスタンスをアクセスする`T`作成するには、月はありませんが、1 つだけに格納される`target`です。 このような見つかった位置のこのメソッドは保存されないので、オブジェクトの破棄しません。 このようなオブジェクトを破棄する必要がある場合、オブジェクトが使用されていないかどうかを判断し、適切にオブジェクトを破棄するには、呼び出し元の責任です。  
+ 複数のスレッドがこのメソッドを同時に複数のインスタンスをアクセスする`T`作成月はありませんが、1 つだけに格納される`target`します。 このような出来事でこのメソッドが格納されていないオブジェクトの破棄しません。 このようなオブジェクトを破棄する必要がある場合、オブジェクトが使用しないかどうかを判断し、オブジェクトを適切に破棄するには、呼び出し元の責任です。  
   
  ]]></format>
         </remarks>
@@ -172,7 +172,7 @@ ExpensiveData _data = null;
         </TypeParameter>
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
         <Parameter Name="valueFactory" Type="System.Func&lt;T&gt;" />
       </Parameters>
       <Docs>
@@ -185,11 +185,11 @@ ExpensiveData _data = null;
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、参照型でのみ使用可能性がありますと`valueFactory`null 参照 (Visual Basic では Nothing) を返さない可能性があります。 値型の初期化を確認するか、null 参照の種類を許可するには、EnsureInitialized の他のオーバー ロードを参照してください。  
+ このメソッドは、参照型に対してのみ使用可能性がありますと`valueFactory`null 参照 (Visual Basic では Nothing) を返さない場合があります。 値型の初期化を確認します。 または、null 参照の種類を許可するには、EnsureInitialized の他のオーバー ロードを参照してください。  
   
- このメソッドは同時に使用できます複数のスレッドで初期化するために`target`です。  
+ このメソッドにことができますに同時に複数のスレッドによって初期化`target`します。  
   
- 複数のスレッドがこのメソッドを同時に複数のインスタンスをアクセスする`T`作成するには、月はありませんが、1 つだけに格納される`target`です。 このような見つかった位置のこのメソッドは保存されないので、オブジェクトの破棄しません。 このようなオブジェクトを破棄する必要がある場合、オブジェクトが使用されていないかどうかを判断し、適切にオブジェクトを破棄するには、呼び出し元の責任です。  
+ 複数のスレッドがこのメソッドを同時に複数のインスタンスをアクセスする`T`作成月はありませんが、1 つだけに格納される`target`します。 このような出来事でこのメソッドが格納されていないオブジェクトの破棄しません。 このようなオブジェクトを破棄する必要がある場合、オブジェクトが使用しないかどうかを判断し、オブジェクトを適切に破棄するには、呼び出し元の責任です。  
   
  ]]></format>
         </remarks>
@@ -229,9 +229,9 @@ ExpensiveData _data = null;
         <TypeParameter Name="T" />
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
-        <Parameter Name="initialized" Type="System.Boolean&amp;" RefType="ref" />
-        <Parameter Name="syncLock" Type="System.Object&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
+        <Parameter Name="initialized" Type="System.Boolean" RefType="ref" />
+        <Parameter Name="syncLock" Type="System.Object" RefType="ref" />
       </Parameters>
       <Docs>
         <typeparam name="T">初期化される参照の型。</typeparam>
@@ -245,7 +245,7 @@ ExpensiveData _data = null;
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合`intialized`が指定されていると true の場合、さらに初期化は行われません。  
+ 場合`intialized`初期化は行われません、true として指定されます。  
   
  ]]></format>
         </remarks>
@@ -277,8 +277,8 @@ ExpensiveData _data = null;
         </TypeParameter>
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
-        <Parameter Name="syncLock" Type="System.Object&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
+        <Parameter Name="syncLock" Type="System.Object" RefType="ref" />
         <Parameter Name="valueFactory" Type="System.Func&lt;T&gt;" />
       </Parameters>
       <Docs>
@@ -322,9 +322,9 @@ ExpensiveData _data = null;
         <TypeParameter Name="T" />
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
-        <Parameter Name="initialized" Type="System.Boolean&amp;" RefType="ref" />
-        <Parameter Name="syncLock" Type="System.Object&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
+        <Parameter Name="initialized" Type="System.Boolean" RefType="ref" />
+        <Parameter Name="syncLock" Type="System.Object" RefType="ref" />
         <Parameter Name="valueFactory" Type="System.Func&lt;T&gt;" />
       </Parameters>
       <Docs>
@@ -340,7 +340,7 @@ ExpensiveData _data = null;
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合`intialized`が指定されていると true の場合、さらに初期化は行われません。  
+ 場合`intialized`初期化は行われません、true として指定されます。  
   
  ]]></format>
         </remarks>
