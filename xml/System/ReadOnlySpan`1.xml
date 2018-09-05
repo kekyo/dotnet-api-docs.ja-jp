@@ -1,11 +1,11 @@
 <Type Name="ReadOnlySpan&lt;T&gt;" FullName="System.ReadOnlySpan&lt;T&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="7e0feb74debd27988fa190cdd4fc23848bb487d3" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="12357179192b89232e7d5799ab47b00a99fb8e1d" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36428535" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39986311" />
   </Metadata>
   <TypeSignature Language="C#" Value="public struct ReadOnlySpan&lt;T&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit ReadOnlySpan`1&lt;T&gt; extends System.ValueType" />
@@ -29,17 +29,21 @@
   </Base>
   <Interfaces />
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netcore-2.1">
       <AttributeName>System.Runtime.CompilerServices.IsByRefLike</AttributeName>
     </Attribute>
-    <Attribute>
+    <Attribute FrameworkAlternate="netcore-2.1">
       <AttributeName>System.Runtime.CompilerServices.IsReadOnly</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
-    <typeparam name="T">To be added.</typeparam>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <typeparam name="T">内の項目の種類、<see cref="System.ReadOnlySpan`1" />します。</typeparam>
+    <summary>任意のメモリの隣接した領域をタイプセーフかつメモリセーフの読み取り専用の表現で表します。</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[`ReadOnlySpan<T>` [ref 構造体](~/docs/csharp/reference-semantics-with-value-types.md#ref-struct-type)をスタックに割り当てられているし、マネージ ヒープにエスケープすることはありません。 Ref 構造体の型があるいくつかの制限をボックス化できない、型の変数に割り当てられている、ラムダ式内のキャプチャなど、マネージ ヒープに昇格することはできませんを確実に<xref:System.Object>に割り当てられた、`dynamic`変数、および任意のインターフェイス型を実装することはできません。
+
+A`ReadOnlySpan<T>`インスタンスは、配列の要素または配列の一部を参照するよく使用されます。 ただし、配列とは異なり、`ReadOnlySpan<T>`インスタンスは、ネイティブ メモリ、マネージ メモリを指すことができますか、上のメモリ管理スタック。]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -62,9 +66,12 @@
         <Parameter Name="array" Type="T[]" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="array">
+          <see cref="T:System.ReadOnlySpan`1" /> の作成元になる配列。</param>
+        <summary>指定された配列全体で新しい <see cref="T:System.ReadOnlySpan`1" /> を作成します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[このコンス トラクターは、配列が null の場合は、null を返します`ReadOnlySpan<T>`します。]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -83,7 +90,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-2.1">
           <AttributeName>System.CLSCompliant(false)</AttributeName>
         </Attribute>
       </Attributes>
@@ -92,10 +99,16 @@
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="pointer">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="pointer">メモリで指定された数の <paramref name="T" /> オブジェクトの開始アドレスを指すポインター。</param>
+        <param name="length">含まれる <paramref name="T" /> オブジェクトの数。</param>
+        <summary>指定メモリ アドレスで始まる指定バイト数から新しい <see cref="T:System.ReadOnlySpan`1" /> を作成します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[このコンス トラクターは、任意の型を作成するため、注意して使用する必要があります`T`のメモリ ブロック。]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <paramref name="T" /> は参照型または参照を含むため、アンマネージ ド メモリには格納できません。</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <paramref name="length" /> が負の値です。</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -115,10 +128,15 @@
         <Parameter Name="start" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <param name="start">To be added.</param>
-        <summary>To be added.</summary>
+        <param name="array">
+          <see cref="T:System.ReadOnlySpan`1" /> の作成元になる配列。</param>
+        <param name="start">読み取り専用スパンの始まりの開始インデックス。</param>
+        <summary>配列内の指定されたインデックスから配列の末尾までの値から、新しい <see cref="T:System.ReadOnlySpan`1" /> を作成します。</summary>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <paramref name="start" /> は 0 未満または配列の長さを超えています。</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="array" /> が null です。</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -143,11 +161,16 @@
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <param name="start">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
+        <param name="array">
+          <see cref="T:System.ReadOnlySpan`1" /> の作成元になる配列。</param>
+        <param name="start">含める最初の要素を示すインデックス。</param>
+        <param name="length">含める要素の数。</param>
+        <summary>指定インデックスで始まる配列の指定要素数を含む新しい <see cref="T:System.ReadOnlySpan`1" /> を作成します。</summary>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <paramref name="array" /> は <see langword="null" /> ですが、<paramref name="start" /> または <paramref name="length" /> は 0 以外です。<p />
+または<p /><paramref name="start" /> は配列の境界の外側にあります。 <p />
+または<p /><paramref name="start" /> と <paramref name="length" /> は配列の要素数を超えています。</exception>
       </Docs>
     </Member>
     <Member MemberName="CopyTo">
@@ -173,9 +196,13 @@
         <Parameter Name="destination" Type="System.Span&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="destination">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="destination">項目のコピー先のスパン。</param>
+        <summary>この <see cref="System.ReadOnlySpan`1" /> の内容をコピー先 <see cref="System.Span`1" /> にコピーします。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[場合、`source`と`destination`の全体が重なる`source`にコピーする前に一時的な場所にコピー元として処理が`destination`します。]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <paramref name="destination" /> はソース <see cref="System.ReadOnlySpan`1" /> より短くなります。</exception>
       </Docs>
     </Member>
     <Member MemberName="DangerousCreate">
@@ -199,16 +226,23 @@
       </ReturnValue>
       <Parameters>
         <Parameter Name="obj" Type="System.Object" />
-        <Parameter Name="objectData" Type="T&amp;" RefType="ref" />
+        <Parameter Name="objectData" Type="T" RefType="ref" />
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="obj">To be added.</param>
-        <param name="objectData">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="obj">スパンの範囲となるデータを格納するマネージド オブジェクト。</param>
+        <param name="objectData">オブジェクト内のデータへの参照。</param>
+        <param name="length">スパンに対する <paramref name="T" /> 要素の数。</param>
+        <summary>定期的なマネージド オブジェクトの一部に対する新しい <see cref="T:System.ReadOnlySpan`1" /> を作成します。</summary>
+        <returns>
+          <see cref="T:System.ReadOnlySpan`1" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[このメソッドは、危険なため、**をチェックしません**の次のエラー条件。
+
+- `length` パラメーターが正しくありません。
+- `obj` パラメーターが null です。
+- オブジェクト`obj`へのポインター、生のポインターを含めることができます。]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="DangerousGetPinnableReference">
@@ -228,9 +262,13 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>インデックス 0 にある <see cref="T:System.ReadOnlySpan`1" /> の要素の参照を返します。 読み取り専用のスパンが空の場合、最初の要素を格納する予定だったメモリの場所への参照を返します。</summary>
+        <returns>インデックス 0 にある <see cref="T:System.ReadOnlySpan`1" /> の最初の要素への参照。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[このメソッドが戻る、 [ref 構造体](~/docs/csharp/reference-semantics-with-value-types.md#ref-struct-type)します。 ピン留めできます、<xref:System.ReadOnlySpan`1>メモリにします。 使用をサポートするために必要なこと、<xref:System.ReadOnlySpan`1>内、[固定](~/docs/csharp/language-reference/keywords/fixed-statement.md)ステートメント。
+
+この参照は、ピン留めが使用され、逆参照しないでください。]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Empty">
@@ -253,8 +291,8 @@
         <ReturnType>System.ReadOnlySpan&lt;T&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>空の <see cref="T:System.ReadOnlySpan`1" /> を返します。</summary>
+        <value>空の <see cref="T:System.ReadOnlySpan`1" /> を返します。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -275,10 +313,10 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-2.0;netcore-2.1">
           <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
         </Attribute>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-2.0;netcore-2.1">
           <AttributeName>System.Obsolete("Equals() on ReadOnlySpan will always throw an exception. Use == instead.")</AttributeName>
         </Attribute>
       </Attributes>
@@ -289,10 +327,13 @@
         <Parameter Name="obj" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="obj">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="obj">サポートされていません。</param>
+        <summary>サポートされていません。 <see cref="T:System.NotSupportedException" /> をスローします。</summary>
+        <returns>サポートされていません。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[サポートされていません。]]></format>
+        </remarks>
+        <exception cref="T:System.NotSupportedException">このメソッドによって常にスローされます。</exception>
       </Docs>
     </Member>
     <Member MemberName="GetEnumerator">
@@ -312,9 +353,11 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>この <see cref="T:System.ReadOnlySpan`1" /> の列挙子を返します。</summary>
+        <returns>この読み取り専用スパンの列挙子。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[呼び出す代わりに、<xref:System.ReadOnlySpan%601.GetEnumerator%2A>メソッドを直接使用することができます、c#`foreach`ステートメントと Visual Basic `For Each`.`Next`コンストラクトを列挙、<xref:System.ReadOnlySpan%601>します。]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetHashCode">
@@ -334,10 +377,10 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-2.0;netcore-2.1">
           <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
         </Attribute>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-2.0;netcore-2.1">
           <AttributeName>System.Obsolete("GetHashCode() on ReadOnlySpan will always throw an exception.")</AttributeName>
         </Attribute>
       </Attributes>
@@ -346,9 +389,10 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>サポートされていません。 <see cref="T:System.NotSupportedException" /> をスローします。</summary>
+        <returns>サポートされていません。</returns>
+        <remarks>サポートされていません。</remarks>
+        <exception cref="T:System.NotSupportedException">このメソッドによって常にスローされます。</exception>
       </Docs>
     </Member>
     <Member MemberName="GetPinnableReference">
@@ -369,7 +413,7 @@
         </Attribute>
       </Attributes>
       <ReturnValue>
-        <ReturnType>System.T&amp;</ReturnType>
+        <ReturnType>T@</ReturnType>
         <Attributes>
           <Attribute>
             <AttributeName>System.Runtime.CompilerServices.IsReadOnly</AttributeName>
@@ -378,9 +422,13 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>インデックス 0 にある <see cref="T:System.ReadOnlySpan`1" /> の要素の参照を返します。 読み取り専用スパンが空の場合、<see langword="null" /> を返します。</summary>
+        <returns>インデックス 0 にある <see cref="T:System.ReadOnlySpan`1" /> の要素の参照。あるいは、<see cref="M:System.ReadOnlySpan`1.IsEmpty" /> が <see langword="true" /> の場合は <see langword="null" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[`GetPinnableReference`メソッドを返します。 を[ref 構造体](~/docs/csharp/reference-semantics-with-value-types.md#ref-struct-type)します。 ピン留めできます、<xref:System.ReadOnlySpan%601>メモリにします。 使用をサポートするために必要なこと、<xref:System.ReadOnlySpan%601>内、[固定](~/docs/csharp/language-reference/keywords/fixed-statement.md)ステートメント。
+
+この参照は、ピン留めが使用され、逆参照しないでください。]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="IsEmpty">
@@ -403,14 +451,15 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>現在の読み取り専用スパンが空であることを示す値を返します。</summary>
+        <value>
+          <see langword="true" /> 現在のスパンが空の場合それ以外の場合<see langword="false" />します。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="Item">
       <MemberSignature Language="C#" Value="public T&amp; this[int index] { get; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance class System.T&amp; modreq(System.Runtime.InteropServices.InAttribute) Item(int32)" />
+      <MemberSignature Language="ILAsm" Value=".property instance T&amp; modreq(System.Runtime.InteropServices.InAttribute) Item(int32)" />
       <MemberSignature Language="DocId" Value="P:System.ReadOnlySpan`1.Item(System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Default Public ReadOnly Property Item(index As Integer) As T&amp;" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; property T&amp; ^ default[int] { T&amp; ^ get(int index); };" />
@@ -425,21 +474,23 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-2.1">
           <AttributeName>System.Runtime.CompilerServices.IsReadOnly</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
-        <ReturnType>System.T&amp;</ReturnType>
+        <ReturnType>T&amp;</ReturnType>
       </ReturnValue>
       <Parameters>
         <Parameter Name="index" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="index">To be added.</param>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <param name="index">取得する要素の 0 から始まるインデックス。</param>
+        <summary>読み取り専用スパンから、0 から始まる指定したインデックスにある項目を取得します。</summary>
+        <value>読み取り専用の範囲からの要素。</value>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.IndexOutOfRangeException">
+          <paramref name="index" /> が 0 未満か、<see cref="P:System.ReadOnlySpan`1.Length" /> 以上です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Length">
@@ -462,8 +513,8 @@
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>読み取り専用スパンにある項目数。</summary>
+        <value>項目の数。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -491,11 +542,13 @@
         <Parameter Name="right" Type="System.ReadOnlySpan&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="left">To be added.</param>
-        <param name="right">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="left">比較対象とする最初のスパン。</param>
+        <param name="right">比較対象とする 2 つ目のスパン。</param>
+        <summary>2 つの <see cref="T:System.ReadOnlySpan`1" /> インスタンスが等しいかどうかを示す値を返します。</summary>
+        <returns>2 つの <see cref="T:System.ReadOnlySpan`1" /> インスタンスが等しい場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[これは 2 つの場合、テスト<xref:System.ReadOnlySpan`1>インスタンスが同じ開始メモリ位置を指すし、が同じである<xref:System.ReadOnlySpan`1.Length>値。 これは、2 つの内容は比較されません<xref:System.ReadOnlySpan`1>インスタンス。]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="op_Implicit">
@@ -521,9 +574,11 @@
         <Parameter Name="array" Type="T[]" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="array">
+          <see cref="T:System.ReadOnlySpan`1" /> に変換する配列。</param>
+        <summary>配列から <see cref="T:System.ReadOnlySpan`1" /> への暗黙の型変換を定義します。</summary>
+        <returns>
+          <paramref name="array" /> に対応する読み取り専用スパン。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -555,10 +610,13 @@
         <Parameter Name="segment" Type="System.ArraySegment&lt;T&gt;" Index="0" FrameworkAlternate="netcore-2.1" />
       </Parameters>
       <Docs>
-        <param name="arraySegment">To be added.</param>
-        <param name="segment">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="arraySegment">
+          <see cref="T:System.ReadOnlySpan`1" /> に変換する配列セグメント。</param>
+        <param name="segment">
+          <see cref="T:System.ReadOnlySpan`1" /> に変換する配列セグメント。</param>
+        <summary>
+          <see cref="T:System.ArraySegment`1" /> から <see cref="T:System.ReadOnlySpan`1" /> への暗黙の型変換を定義します。</summary>
+        <returns>配列セグメントに対応する読み取り専用のスパン。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -586,11 +644,13 @@
         <Parameter Name="right" Type="System.ReadOnlySpan&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="left">To be added.</param>
-        <param name="right">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="left">比較する最初の読み取り専用スパン。</param>
+        <param name="right">比較する 2 番目の読み取り専用スパン。</param>
+        <summary>2 つの <see cref="T:System.ReadOnlySpan`1" /> インスタンスが等しくないかどうかを示す値を返します。</summary>
+        <returns>2 つの <see cref="T:System.ReadOnlySpan`1" /> インスタンスが等しくない場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[2 つ<xref:System.ReadOnlySpan%601>インスタンスが等しくない長さが異なるを持っている場合や、対応する要素の`left`と`right`さまざまなメモリの場所をポイントします。]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Slice">
@@ -616,10 +676,13 @@
         <Parameter Name="start" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="start">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="start">スライスの開始位置を示すインデックス。</param>
+        <summary>指定のインデックスで始まる現在の読み取り専用スパンからスライスを形成します。</summary>
+        <returns>
+          <paramref name="index" /> からスパンの終わりまで、現在のスパンの全要素で構成されるスパン。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <paramref name="start" /> は、読み取り専用スパンにある項目数を超えています。</exception>
       </Docs>
     </Member>
     <Member MemberName="Slice">
@@ -646,11 +709,14 @@
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="start">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="start">このスライスの開始位置を示すインデックス。</param>
+        <param name="length">スライスに求められる長さ。</param>
+        <summary>指定インデックスから始まる現在の読み取り専用スパンから、指定の長さでスライスを形成します。</summary>
+        <returns>
+          <paramref name="index" /> で始まる現在のスパンからの <paramref name="length" /> 要素で構成される読み取り専用スパン。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <paramref name="start" /> が 0 未満か、<see cref="T:System.Span`1.Length" /> 以上です。</exception>
       </Docs>
     </Member>
     <Member MemberName="ToArray">
@@ -674,9 +740,11 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>この読み取り専用スパンの内容を新しい配列にコピーします。</summary>
+        <returns>現在のスパンのデータを含む配列。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[このメソッドは、ヒープの割り当ておよびデータのコピーを実行し、そのためは可能であれば避ける必要があります。 これは、Api をサポートする場合にも必要<xref:System.ReadOnlySpan%601>が使用できない、配列での作業の Api。]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="ToString">
@@ -696,9 +764,11 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>この <see cref="T:System.ReadOnlySpan`1" /> の文字列表現を返します。</summary>
+        <returns>このインスタンスの文字列形式。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[`ReadOnlySpan<Char>`、`ToString`メソッドを返します。 を<xref:System.String>スパンによって示される文字を格納しています。 それ以外を返します、<xref:System.String>型と範囲を含む要素の数の名前に置き換えます。]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="TryCopyTo">
@@ -724,10 +794,14 @@
         <Parameter Name="destination" Type="System.Span&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="destination">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="destination">コピー操作の対象。</param>
+        <summary>この <see cref="System.ReadOnlySpan`1" /> コンテンツの <see cref="System.Span`1" /> へのコピーを試行して、操作が成功したかどうかを示す値を返します。</summary>
+        <returns>コピー操作が成功した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[場合、`source`と`destination`の全体が重なる`source`にコピーする前に一時的な場所にコピー元として処理が`destination`します。
+
+場合、`destination`長がよりも短い`source`、項目はコピーされませんおよびメソッドを返します`false`します。]]></format>
+        </remarks>
       </Docs>
     </Member>
   </Members>
