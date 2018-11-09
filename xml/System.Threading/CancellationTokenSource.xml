@@ -239,7 +239,7 @@
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>取り消しの要求を伝えます。</summary>
+        <summary>キャンセル要求を伝えます。</summary>
         <related type="Article" href="~/docs/standard/threading/cancellation-in-managed-threads.md">キャンセル</related>
         <related type="Article" href="~/docs/standard/parallel-programming/task-cancellation.md">タスクのキャンセル</related>
       </Docs>
@@ -273,22 +273,22 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>取り消しの要求を伝えます。</summary>
+        <summary>キャンセル要求を伝えます。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 関連付けられている<xref:System.Threading.CancellationToken>、キャンセルの通知し、状態に遷移を<xref:System.Threading.CancellationToken.IsCancellationRequested%2A>true を返します。  
+関連付けられてた<xref:System.Threading.CancellationToken>にキャンセルを通知し、<xref:System.Threading.CancellationToken.IsCancellationRequested%2A>がtrueを返す状態に遷移します。  
   
- 登録されているすべてのコールバックまたはキャンセル可能な操作、<xref:System.Threading.CancellationToken>が実行されます。  
+<xref:System.Threading.CancellationToken>に登録されてたすべてのコールバックおよびキャンセル可能な操作が実行されます。
+
+<xref:System.Threading.CancellationToken>に登録されるコールバックおよびキャンセル可能な操作では、例外をスローしないことが推奨されています。
+
+Cancelのこのオーバー ロードでは、スローされた例外がすべて<xref:System.AggregateException>に集約されます。1つのコールバックで例外がスローされても、他のコールバックの実行が妨げられることはありません。
   
- キャンセル可能な操作とコールバックに登録されていることをお勧めします。<xref:System.Threading.CancellationToken>例外をスローしません。 
  
- [キャンセル] のこのオーバー ロードにスローされた例外が集計されます、<xref:System.AggregateException>例外がスローされる 1 つのコールバックが実行されるその他の登録済みのコールバックを妨げませんようにします。 
-   
-  
 ## Examples  
- 次の例では、乱数ジェネレーターを使用して、エミュレートを 11 個の異なる instruments から 10 個の整数値を読み取るデータ コレクションのアプリケーション。 値 0 は、測定が、操作を取り消す必要がある場合とない全体の平均を計算する必要が 1 つのインストルメント化に失敗したことを示します。  
+次の例では、乱数ジェネレーターを使用して、エミュレートを 11 個の異なる instruments から 10 個の整数値を読み取るデータ コレクションのアプリケーション。 値 0 は、測定が、操作を取り消す必要がある場合とない全体の平均を計算する必要が 1 つのインストルメント化に失敗したことを示します。  
   
  例では、インスタンス化可能な操作のキャンセルを処理するために、<xref:System.Threading.CancellationTokenSource>に渡されるキャンセル トークンを生成するオブジェクト、<xref:System.Threading.Tasks.TaskFactory>オブジェクト。 <xref:System.Threading.Tasks.TaskFactory>オブジェクトを渡しますキャンセル トークンのタスクのそれぞれに特定のインストルメント化の測定値の収集を担当します。 <xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%60%602%28System.Threading.Tasks.Task%7B%60%600%7D%5B%5D%2CSystem.Func%7BSystem.Threading.Tasks.Task%7B%60%600%7D%5B%5D%2C%60%601%7D%2CSystem.Threading.CancellationToken%29?displayProperty=nameWithType>メソッドが呼び出され、すべての測定値が正常に収集された後でのみ平均を計算することを確認します。 タスクがキャンセルされたためではなく、呼び出し、<xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%2A?displayProperty=nameWithType>メソッドが例外をスローします。  
   
@@ -298,7 +298,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ObjectDisposedException">この <see cref="T:System.Threading.CancellationTokenSource" /> は破棄されています。</exception>
-        <exception cref="T:System.AggregateException">関連付けられた<see cref="T:System.Threading.CancellationToken" /> に関する登録されたコールバックによってスローされるすべての例外を含む集計例外。</exception>
+        <exception cref="T:System.AggregateException">関連付けられた<see cref="T:System.Threading.CancellationToken" /> に登録されたコールバックがスローしたすべての例外を含む集計例外。</exception>
         <related type="Article" href="~/docs/standard/threading/cancellation-in-managed-threads.md">キャンセル</related>
         <related type="Article" href="~/docs/standard/parallel-programming/task-cancellation.md">タスクのキャンセル</related>
       </Docs>
@@ -335,25 +335,25 @@
       </Parameters>
       <Docs>
         <param name="throwOnFirstException">例外を直ちに伝達する場合は <see langword="true" /> 。それ以外の場合は <see langword="false" />。</param>
-        <summary>キャンセルの要求を伝え、例外が発生した場合に残りのコールバックとキャンセル可能な操作を続けるかどうかを指定します。</summary>
+        <summary>キャンセル要求を伝え、例外が発生した場合に残りのコールバックとキャンセル可能な操作を続けるかどうかを指定します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 関連付けられている<xref:System.Threading.CancellationToken>、キャンセルの通知し、状態に遷移を<xref:System.Threading.CancellationToken.IsCancellationRequested%2A>返します`true`します。  
+関連付けられてた<xref:System.Threading.CancellationToken>にキャンセルを通知し、<xref:System.Threading.CancellationToken.IsCancellationRequested%2A>がtrueを返す状態に遷移します。  
   
- 登録されているすべてのコールバックまたはキャンセル可能な操作、<xref:System.Threading.CancellationToken>が実行されます。 コールバックは、LIFO の順序で同期的に実行されます。 
+<xref:System.Threading.CancellationToken>に登録されてたすべてのコールバックおよびキャンセル可能な操作が実行されます。コールバックは後入れ先出しで同期的に実行されます。
+
+<xref:System.Threading.CancellationToken>に登録されるコールバックおよびキャンセル可能な操作では、例外をスローしないことが推奨されています。
   
- キャンセル可能な操作とコールバックに登録されていることをお勧めします。<xref:System.Threading.CancellationToken>例外をスローしません。 
-  
- 場合`throwOnFirstException`は`true`、例外が呼び出しから伝達されることがすぐに<xref:System.Threading.CancellationTokenSource.Cancel%2A>、残りのコールバックとキャンセル可能な操作の処理を回避します。  
-  
- 場合`throwOnFirstException`は`false`、このオーバー ロードにスローされた例外が集計されます、<xref:System.AggregateException>例外がスローされる 1 つのコールバックが実行されるその他の登録済みのコールバックを妨げませんようにします。  
-  
+`throwOnFirstException`が`true`の場合、例外は<xref:System.Threading.CancellationTokenSource.Cancel%2A>の呼び出し外へとすぐに伝達され、残りのコールバックとキャンセル可能な操作は処理されません。
+
+`throwOnFirstException`が`false`の場合、スローされた例外がすべて<xref:System.AggregateException>に集約されます。1つのコールバックで例外がスローされても、他のコールバックの実行が妨げられることはありません。
+
  ]]></format>
         </remarks>
         <exception cref="T:System.ObjectDisposedException">この <see cref="T:System.Threading.CancellationTokenSource" /> は破棄されています。</exception>
-        <exception cref="T:System.AggregateException">関連付けられた<see cref="T:System.Threading.CancellationToken" /> に関する登録されたコールバックによってスローされるすべての例外を含む集計例外。</exception>
+        <exception cref="T:System.AggregateException">関連付けられた<see cref="T:System.Threading.CancellationToken" /> に登録されたコールバックがスローしたすべての例外を含む集計例外。</exception>
         <related type="Article" href="~/docs/standard/threading/cancellation-in-managed-threads.md">キャンセル</related>
         <related type="Article" href="~/docs/standard/parallel-programming/task-cancellation.md">タスクのキャンセル</related>
       </Docs>
