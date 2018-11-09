@@ -1324,20 +1324,20 @@
       </Parameters>
       <Docs>
         <param name="obj">実行すべきではないファイナライザーを持つオブジェクト。</param>
-        <summary>指定したオブジェクトに対してファイナライザーを呼び出さないことを共通言語ランタイムに要求します。</summary>
+        <summary>指定したオブジェクトに対してファイナライザーを呼び出さないよう共通言語ランタイムに要求します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、ビットのオブジェクトのヘッダーを設定`obj`ファイナライザーを呼び出すときに、ランタイムがチェックされます。 によって表される、ファイナライザー、<xref:System.Object.Finalize%2A?displayProperty=nameWithType>オブジェクトがガベージ コレクト前に、アンマネージ リソースを解放するメソッドを使用します。 場合`obj`への呼び出し、ファイナライザーを持たない、<xref:System.GC.SuppressFinalize%2A>メソッドが影響を与えません。  
+このメソッドは、`obj`のオブジェクト ヘッダー内のビットを設定しています。このビットは、ファイナライザー呼び出しの際にチェックされます。<xref:System.Object.Finalize%2A?displayProperty=nameWithType> によって表されるファイナライザーは、オブジェクトがガベージ コレクションされる前に、アンマネージ リソースを解放します。`obj`がファイナライザーを持たない場合、<xref:System.GC.SuppressFinalize%2A>メソッドには何の効果もありません。
   
- 実装するオブジェクト、<xref:System.IDisposable>インターフェイスは、このメソッドを呼び出してから、オブジェクトの<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>を呼び出し、ガベージ コレクターを防ぐために実装<xref:System.Object.Finalize%2A?displayProperty=nameWithType>必要のないオブジェクトにします。 ファイナライザーがによって既に解放されているアンマネージ リソースを解放するを防ぐためにこれは、通常、<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>実装します。  
-  
-   
-  
+<xref:System.IDisposable>インターフェイスを実装するオブジェクトは、<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>メソッド内でこのメソッドを呼び出すことができます。そのようにして、ガベージ コレクターが不必要にな<xref:System.Object.Finalize%2A?displayProperty=nameWithType>を呼び出すことを避けられます。通常、これは、<xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>によってすでに解放されているアンマネージ リソースをファイナライザーが解放しようとするのを防ぐために実装されます。  
+
+
+
 ## Examples  
- 次の例では、使用する方法、<xref:System.GC.SuppressFinalize%2A>冗長ガベージ コレクションが呼び出されるようにリソース クラスのメソッド。 この例では、 [dispose パターン](~/docs/standard/design-guidelines/dispose-pattern.md)両方を解放するマネージ リソース (実装するには、オブジェクト<xref:System.IDisposable>) リソースとアンマネージ リソース。  
-  
+次の例では、冗長なガベージ コレクション呼び出しを防ぐため、リソース クラスにおいて<xref:System.GC.SuppressFinalize%2A>を使用する方法を示します。 [dispose パターン](~/docs/standard/design-guidelines/dispose-pattern.md)を用いて、マネージ リソース(<xref:System.IDisposable>を実装するオブジェクト)とアンマネージ リソースの両方を解放しています。
+
  [!code-csharp[System.GC.SuppressFinalize#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.gc.suppressfinalize/cs/suppressfinalize1.cs#1)]
  [!code-vb[System.GC.SuppressFinalize#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.gc.suppressfinalize/vb/suppressfinalize1.vb#1)]  
   
