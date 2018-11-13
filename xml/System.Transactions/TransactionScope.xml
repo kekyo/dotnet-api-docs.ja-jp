@@ -1,11 +1,11 @@
 <Type Name="TransactionScope" FullName="System.Transactions.TransactionScope">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="a82d108607f3f18ca21c7c9b6212a340a2a97bc3" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="45dd699021cf8a33b96b1b8974ed6335d84a9f52" />
+    <Meta Name="ms.sourcegitcommit" Value="610a413147ca5b230ff99a6df778612e165a6cdf" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48705990" />
+    <Meta Name="ms.lasthandoff" Value="11/10/2018" />
+    <Meta Name="ms.locfileid" Value="51506175" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class TransactionScope : IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit TransactionScope extends System.Object implements class System.IDisposable" />
@@ -758,11 +758,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドを呼び出して、トランザクション スコープの末尾をマークします。 場合、<xref:System.Transactions.TransactionScope>オブジェクトは、トランザクションを作成し、<xref:System.Transactions.TransactionScope.Complete%2A>スコープで呼び出された、<xref:System.Transactions.TransactionScope>オブジェクトはこのメソッドが呼び出されたときにトランザクションをコミットしようとしています。  
+ このメソッドを呼び出して、トランザクション スコープの末尾をマークします。 場合、<xref:System.Transactions.TransactionScope>オブジェクトは、トランザクションを作成し、<xref:System.Transactions.TransactionScope.Complete%2A>スコープで呼び出された、<xref:System.Transactions.TransactionScope>オブジェクトはこのメソッドが呼び出されたときにトランザクションをコミットしようとしています。 この場合、トランザクション処理の最初のフェーズまでこのメソッド ブロックが完了しました。 すべてのリソース マネージャーの後に最初のフェーズが終了し、トランザクションの参加リストがトランザクションの結果を報告しました、<xref:System.Transactions.TransactionManager>は永続的ことにコミットするか、トランザクションを中止しました。 2 番目のフェーズの処理は常に非同期です。 そのためから特定のトランザクション内でコミットされたばかりのデータはすぐに使用できる後でこのデータを表示する別のトランザクションを使用していないときに保証することはありません。  
   
  C# の使用`using`例外が発生した場合でもこのメソッドを呼び出すことにより、構築します。 このメソッドの呼び出し後に発生した例外は、トランザクションに影響しない場合があります。 このメソッドも、アンビエント トランザクションを元の状態を復元します。 A<xref:System.Transactions.TransactionAbortedException>トランザクションを実際にコミットしない場合にスローされます。  
   
- このメソッドは、同期トランザクションがコミットまたは中止するまでブロックします。 このため、Windows フォーム (WinForm) のアプリケーションでこのメソッドを使用する場合に非常に注意が必要またはデッドロックが発生することができます。 (たとえば、ボタンをクリックして)、1 つの WinForm コントロール イベント内では、このメソッドの呼び出しし、同期を使用して、<xref:System.Windows.Forms.Control.Invoke%2A>トランザクションの処理の途中でいくつかの UI タスク (たとえば、変化する色) を実行するコントロールに出力するためのメソッド、デッドロックは発生します。 これは、ため、<xref:System.Windows.Forms.Control.Invoke%2A>メソッドは同期であり、UI スレッドがそのジョブが完了するまでにワーカー スレッドをブロックします。 ただし、ここでは、UI スレッド側も、ワーカー スレッドがトランザクションをコミットするまで待機しようとします。 結果は、スコープがコミットが完了するは無期限に待機を none は続行できません。 使用する必要があります<xref:System.Windows.Forms.Control.BeginInvoke%2A>なく<xref:System.Windows.Forms.Control.Invoke%2A>可能な限り、非同期およびそのため、デッドロックに陥りやすい未満であるためです。  
+ トランザクション処理の最初のフェーズが完了するまで、細心の注意する必要があります (WinForm) の Windows フォーム アプリケーションでは、またはデッドロックでこのメソッドを使用する場合、このメソッドはブロックが発生することができます。 (たとえば、ボタンをクリックして)、1 つの WinForm コントロール イベント内では、このメソッドの呼び出しし、同期を使用して、<xref:System.Windows.Forms.Control.Invoke%2A>トランザクションの処理の途中でいくつかの UI タスク (たとえば、変化する色) を実行するコントロールに出力するためのメソッド、デッドロックは発生します。 これは、ため、<xref:System.Windows.Forms.Control.Invoke%2A>メソッドは同期であり、UI スレッドがそのジョブが完了するまでにワーカー スレッドをブロックします。 ただし、ここでは、UI スレッド側も、ワーカー スレッドがトランザクションをコミットするまで待機しようとします。 結果は、スコープがコミットが完了するは無期限に待機を none は続行できません。 使用する必要があります<xref:System.Windows.Forms.Control.BeginInvoke%2A>なく<xref:System.Windows.Forms.Control.Invoke%2A>可能な限り、非同期およびそのため、デッドロックに陥りやすい未満であるためです。  
   
  このメソッドを使用する方法の詳細については、次を参照してください。、[実装 An Implicit Transaction Using Transaction Scope](~/docs/framework/data/transactions/implementing-an-implicit-transaction-using-transaction-scope.md)トピック。  
   
