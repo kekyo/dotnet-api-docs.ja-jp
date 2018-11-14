@@ -1,11 +1,11 @@
 <Type Name="BinaryFormatter" FullName="System.Runtime.Serialization.Formatters.Binary.BinaryFormatter">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="3d3f18c3be90584fc6fefb3d92e79dfac68da8f4" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="4f66f7862b6b883ed332228a0af53a2514289c8b" />
+    <Meta Name="ms.sourcegitcommit" Value="723b8a6d92667ba86fcda96190bad3b4a03283b3" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48671093" />
+    <Meta Name="ms.lasthandoff" Value="11/09/2018" />
+    <Meta Name="ms.locfileid" Value="51312738" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class BinaryFormatter : System.Runtime.Remoting.Messaging.IRemotingFormatter" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit BinaryFormatter extends System.Object implements class System.Runtime.Remoting.Messaging.IRemotingFormatter, class System.Runtime.Serialization.IFormatter" />
@@ -36,6 +36,9 @@
     <Interface>
       <InterfaceName>System.Runtime.Remoting.Messaging.IRemotingFormatter</InterfaceName>
     </Interface>
+    <Interface>
+      <InterfaceName>System.Runtime.Serialization.IFormatter</InterfaceName>
+    </Interface>
   </Interfaces>
   <Attributes>
     <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
@@ -59,7 +62,7 @@
  メソッドの応答をシリアル化の手順は、メソッド呼び出しの場合と同じ、オブジェクトの最初のオブジェクトを除くグラフをサポートする必要があります、<xref:System.Runtime.Remoting.Messaging.IMethodReturnMessage>インターフェイス。 メソッドの応答を逆シリアル化を使用して、<xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse%2A>メソッド。 時間を節約するには、呼び出し元のオブジェクトに関する詳細情報は送信されませんリモート オブジェクトに対するメソッド呼び出し時に。 これらの詳細は、代わりに渡される元のメソッド呼び出しから取得、<xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse%2A>メソッドで、<xref:System.Runtime.Remoting.Messaging.IMethodCallMessage>パラメーター。 によって返されるグラフの最初のオブジェクト、<xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse%2A>メソッドのサポート、<xref:System.Runtime.Remoting.Messaging.IMethodReturnMessage>インターフェイス。  
   
 > [!IMPORTANT]
->  バイナリ シリアル化を使用して信頼できないデータを逆シリアル化すると、セキュリティ リスクにつながります。 詳細については、次を参照してください。[データ検証](https://www.owasp.org/index.php/Data_Validation)です。  
+>  バイナリ シリアル化を使用して信頼できないデータを逆シリアル化すると、セキュリティ リスクにつながります。 詳しくは、「[Data Validation](https://www.owasp.org/index.php/Data_Validation)」(データの入力規則) を参照してください。  
   
 ## <a name="unpaired-surrogates"></a>対になっていないサロゲート  
  対になっていないサロゲート文字は、バイナリ シリアル化時に失われます。 たとえば、次の文字列が上位サロゲート Unicode 文字を含む`(\ud800`)、2 つの間`Test`単語。  
@@ -193,7 +196,7 @@
         <Parameter Name="context" Type="System.Runtime.Serialization.StreamingContext" />
       </Parameters>
       <Docs>
-        <param name="selector">使用する <see cref="T:System.Runtime.Serialization.ISurrogateSelector" />。 <see langword="null" /> の場合があります。</param>
+        <param name="selector">使用する <see cref="T:System.Runtime.Serialization.ISurrogateSelector" />。 <see langword="null" /> の可能性があります。</param>
         <param name="context">シリアル化されたデータの転送元と転送先。</param>
         <summary>サロゲート セレクターおよびストリーム コンテキストを指定して、<see cref="T:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter" /> クラスの新しいインスタンスを初期化します。</summary>
         <remarks>
@@ -458,7 +461,7 @@
       <Docs>
         <param name="serializationStream">オブジェクト グラフを逆シリアル化する元となるストリーム。</param>
         <param name="handler">
-          <c>serializationStream</c> 内のすべてのヘッダーを処理する <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />。 <see langword="null" /> の場合があります。</param>
+          <c>serializationStream</c> 内のすべてのヘッダーを処理する <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />。 <see langword="null" /> の可能性があります。</param>
         <summary>指定したストリームをオブジェクト グラフに逆シリアル化します。 そのストリーム内にヘッダーがある場合は、指定した <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" /> がそのヘッダーを処理します。</summary>
         <returns>逆シリアル化されたオブジェクトまたはオブジェクト グラフの先頭 (ルート) オブジェクト。</returns>
         <remarks>
@@ -521,7 +524,7 @@
       <Docs>
         <param name="serializationStream">オブジェクト グラフを逆シリアル化する元となるストリーム。</param>
         <param name="handler">
-          <c>serializationStream</c> 内のすべてのヘッダーを処理する <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />。 <see langword="null" /> の場合があります。</param>
+          <c>serializationStream</c> 内のすべてのヘッダーを処理する <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />。 <see langword="null" /> の可能性があります。</param>
         <param name="methodCallMessage">呼び出し元に関する詳細情報を格納している <see cref="T:System.Runtime.Remoting.Messaging.IMethodCallMessage" />。</param>
         <summary>指定した <see cref="T:System.IO.Stream" /> から、リモート メソッド呼び出しへの応答を逆シリアル化します。</summary>
         <returns>逆シリアル化された、リモート メソッド呼び出しへの応答。</returns>
@@ -703,7 +706,7 @@
       <Docs>
         <param name="serializationStream">オブジェクトをシリアル化する先のストリーム。</param>
         <param name="graph">シリアル化するグラフのルートにあるオブジェクト。</param>
-        <param name="headers">シリアル化されたデータに含めるリモート処理ヘッダー。 <see langword="null" /> の場合があります。</param>
+        <param name="headers">シリアル化されたデータに含めるリモート処理ヘッダー。 <see langword="null" /> の可能性があります。</param>
         <summary>オブジェクト、または先頭 (ルート) を指定したオブジェクト グラフを、指定したヘッダーを結び付けて、指定したストリームにシリアル化します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -839,7 +842,7 @@
       <Docs>
         <param name="serializationStream">オブジェクト グラフを逆シリアル化する元となるストリーム。</param>
         <param name="handler">
-          <c>serializationStream</c> 内のすべてのヘッダーを処理する <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />。 <see langword="null" /> の場合があります。</param>
+          <c>serializationStream</c> 内のすべてのヘッダーを処理する <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />。 <see langword="null" /> の可能性があります。</param>
         <summary>指定したストリームをオブジェクト グラフに逆シリアル化します。 そのストリーム内にヘッダーがある場合は、指定した <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" /> がそのヘッダーを処理します。</summary>
         <returns>逆シリアル化されたオブジェクトまたはオブジェクト グラフの先頭 (ルート) オブジェクト。</returns>
         <remarks>
@@ -904,7 +907,7 @@
       <Docs>
         <param name="serializationStream">オブジェクト グラフを逆シリアル化する元となるストリーム。</param>
         <param name="handler">
-          <c>serializationStream</c> 内のすべてのヘッダーを処理する <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />。 <see langword="null" /> の場合があります。</param>
+          <c>serializationStream</c> 内のすべてのヘッダーを処理する <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />。 <see langword="null" /> の可能性があります。</param>
         <param name="methodCallMessage">呼び出し元に関する詳細情報を格納している <see cref="T:System.Runtime.Remoting.Messaging.IMethodCallMessage" />。</param>
         <summary>指定した <see cref="T:System.IO.Stream" /> から、リモート メソッド呼び出しへの応答を逆シリアル化します。</summary>
         <returns>逆シリアル化された、リモート メソッド呼び出しへの応答。</returns>

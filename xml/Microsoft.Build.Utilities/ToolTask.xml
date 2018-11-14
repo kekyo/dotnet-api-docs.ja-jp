@@ -1,11 +1,11 @@
 <Type Name="ToolTask" FullName="Microsoft.Build.Utilities.ToolTask">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="33f36b3fd7b88547fbf2d436637320109ef7ec23" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="57c54120a16bf1466b84eaa1dd29666f08c6c05e" />
+    <Meta Name="ms.sourcegitcommit" Value="723b8a6d92667ba86fcda96190bad3b4a03283b3" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48771427" />
+    <Meta Name="ms.lasthandoff" Value="11/09/2018" />
+    <Meta Name="ms.locfileid" Value="51312459" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class ToolTask : Microsoft.Build.Utilities.Task, Microsoft.Build.Framework.ICancelableTask" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit ToolTask extends Microsoft.Build.Utilities.Task implements class Microsoft.Build.Framework.ICancelableTask, class Microsoft.Build.Framework.ITask" />
@@ -31,6 +31,9 @@
   <Interfaces>
     <Interface>
       <InterfaceName>Microsoft.Build.Framework.ICancelableTask</InterfaceName>
+    </Interface>
+    <Interface>
+      <InterfaceName>Microsoft.Build.Framework.ITask</InterfaceName>
     </Interface>
   </Interfaces>
   <Docs>
@@ -146,7 +149,7 @@
       <Docs>
         <param name="taskResources">タスク リソースの <see cref="T:System.Resources.ResourceManager" />。</param>
         <param name="helpKeywordPrefix">タスクによって生成されたメッセージに使用するヘルプ キーワード。</param>
-        <summary>指定した <see cref="T:Microsoft.Build.Utilities.ToolTask" /> およびヘルプ キーワード プレフィックスを使用して、<see cref="T:System.Resources.ResourceManager" /> クラスの新しいインスタンスを初期化します。</summary>
+        <summary>指定された <see cref="T:System.Resources.ResourceManager" /> とヘルプ キーワード プレフィックスを使用して、<see cref="T:Microsoft.Build.Utilities.ToolTask" /> クラスの新しいインスタンスを初期化します。</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -331,16 +334,16 @@ using System.Collections.Specialized;
 /// </summary>  
 abstract class CustomToolTask : ToolTask  
 {  
-      protected override StringDictionary EnvironmentOverride  
-      {  
-            get  
-            {  
-                  string newPath = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Process) + @";C:\MyDirectory";  
-                  StringDictionary result = new StringDictionary();  
-                  result.Add("Path", newPath);  
-                  return result;  
-            }  
-      }  
+      protected override StringDictionary EnvironmentOverride  
+      {  
+            get  
+            {  
+                  string newPath = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Process) + @";C:\MyDirectory";  
+                  StringDictionary result = new StringDictionary();  
+                  result.Add("Path", newPath);  
+                  return result;  
+            }  
+      }  
 }  
   
 ```  
@@ -753,7 +756,7 @@ abstract class CustomToolTask : ToolTask
       <Parameters />
       <Docs>
         <summary>実行可能ファイルで発生した実行エラーを処理します。</summary>
-        <returns>メソッドが正常に実行された場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <returns>メソッドが正常に実行された場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -849,7 +852,7 @@ abstract class CustomToolTask : ToolTask
       </Parameters>
       <Docs>
         <param name="singleLine">このメソッドが解析する単一のテキスト形式。</param>
-        <param name="messageImportance">メッセージを記録するときに設定する、重要度レベルを示す <see cref="T:Microsoft.Build.Framework.MessageImportance" /> の値。</param>
+        <param name="messageImportance">メッセージをログに記録するときに使用する重要度レベルを示す <see cref="T:Microsoft.Build.Framework.MessageImportance" /> の値。</param>
         <summary>単一のテキスト行を解析し、標準形式のエラーまたは警告を識別します。</summary>
         <remarks>To be added.</remarks>
       </Docs>
@@ -1036,7 +1039,7 @@ abstract class CustomToolTask : ToolTask
       <Parameters />
       <Docs>
         <summary>タスクの実行をスキップする必要があるかどうかを示します。</summary>
-        <returns>タスクの実行をスキップする場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <returns>タスクの実行をスキップする場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1166,8 +1169,8 @@ abstract class CustomToolTask : ToolTask
         <ReturnType>Microsoft.Build.Framework.MessageImportance</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>エラーを記録するために使用する <see cref="T:Microsoft.Build.Framework.MessageImportance" /> を取得します。</summary>
-        <value>エラーを記録するために使用する <see cref="T:Microsoft.Build.Framework.MessageImportance" />。</value>
+        <summary>エラーをログに記録する <see cref="T:Microsoft.Build.Framework.MessageImportance" /> を取得します。</summary>
+        <value>エラーをログに記録する <see cref="T:Microsoft.Build.Framework.MessageImportance" />。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -1290,8 +1293,8 @@ abstract class CustomToolTask : ToolTask
         <ReturnType>Microsoft.Build.Framework.MessageImportance</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>エラーを記録するために使用する <see cref="T:Microsoft.Build.Framework.MessageImportance" /> を取得します。</summary>
-        <value>エラーを記録するために使用する <see cref="T:Microsoft.Build.Framework.MessageImportance" />。</value>
+        <summary>エラーをログに記録する <see cref="T:Microsoft.Build.Framework.MessageImportance" /> を取得します。</summary>
+        <value>エラーをログに記録する <see cref="T:Microsoft.Build.Framework.MessageImportance" />。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -1548,7 +1551,7 @@ abstract class CustomToolTask : ToolTask
       <Parameters />
       <Docs>
         <summary>すべてのタスク パラメーターが有効かどうかを示します。</summary>
-        <returns>すべてのタスク パラメーターが有効な場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <returns>すべてのタスク パラメーターが有効な場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

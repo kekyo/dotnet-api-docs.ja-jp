@@ -1,11 +1,11 @@
 <Type Name="Span&lt;T&gt;" FullName="System.Span&lt;T&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ed04128e65524eee587eec2d84c3879e4073a91a" />
-    <Meta Name="ms.sourcegitcommit" Value="9dda17222b9f7d3edf130133bfb1370d5b410a4b" />
+    <Meta Name="ms.openlocfilehash" Value="882e05e21dfecfb02fbc683ac8abfa9b1e46c5c7" />
+    <Meta Name="ms.sourcegitcommit" Value="723b8a6d92667ba86fcda96190bad3b4a03283b3" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="09/22/2018" />
-    <Meta Name="ms.locfileid" Value="46641001" />
+    <Meta Name="ms.lasthandoff" Value="11/09/2018" />
+    <Meta Name="ms.locfileid" Value="51310912" />
   </Metadata>
   <TypeSignature Language="C#" Value="public struct Span&lt;T&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit Span`1&lt;T&gt; extends System.ValueType" />
@@ -42,9 +42,51 @@
     <remarks>
       <format type="text/markdown"><![CDATA[  
 
-`Span<T>` [ref 構造体](~/docs/csharp/reference-semantics-with-value-types.md#ref-struct-type)マネージ ヒープではなく、スタックに割り当てることができます。 Ref 構造体の型がいくつかのボックス化できない、型の変数に割り当てられないことなど、マネージ ヒープに昇格することはできませんを確実に制限がある<xref:System.Object>、 `dynamic`、および任意のインターフェイス型にします。
+`Span<T>` [ref 構造体](~/docs/csharp/reference-semantics-with-value-types.md#ref-struct-type)マネージ ヒープではなく、スタックに割り当てることができます。 Ref 構造体の型がいくつかのボックス化できないことは、型の変数に割り当てられないなど、マネージ ヒープに昇格することはできませんを確実に制限がある<xref:System.Object>、`dynamic`フィールドに任意のインターフェイス型にすることはできないことも、参照型とする間は使用できません`await`と`yield`境界。 さらに、2 つのメソッドを呼び出す<xref:System.Span%601.Equals(System.Object)>と<xref:System.Span%601.GetHashCode%2A>、スロー、<xref:System.NotSupportedException>します。 
 
-A`Span<T>`インスタンスは、配列の要素または配列の一部を保持するためによく使用されます。 ただし、配列とは異なり、`Span<T>`インスタンスは、ネイティブ メモリ、マネージ メモリを指すことができますか、上のメモリ管理スタック。
+> [!IMPORTANT]
+> Stack 専用の種類が`Span<T>`バッファーへの参照を格納する、ヒープを必要とする多くのシナリオには適していません。 これは、true の場合、たとえば、asynchrous メソッドを呼び出すルーチンの。 このような scenarious を使用できます、無償<xref:System.Memory%601?displayProperty=nameWithType>と<xref:System.ReadOnlyMemory%601?displayProperty=nameWithType>型。
+
+変更できない、または読み取り専用の構造を表す範囲、使用<xref:System.ReadOnlySpan%601?displayProperty=nameWithType>します。
+
+## <a name="spant-and-memory"></a>スパン\<T > とメモリ
+
+A`Span<T>`任意のメモリの連続した領域を表します。 A`Span<T>`インスタンスは、配列の要素または配列の一部を保持するためによく使用されます。 ただし、配列とは異なり、`Span<T>`インスタンスは、ネイティブ メモリ、マネージ メモリを指すことができますか、上のメモリ管理スタック。 次の例では、作成、`Span<Byte>`配列から。
+
+[!code-csharp[Creating a Span\<Byte> from an array](~/samples/snippets/csharp/api/system/span/program.cs#1)]
+     
+次の例では、作成、`Span<Byte>`ネイティブ メモリの 100 バイトから。
+
+[!code-csharp[Creating a Span\<Byte> from native memory](~/samples/snippets/csharp/api/system/span/program.cs#2)]
+
+次の例では、 C# [stackalloc](~/docs/csharp/language-reference/keywords/stackalloc.md) 100 バイトのスタックにメモリを割り当てるキーワード。
+
+[!code-csharp[Creating a Span\<Byte> from stack-allocated memory](~/samples/snippets/csharp/api/system/span/program.cs#3)]
+
+`Span<T>`抽象化は、メモリのメソッドの任意のブロックの上、`Span<T>`クラスとメソッドを`Span<T>`パラメーターは、いずれかで動作`Span<T>`をカプセル化するメモリの種類に関係なくオブジェクト。 たとえば、次のスパンを初期化して、その要素の合計は、次の例としてを単一の初期化と計算の方法に変更できるを計算するコードの個別のセクションの各を示します。
+
+[!code-csharp[Creating a Span\<Byte> from stack-allocated memory](~/samples/snippets/csharp/api/system/span/program.cs#4)]
+
+## <a name="spant-and-arrays"></a>スパン\<T > と配列
+
+配列をラップして場合、`Span<T>`と同じ例では、配列全体をラップすることができます、[スパン\<T > とメモリ](#spant-and-memory)セクション。 スライスをサポートするため、`Span<T>`配列内の任意の連続する範囲を指すこともできます。  
+
+次の例では、10 要素の整数の配列の 5 つの中間要素のスライスを作成します。 コードにスライス内の各整数の値が 2 倍にことに注意してください。 出力をスパンで加えられた変更は、配列の値に反映されます。
+
+[!code-csharp[Creating a slice from a portion of a span](~/samples/snippets/csharp/api/system/span/slice/program.cs)]
+
+## <a name="spant-and-slices"></a>スパン\<T > とスライス
+
+`Span\<T>` 2 つのオーバー ロードが含まれています、<xref:System.Span%601.Slice%2A>指定したインデックスから始まりの現在の範囲外のスライスを形成するメソッド。 内のデータを処理できるようになります、`Span\<T>`一連のパフォーマンスにほとんど影響とデータ処理パイプラインの一部の必要に応じて処理できる論理的なまとまりとして。 たとえば、最新のサーバー プロトコルは多くの場合、テキスト ベースであるため文字列と部分文字列の操作は特に重要です。 <xref:System.String>クラスの場合は、部分文字列の抽出が主要なメソッド<xref:System.String.Substring%2A>します。 広範な文字列操作に依存するデータ パイプラインの用途はため、いくつかのパフォーマンスの低下を提供します。
+
+1. 部分文字列を保持するために新しい文字列を作成します。
+
+2. 元の文字列から文字のサブセットを新しい文字列にコピーします。
+
+この割り当てとコピー操作は、いずれかを使用して削除できる`Span\<T>`または<xref:System.ReadOnlySpan%601>次の例に示すように。
+
+[!code-csharp[Creating a slice from a substring](~/samples/snippets/csharp/api/system/span/slice2/program.cs)]
+
 
       ]]></format>
     </remarks>

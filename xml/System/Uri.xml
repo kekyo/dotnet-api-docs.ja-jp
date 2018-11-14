@@ -1,11 +1,11 @@
 <Type Name="Uri" FullName="System.Uri">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="bc748165070ca7c2fc35cc5a3d821923907161f7" />
-    <Meta Name="ms.sourcegitcommit" Value="41742a1055cefdeaf2f9d76364f4bad3c9f83126" />
+    <Meta Name="ms.openlocfilehash" Value="6a2e8da0423adb69adab3d2953a45d27b12eeb0c" />
+    <Meta Name="ms.sourcegitcommit" Value="dc6ea82452beeb642259a38f3c2fad756ebd3d9f" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="10/16/2018" />
-    <Meta Name="ms.locfileid" Value="48689800" />
+    <Meta Name="ms.lasthandoff" Value="11/07/2018" />
+    <Meta Name="ms.locfileid" Value="51264568" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Uri : System.Runtime.Serialization.ISerializable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit Uri extends System.Object implements class System.Runtime.Serialization.ISerializable" />
@@ -71,7 +71,9 @@
 -   ホスト名が IPv6 アドレスの場合は、標準の IPv6 アドレスが使用されます。 < その他の省略可能な IPv6 データが削除されます。  
   
 -   既定値と空のポート番号を削除します。
-
+  
+-   File:// スキーム (たとえば、"C:\my\file") なしの暗黙的なファイル パスを file:// スキームで明示的なファイル パスに変換します。
+  
 -   予約済みの目的を持たないエスケープ文字 (パーセントでエンコードされたオクテットとも呼ばれます) をデコードするには、(とも呼ばれるエスケープを解除) します。 これらの予約されていない文字が大文字が含まれて、英小文字 (% 41 %5a および % 61 %7a)、10 進数字 (30 ~ %39)、ハイフン (%2d)、期間 (%2e)、アンダー スコア (%5 f) およびチルダ (7 e %)。
 
 -   圧縮のシーケンスで階層構造の uri のパスをなど正規化/./、/./、および//(シーケンスをエスケープするかどうか)。 現在これらのシーケンスが圧縮されませんが、一部のスキームがあることに注意してください。
@@ -168,6 +170,14 @@ http://myUrl/
  IRI と IDN をサポートするカスタマイズ可能なパーサーを作成できるように、<xref:System.GenericUriParser?displayProperty=nameWithType> クラスも拡張されています。 <xref:System.GenericUriParser?displayProperty=nameWithType> オブジェクトの動作は、<xref:System.GenericUriParserOptions?displayProperty=nameWithType> 列挙型で使用可能な値のビットごとの組み合わせを <xref:System.GenericUriParser?displayProperty=nameWithType> コンストラクターに渡すことによって指定されます。 <xref:System.GenericUriParserOptions.IriParsing?displayProperty=nameWithType> 型は、パーサーが International Resource Identifiers (IRI) の RFC 3987 で規定された解析規則をサポートしていることを示します。 IRI が使用されるかどうかは、既に説明した構成値によって決まります。  
   
  <xref:System.GenericUriParserOptions.Idn?displayProperty=nameWithType> 型は、パーサーがホスト名の国際化ドメイン名 (IDN) の解析をサポートしていることを示します。 IDN が使用されるかどうかは、既に説明した構成値によって決まります。  
+  
+## <a name="implicit-file-path-support"></a>暗黙的なファイル パスのサポート
+ <xref:System.Uri> ローカル ファイル システム パスを表すためにも使用できます。 これらのパスを表すことが*明示的に*file:// スキームで始まる Uri と*暗黙的に*file:// スキームのない Uri にします。 具体的な例としては、次の 2 つの Uri はどちらも有効ですと同じファイル パスを表します。
+```csharp
+Uri uri1 = new Uri("C:/test/path/file.txt") // Implicit file path.
+Uri uri2 = new Uri("file:///C:/test/path/file.txt") // Explicit file path.
+```
+ これらの暗黙的なファイル パスは、URI の仕様に準拠していないし、ので避ける必要があります可能な場合。 暗黙的なファイルの絶対パスであるために暗黙的なファイルのパスを特に問題となることがあるを Unix ベースのシステムで .NET Core を使用する場合*わりなく*の相対パスから。 このようなあいまいさが存在するときに<xref:System.Uri>の既定値は絶対 URI としてパスを解釈します。
   
 ## <a name="performance-considerations"></a>パフォーマンスに関する考慮事項  
  *Web.config を使用している場合 * それぞれのスキーム識別子が標準でない場合、Uri を処理する、アプリケーション、その他の時間を初期化するために Uri を含むファイルが必要です。 このような場合は、開始時刻ではなく、Uri が必要なときに、アプリケーションの影響を受ける部分を初期化します。  
