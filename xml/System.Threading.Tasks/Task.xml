@@ -1,11 +1,11 @@
 <Type Name="Task" FullName="System.Threading.Tasks.Task">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="6cfe53b143f6f0c764bd7f748baf43b43b40f26e" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="c16340e471c95a0473b0f16f55090f971e888200" />
+    <Meta Name="ms.sourcegitcommit" Value="723b8a6d92667ba86fcda96190bad3b4a03283b3" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48668170" />
+    <Meta Name="ms.lasthandoff" Value="11/09/2018" />
+    <Meta Name="ms.locfileid" Value="51308312" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Task : IAsyncResult, IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Task extends System.Object implements class System.IAsyncResult, class System.IDisposable" />
@@ -121,7 +121,7 @@
  [!code-csharp[System.Threading.Tasks.Task#9](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task/cs/Wait2.cs#9)]
  [!code-vb[System.Threading.Tasks.Task#9](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task/vb/Wait2.vb#9)]  
   
- 呼び出して、キャンセル トークンを指定することも、<xref:System.Threading.Tasks.Task.Wait%28System.Threading.CancellationToken%29>と<xref:System.Threading.Tasks.Task.Wait%28System.Int32%2CSystem.Threading.CancellationToken%29>メソッド。 場合、トークンの<xref:System.Threading.CancellationToken.IsCancellationRequested%2A>プロパティは`true`、待機がキャンセル中に true になる場合、<xref:System.Threading.Tasks.Task.Wait%2A>メソッドを終了します。  
+ 呼び出して、キャンセル トークンを指定することも、<xref:System.Threading.Tasks.Task.Wait%28System.Threading.CancellationToken%29>と<xref:System.Threading.Tasks.Task.Wait%28System.Int32%2CSystem.Threading.CancellationToken%29>メソッド。 場合、トークンの<xref:System.Threading.CancellationToken.IsCancellationRequested%2A>プロパティは`true`なったり`true`中に、<xref:System.Threading.Tasks.Task.Wait%2A>メソッドを実行して、メソッドはスロー、<xref:System.OperationCanceledException>します。  
   
  場合によっては、待機することがあります、タスクが注意が完了するがない、一連のタスクを実行して、最初の。  この目的で、いずれかのオーバー ロードを呼び出すことができます、<xref:System.Threading.Tasks.Task.WaitAll%2A?displayProperty=nameWithType>メソッド。  次の例では、乱数ジェネレーターで間隔を決定のそれぞれのスリープ状態になり、3 つのタスクを作成します。 <xref:System.Threading.Tasks.Task.WaitAny%28System.Threading.Tasks.Task%5B%5D%29>メソッドは最初のタスクが完了するまで待機します。 3 つのタスクの状態に関する情報を表示します。  
   
@@ -2135,7 +2135,7 @@ End Sub
       </Parameters>
       <Docs>
         <param name="millisecondsDelay">戻されるタスクが完了するまでに待機するミリ秒数。無期限に待機する場合は -1。</param>
-        <summary>遅延後に完了するタスクを作成します。</summary>
+        <summary>指定したミリ秒後に完了するタスクを作成します。</summary>
         <returns>遅延を表すタスク。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -2270,8 +2270,8 @@ End Sub
       </Parameters>
       <Docs>
         <param name="millisecondsDelay">戻されるタスクが完了するまでに待機するミリ秒数。無期限に待機する場合は -1。</param>
-        <param name="cancellationToken">戻されるタスクが完了する前にチェックされるキャンセル トークン。</param>
-        <summary>遅延後に完了するキャンセル可能タスクを作成します。</summary>
+        <param name="cancellationToken">タスクの完了の待機中に観察するキャンセル トークン。</param>
+        <summary>指定したミリ秒後に完了するキャンセル可能なタスクを作成します。</summary>
         <returns>遅延を表すタスク。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -2334,7 +2334,7 @@ End Sub
       </Parameters>
       <Docs>
         <param name="delay">戻されるタスクが完了するまでに待機する時間。無期限に待機する場合は <see langword="TimeSpan.FromMilliseconds(-1)" />。</param>
-        <param name="cancellationToken">戻されるタスクが完了する前にチェックされるキャンセル トークン。</param>
+        <param name="cancellationToken">タスクの完了の待機中に観察するキャンセル トークン。</param>
         <summary>指定の時間間隔後に完了するキャンセル可能タスクを作成します。</summary>
         <returns>遅延を表すタスク。</returns>
         <remarks>
@@ -2350,7 +2350,7 @@ End Sub
    
   
 ## Examples  
- 次の例への呼び出しが含まれるタスクの起動、<xref:System.Threading.Tasks.Task.Delay%28System.TimeSpan%2CSystem.Threading.CancellationToken%29>メソッドを 1 つと、半 2 秒の遅延。 待機時間の間隔が経過する前に、トークンが取り消されました。 出力の例で示すは、その結果、<xref:System.Threading.Tasks.TaskCanceledException>スローされると、タスクの<xref:System.Threading.Tasks.Task.Status%2A>プロパティに設定されて<xref:System.Threading.Tasks.TaskStatus.Canceled>。  
+ 次の例への呼び出しが含まれるタスクの起動、 <xref:System.Threading.Tasks.Task.Delay%28System.TimeSpan%2CSystem.Threading.CancellationToken%29> 1.5 秒の遅延を持つメソッド。 待機時間の間隔が経過する前に、トークンが取り消されました。 出力の例で示すは、その結果、<xref:System.Threading.Tasks.TaskCanceledException>スローされると、タスクの<xref:System.Threading.Tasks.Task.Status%2A>プロパティに設定されて<xref:System.Threading.Tasks.TaskStatus.Canceled>。  
   
  [!code-csharp[System.Threading.Tasks.Task.Delay#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task.delay/cs/delay4.cs#4)]
  [!code-vb[System.Threading.Tasks.Task.Delay#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task.delay/vb/delay4.vb#4)]  
@@ -3663,7 +3663,7 @@ Task t Status: RanToCompletion, Result: 42
         <AssemblyVersion>4.0.10.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>現在の <see cref="T:System.Threading.Tasks.Task" /> で <see cref="T:System.Threading.Tasks.TaskScheduler" /> を同期的に実行します。</summary>
+        <summary>現在の <see cref="T:System.Threading.Tasks.TaskScheduler" /> で <see cref="T:System.Threading.Tasks.Task" /> を同期的に実行します。</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="RunSynchronously">
@@ -3698,7 +3698,7 @@ Task t Status: RanToCompletion, Result: 42
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>現在の <see cref="T:System.Threading.Tasks.Task" /> で <see cref="T:System.Threading.Tasks.TaskScheduler" /> を同期的に実行します。</summary>
+        <summary>現在の <see cref="T:System.Threading.Tasks.TaskScheduler" /> で <see cref="T:System.Threading.Tasks.Task" /> を同期的に実行します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -4525,7 +4525,7 @@ Task t Status: RanToCompletion, Result: 42
           <paramref name="tasks" /> の <see cref="T:System.Threading.Tasks.Task" /> オブジェクトが 1 つ以上破棄されています。</exception>
         <exception cref="T:System.ArgumentNullException">
           <paramref name="tasks" /> 引数が <see langword="null" /> です。</exception>
-        <exception cref="T:System.AggregateException">少なくとも 1 つ以上の <see cref="T:System.Threading.Tasks.Task" /> インスタンスが取り消されました。 タスクが取り消された場合、<see cref="T:System.AggregateException" /> の <see cref="T:System.OperationCanceledException" /> コレクションには <see cref="P:System.AggregateException.InnerExceptions" /> が含まれます。  
+        <exception cref="T:System.AggregateException">少なくとも 1 つ以上の <see cref="T:System.Threading.Tasks.Task" /> インスタンスが取り消されました。 タスクが取り消された場合は、<see cref="T:System.AggregateException" /> の <see cref="P:System.AggregateException.InnerExceptions" /> コレクションに <see cref="T:System.OperationCanceledException" /> が格納されます  
   
 - または - 
 少なくとも 1 つの <see cref="T:System.Threading.Tasks.Task" /> インスタンスの実行時に、例外がスローされました。</exception>
@@ -4587,7 +4587,7 @@ Task t Status: RanToCompletion, Result: 42
           <paramref name="cancellationToken" /> は取り消されました。</exception>
         <exception cref="T:System.ArgumentNullException">
           <paramref name="tasks" /> 引数が <see langword="null" /> です。</exception>
-        <exception cref="T:System.AggregateException">少なくとも 1 つ以上の <see cref="T:System.Threading.Tasks.Task" /> インスタンスが取り消されました。 タスクが取り消された場合、<see cref="T:System.AggregateException" /> の <see cref="T:System.OperationCanceledException" /> コレクションには <see cref="P:System.AggregateException.InnerExceptions" /> が含まれます。  
+        <exception cref="T:System.AggregateException">少なくとも 1 つ以上の <see cref="T:System.Threading.Tasks.Task" /> インスタンスが取り消されました。 タスクが取り消された場合は、<see cref="T:System.AggregateException" /> の <see cref="P:System.AggregateException.InnerExceptions" /> コレクションに <see cref="T:System.OperationCanceledException" /> が格納されます  
   
 - または - 
 少なくとも 1 つの <see cref="T:System.Threading.Tasks.Task" /> インスタンスの実行時に、例外がスローされました。</exception>
@@ -4644,7 +4644,7 @@ Task t Status: RanToCompletion, Result: 42
           <paramref name="tasks" /> の <see cref="T:System.Threading.Tasks.Task" /> オブジェクトが 1 つ以上破棄されています。</exception>
         <exception cref="T:System.ArgumentNullException">
           <paramref name="tasks" /> 引数が <see langword="null" /> です。</exception>
-        <exception cref="T:System.AggregateException">少なくとも 1 つ以上の <see cref="T:System.Threading.Tasks.Task" /> インスタンスが取り消されました。 タスクが取り消された場合、<see cref="T:System.AggregateException" /> の <see cref="T:System.OperationCanceledException" /> コレクションには <see cref="P:System.AggregateException.InnerExceptions" /> が含まれます。  
+        <exception cref="T:System.AggregateException">少なくとも 1 つ以上の <see cref="T:System.Threading.Tasks.Task" /> インスタンスが取り消されました。 タスクが取り消された場合は、<see cref="T:System.AggregateException" /> の <see cref="P:System.AggregateException.InnerExceptions" /> コレクションに <see cref="T:System.OperationCanceledException" /> が格納されます  
   
 - または - 
 少なくとも 1 つの <see cref="T:System.Threading.Tasks.Task" /> インスタンスの実行時に、例外がスローされました。</exception>
@@ -4711,7 +4711,7 @@ Task t Status: RanToCompletion, Result: 42
           <paramref name="tasks" /> の <see cref="T:System.Threading.Tasks.Task" /> オブジェクトが 1 つ以上破棄されています。</exception>
         <exception cref="T:System.ArgumentNullException">
           <paramref name="tasks" /> 引数が <see langword="null" /> です。</exception>
-        <exception cref="T:System.AggregateException">少なくとも 1 つ以上の <see cref="T:System.Threading.Tasks.Task" /> インスタンスが取り消されました。 タスクが取り消された場合、<see cref="T:System.AggregateException" /> の <see cref="T:System.OperationCanceledException" /> コレクションには <see cref="P:System.AggregateException.InnerExceptions" /> が含まれます。  
+        <exception cref="T:System.AggregateException">少なくとも 1 つ以上の <see cref="T:System.Threading.Tasks.Task" /> インスタンスが取り消されました。 タスクが取り消された場合は、<see cref="T:System.AggregateException" /> の <see cref="P:System.AggregateException.InnerExceptions" /> コレクションに <see cref="T:System.OperationCanceledException" /> が格納されます  
   
 - または - 
 少なくとも 1 つの <see cref="T:System.Threading.Tasks.Task" /> インスタンスの実行時に、例外がスローされました。</exception>
@@ -5081,7 +5081,8 @@ Task t Status: RanToCompletion, Result: 42
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">引数 <paramref name="tasks" /> が <see langword="null" /> でした。</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="tasks" /> 引数が <see langword="null" /> でした。</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="tasks" /> コレクションに <see langword="null" /> タスクが含まれていました。</exception>
       </Docs>
@@ -5156,7 +5157,8 @@ Task t Status: RanToCompletion, Result: 42
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">引数 <paramref name="tasks" /> が <see langword="null" /> でした。</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="tasks" /> 引数が <see langword="null" /> でした。</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="tasks" /> 配列に <see langword="null" /> タスクが含まれていました。</exception>
       </Docs>
@@ -5228,7 +5230,8 @@ Task t Status: RanToCompletion, Result: 42
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">引数 <paramref name="tasks" /> が <see langword="null" /> でした。</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="tasks" /> 引数が <see langword="null" /> でした。</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="tasks" /> コレクションに <see langword="null" /> タスクが含まれていました。</exception>
       </Docs>
@@ -5304,7 +5307,8 @@ Task t Status: RanToCompletion, Result: 42
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">引数 <paramref name="tasks" /> が <see langword="null" /> でした。</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="tasks" /> 引数が <see langword="null" /> でした。</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="tasks" /> 配列に <see langword="null" /> タスクが含まれていました。</exception>
       </Docs>
@@ -5364,7 +5368,8 @@ Task t Status: RanToCompletion, Result: 42
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">引数 <paramref name="tasks" /> が <see langword="null" /> でした。</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="tasks" /> 引数が <see langword="null" /> でした。</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="tasks" /> 配列に null タスクが含まれていたか、空でした。</exception>
       </Docs>
@@ -5475,7 +5480,8 @@ Task t Status: RanToCompletion, Result: 42
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">引数 <paramref name="tasks" /> が <see langword="null" /> でした。</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="tasks" /> 引数が <see langword="null" /> でした。</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="tasks" /> 配列に null タスクが含まれていたか、空でした。</exception>
       </Docs>

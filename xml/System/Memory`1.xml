@@ -1,11 +1,11 @@
 <Type Name="Memory&lt;T&gt;" FullName="System.Memory&lt;T&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="00be17c21bc4fa5326d034206ecb27336d158aee" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="acdfc981d37b8a9354e73ed0e9c1c4fc8e87d12e" />
+    <Meta Name="ms.sourcegitcommit" Value="d71cc71109ed3cbcf3406a10a3cd7ac7e30f5e0c" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39776817" />
+    <Meta Name="ms.lasthandoff" Value="11/10/2018" />
+    <Meta Name="ms.locfileid" Value="51525745" />
   </Metadata>
   <TypeSignature Language="C#" Value="public struct Memory&lt;T&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit Memory`1&lt;T&gt; extends System.ValueType" />
@@ -16,6 +16,9 @@
   <AssemblyInfo>
     <AssemblyName>System.Runtime</AssemblyName>
     <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Memory</AssemblyName>
   </AssemblyInfo>
   <TypeParameters>
     <TypeParameter Name="T" />
@@ -30,9 +33,23 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <typeparam name="T">To be added.</typeparam>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <typeparam name="T">内の項目の種類、<see cref="T:System.Memory`1" />します。</typeparam>
+    <summary>メモリの隣接した領域を表します。</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+  
+ような<xref:System.Span%601>、`Memory<T>`メモリの連続した領域を表します。 異なり<xref:System.Span%601>、ただし、`Memory<T>`でない、 [ref 構造体](~/docs/csharp/reference-semantics-with-value-types.md?view=netcore-2.1.md#ref-struct-type)します。 つまり、`Memory<T>`一方、マネージ ヒープ上に配置できる<xref:System.Span%601>ことはできません。 結果として、`Memory<T>`構造体と同じ制限はありません、<xref:System.Span%601>インスタンス。 特に次の点に注意してください。
+
+- これは、クラスのフィールドとして使用できます。
+
+- 全体で使用できます`await`と`yield`境界。
+
+ほかに`Memory<T>`、使用することができます<xref:System.ReadOnlyMemory%601?displayProperty=nameWithType>を表す不変または読み取り専用メモリ。
+
+    ]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -47,13 +64,29 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Parameters>
         <Parameter Name="array" Type="T[]" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="array">
+          <see cref="T:System.Memory`1" /> オブジェクトの作成元になる配列。</param>
+        <summary>指定された配列全体で新しい <see cref="T:System.Memory`1" /> オブジェクトを作成します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+場合`array`は`null`、このコンス トラクターを返します、<xref:System.Memory%601>オブジェクトを`default<T>`値。
+
+      ]]></format>
+        </remarks>
+        <exception cref="T:System.ArrayTypeMismatchException">
+          <paramref name="T" /> は参照型です。<paramref name="array" /> は型 <paramref name="T" /> の配列ではありません。
+        
+- または -
+
+配列が<see href="~/docs/csharp/programming-guide/concepts/covariance-contravariance/index.md">共変です。</see></exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -68,17 +101,32 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Parameters>
         <Parameter Name="array" Type="T[]" />
         <Parameter Name="start" Type="System.Int32" />
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <param name="start">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="array">ソースの配列。</param>
+        <param name="start">新しい <see cref="T:System.Memory`1" /> に含める最初の要素のインデックス。</param>
+        <param name="length">新しい <see cref="T:System.Memory`1" /> に含める要素の数。</param>
+        <summary>配列の、指定したインデックスから始まる指定した数の要素を含む新しい <see cref="T:System.Memory`1" /> オブジェクトを作成します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+場合`array`は`null`、このコンス トラクターを返します、<xref:System.Memory%601>オブジェクトを`default<T>`値。
+
+       ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <paramref name="array" /> は <see langword="null" /> ですが、<paramref name="start" /> または <paramref name="length" /> は 0 以外です。<p />
+または<p /><paramref name="start" /> は配列の境界の外側にあります。 <p />
+または<p /><paramref name="start" /> と <paramref name="length" /> は配列の要素数を超えています。</exception>
+        <exception cref="T:System.ArrayTypeMismatchException">
+          <paramref name="T" /> は参照型です。<paramref name="array" /> は型 <paramref name="T" /> の配列ではありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="CopyTo">
@@ -93,6 +141,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
@@ -100,9 +151,18 @@
         <Parameter Name="destination" Type="System.Memory&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="destination">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="destination">コピー先。</param>
+        <summary>
+          <see cref="T:System.Memory`1" /> オブジェクトの内容を、コピー先である <see cref="T:System.Memory`1" /> オブジェクトにコピーします。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+このメソッドは、現在の内容をすべてコピー<xref:System.Memory%601>インスタンス`destination`場合でも、現在のインスタンスの内容と`destination`が重複します。
+
+         ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <paramref name="destination" /> の長さが、現在のインスタンスの長さ未満です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Empty">
@@ -117,12 +177,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>空の <see cref="T:System.Memory`1" /> オブジェクトを返します。</summary>
+        <value>空のオブジェクト。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -138,6 +201,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
@@ -145,10 +211,22 @@
         <Parameter Name="other" Type="System.Memory&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="other">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="other">現在のインスタンスと比較するオブジェクト。</param>
+        <summary>指定した <see cref="T:System.Memory`1" /> オブジェクトが現在のオブジェクトと等しいかどうかを判断します。</summary>
+        <returns>現在のインスタンスと <paramref name="other" /> が等しい場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+2 つのオブジェクトが等しい場合。
+
+   - `other` <xref:System.Memory%601>または<xref:System.ReadOnlyMemory%601>オブジェクト。
+   
+   - 両方のオブジェクトは、同じ配列をポイントし、同じ長さであります。
+
+`Equals(Memory<T>)`メソッド参照の等価性テストを実行します。 以外の要素は比較されません<xref:System.Memory%601>等しいかどうか。
+
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Equals">
@@ -163,6 +241,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="netcore-2.1">
           <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
@@ -175,10 +256,16 @@
         <Parameter Name="obj" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="obj">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="obj">現在のインスタンスと比較するオブジェクト。</param>
+        <summary>指定したオブジェクトが、現在のオブジェクトと等しいかどうかを判断します。</summary>
+        <returns>現在のインスタンスと <paramref name="obj" /> が等しい場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+2 つ<xref:System.Memory%601>両方のオブジェクトが同じ配列をポイントし、同じ長さである場合は、オブジェクトが等しい。 等しいかどうかテストを確認しませんしないように、内容が等しいかどうかに注意してください。
+   
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetHashCode">
@@ -193,6 +280,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="netcore-2.1">
           <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
@@ -203,8 +293,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <summary>このインスタンスのハッシュ コードを返します。</summary>
+        <returns>32 ビット符号付き整数ハッシュ コード。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -220,13 +310,17 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>現在のインスタンスが空であるかどうかを示します。</summary>
+        <value>
+          <see langword="true" /> 現在のインスタンスが空である場合それ以外の場合、<see langword="false" />します。</value>
+        <remarks>A<see cref="T:System.Memory`1" />オブジェクトは、長さが 0 の場合は空です。</remarks>
       </Docs>
     </Member>
     <Member MemberName="Length">
@@ -241,12 +335,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>現在のインスタンス内の項目の数を取得します。</summary>
+        <value>現在のインスタンス内の項目の数。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -262,6 +359,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -269,9 +369,10 @@
         <Parameter Name="segment" Type="System.ArraySegment&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="segment">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="segment">変換対象のオブジェクト。</param>
+        <summary>
+          <see cref="T:System.ArraySegment`1" /> オブジェクトから <see cref="T:System.Memory`1" /> オブジェクトへの暗黙の型変換を定義します。</summary>
+        <returns>変換後の <see cref="T:System.ArraySegment`1" /> オブジェクト。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -287,6 +388,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.ReadOnlyMemory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -294,9 +398,10 @@
         <Parameter Name="memory" Type="System.Memory&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="memory">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="memory">変換対象のオブジェクト。</param>
+        <summary>
+          <see cref="T:System.Memory`1" /> オブジェクトから <see cref="T:System.ReadOnlyMemory`1" /> オブジェクトへの暗黙の型変換を定義します。</summary>
+        <returns>変換後のオブジェクト。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -312,6 +417,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -319,9 +427,9 @@
         <Parameter Name="array" Type="T[]" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="array">変換する配列。</param>
+        <summary>配列から <see cref="T:System.Memory`1" /> オブジェクトへの暗黙の型変換を定義します。</summary>
+        <returns>変換後のオブジェクト。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -337,14 +445,32 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Buffers.MemoryHandle</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>
+          <see cref="T:System.Memory`1" /> オブジェクトのハンドルを作成します。</summary>
+        <returns>
+          <see cref="T:System.Memory`1" /> オブジェクトのハンドル。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+## Remarks
+
+## <a name="see-also"></a>関連項目
+
+ガベージ コレクターが、返されるまでメモリに移動しない<xref:System.Buffers.MemoryHandle>オブジェクトを破棄します。 これにより、取得し、メモリのアドレスを使用することができます。
+
+<xref:System.Type.IsPrimitive> 
+
+         ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">非プリミティブ (blittable でない) メンバーを持つインスタンスはピン留めできません。</exception>
       </Docs>
     </Member>
     <Member MemberName="Slice">
@@ -359,6 +485,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -366,10 +495,12 @@
         <Parameter Name="start" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="start">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="start">スライスの開始位置を示すインデックス。</param>
+        <summary>指定したインデックスで始まる現在のメモリからスライスを形成します。</summary>
+        <returns>現在のインスタンスのすべての要素を、<paramref name="start" /> からインスタンスの末尾まで含んでいるオブジェクト。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeExceptionException">
+          <paramref name="start" /> が 0 未満か、<see cref="P:System.Memory`1.Length" /> 以上です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Slice">
@@ -384,6 +515,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -392,11 +526,18 @@
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="start">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="start">スライスの開始位置を示すインデックス。</param>
+        <param name="length">スライスに含める要素の数。</param>
+        <summary>指定したインデックスで始まる現在のメモリから指定した長さでスライスを形成します。</summary>
+        <returns>
+          <paramref name="start" /> で始まる現在のインスタンスの <paramref name="length" /> 要素を含むオブジェクト。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeExceptionException">
+          <paramref name="start" /> が 0 未満か、<see cref="P:System.Memory`1.Length" /> 以上です。
+
+- または -
+
+<paramref name="length" /> が <see cref="P:System.Memory`1.Length" /> - <paramref name="start" /> より大きくなっています</exception>
       </Docs>
     </Member>
     <Member MemberName="Span">
@@ -411,12 +552,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Span&lt;T&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>現在のインスタンスのスパンを返します。</summary>
+        <value>現在から作成したスパン<see cref="T:System.Memory`1" />オブジェクト。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -432,14 +576,25 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>T[]</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>メモリの内容を新しい配列にコピーします。</summary>
+        <returns>現在のメモリの要素を含む配列。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+< Xref=System.Memory%601.ToArray%2A > メソッドの呼び出しでは、ヒープ割り当てを実行するために一般的に避けてください。 ただし、配列でのみ使用する機能を活用する必要があります。
+
+呼び出しごとに、`ToArray`メソッドは新しい配列を返します。 
+
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="ToString">
@@ -454,14 +609,23 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>この <see cref="T:System.Memory`1" /> オブジェクトの文字列表現を返します。</summary>
+        <returns>この <see cref="T:System.Memory`1" /> オブジェクトの文字列表現。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+`Memory<Char>`、`ToString`メソッドを返します。 を<xref:System.String>によって示される文字を含む、<xref:System.Memory%601>します。 それを返します、<xref:System.String>型と要素の数の名前を<xref:System.Memory%601>が含まれています。
+
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="TryCopyTo">
@@ -476,6 +640,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
@@ -484,9 +651,15 @@
       </Parameters>
       <Docs>
         <param name="destination">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>メモリの内容をコピー先である <see cref="T:System.Memory`1" /> インスタンスにコピーします。</summary>
+        <returns>コピー操作が成功した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+このメソッドは、現在の内容をすべてコピー<xref:System.Memory%601>インスタンス`destination`場合でも、現在のインスタンスの内容と`destination`が重複します。
+
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
   </Members>

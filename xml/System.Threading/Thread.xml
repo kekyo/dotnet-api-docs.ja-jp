@@ -1,11 +1,11 @@
 <Type Name="Thread" FullName="System.Threading.Thread">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="7c33ebbf7fda315ea7cdcd851f00c29b10d280bd" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="38eda2875476a401d6a3442e5e40cebc592a4863" />
+    <Meta Name="ms.sourcegitcommit" Value="996ba67625b61917bcf75bfefe6dcb016019c2d8" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48741631" />
+    <Meta Name="ms.lasthandoff" Value="11/02/2018" />
+    <Meta Name="ms.locfileid" Value="50965475" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class Thread : System.Runtime.ConstrainedExecution.CriticalFinalizerObject, System.Runtime.InteropServices._Thread" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit Thread extends System.Runtime.ConstrainedExecution.CriticalFinalizerObject implements class System.Runtime.InteropServices._Thread" />
@@ -142,7 +142,11 @@
 <a name="Culture"></a>   
 ## <a name="culture-and-threads"></a>カルチャとスレッド  
  各スレッドが、カルチャによって表される、<xref:System.Threading.Thread.CurrentCulture%2A>によって表されるプロパティ、および UI カルチャ、<xref:System.Threading.Thread.CurrentUICulture%2A>プロパティ。  現在のカルチャでは、解析および書式設定、文字列比較と並べ替えなどのカルチャに依存する操作をサポートしているしの書記体系やスレッドで使用する暦にも制御します。 現在の UI カルチャは、リソース ファイル内のリソースのカルチャの取得を提供します。  
-  
+
+> [!IMPORTANT]
+> <xref:System.Threading.Thread.CurrentCulture>と<xref:System.Threading.Thread.CurrentUICulture>プロパティは、現在のスレッド以外の任意のスレッドを使用すると確実に機能しません。 .NET framework では、これらのプロパティを読み取り、信頼性が高くはありませんが、現在のスレッド以外のスレッドのこれらのプロパティを設定します。 .NET Core で、<xref:System.InvalidOperationException>スレッドが読み取りまたは別のスレッドでのこれらのプロパティの書き込みを試みるとスローされます。
+> 使用することをお勧め、<xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=nameWithType>と<xref:System.Globalization.CultureInfo.CurrentUICulture?displayProperty=nameWithType>プロパティを取得して、現在のカルチャを設定します。
+
  新しいスレッドがインスタンス化されるときは、によって、現在のシステム カルチャと UI カルチャ、およびカルチャと、新しいスレッドの作成元のスレッドの UI カルチャではなく、そのカルチャおよび UI カルチャが定義されています。 つまり、たとえば、現在のシステム カルチャが英語 (米国) とプライマリ アプリケーションのスレッドの現在のカルチャがフランス語 (フランス)、呼び出すことによって作成された新しいスレッドのカルチャの場合、<xref:System.Threading.Thread.%23ctor%28System.Threading.ParameterizedThreadStart%29>プライマリ スレッドからコンス トラクター英語 (米国) とフランス語 (フランス)。 詳細については、の「カルチャとスレッド」セクションを参照してください、<xref:System.Globalization.CultureInfo>クラスに関するトピック。  
   
 > [!IMPORTANT]
@@ -153,9 +157,9 @@
 -   渡すことができます、<xref:System.Globalization.CultureInfo>そのカルチャを表すオブジェクト、<xref:System.Threading.ParameterizedThreadStart>委任または<xref:System.Threading.ThreadPool.QueueUserWorkItem%28System.Threading.WaitCallback%2CSystem.Object%29?displayProperty=nameWithType>メソッド。  
   
 -   実行されるアプリ、 [!INCLUDE[net_v45](~/includes/net-v45-md.md)] 、以降のバージョン、カルチャおよび UI カルチャの値を設定して、アプリケーション ドメインで作成されるすべてのスレッドに割り当てられるを定義できます、<xref:System.Globalization.CultureInfo.DefaultThreadCurrentCulture%2A?displayProperty=nameWithType>と<xref:System.Globalization.CultureInfo.DefaultThreadCurrentUICulture%2A?displayProperty=nameWithType>プロパティ。 これはアプリケーションごとのドメインの設定であることに注意してください。  
-  
- 詳細と例については、の「カルチャとスレッド」セクションを参照してください、<xref:System.Globalization.CultureInfo>クラスに関するトピック。  
-  
+
+ 詳細と例については、の「カルチャとスレッド」セクションを参照してください、<xref:System.Globalization.CultureInfo>クラスに関するトピック。
+
 <a name="Properties"></a>   
 ## <a name="getting-information-about-and-controlling-threads"></a>情報を取得して、スレッドを制御します。  
  数のスレッドに関する情報を提供するプロパティ値を取得することができます。 場合によっては、スレッドの操作を制御するこれらのプロパティ値を設定することもできます。 これらのスレッド プロパティは次のとおりです。  
@@ -282,7 +286,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="start" /> は <see langword="null" />です。</exception>
+          <paramref name="start" /> は <see langword="null" /> です。</exception>
         <altmember cref="T:System.Threading.ParameterizedThreadStart" />
         <altmember cref="Overload:System.Threading.Thread.Start" />
         <altmember cref="T:System.AppDomain" />
@@ -428,7 +432,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="start" /> は <see langword="null" />です。</exception>
+          <paramref name="start" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
           <paramref name="maxStackSize" /> が 0 未満です。</exception>
       </Docs>
@@ -502,7 +506,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="start" /> は <see langword="null" />です。</exception>
+          <paramref name="start" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
           <paramref name="maxStackSize" /> が 0 未満です。</exception>
       </Docs>
@@ -1110,13 +1114,15 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
   
 ## Remarks  
  <xref:System.Globalization.CultureInfo>と共にその関連付けられているオブジェクトでは、このプロパティによって返されるオブジェクトは、既定の日付の書式、時間、数値、通貨の値、テキストの順序を並べ替え、規則、大文字小文字の区別を特定し、文字列比較。 参照してください、<xref:System.Globalization.CultureInfo>クラスのカルチャの名前と識別子、インバリアント、中立、および特定のカルチャの違いについて説明し、スレッドとアプリケーション ドメインに影響を与える方法のカルチャ情報。 参照してください、<xref:System.Globalization.CultureInfo.CurrentCulture%2A?displayProperty=nameWithType>プロパティをスレッドの既定のカルチャを決定する方法と、ユーザーが自分のコンピューターのカルチャ情報を設定する方法について説明します。  
-  
+
+> [!IMPORTANT]
+> <xref:System.Threading.Thread.CurrentCulture>プロパティは、現在のスレッド以外の任意のスレッドを使用すると確実に機能しません。 .NET framework のプロパティの読み取り、信頼性が高くはありませんが、現在のスレッド以外のスレッドを設定することです。 .NET Core で、<xref:System.InvalidOperationException>スレッドが読み取りまたは書き込みを試みる場合にスローされる、<xref:System.Threading.Thread.CurrentCulture>別のスレッドでのプロパティ。
+> 使用することをお勧め、<xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=nameWithType>プロパティを取得して、現在のカルチャを設定します。
+
  以降では、 [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]、設定することができます、<xref:System.Threading.Thread.CurrentCulture%2A>ニュートラル カルチャのプロパティ。 これは、ための動作、<xref:System.Globalization.CultureInfo>クラスが変更された: ニュートラル カルチャで、プロパティの値を表す場合 (具体的には、 <xref:System.Globalization.CultureInfo.Calendar%2A>、 <xref:System.Globalization.CultureInfo.CompareInfo%2A>、 <xref:System.Globalization.CultureInfo.DateTimeFormat%2A>、<xref:System.Globalization.CultureInfo.NumberFormat%2A>と<xref:System.Globalization.CultureInfo.TextInfo%2A>プロパティ) ようになりましたニュートラル カルチャに関連付けられている特定のカルチャを反映します。 .NET Framework の以前のバージョンで、<xref:System.Threading.Thread.CurrentCulture%2A>プロパティをスローしました、<xref:System.NotSupportedException>ニュートラル カルチャが割り当てられたときに例外。  
   
-   
-  
 ## Examples  
- 次のコード例では、コントロール パネルで設定されているカルチャで表示する Windows フォームのユーザー インターフェイス スレッドのステートメントを示します。 追加のコードが必要です。  
+ 次の例では、コントロール パネルで設定されているカルチャで表示する Windows フォーム アプリケーションのユーザー インターフェイス スレッドのステートメントを示します。 追加のコードが必要です。  
   
  [!code-cpp[System.Threading.Thread.Culture#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Thread.Culture/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.Thread.Culture#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Thread.Culture/CS/source.cs#1)]
@@ -1125,6 +1131,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">プロパティが <see langword="null" /> に設定されています。</exception>
+        <exception cref="T:System.InvalidOperationException">.NET Core のみ: 別のスレッドからのスレッドのカルチャの読み取りまたは書き込みはサポートされていません。</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">プロパティを設定します。 関連付けられた列挙体。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" /></permission>
       </Docs>
     </Member>
@@ -1287,7 +1294,11 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
   
 ## Remarks  
  UI カルチャでは、アプリケーションがユーザーの入力と出力をサポートするために必要があるあり、既定では、オペレーティング システムのカルチャと同じリソースを指定します。 参照してください、<xref:System.Globalization.CultureInfo>クラスのカルチャの名前と識別子、インバリアント、中立、および特定のカルチャの違いについて説明し、スレッドとアプリケーション ドメインに影響を与える方法のカルチャ情報。 参照してください、<xref:System.Globalization.CultureInfo.CurrentUICulture%2A?displayProperty=nameWithType>プロパティをスレッドの既定 UI カルチャを決定する方法について説明します。  
-  
+
+> [!IMPORTANT]
+> <xref:System.Threading.Thread.CurrentUICulture>プロパティは、現在のスレッド以外の任意のスレッドを使用すると確実に機能しません。 .NET framework のプロパティの読み取り、信頼性が高くはありませんが、現在のスレッド以外のスレッドを設定することです。 .NET Core で、<xref:System.InvalidOperationException>スレッドが読み取りまたは書き込みを試みる場合にスローされる、<xref:System.Threading.Thread.CurrentUICulture>別のスレッドでのプロパティ。
+> 使用することをお勧め、<xref:System.Globalization.CultureInfo.CurrentUICulture?displayProperty=nameWithType>プロパティを取得して、現在のカルチャを設定します。
+
  <xref:System.Globalization.CultureInfo>ニュートラル カルチャは、このプロパティによって返されます。 ニュートラル カルチャは、メソッドなどの書式設定では使用できません<xref:System.String.Format%28System.IFormatProvider%2CSystem.String%2CSystem.Object%5B%5D%29?displayProperty=nameWithType>、 <xref:System.DateTime.ToString%28System.String%2CSystem.IFormatProvider%29?displayProperty=nameWithType>、および<xref:System.Convert.ToString%28System.Char%2CSystem.IFormatProvider%29?displayProperty=nameWithType>します。 使用して、 <xref:System.Globalization.CultureInfo.CreateSpecificCulture%2A?displayProperty=nameWithType> 、特定のカルチャを取得または使用するメソッド、<xref:System.Threading.Thread.CurrentCulture%2A>プロパティ。  
   
 > [!NOTE]
@@ -1311,6 +1322,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
         </remarks>
         <exception cref="T:System.ArgumentNullException">プロパティが <see langword="null" /> に設定されています。</exception>
         <exception cref="T:System.ArgumentException">プロパティが、リソース ファイルの検索に使用できないカルチャ名に設定されています。 リソース ファイル名に使用できるのは、文字、数字、ハイフン、またはアンダースコアのみです。</exception>
+        <exception cref="T:System.InvalidOperationException">.NET Core のみ: 別のスレッドからのスレッドのカルチャの読み取りまたは書き込みはサポートされていません。</exception>
       </Docs>
     </Member>
     <Member MemberName="DisableComObjectEagerCleanup">
@@ -2145,7 +2157,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.Security.SecurityException">呼び出し元に、適切な <see cref="T:System.Security.Permissions.SecurityPermission" /> がありません。</exception>
+        <exception cref="T:System.Security.SecurityException">呼び出し元に適切な <see cref="T:System.Security.Permissions.SecurityPermission" /> がありません。</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">スレッドでの高度な操作。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" /> (関連する列挙体)</permission>
         <altmember cref="T:System.Threading.ThreadState" />
         <related type="Article" href="~/docs/standard/threading/pausing-and-resuming-threads.md">スレッドの一時中断および中断</related>
@@ -2187,7 +2199,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
       </ReturnValue>
       <Docs>
         <summary>現在のスレッドの実行ステータスを示す値を取得します。</summary>
-        <value>このスレッドが起動されて、正常終了していないまたは中止されていない場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
+        <value>このスレッドが起動していて、正常終了しておらず中止されてもいない場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -2742,8 +2754,8 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.Threading.ThreadStateException">スレッドが <see cref="F:System.Threading.ThreadState.Aborted" /> などの最終状態に達しています。</exception>
-        <exception cref="T:System.ArgumentException">設定操作として指定した値が、無効な <see cref="T:System.Threading.ThreadPriority" /> 値です。</exception>
+        <exception cref="T:System.Threading.ThreadStateException">スレッドが、<see cref="F:System.Threading.ThreadState.Aborted" /> などの最終状態に達しました。</exception>
+        <exception cref="T:System.ArgumentException">セット操作に対して設定された値が有効な <see cref="T:System.Threading.ThreadPriority" /> 値ではありません。</exception>
         <altmember cref="T:System.Threading.ThreadPriority" />
         <related type="Article" href="~/docs/standard/threading/scheduling-threads.md">スレッドのスケジューリング</related>
       </Docs>
@@ -2782,7 +2794,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>現在のスレッドに対して要求された <see cref="M:System.Threading.Thread.Abort(System.Object)" /> をキャンセルします。</summary>
+        <summary>現在のスレッドに対して要求された <see cref="M:System.Threading.Thread.Abort(System.Object)" /> を取り消します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2797,7 +2809,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
         </remarks>
         <exception cref="T:System.PlatformNotSupportedException">.NET Core のみ: このメンバーはサポートされていません。</exception>
         <exception cref="T:System.Threading.ThreadStateException">
-          <see langword="Abort" /> が、現在のスレッドで呼び出されませんでした。</exception>
+          <see langword="Abort" /> は現在のスレッドで呼び出されませんでした。</exception>
         <exception cref="T:System.Security.SecurityException">呼び出し元には、現在のスレッドに対する必要なセキュリティ アクセス許可がありません。</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">スレッドでの高度な操作。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" /> (関連する列挙体)</permission>
         <related type="Article" href="~/docs/standard/threading/destroying-threads.md">スレッドの破棄</related>
@@ -2854,7 +2866,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
         </remarks>
         <exception cref="T:System.PlatformNotSupportedException">.NET Core のみ: このメンバーはサポートされていません。</exception>
         <exception cref="T:System.Threading.ThreadStateException">スレッドが開始されていないか、実行されていません。または中断状態にはありません。</exception>
-        <exception cref="T:System.Security.SecurityException">呼び出し元に、適切な <see cref="T:System.Security.Permissions.SecurityPermission" /> がありません。</exception>
+        <exception cref="T:System.Security.SecurityException">呼び出し元に適切な <see cref="T:System.Security.Permissions.SecurityPermission" /> がありません。</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">スレッドでの高度な操作。 関連付けられた列挙体。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" /></permission>
         <related type="Article" href="~/docs/standard/threading/pausing-and-resuming-threads.md">スレッドの一時中断および中断</related>
         <related type="Article" href="~/docs/standard/threading/managed-thread-states.md">マネージド スレッドの状態</related>
@@ -2923,7 +2935,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
         </remarks>
         <exception cref="T:System.PlatformNotSupportedException">.NET Core のみ: macOS および Linux プラットフォームでは、このメンバーはサポートされていません。</exception>
         <exception cref="T:System.ArgumentException">
-          <paramref name="state" /> が有効なアパートメント状態ではありません。</exception>
+          <paramref name="state" /> は有効なアパートメント状態ではありません。</exception>
         <exception cref="T:System.Threading.ThreadStateException">スレッドが既に開始されています。</exception>
         <exception cref="T:System.InvalidOperationException">アパートメント状態は、すでに初期化されています。</exception>
       </Docs>
@@ -3450,7 +3462,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
         </remarks>
         <exception cref="T:System.PlatformNotSupportedException">.NET Core のみ: このメンバーはサポートされていません。</exception>
         <exception cref="T:System.Threading.ThreadStateException">スレッドが開始していないか、または停止しています。</exception>
-        <exception cref="T:System.Security.SecurityException">呼び出し元に、適切な <see cref="T:System.Security.Permissions.SecurityPermission" /> がありません。</exception>
+        <exception cref="T:System.Security.SecurityException">呼び出し元に適切な <see cref="T:System.Security.Permissions.SecurityPermission" /> がありません。</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">スレッドでの高度な操作。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" /> (関連する列挙体)</permission>
         <related type="Article" href="~/docs/standard/threading/pausing-and-resuming-threads.md">スレッドの一時中断および中断</related>
         <related type="Article" href="~/docs/standard/threading/managed-thread-states.md">マネージド スレッドの状態</related>
@@ -3772,7 +3784,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">
-          <paramref name="state" /> が有効なアパートメント状態ではありません。</exception>
+          <paramref name="state" /> は有効なアパートメント状態ではありません。</exception>
         <exception cref="T:System.Threading.ThreadStateException">スレッドが既に開始されています。</exception>
       </Docs>
     </Member>

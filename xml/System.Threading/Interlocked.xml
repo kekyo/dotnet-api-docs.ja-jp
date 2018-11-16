@@ -1,11 +1,11 @@
 <Type Name="Interlocked" FullName="System.Threading.Interlocked">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="7fd6b58d4830bad8e69f870f2d493afbb5945295" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="2c4ca68eab5cab83362bc1249915513f4de221da" />
+    <Meta Name="ms.sourcegitcommit" Value="d71cc71109ed3cbcf3406a10a3cd7ac7e30f5e0c" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48769815" />
+    <Meta Name="ms.lasthandoff" Value="11/10/2018" />
+    <Meta Name="ms.locfileid" Value="51525776" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class Interlocked" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Interlocked extends System.Object" />
@@ -57,9 +57,12 @@
 3.  インスタンス変数に値を格納します。  
   
  使用しない場合<xref:System.Threading.Interlocked.Increment%2A>と<xref:System.Threading.Interlocked.Decrement%2A>スレッドは、最初の 2 つの手順を実行後に割り込まれることができます。 別のスレッドは、すべての 3 つの手順を実行できます。 最初のスレッドが実行を再開し、インスタンス変数の値が上書きされますインクリメントまたはデクリメントが 2 番目のスレッドによって実行されるの効果が失われます。  
+
+ <xref:System.Threading.Interlocked.Add%2A>メソッドはアトミックに整数値を整数変数を追加し、変数の新しい値を返します。  
   
  <xref:System.Threading.Interlocked.Exchange%2A>メソッドが、指定された変数の値をアトミックに交換します。 <xref:System.Threading.Interlocked.CompareExchange%2A>メソッドで 2 つの操作を組み合わせています。 比較の結果に基づいて、変数のいずれかの値の 2 つの値を比較すると、3 つ目を格納します。 比較および交換操作はアトミック操作として実行されます。  
-  
+
+ 任意の書き込みまたは共有変数への読み取りアクセスがアトミックであることを確認します。 それ以外の場合、データが壊れている可能性があります。 または読み込まれた値が正しくない可能性があります。    
    
   
 ## Examples  
@@ -200,8 +203,6 @@
   
 ## Remarks  
  このメソッドがラッピングによってオーバーフロー条件を処理: 場合に値`location1`は<xref:System.Int64.MaxValue?displayProperty=nameWithType>と`value`1 に設定されて、結果は<xref:System.Int64.MinValue?displayProperty=nameWithType>場合`value`が 2 の場合、結果は (<xref:System.Int64.MinValue?displayProperty=nameWithType> + 1)。 これにします。 例外をスローすることはありません。  
-  
- <xref:System.Threading.Interlocked.Read%2A>メソッドとの 64 ビットのオーバー ロード、 <xref:System.Threading.Interlocked.Increment%2A>、 <xref:System.Threading.Interlocked.Decrement%2A>、および<xref:System.Threading.Interlocked.Add%2A>メソッドは本当に、システムでのみアトミック場所、 <xref:System.IntPtr?displayProperty=nameWithType> 64 ビット長。 他のシステムでは、これらのメソッドは尊重とデータにアクセスするが、相互にアトミックです。 したがって、32 ビット システムでスレッド セーフにするには、64 ビット値へのアクセスできる必要がありますのメンバーを<xref:System.Threading.Interlocked>クラス。  
   
  ]]></format>
         </remarks>
@@ -540,24 +541,25 @@
         <Parameter Name="comparand" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="location1">
-          <c>comparand</c> と比較し、場合によっては置き換える比較先のオブジェクト。</param>
-        <param name="value">比較した結果が等しい場合に比較先のオブジェクトを置き換えるオブジェクト。</param>
+        <param name="location1">参照によって <c>comparand</c> と比較し、場合によっては置き換える比較先のオブジェクト。</param>
+        <param name="value">参照の比較の結果が等しい場合に比較先のオブジェクトを置き換えるオブジェクト。</param>
         <param name="comparand">
-          <c>location1</c> にあるオブジェクトと比較するオブジェクト。</param>
+          <c>location1</c> にあるオブジェクトと、参照によって比較されるオブジェクト。</param>
         <summary>2 つのオブジェクトの参照が等値であるかどうかを比較します。等しい場合は、最初のオブジェクトを置き換えます。</summary>
         <returns>
           <paramref name="location1" /> の元の値。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
-## Remarks  
- 場合`comparand`内のオブジェクトと`location1`しが等しいか、`value`に格納されて`location1`します。 それ以外の場合は演算が実行されません。 比較および交換操作はアトミック操作として実行されます。 戻り値<xref:System.Threading.Interlocked.CompareExchange%2A>の元の値は、`location1`交換が行われているかどうかを示す、します。  
-  
- .NET Framework version 2.0 以降、<xref:System.Threading.Interlocked.CompareExchange%60%601%28%60%600%40%2C%60%600%2C%60%600%29>メソッドのオーバー ロードは、参照型の場合、タイプ セーフな代替手段を提供します。  
-  
+## Remarks
+
+> [!IMPORTANT]
+> .NET Framework 2.0 以降、<xref:System.Threading.Interlocked.CompareExchange%60%601%28%60%600%40%2C%60%600%29>メソッドのオーバー ロードは、参照型の場合、タイプ セーフな代替手段を提供します。 このオーバー ロードではなく呼び出すことをお勧めします。
+
+場合`comparand`内のオブジェクトと`location1`しが参照によって等しい`value`に格納されて`location1`します。 それ以外の場合は演算が実行されません。 比較および交換操作はアトミック操作として実行されます。 戻り値<xref:System.Threading.Interlocked.CompareExchange%2A>の元の値は、`location1`交換が行われているかどうかを示す、します。  
+
 > [!NOTE]
->  オブジェクトが参照の等価比較なく<xref:System.Object.Equals%2A?displayProperty=nameWithType>します。 その結果、(たとえば、整数 3) 型の値の同じ 2 つのボックス化されたインスタンス常に、等しくない場合に表示され、操作は実行されません。 値の型は、このオーバー ロードを使用しません。  
+>  オブジェクトは、値の等価性ではなく、参照の等価性と比較されます。 その結果、(たとえば、整数 3) 型の値の同じ 2 つのボックス化されたインスタンス常に等しくない場合に表示され、操作は実行されません。 値の型は、このオーバー ロードを使用しません。  
   
  ]]></format>
         </remarks>
@@ -691,18 +693,18 @@
       </Parameters>
       <Docs>
         <typeparam name="T">使用する型<c>location1</c>、<c>値</c>、および<c>比較対照値</c>します。 この型は、参照型である必要があります。</typeparam>
-        <param name="location1">値を <c>comparand</c> と比較し、場合によっては置き換える比較先。 これは参照パラメーターです (C# では <see langword="ref" />、Visual Basic では <see langword="ByRef" />)。</param>
-        <param name="value">比較した結果が等しい場合に比較先の値を置き換える値。</param>
+        <param name="location1">参照によって値を <c>comparand</c> と比較し、場合によっては置き換える比較先。 これは参照パラメーターです (C# では <see langword="ref" />、Visual Basic では <see langword="ByRef" />)。</param>
+        <param name="value">参照によって比較した結果が等しい場合に比較先の値を置き換える値。</param>
         <param name="comparand">
-          <c>location1</c> にある値と比較する値。</param>
-        <summary>指定した参照型 <paramref name="T" /> の 2 つのインスタンスが等しいかどうかを比較します。等しい場合は、最初の 1 つを置き換えます。</summary>
+          <c>location1</c> にある値と参照によって比較される値。</param>
+        <summary>指定した参照型 <paramref name="T" /> の 2 つのインスタンスの参照が等しいかどうかを比較します。等しい場合は、最初の 1 つを置き換えます。</summary>
         <returns>
           <paramref name="location1" /> の元の値。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合`comparand`値`location1`しが等しいか、`value`に格納されて`location1`します。 それ以外の場合は演算が実行されません。 比較と交換は、分割不可能な操作として実行されます。 このメソッドの戻り値の元の値は、`location1`交換が行われているかどうかを示す、します。  
+ 場合`comparand`値`location1`しが参照によって等しい`value`に格納されて`location1`します。 それ以外の場合は演算が実行されません。 比較と交換は、分割不可能な操作として実行されます。 このメソッドの戻り値の元の値は、`location1`交換が行われているかどうかを示す、します。  
   
  このメソッドは、参照型のみをサポートします。 オーバー ロードがあります、<xref:System.Threading.Interlocked.CompareExchange%2A>値型のメソッド<xref:System.Int32>、 <xref:System.Int64>、 <xref:System.IntPtr>、 <xref:System.Single>、および<xref:System.Double>、他の値型のサポートはありません。  
   
@@ -843,8 +845,6 @@
   
 ## Remarks  
  このメソッドがラッピングによってオーバーフロー条件を処理します。 場合`location`  =  <xref:System.Int64.MinValue?displayProperty=nameWithType>、 `location` - 1 =<xref:System.Int64.MaxValue?displayProperty=nameWithType>します。 例外をスローすることはありません。  
-  
- <xref:System.Threading.Interlocked.Read%2A>メソッドとの 64 ビットのオーバー ロード、 <xref:System.Threading.Interlocked.Increment%2A>、 <xref:System.Threading.Interlocked.Decrement%2A>、および<xref:System.Threading.Interlocked.Add%2A>メソッドは本当に、システムでのみアトミック場所、 <xref:System.IntPtr?displayProperty=nameWithType> 64 ビット長。 他のシステムでは、これらのメソッドは尊重とデータにアクセスするが、相互にアトミックです。 したがって、32 ビット システムでスレッド セーフにするには、64 ビット値へのアクセスできる必要がありますのメンバーを<xref:System.Threading.Interlocked>クラス。  
   
  ]]></format>
         </remarks>
@@ -1143,8 +1143,9 @@
   
 ## Remarks
 
-> [!NOTE]
-> .NET Framework version 2.0 以降、<xref:System.Threading.Interlocked.Exchange%60%601%28%60%600%40%2C%60%600%29>メソッドのオーバー ロードは、参照型の場合、タイプ セーフな代替手段を提供します。  
+> [!IMPORTANT]
+> .NET Framework 2.0 以降、<xref:System.Threading.Interlocked.Exchange%60%601%28%60%600%40%2C%60%600%29>メソッドのオーバー ロードは、参照型の場合、タイプ セーフな代替手段を提供します。 このオーバー ロードではなく呼び出すことをお勧めします。
+
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
@@ -1409,8 +1410,6 @@
 ## Remarks  
  このメソッドがラッピングによってオーバーフロー条件を処理します。 場合`location`  =  <xref:System.Int64.MaxValue?displayProperty=nameWithType>、 `location` + 1 =<xref:System.Int64.MinValue?displayProperty=nameWithType>します。 例外をスローすることはありません。  
   
- <xref:System.Threading.Interlocked.Read%2A>メソッドとの 64 ビットのオーバー ロード、 <xref:System.Threading.Interlocked.Increment%2A>、 <xref:System.Threading.Interlocked.Decrement%2A>、および<xref:System.Threading.Interlocked.Add%2A>メソッドは本当に、システムでのみアトミック場所、 <xref:System.IntPtr?displayProperty=nameWithType> 64 ビット長。 他のシステムでは、これらのメソッドは尊重とデータにアクセスするが、相互にアトミックです。 したがって、32 ビット システムでスレッド セーフにするには、64 ビット値へのアクセスできる必要がありますのメンバーを<xref:System.Threading.Interlocked>クラス。  
-  
  ]]></format>
         </remarks>
         <exception cref="T:System.NullReferenceException">
@@ -1539,11 +1538,6 @@
   
 ## Remarks  
  <xref:System.Threading.Interlocked.Read%2A>メソッドは、64 ビットの読み取り操作がアトミックであるため、64 ビット システムで必要ではありません。 32 ビット システムで 64 ビットの読み取り操作を使用して実行しない限り、アトミックいない<xref:System.Threading.Interlocked.Read%2A>します。  
-  
- <xref:System.Threading.Interlocked.Read%2A>メソッドとの 64 ビットのオーバー ロード、 <xref:System.Threading.Interlocked.Increment%2A>、 <xref:System.Threading.Interlocked.Decrement%2A>、および<xref:System.Threading.Interlocked.Add%2A>メソッドは本当に、システムでのみアトミック場所、 <xref:System.IntPtr?displayProperty=nameWithType> 64 ビット長。 他のシステムでは、これらのメソッドは尊重とデータにアクセスするが、相互にアトミックです。 したがって、32 ビット システムでスレッド セーフにするには、64 ビット値へのアクセスできる必要がありますのメンバーを<xref:System.Threading.Interlocked>クラス。  
-  
-> [!NOTE]
->  <xref:System.IntPtr> プラットフォーム固有の型です。  
   
  ]]></format>
         </remarks>
