@@ -1,11 +1,11 @@
 <Type Name="ConstructorBuilder" FullName="System.Reflection.Emit.ConstructorBuilder">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="dcf145caf6e88338768b3d5a5626a2701dca1bb4" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="675cc7d7d8030be524b0960692aeeb1abb232ce5" />
+    <Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48689918" />
+    <Meta Name="ms.lasthandoff" Value="11/17/2018" />
+    <Meta Name="ms.locfileid" Value="51877178" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class ConstructorBuilder : System.Reflection.ConstructorInfo, System.Runtime.InteropServices._ConstructorBuilder" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit ConstructorBuilder extends System.Reflection.ConstructorInfo implements class System.Runtime.InteropServices._ConstructorBuilder" />
@@ -149,13 +149,13 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="action" /> が無効です。RequestMinimum、RequestOptional、および RequestRefuse が無効です。</exception>
+          <paramref name="action" /> が正しくありません (RequestMinimum、RequestOptional、および RequestRefuse が正しくありません)。</exception>
         <exception cref="T:System.InvalidOperationException">含んでいる型が <see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> を使用して以前に作成されています。  
   
 - または - 
 アクセス許可のセット <paramref name="pset" /> に、<see langword="AddDeclarativeSecurity" /> によって以前に追加されたアクションが含まれています。</exception>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="pset" /> は <see langword="null" />です。</exception>
+          <paramref name="pset" /> は <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Attributes">
@@ -358,7 +358,7 @@
       <Docs>
         <param name="inherit">基底クラスからのカスタム属性の継承を制御します。 このパラメーターは無視されます。</param>
         <summary>このコンストラクターに定義済みのカスタム属性をすべて返します。</summary>
-        <returns>この <see cref="T:System.Reflection.Emit.ConstructorBuilder" /> インスタンスで表されるコンストラクターのすべてのカスタム属性を表すオブジェクトの配列を返します。</returns>
+        <returns>この <see cref="T:System.Reflection.Emit.ConstructorBuilder" /> インスタンスで表されるコンストラクターのすべてのカスタム属性を表す、オブジェクトの配列を返します。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -403,7 +403,7 @@
         <param name="attributeType">カスタム属性の型。</param>
         <param name="inherit">基底クラスからのカスタム属性の継承を制御します。 このパラメーターは無視されます。</param>
         <summary>指定された型で識別されるカスタム属性を返します。</summary>
-        <returns>このコンストラクターの属性を表す <see cref="T:System.Object" /> 型の配列を返します。</returns>
+        <returns>このコンストラクターの属性を表す型 <see cref="T:System.Object" /> の配列を返します。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -424,7 +424,7 @@
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>このコンストラクターのメソッド本体を出力するために使用できる <see cref="T:System.Reflection.Emit.ILGenerator" /> を取得します。</summary>
+        <summary>このコンストラクターのメソッド本体を生成するのに使用できる <see cref="T:System.Reflection.Emit.ILGenerator" /> を取得します。</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="GetILGenerator">
@@ -761,13 +761,12 @@
         <Parameter Name="culture" Type="System.Globalization.CultureInfo" />
       </Parameters>
       <Docs>
-        <param name="invokeAttr">
-          <see cref="T:System.Reflection.BindingFlags" /> のビット フラグ InvokeMethod、NonPublic などにする必要があります。</param>
-        <param name="binder">バインディング、引数型の強制変換、メンバーの呼び出し、および、リフレクションを使用した <see langword="MemberInfo" /> オブジェクトの取得を有効にするオブジェクト。 バインダーが <see langword="null" /> の場合は、既定のバインダーが使用されます。 以下を参照してください。<see cref="T:System.Reflection.Binder" /></param>
-        <param name="parameters">引数リスト。 これは、呼び出されるコンストラクターのパラメーターと同じ数、順序、型の引数の配列です。 パラメーターがない場合は、<see langword="null" /> にします。</param>
-        <param name="culture">型の強制変換を制御するために使用する <see cref="T:System.Globalization.CultureInfo" /> のインスタンス。 null の場合は、現在のスレッドの <see cref="T:System.Globalization.CultureInfo" /> が使用されます。 たとえば、このパラメーターでは、1000 を表す <see cref="T:System.String" /> を <see cref="T:System.Double" /> 値に変換して指定する必要があります。これは、カルチャによって 1000 の表記が異なるためです。</param>
+        <param name="invokeAttr">これは、InvokeMethod や NonPublic などの、<see cref="T:System.Reflection.BindingFlags" /> からのビット フラグでなければなりません。</param>
+        <param name="binder">バインディング、引数型の強制変換、メンバーの呼び出し、およびリフレクションを使用した <see langword="MemberInfo" /> オブジェクトの取得を有効にするオブジェクト。 バインダーが <see langword="null" /> の場合は、既定のバインダーが使用されます。 以下を参照してください。<see cref="T:System.Reflection.Binder" /></param>
+        <param name="parameters">引数リスト。 これは、呼び出されるコンストラクターのパラメーターと同じ数、順序、型の引数の配列です。 パラメーターがない場合は、これは <see langword="null" /> である必要があります。</param>
+        <param name="culture">型の強制変換を制御するために使用する <see cref="T:System.Globalization.CultureInfo" /> のインスタンス。 null の場合は、現在のスレッドの <see cref="T:System.Globalization.CultureInfo" /> が使用されます。 (たとえば、これは 1000 を表す <see cref="T:System.String" /> を <see cref="T:System.Double" /> 値に変換する場合に必要です。これは、カルチャによって 1000 の表記が異なるためです。)</param>
         <summary>特定のオブジェクト上のインスタンスによって動的に反映されるコンストラクターを呼び出します。その際、指定されたバインダーの制約下で、指定されたパラメーターを一緒に渡します。</summary>
-        <returns>呼び出されたコンストラクターの戻り値を表す <see cref="T:System.Object" /> を返します。</returns>
+        <returns>呼び出されるコンストラクターの戻り値である <see cref="T:System.Object" /> を返します。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -781,7 +780,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 コンストラクターを取得するには、<see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用し、返された <see cref="M:System.Reflection.ConstructorInfo.Invoke(System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)" /> に対して <see cref="T:System.Reflection.ConstructorInfo" /> を呼び出します。</exception>
+        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 <see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用してコンストラクターを取得し、返された <see cref="T:System.Reflection.ConstructorInfo" /> で <see cref="M:System.Reflection.ConstructorInfo.Invoke(System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)" /> を呼び出すことができます。</exception>
         <altmember cref="T:System.Reflection.Binder" />
         <altmember cref="T:System.Reflection.BindingFlags" />
       </Docs>
@@ -817,11 +816,11 @@
       </Parameters>
       <Docs>
         <param name="obj">再初期化を必要とするオブジェクト。</param>
-        <param name="invokeAttr">目的のバインディングの種類を指定する <see langword="BindingFlags" /> 値の 1 つ。</param>
+        <param name="invokeAttr">望ましいバインディングの種類を指定する <see langword="BindingFlags" /> 値の 1 つ。</param>
         <param name="binder">プロパティのセットを定義し、バインディング、引数の型の強制変換、およびリフレクションを使用したメンバーの呼び出しの機能を有効にする <see langword="Binder" />。 <c>binder</c> が <see langword="null" /> の場合、Binder.DefaultBinding が使用されます。</param>
-        <param name="parameters">引数リスト。 これは、呼び出されるコンストラクターのパラメーターと同じ数、順序、型の引数の配列です。 パラメーターがない場合は、null 参照 (Visual Basic では <see langword="Nothing" />) になります。</param>
+        <param name="parameters">引数リスト。 これは、呼び出されるコンストラクターのパラメーターと同じ数、順序、型の引数の配列です。 パラメーターがない場合、これは null 参照でなければなりません (Visual Basic では <see langword="Nothing" />)。</param>
         <param name="culture">型の強制変換を制御するために使用する <see cref="T:System.Globalization.CultureInfo" />。 null の場合は、現在のスレッドの <see cref="T:System.Globalization.CultureInfo" /> が使用されます。</param>
-        <summary>指定されているバインダーの制約下で、このインスタンスによってリフレクションされるコンストラクターを引数を指定して動的に呼び出します。<see langword="Binder" /></summary>
+        <summary>指定された <see langword="Binder" /> の制約下において、指定された引数で、このインスタンスによって反映されるコンストラクターを動的に呼び出します。</summary>
         <returns>コンストラクターに関連付けられているクラスのインスタンス。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -835,7 +834,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 コンストラクターを取得するには、<see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用し、返された <see cref="M:System.Reflection.ConstructorInfo.Invoke(System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)" /> に対して <see cref="T:System.Reflection.ConstructorInfo" /> を呼び出します。</exception>
+        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 <see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用してコンストラクターを取得し、返された <see cref="T:System.Reflection.ConstructorInfo" /> で <see cref="M:System.Reflection.ConstructorInfo.Invoke(System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)" /> を呼び出すことができます。</exception>
         <altmember cref="T:System.Reflection.Binder" />
         <altmember cref="T:System.Reflection.BindingFlags" />
       </Docs>
@@ -880,7 +879,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 コンストラクターを取得するには、<see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用し、返された <see cref="M:System.Reflection.MemberInfo.IsDefined(System.Type,System.Boolean)" /> に対して <see cref="T:System.Reflection.ConstructorInfo" /> を呼び出します。</exception>
+        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 <see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用してコンストラクターを取得し、返された <see cref="T:System.Reflection.ConstructorInfo" /> で <see cref="M:System.Reflection.MemberInfo.IsDefined(System.Type,System.Boolean)" /> を呼び出すことができます。</exception>
       </Docs>
     </Member>
     <Member MemberName="MethodHandle">
@@ -961,7 +960,7 @@
       </ReturnValue>
       <Docs>
         <summary>このコンストラクターが定義されている動的モジュールを取得します。</summary>
-        <value>このコンストラクターが定義されている動的モジュールを表す <see cref="T:System.Reflection.Module" /> オブジェクト。</value>
+        <value>このコンストラクターが定義されている動的モジュールを表わす <see cref="T:System.Reflection.Module" /> オブジェクト。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1038,8 +1037,8 @@
         <ReturnType>System.Type</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>このオブジェクトを取得するために使用した <see cref="T:System.Type" /> オブジェクトへの参照を保持します。</summary>
-        <value>このオブジェクトを取得するために使用した <see langword="Type" /> オブジェクトを返します。</value>
+        <summary>このオブジェクトの取得元となった <see cref="T:System.Type" /> オブジェクトへの参照を保持します。</summary>
+        <value>このオブジェクトの取得元となった <see langword="Type" /> オブジェクトを返します。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1148,7 +1147,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="customBuilder" /> は <see langword="null" />です。</exception>
+          <paramref name="customBuilder" /> は <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="SetCustomAttribute">
@@ -1195,7 +1194,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 書式を設定する方法の詳細については、ECMA Partition II ドキュメント メタデータの仕様を参照してください`binaryAttribute`します。 ドキュメントはオンラインで入手できます。MSDN の「[ECMA C# and Common Language Infrastructure Standards](http://go.microsoft.com/fwlink/?LinkID=99212)」 (ECMA の C# および共通言語基盤の標準規格) と、ECMA のインターナショナル Web サイトにある「[Standard ECMA-335 - Common Language Infrastructure (CLI)](http://go.microsoft.com/fwlink/?LinkID=65552)」を参照してください。  
+ 書式を設定する方法の詳細については、ECMA Partition II ドキュメント メタデータの仕様を参照してください`binaryAttribute`します。 ドキュメントはオンラインで入手できます。MSDN の「[ECMA C# and Common Language Infrastructure Standards](https://go.microsoft.com/fwlink/?LinkID=99212)」 (ECMA の C# および共通言語基盤の標準規格) と、ECMA のインターナショナル Web サイトにある「[Standard ECMA-335 - Common Language Infrastructure (CLI)](https://go.microsoft.com/fwlink/?LinkID=65552)」を参照してください。  
   
    
   
@@ -1286,26 +1285,26 @@
       <Docs>
         <param name="il">有効な MSIL 命令を含む配列。</param>
         <param name="maxStack">スタック評価の最大深度。</param>
-        <param name="localSignature">シリアル化されたローカル変数の構造を含むバイト配列。 コンストラクターにローカル変数がない場合に <see langword="null" /> を指定します。</param>
-        <param name="exceptionHandlers">コンストラクターの例外ハンドラーを含むコレクション。 コンストラクターに例外ハンドラーがない場合に <see langword="null" /> を指定します。</param>
+        <param name="localSignature">シリアル化されたローカル変数の構造を含むバイト配列。 コンストラクターにローカル変数がない場合は、<see langword="null" /> を指定します。</param>
+        <param name="exceptionHandlers">コンストラクターの例外ハンドラーを含むコレクション。 コンストラクターに例外ハンドラーがない場合は、<see langword="null" /> を指定します。</param>
         <param name="tokenFixups">
-          <c>il</c> のオフセットを表す値のコレクション。それぞれが、変更される可能性のあるトークンの先頭を指定します。 コンストラクターに、変更するトークンがない場合 <see langword="null" /> を指定します。</param>
+          <c>il</c> のオフセットを表す値のコレクション。それぞれが、変更される可能性のあるトークンの先頭を指定します。 変更する必要のあるトークンがコンストラクターにない場合は、<see langword="null" /> を指定します。</param>
         <summary>Microsoft intermediate language (MSIL) の命令の指定したバイト配列を使用して、コンストラクターの本体を作成します。</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="il" /> は <see langword="null" />です。</exception>
+          <paramref name="il" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
           <paramref name="maxStack" /> が負の値です。  
   
 - または - 
-<paramref name="exceptionHandlers" /> の 1 つが <paramref name="il" /> の範囲外にあるオフセットを指定します。  
+<paramref name="exceptionHandlers" /> のいずれかが、<paramref name="il" /> 外のオフセットを指定しています。  
   
 - または - 
-<paramref name="tokenFixups" /> の 1 つが <paramref name="il" /> の配列の外側にあるオフセットを指定します。</exception>
-        <exception cref="T:System.InvalidOperationException">コンテナー型が <see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> メソッドを使用して作成されています。  
+<paramref name="tokenFixups" /> のいずれかが、<paramref name="il" /> 配列外のオフセットを指定しています。</exception>
+        <exception cref="T:System.InvalidOperationException">含んでいる型は、<see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> メソッドを使用して以前に作成されています。  
   
 - または - 
-このメソッドは前にこの <see cref="T:System.Reflection.Emit.ConstructorBuilder" /> について呼び出されました。</exception>
+このメソッドはこの <see cref="T:System.Reflection.Emit.ConstructorBuilder" /> オブジェクトで以前に呼び出されています。</exception>
       </Docs>
     </Member>
     <Member MemberName="SetSymCustomAttribute">
