@@ -1,11 +1,11 @@
 <Type Name="DbLimitExpression" FullName="System.Data.Common.CommandTrees.DbLimitExpression">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="867e3a64e46fe8e44427054c3fd19e4b04f3e4ca" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="0143b8fb8f4828342b3690112213a6165e456681" />
+    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39843288" />
+    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
+    <Meta Name="ms.locfileid" Value="52221867" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class DbLimitExpression : System.Data.Common.CommandTrees.DbExpression" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit DbLimitExpression extends System.Data.Common.CommandTrees.DbExpression" />
@@ -23,7 +23,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>引数コレクション内の要素の数を指定された制限値に制限することを表します。</summary>
+    <summary>指定された制限値へのコレクションの引数の要素数の制限を表します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -85,11 +85,12 @@
         <Parameter Name="visitor" Type="System.Data.Common.CommandTrees.DbExpressionVisitor&lt;TResultType&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="TResultType">によって生成される結果の種類<c>ビジター</c>します。</typeparam>
+        <typeparam name="TResultType">
+          <paramref name="visitor" /> によって生成される結果の型。</typeparam>
         <param name="visitor">特定の型の結果値を生成する、型指定された <see cref="T:System.Data.Common.CommandTrees.DbExpressionVisitor" /> のインスタンス。</param>
-        <summary>特定の型の結果値を生成する式のビジター パターンを実装します。</summary>
+        <summary>特定の型の結果値を生成する式にビジター パターンを実装します。</summary>
         <returns>
-          <see cref="T:System.Data.Common.CommandTrees.DbExpressionVisitor" /> によって生成された、特定の型の結果値。</returns>
+          <see cref="T:System.Data.Common.CommandTrees.DbExpressionVisitor" /> によって生成された特定の型の結果値。</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException">
           <paramref name="visitor" /> は <see langword="null" />です。</exception>
@@ -120,8 +121,8 @@
         <summary>入力コレクションを指定する式を取得または設定します。</summary>
         <value>入力コレクションを指定する式。</value>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">式は <see langword="null" /> です。</exception>
-        <exception cref="T:System.ArgumentException">式が <see cref="T:System.Data.Common.CommandTrees.DbLimitExpression" /> のコマンド ツリーに関連付けられていません。または、式の結果型がコレクション型ではありません。</exception>
+        <exception cref="T:System.ArgumentNullException">式が <see langword="null" /> です。</exception>
+        <exception cref="T:System.ArgumentException">式は <see cref="T:System.Data.Common.CommandTrees.DbLimitExpression" /> のコマンド ツリーに関連付けられていないか、結果型がコレクション型ではありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="Limit">
@@ -146,11 +147,11 @@
         <ReturnType>System.Data.Common.CommandTrees.DbExpression</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>入力コレクションから返される要素の数に関する制限を指定する式を取得または設定します。</summary>
-        <value>入力コレクションから返される要素の数に関する制限を指定する式。</value>
+        <summary>入力コレクションから返される要素数の制限を指定する式を取得または設定します。</summary>
+        <value>入力コレクションから返される要素数の制限を指定する式。</value>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">式は <see langword="null" /> です。</exception>
-        <exception cref="T:System.ArgumentException">式が <see cref="T:System.Data.Common.CommandTrees.DbLimitExpression" /> のコマンド ツリーに関連付けられていません (<see cref="T:System.Data.Common.CommandTrees.DbConstantExpression" /> または <see cref="T:System.Data.Common.CommandTrees.DbParameterReferenceExpression" /> ではありません)。または、式の結果型が 64 ビット整数型に等しくないかこの型に昇格できません。</exception>
+        <exception cref="T:System.ArgumentNullException">式が <see langword="null" /> です。</exception>
+        <exception cref="T:System.ArgumentException">式が <see cref="T:System.Data.Common.CommandTrees.DbLimitExpression" /> のコマンド ツリーに関連つけられていないか、式が <see cref="T:System.Data.Common.CommandTrees.DbConstantExpression" /> または <see cref="T:System.Data.Common.CommandTrees.DbParameterReferenceExpression" /> ではない、または結果型が 64 ビットの整数型に一致していないか上位変換できません。</exception>
       </Docs>
     </Member>
     <Member MemberName="WithTies">
@@ -175,7 +176,7 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>制限操作に同じランクの結果を含めるかどうかを取得します。 同じランクの結果を含めると、<see cref="P:System.Data.Common.CommandTrees.DbLimitExpression.Limit" /> 値で指定された数よりも多くの結果が生成される可能性があります。</summary>
+        <summary>制限操作が関連付けられた結果を含むかどうかを取得します。 関連付けられた結果を含むと <see cref="P:System.Data.Common.CommandTrees.DbLimitExpression.Limit" /> 値で指定されるよりも多くの結果を生成する場合があります。</summary>
         <value>制限操作が関連付けられた結果を含む場合 <see langword="true" />。それ以外の場合は <see langword="false" />。 既定値は、<see langword="false" /> です。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
