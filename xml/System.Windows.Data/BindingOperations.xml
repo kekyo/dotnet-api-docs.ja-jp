@@ -1,11 +1,11 @@
 <Type Name="BindingOperations" FullName="System.Windows.Data.BindingOperations">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="51eef6572002081a616a5d4355aca43a61a9c451" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="4601fcaf8f086826132c17425f722a0180d270b0" />
+    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="08/24/2018" />
-    <Meta Name="ms.locfileid" Value="37579256" />
+    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
+    <Meta Name="ms.locfileid" Value="52236440" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class BindingOperations" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit BindingOperations extends System.Object" />
@@ -24,7 +24,7 @@
   <Interfaces />
   <Docs>
     <summary>
-      <see cref="T:System.Windows.Data.Binding" />、<see cref="T:System.Windows.Data.MultiBinding" />、<see cref="T:System.Windows.Data.PriorityBinding" /> オブジェクトなどのバインディングを操作するための静的メソッドを提供します。</summary>
+      <see cref="T:System.Windows.Data.Binding" />、<see cref="T:System.Windows.Data.MultiBinding" />、および <see cref="T:System.Windows.Data.PriorityBinding" /> オブジェクトなどのバインディングを操作するための静的メソッドを提供します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -59,7 +59,7 @@
         <param name="collection">アクセスするコレクション。</param>
         <param name="accessMethod">コレクション上で実行するアクション。</param>
         <param name="writeAccess">
-          <c>accessMethod</c> でコレクションへの書き込みを行う場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</param>
+          <paramref name="accessMethod" /> がコレクションに記述する場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</param>
         <summary>EnableCollectionSynchronization を呼び出したときに指定されるアプリケーション同期機構を使用してコレクションへのアクセスを提供します。</summary>
         <remarks>To be added.</remarks>
       </Docs>
@@ -84,7 +84,7 @@
         <Parameter Name="target" Type="System.Windows.DependencyObject" />
       </Parameters>
       <Docs>
-        <param name="target">バインドを削除するオブジェクト。</param>
+        <param name="target">バインディングが削除されるオブジェクト。</param>
         <summary>種類が <see cref="T:System.Windows.Data.Binding" />、<see cref="T:System.Windows.Data.MultiBinding" />、および <see cref="T:System.Windows.Data.PriorityBinding" /> のバインディングを含むすべてのバインディングを、指定した <see cref="T:System.Windows.DependencyObject" /> から削除します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -119,9 +119,9 @@
         <Parameter Name="dp" Type="System.Windows.DependencyProperty" />
       </Parameters>
       <Docs>
-        <param name="target">バインドを削除するオブジェクト。</param>
-        <param name="dp">バインドを削除する依存関係プロパティ。</param>
-        <summary>プロパティからバインドを削除します (存在する場合)。</summary>
+        <param name="target">バインディングが削除されるオブジェクト。</param>
+        <param name="dp">バインディングが削除される依存関係プロパティ。</param>
+        <summary>プロパティにバインディングがある場合は、それを削除します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -133,7 +133,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターを <see langword="null" /> にすることはできません。</exception>
+          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターに <see langword="null" /> を指定することはできません。</exception>
       </Docs>
     </Member>
     <Member MemberName="CollectionRegistering">
@@ -241,12 +241,10 @@
   
 ## Remarks  
 
-WPF アプリケーションを使用してデータのコレクションを表示できる、<xref:System.Windows.Controls.ItemsControl>またはそのサブクラスのいずれか (<xref:System.Windows.Controls.ListBox>、 <xref:System.Windows.Controls.DataGrid>、 <xref:System.Windows.Controls.TreeView>、<xref:System.Windows.Controls.ListView>など。)。 WPF のサブクラスでコレクションへのアクセスをすべてのチャネル<xref:System.Windows.Data.CollectionView>します。 両方の<xref:System.Windows.Controls.ItemsControl>と<xref:System.Windows.Data.CollectionView>をスレッドにアフィニティを設定する、<xref:System.Windows.Controls.ItemsControl>が作成すると、つまり別のスレッドで使用が禁止されている例外をスローします。 実際には、この制限は、同様のコレクションに適用されます。
- 
-複数のスレッドでコレクションを使用することがあります。   コレクションを更新するなど、(追加または項目を削除)「データ収集」のスレッドで「ユーザー インターフェイス」のスレッドで、結果を表示するときに、UI は、中に応答できるようにデータ収集が行われています。 このような状況では、コレクションへの同期 (「スレッド セーフな」) アクセスを担当します。   これは、通常、セマフォなど、単純なロック メカニズムまたはさらに複雑な同期メカニズムのいずれかを使用して、イベントなどをリセットします。 
- 
-WPF からそのアクセスを保証する必要がありますも中に、コレクションへのアプリケーションのアクセスを同期する必要があります (特にから<xref:System.Windows.Data.CollectionView>) が同じ同期メカニズムに参加します。  これを行うには、<xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization%2A> メソッドを呼び出します。
- 
+WPF アプリケーションを使用してデータのコレクションを表示できる、<xref:System.Windows.Controls.ItemsControl>またはそのサブクラスのいずれか (<xref:System.Windows.Controls.ListBox>、 <xref:System.Windows.Controls.DataGrid>、 <xref:System.Windows.Controls.TreeView>、<xref:System.Windows.Controls.ListView>など。)。 WPF のサブクラスでコレクションへのアクセスをすべてのチャネル<xref:System.Windows.Data.CollectionView>します。 両方の<xref:System.Windows.Controls.ItemsControl>と<xref:System.Windows.Data.CollectionView>をスレッドにアフィニティを設定する、<xref:System.Windows.Controls.ItemsControl>が作成すると、つまり別のスレッドで使用が禁止されている例外をスローします。 実際には、この制限は、同様のコレクションに適用されます。
+ 
+複数のスレッドでコレクションを使用することがあります。   コレクションを更新するなど、(追加または項目を削除)「データ収集」のスレッドで「ユーザー インターフェイス」のスレッドで、結果を表示するときに、UI は、中に応答できるようにデータ収集が行われています。 このような状況では、コレクションへの同期 (「スレッド セーフな」) アクセスを担当します。   これは、通常、セマフォなど、単純なロック メカニズムまたはさらに複雑な同期メカニズムのいずれかを使用して、イベントなどをリセットします。  WPF からそのアクセスを保証する必要がありますも中に、コレクションへのアプリケーションのアクセスを同期する必要があります (特にから<xref:System.Windows.Data.CollectionView>) が同じ同期メカニズムに参加します。  これを行うには、<xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization%2A> メソッドを呼び出します。
+ 
 所有している UI スレッドは、その 1 つを複数のスレッドでコレクションを使用する、<xref:System.Windows.Controls.ItemsControl>アプリケーションがこの役割は、次のとおり。
 
 1. 同期メカニズムを選択します。
@@ -261,13 +259,13 @@ WPF からそのアクセスを保証する必要がありますも中に、コ�
 
    - 呼び出す、<xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization(System.Collections.IEnumerable,System.Object)>単純ロック メカニズムを使用した場合のオーバー ロードは呼び出し、<xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization(System.Collections.IEnumerable,System.Object,System.Windows.Data.CollectionSynchronizationCallback)>オーバー ロードの場合はさらに複雑なメカニズムを使用します。
 
-1. コレクションとその変更の通知への変更を確認します (を通じて<xref:System.Collections.Specialized.INotifyCollectionChanged>) がアトミック; 介入できる他のスレッドからのアクセスはありません。  (これは、通常は無料です。 For instance、<xref:System.Collections.ObjectModel.ObservableCollection%601>すべての変更が同期によって保護されていること、このことを保証します)。
+1. コレクションとその変更の通知への変更を確認します (を通じて<xref:System.Collections.Specialized.INotifyCollectionChanged>) がアトミック; 介入できる他のスレッドからのアクセスはありません。  (これは、通常は無料です。 For instance、<xref:System.Collections.ObjectModel.ObservableCollection%601>すべての変更が同期によって保護されていること、このことを保証します)。
 
-1. 呼び出す場合<xref:System.Windows.Data.BindingOperations.DisableCollectionSynchronization%2A>呼び出しは、UI スレッドでを実行する必要がありますもことです。
+1. 呼び出す場合 <xref:System.Windows.Data.BindingOperations.DisableCollectionSynchronization%2A>呼び出しは、UI スレッドでを実行する必要がありますもことです。
 
 1. 呼び出す必要がある場合は、複数の UI スレッドで、同じコレクションを使用するには、 <xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization%2A> (と<xref:System.Windows.Data.BindingOperations.DisableCollectionSynchronization%2A>、必要に応じて) 各 UI スレッドで個別にします。
 
-1. デッドロックを回避します。  これは既にアプリケーションの役割と同期を使用することも考慮する必要があります、同期では、WPF のアカウントへの参加に次の段落で説明したようです。
+1. デッドロックを回避します。  これは既にアプリケーションの役割と同期を使用することも考慮する必要があります、同期では、WPF のアカウントへの参加に次の段落で説明したようです。
 
 代わりに、WPF には、次の動作が用意されています。
 
@@ -279,9 +277,9 @@ WPF からそのアクセスを保証する必要がありますも中に、コ�
 
 - 保留中のイベントに適用されます、UI スレッドで非同期的にシャドウ コピーする機会があるとします。
 
-- <xref:System.Windows.Data.CollectionView>アプリケーションに表示されている同期機構を直接使用されません。 これは、WPF の方法を回避するためにデッドロックを (前の項目 7 を参照してください)。   
+- <xref:System.Windows.Data.CollectionView>アプリケーションに表示されている同期機構を直接使用されません。 これは、WPF の方法を回避するためにデッドロックを (前の項目 7 を参照してください)。   
 
-Net の効果は、任意のスレッドでコレクションを変更してにそれらの変更が最終的に表示されます、 <xref:System.Windows.Controls.ItemsControl> UI スレッドが「追いつく」する時間を持っている場合。  背景を保持する UI スレッドに変更をフローするレートのスレッドから UI スレッドの飽和を通常のユーザー入力に応答を逼迫させているスロットルを実装をチューニングしました。
+Net の効果は、任意のスレッドでコレクションを変更してにそれらの変更が最終的に表示されます、 <xref:System.Windows.Controls.ItemsControl> UI スレッドが「追いつく」する時間を持っている場合。  背景を保持する UI スレッドに変更をフローするレートのスレッドから UI スレッドの飽和を通常のユーザー入力に応答を逼迫させているスロットルを実装をチューニングしました。
 
  ]]></format>
         </remarks>
@@ -316,10 +314,10 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
 
 ## Remarks
 
-WPF アプリケーションを使用してデータのコレクションを表示できる、<xref:System.Windows.Controls.ItemsControl>またはそのサブクラスのいずれか (<xref:System.Windows.Controls.ListBox>、 <xref:System.Windows.Controls.DataGrid>、 <xref:System.Windows.Controls.TreeView>、<xref:System.Windows.Controls.ListView>など。)。 WPF のサブクラスでコレクションへのアクセスをすべてのチャネル<xref:System.Windows.Data.CollectionView>します。 両方の<xref:System.Windows.Controls.ItemsControl>と<xref:System.Windows.Data.CollectionView>をスレッドにアフィニティを設定する、<xref:System.Windows.Controls.ItemsControl>が作成すると、つまり別のスレッドで使用が禁止されている例外をスローします。 実際には、この制限は、同様のコレクションに適用されます。
- 
-複数のスレッドでコレクションを使用することがあります。   コレクションを更新するなど、(追加または項目を削除)「データ収集」のスレッドで「ユーザー インターフェイス」のスレッドで、結果を表示するときに、UI は、中に応答できるようにデータ収集が行われています。 このような状況での責任者は確保の同期 (「スレッド セーフな」) のアクセスとは、WPF からそのアクセスを保証するコレクションを (特にから<xref:System.Windows.Data.CollectionView>) が同じ同期メカニズムに参加します。 呼び出すことによって、<xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization(System.Collections.IEnumerable,System.Object)>メソッドでは、これを行う単純なロック メカニズムを使用しています。 
- 
+WPF アプリケーションを使用してデータのコレクションを表示できる、<xref:System.Windows.Controls.ItemsControl>またはそのサブクラスのいずれか (<xref:System.Windows.Controls.ListBox>、 <xref:System.Windows.Controls.DataGrid>、 <xref:System.Windows.Controls.TreeView>、<xref:System.Windows.Controls.ListView>など。)。 WPF のサブクラスでコレクションへのアクセスをすべてのチャネル<xref:System.Windows.Data.CollectionView>します。 両方の<xref:System.Windows.Controls.ItemsControl>と<xref:System.Windows.Data.CollectionView>をスレッドにアフィニティを設定する、<xref:System.Windows.Controls.ItemsControl>が作成すると、つまり別のスレッドで使用が禁止されている例外をスローします。 実際には、この制限は、同様のコレクションに適用されます。
+ 
+複数のスレッドでコレクションを使用することがあります。   コレクションを更新するなど、(追加または項目を削除)「データ収集」のスレッドで「ユーザー インターフェイス」のスレッドで、結果を表示するときに、UI は、中に応答できるようにデータ収集が行われています。 このような状況での責任者は確保の同期 (「スレッド セーフな」) のアクセスとは、WPF からそのアクセスを保証するコレクションを (特にから<xref:System.Windows.Data.CollectionView>) が同じ同期メカニズムに参加します。 呼び出すことによって、<xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization(System.Collections.IEnumerable,System.Object)>メソッドでは、これを行う単純なロック メカニズムを使用しています。 
+ 
 所有している UI スレッドは、その 1 つを複数のスレッドでコレクションを使用する、<xref:System.Windows.Controls.ItemsControl>次を行う必要があります。
 
 1. コレクションにアクセスするときにロックするオブジェクトのインスタンスを作成します。
@@ -332,13 +330,13 @@ WPF アプリケーションを使用してデータのコレクションを表�
 
    - 別のスレッドでコレクションを使用する前に、またはコレクションをアタッチする前に、呼び出しを行う必要があります、 <xref:System.Windows.Controls.ItemsControl>、後で方します。
 
-1. コレクションとその変更の通知への変更を確認します (を通じて<xref:System.Collections.Specialized.INotifyCollectionChanged>) がアトミック; 介入できる他のスレッドからのアクセスはありません。  (これは、通常は無料です。 For instance、<xref:System.Collections.ObjectModel.ObservableCollection%601>すべての変更が同期によって保護されていること、このことを保証します)。
+1. コレクションとその変更の通知への変更を確認します (を通じて<xref:System.Collections.Specialized.INotifyCollectionChanged>) がアトミック; 介入できる他のスレッドからのアクセスはありません。  (これは、通常は無料です。 For instance、<xref:System.Collections.ObjectModel.ObservableCollection%601>すべての変更が同期によって保護されていること、このことを保証します)。
 
-1. 呼び出す場合<xref:System.Windows.Data.BindingOperations.DisableCollectionSynchronization%2A>呼び出しは、UI スレッドでを実行する必要がありますもことです。
+1. 呼び出す場合 <xref:System.Windows.Data.BindingOperations.DisableCollectionSynchronization%2A>呼び出しは、UI スレッドでを実行する必要がありますもことです。
 
 1. 呼び出す必要がある場合は、複数の UI スレッドで、同じコレクションを使用するには、 <xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization%2A> (と<xref:System.Windows.Data.BindingOperations.DisableCollectionSynchronization%2A>、必要に応じて) 各 UI スレッドで個別にします。
 
-1. デッドロックを回避します。  同期を使用するが、その必要がありますも考慮に入れて同期 WPF への参加は既に、アプリケーションの責任になります。 (参照の詳細は、下)。
+1. デッドロックを回避します。  同期を使用するが、その必要がありますも考慮に入れて同期 WPF への参加は既に、アプリケーションの責任になります。 (参照の詳細は、下)。
 
 代わりに、WPF には、次の動作が用意されています。
 
@@ -350,9 +348,9 @@ WPF アプリケーションを使用してデータのコレクションを表�
 
 - 保留中のイベントに適用されます、UI スレッドで非同期的にシャドウ コピーする機会があるとします。
 
-- <xref:System.Windows.Data.CollectionView>アプリケーションに表示される同期メカニズム直接使用されます。 これは、WPF の方法を回避するためにデッドロックを (前の項目 7 を参照してください)。   
+- <xref:System.Windows.Data.CollectionView>アプリケーションに表示される同期メカニズム直接使用されます。 これは、WPF の方法を回避するためにデッドロックを (前の項目 7 を参照してください)。   
 
-Net の効果は、任意のスレッドでコレクションを変更してにそれらの変更が最終的に表示されます、 <xref:System.Windows.Controls.ItemsControl> UI スレッドが「追いつく」する時間を持っている場合。  背景を保持する UI スレッドに変更をフローするレートのスレッドから UI スレッドの飽和を通常のユーザー入力に応答を逼迫させているスロットルを実装をチューニングしました。
+Net の効果は、任意のスレッドでコレクションを変更してにそれらの変更が最終的に表示されます、 <xref:System.Windows.Controls.ItemsControl> UI スレッドが「追いつく」する時間を持っている場合。  背景を保持する UI スレッドに変更をフローするレートのスレッドから UI スレッドの飽和を通常のユーザー入力に応答を逼迫させているスロットルを実装をチューニングしました。
   
  ]]></format>
         </remarks>
@@ -389,11 +387,9 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
   
 ## Remarks  
 
-WPF アプリケーションを使用してデータのコレクションを表示できる、<xref:System.Windows.Controls.ItemsControl>またはそのサブクラスのいずれか (<xref:System.Windows.Controls.ListBox>、 <xref:System.Windows.Controls.DataGrid>、 <xref:System.Windows.Controls.TreeView>、<xref:System.Windows.Controls.ListView>など。)。 WPF のサブクラスでコレクションへのアクセスをすべてのチャネル<xref:System.Windows.Data.CollectionView>します。 両方の<xref:System.Windows.Controls.ItemsControl>と<xref:System.Windows.Data.CollectionView>をスレッドにアフィニティを設定する、<xref:System.Windows.Controls.ItemsControl>が作成すると、つまり別のスレッドで使用が禁止されている例外をスローします。 実際には、この制限は、同様のコレクションに適用されます。
- 
-複数のスレッドでコレクションを使用することがあります。   コレクションを更新するなど、(追加または項目を削除)「データ収集」のスレッドで「ユーザー インターフェイス」のスレッドで、結果を表示するときに、UI は、中に応答できるようにデータ収集が行われています。 このような状況での責任者は確保の同期 (「スレッド セーフな」) のアクセスとは、WPF からそのアクセスを保証するコレクションを (特にから<xref:System.Windows.Data.CollectionView>) が同じ同期メカニズムに参加します。 呼び出すことによって、<xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization(System.Collections.IEnumerable,System.Object,System.Windows.Data.CollectionSynchronizationCallback)>メソッドでは、これを行うなど、セマフォ、リセット イベントなどの同期メカニズムを使用しています。 
- 
-所有している UI スレッドは、その 1 つを複数のスレッドでコレクションを使用する、<xref:System.Windows.Controls.ItemsControl>次を行う必要があります。
+WPF アプリケーションを使用してデータのコレクションを表示できる、<xref:System.Windows.Controls.ItemsControl>またはそのサブクラスのいずれか (<xref:System.Windows.Controls.ListBox>、 <xref:System.Windows.Controls.DataGrid>、 <xref:System.Windows.Controls.TreeView>、<xref:System.Windows.Controls.ListView>など。)。 WPF のサブクラスでコレクションへのアクセスをすべてのチャネル<xref:System.Windows.Data.CollectionView>します。 両方の<xref:System.Windows.Controls.ItemsControl>と<xref:System.Windows.Data.CollectionView>をスレッドにアフィニティを設定する、<xref:System.Windows.Controls.ItemsControl>が作成すると、つまり別のスレッドで使用が禁止されている例外をスローします。 実際には、この制限は、同様のコレクションに適用されます。
+ 
+複数のスレッドでコレクションを使用することがあります。   コレクションを更新するなど、(追加または項目を削除)「データ収集」のスレッドで「ユーザー インターフェイス」のスレッドで、結果を表示するときに、UI は、中に応答できるようにデータ収集が行われています。 このような状況での責任者は確保の同期 (「スレッド セーフな」) のアクセスとは、WPF からそのアクセスを保証するコレクションを (特にから<xref:System.Windows.Data.CollectionView>) が同じ同期メカニズムに参加します。 呼び出すことによって、<xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization(System.Collections.IEnumerable,System.Object,System.Windows.Data.CollectionSynchronizationCallback)>メソッドでは、これを行うなど、セマフォ、リセット イベントなどの同期メカニズムを使用しています。  所有している UI スレッドは、その 1 つを複数のスレッドでコレクションを使用する、<xref:System.Windows.Controls.ItemsControl>次を行う必要があります。
 
 1. 同期メカニズムを選択します。
 
@@ -405,13 +401,13 @@ WPF アプリケーションを使用してデータのコレクションを表�
 
    - 別のスレッドでコレクションを使用する前に、またはコレクションをアタッチする前に、呼び出しを行う必要があります、 <xref:System.Windows.Controls.ItemsControl>、後で方します。
 
-1. コレクションとその変更の通知への変更を確認します (を通じて<xref:System.Collections.Specialized.INotifyCollectionChanged>) がアトミック; 介入できる他のスレッドからのアクセスはありません。  (これは、通常は無料です。 For instance、<xref:System.Collections.ObjectModel.ObservableCollection%601>すべての変更が同期によって保護されていること、このことを保証します)。
+1. コレクションとその変更の通知への変更を確認します (を通じて<xref:System.Collections.Specialized.INotifyCollectionChanged>) がアトミック; 介入できる他のスレッドからのアクセスはありません。  (これは、通常は無料です。 For instance、<xref:System.Collections.ObjectModel.ObservableCollection%601>すべての変更が同期によって保護されていること、このことを保証します)。
 
-1. 呼び出す場合<xref:System.Windows.Data.BindingOperations.DisableCollectionSynchronization%2A>呼び出しは、UI スレッドでを実行する必要がありますもことです。
+1. 呼び出す場合 <xref:System.Windows.Data.BindingOperations.DisableCollectionSynchronization%2A>呼び出しは、UI スレッドでを実行する必要がありますもことです。
 
 1. 呼び出す必要がある場合は、複数の UI スレッドで、同じコレクションを使用するには、 <xref:System.Windows.Data.BindingOperations.EnableCollectionSynchronization%2A> (と<xref:System.Windows.Data.BindingOperations.DisableCollectionSynchronization%2A>、必要に応じて) 各 UI スレッドで個別にします。
 
-1. デッドロックを回避します。  同期を使用するが、その必要がありますも考慮に入れて同期 WPF への参加は既に、アプリケーションの責任になります。 (参照の詳細は、下)。
+1. デッドロックを回避します。  同期を使用するが、その必要がありますも考慮に入れて同期 WPF への参加は既に、アプリケーションの責任になります。 (参照の詳細は、下)。
 
 代わりに、WPF には、次の動作が用意されています。
 
@@ -430,9 +426,9 @@ WPF アプリケーションを使用してデータのコレクションを表�
 
 - 保留中のイベントに適用されます、UI スレッドで非同期的にシャドウ コピーする機会があるとします。
 
-- <xref:System.Windows.Data.CollectionView>アプリケーションに表示される同期メカニズム直接使用されます。 これは、WPF の方法を回避するためにデッドロックを (前の項目 7 を参照してください)。   
+- <xref:System.Windows.Data.CollectionView>アプリケーションに表示される同期メカニズム直接使用されます。 これは、WPF の方法を回避するためにデッドロックを (前の項目 7 を参照してください)。   
 
-Net の効果は、任意のスレッドでコレクションを変更してにそれらの変更が最終的に表示されます、 <xref:System.Windows.Controls.ItemsControl> UI スレッドが「追いつく」する時間を持っている場合。  背景を保持する UI スレッドに変更をフローするレートのスレッドから UI スレッドの飽和を通常のユーザー入力に応答を逼迫させているスロットルを実装をチューニングしました。
+Net の効果は、任意のスレッドでコレクションを変更してにそれらの変更が最終的に表示されます、 <xref:System.Windows.Controls.ItemsControl> UI スレッドが「追いつく」する時間を持っている場合。  背景を保持する UI スレッドに変更をフローするレートのスレッドから UI スレッドの飽和を通常のユーザー入力に応答を逼迫させているスロットルを実装をチューニングしました。
 
  `context`パラメーターは、任意のオブジェクトに渡される、`callback`します。 アクセスを制御するために使用する同期メカニズムを使用する`collection`します。 `Context` `null`します。  
  
@@ -462,7 +458,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
       </Parameters>
       <Docs>
         <param name="target">
-          <c>dp</c> が存在するオブジェクト。</param>
+          <paramref name="dp" /> が存在するオブジェクト。</param>
         <param name="dp">バインディングの取得元となるバインディング ターゲット プロパティ。</param>
         <summary>指定したプロパティに設定されている <see cref="T:System.Windows.Data.Binding" /> オブジェクトを取得します。</summary>
         <returns>指定したプロパティに設定された <see cref="T:System.Windows.Data.Binding" /> オブジェクト。<see cref="T:System.Windows.Data.Binding" /> オブジェクトが設定されていない場合は <see langword="null" />。</returns>
@@ -497,7 +493,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
       </Parameters>
       <Docs>
         <param name="target">
-          <c>dp</c> が存在するオブジェクト。</param>
+          <paramref name="dp" /> が存在するオブジェクト。</param>
         <param name="dp">
           <see cref="T:System.Windows.Data.BindingBase" /> オブジェクトの取得元となるバインディング ターゲット プロパティ。</param>
         <summary>指定したプロパティに設定されている <see cref="T:System.Windows.Data.BindingBase" /> オブジェクトを取得します。</summary>
@@ -511,7 +507,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターを <see langword="null" /> にすることはできません。</exception>
+          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターに <see langword="null" /> を指定することはできません。</exception>
         <altmember cref="M:System.Windows.Data.BindingOperations.GetBindingExpressionBase(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
       </Docs>
     </Member>
@@ -537,7 +533,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
       </Parameters>
       <Docs>
         <param name="target">
-          <c>dp</c> が存在するバインディング ターゲット オブジェクト。</param>
+          <paramref name="dp" /> が存在するバインディング ターゲット オブジェクト。</param>
         <param name="dp">
           <see cref="T:System.Windows.Data.BindingExpression" /> オブジェクトの取得元となるバインディング ターゲット プロパティ。</param>
         <summary>指定されたオブジェクト上の指定されたバインディング ターゲット プロパティに関連付けられた <see cref="T:System.Windows.Data.BindingExpression" /> オブジェクトを返します。</summary>
@@ -561,7 +557,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターを <see langword="null" /> にすることはできません。</exception>
+          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターに <see langword="null" /> を指定することはできません。</exception>
         <altmember cref="M:System.Windows.Data.BindingOperations.GetMultiBindingExpression(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
         <altmember cref="M:System.Windows.Data.BindingOperations.GetPriorityBindingExpression(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
         <altmember cref="M:System.Windows.Data.BindingOperations.GetBindingExpressionBase(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
@@ -589,7 +585,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
       </Parameters>
       <Docs>
         <param name="target">
-          <c>dp</c> が存在するオブジェクト。</param>
+          <paramref name="dp" /> が存在するオブジェクト。</param>
         <param name="dp">
           <see cref="T:System.Windows.Data.BindingExpressionBase" /> オブジェクトの取得元となるバインディング ターゲット プロパティ。</param>
         <summary>指定したプロパティに設定されている <see cref="T:System.Windows.Data.BindingExpressionBase" /> オブジェクトを取得します。</summary>
@@ -629,7 +625,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
       </Parameters>
       <Docs>
         <param name="target">
-          <c>dp</c> が存在するオブジェクト。</param>
+          <paramref name="dp" /> が存在するオブジェクト。</param>
         <param name="dp">バインディングの取得元となるバインディング ターゲット プロパティ。</param>
         <summary>指定したプロパティに設定されている <see cref="T:System.Windows.Data.MultiBinding" /> オブジェクトを取得します。</summary>
         <returns>指定したプロパティに設定された <see cref="T:System.Windows.Data.MultiBinding" /> オブジェクト。<see cref="T:System.Windows.Data.MultiBinding" /> オブジェクトが設定されていない場合は <see langword="null" />。</returns>
@@ -662,7 +658,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
       </Parameters>
       <Docs>
         <param name="target">
-          <c>dp</c> が存在するバインディング ターゲット オブジェクト。</param>
+          <paramref name="dp" /> が存在するバインディング ターゲット オブジェクト。</param>
         <param name="dp">
           <see cref="T:System.Windows.Data.MultiBindingExpression" /> オブジェクトの取得元となるバインディング ターゲット プロパティ。</param>
         <summary>指定されたオブジェクト上の指定されたバインディング ターゲット プロパティに関連付けられた <see cref="T:System.Windows.Data.MultiBindingExpression" /> オブジェクトを返します。</summary>
@@ -676,7 +672,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターを <see langword="null" /> にすることはできません。</exception>
+          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターに <see langword="null" /> を指定することはできません。</exception>
         <altmember cref="M:System.Windows.Data.BindingOperations.GetBindingExpressionBase(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
         <altmember cref="M:System.Windows.Data.BindingOperations.GetBindingExpression(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
         <altmember cref="M:System.Windows.Data.BindingOperations.GetMultiBinding(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
@@ -704,7 +700,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
       </Parameters>
       <Docs>
         <param name="target">
-          <c>dp</c> が存在するオブジェクト。</param>
+          <paramref name="dp" /> が存在するオブジェクト。</param>
         <param name="dp">バインディングの取得元となるバインディング ターゲット プロパティ。</param>
         <summary>指定したプロパティに設定されている <see cref="T:System.Windows.Data.PriorityBinding" /> オブジェクトを取得します。</summary>
         <returns>指定したプロパティに設定された <see cref="T:System.Windows.Data.PriorityBinding" /> オブジェクト。<see cref="T:System.Windows.Data.PriorityBinding" /> オブジェクトが設定されていない場合は <see langword="null" />。</returns>
@@ -737,14 +733,14 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
       </Parameters>
       <Docs>
         <param name="target">
-          <c>dp</c> が存在するバインディング ターゲット オブジェクト。</param>
+          <paramref name="dp" /> が存在するバインディング ターゲット オブジェクト。</param>
         <param name="dp">
           <see cref="T:System.Windows.Data.PriorityBindingExpression" /> オブジェクトの取得元となるバインディング ターゲット プロパティ。</param>
         <summary>指定されたオブジェクト上の指定されたバインディング ターゲット プロパティに関連付けられた <see cref="T:System.Windows.Data.PriorityBindingExpression" /> オブジェクトを返します。</summary>
         <returns>指定したプロパティに関連付けられた <see cref="T:System.Windows.Data.PriorityBindingExpression" /> オブジェクト。関連付けられたオブジェクトが存在しない場合は <see langword="null" />。</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターを <see langword="null" /> にすることはできません。</exception>
+          <paramref name="target" /> パラメーターと <paramref name="dp" /> パラメーターに <see langword="null" /> を指定することはできません。</exception>
         <altmember cref="M:System.Windows.Data.BindingOperations.GetBindingExpressionBase(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
         <altmember cref="M:System.Windows.Data.BindingOperations.GetBindingExpression(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
         <altmember cref="M:System.Windows.Data.BindingOperations.GetPriorityBinding(System.Windows.DependencyObject,System.Windows.DependencyProperty)" />
@@ -836,7 +832,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
       </Parameters>
       <Docs>
         <param name="target">
-          <c>dp</c> が存在するオブジェクト。</param>
+          <paramref name="dp" /> が存在するオブジェクト。</param>
         <param name="dp">照合する対象の依存関係プロパティ。</param>
         <summary>指定したプロパティが現在データ バインドされているかどうかを示す値を返します。</summary>
         <returns>指定したプロパティがデータ バインドされている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
@@ -890,7 +886,7 @@ Net の効果は、任意のスレッドでコレクションを変更してに�
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="binding" /> パラメーターとして <see langword="null" /> を使用することはできません。</exception>
+          <paramref name="binding" /> パラメーターに <see langword="null" /> を指定することはできません。</exception>
       </Docs>
     </Member>
   </Members>
