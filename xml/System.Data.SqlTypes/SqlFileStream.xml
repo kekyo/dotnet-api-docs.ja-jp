@@ -1,11 +1,11 @@
 <Type Name="SqlFileStream" FullName="System.Data.SqlTypes.SqlFileStream">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="816ce7419ac988fd59cc9af9c17ad8539a177a86" />
-    <Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" />
+    <Meta Name="ms.openlocfilehash" Value="b0db29c50e0854f4d7972cd22bdc556b9f2bc008" />
+    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="11/17/2018" />
-    <Meta Name="ms.locfileid" Value="51933624" />
+    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
+    <Meta Name="ms.locfileid" Value="52244734" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class SqlFileStream : System.IO.Stream" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit SqlFileStream extends System.IO.Stream" />
@@ -23,7 +23,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>FILESTREAM 列属性と共に格納されている SQL Server データをバイト シーケンスとして公開します。</summary>
+    <summary>バイトのシーケンスとして FILESTREAM 列属性に格納されている SQL Server のデータを公開します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -94,7 +94,7 @@
         <Parameter Name="access" Type="System.IO.FileAccess" />
       </Parameters>
       <Docs>
-        <param name="path">ファイルの論理パス。 テーブル内の基になる FILESTREAM 列で Transact-SQL Pathname 関数を使用して、パスを取得できます。</param>
+        <param name="path">ファイルへの論理パス。 テーブル内の基になる FILESTREAM 列で Transact-SQL Pathname 関数を使用して、パスを取得できます。</param>
         <param name="transactionContext">
           <see langword="SqlFileStream" /> オブジェクトのトランザクション コンテキスト。 アプリケーションが、GET_FILESTREAM_TRANSACTION_CONTEXT メソッドの呼び出しで返されるバイト配列を返す必要があります。</param>
         <param name="access">ファイルを開くときに使用するアクセス モード。 サポートされている <see cref="T:System.IO.FileAccess" /> 列挙値は <see cref="F:System.IO.FileAccess.Read" />、<see cref="F:System.IO.FileAccess.Write" />、および <see cref="F:System.IO.FileAccess.ReadWrite" /> です。  
@@ -103,7 +103,7 @@
   
 <see langword="FileAccess.Write" /> を使用する際に、<see langword="SqlFileStream" /> は 0 バイトのファイルを指します。 オブジェクトが閉じ、トランザクションがコミットされると、既存のデータが上書きされます。  
   
-<see langword="FileAccess.ReadWrite" /> を使用する際に、<see langword="SqlFileStream" /> はすべての既存のデータがあるファイルを指します。 このファイルの先頭にハンドルが配置されます。 <see langword="System.IO" /><see langword="Seek" /> メソッドのいずれかを使用して、新しいデータを書き込む、または追加するファイル内のハンドルの位置を移動できます。</param>
+<see langword="FileAccess.ReadWrite" /> を使用する際に、<see langword="SqlFileStream" /> はすべての既存のデータがあるファイルを指します。 このファイルの先頭にハンドルが配置されます。 <see langword="System.IO" /><see langword="Seek" /> メソッドの 1 つを使用して、ファイル内でハンドルの位置を移動し、新しいデータを書き込んだり付加したりできます。</param>
         <summary>
           <see cref="T:System.Data.SqlTypes.SqlFileStream" /> クラスの新しいインスタンスを初期化します。</summary>
         <remarks>
@@ -115,21 +115,21 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="path" /> が Null 参照であるか、<paramref name="transactionContext" /> が Null です。</exception>
+          <paramref name="path" /> が null 参照か、<paramref name="transactionContext" /> が null です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="path" /> が空の文字列 ("") か、空白しか含んでいないか、無効な文字を 1 つ以上含んでいます。  
+          <paramref name="path" /> は空の文字列 ("") であるか、空白のみで構成されているか、または 1 つ以上の正しくない文字を含んでいます。  
   
  <paramref name="path" /> は "\\\\.\\" で始まります。たとえば、"\\\\.\PHYSICALDRIVE0 " です。  
   
-NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型ではありません。  
+NTCreateFile に対する呼び出しで返されたハンドルの型が FILE_TYPE_DISK ではありません。  
   
- <paramref name="options" /> にサポート外の値が含まれています。</exception>
+ サポートされていない値が <paramref name="options" /> に含まれています。</exception>
         <exception cref="T:System.IO.FileNotFoundException">ファイルが見つかりません。</exception>
         <exception cref="T:System.IO.IOException">I/O エラーが発生しました。</exception>
         <exception cref="T:System.Security.SecurityException">呼び出し元に、必要なアクセス許可がありません。</exception>
         <exception cref="T:System.IO.DirectoryNotFoundException">マップされていないドライブにあるなど、指定された <paramref name="path" /> が正しくありません。</exception>
         <exception cref="T:System.UnauthorizedAccessException">指定されたパスへの要求されたアクセスは、オペレーティング システムによって許可されていません。 これは、書き込みアクセスか読み取り/書き込みアクセスが指定されており、ファイルまたはディレクトリが読み取り専用アクセス用に設定されている場合に発生します。</exception>
-        <exception cref="T:System.InvalidOperationException">エラー コード ERROR_SHARING_VIOLATION で NtCreateFile が失敗します。</exception>
+        <exception cref="T:System.InvalidOperationException">NtCreateFile は失敗し、エラー コードは ERROR_SHARING_VIOLATION に設定されます。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -154,7 +154,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
         <Parameter Name="allocationSize" Type="System.Int64" />
       </Parameters>
       <Docs>
-        <param name="path">ファイルの論理パス。 テーブル内の基になる FILESTREAM 列で Transact-SQL Pathname 関数を使用して、パスを取得できます。</param>
+        <param name="path">ファイルへの論理パス。 テーブル内の基になる FILESTREAM 列で Transact-SQL Pathname 関数を使用して、パスを取得できます。</param>
         <param name="transactionContext">
           <see langword="SqlFileStream" /> オブジェクトのトランザクション コンテキスト。 null に設定されている場合、<see langword="SqlFileStream" />オブジェクトには暗黙のトランザクションが使用されます。 アプリケーションは、GET_FILESTREAM_TRANSACTION_CONTEXT メソッドの呼び出しで返されるバイト配列を返す必要があります。</param>
         <param name="access">ファイルを開くときに使用するアクセス モード。 サポートされている <see cref="T:System.IO.FileAccess" /> 列挙値は <see cref="F:System.IO.FileAccess.Read" />、<see cref="F:System.IO.FileAccess.Write" />、および <see cref="F:System.IO.FileAccess.ReadWrite" /> です。  
@@ -165,7 +165,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
   
 <see langword="FileAccess.ReadWrite" /> を使用する際に、<see langword="SqlFileStream" /> はすべての既存のデータがあるファイルを指します。 このファイルの先頭にハンドルが配置されます。 <see langword="System.IO" /><see langword="Seek" /> メソッドの 1 つを使用して、ファイル内でハンドルの位置を移動し、新しいデータを書き込んだり付加したりできます。</param>
         <param name="options">ファイルを開く際に使用するオプションを指定します。 サポートされる <see cref="T:System.IO.FileOptions" /> 値は <see cref="F:System.IO.FileOptions.Asynchronous" />、<see cref="F:System.IO.FileOptions.WriteThrough" />、<see cref="F:System.IO.FileOptions.SequentialScan" />、および <see cref="F:System.IO.FileOptions.RandomAccess" /> です。</param>
-        <param name="allocationSize">ファイル作成時に使用する割り当てサイズ。 0 を設定した場合は、既定値が使用されます。</param>
+        <param name="allocationSize">ファイル作成時に使用する割り当てサイズ。 0 に設定されている場合、既定値が使用されます。</param>
         <summary>
           <see cref="T:System.Data.SqlTypes.SqlFileStream" /> クラスの新しいインスタンスを初期化します。</summary>
         <remarks>
@@ -177,13 +177,13 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="path" /> が Null 参照であるか、<paramref name="transactionContext" /> が Null です。</exception>
+          <paramref name="path" /> が null 参照か、<paramref name="transactionContext" /> が null です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="path" /> が空の文字列 ("") か、空白しか含んでいないか、無効な文字を 1 つ以上含んでいます。  
+          <paramref name="path" /> は空の文字列 ("") であるか、空白のみで構成されているか、または 1 つ以上の正しくない文字を含んでいます。  
   
  <paramref name="path" /> は "\\\\.\\" で始まります。たとえば、"\\\\.\PHYSICALDRIVE0 " です。  
   
-NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型ではありません。  
+NTCreateFile に対する呼び出しで返されたハンドルの型が FILE_TYPE_DISK ではありません。  
   
  サポートされていない値が <paramref name="options" /> に含まれています。</exception>
         <exception cref="T:System.IO.FileNotFoundException">ファイルが見つかりません。</exception>
@@ -191,7 +191,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
         <exception cref="T:System.Security.SecurityException">呼び出し元に、必要なアクセス許可がありません。</exception>
         <exception cref="T:System.IO.DirectoryNotFoundException">マップされていないドライブにあるなど、指定された <paramref name="path" /> が正しくありません。</exception>
         <exception cref="T:System.UnauthorizedAccessException">指定されたパスへの要求されたアクセスは、オペレーティング システムによって許可されていません。 これは、書き込みアクセスか読み取り/書き込みアクセスが指定されており、ファイルまたはディレクトリが読み取り専用アクセス用に設定されている場合に発生します。</exception>
-        <exception cref="T:System.InvalidOperationException">エラー コード ERROR_SHARING_VIOLATION で NtCreateFile が失敗します。</exception>
+        <exception cref="T:System.InvalidOperationException">NtCreateFile は失敗し、エラー コードは ERROR_SHARING_VIOLATION に設定されます。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -220,7 +220,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
       </Parameters>
       <Docs>
         <param name="buffer">データを読み込むバッファー。</param>
-        <param name="offset">ストリームから読み込んだデータの書き込み開始位置を示す <c>buffer</c> 内のバイト オフセット。</param>
+        <param name="offset">ストリームから読み込んだデータの書き込み開始位置を示す <paramref name="buffer" /> 内のバイト オフセット。</param>
         <param name="count">読み取る最大バイト数。</param>
         <param name="callback">読み取り完了時に呼び出されるオプションの非同期コールバック。</param>
         <param name="state">この特定の非同期読み取り要求を他の要求と区別するために使用するユーザー指定のオブジェクト。</param>
@@ -234,7 +234,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">ストリームではデータの読み取りがサポートされていません。</exception>
+        <exception cref="T:System.NotSupportedException">データの読み取り操作は、ストリームではサポートされていません。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -263,7 +263,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
       </Parameters>
       <Docs>
         <param name="buffer">データの書き込み元となるバッファー。</param>
-        <param name="offset">書き込みの開始位置を示す <c>buffer</c> 内のバイト オフセット。</param>
+        <param name="offset">書き込むデータの開始位置を示す <paramref name="buffer" /> 内のバイト オフセット。</param>
         <param name="count">書き込む最大バイト数。</param>
         <param name="callback">書き込みの完了時に呼び出されるオプションの非同期コールバック。</param>
         <param name="state">この特定の非同期書き込み要求を他の要求と区別するために使用するユーザー指定のオブジェクト。</param>
@@ -277,7 +277,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">ストリームではデータの書き込みがサポートされていません。</exception>
+        <exception cref="T:System.NotSupportedException">データの書き込み操作は、ストリームではサポートされていません。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -349,8 +349,8 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>現在のストリームがタイム アウトできるかどうかを示す値を取得します。</summary>
-        <value>現在のストリームがタイム アウトできる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
+        <summary>現在のストリームがタイム アウトになる可能性があるかどうかを示す値を取得します。</summary>
+        <value>現在のストリームがタイム アウトになる可能性がある場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -427,7 +427,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
         <returns>ストリームから読み取ったバイト数 (0 ～要求したバイト数の間の数値)。 ゼロ (0) が返されるのは、ストリームの末尾で読み取ろうとしたときだけです。それ以外の場合は、少なくとも 1 バイトが読み込み可能になるまでブロックします。</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentException">
-          <see cref="T:System.IAsyncResult" /> オブジェクトは、対応する <see langword="BeginRead" /> メソッドから取得したものではありません。</exception>
+          <see cref="T:System.IAsyncResult" /> オブジェクトが、対応する <see langword="BeginRead" /> メソッドからのものではありませんでした。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -455,7 +455,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
         <summary>非同期書き込み操作を終了します。</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentException">
-          <see cref="T:System.IAsyncResult" /> オブジェクトは、対応する <see langword="BeginWrite" /> メソッドから取得したものではありません。</exception>
+          <see cref="T:System.IAsyncResult" /> オブジェクトが、対応する <see langword="BeginWrite" /> メソッドからのものではありませんでした。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -477,7 +477,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>ガベージ コレクターが <see cref="T:System.Data.SqlTypes.SqlFileStream" /> を再利用しているときに、リソースの解放およびその他のクリーンアップ操作を確実に実行します。</summary>
+        <summary>ガベージ コレクターが <see cref="T:System.Data.SqlTypes.SqlFileStream" /> を再利用するときに、リソースの解放およびその他のクリーンアップ操作を確実に実行するようにします。</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -499,7 +499,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>このストリームに対応するすべてのバッファーをクリアし、バッファー内のデータを基になるデバイスに書き込みます。</summary>
+        <summary>ストリームに対応するすべてのバッファーをクリアし、バッファー内のデータを基になるデバイスに書き込みます。</summary>
         <remarks>To be added.</remarks>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
@@ -521,8 +521,8 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>現在のストリームの長さをバイト単位で表す値を取得します。</summary>
-        <value>現在のストリームの長さをバイト単位で示す <see cref="T:System.Int64" />。</value>
+        <summary>バイト単位の現在のストリームの長さを示す値を取得します。</summary>
+        <value>バイト単位の現在のストリームの長さを示す <see cref="T:System.Int64" />。</value>
         <remarks>To be added.</remarks>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
@@ -544,7 +544,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>コンストラクターに渡された <see cref="T:System.Data.SqlTypes.SqlFileStream" /> の論理パスを取得します。</summary>
+        <summary>コンストラクターに渡される <see cref="T:System.Data.SqlTypes.SqlFileStream" /> の論理パスを取得します。</summary>
         <value>
           <see cref="T:System.Data.SqlTypes.SqlFileStream" /> の名前を示す文字列値。</value>
         <remarks>To be added.</remarks>
@@ -570,7 +570,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
       <Docs>
         <summary>現在のストリーム内の位置を取得または設定します。</summary>
         <value>
-          <see cref="T:System.Data.SqlTypes.SqlFileStream" /> 内の現在の位置。</value>
+          <see cref="T:System.Data.SqlTypes.SqlFileStream" /> 内の現在位置。</value>
         <remarks>To be added.</remarks>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
@@ -610,7 +610,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">オブジェクトはデータの読み取りをサポートしていません。</exception>
+        <exception cref="T:System.NotSupportedException">このオブジェクトはデータの読み取りをサポートしていません。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -643,7 +643,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">オブジェクトはデータの読み取りをサポートしていません。</exception>
+        <exception cref="T:System.NotSupportedException">このオブジェクトはデータの読み取りをサポートしていません。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -669,8 +669,8 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>ストリームがタイムアウト前に読み取りを試行する期間を決定する値 (ミリ秒単位) を取得または設定します。</summary>
-        <value>ストリームがタイムアウト前に読み取りを試行する期間を決定する値 (ミリ秒単位)。</value>
+        <summary>ストリームがタイムアウト前に読み取りを試みる期間を決定する値 (ミリ秒単位) を取得または設定します。</summary>
+        <value>ストリームがタイムアウト前に読み取りを試みる期間を決定する値 (ミリ秒単位)。</value>
         <remarks>To be added.</remarks>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
@@ -697,8 +697,8 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
       </Parameters>
       <Docs>
         <param name="offset">
-          <c>origin</c> パラメーターを基準とするバイト オフセット。</param>
-        <param name="origin">新しい位置を取得するために使用する参照ポイントを示す <see cref="T:System.IO.SeekOrigin" /> 型の値。</param>
+          <paramref name="origin" /> パラメーターからの相対バイト オフセット</param>
+        <param name="origin">新しい位置を取得するために使用する参照ポイントを示す <see cref="T:System.IO.SeekOrigin" /> 型の値</param>
         <summary>現在のストリーム内の位置を設定します。</summary>
         <returns>現在のストリーム内の新しい位置。</returns>
         <remarks>To be added.</remarks>
@@ -735,7 +735,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">オブジェクトはデータの読み取りをサポートしていません。</exception>
+        <exception cref="T:System.NotSupportedException">このオブジェクトはデータの読み取りをサポートしていません。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -784,8 +784,8 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
         <Parameter Name="count" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="buffer">バイト配列。 このメソッドは、<c>buffer</c> から現在のストリームに、<c>count</c> バイト数だけコピーします。</param>
-        <param name="offset">現在のストリームへのバイトのコピーを開始する位置を示す <c>buffer</c> 内のバイト オフセット。インデックス番号は 0 から始まります。</param>
+        <param name="buffer">バイト配列。 このメソッドは、<paramref name="buffer" /> から現在のストリームに、<paramref name="count" /> で指定されたバイト数だけコピーします。</param>
+        <param name="offset">現在のストリームへのバイトのコピーを開始する位置を示す <paramref name="buffer" /> 内のバイト オフセット。インデックス番号は 0 から始まります。</param>
         <param name="count">現在のストリームに書き込むバイト数。</param>
         <summary>現在のストリームにバイト シーケンスを書き込み、書き込んだバイト数だけストリーム内の現在位置を進めます。</summary>
         <remarks>
@@ -796,7 +796,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">オブジェクトはデータの書き込みをサポートしていません。</exception>
+        <exception cref="T:System.NotSupportedException">このオブジェクトにおいて、データの書き込みはサポートされていません。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
@@ -830,7 +830,7 @@ NTCreateFile の呼び出しで返されるハンドルが、FILE_TYPE_DISK 型�
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">オブジェクトはデータの書き込みをサポートしていません。</exception>
+        <exception cref="T:System.NotSupportedException">このオブジェクトにおいて、データの書き込みはサポートされていません。</exception>
         <related type="Article" href="https://msdn.microsoft.com/library/bd8b845c-0f09-4295-b466-97ef106eefa8">SQL Server 2008 の FILESTREAM データ (ADO.NET)</related>
       </Docs>
     </Member>
