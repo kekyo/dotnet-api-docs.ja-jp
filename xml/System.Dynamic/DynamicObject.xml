@@ -1,11 +1,11 @@
 <Type Name="DynamicObject" FullName="System.Dynamic.DynamicObject">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ed4462f9d7a16e9217568c22ea8566bf818f60e5" />
-    <Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" />
+    <Meta Name="ms.openlocfilehash" Value="c5bc7b7a2907aab3912eeac3fba27db4bf120c40" />
+    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="11/17/2018" />
-    <Meta Name="ms.locfileid" Value="51893831" />
+    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
+    <Meta Name="ms.locfileid" Value="52217096" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class DynamicObject : System.Dynamic.IDynamicMetaObjectProvider" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit DynamicObject extends System.Object implements class System.Dynamic.IDynamicMetaObjectProvider" />
@@ -45,7 +45,7 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>実行時の動的な動作を指定する基底クラスを提供します。 このクラスは継承する必要があり、直接インスタンス化することはできません。</summary>
+    <summary>実行時の動的な動作を指定する基底クラスを提供します。 このクラスは継承される必要があります。直接インスタンス化することはできません。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -287,7 +287,7 @@ Dim sampleObject As Object = New SampleDynamicObject()
       </Parameters>
       <Docs>
         <param name="binder">二項演算に関する情報を提供します。 <c>binder.Operation</c> プロパティは <see cref="T:System.Linq.Expressions.ExpressionType" /> オブジェクトを返します。 たとえば、<c>sum = first + second</c> ステートメントの場合 (<c>first</c> と <c>second</c> は <see langword="DynamicObject" /> クラスから派生)、<c>binder.Operation</c> クラスは <c>ExpressionType.Add</c> を返します。</param>
-        <param name="arg">二項演算の右オペランド。 たとえば、<c>sum = first + second</c> ステートメントの場合 (<c>first</c> と <c>second</c> は <see langword="DynamicObject" /> クラスから派生)、<c>arg</c> は <c>second</c> と等しくなります。</param>
+        <param name="arg">二項演算の右オペランド。 たとえば、<c>sum = first + second</c> ステートメントの場合 (<c>first</c> と <c>second</c> は <see langword="DynamicObject" /> クラスから派生)、<paramref name="arg" /> は <c>second</c> と等しくなります。</param>
         <param name="result">二項演算の結果。</param>
         <summary>二項演算の実装を提供します。 <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、加算や乗算などの演算の動的な動作を指定できます。</summary>
         <returns>操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。 このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります  (ほとんどの場合、言語固有の実行時例外がスローされます)。</returns>
@@ -303,7 +303,7 @@ Dim sampleObject As Object = New SampleDynamicObject()
   
  C# および Visual Basic の場合にのみ、動的オブジェクトが使用されている場合、`binder.Operation`プロパティから次の値のいずれかを指定できます、<xref:System.Linq.Expressions.ExpressionType>列挙体。 ただし、IronPython や IronRuby などの他の言語で他の値があることができます。
   
-|値|説明|C#|Visual Basic|  
+|[値]|説明|C#|Visual Basic|  
 |-----------|-----------------|---------|------------------|  
 |`Add`|オーバーフロー チェックを行わない、数値オペランドに対する加算演算。|`a + b`|`a + b`|  
 |`AddAssign`|オーバーフロー チェックを行わない、数値オペランドに対する加算の複合代入演算。|`a += b`|サポートされていません。|  
@@ -680,7 +680,7 @@ Dim testExplicit2 = CTypeDynamic(sampleObject, GetType(String))
       </Parameters>
       <Docs>
         <param name="binder">動的演算を呼び出したオブジェクトに関する情報を提供します。 <c>binder.Name</c> プロパティは、動的演算の対象であるメンバーの名前を提供します。 たとえば、<c>Console.WriteLine(sampleObject.SampleProperty)</c> ステートメントの場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスのインスタンス)、<c>binder.Name</c> は "SampleProperty" を返します。 メンバー名で大文字と小文字を区別するかどうかを <c>binder.IgnoreCase</c> プロパティで指定します。</param>
-        <param name="result">取得操作の結果。 たとえば、メソッドがプロパティに対して呼び出された場合、プロパティ値を <c>result</c> に割り当てることができます。</param>
+        <param name="result">取得操作の結果。 たとえば、このメソッドがプロパティに対して呼び出された場合、プロパティ値を <paramref name="result" /> に割り当てることができます。</param>
         <summary>メンバー値を取得する演算の実装を提供します。 <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、プロパティ値の取得などの演算の動的な動作を指定できます。</summary>
         <returns>操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。 このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります  (ほとんどの場合、実行時例外がスローされます)。</returns>
         <remarks>
@@ -873,7 +873,7 @@ Dim testExplicit2 = CTypeDynamic(sampleObject, GetType(String))
       <Docs>
         <param name="binder">演算に関する情報を提供します。</param>
         <param name="indexes">演算に使用されるインデックス。 たとえば、C# の <c>sampleObject[3] = 10</c> (Visual Basic では <c>sampleObject(3) = 10</c>) 演算の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスから派生)、<c>indexes[0]</c> は 3 に等しくなります。</param>
-        <param name="value">指定したインデックスのオブジェクトに設定する値。 たとえば、C# の <c>sampleObject[3] = 10</c> (Visual Basic では <c>sampleObject(3) = 10</c>) 演算の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスから派生)、<c>value</c> は 10 に等しくなります。</param>
+        <param name="value">指定したインデックスのオブジェクトに設定する値。 たとえば、C# の <c>sampleObject[3] = 10</c> (Visual Basic では <c>sampleObject(3) = 10</c>) 演算の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスから派生)、<paramref name="value" /> は 10 に等しくなります。</param>
         <summary>インデックスを使用して値を設定する演算の実装を提供します。 <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、指定したインデックスを使用してオブジェクトにアクセスする演算の動的な動作を指定できます。</summary>
         <returns>操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。 このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります  (ほとんどの場合、言語固有の実行時例外がスローされます)。</returns>
         <remarks>
@@ -933,7 +933,7 @@ Dim testExplicit2 = CTypeDynamic(sampleObject, GetType(String))
       </Parameters>
       <Docs>
         <param name="binder">動的演算を呼び出したオブジェクトに関する情報を提供します。 <c>binder.Name</c> プロパティは、値の割り当て先のメンバーの名前を提供します。 たとえば、ステートメント <c>sampleObject.SampleProperty = "Test"</c> の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスのインスタンス)、<c>binder.Name</c> は "SampleProperty" を返します。 メンバー名で大文字と小文字を区別するかどうかを <c>binder.IgnoreCase</c> プロパティで指定します。</param>
-        <param name="value">メンバーに設定する値。 たとえば、<c>sampleObject.SampleProperty = "Test"</c> の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスのインスタンス)、<c>value</c> は "Test" となります。</param>
+        <param name="value">メンバーに設定する値。 たとえば、<c>sampleObject.SampleProperty = "Test"</c> の場合 (<c>sampleObject</c> は <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスのインスタンス)、<paramref name="value" /> は "Test" となります。</param>
         <summary>メンバー値を設定する演算の実装を提供します。 <see cref="T:System.Dynamic.DynamicObject" /> クラスの派生クラスでこのメソッドをオーバーライドして、プロパティ値の設定などの演算の動的な動作を指定できます。</summary>
         <returns>操作が正常に終了した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。 このメソッドが <see langword="false" /> を返す場合、言語のランタイム バインダーによって動作が決まります  (ほとんどの場合、言語固有の実行時例外がスローされます)。</returns>
         <remarks>
@@ -1010,7 +1010,7 @@ Dim testExplicit2 = CTypeDynamic(sampleObject, GetType(String))
   
  C# および Visual Basic の場合にのみ、動的オブジェクトが使用されている場合、`binder.Operation`プロパティから次の値のいずれかを指定できます、<xref:System.Linq.Expressions.ExpressionType>列挙体。 ただし、IronPython や IronRuby などの他の言語で他の値があることができます。
   
-|値|説明|C#|Visual Basic|  
+|[値]|説明|C#|Visual Basic|  
 |-----------|-----------------|---------|------------------|  
 |`Decrement`|単項デクリメント演算です。|`a--`|サポートされていません。|  
 |`Increment`|単項インクリメント演算です。|`a++`|サポートされていません。|  
