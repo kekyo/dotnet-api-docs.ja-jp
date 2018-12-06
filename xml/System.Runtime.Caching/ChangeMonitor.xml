@@ -1,11 +1,11 @@
 <Type Name="ChangeMonitor" FullName="System.Runtime.Caching.ChangeMonitor">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="6584944dc100d0b2095a9b1597b9b7066c9b8d33" />
-    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
+    <Meta Name="ms.openlocfilehash" Value="73cd7d26a8035ac771856adae7eedfbd2609c7c2" />
+    <Meta Name="ms.sourcegitcommit" Value="1654a92bac785a221098172d9cacd405ceaac9b7" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
-    <Meta Name="ms.locfileid" Value="52615375" />
+    <Meta Name="ms.lasthandoff" Value="12/01/2018" />
+    <Meta Name="ms.locfileid" Value="52737443" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class ChangeMonitor : IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit ChangeMonitor extends System.Object implements class System.IDisposable" />
@@ -26,7 +26,7 @@
     </Interface>
   </Interfaces>
   <Docs>
-    <summary>キャッシュ アイテムが依存するデータの状態の変化を監視する、派生したカスタム型の基本クラスを提供します。</summary>
+    <summary>派生したカスタム型のキャッシュ アイテムが依存するデータの状態の変更を監視するには、基本クラスを提供します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -115,7 +115,7 @@
       <Parameters />
       <Docs>
         <summary>
-          <see cref="T:System.Runtime.Caching.ChangeMonitor" /> クラスの新しいインスタンスを初期化します。 このコンストラクターは、派生クラスのコンストラクターから呼び出されて基本クラスを初期化します。</summary>
+          <see cref="T:System.Runtime.Caching.ChangeMonitor" /> クラスの新しいインスタンスを初期化します。 このコンス トラクターは、基本クラスを初期化するために派生クラスのコンス トラクターから呼び出されます。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -205,8 +205,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">
-          <see cref="M:System.Runtime.Caching.ChangeMonitor.Dispose" /> メソッドを呼び出した変更監視派生クラスで初期化が完了していません。</exception>
+        <exception cref="T:System.InvalidOperationException">初期化が不完全を呼び出した変更監視派生クラスで<see cref="M:System.Runtime.Caching.ChangeMonitor.Dispose" />メソッド。</exception>
         <altmember cref="M:System.Runtime.Caching.ChangeMonitor.OnChanged(System.Object)" />
       </Docs>
     </Member>
@@ -229,8 +228,9 @@
         <Parameter Name="disposing" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="disposing">マネージド リソース、アンマネージド リソース、および <see cref="T:System.Runtime.Caching.ChangeMonitor" /> インスタンスへのすべての参照を解放する場合は <see langword="true" />。アンマネージド リソースのみを解放する場合は <see langword="false" />。 <see langword="false" />を渡すと、<see cref="M:System.Runtime.Caching.ChangeMonitor.Dispose(System.Boolean)" /> メソッドが <see langword="finalizer" /> スレッドによって呼び出されますが、すべての外部マネージド参照は既にガベージ コレクトされているため、有効ではなくなっている可能性があります。</param>
-        <summary>すべてのマネージド リソースおよびアンマネージド リソースと、<see cref="T:System.Runtime.Caching.ChangeMonitor" /> インスタンスへのすべての参照を解放します。 このオーバーロードは、変更監視クラスの派生クラスで実装する必要があります。</summary>
+        <param name="disposing">
+          <see langword="true" /> マネージ コードとアンマネージ リソースとその参照を解放する、<see cref="T:System.Runtime.Caching.ChangeMonitor" />インスタンス。<see langword="false" />にアンマネージ リソースだけを解放します。 <see langword="false" />を渡すと、<see cref="M:System.Runtime.Caching.ChangeMonitor.Dispose(System.Boolean)" /> メソッドが <see langword="finalizer" /> スレッドによって呼び出されますが、すべての外部マネージド参照は既にガベージ コレクトされているため、有効ではなくなっている可能性があります。</param>
+        <summary>すべてのマネージ コードとアンマネージ リソースとその参照を解放、<see cref="T:System.Runtime.Caching.ChangeMonitor" />インスタンス。 このオーバー ロードは、変更監視派生クラスで実装する必要があります。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -262,10 +262,9 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>
-          <see cref="T:System.Runtime.Caching.ChangeMonitor" /> クラスによって監視されている状態が変更されたことを示す値を取得します。</summary>
+        <summary>状態によって監視されていることを示す値を取得、<see cref="T:System.Runtime.Caching.ChangeMonitor" />クラスが変更されました。</summary>
         <value>
-          <see cref="T:System.Runtime.Caching.ChangeMonitor" /> インスタンスによって監視されている状態が変更された場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
+          <see langword="true" /> 場合によって監視されている状態、<see cref="T:System.Runtime.Caching.ChangeMonitor" />インスタンスが変更されました。 それ以外の場合、<see langword="false" />します。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -300,7 +299,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>派生クラスのコンストラクターから呼び出され、初期化が完了したことを示します。</summary>
+        <summary>初期化の完了を示すために派生クラスのコンス トラクターから呼び出されます。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -332,9 +331,9 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>
-          <see cref="T:System.Runtime.Caching.ChangeMonitor" /> クラスの派生インスタンスが破棄されたことを示す値を取得します。</summary>
-        <value>インスタンスが破棄された場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
+        <summary>派生インスタンスのことを示す値を取得します、<see cref="T:System.Runtime.Caching.ChangeMonitor" />クラスが破棄されます。</summary>
+        <value>
+          <see langword="true" /> インスタンスが破棄される場合それ以外の場合、<see langword="false" />します。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -364,7 +363,7 @@
       </Parameters>
       <Docs>
         <param name="onChangedCallback">依存関係が変更されたときに呼び出されるメソッドへの参照。</param>
-        <summary>コールバックを登録し、依存関係が変化したときに <see cref="T:System.Runtime.Caching.ObjectCache" /> デリゲートを通して <see cref="T:System.Runtime.Caching.OnChangedCallback" /> インスタンスに通知するために、キャッシュの実装側によって呼び出されます。</summary>
+        <summary>キャッシュ実装は、コールバックを登録し、通知によって呼び出される、<see cref="T:System.Runtime.Caching.ObjectCache" />を通じてインスタンス、<see cref="T:System.Runtime.Caching.OnChangedCallback" />依存関係が変更されたときにデリゲートします。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -382,7 +381,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">コールバック メソッドが既に呼び出されています。</exception>
+        <exception cref="T:System.InvalidOperationException">コールバック メソッドは既に呼び出されています。</exception>
         <exception cref="T:System.ArgumentNullException">
           <paramref name="onChangedCallback" /> は <see langword="null" /> です。</exception>
         <block subset="none" type="overrides">
@@ -413,7 +412,7 @@
       </Parameters>
       <Docs>
         <param name="state">変更イベントのデータ。 この値は、<see langword="null" /> の場合もあります。</param>
-        <summary>依存関係が変更されたときに、イベントを発生させるために派生クラスによって呼び出されます。</summary>
+        <summary>依存関係が変更されたときにイベントを発生させるために派生クラスによって呼び出されます。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -445,8 +444,7 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>
-          <see cref="T:System.Runtime.Caching.ChangeMonitor" /> クラスのインスタンスを表す値を取得します。</summary>
+        <summary>表す値を取得、<see cref="T:System.Runtime.Caching.ChangeMonitor" />クラスのインスタンス。</summary>
         <value>変更監視インスタンスの識別子。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
