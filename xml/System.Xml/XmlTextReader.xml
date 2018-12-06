@@ -1,11 +1,11 @@
 <Type Name="XmlTextReader" FullName="System.Xml.XmlTextReader">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="90c77f83b2fbfa6e63a1bd5b61d10dfe1d19eaf4" />
-    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
+    <Meta Name="ms.openlocfilehash" Value="5cb88eb979766bf7bddf81d0b3c1e58bf53f76d8" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
-    <Meta Name="ms.locfileid" Value="52244279" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52602335" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class XmlTextReader : System.Xml.XmlReader, System.Xml.IXmlLineInfo, System.Xml.IXmlNamespaceResolver" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XmlTextReader extends System.Xml.XmlReader implements class System.Xml.IXmlLineInfo, class System.Xml.IXmlNamespaceResolver" />
@@ -111,7 +111,7 @@
     <block subset="none" type="overrides">
       <para>このクラスには、継承確認要求があります。 継承するように完全な信頼が必要な<see langword="XmlTextReader" />します。</para>
     </block>
-    <related type="Article" href="https://msdn.microsoft.com/library/e695047f-3c0f-4045-8708-5baea91cc380">XML ドキュメントと XML データ</related>
+    <related type="Article" href="~/docs/standard/data/xml/index.md">XML ドキュメントと XML データ</related>
   </Docs>
   <Members>
     <MemberGroup MemberName=".ctor">
@@ -1368,7 +1368,25 @@ XmlTextReader reader = new XmlTextReader(s);
  エンティティ間の差を示すためには、処理モードは、次の XML を検討します。  
   
 ```  
-<!DOCTYPE doc [<!ENTITY num "123"]]></format>
+<!DOCTYPE doc [<!ENTITY num "123">]>  
+    <doc> &#65; &num; </doc>  
+```  
+  
+ ときに`EntityHandling`に設定されている`ExpandEntities`"doc"の要素ノードに展開されたエンティティのテキストを含む 1 つのテキスト ノードが含まれています。  
+  
+|奥行|ノード型|name|[値]|  
+|-----------|---------------|----------|-----------|  
+|1|`Text`||A 123|  
+  
+ ときに`EntityHandling`に設定されている`ExpandCharEntites`、および<xref:System.Xml.XmlTextReader.WhitespaceHandling%2A>に設定されている`Significant`または`All`、"doc"要素が文字エンティティを展開し、ノードとして一般エンティティを返します。  
+  
+|奥行|ノード型|name|[値]|  
+|-----------|---------------|----------|-----------|  
+|1|`Text`||A|  
+|1|`EntityReference`|num||  
+|1|`SignificantWhitespace`|||  
+  
+ ]]></format>
         </remarks>
         <altmember cref="T:System.Xml.XmlReader" />
       </Docs>
@@ -4094,9 +4112,17 @@ if (XmlNodeType.Element == reader.NodeType && "thing" == reader.Name)
         <ReturnType>System.Xml.XmlReaderSettings</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>この <see cref="T:System.Xml.XmlTextReader" /> インスタンスを作成するために使用された <see cref="T:System.Xml.XmlReaderSettings" /> オブジェクトを取得します。</summary>
+        <value>この <see cref="T:System.Xml.XmlTextReader" /> インスタンスの作成に使用した <see cref="T:System.Xml.XmlReaderSettings" /> オブジェクト。<see cref="Overload:System.Xml.XmlReader.Create" /> メソッドを使用しないでリーダーを作成した場合は <see langword="null" />。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+
+> [!INCLUDE[dnprdnext](~/includes/dnprdnext-md.md)] では、<xref:System.Xml.XmlReader> クラスと <xref:System.Xml.XmlReaderSettings> メソッドを使用して <xref:System.Xml.XmlReader.Create%2A> インスタンスを作成する方法を推奨しています。 この方法に従えば、[!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] で導入されたすべての新しい機能を利用できます。 詳細については、「解説」セクションを参照してください、<xref:System.Xml.XmlReader>リファレンス ページです。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Skip">
@@ -4181,9 +4207,17 @@ if (XmlNodeType.Element == reader.NodeType && "thing" == reader.Name)
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>このメンバーの詳細については、「<see cref="M:System.Xml.IXmlLineInfo.HasLineInfo" />」をご覧ください。</summary>
+        <returns>
+          <see cref="P:System.Xml.IXmlLineInfo.LineNumber" /> および <see cref="P:System.Xml.IXmlLineInfo.LinePosition" /> を提供できる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+このメンバーは、明示的なインターフェイス メンバーの実装です。 これは、<xref:System.Xml.XmlTextReader> のインスタンスが <xref:System.Xml.IXmlLineInfo> インターフェイスにキャストされる場合のみ、使用できます。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="System.Xml.IXmlNamespaceResolver.GetNamespacesInScope">

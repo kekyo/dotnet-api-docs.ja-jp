@@ -1,11 +1,11 @@
 <Type Name="AutoResetEvent" FullName="System.Threading.AutoResetEvent">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="8fce8768b4a2ba80422edde0871cb31a0a891d1f" />
-    <Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" />
+    <Meta Name="ms.openlocfilehash" Value="c64c681a3837ebc150b0f23474a66a22791e1e98" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="11/17/2018" />
-    <Meta Name="ms.locfileid" Value="51871744" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52605572" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class AutoResetEvent : System.Threading.EventWaitHandle" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit AutoResetEvent extends System.Threading.EventWaitHandle" />
@@ -88,7 +88,6 @@
     <threadsafe>このクラスは、スレッド セーフです。</threadsafe>
     <altmember cref="T:System.Threading.WaitHandle" />
     <related type="Article" href="~/docs/standard/threading/index.md">マネージド スレッド処理</related>
-    <related type="Article" href="https://msdn.microsoft.com/library/6d39c48d-6b37-4a9b-8631-f2924cfd9c18">AutoResetEvent</related>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -148,7 +147,6 @@
         </remarks>
         <altmember cref="T:System.Threading.WaitHandle" />
         <related type="Article" href="~/docs/standard/threading/index.md">マネージド スレッド処理</related>
-        <related type="Article" href="https://msdn.microsoft.com/library/6d39c48d-6b37-4a9b-8631-f2924cfd9c18">AutoResetEvent</related>
       </Docs>
     </Member>
     <Member MemberName="Reset">
@@ -174,8 +172,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <summary>イベントの状態を非シグナル状態に設定し、スレッドをブロックします。</summary>
+        <returns>正常に操作できた場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -202,9 +200,19 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>イベントの状態をシグナル状態に設定し、待機している最大で 1 つのスレッドが進行できるようにします。</summary>
+        <returns>正常に操作できた場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Set メソッドでは、1 つのスレッドを解放します。 待機中のスレッドがない場合は、待機ハンドルは、スレッドが、待機しようとするまで、またはその Reset メソッドが呼び出されるまでシグナル状態のままです。
+
+> [!IMPORTANT]
+> Set メソッドのすべての呼び出しがスレッドを解放する保証はありません。 1 つだけのスレッドが解放される場合は 2 つの呼び出しが近すぎる、スレッドが解放される前に 2 番目の呼び出しが行われるように、— 2 番目の呼び出しが発生しなかったかのようです。 また、待機しているスレッドがない場合に Set メソッドを呼び出すかどうか、<xref:System.Threading.AutoResetEvent>が既にシグナル、呼び出しが影響を与えません。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
   </Members>

@@ -1,11 +1,11 @@
 <Type Name="XmlValidatingReader" FullName="System.Xml.XmlValidatingReader">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="088fad552fc08286648291b2704d03b305f067ee" />
-    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
+    <Meta Name="ms.openlocfilehash" Value="d907a72f6f319a0dd7ee0a4b9966ac0eb174f4ed" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
-    <Meta Name="ms.locfileid" Value="52220047" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52601399" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class XmlValidatingReader : System.Xml.XmlReader, System.Xml.IXmlLineInfo, System.Xml.IXmlNamespaceResolver" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XmlValidatingReader extends System.Xml.XmlReader implements class System.Xml.IXmlLineInfo, class System.Xml.IXmlNamespaceResolver" />
@@ -695,7 +695,38 @@
  エンティティ間の差を示すためには、処理モードは、次の XML を検討します。  
   
 ```xml  
-<!DOCTYPE doc [<!ENTITY num "123"]]></format>
+<!DOCTYPE doc [<!ENTITY num "123">]>  
+ <doc> &#65; &num; </doc>  
+```  
+  
+ ときに`EntityHandling`に設定されている`ExpandEntities`"doc"の要素ノードに展開されたエンティティのテキストを含む 1 つのテキスト ノードが含まれています。  
+  
+|奥行|ノード型|name|[値]|  
+|-----------|--------------|----------|-----------|  
+|1|テキスト||A 123|  
+  
+ ときに`EntityHandling`に設定されている`ExpandCharEntites`と<xref:System.Xml.XmlTextReader.WhitespaceHandling%2A>"doc"に設定を有効またはすべての要素は、文字エンティティを展開して、ノードとして一般エンティティを返します。  
+  
+|奥行|ノード型|name|[値]|  
+|-----------|--------------|----------|-----------|  
+|1|テキスト||A|  
+|1|EntityReference|num||  
+|1|SignificantWhitespace|||  
+  
+   
+  
+## Examples  
+ 次の例では、`ResolveEntity`一般エンティティを拡張するメソッド。  
+  
+ [!code-cpp[Classic WebData XmlValidatingReader.ResolveEntity Example#1](~/samples/snippets/cpp/VS_Snippets_Data/Classic WebData XmlValidatingReader.ResolveEntity Example/CPP/source.cpp#1)]
+ [!code-csharp[Classic WebData XmlValidatingReader.ResolveEntity Example#1](~/samples/snippets/csharp/VS_Snippets_Data/Classic WebData XmlValidatingReader.ResolveEntity Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData XmlValidatingReader.ResolveEntity Example#1](~/samples/snippets/visualbasic/VS_Snippets_Data/Classic WebData XmlValidatingReader.ResolveEntity Example/VB/source.vb#1)]  
+  
+ 例では、ファイルを使用して`book1.xml`、入力として。  
+  
+ [!code-xml[Classic WebData XmlValidatingReader.ResolveEntity Example#2](~/samples/snippets/xml/VS_Snippets_Data/Classic WebData XmlValidatingReader.ResolveEntity Example/XML/source.xml#2)]  
+  
+ ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">無効な値が指定されました。</exception>
         <altmember cref="T:System.Xml.XmlReader" />
@@ -3126,9 +3157,19 @@ object obj = vreader.SchemaType;
         <ReturnType>System.Xml.XmlReaderSettings</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>この <see cref="T:System.Xml.XmlValidatingReader" /> インスタンスを作成するために使用された <see cref="T:System.Xml.XmlReaderSettings" /> オブジェクトを取得します。</summary>
+        <value>
+          <see langword="null" />。これは、<see cref="T:System.Xml.XmlValidatingReader" /> オブジェクトが <see cref="T:System.Xml.XmlReaderSettings" /> クラスおよび <see cref="Overload:System.Xml.XmlReader.Create" /> メソッドを使用してインスタンス化されないためです。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+
+> [!NOTE]
+> .NET Framework Version 2.0 では <xref:System.Xml.XmlValidatingReader> クラスが廃止されています。 検証型を作成する<xref:System.Xml.XmlReader>インスタンスを使用して、<xref:System.Xml.XmlReaderSettings>クラスおよび<xref:System.Xml.XmlReader.Create%2A>メソッド。 詳細については、次を参照してください。 [XmlReader による XML データの妥当性検査](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/hdf992b8(v=vs.100))します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="System.Xml.IXmlLineInfo.HasLineInfo">
@@ -3156,8 +3197,9 @@ object obj = vreader.SchemaType;
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <summary>クラスが行情報を返すことができるかどうかを示す値を取得します。</summary>
+        <returns>
+          <see cref="P:System.Xml.IXmlLineInfo.LineNumber" /> および <see cref="P:System.Xml.IXmlLineInfo.LinePosition" /> を提供できる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

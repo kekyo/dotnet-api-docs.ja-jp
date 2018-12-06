@@ -1,11 +1,11 @@
 <Type Name="MethodInfo" FullName="System.Reflection.MethodInfo">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="365d65db1c7b36cbed15b07e5b2d6a7d6e0e31ba" />
-    <Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" />
+    <Meta Name="ms.openlocfilehash" Value="7cac9e186e446ab240ca469ac048ef85a355e3e0" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="11/17/2018" />
-    <Meta Name="ms.locfileid" Value="51879903" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52599488" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class MethodInfo : System.Reflection.MethodBase, System.Runtime.InteropServices._MethodInfo" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract serializable beforefieldinit MethodInfo extends System.Reflection.MethodBase implements class System.Runtime.InteropServices._MethodInfo" />
@@ -53,8 +53,8 @@
     <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
       <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
     </Attribute>
-    <Attribute FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
-      <AttributeName>Serializable</AttributeName>
+    <Attribute FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+      <AttributeName>System.Serializable</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
@@ -151,9 +151,46 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>ジェネリック メソッドに未割り当てのジェネリック型パラメーターが含まれているかどうかを示す値を取得します。</summary>
+        <value>現在の <see cref="T:System.Reflection.MethodInfo" /> に未割り当てのジェネリック型パラメーターが含まれている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+ジェネリック メソッドを呼び出す必要がありますいないジェネリック型定義または自体には、メソッドの型引数または外側の型に、構築されたオープン型。 この再帰的な決定を行うと、困難なことができます。 便宜上、およびエラーの可能性を減らすため、`ContainsGenericParameters`プロパティは、呼び出すことがクローズドの構築のメソッドを区別するために標準的な方法を提供し、オープン構築メソッドで、このことはできません。 場合、`ContainsGenericParameters`プロパティが true を返します、メソッドが呼び出されることはできません。
+
+`ContainsGenericParameters`プロパティは再帰的に、型パラメーターを検索します。 たとえば、返します`true`オープン型ですべてのメソッドで`A<T>`(`A(Of T)` Visual Basic で) メソッド自体がジェネリックでない場合でも。 動作とは対照的、<xref:System.Reflection.MethodInfo.IsGenericMethod>を返すプロパティ`false`これらのメソッド。
+
+ジェネリック メソッドに固有の用語に対するインバリアント条件の一覧を参照してください、<xref:System.Reflection.MethodInfo.IsGenericMethod>プロパティ。 ジェネリック リフレクションで使用されるその他の用語に対するインバリアント条件の一覧を参照して、<xref:System.Type.IsGenericType>プロパティ。
+
+## Examples  
+次のコード例では、`ContainsGenericParameters`プロパティを示すメッセージを表示するかどうかを<xref:System.Reflection.MethodInfo>(つまり、かどうかにバインドされていない型パラメーター)、オープン ジェネリック メソッドです。
+
+この例が示されている例の一部、<xref:System.Reflection.MethodInfo.MakeGenericMethod%2A>メソッド。
+
+```vb
+Console.WriteLine(vbTab _
+    & "Does it have unassigned generic parameters? {0}", _
+    mi.ContainsGenericParameters)
+```
+
+```csharp
+Console.WriteLine("\tDoes it have unassigned generic parameters? {0}", 
+    mi.ContainsGenericParameters);
+```
+
+```cpp
+Console::WriteLine("\tDoes it have unassigned generic parameters? {0}", 
+    mi->ContainsGenericParameters);
+```
+
+]]></format>
+        </remarks>
+        <altmember cref="M:System.Reflection.MethodInfo.MakeGenericMethod(System.Type[])" />
+        <altmember cref="P:System.Reflection.MethodInfo.IsGenericMethod" />
+        <altmember cref="P:System.Reflection.MethodInfo.IsGenericMethodDefinition" />
+        <related type="Article" href="~/docs/framework/reflection-and-codedom/reflection-and-generic-types.md">リフレクションとジェネリック型</related>
+        <related type="Article" href="~/docs/csharp/programming-guide/generics/introduction-to-generics.md">ジェネリックの概要 (C# プログラミング ガイド)</related>
       </Docs>
     </Member>
     <MemberGroup MemberName="CreateDelegate">
@@ -732,9 +769,124 @@ public:
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>現在の <see cref="T:System.Reflection.MethodInfo" /> がジェネリック メソッドの定義を表しているかどうかを示す値を取得します。</summary>
+        <value>
+          <see cref="T:System.Reflection.MethodInfo" /> オブジェクトがジェネリック メソッドの定義を表している場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+場合、現在<xref:System.Reflection.MethodInfo>ジェネリック メソッド定義を表します。
+
+  - `IsGenericMethodDefinition` は、`true` を返します。
+
+  - 各<xref:System.Type>によって返される配列内のオブジェクト、<xref:System.Reflection.MethodInfo.GetGenericArguments>メソッド。
+
+      - <xref:System.Type.IsGenericParameter?displayProperty=nameWithType> プロパティは、`true` を返します。
+
+      - <xref:System.Type.DeclaringMethod?displayProperty=nameWithType> 、現在を返して<xref:System.Reflection.MethodInfo>します。
+
+      - <xref:System.Type.GenericParameterPosition?displayProperty=nameWithType>プロパティは、の位置と同じ、<xref:System.Type>配列内のオブジェクト。
+
+使用して、`IsGenericMethodDefinition`プロパティを型引数がジェネリック メソッドの型パラメーターに割り当てられているかどうかを判断します。 型引数が割り当てられている場合、`IsGenericMethodDefinition`いくつかの型引数がある場合でも、プロパティが false を返します<xref:System.Type>外側の型の型パラメーターを表すオブジェクト。 たとえば、次の C\#、Visual Basic、および C++ コード。
+
+    ```cs
+    class C
+    {
+        T N<T,U>(T t, U u) {...}
+        public V M<V>(V v)
+        {
+            return N<V,int>(v, 42);
+        }
+    }
+    ```
+
+    ```vb
+    Class C
+        Public Function N(Of T,U)(ByVal ta As T, ByVal ua As U) As T
+            ...
+        End Function
+        Public Function M(Of V)(ByVal va As V ) As V
+            Return N(Of V, Integer)(va, 42)
+        End Function
+    End Class
+    ```
+
+    ```cpp
+    ref class C
+    {
+    private:
+        generic <typename T, typename U> T N(T t, U u) {...}
+    public:
+        generic <typename V> V M(V v)
+        {
+            return N<V, int>(v, 42);
+        }
+    };
+    ```
+
+メソッド本体 M には N、M と型の型パラメーターを指定するメソッドの呼び出しが含まれています<xref:System.Int32>します。 `IsGenericMethodDefinition`プロパティ メソッドの false を返します`N<V,int>`します。
+
+> [!NOTE]
+> 構築されるメソッドをオープン`N<V,int>`がクラス C 経由でリフレクション時に発生しないにする必要がありますを使用して生成<xref:System.Reflection.MethodInfo.MakeGenericMethod%2A>C として、動的クラスを生成するためにします。
+
+
+ジェネリック メソッド定義には、宣言型のジェネリック パラメーターが含まれている場合がありますジェネリック メソッド定義を各構築型を特定します。 たとえば、次の C\#および Visual Basic コード。
+
+    ```csharp
+    class B<U,V> {}
+    class C<T> { public B<T,S> M<S>() {...}}
+    ```
+
+    ```vb
+    Class B(Of U, V)
+    End Class
+    Class C(Of T)
+        Public Function M(Of S)() As B(Of T, S)
+            ...
+        End Function
+    End Class
+    ```
+
+    ```cpp
+    generic <typename U, typename V> ref class B {};
+    generic <typename T> ref class C
+    {
+    public:
+        generic <typename S> B<T,S>^ M() {...};
+    };
+    ```
+
+構築された型で`C<int>`(`C(Of Integer)` Visual basic)、ジェネリック メソッド M を返します`B<int, S>`します。 オープン型で`C<T>`、M 返します`B<T, S>`します。 どちらの場合で、`IsGenericMethodDefinition`プロパティが返す`true`の<xref:System.Reflection.MethodInfo>M を表します。
+
+ジェネリック メソッドに固有の用語に対するインバリアント条件の一覧を参照してください、<xref:System.Reflection.MethodInfo.IsGenericMethod>プロパティ。 ジェネリック リフレクションで使用されるその他の用語に対するインバリアント条件の一覧を参照して、<xref:System.Type.IsGenericType>プロパティ。
+
+## Examples  
+次のコード例では、`IsGenericMethodDefinition`プロパティを示すメッセージを表示するかどうかを<xref:System.Reflection.MethodInfo>ジェネリック メソッド定義を表します。
+
+この例が示されている例の一部、<xref:System.Reflection.MethodInfo.MakeGenericMethod%2A>メソッド。
+
+```vb
+Console.WriteLine(vbTab _
+    & "Is this a generic method definition? {0}", _
+    mi.IsGenericMethodDefinition)
+```
+
+```csharp
+Console.WriteLine("\tIs this a generic method definition? {0}", 
+    mi.IsGenericMethodDefinition);
+```
+
+```cpp
+Console::WriteLine("\tIs this a generic method definition? {0}", 
+    mi->IsGenericMethodDefinition);
+```
+
+]]></format>
+        </remarks>
+        <altmember cref="M:System.Reflection.MethodInfo.MakeGenericMethod(System.Type[])" />
+        <related type="Article" href="~/docs/framework/reflection-and-codedom/reflection-and-generic-types.md">リフレクションとジェネリック型</related>
+        <related type="Article" href="~/docs/csharp/programming-guide/generics/introduction-to-generics.md">ジェネリックの概要 (C# プログラミング ガイド)</related>
       </Docs>
     </Member>
     <Member MemberName="MakeGenericMethod">
