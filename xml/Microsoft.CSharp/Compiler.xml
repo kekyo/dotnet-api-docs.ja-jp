@@ -1,11 +1,11 @@
 <Type Name="Compiler" FullName="Microsoft.CSharp.Compiler">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="6ce05ee44ac65d4c530556eb4f9a715ed7fb72f9" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="7b7f79572aac638b945fea6761568e66249d10a9" />
+    <Meta Name="ms.sourcegitcommit" Value="c0c07dbd19cd7017243f9ac36915755f79bc8da6" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39858518" />
+    <Meta Name="ms.lasthandoff" Value="11/27/2018" />
+    <Meta Name="ms.locfileid" Value="52364855" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Compiler" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Compiler extends System.Object" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type Compiler = class" />
   <AssemblyInfo>
     <AssemblyName>cscompmgd</AssemblyName>
+    <AssemblyVersion>7.0.5000.0</AssemblyVersion>
     <AssemblyVersion>8.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -27,8 +28,17 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <summary>**注意: この API は古いものです。** 旧式でない代替手段は、<see cref="T:Microsoft.CSharp.CSharpCodeProvider" /> です。
+
+C# コンパイラ用のマネージド ラッパー。</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[
+
+## Remarks  
+C をコンパイルする\#コード インプロセスで呼び出し<xref:Microsoft.CSharp.Compiler.Compile(System.String[],System.String[],System.String,System.String[],System.Collections.IDictionary)>します。
+
+]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName="Compile">
@@ -41,6 +51,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>cscompmgd</AssemblyName>
+        <AssemblyVersion>7.0.5000.0</AssemblyVersion>
         <AssemblyVersion>8.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -54,14 +65,74 @@
         <Parameter Name="options" Type="System.Collections.IDictionary" />
       </Parameters>
       <Docs>
-        <param name="sourceTexts">To be added.</param>
-        <param name="sourceTextNames">To be added.</param>
-        <param name="target">To be added.</param>
-        <param name="imports">To be added.</param>
-        <param name="options">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="sourceTexts">それぞれに C\# のコードが含まれる文字列型の配列。</param>
+        <param name="sourceTextNames">各 sourceTexts のファイル名が含まれる文字列型の配列。</param>
+        <param name="target">出力ファイル名。 この引数は必須です。</param>
+        <param name="imports">参照するファイル名が含まれる文字列型の配列。</param>
+        <param name="options">コンパイラ オプションの <see cref="T:System.Collections.IDictionary" />。</param>
+        <summary>指定された C# ソースをコンパイルして指定されたファイルに出力します。</summary>
+        <returns>
+          <see cref="T:Microsoft.CSharp.CompilerError" /> 型の配列として診断メッセージを返します。 配列が空の場合、またはすべての要素が警告の場合、コンパイルは成功しました。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+SourceTexts パラメーター内の各文字列は、1 つのソース ファイルのと同じです。 少なくとも 1 つの sourceTexts 要素があります。
+
+SourceTextNames パラメーター内のファイル名は、コンパイラの診断情報が使用され、デバッグ情報。 配列が必要ですを使用してローカルにオーバーライド、\#ライン ディレクティブ。 配列は、sourceTexts パラメーターと同じ数の要素が必要です。
+
+インポートのパラメーターは、/reference コンパイラ オプションと同じです。 このパラメーターは、<see langword="null" /> に設定できます。
+
+オプション パラメーターをキーは、コンパイラ オプションの短い形式です。 値は、オプションの目的の値です。 オプションのパラメーターは<see langword="null" />します。 一部のコンパイラ オプションは認識されません。 認識されるオプションと値の場合:
+
+| キー名 | 使用法 |
+| --- | --- |
+| addmodule | このアセンブリに含めるモジュールの一覧です。 モジュール名は、縦棒またはパイプ文字で区切る必要があります。 値型でなければなりません<xref:System.String>します。 参照してください[-addmodule (C#コンパイラ オプション)](https://msdn.microsoft.com/library/1s46f83c)します。 |
+| baseaddress | ライブラリのベース アドレス。 値型でなければなりません<xref:System.UInt32>します。 参照してください[-baseaddress (C#コンパイラ オプション)](~/docs/csharp/language-reference/compiler-options/baseaddress-compiler-option.md)します。 |
+| bugreport | バグ レポート ファイルを生成します。 値型でなければなりません<xref:System.String>します。 参照してください[-bugreport (C#コンパイラ オプション)](https://msdn.microsoft.com/library/kaky3xy9)します。 |
+| checked | 既定の式の評価は、チェックする (またはオフ) に設定します。 値型でなければなりません<xref:System.Boolean>します。 参照してください[-チェック (C#コンパイラ オプション)](https://msdn.microsoft.com/library/h25wtyxf)します。 |
+| d | セミコロンの一覧には、定義するシンボルが区切られます。 値型でなければなりません<xref:System.String>します。 参照してください[-定義 (C#コンパイラ オプション)](https://msdn.microsoft.com/library/0feaad6z)します。 |
+| デバッグ | デバッグ情報を出力を生成します。 値型でなければなりません<xref:System.Boolean>します。 または完全な pdb のみを指定することはできません。 参照してください[-デバッグ (C#コンパイラ オプション)](https://msdn.microsoft.com/library/8cw0bt21)します。 |
+| ドキュメント | XML コメントを挿入するファイル名。 値型でなければなりません<xref:System.String>します。 参照してください[-doc (C#コンパイラ オプション)](https://msdn.microsoft.com/library/3260k4x7)します。 |
+| filealign | PE セクションの配置のサイズ。 値型でなければなりません<xref:System.UInt32>します。 参照してください[-filealign (C#コンパイラ オプション)](https://msdn.microsoft.com/library/0s4tzdf2)します。 |
+| incr | インクリメンタル リビルドを有効にします。 値型でなければなりません<xref:System.Boolean>します。 |
+| lib | モジュールと参照アセンブリを検索するときに検索する追加のパス。 値型でなければなりません<xref:System.String>します。 参照してください[-lib (C#コンパイラ オプション)](https://msdn.microsoft.com/library/s5bac5fx)します。 |
+| linkres | マネージ リソースをアセンブリにリンクします。 値型でなければなりません<xref:System.String>します。 参照してください[-linkresource (C#コンパイラ オプション)](https://msdn.microsoft.com/library/xawyf94k)します。 |
+| m | Main メソッドで検索する型。 値型でなければなりません<xref:System.String>します。 参照してください[-メイン (C#コンパイラ オプション)](https://msdn.microsoft.com/library/x3eht538)します。 |
+| nostdlib | 自動参照 mscorlib.dll しないをしないでください。 値型でなければなりません<xref:System.Boolean>します。 参照してください[-nostdlib (C#コンパイラ オプション)](https://msdn.microsoft.com/library/fa13yay7)します。 |
+| nowarn | セミコロンの一覧には、レポートではなく警告番号が区切られます。 値型でなければなりません<xref:System.String>します。 参照してください[-nowarn (C#コンパイラ オプション)](https://msdn.microsoft.com/library/7f28x9z3)します。 |
+| o | コンパイラの最適化を有効にします。 値型でなければなりません<xref:System.Boolean>します。 参照してください[-最適化 (C#コンパイラ オプション)](https://msdn.microsoft.com/library/t0hfscdc)します。 |
+| r | 参照先アセンブリ。 文字列型の値があります。 1 つ以上のアセンブリが指定されている場合は、縦棒またはパイプ文字で、ファイル名を区切る必要があります。 参照してください[-参照 (C#コンパイラ オプション)](https://msdn.microsoft.com/library/yabyz3h4)します。 |
+| res | マネージ リソースを埋め込みます。 値型でなければなりません<xref:System.String>します。 参照してください[-リソース (C#コンパイラ オプション)](~/docs/csharp/language-reference/compiler-options/resource-compiler-option.md)します。 |
+| target | 次のいずれかのファイル変換先の型の出力:「ライブラリ」、"exe"、"winexe"または「モジュール」。 値型でなければなりません<xref:System.String>します。 参照してください[-ターゲット (C#コンパイラ オプション)](https://msdn.microsoft.com/library/6h25dztx)します。 |
+| unsafe | Unsafe コンストラクトを使用できます。 値型でなければなりません<xref:System.Boolean>します。 参照してください[-安全でない (C#コンパイラ オプション)](https://msdn.microsoft.com/library/ct597kb0)します。 |
+| 週 | 警告レベル (0 ~ 4)。 値型でなければなりません<xref:System.String>します。 参照してください[の警告 (C#コンパイラ オプション)](https://msdn.microsoft.com/library/13b90fz7)します。 |
+| warnaserror | 診断の警告をエラーとして報告します。 値型でなければなりません<xref:System.Boolean>します。 参照してください[-warnaserror (C#コンパイラ オプション)](https://msdn.microsoft.com/library/406xhdz3)します。 |
+| win32icon | 自動の Win32 アイコンには、Win32 リソースが生成されます。 値型でなければなりません<xref:System.String>します。 参照してください[-win32icon (C#コンパイラ オプション)](https://msdn.microsoft.com/library/2aaxe43f)します。 |
+| win32res | Win32 リソース ファイル。 値型でなければなりません<xref:System.String>します。 参照してください[-win32res (C#コンパイラ オプション)](https://msdn.microsoft.com/library/8f2f5x2e)します。 |
+
+]]></format>
+        </remarks>
+        <altmember cref="T:Microsoft.CSharp.Compiler" />
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="sourceTexts" /> は <see langword="null" /> です。
+          
+- または -
+
+<paramref name="sourceTextNames" /> は <see langword="null" />です。
+
+- または -
+
+<paramref name="target" /> は <see langword="null" /> です。</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <paramref name="sourceTexts" /> は空の配列です。
+
+- または -
+
+<paramref name="sourceTextNames" /> が <paramref name="sourceTexts" /> と同じサイズではありません。</exception>
+        <related type="Article" href="~/docs/csharp/language-reference/preprocessor-directives/preprocessor-line.md">#line (C# リファレンス)</related>
+        <related type="Article" href="~/docs/csharp/language-reference/compiler-options/reference-compiler-option.md">-reference (C# コンパイラ オプション)</related>
+        <related type="Article" href="~/docs/csharp/language-reference/compiler-options/index.md">C# コンパイラ オプション</related>
       </Docs>
     </Member>
   </Members>

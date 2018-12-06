@@ -1,11 +1,11 @@
 <Type Name="IDataObject" FullName="Microsoft.Aspnet.Snapin.IDataObject">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="b7a7835a5122971b2ca3dce88127af58142ddf41" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="288749620ec29193499dfdf81151ff0feec56ef4" />
+    <Meta Name="ms.sourcegitcommit" Value="c0c07dbd19cd7017243f9ac36915755f79bc8da6" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39788497" />
+    <Meta Name="ms.lasthandoff" Value="11/27/2018" />
+    <Meta Name="ms.locfileid" Value="52366636" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IDataObject" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IDataObject" />
@@ -27,8 +27,15 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <summary>呼び出し元と、IDataObject インターフェイスを実装するデータ オブジェクトとの間の接続を作成します。 この接続により、データ オブジェクトのデータの変更が呼び出し元に通知されるようになります。</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[
+
+## Remarks  
+IDataObject インターフェイスと Microsoft 管理コンソール (MMC) を使用したプログラミングの詳細については、次を参照してください。、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName="DAdvise">
@@ -53,13 +60,25 @@
         <Parameter Name="d" Type="System.Int32" RefType="ref" />
       </Parameters>
       <Docs>
-        <param name="a">To be added.</param>
-        <param name="b">To be added.</param>
-        <param name="c">To be added.</param>
-        <param name="d">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="a">通知の形式、メディア、および対象デバイスを定義する <see cref="T:Microsoft.Aspnet.Snapin.FORMATETC" /> へのポインター。</param>
+        <param name="b">要求された接続の動作を指定する <see cref="T:System.Runtime.InteropServices.ComTypes.ADVF" /> 値。</param>
+        <param name="c">呼び出し元オブジェクトの <see cref="T:System.Runtime.InteropServices.ComTypes.IAdviseSink" /> へのポインター。</param>
+        <param name="d">DAdvise メソッドのこの呼び出しで設定される接続へのポインター。</param>
+        <summary>
+          <see cref="T:Microsoft.Aspnet.Snapin.IDataObject" /> インターフェイスを実装するデータ オブジェクトと呼び出し元オブジェクトとの間の通知接続を作成し、データ オブジェクトのデータの変更通知を呼び出し元が受け取るようにします。</summary>
+        <returns>DAdvise メソッドは、標準の戻り値である E_INVALIDARG、E_UNEXPECTED、および E_OUTOFMEMORY をサポートすると同時に、次の戻り値もサポートしています。
+
+
+
+| 戻り値 | 説明 | | --- | --- | | S\_OK | DAdvise メソッドで接続が正常に作成されました。 | | E\_NOTIMPL | データ オブジェクトは DAdvise メソッドを実装していません。 | | DV\_E\_LINDEX | インデックスが無効です。 | | DV\_E\_FORMATETC | データ ポインター値が無効です。 | | OLE\_E\_ADVISENOTSUPPORTED | オブジェクトは変更通知をサポートしていません。 |</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+使用したプログラミングの詳細については、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスと、Microsoft 管理コンソール (MMC) を参照してください、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="DUnadvise">
@@ -81,10 +100,17 @@
         <Parameter Name="a" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="a">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="a">破棄する接続。</param>
+        <summary>以前の <see cref="M:Microsoft.Aspnet.Snapin.IDataObject.DAdvise(System.IntPtr,System.Int32,System.IntPtr,System.Int32@)" /> メソッドの呼び出しで作成された通知接続を破棄します。</summary>
+        <returns>| 戻り値 | 説明 | | --- | --- | | S\_OK | DUnadvise メソッドで指定した接続が正常に削除されました。 | | OLE\_E\_NOCONNECTION | 指定した接続が有効な接続ではありません。 | | OLE\_E\_ADVISENOTSUPPORTED | オブジェクトは変更通知をサポートしていません。 |</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+使用したプログラミングの詳細については、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスと、Microsoft 管理コンソール (MMC) を参照してください、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="EnumDAdvise">
@@ -106,10 +132,21 @@
         <Parameter Name="a" Type="System.IntPtr" />
       </Parameters>
       <Docs>
-        <param name="a">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="a">新しい列挙子オブジェクトへのインターフェイス ポインターを受け取る <see cref="T:System.Runtime.InteropServices.ComTypes.IEnumSTATDATA" /> のアドレス。 EnumDAdvise メソッドのこの呼び出しで <paramref name="a" /> を <see langword="null" /> に設定した場合、接続はありません。</param>
+        <summary>この <see cref="T:Microsoft.Aspnet.Snapin.IDataObject" /> インターフェイスで現在保持されている通知接続を列挙できるオブジェクトへのポインターを取得します。</summary>
+        <returns>EnumDAdvise メソッドは、標準の戻り値である E_OUTOFMEMORY をサポートすると同時に、次の戻り値もサポートしています。
+
+
+
+| 戻り値 | 説明 | | --- | --- | | S\_OK | EnumDAdvise メソッドのこの呼び出しで、列挙子オブジェクトのインスタンスが正常に作成されました。または、接続がありません。 | | OLE\_E\_ADVISENOTSUPPORTED | オブジェクトは変更通知をサポートしていません。 |</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+使用したプログラミングの詳細については、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスと、Microsoft 管理コンソール (MMC) を参照してください、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="EnumFormatEtc">
@@ -132,11 +169,23 @@
         <Parameter Name="b" Type="System.IntPtr" />
       </Parameters>
       <Docs>
-        <param name="a">To be added.</param>
-        <param name="b">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="a">データの方向を示す <see cref="T:System.Runtime.InteropServices.ComTypes.DATADIR" /> の値。</param>
+        <param name="b">
+          <see cref="T:Microsoft.Aspnet.Snapin.IEnumFORMATETC" /> を受け取る出力変数アドレス。</param>
+        <summary>この実装でサポートされる <see cref="T:Microsoft.Aspnet.Snapin.FORMATETC" /> 列挙子の型を列挙できるオブジェクトへのポインターを取得します。</summary>
+        <returns>EnumFormatEtc メソッドは、標準の戻り値である E_INVALIDARG および E_OUTOFMEMORY をサポートすると同時に、次の戻り値もサポートしています。
+
+
+
+| 戻り値 | 説明 | | --- | --- | | S\_OK | EnumFormatEtc メソッドのこの呼び出しで、列挙子オブジェクトが正常に作成されました。 | | E\_NOTIMPL | 指定した方向がサポートされていません。 | | OLE\_S\_USEREG | レジストリから形式を列挙するよう求める、OLE に対する要求。 |</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+使用したプログラミングの詳細については、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスと、Microsoft 管理コンソール (MMC) を参照してください、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetCanonicalFormatEtc">
@@ -159,11 +208,25 @@
         <Parameter Name="b" Type="System.IntPtr" />
       </Parameters>
       <Docs>
-        <param name="a">To be added.</param>
-        <param name="b">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="a">データを取得するための呼び出しの形式、メディア、および対象デバイスを定義する <see cref="T:Microsoft.Aspnet.Snapin.FORMATETC" /> へのポインター。</param>
+        <param name="b">特定のレンダリングに対して入手可能な最も一般的な情報が格納されている FORMATETC への出力ポインター、または GetCanonicalFormatEtc メソッドが DATA_S_SAMEFORMATETC を返す場合は <langword name="null" />。</param>
+        <summary>
+          <paramref name="a" /> パラメーターによって参照される <see cref="T:Microsoft.Aspnet.Snapin.FORMATETC" /> 構造体と論理的に等価な (ただし、必ずしも等しくはない) 標準の <see cref="T:Microsoft.Aspnet.Snapin.FORMATETC" /> 構造体へのポインターを取得します。</summary>
+        <returns>GetCanonicalFormatEtc メソッドは、標準の戻り値である E_INVALIDARG、E_UNEXPECTED、および E_OUTOFMEMORY をサポートすると同時に、次の戻り値もサポートしています。
+
+
+
+| 戻り値 | 説明 | | --- | --- | | S\_OK | 返される FORMATETC は、パラメーターで渡された構造体とは異なります。 | | DATA\_S\_SAMEFORMATETC | 返される FORMATETC はパラメーターで渡された構造体と同じであり、<paramref name="b" /> では <see langword="null" /> が返されます。 | | DV\_E\_LINDEX | インデックスが無効です。 | | DV\_E\_FORMATETC | <paramref name="a" /> が無効です。 | | OLE\_E\_NOTRUNNING | オブジェクト アプリケーションが実行されていません。 |</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+GetCanonicalFormatEtc メソッドの実装者は、 <xref:Microsoft.Aspnet.Snapin.IDataObject> 、標準の形式で返すインターフェイス<xref:Microsoft.Aspnet.Snapin.FORMATETC>構造体のレンダリング ロジックを複製することがなく、<xref:Microsoft.Aspnet.Snapin.FORMATETC>構造体。
+
+使用したプログラミングの詳細については、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスと、Microsoft 管理コンソール (MMC) を参照してください、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetData">
@@ -186,11 +249,22 @@
         <Parameter Name="b" Type="Microsoft.Aspnet.Snapin.STGMEDIUM" RefType="ref" />
       </Parameters>
       <Docs>
-        <param name="pFormatEtc">To be added.</param>
-        <param name="b">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="pFormatEtc">データを取得するための呼び出しの形式、メディア、および対象デバイスを定義する <see cref="T:Microsoft.Aspnet.Snapin.FORMATETC" /> へのポインター。</param>
+        <param name="b">返されるデータを格納しているストレージ メディアを示す <see cref="T:Microsoft.Aspnet.Snapin.STGMEDIUM" /> へのポインター。</param>
+        <summary>指定された pFormatEtc 構造体で記述されているデータを表示し、<paramref name="b" /> パラメーターに転送します。</summary>
+        <returns>GetData メソッドでは、標準の戻り値 E_INVALIDARG、E_UNEXPECTED、E_OUTOFMEMORY だけでなく、次の戻り値もサポートされています。
+
+
+
+| 戻り値 | 説明 | | --- | --- | | S\_OK | GetData メソッドのこの呼び出しでデータが正常に取得され、指定されたストレージ メディアに格納されました。 | | DV\_E\_LINDEX | インデックスが無効です。 | | DV\_E\_FORMATETC | <paramref name="pFormatEtc" /> が無効です。 | | DV\_E\_TYMED | tymed が無効です。 | | DV\_E\_DVASPECT | dwAspect が無効です。 | | OLE\_E\_NOTRUNNING | オブジェクト アプリケーションが実行されていません。 | | STG\_E\_MEDIUMFULL | メディアの割り当て中にエラーが発生しました。 |</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+使用したプログラミングの詳細については、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスと、Microsoft 管理コンソール (MMC) を参照してください、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetDataHere">
@@ -213,11 +287,24 @@
         <Parameter Name="b" Type="Microsoft.Aspnet.Snapin.STGMEDIUM" RefType="ref" />
       </Parameters>
       <Docs>
-        <param name="pFormatEtc">To be added.</param>
-        <param name="b">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="pFormatEtc">データを取得するための呼び出しの形式、メディア、および対象デバイスを定義する <see cref="T:Microsoft.Aspnet.Snapin.FORMATETC" /> へのポインター。</param>
+        <param name="b">返されるデータを格納しているストレージ メディアを示す <see cref="T:Microsoft.Aspnet.Snapin.STGMEDIUM" /> へのポインター。</param>
+        <summary>指定された pFormatEtc 構造体で記述されているデータを表示し、<paramref name="b" /> パラメーターに転送します。</summary>
+        <returns>GetDataHere メソッドでは、標準の戻り値 E_INVALIDARG、E_UNEXPECTED、E_OUTOFMEMORY だけでなく、次の戻り値もサポートされています。
+
+
+
+| 戻り値 | 説明 | | --- | --- | | S\_OK | GetDataHere メソッドのこの呼び出しでデータが正常に取得され、指定されたストレージ メディアに格納されました。 | | DV\_E\_LINDEX | インデックスが無効です。 | | DV\_E\_FORMATETC | pFormatEtc が無効です。 | | DV\_E\_TYMED | tymed が無効です。 | | DV\_E\_DVASPECT | dwAspect が無効です。 | | OLE\_E\_NOTRUNNING | オブジェクト アプリケーションが実行されていません。 | | STG\_E\_MEDIUMFULL | メディアの割り当て中にエラーが発生しました。 |</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+GetDataHere メソッドとは異なります、<xref:Microsoft.Aspnet.Snapin.IDataObject.GetData(Microsoft.Aspnet.Snapin.FORMATETC@,Microsoft.Aspnet.Snapin.STGMEDIUM@)>メソッドで、呼び出し元を割り当て、指定したストレージ メディアを解放する必要があります。
+
+使用したプログラミングの詳細については、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスと、Microsoft 管理コンソール (MMC) を参照してください、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="QueryGetData">
@@ -239,10 +326,24 @@
         <Parameter Name="a" Type="Microsoft.Aspnet.Snapin.FORMATETC" />
       </Parameters>
       <Docs>
-        <param name="a">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="a">データを取得するための呼び出しの形式、メディア、および対象デバイスを定義する <see cref="T:Microsoft.Aspnet.Snapin.FORMATETC" /> へのポインター。</param>
+        <summary>
+          <paramref name="a" /> パラメーターに格納されているデータを実装側で表示できるかどうかを示す値を取得します。</summary>
+        <returns>QueryGetData メソッドでは、標準の戻り値 E_INVALIDARG、E_UNEXPECTED、E_OUTOFMEMORY だけでなく、次の戻り値もサポートされています。
+
+
+
+| 戻り値 | 説明 | | --- | --- | | S\_OK | 後続の <see cref="M:Microsoft.Aspnet.Snapin.IDataObject.GetData(Microsoft.Aspnet.Snapin.FORMATETC@,Microsoft.Aspnet.Snapin.STGMEDIUM@)" /> メソッドの呼び出しは、おそらく正常に実行されます。 | | DV\_E\_LINDEX | インデックスが無効です。 | | DV\_E\_FORMATETC | pFormatEtc が無効です。 | | DV\_E\_TYMED | tymed が無効です。 | | DV\_E\_DVASPECT | dwAspect 値。 | | OLE\_E\_NOTRUNNING | オブジェクト アプリケーションが実行されていません。 |</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+実装するデータ オブジェクトのクライアント、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスは、後続の呼び出しの成功の可能性を判断する QueryGetData メソッドを呼び出して、<xref:Microsoft.Aspnet.Snapin.IDataObject.GetData(Microsoft.Aspnet.Snapin.FORMATETC@,Microsoft.Aspnet.Snapin.STGMEDIUM@)>メソッド。 あることを示す結果のこのインスタンス、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスに含まれているデータを表示できる、`a`パラメーターで後続の呼び出しの成功が保証されません、<xref:Microsoft.Aspnet.Snapin.IDataObject.GetData(Microsoft.Aspnet.Snapin.FORMATETC@,Microsoft.Aspnet.Snapin.STGMEDIUM@)>メソッド。
+
+使用したプログラミングの詳細については、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスと、Microsoft 管理コンソール (MMC) を参照してください、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="SetData">
@@ -266,12 +367,25 @@
         <Parameter Name="c" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="a">To be added.</param>
-        <param name="b">To be added.</param>
-        <param name="c">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="a">ストレージ メディアに格納されたデータを解釈する際に使用する、<see cref="T:Microsoft.Aspnet.Snapin.FORMATETC" /> を実装するデータ オブジェクトの形式を定義する <see cref="T:Microsoft.Aspnet.Snapin.IDataObject" /> へのポインター。</param>
+        <param name="b">データを渡すために使用される、SetData メソッドに対するストレージ メディアが定義されている <see cref="T:Microsoft.Aspnet.Snapin.STGMEDIUM" /> へのポインター。</param>
+        <param name="c">
+          <see cref="T:Microsoft.Aspnet.Snapin.IDataObject" /> を実装する呼び出されたデータ オブジェクトが呼び出し後にストレージ メディアを所有し、ストレージ メディアを使用後に解放する必要があることを指定する場合は true。それ以外の場合、呼び出し元がストレージ メディアの所有権を保持し、データ オブジェクトは呼び出しの間だけそのメディアを使用することを指定するには false。</param>
+        <summary>
+          <paramref name="a" /> で参照される、<see cref="T:Microsoft.Aspnet.Snapin.STGMEDIUM" /> 構造体に格納されたデータを <see cref="T:Microsoft.Aspnet.Snapin.IDataObject" /> インターフェイスのこのインスタンスに転送します。</summary>
+        <returns>SetData メソッドでは、標準の戻り値 E_FAIL、E_INVALIDARG、E_UNEXPECTED、E_OUTOFMEMORY だけでなく、次の戻り値もサポートされています。
+
+
+
+| 戻り値 | 説明 | | --- | --- | | S\_OK | SetData メソッドのこの呼び出しでは、データが正常に転送されました。 | | E\_NOTIMPL | SetData メソッドは、<see cref="T:Microsoft.Aspnet.Snapin.IDataObject" /> を実装するデータ オブジェクト用には実装されていません。 | | DV\_E\_LINDEX | インデックスが無効です。 | | DV\_E\_FORMATETC | pFormatEtc が無効です。 | | DV\_E\_TYMED | tymed が無効です。 | | DV\_E\_DVASPECT | dwAspect が無効です。 | | OLE\_E\_NOTRUNNING | オブジェクト アプリケーションが実行されていません。 |</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+使用したプログラミングの詳細については、<xref:Microsoft.Aspnet.Snapin.IDataObject>インターフェイスと、Microsoft 管理コンソール (MMC) を参照してください、 [MMC プログラマーズ ガイド](https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-programmer-s-guide-overview)します。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
   </Members>

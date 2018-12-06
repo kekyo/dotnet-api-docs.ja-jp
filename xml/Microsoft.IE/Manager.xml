@@ -1,11 +1,11 @@
 <Type Name="Manager" FullName="Microsoft.IE.Manager">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="feae9df12127b18f1c2385f34e7b0cce0219f801" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="a437134351485fe71bc2a00422ef80f100740fd1" />
+    <Meta Name="ms.sourcegitcommit" Value="c0c07dbd19cd7017243f9ac36915755f79bc8da6" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39831959" />
+    <Meta Name="ms.lasthandoff" Value="11/27/2018" />
+    <Meta Name="ms.locfileid" Value="52361657" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Manager : Microsoft.IE.IHostEx" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi Manager extends System.Object implements class Microsoft.IE.IHostEx" />
@@ -32,8 +32,16 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <summary>ActiveX コントロールとして実行するマネージド コードを有効にするためのメソッドを提供します。</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Manager クラスには、サンド ボックス アプリケーション ドメインでの ActiveX コントロールとして実行するマネージ コードを有効にするプロパティを初期化します。
+
+]]></format>
+    </remarks>
+    <forInternalUseOnly />
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -50,8 +58,10 @@
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
+        <summary>
+          <see cref="T:Microsoft.IE.Manager" /> クラスの新しいインスタンスを初期化します。</summary>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="AreOnTheSameSite">
@@ -75,11 +85,12 @@
         <Parameter Name="pURL2" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="pURL1">To be added.</param>
-        <param name="pURL2">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="pURL1">比較対象となる最初の URL。</param>
+        <param name="pURL2">比較対象となる 2 番目の URL。</param>
+        <summary>2 つの URL のサイト部分の正規化された値が同じであるかどうかを示す値を取得します。</summary>
+        <returns>2 つの URL が同じサイトであれば <see langword="true" />。異なる場合、<see langword="false" />。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="AreTheSame">
@@ -103,11 +114,12 @@
         <Parameter Name="pURL2" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="pURL1">To be added.</param>
-        <param name="pURL2">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="pURL1">比較対象となる最初の URL。</param>
+        <param name="pURL2">比較対象となる 2 番目の URL。</param>
+        <summary>2 つの URL の正規化されたフォームが同じであるかどうかを示す値を取得します。</summary>
+        <returns>2 つの URL が同じ場合は <see langword="true" />。異なる場合、<see langword="false" />。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="CanonizeURL">
@@ -131,11 +143,26 @@
         <Parameter Name="flags" Type="Microsoft.IE.Manager+URL_CANONFLAGS" />
       </Parameters>
       <Docs>
-        <param name="pURL">To be added.</param>
-        <param name="flags">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="pURL">URL 文字列を含み、NULL で終わる文字列。最大長が <see cref="F:Microsoft.IE.Manager.INTERNET_MAX_URL_LENGTH" />。 文字列がファイルを参照しない場合、"http://" のような有効なスキームが含まれている必要があります。</param>
+        <param name="flags">URL を正規フォームに変換する方法を指定するフラグ。 次のフラグを組み合わせることができます。
+
+- <see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" />: URL 文字列内の "/./" と "/../" を、ナビゲーションのための短縮形としてではなく、リテラル文字列として処理します。
+
+- <see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" />: "%" が現れた場合、それをそのエスケープ シーケンスに変換します。
+
+- <see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" />: スペースだけをエスケープ シーケンスで置換します。 このフラグは <see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" /> より優先されますが、あいまいな URL には適用されません。
+
+- <see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" />: 安全でない文字をそのエスケープ シーケンスに置換します。 安全でない文字とは、インターネット経由で転送されるとき、改ざんされるおそれがある文字のことです。 &lt;、&gt;、"、#、{、}、|、\\、^、[、]、' といった文字があります。 このフラグは、あいまいな URL を含む、すべての URL に適用されます。
+
+- <see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" />: <see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" /> と同じになるように定義されます。
+
+- <see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" />: World Wide Web コンソーシアム (W3C) の仕様に基づき、クライアントが定義したプラグ可能プロトコルと URL を結合します。 このフラグは、FTP、HTTP、Gopher など、標準のプロトコルには適用されません。 このフラグが設定されている場合、<see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" /> も設定する必要はありません。
+
+- <see cref="T:Microsoft.IE.Manager.URL_CANONFLAGS" />: 2 つの例外を除き、URL に含まれるエスケープ シーケンスのエスケープを解除します。 "?" と "#" のエスケープ シーケンスのエスケープは解除されません。 URL_ESCAPE フラグも設定されている場合、最初に 2 つの URL のエスケープが解除され、それから結合され、それからエスケープされます。</param>
+        <summary>URL 文字列を正規フォームに変換します。</summary>
+        <returns>正規化された URL。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="DecodeDomainId">
@@ -158,10 +185,11 @@
         <Parameter Name="hexString" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="hexString">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="hexString">ドメイン ID を表す 16 進数の文字列。</param>
+        <summary>指定した 16 進数文字列の整数表現を含むバイト配列を取得します。</summary>
+        <returns>hexString の整数表現を含む配列。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="GetClassFactory">
@@ -193,11 +221,14 @@
         <Parameter Name="className" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="assemblyName">To be added.</param>
-        <param name="className">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assemblyName">アセンブリの名前。</param>
+        <param name="className">クラスの名前。</param>
+        <summary>実装されていません。 
+        
+この API は、CLS に準拠していません。</summary>
+        <returns>常に null (Visual Basic の場合、Nothing)。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="GetCodeBase">
@@ -222,12 +253,13 @@
         <Parameter Name="application" Type="System.String" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="pURL">To be added.</param>
-        <param name="codeBase">To be added.</param>
-        <param name="application">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="pURL">コード ベースの URL。</param>
+        <param name="codeBase">このメソッドから制御が戻るときに、コード ベースのパスを格納します。</param>
+        <param name="application">このメソッドから制御が戻るときに、アプリケーション名を格納します。</param>
+        <summary>渡された URL 文字列からコード ベースとアプリケーション名を取得します。</summary>
+        <returns>コード ベースが見つかった場合は <see langword="true" />。見つからない場合、<see langword="false" />。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="GetConfigurationFile">
@@ -252,12 +284,13 @@
         <Parameter Name="file" Type="System.String" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="pURL">To be added.</param>
-        <param name="path">To be added.</param>
-        <param name="file">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="pURL">構成ファイルの URL。</param>
+        <param name="path">このメソッドから制御が戻るときに、構成ファイルのパスを格納します。</param>
+        <param name="file">このメソッドから制御が戻るときに、構成ファイルの名前を格納します。</param>
+        <summary>渡された URL 文字列から構成ファイルのパスとファイル名を取得します。</summary>
+        <returns>構成ファイルが見つかった場合は <see langword="true" />。見つからない場合、<see langword="false" />。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="GetSecuredClassFactory">
@@ -294,16 +327,40 @@
         <Parameter Name="typeName" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="flags">To be added.</param>
-        <param name="zone">To be added.</param>
-        <param name="site">To be added.</param>
-        <param name="uniqueIdString">To be added.</param>
-        <param name="fileHashString">To be added.</param>
-        <param name="assemblyName">To be added.</param>
-        <param name="typeName">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="flags">次の CORIESECURITY 値のいずれか:
+
+- CORIESECURITY_ZONE: 0x01
+
+- CORIESECURITY_SITE: 0x02</param>
+        <param name="zone">次の URLZONE 値のいずれか:
+
+- URLZONE_LOCAL_MACHINE: 0x00
+
+- URLZONE_INTRANET: 0x01
+
+- URLZONE_TRUSTED: 0x02
+
+- URLZONE_INTERNET: 0x03
+
+- URLZONE_UNTRUSTED: 0x04</param>
+        <param name="site">サイト アドレス。</param>
+        <param name="uniqueIdString">サイトの一意の ID。</param>
+        <param name="fileHashString">読み込まれているアセンブリの 16 進数でエンコードされたハッシュ値。</param>
+        <param name="assemblyName">アセンブリの名前。</param>
+        <param name="typeName">型の名前。</param>
+        <summary>アセンブリに関するセキュリティ情報を提供するクラス ファクトリを作成します。
+
+この API は、CLS に準拠していません。</summary>
+        <returns>安全なクラス ファクトリを表すオブジェクト。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+通常、ほとんどのパラメーター値には、インターネット セキュリティ マネージャーからを取得できます。
+
+]]></format>
+        </remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="GetSiteName">
@@ -326,10 +383,11 @@
         <Parameter Name="pURL" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="pURL">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="pURL">ターゲット URL。</param>
+        <summary>指定された URL のサイト名を取得します。</summary>
+        <returns>指定された URL のサイト名。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="INTERNET_MAX_PATH_LENGTH">
@@ -349,8 +407,9 @@
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
+        <summary>インターネット パスを表す文字列の最大長を取得します。</summary>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="INTERNET_MAX_SCHEME_LENGTH">
@@ -370,8 +429,9 @@
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
+        <summary>インターネット スキームを表す文字列の最大長を取得します。</summary>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="INTERNET_MAX_URL_LENGTH">
@@ -391,8 +451,9 @@
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
+        <summary>URL を表す文字列の最大長を取得します。</summary>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="IsValidURL">
@@ -415,10 +476,11 @@
         <Parameter Name="pURL" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="pURL">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="pURL">確認する URL。</param>
+        <summary>指定された URL が有効かどうかを判断します。</summary>
+        <returns>URL が有効な場合は <see langword="true" />。無効な場合、<see langword="false" />。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
     <Member MemberName="MakeFullLink">
@@ -443,12 +505,13 @@
         <Parameter Name="Application" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="link">To be added.</param>
-        <param name="CodeBase">To be added.</param>
-        <param name="Application">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="link">アドレスのリンク部分。相対指定でもかまいません。</param>
+        <param name="CodeBase">アドレスのコード ベース部分。</param>
+        <param name="Application">アドレスのアプリケーション部分。</param>
+        <summary>渡されたリンク、コード ベース、アプリケーションの完全な URL を返します。</summary>
+        <returns>指定のアプリケーションの完全リンク。</returns>
         <remarks>To be added.</remarks>
+        <forInternalUseOnly />
       </Docs>
     </Member>
   </Members>
