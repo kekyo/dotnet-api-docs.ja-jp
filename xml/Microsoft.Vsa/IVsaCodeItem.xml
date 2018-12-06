@@ -1,11 +1,11 @@
 <Type Name="IVsaCodeItem" FullName="Microsoft.Vsa.IVsaCodeItem">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="3d52b4e13d62d9a7363590361d0bd20b652f28e6" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="02ffa3d80165d4caa3178d3b714320a67262d734" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39791002" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52610026" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IVsaCodeItem : Microsoft.Vsa.IVsaItem" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IVsaCodeItem implements class Microsoft.Vsa.IVsaItem" />
@@ -35,8 +35,19 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <summary>スクリプト エンジンでコンパイルするコード項目を表します。</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[
+
+## Remarks  
+指定したコード項目は、クラス、モジュール、またはその他のソース テキストに含めることができます。
+
+アクセス許可を IVsaCodeItem インターフェイスのメンバーを呼び出すために必要はありません。
+
+スクリプト エンジンは、コード項目を追加するには、このインターフェイスを実装します。
+
+]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName="AddEventSource">
@@ -60,10 +71,27 @@
         <Parameter Name="eventSourceType" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="eventSourceName">To be added.</param>
-        <param name="eventSourceType">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="eventSourceName">イベント ソースのプログラム的な名前。</param>
+        <param name="eventSourceType">イベント ソースの型名。</param>
+        <summary>イベント ソースをコード項目に追加します。 コード項目はイベント ソースを使用し、ホストで実装された IVsaSite.GetEventSourceInstance メソッドを呼び出して、イベントを指定したイベント ソースにフックします。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+スクリプト エンジンでは、AddEventSource メソッドによって提供される情報を使用して、名前付きのイベント ソースにイベントをフックします。 ホストによって実装された IVsaSite.GetEventSourceInstance メソッドを呼び出すことによって、イベント ソースを取得します。 AddEventSource メソッドは、ホストから提供されたオブジェクトによって発生したイベントを処理するクラスを作成します。
+
+> [!NOTE]
+> JScript .NET スクリプト エンジンでは、このメソッドをサポートしません。 場合は、JScript .NET エンジンはイベントをフックする必要があります、グローバル項目を使用してこれを行う必要があります。 イベント ソース、JScript .NET エンジン AppGlobal 項目の種類を使用してなく。 詳細については、VsaItemType を参照してください。
+
+
+コード項目内でイベント ソース オブジェクトは、名前でアクセスできるし、アクセスするには、オブジェクトに対してイベント ハンドラーを記述することができます。 イベント ソースの種類では、アンマネージ ホストで実装するイベント ソースを容易にする型のオブジェクトではなく文字列としてを渡されます。
+
+コンパイラでは、eventSourceType パラメーターを使用して、型によって提供されるメソッドにバインドします。 使用後で、スクリプト エンジンは、型のオブジェクトのインスタンスを要求する IVsaSite.GetEventSourceInstance メソッドを呼び出すとします。
+
+スクリプト エンジンのイベントをフックするためのメカニズムの詳細については、IVsaSite.GetEventSourceInstance メソッドを参照してください。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="AppendSourceText">
@@ -86,9 +114,18 @@
         <Parameter Name="text" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="text">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="text">コード項目に追加するテキスト。</param>
+        <summary>指定したテキストをコード 項目の末尾に追加します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+追加するソース テキストが検証を対象外です。 このため、エラー、存在する場合は画面 IVsaEngine.Compile メソッドに次の呼び出しで。
+
+追加するソース テキストは、1 つの文字列として提供されます。 文字列必要がある書式設定はすべて、自分で指定する必要があります。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="CodeDOM">
@@ -108,9 +145,16 @@
         <ReturnType>System.CodeDom.CodeObject</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>コード項目で表現される CodeDOM (Code Document Object Model) を取得します。</summary>
+        <value>コード項目の CodeDOM を返します。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+CodeDOM プロパティはご利用いただけませんまで IVsaEngine.Compile メソッドを呼び出した後、通常、スクリプト エンジンのコンパイル手順の一部として生成されます。 VSA の実装によっては、明示的なコンパイル手順を必要としない CodeDOM を動的に提供できる場合がありますが、ホストは、この動作に依存できません。 JScript .NET スクリプト エンジンなど、一部のスクリプト エンジンは、この動作をサポートしていません。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="RemoveEventSource">
@@ -133,9 +177,16 @@
         <Parameter Name="eventSourceName" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="eventSourceName">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="eventSourceName">削除するイベント ソースのプログラム的な名前。</param>
+        <summary>指定したイベント ソースをコード項目から削除します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+イベント ソースの削除は、基になるイベント ハンドラーはソース テキストから削除されません。 はなく、イベントを発生させるイベント ハンドラーに通知できなくします。 そのため、イベント ソースを削除しても、基になる関数のままに、ソース コードでコンパイラ エラーが表示されます。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="SourceText">
@@ -155,9 +206,20 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>指定したコード項目のテキストを設定または取得します。自動生成されたコードがある場合は、これも含めます。</summary>
+        <value>コード項目のソース テキストを返します。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+このプロパティを設定すると、テキストの検証は対象外です。 このため、エラー、存在する場合は画面 IVsaEngine.Compile メソッドに次の呼び出しで。
+
+SourceText プロパティは、改行などの書式指定文字を含む 1 つの大きな文字列内のソース テキストを返しますを返します。
+
+このプロパティのエンジンを取得するには、必要があります閉じることができません。 エンジンのこのプロパティを設定する必要があります閉じられていないと、エンジンが実行されていない必要があります。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
   </Members>

@@ -1,11 +1,11 @@
 <Type Name="MemoryManager&lt;T&gt;" FullName="System.Buffers.MemoryManager&lt;T&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="5047a443f74813c69439bd383ddec25478572d83" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="ce1f4dd9e0f3e75e828feeef7ffb2401986c3572" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39835920" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52614685" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class MemoryManager&lt;T&gt; : System.Buffers.IMemoryOwner&lt;T&gt;, System.Buffers.IPinnable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit MemoryManager`1&lt;T&gt; extends System.Object implements class System.Buffers.IMemoryOwner`1&lt;!T&gt;, class System.Buffers.IPinnable, class System.IDisposable" />
@@ -16,6 +16,9 @@
   <AssemblyInfo>
     <AssemblyName>System.Runtime</AssemblyName>
     <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Memory</AssemblyName>
   </AssemblyInfo>
   <TypeParameters>
     <TypeParameter Name="T" />
@@ -30,11 +33,24 @@
     <Interface>
       <InterfaceName>System.Buffers.IPinnable</InterfaceName>
     </Interface>
+    <Interface>
+      <InterfaceName>System.IDisposable</InterfaceName>
+    </Interface>
   </Interfaces>
   <Docs>
-    <typeparam name="T">To be added.</typeparam>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <typeparam name="T">このメモリ マネージャーによって管理されるメモリ バッファー内の項目の種類。</typeparam>
+    <summary>
+      <see cref="T:System.Memory`1" /> の実装を置き換えるために使用される抽象型基本クラス。</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+
+`MemoryManager<T>`クラスを使用する型のナレッジを拡張<xref:System.Memory%601>を表すことができます。 派生するなど、`MemoryManager<T>`を許可する<xref:System.Memory%601>支持されている、<xref:System.Runtime.InteropServices.SafeHandle>します。
+
+> [!NOTE]
+> `MemoryManager<T>`クラスが高度なシナリオを対象としています。 ほとんどの開発者は、それを使用する必要はありません。
+
+       ]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -48,9 +64,13 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
+        <summary>
+          <see cref="T:System.Buffers.MemoryManager`1" /> クラスの新しいインスタンスを初期化します。</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -66,6 +86,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -73,9 +96,9 @@
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="length">オフセット 0 で始まるメモリバッファー内の要素の数。</param>
+        <summary>現在のメモリ マネージャーによって管理されるメモリからの特定の数のメモリで構成されるメモリ バッファーを返します。</summary>
+        <returns>メモリ バッファー。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -91,6 +114,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -99,10 +125,10 @@
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="start">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="start">返されたメモリ バッファーが開始される要素のオフセット。</param>
+        <param name="length">返されたメモリ バッファーに含める要素の数。</param>
+        <summary>現在のメモリ マネージャーによって管理されるメモリから指定されたオフセットで開始する、指定された数の要素で構成されるメモリ バッファーを返します。</summary>
+        <returns>オフセット <paramref name="start" /> で開始する <paramref name="length" /> 要素で構成されるメモリ バッファー。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -118,6 +144,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
@@ -125,8 +154,8 @@
         <Parameter Name="disposing" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="disposing">To be added.</param>
-        <summary>To be added.</summary>
+        <param name="disposing">マネージド リソースとアンマネージド リソースの両方を解放する場合は <see langword="true" />。アンマネージド リソースだけを解放する場合は <see langword="false" />。</param>
+        <summary>現在のメモリ マネージャーによって使用されているすべてのリソースを解放します。</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -142,13 +171,16 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Span&lt;T&gt;</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <summary>基になるメモリ バッファーをラップするメモリ範囲を返します。</summary>
+        <returns>基になるメモリ バッファーをラップするメモリ範囲。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -167,12 +199,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>この <see cref="T:System.Buffers.MemoryManager`1" /> によって処理されるメモリ ブロックを取得します。</summary>
+        <value>これによって、メモリ ブロックが処理される<see cref="T:System.Buffers.MemoryManager`1" />します。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -190,6 +225,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Buffers.MemoryHandle</ReturnType>
       </ReturnValue>
@@ -197,9 +235,9 @@
         <Parameter Name="elementIndex" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="elementIndex">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="elementIndex">返された <see cref="T:System.Buffers.MemoryHandle" /> が指すメモリ バッファー内の要素のオフセット。</param>
+        <summary>ピン留めされており、そのアドレスを取得できるメモリへのハンドルを返します。</summary>
+        <returns>ピン留めされているメモリへのハンドル。</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -217,13 +255,16 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>メモリ マネージャーによって使用されているすべてのリソースを解放します。</summary>
+        <remarks>このメソッドは、メモリ マネージャーの<see cref="M:System.IDisposable.Dispose" />実装します。</remarks>
       </Docs>
     </Member>
     <Member MemberName="TryGetArray">
@@ -238,6 +279,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
@@ -245,10 +289,10 @@
         <Parameter Name="segment" Type="System.ArraySegment&lt;T&gt;" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="segment">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="segment">書き込む配列セグメント。</param>
+        <summary>配列セグメントを返します。</summary>
+        <returns>メソッドで配列セグメントの取得に成功した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <remarks>このメソッドがオーバーライドされていない場合は、既定値の配列セグメントを返します。</remarks>
       </Docs>
     </Member>
     <Member MemberName="Unpin">
@@ -266,12 +310,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
+        <summary>ガベージ コレクターを自由に移動できるように、ピン留めされたメモリのピン留めを外します。</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

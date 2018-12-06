@@ -1,11 +1,11 @@
 <Type Name="XmlNodeReader" FullName="System.Xml.XmlNodeReader">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d4c1798c265677dd4fdc6e5c8f499fd8c7b5ac27" />
-    <Meta Name="ms.sourcegitcommit" Value="9dda17222b9f7d3edf130133bfb1370d5b410a4b" />
+    <Meta Name="ms.openlocfilehash" Value="ab2104775ed2c8b474493654fb02bbd656d9dbf2" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="09/22/2018" />
-    <Meta Name="ms.locfileid" Value="46619256" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52612722" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class XmlNodeReader : System.Xml.XmlReader, System.Xml.IXmlNamespaceResolver" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XmlNodeReader extends System.Xml.XmlReader implements class System.Xml.IXmlNamespaceResolver" />
@@ -842,7 +842,7 @@ String dt4 = reader.GetAttribute("dt",http://www.w3.org/2000/xmlns/);
       <Docs>
         <summary>現在のノードが空の要素 (<c>&lt;MyElement/&gt;</c> など) かどうかを示す値を取得します。</summary>
         <value>
-          <see langword="true" /> 現在のノードが要素 (<see cref="P:System.Xml.XmlNodeReader.NodeType" /> equals <see langword="XmlNodeType.Element" />) で終了して<c> / &gt; </c>、それ以外の<see langword="false" />します。</value>
+          <see langword="true" /> 現在のノードが要素 (<see cref="P:System.Xml.XmlNodeReader.NodeType" /> equals <see langword="XmlNodeType.Element" />) で終了して<c>/ &gt;</c>、それ以外の<see langword="false" />します。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -897,10 +897,24 @@ String dt4 = reader.GetAttribute("dt",http://www.w3.org/2000/xmlns/);
         <Parameter Name="i" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="i">To be added.</param>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <param name="i">属性のインデックス。</param>
+        <summary>指定したインデックスの属性の値を取得します。</summary>
+        <value>指定した属性の値。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+
+> [!NOTE]
+> [!INCLUDE[dnprdnext](~/includes/dnprdnext-md.md)] では、<xref:System.Xml.XmlReader> クラスと <xref:System.Xml.XmlReaderSettings> メソッドを使用して <xref:System.Xml.XmlReader.Create%2A> インスタンスを作成する方法を推奨しています。 この方法に従えば、[!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] で導入されたすべての新しい機能を利用できます。 詳細については、「解説」セクションを参照してください、<xref:System.Xml.XmlReader>リファレンス ページです。
+
+このプロパティは、リーダーを移動しません。
+
+]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <paramref name="i" /> パラメーターが 0 未満か、<see cref="P:System.Xml.XmlNodeReader.AttributeCount" /> 以上です。</exception>
+        <altmember cref="Overload:System.Xml.XmlNodeReader.GetAttribute" />
       </Docs>
     </Member>
     <Member MemberName="Item">
@@ -928,10 +942,129 @@ String dt4 = reader.GetAttribute("dt",http://www.w3.org/2000/xmlns/);
         <Parameter Name="name" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="name">To be added.</param>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <param name="name">属性の限定名。</param>
+        <summary>指定した名前の属性の値を取得します。</summary>
+        <value>指定した属性の値。 指定した属性が見つからない場合は <see langword="null" /> が返されます。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+
+> [!NOTE]
+> [!INCLUDE[dnprdnext](~/includes/dnprdnext-md.md)] では、<xref:System.Xml.XmlReader> クラスと <xref:System.Xml.XmlReaderSettings> メソッドを使用して <xref:System.Xml.XmlReader.Create%2A> インスタンスを作成する方法を推奨しています。 この方法に従えば、[!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] で導入されたすべての新しい機能を利用できます。 詳細については、「解説」セクションを参照してください、<xref:System.Xml.XmlReader>リファレンス ページです。
+
+このプロパティは、リーダーを移動しません。
+
+リーダーは、DocumentType ノード上には場合、このメソッドを使用して、PUBLIC および SYSTEM リテラル、たとえば、リーダーを取得すること\["PUBLIC"\]します。
+
+## Examples  
+次の例では、ISBN 属性の値を取得します。
+
+```vb
+Imports System
+Imports System.IO
+Imports System.Xml
+
+Public Class Sample
+
+    Public Shared Sub Main()
+        Dim reader As XmlNodeReader = Nothing
+        Try
+            'Create and load the XML document.
+            Dim doc As New XmlDocument()
+            doc.LoadXml("<book genre='novel' ISBN='1-861003-78' publicationdate='1987'>" & _
+                        "</book>")
+
+            ' Load the XmlNodeReader 
+            reader = New XmlNodeReader(doc)
+
+            'Read the ISBN attribute.
+            reader.MoveToContent()
+            Dim isbn As String = reader("ISBN")
+            Console.WriteLine("The ISBN value: " & isbn)
+        Finally
+            If Not (reader Is Nothing) Then
+                reader.Close()
+            End If
+        End Try
+    End Sub 'Main 
+End Class 'Sample
+```
+
+```csharp
+using System;
+using System.IO;
+using System.Xml;
+
+public class Sample 
+{
+  public static void Main()
+  {
+    XmlNodeReader reader = null;
+
+    try
+    {
+       //Create and load the XML document.
+       XmlDocument doc = new XmlDocument();
+       doc.LoadXml("<book genre='novel' ISBN='1-861003-78' publicationdate='1987'> " +
+                   "</book>"); 
+
+       // Load the XmlNodeReader 
+       reader = new XmlNodeReader(doc);
+
+       //Read the ISBN attribute.
+       reader.MoveToContent();
+       string isbn =reader["ISBN"];
+       Console.WriteLine("The ISBN value: " + isbn);
+
+     } 
+
+     finally 
+     {
+        if (reader != null)
+          reader.Close();
+      }
+  }
+
+} // End class
+```
+
+```cpp
+#using <System.Xml.dll>
+
+using namespace System;
+using namespace System::IO;
+using namespace System::Xml;
+
+int main()
+{
+   XmlNodeReader^ reader = nullptr;
+   try
+   {
+
+      //Create and load the XML document.
+      XmlDocument^ doc = gcnew XmlDocument;
+      doc->LoadXml( "<book genre='novel' ISBN='1-861003-78' publicationdate='1987'></book>" );
+
+      // Load the XmlNodeReader 
+      reader = gcnew XmlNodeReader( doc );
+
+      //Read the ISBN attribute.
+      reader->MoveToContent();
+      String^ isbn = reader[ "ISBN" ];
+      Console::WriteLine( "The ISBN value: {0}", isbn );
+   }
+   finally
+   {
+      if ( reader != nullptr )
+            reader->Close();
+   }
+}
+```
+
+]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.XmlNodeReader.GetAttribute" />
       </Docs>
     </Member>
     <Member MemberName="Item">
@@ -960,11 +1093,23 @@ String dt4 = reader.GetAttribute("dt",http://www.w3.org/2000/xmlns/);
         <Parameter Name="namespaceURI" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="name">To be added.</param>
-        <param name="namespaceURI">To be added.</param>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <param name="name">属性のローカル名。</param>
+        <param name="namespaceURI">属性の名前空間 URI。</param>
+        <summary>指定したローカル名および名前空間 URI に関連付けられた属性の値を取得します。</summary>
+        <value>指定した属性の値。 指定した属性が見つからない場合は <see langword="null" /> が返されます。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+
+> [!NOTE]
+> [!INCLUDE[dnprdnext](~/includes/dnprdnext-md.md)] では、<xref:System.Xml.XmlReader> クラスと <xref:System.Xml.XmlReaderSettings> メソッドを使用して <xref:System.Xml.XmlReader.Create%2A> インスタンスを作成する方法を推奨しています。 この方法に従えば、[!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] で導入されたすべての新しい機能を利用できます。 詳細については、「解説」セクションを参照してください、<xref:System.Xml.XmlReader>リファレンス ページです。
+
+このプロパティは、リーダーを移動しません。
+
+]]></format>
+        </remarks>
+        <altmember cref="Overload:System.Xml.XmlNodeReader.GetAttribute" />
       </Docs>
     </Member>
     <Member MemberName="LocalName">
@@ -996,7 +1141,7 @@ String dt4 = reader.GetAttribute("dt",http://www.w3.org/2000/xmlns/);
       </ReturnValue>
       <Docs>
         <summary>現在のノードのローカル名を取得します。</summary>
-        <value>プリフィックスを削除した現在のノードの名前。 たとえば、<see langword="LocalName" />は<see langword="book" />要素の<c> &lt;bk:book&gt;</c>します。  
+        <value>プリフィックスを削除した現在のノードの名前。 たとえば、<see langword="LocalName" />は<see langword="book" />要素の<c>&lt;bk:book&gt;</c>します。  
   
 名前を持たないノード型 (<see langword="Text" />、<see langword="Comment" />、など) の場合は、このプロパティは String.Empty を返します。</value>
         <remarks>
@@ -1432,7 +1577,7 @@ String dt4 = reader.GetAttribute("dt",http://www.w3.org/2000/xmlns/);
       </ReturnValue>
       <Docs>
         <summary>現在のノードの限定名を取得します。</summary>
-        <value>現在のノードの限定名。 たとえば、<see langword="Name" />は<see langword="bk:book" />要素の<c> &lt;bk:book&gt;</c>します。  
+        <value>現在のノードの限定名。 たとえば、<see langword="Name" />は<see langword="bk:book" />要素の<c>&lt;bk:book&gt;</c>します。  
   
 返される名前は、ノードの <see cref="P:System.Xml.XmlNodeReader.NodeType" /> によって異なります。 リストされた値を返すノード型を次に示します。 その他のすべてのノード型は、空の文字列を返します。  
   
@@ -1702,9 +1847,18 @@ String dt4 = reader.GetAttribute("dt",http://www.w3.org/2000/xmlns/);
         <ReturnType>System.Char</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>属性ノードの値を囲むために使用する引用符文字を取得します。</summary>
+        <value>XmlNodeReader は常に二重引用符 (") を使用します。</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+
+> [!NOTE]
+>  [!INCLUDE[dnprdnext](~/includes/dnprdnext-md.md)] では、<xref:System.Xml.XmlReader> クラスと <xref:System.Xml.XmlReaderSettings> メソッドを使用して <xref:System.Xml.XmlReader.Create%2A> インスタンスを作成する方法を推奨しています。 この方法に従えば、[!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] で導入されたすべての新しい機能を利用できます。 詳細については、「解説」セクションを参照してください、<xref:System.Xml.XmlReader>リファレンス ページです。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Read">
