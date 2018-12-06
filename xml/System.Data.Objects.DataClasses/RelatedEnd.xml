@@ -1,11 +1,11 @@
 <Type Name="RelatedEnd" FullName="System.Data.Objects.DataClasses.RelatedEnd">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="c3fcee3a79374bee386da7966a336f597aef0f04" />
-    <Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" />
+    <Meta Name="ms.openlocfilehash" Value="59186487ee63d29a10e4f974f73fe97241df86c8" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="11/17/2018" />
-    <Meta Name="ms.locfileid" Value="51862121" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52608471" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class RelatedEnd : System.Data.Objects.DataClasses.IRelatedEnd" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract serializable beforefieldinit RelatedEnd extends System.Object implements class System.Data.Objects.DataClasses.IRelatedEnd" />
@@ -31,7 +31,7 @@
       <AttributeName>System.Runtime.Serialization.DataContract</AttributeName>
     </Attribute>
     <Attribute FrameworkAlternate="netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8">
-      <AttributeName>Serializable</AttributeName>
+      <AttributeName>System.Serializable</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
@@ -115,11 +115,20 @@
         <Parameter Name="allowCollection" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <typeparam name="TEntity">To be added.</typeparam>
-        <param name="entities">To be added.</param>
-        <param name="allowCollection">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <typeparam name="TEntity">アタッチするエンティティ オブジェクトの <see cref="T:System.Collections.Generic.IEnumerable`1" /> コレクションの型。</typeparam>
+        <param name="entities">エンティティ オブジェクトの <see cref="T:System.Collections.Generic.IEnumerable`1" /> コレクション。</param>
+        <param name="allowCollection">アタッチされるオブジェクトがコレクションの一部かどうかを指定します。</param>
+        <summary>アタッチされた 2 つのオブジェクト間のリレーションシップを定義します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+`Attach<TEntity>(IEnumerable<TEntity>, Boolean)` メソッドは、オブジェクトと関連オブジェクトの両方が既にオブジェクト コンテキストにアタッチされている場合にそれらのオブジェクト間のリレーションシップを定義するために使用されます。 関連オブジェクトがまだオブジェクト コンテキストにアタッチされていない場合は、<xref:System.Data.Objects.DataClasses.EntityReference%601.Value> の <xref:System.Data.Objects.DataClasses.EntityReference%601> プロパティに関連オブジェクトを設定するか、<xref:System.Data.Objects.DataClasses.EntityCollection%601.Add%2A> の <xref:System.Data.Objects.DataClasses.EntityCollection%601> メソッドを呼び出します。 また、両方のオブジェクトがデタッチされている場合は、<xref:System.Data.Objects.DataClasses.EntityReference%601.Value> の <xref:System.Data.Objects.DataClasses.EntityReference%601> プロパティに関連オブジェクトを設定するか、<xref:System.Data.Objects.DataClasses.EntityCollection%601.Add%2A> の <xref:System.Data.Objects.DataClasses.EntityCollection%601> メソッドを呼び出した後に、オブジェクト グラフのルート オブジェクトをアタッチしてリレーションシップを定義することもできます。 詳細については、次を参照してください。[のアタッチとデタッチ オブジェクト](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/bb896271(v=vs.100))します。
+
+`Attach<TEntity>(IEnumerable<TEntity>, Boolean)` メソッドは、関連 End に対するアタッチ操作の間に Object Services によって呼び出されます。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetEnumerator">
@@ -322,12 +331,19 @@
         <Parameter Name="setIsLoaded" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <typeparam name="TEntity">To be added.</typeparam>
-        <param name="collection">To be added.</param>
-        <param name="mergeOption">To be added.</param>
-        <param name="setIsLoaded">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <typeparam name="TEntity">マージするエンティティ オブジェクトの <see cref="T:System.Collections.Generic.IEnumerable`1" /> コレクションの型。</typeparam>
+        <param name="collection">この関連 End に追加するエンティティ オブジェクトの <see cref="T:System.Collections.Generic.IEnumerable`1" /> コレクション。</param>
+        <param name="mergeOption">オブジェクトを既存の <see cref="T:System.Data.Objects.MergeOption" /> にマージする場合に使用する <see cref="T:System.Data.Objects.DataClasses.EntityCollection`1" />。</param>
+        <param name="setIsLoaded">関連オブジェクトのセットが完全で、サーバーと一致しているかどうかを示します。 <see cref="M:System.Data.Objects.DataClasses.EntityCollection`1.Load(System.Data.Objects.MergeOption)" /> などの操作では setIsLoaded が <see langword="true" /> に設定されますが、<see cref="Overload:System.Data.Objects.DataClasses.EntityCollection`1.Attach" /> では <see langword="false" /> に設定されます。</param>
+        <summary>関連エンティティをローカルの <see cref="T:System.Data.Objects.DataClasses.EntityCollection`1" /> にマージします。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+`Merge<TEntity>` メソッドは、リレーションシップ操作の間に Object Services によって呼び出されます。
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="OnDeserialized">
@@ -828,12 +844,28 @@
         <Parameter Name="allowCollection" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <typeparam name="TEntity">To be added.</typeparam>
-        <param name="entity">To be added.</param>
-        <param name="index">To be added.</param>
-        <param name="allowCollection">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <typeparam name="TEntity">検証するオブジェクトの型。</typeparam>
+        <param name="entity">検証するオブジェクト。</param>
+        <param name="index">検証するオブジェクトのコレクション内の位置。</param>
+        <param name="allowCollection">オブジェクトがコレクションのメンバーかどうかを示します。</param>
+        <summary>オブジェクトをローカル コレクションやローカル参照にアタッチできるかどうかを調べます。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+`ValidateEntityForAttach<TEntity>` メソッドは、アタッチ操作の間に Object Services によって呼び出されます。
+
+]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">アタッチされるオブジェクトが <see langword="null" /> の場合。
+
+- または -
+
+関連 End にアタッチされるオブジェクトがソース オブジェクトと同じ <see cref="T:System.Data.Objects.ObjectContext" /> に存在しない場合。
+
+- または -
+
+アタッチされるオブジェクトの状態が <see cref="F:System.Data.EntityState.Added" /> または <see cref="F:System.Data.EntityState.Deleted" /> の場合。</exception>
       </Docs>
     </Member>
     <Member MemberName="ValidateLoad&lt;TEntity&gt;">
@@ -858,12 +890,31 @@
         <Parameter Name="relatedEndName" Type="System.String" />
       </Parameters>
       <Docs>
-        <typeparam name="TEntity">To be added.</typeparam>
-        <param name="mergeOption">To be added.</param>
-        <param name="relatedEndName">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="TEntity">検証するオブジェクトの型。</typeparam>
+        <param name="mergeOption">オブジェクトを既存の <see cref="T:System.Data.Objects.MergeOption" /> にマージする場合に使用する <see cref="T:System.Data.Objects.DataClasses.EntityCollection`1" />。</param>
+        <param name="relatedEndName">関連 End の名前。</param>
+        <summary>ローカル コレクションやローカル参照に関連オブジェクトを正しく読み込めるかどうかを確認します。</summary>
+        <returns>関連 End でオブジェクトを読み込むために使用する <see cref="T:System.Data.Objects.ObjectQuery`1" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Object Services を取得、<xref:System.Data.Objects.ObjectQuery%601>呼び出すことによって、 [IRelatedEnd.CreateSourceQuery](xref:System.Data.Objects.DataClasses.RelatedEnd.System%23Data%23Objects%23DataClasses%23IRelatedEnd%23CreateSourceQuery)メソッド。
+
+また、読み込み操作が正しく行われるようにするために、操作を実行する前に `ValidateLoad<TEntity>` メソッドを呼び出します。
+
+]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <see cref="F:System.Data.Objects.MergeOption.NoTracking" /> クエリを使用してソース オブジェクトを取得したときに <see cref="T:System.Data.Objects.MergeOption" /> が <see cref="F:System.Data.Objects.MergeOption.NoTracking" /> でなかったか、関連オブジェクトが既に読み込まれていた場合。
+
+- または -
+
+ソース オブジェクトが <see cref="T:System.Data.Objects.ObjectContext" /> にアタッチされていない場合。
+
+- または -
+
+ソース オブジェクトが追跡されているが、状態が <see cref="F:System.Data.EntityState.Added" /> または <see cref="F:System.Data.EntityState.Deleted" /> であるか、<see cref="T:System.Data.Objects.MergeOption" /> に対して使用されている <see cref="Overload:System.Data.Objects.DataClasses.RelatedEnd.Load" /> が <see cref="F:System.Data.Objects.MergeOption.NoTracking" /> の場合。</exception>
       </Docs>
     </Member>
     <Member MemberName="ValidateOwnerForAttach">
@@ -883,8 +934,16 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>関連 End が属しているオブジェクトでアタッチ操作がサポートされているかどうかを確認します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Object Services は、操作が成功することを確認するためのアタッチ操作を実行する前に、ValidateOwnerForAttach メソッドを呼び出します。
+
+]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">ソース オブジェクトが <see cref="T:System.Data.Objects.ObjectContext" /> にアタッチされていない場合、<see cref="F:System.Data.Objects.MergeOption.NoTracking" /> クエリから返された場合、または状態が <see cref="F:System.Data.EntityState.Modified" /> または <see cref="F:System.Data.EntityState.Unchanged" /> ではない場合。</exception>
       </Docs>
     </Member>
   </Members>
