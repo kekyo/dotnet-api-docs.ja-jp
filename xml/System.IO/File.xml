@@ -2299,20 +2299,24 @@ The caller does not have the required permission.</exception>
         <Parameter Name="destFileName" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="sourceFileName">The name of the file to move. Can include a relative or absolute path.</param>
-        <param name="destFileName">The new path and name for the file.</param>
-        <summary>Moves a specified file to a new location, providing the option to specify a new file name.</summary>
+        <param name="sourceFileName">移動するファイルのファイル名。相対パスあるいは絶対パスを含むことができます。</param>
+        <param name="destFileName">移動先のパスとファイル名。</param>
+        <summary>新しいファイルの場所を指定された場合、指定されたファイルを新しい場所に移動します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドは、ディスクのボリューム間で機能し、ソースとコピー先が同じである場合、例外はスローされません。 同じ名前のファイルをそのディレクトリに移動してファイルを置換しようとした場合になるに注意してください、<xref:System.IO.IOException>します。 Move メソッドを使用して、既存のファイルを上書きすることはできません。  
+ このメソッドはディスクのボリューム間で機能します。コピー元とコピー先が同じである場合、例外はスローされません。
+既存のファイルと同じ名前のファイルをそのディレクトリに移動することによりファイルを置換しようとした場合、<xref:System.IO.IOException>がスローされることに注意してください。
+Move メソッドを使用して、既存のファイルを上書きすることはできません。  
+
+ `sourceFileName`と`destFileName`引数は、相対パスあるいは絶対パスを含めることができます。
+相対パスは、現在の作業ディレクトリに対して相対的に解釈されます。
+現在の作業ディレクトリを取得するには、<xref:System.IO.Directory.GetCurrentDirectory%2A>を参照してください。
   
- `sourceFileName`と`destFileName`引数は、相対パスまたは絶対パス情報を含めることができます。 相対パス情報は、現在の作業ディレクトリに対して相対的に解釈されます。 現在の作業ディレクトリを取得するには、次を参照してください。<xref:System.IO.Directory.GetCurrentDirectory%2A>します。  
+ 異なるディスク ボリュームにファイルを移動する場合や使用中のファイルを移動する場合、ファイルはコピーされますが、コピー元からは削除されません。  
   
- ディスク ボリューム間でファイルを移動しようとするファイルを使用している場合は、ファイルは、先にコピーしますが、ソースからは削除されません。  
-  
- 共通 I/O タスクの一覧は、次を参照してください。[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)します。  
+ 共通 I/O タスクの一覧は、[共通 I/O タスク](~/docs/standard/io/common-i-o-tasks.md)を参照してください。
   
    
   
@@ -2325,20 +2329,18 @@ The caller does not have the required permission.</exception>
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.IO.IOException">The destination file already exists.  
-  
--or- 
- <paramref name="sourceFileName" /> was not found.</exception>
+        <exception cref="T:System.IO.IOException">移動先にファイルが存在しています。
+          あるいは、<paramref name="sourceFileName" />が見つかりませんでした。</exception>
         <exception cref="T:System.ArgumentNullException">
-          <paramref name="sourceFileName" /> or <paramref name="destFileName" /> is <see langword="null" />.</exception>
+          <paramref name="sourceFileName" />あるいは<paramref name="destFileName" />が<see langword="null" />です。</exception>
         <exception cref="T:System.ArgumentException">
-          <paramref name="sourceFileName" /> or <paramref name="destFileName" /> is a zero-length string, contains only white space, or contains invalid characters as defined in <see cref="F:System.IO.Path.InvalidPathChars" />.</exception>
-        <exception cref="T:System.UnauthorizedAccessException">The caller does not have the required permission.</exception>
-        <exception cref="T:System.IO.PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length.</exception>
-        <exception cref="T:System.IO.DirectoryNotFoundException">The path specified in <paramref name="sourceFileName" /> or <paramref name="destFileName" /> is invalid, (for example, it is on an unmapped drive).</exception>
+          <paramref name="sourceFileName" />あるいは<paramref name="destFileName" />が空であるか、空白文字だけで構成されているか、<see cref="F:System.IO.Path.InvalidPathChars" />に定義されている無効な文字を含んでいます。</exception>
+        <exception cref="T:System.UnauthorizedAccessException">呼び出し元が、必要な権限を持っていません。</exception>
+        <exception cref="T:System.IO.PathTooLongException">指定されたパスかファイル名、あるいは両方がシステムで定義された最大長を超えています。</exception>
+        <exception cref="T:System.IO.DirectoryNotFoundException"><paramref name="sourceFileName" />あるいは<paramref name="destFileName" />で指定されたパスが無効です。（例えば、マッピングされていないドライブにある場合など。）</exception>
         <exception cref="T:System.NotSupportedException">
-          <paramref name="sourceFileName" /> or <paramref name="destFileName" /> is in an invalid format.</exception>
-        <permission cref="T:System.Security.Permissions.FileIOPermission">読み取りに<paramref name="sourceFileName" />への書き込みと<paramref name="destFileName" />します。 列挙体に関連付けられている: <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Read" />、 <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Write" /></permission>
+          <paramref name="sourceFileName" />あるいは<paramref name="destFileName" />は無効なフォーマットです。</exception>
+        <permission cref="T:System.Security.Permissions.FileIOPermission"><paramref name="sourceFileName" />からの読み取りと<paramref name="destFileName" />への書き込みに必要。関連付けられた列挙体：<see cref="F:System.Security.Permissions.FileIOPermissionAccess.Read" />、 <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Write" /></permission>
         <related type="Article" href="~/docs/standard/io/index.md">ファイルおよびストリーム入出力</related>
         <related type="Article" href="~/docs/standard/io/how-to-read-text-from-a-file.md">ファイルからテキストを読み取る</related>
         <related type="Article" href="~/docs/standard/io/how-to-write-text-to-a-file.md">方法 : ファイルにテキストを書き込む</related>
