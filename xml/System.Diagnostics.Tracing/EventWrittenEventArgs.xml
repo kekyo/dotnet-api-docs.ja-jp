@@ -1,13 +1,5 @@
 <Type Name="EventWrittenEventArgs" FullName="System.Diagnostics.Tracing.EventWrittenEventArgs">
-  <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="46860fca723a945b6916f0d8377e0f4796e46365" />
-    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
-    <Meta Name="ms.translationtype" Value="HT" />
-    <Meta Name="ms.contentlocale" Value="ja-JP" />
-    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
-    <Meta Name="ms.locfileid" Value="52240041" />
-  </Metadata>
-  <TypeSignature Language="C#" Value="public class EventWrittenEventArgs : EventArgs" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="6267829fa563f5420f5249f7a6248c140d093992" /><Meta Name="ms.sourcegitcommit" Value="9d1bf7e4c6d697123f26c810c1a049a755634634" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/06/2018" /><Meta Name="ms.locfileid" Value="52981969" /></Metadata><TypeSignature Language="C#" Value="public class EventWrittenEventArgs : EventArgs" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit EventWrittenEventArgs extends System.EventArgs" />
   <TypeSignature Language="DocId" Value="T:System.Diagnostics.Tracing.EventWrittenEventArgs" />
   <TypeSignature Language="VB.NET" Value="Public Class EventWrittenEventArgs&#xA;Inherits EventArgs" />
@@ -36,9 +28,30 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>
-      <see cref="M:System.Diagnostics.Tracing.EventListener.OnEventWritten(System.Diagnostics.Tracing.EventWrittenEventArgs)" /> コールバックのデータを提供します。</summary>
-    <remarks>To be added.</remarks>
+    <summary><see cref="M:System.Diagnostics.Tracing.EventListener.OnEventWritten(System.Diagnostics.Tracing.EventWrittenEventArgs)" /> コールバックのデータを提供します。</summary>
+    <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+
+イベントをディスパッチするたびに、 <xref:System.Diagnostics.Tracing.EventListener>、<xref:System.Diagnostics.Tracing.EventListener.OnEventWritten%2A?displayProperty=nameWithType>コールバック メソッドが呼び出されます。 渡される、`EventWrittenEventArgs`イベントに関連付けられている情報を格納しているインスタンス。 すべてのプロパティ値、`EventWrittenEventArgs`クラスは、コールバック中にのみ有効です。 
+
+次のセクションでは、個人に関する追加情報を含めることが`EventWrittenEventArgs`プロパティ。
+
+### <a name="activityid-property"></a>ActivityId プロパティ
+
+使用する場合<xref:System.Activities.Activity?displayProperty=nameWithType>とその派生クラス、スレッドは、それらに関連付けられているアクティビティを持つものとしてマークできます。 `ActivityId`プロパティは、イベント ログに記録したスレッドのアクティビティ ID を返します。 このプロパティの場合、スレッドをアクティビティをである必要はありません注返します<xref:System.Guid.Empty?displayProperty=nameWithType>します。
+
+### <a name="osthreadid-and-timestamp-properties"></a>OSThreadId とタイムスタンプのプロパティ 
+
+.NET Core の 2.2 以降<xref:System.Diagnostics.Tracing.EventListener>オブジェクトは、イベントによって出力されるだけでなく (GC、JIT、スレッド プール イベント) などのネイティブ ランタイム イベントをサブスクライブできます<xref:System.Diagnostics.Tracing.EventSource>オブジェクト。 以前のバージョンの .NET Core および .NET Framework のすべてのバージョンでは、thead ID とタイムスタンプを収集できます、環境からディスパッチするために生成される同じスレッドで同期的にします。 すべてのネイティブ ランタイム イベントがただしディスパッチする同期的には、ことができます。 管理されている場合に、GC イベントなど、一部のイベントが出力されるスレッドの実行を中断します。 これらのイベントは、ネイティブ コードでバッファーに格納され、マネージ コードがもう一度実行することができますとディスパッチャー スレッドがディスパッチされます。 これらのイベントがバッファーされるため、確実にスレッド ID とタイムスタンプを取得する環境を使用できません。 このため、.NET Core の 2.2 以降スレッドの ID とタイムスタンプ情報がのメンバーとして使用可能な`EventWrittenEventArgs`クラス。
+
+### <a name="relatedactivityid-property"></a>RelatedActivityId プロパティ
+
+ 関連するアクティビティは、厳密に関連する現在のアクティビティです。 現在のアクティビティの原因となったか、アクティビティは通常、(イベントを`Start`オペコードが通常はこれを行う) または現在の 1 つによって作成されたアクティビティ (イベントを`Send`オペコードが通常はこれを行う)。 これを使用する場合、`RelatedActivityID`は、ログ記録を行うメソッドによって明示的に渡されます。 多くのイベントを渡さない、 `RelatedActivityId`、後者を返します<xref:System.Guid.Empty?displayProperty=nameWithType>します。
+
+ ]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName="ActivityId">
@@ -77,18 +90,7 @@
       <Docs>
         <summary>イベントが書き込まれたスレッドのアクティビティ ID を取得します。</summary>
         <value>イベントが書き込まれたスレッドのアクティビティ ID。</value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- 値を取得、<xref:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId%2A>プロパティはスレッド ローカル ストレージにアクセスします。 これは、次の点があります。  
-  
--   <xref:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId%2A>フィールドの期間に対してのみ有効です、<xref:System.Diagnostics.Tracing.EventListener.OnEventWritten%2A?displayProperty=nameWithType>コールバック。  
-  
--   アクティビティ ID がによって返されるコールバック中にアクティビティ ID が変更された場合、<xref:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId%2A>プロパティが無効です。  
-  
- ]]></format>
-        </remarks>
+        <remarks>To be added.</remarks>
         <altmember cref="P:System.Diagnostics.Tracing.EventWrittenEventArgs.RelatedActivityId" />
         <altmember cref="M:System.Diagnostics.Tracing.EventSource.SetCurrentThreadActivityId(System.Guid)" />
       </Docs>
@@ -190,7 +192,7 @@
       </ReturnValue>
       <Docs>
         <summary>イベントの名前を取得します。</summary>
-        <value>イベントの名前。</value>
+        <value>イベントの名前です。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -391,8 +393,8 @@
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>イベントを記述した OS スレッドのスレッド ID を取得します。 (.NET Core 2.2 と以降のみ。)</summary>
+        <value>イベントを記述した OS スレッドのスレッドの識別子です。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -460,8 +462,7 @@
       </ReturnValue>
       <Docs>
         <summary>イベントのプロパティ名を表す文字列の一覧を返します。</summary>
-        <value>
-          <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> を返します。</value>
+        <value><see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> を返します。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -500,15 +501,8 @@
       </ReturnValue>
       <Docs>
         <summary>現在のインスタンスによって表されるアクティビティに関連付けられているアクティビティの ID を取得します。</summary>
-        <value>関連するアクティビティの識別子、または関連するアクティビティがない場合は <see cref="F:System.Guid.Empty" /> です。</value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <xref:System.Diagnostics.Tracing.EventWrittenEventArgs.RelatedActivityId%2A>の子であり、<xref:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId%2A>プロパティ。 アクティビティ ID は、複数の関連アクティビティ Id を関連付けることができます。  
-  
- ]]></format>
-        </remarks>
+        <value>関連するアクティビティの識別子。または、関連するアクティビティがない場合は <see cref="F:System.Guid.Empty" />。</value>
+        <remarks>To be added.</remarks>
         <altmember cref="P:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId" />
         <altmember cref="M:System.Diagnostics.Tracing.EventSource.WriteEventWithRelatedActivityId(System.Int32,System.Guid,System.Object[])" />
       </Docs>
@@ -541,10 +535,8 @@
         <ReturnType>System.Diagnostics.Tracing.EventTags</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>
-          <see cref="M:System.Diagnostics.Tracing.EventSource.Write(System.String,System.Diagnostics.Tracing.EventSourceOptions)" /> メソッドへの呼び出しで指定されたタグを返します。</summary>
-        <value>
-          <see cref="T:System.Diagnostics.Tracing.EventTags" /> を返します。</value>
+        <summary><see cref="M:System.Diagnostics.Tracing.EventSource.Write(System.String,System.Diagnostics.Tracing.EventSourceOptions)" /> メソッドへの呼び出しで指定されたタグを返します。</summary>
+        <value><see cref="T:System.Diagnostics.Tracing.EventTags" /> を返します。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -605,8 +597,8 @@
         <ReturnType>System.DateTime</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>元は <see cref="System.DateTime" /> タイムスタンプとして生成されたイベントの時刻を取得します。 (.NET Core 2.2 と以降のみ。)</summary>
+        <value>日付と時刻、イベントが記録された日時。 システムは、できるだけ高い精度を試みます。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
