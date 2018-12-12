@@ -1,1 +1,1 @@
-<span data-ttu-id="56b35-101">リッチ テキスト形式 (RTF)</span><span class="sxs-lookup"><span data-stu-id="56b35-101">Rich Text Format (RTF)</span></span>
+<span data-ttu-id="e8cd2-101">リッチ テキスト形式 (RTF)</span><span class="sxs-lookup"><span data-stu-id="e8cd2-101">Rich Text Format (RTF)</span></span>

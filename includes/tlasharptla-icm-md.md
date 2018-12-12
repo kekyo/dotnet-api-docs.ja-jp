@@ -1,1 +1,1 @@
-<span data-ttu-id="c8fe6-101">イメージ カラーの管理 (ICM)</span><span class="sxs-lookup"><span data-stu-id="c8fe6-101">Image Color Management (ICM)</span></span>
+<span data-ttu-id="ae313-101">イメージ カラーの管理 (ICM)</span><span class="sxs-lookup"><span data-stu-id="ae313-101">Image Color Management (ICM)</span></span>

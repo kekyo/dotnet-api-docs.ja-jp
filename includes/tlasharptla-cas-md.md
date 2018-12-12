@@ -1,1 +1,1 @@
-<span data-ttu-id="7cf25-101">コード アクセス セキュリティ (CAS)</span><span class="sxs-lookup"><span data-stu-id="7cf25-101">Code Access Security (CAS)</span></span>
+<span data-ttu-id="0ff60-101">コード アクセス セキュリティ (CAS)</span><span class="sxs-lookup"><span data-stu-id="0ff60-101">Code Access Security (CAS)</span></span>

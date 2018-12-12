@@ -1,1 +1,1 @@
-<span data-ttu-id="a45b7-101">Windows ランタイム</span><span class="sxs-lookup"><span data-stu-id="a45b7-101">Windows Runtime</span></span>
+<span data-ttu-id="f7155-101">Windows ランタイム</span><span class="sxs-lookup"><span data-stu-id="f7155-101">Windows Runtime</span></span>

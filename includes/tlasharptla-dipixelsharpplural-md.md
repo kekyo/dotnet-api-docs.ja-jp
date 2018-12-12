@@ -1,1 +1,1 @@
-<span data-ttu-id="8a98c-101">デバイスに依存しない単位 (1 単位は 1/96 インチ)</span><span class="sxs-lookup"><span data-stu-id="8a98c-101">device-independent units (1/96th inch per unit)</span></span>
+<span data-ttu-id="480bc-101">デバイスに依存しない単位 (1 単位は 1/96 インチ)</span><span class="sxs-lookup"><span data-stu-id="480bc-101">device-independent units (1/96th inch per unit)</span></span>
