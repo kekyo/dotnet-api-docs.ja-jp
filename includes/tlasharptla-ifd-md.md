@@ -1,1 +1,1 @@
-<span data-ttu-id="81609-101">イメージ ファイル ディレクトリ (IFD)</span><span class="sxs-lookup"><span data-stu-id="81609-101">image file directory (IFD)</span></span>
+<span data-ttu-id="3b1dd-101">イメージ ファイル ディレクトリ (IFD)</span><span class="sxs-lookup"><span data-stu-id="3b1dd-101">image file directory (IFD)</span></span>

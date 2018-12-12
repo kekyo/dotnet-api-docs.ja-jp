@@ -1,1 +1,1 @@
-<span data-ttu-id="c3a9e-101">ドット/インチ (dpi)</span><span class="sxs-lookup"><span data-stu-id="c3a9e-101">dots per inch (dpi)</span></span>
+<span data-ttu-id="d6a30-101">ドット/インチ (dpi)</span><span class="sxs-lookup"><span data-stu-id="d6a30-101">dots per inch (dpi)</span></span>
