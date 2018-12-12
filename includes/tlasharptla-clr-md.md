@@ -1,1 +1,1 @@
-<span data-ttu-id="637a4-101">共通言語ランタイム (CLR)</span><span class="sxs-lookup"><span data-stu-id="637a4-101">common language runtime (CLR)</span></span>
+<span data-ttu-id="63af6-101">共通言語ランタイム (CLR)</span><span class="sxs-lookup"><span data-stu-id="63af6-101">common language runtime (CLR)</span></span>
