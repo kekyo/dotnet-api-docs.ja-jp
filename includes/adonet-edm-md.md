@@ -1,1 +1,1 @@
-<span data-ttu-id="10eed-101">エンティティ データ モデル</span><span class="sxs-lookup"><span data-stu-id="10eed-101">Entity Data Model</span></span>
+<span data-ttu-id="c9a55-101">エンティティ データ モデル</span><span class="sxs-lookup"><span data-stu-id="c9a55-101">Entity Data Model</span></span>
