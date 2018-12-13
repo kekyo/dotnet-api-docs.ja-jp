@@ -1,5 +1,5 @@
 <Type Name="Monitor" FullName="System.Threading.Monitor">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="df70f7cc62e1ef013835d69cf0220d9e8b42bc5a" /><Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="10/04/2018" /><Meta Name="ms.locfileid" Value="48729801" /></Metadata><TypeSignature Language="C#" Value="public static class Monitor" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="e925d576d52267c0e301b6428f677609e99940d3" /><Meta Name="ms.sourcegitcommit" Value="adc8598fd19d91438cacaa8fa7ce613e28c8218e" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/11/2018" /><Meta Name="ms.locfileid" Value="53230742" /></Metadata><TypeSignature Language="C#" Value="public static class Monitor" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Monitor extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Threading.Monitor" />
   <TypeSignature Language="VB.NET" Value="Public Class Monitor" />
@@ -42,14 +42,14 @@
   
  この記事の内容:  
   
- [Monitor クラス: 概要](#Overview)   
+ [Monitor クラス:概要](#Overview)   
  [ロック オブジェクト](#Lock)   
  [クリティカル セクション](#CriticalSection)   
  [Pulse、PulseAll、および待機](#Pulse)   
  [モニターと待機ハンドル](#WaitHandles)  
   
 <a name="Overview"></a>   
-## <a name="the-monitor-class-an-overview"></a>Monitor クラス: 概要  
+## <a name="the-monitor-class-an-overview"></a>Monitor クラス:概要  
  <xref:System.Threading.Monitor> 次の機能があります。  
   
 -   オンデマンドでオブジェクトに関連付けられます。  
@@ -65,7 +65,7 @@
   
 |アクション|説明|  
 |------------|-----------------|  
-|<xref:System.Threading.Monitor.Enter%2A>, <xref:System.Threading.Monitor.TryEnter%2A>|オブジェクトのロックを取得します。 このアクションは、また、クリティカル セクションの先頭をマークします。 他のスレッドは、別のロックされたオブジェクトを使用して、クリティカル セクションで、手順の実行されない限りはクリティカル セクションを入力しません。|  
+|<xref:System.Threading.Monitor.Enter%2A>、 <xref:System.Threading.Monitor.TryEnter%2A>|オブジェクトのロックを取得します。 このアクションは、また、クリティカル セクションの先頭をマークします。 他のスレッドは、別のロックされたオブジェクトを使用して、クリティカル セクションで、手順の実行されない限りはクリティカル セクションを入力しません。|  
 |<xref:System.Threading.Monitor.Wait%2A>|他のスレッドをロックし、オブジェクトへのアクセスを許可するには、オブジェクトのロックを解放します。 別のスレッドが、オブジェクトにアクセス中に、呼び出し元のスレッドが待機します。 パルス信号を使用して、オブジェクトの状態の変更の待機中のスレッドを通知できます。|  
 |<xref:System.Threading.Monitor.Pulse%2A> (信号) <xref:System.Threading.Monitor.PulseAll%2A>|1 つまたは複数の待機中のスレッドにシグナルを送信します。 シグナル待機中のスレッドのロックされたオブジェクトの状態が変更されたことを通知して、ロックの所有者は、ロックを解放する準備ができてです。 待機中のスレッドは、オブジェクトのロックが最終的に表示されるように、オブジェクトの準備完了キューに配置されます。 スレッドが、ロックを保持すると、必要な状態に達しているかどうかに表示するオブジェクトの新しい状態を確認できます。|  
 |<xref:System.Threading.Monitor.Exit%2A>|オブジェクトのロックを解放します。 この操作は、ロックされたオブジェクトで保護されている、クリティカル セクションの終了を示します。|  
@@ -149,18 +149,18 @@
   
  変数へのアクセスをスレッド プールのスレッドで実行されているすべてのタスクからアクセスできる、ので`total`と`n`も同期されている必要があります。 <xref:System.Threading.Interlocked.Add%2A?displayProperty=nameWithType>メソッドは、この目的に使用します。  
   
- 次の例と組み合わせて使用して、<xref:System.Threading.Monitor>クラス (で実装される、`lock`または`SyncLock`言語コンストラクト)、<xref:System.Threading.Interlocked>クラス、および<xref:System.Threading.AutoResetEvent>クラス。 2 つを定義します`internal`(で C# の場合) または`Friend`(Visual Basic) では、クラス`SyncResource`と`UnSyncResource`、それぞれに、リソースへの同期と非同期アクセスを提供します。 例を示します (各メソッドの呼び出しが迅速に完了した場合、大文字と小文字をある可能性が) ある同期と非同期アクセスの違いは、メソッドには、ランダムな遅延が含まれていますあるスレッドの<xref:System.Threading.Thread.ManagedThreadId%2A?displayProperty=nameWithType>プロパティは偶数、。メソッドの呼び出し<xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType>2,000 ミリ秒の遅延を挿入します。 に、注意してください、`SyncResource`クラスはパブリックではない、同期されたリソースのロックを受け取るクライアント コードはない; 内部クラス自体がロックを取得します。 これにより、悪意のあるコードがパブリック オブジェクトでロックを取得するのを防ぐことができます。  
+ 次の例と組み合わせて使用して、<xref:System.Threading.Monitor>クラス (で実装される、`lock`または`SyncLock`言語コンストラクト)、<xref:System.Threading.Interlocked>クラス、および<xref:System.Threading.AutoResetEvent>クラス。 2 つの `internal` クラス (C# の場合) または `Friend` クラス (Visual Basic の場合)、`SyncResource` と `UnSyncResource` を定義します。これらはそれぞれ、リソースへの同期アクセスと非同期アクセスを提供します。 同期アクセスと非同期アクセスの違い (各メソッド呼び出しが迅速に完了する場合に違いが生じる可能性がある) を示すために、次の例では、メソッドにランダムな遅延を含めてあります。<xref:System.Threading.Thread.ManagedThreadId%2A?displayProperty=nameWithType> プロパティが偶数であるスレッドでは、メソッドが <xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType> を呼び出して、2,000 ミリ秒の遅延を生じさせます。 `SyncResource` クラスはパブリックではなく、同期されたリソースでロックを取得するクライアント コードは存在しないので、内部クラス自体がロックを取得することに注意してください。 これにより、悪意のあるコードがパブリック オブジェクトでロックを取得するのを防ぐことができます。  
   
  [!code-csharp[Conceptual.Monitors#1](~/samples/snippets/csharp/VS_Snippets_CLR/conceptual.monitors/cs/source.cs#1)]
  [!code-vb[Conceptual.Monitors#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/conceptual.monitors/vb/source.vb#1)]  
   
- 例では、変数を定義します。 `numOps`、リソースへのアクセスを試みるスレッドの数を定義します。 アプリケーション スレッドの呼び出し、<xref:System.Threading.ThreadPool.QueueUserWorkItem%28System.Threading.WaitCallback%29?displayProperty=nameWithType>メソッドの同期し、同期されていない 5 回それぞれアクセスします。 <xref:System.Threading.ThreadPool.QueueUserWorkItem%28System.Threading.WaitCallback%29?displayProperty=nameWithType>メソッドが 1 つのパラメーター、パラメーターを受け取らず、値を返さないデリゲートです。 同期のアクセスを呼び出す、`SyncUpdateResource`メソッド呼び出しの非同期アクセスの場合、`UnSyncUpdateResource`メソッド。 アプリケーション スレッドの呼び出し、メソッド呼び出しの各セットの後、 [AutoResetEvent.WaitOne](xref:System.Threading.WaitHandle.WaitOne*)までブロックするためのメソッド、<xref:System.Threading.AutoResetEvent>インスタンスがシグナル状態にします。  
+ 例では、リソースにアクセスしようとするスレッドの数を定義する変数 `numOps` を定義します。 アプリケーション スレッドは、同期アクセスの場合も非同期アクセスの場合もそれぞれ 5 回、<xref:System.Threading.ThreadPool.QueueUserWorkItem%28System.Threading.WaitCallback%29?displayProperty=nameWithType> メソッドを呼び出します。 <xref:System.Threading.ThreadPool.QueueUserWorkItem%28System.Threading.WaitCallback%29?displayProperty=nameWithType> メソッドにはパラメーターが 1 つしかありません。パラメーターを受け入れず値を返さないデリゲートです。 同期アクセスの場合は `SyncUpdateResource` メソッドを呼び出し、非同期アクセスの場合は `UnSyncUpdateResource` メソッドを呼び出します。 アプリケーション スレッドの呼び出し、メソッド呼び出しの各セットの後、 [AutoResetEvent.WaitOne](xref:System.Threading.WaitHandle.WaitOne*)までブロックするためのメソッド、<xref:System.Threading.AutoResetEvent>インスタンスがシグナル状態にします。  
   
- 呼び出しごとに、`SyncUpdateResource`メソッドを呼び出す内部`SyncResource.Access`メソッドに呼び出し、<xref:System.Threading.Interlocked.Decrement%2A?displayProperty=nameWithType>デクリメントするメソッド、`numOps`カウンター。 <xref:System.Threading.Interlocked.Decrement%2A?displayProperty=nameWithType>メソッドを使用して、カウンターをデクリメントを値を変数に格納されているため、それ以外の場合は確信できません、最初のスレッドをデクリメントの前に、2 番目のスレッドに値をアクセスができます。 最後の同期ワーカー スレッドをデクリメント カウンターをゼロに、すべてのスレッドを同期することを示す完了したことに、リソースへのアクセス、`SyncUpdateResource`メソッドの呼び出し、<xref:System.Threading.EventWaitHandle.Set%2A?displayProperty=nameWithType>メソッドは、メイン スレッドを続行するように通知します実行します。  
+ `SyncUpdateResource` メソッドを呼び出すたびに、内部 `SyncResource.Access` メソッドが呼び出され、<xref:System.Threading.Interlocked.Decrement%2A?displayProperty=nameWithType> メソッドが呼び出されて、`numOps` カウンターがデクリメントされます。 <xref:System.Threading.Interlocked.Decrement%2A?displayProperty=nameWithType>メソッドを使用して、カウンターをデクリメントを値を変数に格納されているため、それ以外の場合は確信できません、最初のスレッドをデクリメントの前に、2 番目のスレッドに値をアクセスができます。 最後の同期ワーカー スレッドをデクリメント カウンターをゼロに、すべてのスレッドを同期することを示す完了したことに、リソースへのアクセス、`SyncUpdateResource`メソッドの呼び出し、<xref:System.Threading.EventWaitHandle.Set%2A?displayProperty=nameWithType>メソッドは、メイン スレッドを続行するように通知します実行します。  
   
- 呼び出しごとに、`UnSyncUpdateResource`メソッドを呼び出す内部`UnSyncResource.Access`メソッドに呼び出し、<xref:System.Threading.Interlocked.Decrement%2A?displayProperty=nameWithType>デクリメントするメソッド、`numOps`カウンター。 もう一度、<xref:System.Threading.Interlocked.Decrement%2A?displayProperty=nameWithType>エントリの最初のスレッドのデクリメントされた値が変数に割り当てられる前に、2 番目のスレッドは値がアクセスしないようにするカウンターをデクリメントするメソッドを使用します。 最後の非同期ワーカー スレッドをデクリメント カウンターをゼロに、さらに、スレッド非同期ことを示す、リソースにアクセスする必要があります、`UnSyncUpdateResource`メソッドの呼び出し、<xref:System.Threading.EventWaitHandle.Set%2A?displayProperty=nameWithType>メソッドは、メイン スレッドの実行を続行するように通知します.  
+ `UnSyncUpdateResource` メソッドを呼び出すたびに、内部 `UnSyncResource.Access` メソッドが呼び出され、<xref:System.Threading.Interlocked.Decrement%2A?displayProperty=nameWithType> メソッドが呼び出されて、`numOps` カウンターがデクリメントされます。 もう一度、<xref:System.Threading.Interlocked.Decrement%2A?displayProperty=nameWithType>エントリの最初のスレッドのデクリメントされた値が変数に割り当てられる前に、2 番目のスレッドは値がアクセスしないようにするカウンターをデクリメントするメソッドを使用します。 最後の非同期ワーカー スレッドをデクリメント カウンターをゼロに、さらに、スレッド非同期ことを示す、リソースにアクセスする必要があります、`UnSyncUpdateResource`メソッドの呼び出し、<xref:System.Threading.EventWaitHandle.Set%2A?displayProperty=nameWithType>メソッドは、メイン スレッドの実行を続行するように通知します.  
   
- 例の出力からわかるように、同期アクセスでは、呼び出し元スレッドが保護リソースを終了してからでないと別のスレッドがそれにアクセスできません。つまり各スレッドはその先行処理を待機します。 一方で、ロックがない、`UnSyncResource.Access`メソッドはスレッドがそれに到達する順序で呼び出されます。  
+ 例の出力からわかるように、同期アクセスでは、呼び出し元スレッドが保護リソースを終了してからでないと別のスレッドがそれにアクセスできません。つまり各スレッドはその先行処理を待機します。 その一方で、ロックがない `UnSyncResource.Access` メソッドは、スレッドが到達する順序で呼び出されます。  
   
  ]]></format>
     </remarks>
@@ -439,7 +439,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException"><paramref name="obj" /> は <see langword="null" />です。</exception>
+        <exception cref="T:System.ArgumentNullException"><paramref name="obj" /> は <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Pulse">
@@ -491,7 +491,7 @@
  指定したオブジェクトのロックを所有しているスレッドは、ロックのでは、次のスレッドを通知するには、このメソッドを呼び出します。 パルスを受信すると、待機中のスレッドは、実行待ちキューに移動されます。 ときに、スレッドを呼び出した`Pulse`ロックを解放 (これは必ずしも実行するスレッド) 準備完了キューでは、次のスレッドがロックを取得します。  
   
 > [!IMPORTANT]
->  <xref:System.Threading.Monitor>クラスがあることを示す状態を保持していない、<xref:System.Threading.Monitor.Pulse%2A>メソッドが呼び出されました。 したがって、呼び出した場合<xref:System.Threading.Monitor.Pulse%2A>スレッドが待機しているときない、次のスレッドを呼び出す<xref:System.Threading.Monitor.Wait%2A>ブロックとして<xref:System.Threading.Monitor.Pulse%2A>が呼び出されたことはありません。 2 つのスレッドを使用している場合<xref:System.Threading.Monitor.Pulse%2A>と<xref:System.Threading.Monitor.Wait%2A>を操作するこれもデッドロックにつながる可能性があります。 動作とは対照的、<xref:System.Threading.AutoResetEvent>クラス: 通知する場合、<xref:System.Threading.AutoResetEvent>を呼び出してその<xref:System.Threading.EventWaitHandle.Set%2A>メソッドを待機しているスレッドがないと、<xref:System.Threading.AutoResetEvent>スレッドを呼び出すまでシグナル状態のまま<xref:System.Threading.WaitHandle.WaitOne%2A>、 <xref:System.Threading.WaitHandle.WaitAny%2A>、または<xref:System.Threading.WaitHandle.WaitAll%2A>します。 <xref:System.Threading.AutoResetEvent>そのスレッドを解放し、非シグナル状態に戻ります。  
+>  <xref:System.Threading.Monitor>クラスがあることを示す状態を保持していない、<xref:System.Threading.Monitor.Pulse%2A>メソッドが呼び出されました。 したがって、呼び出した場合<xref:System.Threading.Monitor.Pulse%2A>スレッドが待機しているときない、次のスレッドを呼び出す<xref:System.Threading.Monitor.Wait%2A>ブロックとして<xref:System.Threading.Monitor.Pulse%2A>が呼び出されたことはありません。 2 つのスレッドを使用している場合<xref:System.Threading.Monitor.Pulse%2A>と<xref:System.Threading.Monitor.Wait%2A>を操作するこれもデッドロックにつながる可能性があります。 動作とは対照的、<xref:System.Threading.AutoResetEvent>クラス。通知する場合、<xref:System.Threading.AutoResetEvent>を呼び出してその<xref:System.Threading.EventWaitHandle.Set%2A>メソッドを待機しているスレッドがないと、<xref:System.Threading.AutoResetEvent>スレッドを呼び出すまでシグナル状態のままに<xref:System.Threading.WaitHandle.WaitOne%2A>、 <xref:System.Threading.WaitHandle.WaitAny%2A>、または<xref:System.Threading.WaitHandle.WaitAll%2A>します。 <xref:System.Threading.AutoResetEvent>そのスレッドを解放し、非シグナル状態に戻ります。  
   
  同期済みオブジェクトが現在ロック、ロックを取得する準備ができているスレッドが含まれている、準備完了キューへの参照と、待機キューへの参照を保持しているスレッドへの参照を含む、いくつかの参照を保持しているを確認します。オブジェクトの状態の変更の通知を待機しているスレッドが含まれています。  
   
@@ -825,14 +825,14 @@
       </Parameters>
       <Docs>
         <param name="obj">ロックの取得が行われるオブジェクト。</param>
-        <param name="timeout">ロックを待機する時間を表す <see cref="T:System.TimeSpan" />。 –1 ミリ秒という値は、無期限の待機を指定します。</param>
+        <param name="timeout">ロックを待機する時間を表す <see cref="T:System.TimeSpan" />。 -1 ミリ秒という値は、無期限の待機を指定します。</param>
         <summary>指定した時間内に、指定したオブジェクトの排他ロックの取得を試みます。</summary>
         <returns>現在のスレッドがロックを取得した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合の値、`timeout`ミリ秒に変換するパラメーターには – 1 と等しい、このメソッドは<xref:System.Threading.Monitor.Enter%2A>します。 場合の値`timeout`が 0 と等しい、このメソッドは<xref:System.Threading.Monitor.TryEnter%2A>します。  
+ 場合の値、`timeout`ミリ秒に変換するパラメーターが等しい場合、このメソッドは<xref:System.Threading.Monitor.Enter%2A>します。 場合の値`timeout`が 0 と等しい、このメソッドは<xref:System.Threading.Monitor.TryEnter%2A>します。  
   
 > [!NOTE]
 >  使用<xref:System.Threading.Monitor>(つまり、参照型) のオブジェクトをロック、いない値の型。 詳細については、次を参照してください。、<xref:System.Threading.Monitor>クラスに関するトピック。  
@@ -845,7 +845,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="obj" /> パラメーターが <see langword="null" /> です。</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> ミリ秒の値が負の値であり、<see cref="F:System.Threading.Timeout.Infinite" /> (–1 ミリ秒) と等しくないか、または <see cref="F:System.Int32.MaxValue" /> を超えています。</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> ミリ秒の値が負の値であり、<see cref="F:System.Threading.Timeout.Infinite" /> (-1 ミリ秒) と等しくないか、または <see cref="F:System.Int32.MaxValue" /> を超えています。</exception>
         <altmember cref="T:System.Threading.Thread" />
         <related type="Article" href="~/docs/standard/threading/index.md">マネージド スレッド処理</related>
       </Docs>
@@ -965,14 +965,14 @@
       </Parameters>
       <Docs>
         <param name="obj">ロックの取得が行われるオブジェクト。</param>
-        <param name="timeout">ロックを待機する時間。 –1 ミリ秒という値は、無期限の待機を指定します。</param>
+        <param name="timeout">ロックを待機する時間。 -1 ミリ秒という値は、無期限の待機を指定します。</param>
         <param name="lockTaken">ロックを取得しようとした結果で、参照渡しです。 入力は <see langword="false" /> でなければなりません。 ロックが取得された場合、出力は <see langword="true" /> になります。それ以外の場合、出力は <see langword="false" /> です。 ロックを取得しようとしている間に例外が発生した場合でも、出力は設定されます。</param>
         <summary>指定したオブジェクトの排他ロックの取得を指定した時間にわたって試み、ロックが取得されたかどうかを示す値をアトミックに設定します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- 場合の値、`timeout`ミリ秒に変換するパラメーターには – 1 と等しい、このメソッドは<xref:System.Threading.Monitor.Enter%28System.Object%29>します。 場合の値`timeout`が 0 と等しい、このメソッドは<xref:System.Threading.Monitor.TryEnter%28System.Object%29>します。  
+ 場合の値、`timeout`ミリ秒に変換するパラメーターが等しい場合、このメソッドは<xref:System.Threading.Monitor.Enter%28System.Object%29>します。 場合の値`timeout`が 0 と等しい、このメソッドは<xref:System.Threading.Monitor.TryEnter%28System.Object%29>します。  
   
  指定した場合は、例外がスローされたために、ロックは取得されませんでした、変数、`lockTaken`パラメーターが`false`後、このメソッドが終了します。 これにより、ロックを解除する必要があるかどうかをすべてのケースで決定するプログラムです。  
   
@@ -988,7 +988,7 @@
         </remarks>
         <exception cref="T:System.ArgumentException"><paramref name="lockTaken" /> への入力は <see langword="true" /> です。</exception>
         <exception cref="T:System.ArgumentNullException"><paramref name="obj" /> パラメーターが <see langword="null" /> です。</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> ミリ秒の値が負の値であり、<see cref="F:System.Threading.Timeout.Infinite" /> (–1 ミリ秒) と等しくないか、または <see cref="F:System.Int32.MaxValue" /> を超えています。</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> ミリ秒の値が負の値であり、<see cref="F:System.Threading.Timeout.Infinite" /> (-1 ミリ秒) と等しくないか、または <see cref="F:System.Int32.MaxValue" /> を超えています。</exception>
         <altmember cref="T:System.Threading.Thread" />
         <related type="Article" href="~/docs/standard/threading/index.md">マネージド スレッド処理</related>
       </Docs>
@@ -1207,7 +1207,7 @@
  スレッドを呼び出すと`Wait`オブジェクトのロックを解放し、オブジェクトの待機キューに入ります。 オブジェクトの準備完了キューでは、次のスレッドに (1 つである) 場合は、ロックを取得、オブジェクトを排他的に使用します。 呼び出したスレッド`Wait`されるまでの待機キューのままに、ロックを保持しているスレッドを呼び出す<xref:System.Threading.Monitor.PulseAll%2A>は、キュー内の次のロックを保持しているスレッドを起動や<xref:System.Threading.Monitor.Pulse%2A>します。 ただし場合、`timeout`が別のスレッドがこのオブジェクトを呼び出す前に経過すると<xref:System.Threading.Monitor.Pulse%2A>または<xref:System.Threading.Monitor.PulseAll%2A>メソッド、元のスレッドがロックを再取得するためにキューに移動します。  
   
 > [!NOTE]
->  場合、<xref:System.TimeSpan>に指定された – 1 ミリ秒を表す、`timeout`パラメーターでは、このメソッドはブロック無期限にロックの所有者を呼び出さない限り、<xref:System.Threading.Monitor.Pulse%2A>または<xref:System.Threading.Monitor.PulseAll%2A>します。 場合`timeout`0 ミリ秒でを呼び出すスレッド`Wait`ロックを解放し、すぐにロックを再取得するためにキューに入る。  
+>  場合、 <xref:System.TimeSpan> -1 ミリ秒を表すが指定されて、`timeout`パラメーターでは、このメソッドはブロック無期限にロックの所有者を呼び出さない限り、<xref:System.Threading.Monitor.Pulse%2A>または<xref:System.Threading.Monitor.PulseAll%2A>します。 場合`timeout`0 ミリ秒でを呼び出すスレッド`Wait`ロックを解放し、すぐにロックを再取得するためにキューに入る。  
   
  呼び出し元が実行される`Wait`回数に関係なく 1 回、<xref:System.Threading.Monitor.Enter%2A>指定したオブジェクトが呼び出されています。 概念的には、`Wait`メソッドが呼び出し元が呼び出された回数を格納<xref:System.Threading.Monitor.Enter%2A>オブジェクトを呼び出すと<xref:System.Threading.Monitor.Exit%2A>ロックされたオブジェクトを完全に解放するために必要な回数だけです。 呼び出し元は、オブジェクトを再取得を待機中にブロックします。 呼び出し元がロックを再取得するとき、システムは<xref:System.Threading.Monitor.Enter%2A>として保存されている復元に必要なだけ何度も<xref:System.Threading.Monitor.Enter%2A>呼び出し元の数。 呼び出す`Wait`指定したオブジェクトのロックを解放するだけです。 呼び出し元がその他のオブジェクトのロックの所有者である場合は、これらのロックは解放されません。  
   
@@ -1223,7 +1223,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="obj" /> パラメーターが <see langword="null" /> です。</exception>
         <exception cref="T:System.Threading.SynchronizationLockException">呼び出し元のスレッドは、指定したオブジェクトのロックを所有していません。</exception>
         <exception cref="T:System.Threading.ThreadInterruptedException"><see langword="Wait" /> を呼び出したスレッドは、後で待機中の状態を中断されます。 これは、他のスレッドがこのスレッドの <see cref="M:System.Threading.Thread.Interrupt" /> メソッドを呼び出すときに起こります。</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> パラメーターのミリ秒単位の値が負で、かつ <see cref="F:System.Threading.Timeout.Infinite" /> (–1 ミリ秒) ではありません。または <see cref="F:System.Int32.MaxValue" /> より大きい値です。</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> パラメーターのミリ秒単位の値が負で、かつ <see cref="F:System.Threading.Timeout.Infinite" /> (-1 ミリ秒) ではありません。または <see cref="F:System.Int32.MaxValue" /> より大きい値です。</exception>
         <altmember cref="T:System.Threading.Thread" />
         <altmember cref="T:System.Threading.Monitor" />
         <related type="Article" href="~/docs/standard/threading/index.md">マネージド スレッド処理</related>

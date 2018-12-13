@@ -1,5 +1,5 @@
 <Type Name="EventSchemaTraceListener" FullName="System.Diagnostics.EventSchemaTraceListener">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="53d173df68c9ba8a4af4b9ad333fd96bd530cddb" /><Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="11/20/2018" /><Meta Name="ms.locfileid" Value="52205962" /></Metadata><TypeSignature Language="C#" Value="public class EventSchemaTraceListener : System.Diagnostics.TextWriterTraceListener" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="14321148aaf63bbd002eea269f8969e591a4285e" /><Meta Name="ms.sourcegitcommit" Value="adc8598fd19d91438cacaa8fa7ce613e28c8218e" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/11/2018" /><Meta Name="ms.locfileid" Value="53223943" /></Metadata><TypeSignature Language="C#" Value="public class EventSchemaTraceListener : System.Diagnostics.TextWriterTraceListener" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit EventSchemaTraceListener extends System.Diagnostics.TextWriterTraceListener" />
   <TypeSignature Language="DocId" Value="T:System.Diagnostics.EventSchemaTraceListener" />
   <TypeSignature Language="VB.NET" Value="Public Class EventSchemaTraceListener&#xA;Inherits TextWriterTraceListener" />
@@ -15,7 +15,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>エンド ツー エンド イベントのトレース出力またはデバッグ出力を XML エンコードされたスキーマ互換のログ ファイルに転送します。</summary>
+    <summary>エンド ツー エンド イベントのトレース出力またはデバッグ出力を、XML エンコードされたスキーマ互換のログ ファイルに転送します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -88,7 +88,7 @@
   
  次の表では、XML 出力でエスケープされている文字を示します。 エスケープのすべての要素で発生して、属性を除く、`UserData`要素で、ユーザー指定が含まれるデータをエスケープ解除します。 `UserData`要素がへの呼び出しの結果、<xref:System.Diagnostics.EventSchemaTraceListener.TraceData%2A>メソッド。  
   
-|エスケープ文字|値|  
+|エスケープ文字|[値]|  
 |-----------------------|-----------|  
 |&|&amp;|  
 |\<|&lt;|  
@@ -314,7 +314,7 @@
         <param name="fileName">ログ ファイルのパス。</param>
         <param name="name">リスナーの名前。</param>
         <param name="bufferSize">出力バッファーのサイズ (バイト単位)。</param>
-        <param name="logRetentionOption"><see cref="T:System.Diagnostics.TraceLogRetentionOption" /> 値のいずれか。</param>
+        <param name="logRetentionOption"><see cref="T:System.Diagnostics.TraceLogRetentionOption" /> の値の 1 つ。</param>
         <param name="maximumFileSize">最大ファイル サイズ (バイト単位)。</param>
         <summary>指定したログ保持ポリシーおよび最大サイズを持つ指定したファイルをデバッグ出力およびトレース出力の受信者として使用し、名前とバッファー サイズを指定して <see cref="T:System.Diagnostics.EventSchemaTraceListener" /> クラスの新しいインスタンスを初期化します。</summary>
         <remarks>
@@ -333,7 +333,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maximumFileSize" /> は負の値です。</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maximumFileSize" /> は負の値であるか、または <paramref name="bufferSize" /> 未満です。
+
+- または -
+
+<paramref name="bufferSize" /> は負の値です。</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -381,7 +385,19 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maximumNumberOfFiles" /> が 2 より小さく、かつ <paramref name="logRetentionOption" /> が <see cref="F:System.Diagnostics.TraceLogRetentionOption.LimitedCircularFiles" /> です。</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maximumFileSize" /> は負の値であるか、または <paramref name="bufferSize" /> 未満です。
+
+- または -
+
+<paramref name="maximumNumberOfFiles" /> が 1 未満で、<paramref name="logRetentionOption" /> が <see cref="F:System.Diagnostics.TraceLogRetentionOption.LimitedSequentialFiles" /> です。
+
+または
+
+<paramref name="maximumNumberOfFiles" /> が 2 より小さく、かつ <paramref name="logRetentionOption" /> が <see cref="F:System.Diagnostics.TraceLogRetentionOption.LimitedCircularFiles" /> です。
+
+または
+
+<paramref name="bufferSize" /> は負の値です。</exception>
       </Docs>
     </Member>
     <Member MemberName="BufferSize">
@@ -466,7 +482,7 @@
       <Docs>
         <param name="message">書き込む基本的なエラー メッセージ。</param>
         <param name="detailMessage">基本的なエラー メッセージに追加する詳細なエラー メッセージ。</param>
-        <summary>基本的なエラー メッセージおよび詳細なエラー メッセージなどのエラー情報をログ ファイルに書き込みます。</summary>
+        <summary>基本的なエラー メッセージと詳細なエラー メッセージを含むエラー情報をログ ファイルに書き込みます。</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -588,7 +604,7 @@
   
 |TraceLogRetentionOption|ファイルの最大サイズ|既定のファイル サイズ|  
 |-----------------------------|-----------------------|-----------------------|  
-|<xref:System.Diagnostics.TraceLogRetentionOption.LimitedCircularFiles>|なし|-1|  
+|<xref:System.Diagnostics.TraceLogRetentionOption.LimitedCircularFiles>|N/A|-1|  
 |<xref:System.Diagnostics.TraceLogRetentionOption.LimitedSequentialFiles>|>0|4 KB|  
 |<xref:System.Diagnostics.TraceLogRetentionOption.SingleFileBoundedSize>|>0|4 KB|  
 |<xref:System.Diagnostics.TraceLogRetentionOption.SingleFileUnboundedSize>|>0|4 KB|  
@@ -635,9 +651,9 @@
   
 |TraceLogRetentionOption|ファイルの最大数|既定のファイル数|  
 |-----------------------------|-----------------------------|-----------------------------|  
-|<xref:System.Diagnostics.TraceLogRetentionOption.LimitedCircularFiles>|なし|1|  
-|<xref:System.Diagnostics.TraceLogRetentionOption.LimitedSequentialFiles>|なし|1|  
-|<xref:System.Diagnostics.TraceLogRetentionOption.SingleFileBoundedSize>|なし|-1|  
+|<xref:System.Diagnostics.TraceLogRetentionOption.LimitedCircularFiles>|N/A|1|  
+|<xref:System.Diagnostics.TraceLogRetentionOption.LimitedSequentialFiles>|N/A|1|  
+|<xref:System.Diagnostics.TraceLogRetentionOption.SingleFileBoundedSize>|N/A|-1|  
 |<xref:System.Diagnostics.TraceLogRetentionOption.SingleFileUnboundedSize>|>0|1|  
 |<xref:System.Diagnostics.TraceLogRetentionOption.UnlimitedSequentialFiles>|>1|2|  
   
@@ -747,7 +763,7 @@
       <Docs>
         <param name="eventCache">現在のプロセス ID、スレッド ID、およびスタック トレース情報を格納している <see cref="T:System.Diagnostics.TraceEventCache" />。</param>
         <param name="source">ソース名。</param>
-        <param name="eventType"><see cref="T:System.Diagnostics.TraceEventType" /> 値のいずれか。</param>
+        <param name="eventType"><see cref="T:System.Diagnostics.TraceEventType" /> の値の 1 つ。</param>
         <param name="id">イベントの数値識別子。</param>
         <param name="data">出力するデータ オブジェクトの配列。</param>
         <summary>トレース情報、複数のデータ オブジェクト、およびイベント情報をログ ファイルに書き込みます。</summary>
@@ -804,7 +820,7 @@
       <Docs>
         <param name="eventCache">現在のプロセス ID、スレッド ID、およびスタック トレース情報を格納している <see cref="T:System.Diagnostics.TraceEventCache" />。</param>
         <param name="source">ソース名。</param>
-        <param name="eventType"><see cref="T:System.Diagnostics.TraceEventType" /> 値のいずれか。</param>
+        <param name="eventType"><see cref="T:System.Diagnostics.TraceEventType" /> の値の 1 つ。</param>
         <param name="id">イベントの数値識別子。</param>
         <param name="message">書き込むメッセージ。</param>
         <summary>トレース情報、メッセージ、およびイベント情報をログ ファイルに書き込みます。</summary>
@@ -895,7 +911,7 @@
       </ReturnValue>
       <Docs>
         <summary>ファイルに対するトレース ログ保持オプションを取得します。</summary>
-        <value><see cref="T:System.Diagnostics.TraceLogRetentionOption" /> 値のいずれか。 既定値は、<see cref="F:System.Diagnostics.TraceLogRetentionOption.SingleFileUnboundedSize" /> です。</value>
+        <value><see cref="T:System.Diagnostics.TraceLogRetentionOption" /> の値の 1 つ。 既定値は、<see cref="F:System.Diagnostics.TraceLogRetentionOption.SingleFileUnboundedSize" /> です。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
