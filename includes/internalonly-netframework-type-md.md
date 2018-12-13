@@ -1,1 +1,1 @@
-<span data-ttu-id="24145-101">この型は .NET Framework インフラストラクチャをサポートします。独自に作成したコードから直接使用するためのものではありません。</span><span class="sxs-lookup"><span data-stu-id="24145-101">This type supports the .NET Framework infrastructure and is not intended to be used directly from your code.</span></span>
+<span data-ttu-id="bf3bf-101">この型は .NET Framework インフラストラクチャをサポートします。独自に作成したコードから直接使用するためのものではありません。</span><span class="sxs-lookup"><span data-stu-id="bf3bf-101">This type supports the .NET Framework infrastructure and is not intended to be used directly from your code.</span></span>
