@@ -1,0 +1,368 @@
+<Type Name="ServiceHealthBehavior" FullName="System.ServiceModel.Description.ServiceHealthBehavior">
+  <Metadata><Meta Name="ms.openlocfilehash" Value="3841c3dc2d4904aa1529e4f0fee2976b24352b46" /><Meta Name="ms.sourcegitcommit" Value="adc8598fd19d91438cacaa8fa7ce613e28c8218e" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/11/2018" /><Meta Name="ms.locfileid" Value="53225165" /></Metadata><TypeSignature Language="C#" Value="public class ServiceHealthBehavior : System.ServiceModel.Description.ServiceHealthBehaviorBase" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit ServiceHealthBehavior extends System.ServiceModel.Description.ServiceHealthBehaviorBase" />
+  <TypeSignature Language="DocId" Value="T:System.ServiceModel.Description.ServiceHealthBehavior" />
+  <TypeSignature Language="VB.NET" Value="Public Class ServiceHealthBehavior&#xA;Inherits ServiceHealthBehaviorBase" />
+  <TypeSignature Language="C++ CLI" Value="public ref class ServiceHealthBehavior : System::ServiceModel::Description::ServiceHealthBehaviorBase" />
+  <TypeSignature Language="F#" Value="type ServiceHealthBehavior = class&#xA;    inherit ServiceHealthBehaviorBase" />
+  <AssemblyInfo>
+    <AssemblyName>System.ServiceModel</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.ServiceModel.Description.ServiceHealthBehaviorBase</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary><span data-ttu-id="fa13c-101">正常性エンドポイントを提供する Windows Communication Foundation (WCF) サービスの動作を指定します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-101">Provides a Windows Communication Foundation (WCF) service behavior that provides a health endpoint.</span></span></summary>
+    <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+## Remarks
+
+<span data-ttu-id="fa13c-102">正常性エンドポイントを使用して、コンポーネントの正常性を評価する正常性チェックを実行できます。</span><span class="sxs-lookup"><span data-stu-id="fa13c-102">Health endpoints are used to perform health checks that assess the health of a component.</span></span> <span data-ttu-id="fa13c-103">正常性エンドポイントを使用できます。</span><span class="sxs-lookup"><span data-stu-id="fa13c-103">Health endpoints can be used to:</span></span>
+
+- <span data-ttu-id="fa13c-104">オーケストレーション ツールの重要な正常性チェックが失敗しているプロセスを強制終了を通知します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-104">Notify orchestration tools to kill a process that is failing a critical health check.</span></span> 
+
+- <span data-ttu-id="fa13c-105">追跡およびに関するアラートを提供することで監視ツールの早期問題インジケーターとして機能、可用性とサービスのパフォーマンス。</span><span class="sxs-lookup"><span data-stu-id="fa13c-105">Serve as an early problem indicator for monitoring tools by tracking and providing alerts about the the availability and performance of a service.</span></span>
+
+<span data-ttu-id="fa13c-106">`ServiceHealthBehavior` IServiceBehavior を拡張しから派生する WCF サービスの動作は、<xref:System.ServiceModel.Description.ServiceHealthBehaviorBase>します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-106">`ServiceHealthBehavior` is a WCF service behavior that extends IServiceBehavior and derives from <xref:System.ServiceModel.Description.ServiceHealthBehaviorBase>.</span></span>  <span data-ttu-id="fa13c-107">追加、`ServiceHealthBehavior`インスタンスを<xref:System.ServiceModel.Description.ServiceDescription.Behaviors?displayProperty=nameWithType>コレクションは、次を使用します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-107">Adding a `ServiceHealthBehavior` instance to the <xref:System.ServiceModel.Description.ServiceDescription.Behaviors?displayProperty=nameWithType> collection enables the following:</span></span>
+
+-   <span data-ttu-id="fa13c-108">**サービスのヘルスのパブリケーション:** サービスの状態、スロットルの数などのサービスに固有の詳細し、で HTTP GET 要求を使用して容量を表示できる、`?health`クエリ文字列。</span><span class="sxs-lookup"><span data-stu-id="fa13c-108">**Publication of Service Health:** Service-specific details such as service state, throttle counts, and capacity can be displayed using an HTTP/GET request with the `?health` query string.</span></span> <span data-ttu-id="fa13c-109">理解し、簡単に表示される情報にアクセスすることがきわめて重要不適切な動作の WCF サービスのトラブルシューティングを行うです。</span><span class="sxs-lookup"><span data-stu-id="fa13c-109">Knowing and easily having access to the information displayed is of paramount importance when troubleshooting a misbehaving WCF service.</span></span>
+
+-   <span data-ttu-id="fa13c-110">**HTTP 応答コードが返されました。** HTTP/GET 正常性プローブ要求の HTTP ステータス コードをクエリ文字列で指定いずれかのことができます。</span><span class="sxs-lookup"><span data-stu-id="fa13c-110">**Return of HTTP response codes:** One can specify in the query string the HTTP status code for an HTTP/GET health probe request.</span></span>
+
+<span data-ttu-id="fa13c-111">正常性エンドポイントでは、コンポーネントの正常性の監視のコンテキストで意味のあるのみです。</span><span class="sxs-lookup"><span data-stu-id="fa13c-111">A health endpoint is only meaningful in the context of the component whose health it monitors.</span></span> <span data-ttu-id="fa13c-112">ないその他の意味や目的。</span><span class="sxs-lookup"><span data-stu-id="fa13c-112">It has no other meaning or purpose.</span></span> <span data-ttu-id="fa13c-113">そのため、正常性は、コンポーネントの正常性へのコンジットが。</span><span class="sxs-lookup"><span data-stu-id="fa13c-113">As such, its health is a conduit to the health of the component.</span></span> <span data-ttu-id="fa13c-114">クライアント*が*正常性エンドポイントによって返される HTTP 応答コードがコンポーネント全体に適用できることを前提としています。</span><span class="sxs-lookup"><span data-stu-id="fa13c-114">Clients *should* assume that the HTTP response code returned by the health endpoint is applicable to the entire component.</span></span> <span data-ttu-id="fa13c-115">これは、ロード バランサー、サービスの検出、およびその他のユーザーなどの正常性チェックを使用する現在のインフラストラクチャのツールで想定される動作との互換性。</span><span class="sxs-lookup"><span data-stu-id="fa13c-115">This is compatible with the behavior expected by current infrastructural tooling that utilize health checks, such as load-balancers, service discoveries, and others.</span></span>
+
+### <a name="enable-a-health-endpoint"></a><span data-ttu-id="fa13c-116">正常性エンドポイントを有効にします。</span><span class="sxs-lookup"><span data-stu-id="fa13c-116">Enable a health endpoint</span></span>
+
+<span data-ttu-id="fa13c-117">正常性エンドポイントを公開して、WCF サービスの正常性の情報を発行する方法を指定する 2 つの方法はあります。</span><span class="sxs-lookup"><span data-stu-id="fa13c-117">There are two ways to specify how to expose the health endpoint and publish WCF service health information:</span></span>
+
+- <span data-ttu-id="fa13c-118">構成ファイルを使用します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-118">By using a configuration file.</span></span> <span data-ttu-id="fa13c-119">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-119">For example:</span></span>
+
+   ```xml
+   <behaviors>
+     <serviceBehaviors>
+       <behavior name="DefaultBehavior">
+         <serviceHealth httpGetEnabled="true"/>
+       </behavior>
+     </serviceBehaviors>
+   </behaviors>
+   ```
+
+- <span data-ttu-id="fa13c-120">プログラムでします。</span><span class="sxs-lookup"><span data-stu-id="fa13c-120">Programatically.</span></span> <span data-ttu-id="fa13c-121">次のコード フラグメントを使用してC#正常性エンドポイントを公開します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-121">The following code fragment uses C# to expose the health endpoint:</span></span>
+
+    ```csharp
+    ServiceHost host = new ServiceHost(typeof(Service1),
+        new Uri("http://jconde-dev1:81/Service1"));
+    ServiceHealthBehavior healthBehavior =
+                host.Description.Behaviors.Find<ServiceHealthBehavior>();
+    if (healthBehavior == null)
+    {
+        healthBehavior = new ServiceHealthBehavior();
+    }
+    //healthBehavior.HttpGetEnabled = false;
+    //healthBehavior.HttpsGetEnabled = false;
+    host.Description.Behaviors.Add(healthBehavior);
+    ```
+
+       ]]></format>    
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ServiceHealthBehavior ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Description.ServiceHealthBehavior.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; ServiceHealthBehavior();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary><span data-ttu-id="fa13c-122"><see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> クラスの新しいインスタンスを初期化します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-122">Initializes a new instance of the <see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> class.</span></span></summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="AddHttpProperty">
+      <MemberSignature Language="C#" Value="protected static void AddHttpProperty (System.ServiceModel.Channels.Message message, System.Net.HttpStatusCode status, bool isXml);" />
+      <MemberSignature Language="ILAsm" Value=".method familystatic hidebysig void AddHttpProperty(class System.ServiceModel.Channels.Message message, valuetype System.Net.HttpStatusCode status, bool isXml) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Description.ServiceHealthBehavior.AddHttpProperty(System.ServiceModel.Channels.Message,System.Net.HttpStatusCode,System.Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; static void AddHttpProperty(System::ServiceModel::Channels::Message ^ message, System::Net::HttpStatusCode status, bool isXml);" />
+      <MemberSignature Language="F#" Value="static member AddHttpProperty : System.ServiceModel.Channels.Message * System.Net.HttpStatusCode * bool -&gt; unit" Usage="System.ServiceModel.Description.ServiceHealthBehavior.AddHttpProperty (message, status, isXml)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="message" Type="System.ServiceModel.Channels.Message" />
+        <Parameter Name="status" Type="System.Net.HttpStatusCode" />
+        <Parameter Name="isXml" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="message"><span data-ttu-id="fa13c-123">応答メッセージ。</span><span class="sxs-lookup"><span data-stu-id="fa13c-123">The reply message.</span></span></param>
+        <param name="status"><span data-ttu-id="fa13c-124">HTTP ステータス コード。</span><span class="sxs-lookup"><span data-stu-id="fa13c-124">The HTTP status code.</span></span></param>
+        <param name="isXml"><span data-ttu-id="fa13c-125">メッセージに書き込む <see langWord="ContentType" /> ヘッダーの種類を定義します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-125">Defines the type of <see langWord="ContentType" /> header to write to the message.</span></span> <span data-ttu-id="fa13c-126"><see langword="true" /> の場合、<see langWord="ContentType" /> は <see langword="text/xml" />コンテンツ タイプです。それ以外の場合、<see langWord="ContentType" /> は <see langword="text/sml" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-126">If <see langword="true" />, the <see langWord="ContentType" /> is <see langword="text/xml" /> content type; otherwise, the <see langWord="ContentType" /> is <see langword="text/sml" />.</span></span></param>
+        <summary><span data-ttu-id="fa13c-127">応答メッセージのコンテンツ タイプと HTTP 状態コードを設定します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-127">Sets the content type and the HTTP status code for the response message.</span></span></summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="fa13c-128"><paramref name="message" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-128"><paramref name="message" /> is <see langword="null" />.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName="EnsureHttpStatusCode">
+      <MemberSignature Language="C#" Value="protected static bool EnsureHttpStatusCode (int code);" />
+      <MemberSignature Language="ILAsm" Value=".method familystatic hidebysig bool EnsureHttpStatusCode(int32 code) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Description.ServiceHealthBehavior.EnsureHttpStatusCode(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Protected Shared Function EnsureHttpStatusCode (code As Integer) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; static bool EnsureHttpStatusCode(int code);" />
+      <MemberSignature Language="F#" Value="static member EnsureHttpStatusCode : int -&gt; bool" Usage="System.ServiceModel.Description.ServiceHealthBehavior.EnsureHttpStatusCode code" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="code" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="code"><span data-ttu-id="fa13c-129">HTTP ステータス コード。</span><span class="sxs-lookup"><span data-stu-id="fa13c-129">The HTTP status code.</span></span></param>
+        <summary><span data-ttu-id="fa13c-130">HTTP 状態コードが 200 から 599 の範囲 (両端の値を含む) に入っていることを確認します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-130">Ensure that the HTTP status code is within the range of 200 and 599, inclusive.</span></span></summary>
+        <returns><span data-ttu-id="fa13c-131">HTTP 状態コードが 200 から 599 の範囲 (両端の値を含む) に入っている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span><span class="sxs-lookup"><span data-stu-id="fa13c-131"><see langword="true" /> if the HTTP status code is within the range of 200 to 599, inclusive; otherwise, <see langword="false" />.</span></span></returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetHttpResponseCode">
+      <MemberSignature Language="C#" Value="protected virtual System.Net.HttpStatusCode GetHttpResponseCode (System.ServiceModel.ServiceHostBase serviceHost, string[] queries);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance valuetype System.Net.HttpStatusCode GetHttpResponseCode(class System.ServiceModel.ServiceHostBase serviceHost, string[] queries) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Description.ServiceHealthBehavior.GetHttpResponseCode(System.ServiceModel.ServiceHostBase,System.String[])" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Function GetHttpResponseCode (serviceHost As ServiceHostBase, queries As String()) As HttpStatusCode" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual System::Net::HttpStatusCode GetHttpResponseCode(System::ServiceModel::ServiceHostBase ^ serviceHost, cli::array &lt;System::String ^&gt; ^ queries);" />
+      <MemberSignature Language="F#" Value="abstract member GetHttpResponseCode : System.ServiceModel.ServiceHostBase * string[] -&gt; System.Net.HttpStatusCode&#xA;override this.GetHttpResponseCode : System.ServiceModel.ServiceHostBase * string[] -&gt; System.Net.HttpStatusCode" Usage="serviceHealthBehavior.GetHttpResponseCode (serviceHost, queries)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Net.HttpStatusCode</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="serviceHost" Type="System.ServiceModel.ServiceHostBase" />
+        <Parameter Name="queries" Type="System.String[]" />
+      </Parameters>
+      <Docs>
+        <param name="serviceHost"><span data-ttu-id="fa13c-132"><see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> が有効な WCF サービスを含むサービス ホストのインスタンス。</span><span class="sxs-lookup"><span data-stu-id="fa13c-132">An instance of the service host that contains the WCF service with the <see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> enabled.</span></span></param>
+        <param name="queries"><span data-ttu-id="fa13c-133">クエリ文字列のフィールド/値のペアが格納される配列。</span><span class="sxs-lookup"><span data-stu-id="fa13c-133">An array that contains the field/value pairs of the query string.</span></span></param>
+        <summary><span data-ttu-id="fa13c-134">クエリ文字列フィールドを解析して、定義済みの HTTP 応答コードを返します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-134">Parses the query string fields and returns its defined HTTP response code.</span></span></summary>
+        <returns><span data-ttu-id="fa13c-135">HTTP 応答コード。</span><span class="sxs-lookup"><span data-stu-id="fa13c-135">The HTTP response code.</span></span></returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="fa13c-136"><paramref name="serviceHost" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-136"><paramref name="serviceHost" /> is <see langword="null" />.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetServiceHealthSections">
+      <MemberSignature Language="C#" Value="protected virtual System.ServiceModel.Description.ServiceHealthSectionCollection GetServiceHealthSections (System.ServiceModel.ServiceHostBase serviceHost);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class System.ServiceModel.Description.ServiceHealthSectionCollection GetServiceHealthSections(class System.ServiceModel.ServiceHostBase serviceHost) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Description.ServiceHealthBehavior.GetServiceHealthSections(System.ServiceModel.ServiceHostBase)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Function GetServiceHealthSections (serviceHost As ServiceHostBase) As ServiceHealthSectionCollection" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual System::ServiceModel::Description::ServiceHealthSectionCollection ^ GetServiceHealthSections(System::ServiceModel::ServiceHostBase ^ serviceHost);" />
+      <MemberSignature Language="F#" Value="abstract member GetServiceHealthSections : System.ServiceModel.ServiceHostBase -&gt; System.ServiceModel.Description.ServiceHealthSectionCollection&#xA;override this.GetServiceHealthSections : System.ServiceModel.ServiceHostBase -&gt; System.ServiceModel.Description.ServiceHealthSectionCollection" Usage="serviceHealthBehavior.GetServiceHealthSections serviceHost" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Description.ServiceHealthSectionCollection</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="serviceHost" Type="System.ServiceModel.ServiceHostBase" />
+      </Parameters>
+      <Docs>
+        <param name="serviceHost"><span data-ttu-id="fa13c-137"><see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> が有効な WCF サービスを含むサービス ホストのインスタンス。</span><span class="sxs-lookup"><span data-stu-id="fa13c-137">An instance of the service host that contains the WCF service with the <see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> enabled.</span></span></param>
+        <summary><span data-ttu-id="fa13c-138"><see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> に定義されている <see cref="T:System.ServiceModel.Description.ServiceHealthSection" /> オブジェクトのコレクションを取得します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-138">Gets a collection of the <see cref="T:System.ServiceModel.Description.ServiceHealthSection" /> objects defined in the <see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" />.</span></span></summary>
+        <returns><span data-ttu-id="fa13c-139"><see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> に定義されている <see cref="T:System.ServiceModel.Description.ServiceHealthSection" /> オブジェクトのコレクション。</span><span class="sxs-lookup"><span data-stu-id="fa13c-139">A collection of the <see cref="T:System.ServiceModel.Description.ServiceHealthSection" /> objects defined in the <see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" />.</span></span></returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="fa13c-140"><paramref name="serviceHost" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-140"><paramref name="serviceHost" /> is <see langword="null" />.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName="GetXmlDocument">
+      <MemberSignature Language="C#" Value="protected virtual System.Xml.XmlDocument GetXmlDocument (System.ServiceModel.ServiceHostBase serviceHost);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class System.Xml.XmlDocument GetXmlDocument(class System.ServiceModel.ServiceHostBase serviceHost) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Description.ServiceHealthBehavior.GetXmlDocument(System.ServiceModel.ServiceHostBase)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable Function GetXmlDocument (serviceHost As ServiceHostBase) As XmlDocument" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual System::Xml::XmlDocument ^ GetXmlDocument(System::ServiceModel::ServiceHostBase ^ serviceHost);" />
+      <MemberSignature Language="F#" Value="abstract member GetXmlDocument : System.ServiceModel.ServiceHostBase -&gt; System.Xml.XmlDocument&#xA;override this.GetXmlDocument : System.ServiceModel.ServiceHostBase -&gt; System.Xml.XmlDocument" Usage="serviceHealthBehavior.GetXmlDocument serviceHost" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.XmlDocument</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="serviceHost" Type="System.ServiceModel.ServiceHostBase" />
+      </Parameters>
+      <Docs>
+        <param name="serviceHost">To be added.</param>
+        <summary><span data-ttu-id="fa13c-141">指定された <paramref name="serviceHost" /> に関連付けられた <see cref="T:System.ServiceModel.Description.ServiceHealthModel" /> オブジェクトをシリアル化して、それを XML 形式で返します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-141">Serializes the <see cref="T:System.ServiceModel.Description.ServiceHealthModel" /> object associated with the specified <paramref name="serviceHost" /> and returns it in XML format.</span></span></summary>
+        <returns><span data-ttu-id="fa13c-142">シリアル化された <see cref="T:System.ServiceModel.Description.ServiceHealthModel" /> オブジェクトに対応する XML ドキュメント。</span><span class="sxs-lookup"><span data-stu-id="fa13c-142">An XML document that corresponds to the serialized <see cref="T:System.ServiceModel.Description.ServiceHealthModel" /> object.</span></span></returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="fa13c-143"><paramref name="serviceHost" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-143"><paramref name="serviceHost" /> is <see langword="null" />.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName="HandleHealthRequest">
+      <MemberSignature Language="C#" Value="public override void HandleHealthRequest (System.ServiceModel.ServiceHostBase serviceHost, System.ServiceModel.Channels.Message httpGetRequest, string[] queries, out System.ServiceModel.Channels.Message replyMessage);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void HandleHealthRequest(class System.ServiceModel.ServiceHostBase serviceHost, class System.ServiceModel.Channels.Message httpGetRequest, string[] queries, [out] class System.ServiceModel.Channels.Message&amp; replyMessage) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Description.ServiceHealthBehavior.HandleHealthRequest(System.ServiceModel.ServiceHostBase,System.ServiceModel.Channels.Message,System.String[],System.ServiceModel.Channels.Message@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub HandleHealthRequest (serviceHost As ServiceHostBase, httpGetRequest As Message, queries As String(), ByRef replyMessage As Message)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void HandleHealthRequest(System::ServiceModel::ServiceHostBase ^ serviceHost, System::ServiceModel::Channels::Message ^ httpGetRequest, cli::array &lt;System::String ^&gt; ^ queries, [Runtime::InteropServices::Out] System::ServiceModel::Channels::Message ^ % replyMessage);" />
+      <MemberSignature Language="F#" Value="override this.HandleHealthRequest : System.ServiceModel.ServiceHostBase * System.ServiceModel.Channels.Message * string[] *  -&gt; unit" Usage="serviceHealthBehavior.HandleHealthRequest (serviceHost, httpGetRequest, queries, replyMessage)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="serviceHost" Type="System.ServiceModel.ServiceHostBase" />
+        <Parameter Name="httpGetRequest" Type="System.ServiceModel.Channels.Message" />
+        <Parameter Name="queries" Type="System.String[]" />
+        <Parameter Name="replyMessage" Type="System.ServiceModel.Channels.Message" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="serviceHost"><span data-ttu-id="fa13c-144"><see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> が有効な WCF サービスを含むサービス ホストのインスタンス。</span><span class="sxs-lookup"><span data-stu-id="fa13c-144">An instance of the service host that contains the WCF service with the <see cref="T:System.ServiceModel.Description.ServiceHealthBehavior" /> enabled.</span></span></param>
+        <param name="httpGetRequest"><span data-ttu-id="fa13c-145">正常性エンドポイントに対して実行される HTTP 要求。</span><span class="sxs-lookup"><span data-stu-id="fa13c-145">The HTTP request made to the health endpoint.</span></span></param>
+        <param name="queries"><span data-ttu-id="fa13c-146">クエリ文字列のフィールド/値ペアを格納する配列。</span><span class="sxs-lookup"><span data-stu-id="fa13c-146">An array containing the field/value pairs of the query string.</span></span></param>
+        <param name="replyMessage"><span data-ttu-id="fa13c-147">メソッドから制御が戻されたときの、正常性の動作の応答メッセージ。</span><span class="sxs-lookup"><span data-stu-id="fa13c-147">When the method returns, the response message of the health behavior.</span></span> <span data-ttu-id="fa13c-148">このメッセージには <see langword="text/html" /> または <see langword="text/xml" /> のコンテンツ タイプが含まれます。いずれになるかは、要求が XML または HTML のどちらに対するものであるかによって決まります。</span><span class="sxs-lookup"><span data-stu-id="fa13c-148">This message has a content type of <see langword="text/html" /> or <see langword="text/xml" /> , depending on whether the request was for XML or HTML.</span></span></param>
+        <summary><span data-ttu-id="fa13c-149">指定された要求に応答メッセージを返します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-149">Returns the response message to a specified request.</span></span></summary>
+        <remarks>  
+          <format type="text/markdown"><![CDATA[  
+
+<span data-ttu-id="fa13c-150">このメソッドは、<xref:System.ServiceModel.Description.ServiceHealthBehaviorBase>インスタンスであり、役割の正常性エンドポイントへの応答メッセージの構築を担います。</span><span class="sxs-lookup"><span data-stu-id="fa13c-150">This method is invoked by the <xref:System.ServiceModel.Description.ServiceHealthBehaviorBase> instance and is reponsible for crafting the response message to the health endpoint.</span></span>
+
+         ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="fa13c-151"><paramref name="serviceHost" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-151"><paramref name="serviceHost" /> is <see langword="null" />.</span></span>
+
+<span data-ttu-id="fa13c-152">または</span><span class="sxs-lookup"><span data-stu-id="fa13c-152">-or-</span></span>
+
+<span data-ttu-id="fa13c-153"><paramref name="httpGetRequest" /> は <see langword="null" /> です</span><span class="sxs-lookup"><span data-stu-id="fa13c-153"><paramref name="httpGetRequest" /> is <see langword="null" /></span></span>
+
+<span data-ttu-id="fa13c-154">または</span><span class="sxs-lookup"><span data-stu-id="fa13c-154">-or-</span></span>
+
+<span data-ttu-id="fa13c-155"><paramref name="queries" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-155"><paramref name="queries" /> is <see langword="null" />.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName="HasXmlSupport">
+      <MemberSignature Language="C#" Value="protected virtual bool HasXmlSupport { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool HasXmlSupport" />
+      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Description.ServiceHealthBehavior.HasXmlSupport" />
+      <MemberSignature Language="VB.NET" Value="Protected Overridable ReadOnly Property HasXmlSupport As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual property bool HasXmlSupport { bool get(); };" />
+      <MemberSignature Language="F#" Value="member this.HasXmlSupport : bool" Usage="System.ServiceModel.Description.ServiceHealthBehavior.HasXmlSupport" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary><span data-ttu-id="fa13c-156">XML 応答メッセージがサポートされているかどうかを示す値を取得します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-156">Gets a value that indicates whether XML response messages are supported.</span></span></summary>
+        <value><span data-ttu-id="fa13c-157">派生クラスでオーバーライドしない限り、このメソッドは常に返します<see langword="true" />します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-157">Unless it is overridden in a derived class, this method always return <see langword="true" />.</span></span></value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryParseBooleanQueryParameter">
+      <MemberSignature Language="C#" Value="protected static bool TryParseBooleanQueryParameter (string parameterName, string parameter, bool defaultValue, out bool result);" />
+      <MemberSignature Language="ILAsm" Value=".method familystatic hidebysig bool TryParseBooleanQueryParameter(string parameterName, string parameter, bool defaultValue, [out] bool&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Description.ServiceHealthBehavior.TryParseBooleanQueryParameter(System.String,System.String,System.Boolean,System.Boolean@)" />
+      <MemberSignature Language="VB.NET" Value="Protected Shared Function TryParseBooleanQueryParameter (parameterName As String, parameter As String, defaultValue As Boolean, ByRef result As Boolean) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; static bool TryParseBooleanQueryParameter(System::String ^ parameterName, System::String ^ parameter, bool defaultValue, [Runtime::InteropServices::Out] bool % result);" />
+      <MemberSignature Language="F#" Value="static member TryParseBooleanQueryParameter : string * string * bool *  -&gt; bool" Usage="System.ServiceModel.Description.ServiceHealthBehavior.TryParseBooleanQueryParameter (parameterName, parameter, defaultValue, result)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="parameterName" Type="System.String" />
+        <Parameter Name="parameter" Type="System.String" />
+        <Parameter Name="defaultValue" Type="System.Boolean" />
+        <Parameter Name="result" Type="System.Boolean" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="parameterName"><span data-ttu-id="fa13c-158">パラメーターの名前であり、メソッドはこのパラメーターの値の解析を試みます。</span><span class="sxs-lookup"><span data-stu-id="fa13c-158">The name of the parameter whose value the method attempts to parse.</span></span></param>
+        <param name="parameter"><span data-ttu-id="fa13c-159">クエリ文字列のフィールド/値ペア。</span><span class="sxs-lookup"><span data-stu-id="fa13c-159">The field/value pair of the query string.</span></span></param>
+        <param name="defaultValue"><span data-ttu-id="fa13c-160">解析操作が失敗した場合に、<paramName name="result" /> 引数に割り当てられる値。</span><span class="sxs-lookup"><span data-stu-id="fa13c-160">The value to be assigned to the <paramName name="result" /> argument if the parsing operation fails.</span></span></param>
+        <param name="result"><span data-ttu-id="fa13c-161">メソッドから制御が戻されたときの、解析されたブール引数の値。</span><span class="sxs-lookup"><span data-stu-id="fa13c-161">When the method returns, the value of the parsed Boolean argument.</span></span></param>
+        <summary><span data-ttu-id="fa13c-162">ブール クエリ文字列パラメーターの解析を試みて、解析操作が成功したかどうかを示す値を返します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-162">Attempts to parse a Boolean query string parameter and returns a value that indicates whether the parsing operation succeeded.</span></span></summary>
+        <returns><span data-ttu-id="fa13c-163">解析操作が成功した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span><span class="sxs-lookup"><span data-stu-id="fa13c-163"><see langword="true" /> if the parsing operation succeeded; otherwise, <see langword="false" />.</span></span></returns>
+        <remarks>  
+          <format type="text/markdown"><![CDATA[  
+
+<span data-ttu-id="fa13c-164">メソッドを返します`true`フィールドの値が正常に解析して、<xref:System.Boolean.TryParse%2A?displayProperty=nameWithType>メソッド。</span><span class="sxs-lookup"><span data-stu-id="fa13c-164">The method returns `true` if the value of the field was successfully parsed by the <xref:System.Boolean.TryParse%2A?displayProperty=nameWithType> method.</span></span>
+
+         ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="fa13c-165"><paramref name="parameterName" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-165"><paramref name="parameterName" /> is <see langword="null" />.</span></span>
+        
+<span data-ttu-id="fa13c-166">- または -</span><span class="sxs-lookup"><span data-stu-id="fa13c-166">-or-</span></span>
+
+<span data-ttu-id="fa13c-167"><paramref name="parameter" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-167"><paramref name="parameter" /> is <see langword="null" />.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TryParseHttpStatusCodeQueryParameter">
+      <MemberSignature Language="C#" Value="protected static bool TryParseHttpStatusCodeQueryParameter (string parameterName, string parameter, System.Net.HttpStatusCode defaultErrorCode, out System.Net.HttpStatusCode result);" />
+      <MemberSignature Language="ILAsm" Value=".method familystatic hidebysig bool TryParseHttpStatusCodeQueryParameter(string parameterName, string parameter, valuetype System.Net.HttpStatusCode defaultErrorCode, [out] valuetype System.Net.HttpStatusCode&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Description.ServiceHealthBehavior.TryParseHttpStatusCodeQueryParameter(System.String,System.String,System.Net.HttpStatusCode,System.Net.HttpStatusCode@)" />
+      <MemberSignature Language="VB.NET" Value="Protected Shared Function TryParseHttpStatusCodeQueryParameter (parameterName As String, parameter As String, defaultErrorCode As HttpStatusCode, ByRef result As HttpStatusCode) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; static bool TryParseHttpStatusCodeQueryParameter(System::String ^ parameterName, System::String ^ parameter, System::Net::HttpStatusCode defaultErrorCode, [Runtime::InteropServices::Out] System::Net::HttpStatusCode % result);" />
+      <MemberSignature Language="F#" Value="static member TryParseHttpStatusCodeQueryParameter : string * string * System.Net.HttpStatusCode *  -&gt; bool" Usage="System.ServiceModel.Description.ServiceHealthBehavior.TryParseHttpStatusCodeQueryParameter (parameterName, parameter, defaultErrorCode, result)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="parameterName" Type="System.String" />
+        <Parameter Name="parameter" Type="System.String" />
+        <Parameter Name="defaultErrorCode" Type="System.Net.HttpStatusCode" />
+        <Parameter Name="result" Type="System.Net.HttpStatusCode" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="parameterName"><span data-ttu-id="fa13c-168">パラメーターの名前であり、メソッドはこのパラメーターの値の解析を試みます。</span><span class="sxs-lookup"><span data-stu-id="fa13c-168">The name of the parameter whose value the method attempts to parse.</span></span></param>
+        <param name="parameter"><span data-ttu-id="fa13c-169">クエリ文字列のフィールド/値ペア。</span><span class="sxs-lookup"><span data-stu-id="fa13c-169">The field/value pair of the query string.</span></span></param>
+        <param name="defaultValue"><span data-ttu-id="fa13c-170">クエリ文字列内で指定された HTTP 状態コードが無効である場合に、<paramName name="result" /> 引数に割り当てる値。</span><span class="sxs-lookup"><span data-stu-id="fa13c-170">The value to assign to the <paramName name="result" /> argument if the specified HTTP status code in the query string is not valid.</span></span></param>
+        <param name="result"><span data-ttu-id="fa13c-171">メソッドから制御が戻されたときの、解析された HTTP 状態コード引数の値。</span><span class="sxs-lookup"><span data-stu-id="fa13c-171">When the method returns, the value of the parsed HTTP status code argument.</span></span></param>
+        <summary><span data-ttu-id="fa13c-172">クエリ文字列変数の HTTP 状態コードについて解析を試みて、解析操作が成功したかどうかを示す値を返します。</span><span class="sxs-lookup"><span data-stu-id="fa13c-172">Attempts to parse the HTTP status code of a query string variable and returns a value that indicates whether the parsing operation succeeded.</span></span></summary>
+        <returns><span data-ttu-id="fa13c-173">解析操作が成功した場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</span><span class="sxs-lookup"><span data-stu-id="fa13c-173"><see langword="true" /> if the parsing operation succeeded; otherwise, <see langword="false" />.</span></span></returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="fa13c-174"><paramref name="parameterName" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-174"><paramref name="parameterName" /> is <see langword="null" />.</span></span>
+        
+<span data-ttu-id="fa13c-175">- または -</span><span class="sxs-lookup"><span data-stu-id="fa13c-175">-or-</span></span>
+
+<span data-ttu-id="fa13c-176"><paramref name="parameter" /> は <see langword="null" /> です。</span><span class="sxs-lookup"><span data-stu-id="fa13c-176"><paramref name="parameter" /> is <see langword="null" />.</span></span></exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
