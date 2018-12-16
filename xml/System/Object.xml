@@ -1,5 +1,5 @@
 <Type Name="Object" FullName="System.Object">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="795aa213f55320afb69e8ac92a851b4700704644" /><Meta Name="ms.sourcegitcommit" Value="1654a92bac785a221098172d9cacd405ceaac9b7" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/01/2018" /><Meta Name="ms.locfileid" Value="52734506" /></Metadata><TypeSignature Language="C#" Value="public class Object" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="e0ad93c4c32e3ceb162cffaa6ee0d915121c92a5" /><Meta Name="ms.sourcegitcommit" Value="d8bd5d494445ce3fcad1321267cb87548d23a45b" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/15/2018" /><Meta Name="ms.locfileid" Value="53449880" /></Metadata><TypeSignature Language="C#" Value="public class Object" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit object" />
   <TypeSignature Language="DocId" Value="T:System.Object" />
   <TypeSignature Language="VB.NET" Value="Public Class Object" />
@@ -492,9 +492,9 @@
 > [!NOTE]
 >  C# コンパイラ オーバーライドはできません、<xref:System.Object.Finalize%2A>メソッド。 代わりに、実装することでファイナライザーを提供する、[デストラクター](~/docs/csharp/programming-guide/classes-and-structs/destructors.md)クラス。 C# のデストラクターは、その基底クラスのデストラクターを自動的に呼び出します。  
 >   
->  Visual C を実装するため独自の構文を提供することも、<xref:System.Object.Finalize%2A>メソッド。 詳細については、の「デストラクターおよびファイナライザー」セクションを参照してください。[方法: 定義とクラスの使用、および構造体 (C +/cli CLI)](https://msdn.microsoft.com/library/1c03cb0d-1459-4b5e-af65-97d6b3094fd7)します。  
+>  Visual C を実装するため独自の構文を提供することも、<xref:System.Object.Finalize%2A>メソッド。 詳細については、の「デストラクターおよびファイナライザー」セクションを参照してください。[方法。クラスと構造体定義および使用 (C +/cli CLI)](https://msdn.microsoft.com/library/1c03cb0d-1459-4b5e-af65-97d6b3094fd7)します。  
   
- ガベージ コレクションは非決定的であるため、ガベージ コレクターがファイナライズを実行するときに正確にはおわからない場合。 リソースを解放する、すぐに選択することできますも実装するために、 [dispose パターン](~/docs/standard/design-guidelines/dispose-pattern.md)と<xref:System.IDisposable>インターフェイス。 <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>実装を呼び出すことができるクラスのコンシューマーが、アンマネージ リソースを解放して、使用することができます、<xref:System.Object.Finalize%2A>アンマネージ リソースを解放するメソッドを<xref:System.IDisposable.Dispose%2A>メソッドは呼び出されません。  
+ ガベージ コレクションは非決定的であるため、ガベージ コレクターがファイナライズを実行するときに正確にはおわからない場合。 リソースを解放する、すぐに選択することできますも実装するために、[dispose パターン](~/docs/standard/garbage-collection/implementing-dispose.md) と<xref:System.IDisposable>インターフェイス。 <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType>実装を呼び出すことができるクラスのコンシューマーが、アンマネージ リソースを解放して、使用することができます、<xref:System.Object.Finalize%2A>アンマネージ リソースを解放するメソッドを<xref:System.IDisposable.Dispose%2A>メソッドは呼び出されません。  
   
  <xref:System.Object.Finalize%2A> ガベージ コレクション中にクリーンアップされた後に、(つまり、オブジェクトにアクセスできるように再度) オブジェクトを復活させる方法を含め、ほとんどすべてのアクションを実行することができます。 ただし、オブジェクトできますのみ再生できるは 1 回です。<xref:System.Object.Finalize%2A>ガベージ コレクション中に再生されたオブジェクトで呼び出すことはできません。 1 つのアクションを実装の<xref:System.Object.Finalize%2A>かかることはありません: 例外をスローする必要がありますしません。 メソッドによってスローされた例外がから呼び出された場合、<xref:System.Object.Finalize%2A>メソッドによって処理されない、<xref:System.Object.Finalize%2A>メソッド、ランタイムを想定、<xref:System.Object.Finalize%2A>メソッドが返され、呼び出しは引き続き、<xref:System.Object.Finalize%2A>他のオブジェクトのメソッド。 
   
@@ -516,7 +516,7 @@
   
 -   <xref:Microsoft.Win32.SafeHandles.SafeWaitHandle> 待機ハンドルのラッパー クラスです。  
   
- 次の例では、 [dispose パターン](~/docs/standard/design-guidelines/dispose-pattern.md)オーバーライドする代わりにセーフ ハンドルを使った、<xref:System.Object.Finalize%2A>メソッド。 定義、`FileAssociation`特定のファイル拡張子を持つファイルを処理するアプリケーションのレジストリ情報をラップするクラス。 として返される 2 つのレジストリ ハンドル`out`Windows によるパラメーター [RegOpenKeyEx](https://msdn.microsoft.com/library/windows/desktop/ms724897.aspx)に渡される関数呼び出し、<xref:Microsoft.Win32.SafeHandles.SafeRegistryHandle>コンス トラクター。 型の保護された`Dispose`メソッドを呼び出して、`SafeRegistryHandle.Dispose`これら 2 つのハンドルを解放します。  
+ 次の例では、 [dispose パターン](~/docs/standard/garbage-collection/implementing-dispose.md)オーバーライドする代わりにセーフ ハンドルを使った、<xref:System.Object.Finalize%2A>メソッド。 定義、`FileAssociation`特定のファイル拡張子を持つファイルを処理するアプリケーションのレジストリ情報をラップするクラス。 として返される 2 つのレジストリ ハンドル`out`Windows によるパラメーター [RegOpenKeyEx](https://msdn.microsoft.com/library/windows/desktop/ms724897.aspx)に渡される関数呼び出し、<xref:Microsoft.Win32.SafeHandles.SafeRegistryHandle>コンス トラクター。 型の保護された`Dispose`メソッドを呼び出して、`SafeRegistryHandle.Dispose`これら 2 つのハンドルを解放します。  
   
  [!code-csharp[System.Object.Finalize#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.finalize/cs/finalize_safe.cs#2)]
  [!code-vb[System.Object.Finalize#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.finalize/vb/finalize_safe.vb#2)]  
@@ -1020,7 +1020,7 @@
 ## <a name="overloading-the-tostring-method"></a>ToString メソッドをオーバー ロード  
  パラメーターなしでオーバーライドするだけでなく<xref:System.Object.ToString?displayProperty=nameWithType>メソッドでは、さまざまな種類のオーバー ロード、`ToString`メソッドのパラメーターを使用できるバージョンを提供するメソッド。 ほとんどの場合、この変数の書式とカルチャの書式設定のサポートを提供する行われます。  
   
- 次の例のオーバー ロード、`ToString`のさまざまなフィールドの値を含む結果の文字列を返すメソッドを`Automobile`クラス。 次の 4 つの書式指定文字列を定義します G で、モデルの名前と年度; を返します。D で、モデルの名前、year、および; のドアの数を返しますC で、モデルの名前、year、およびシリンダー; の数を返しますA で、すべての 4 つのフィールド値を持つ文字列を返します。  
+ 次の例のオーバー ロード、`ToString`のさまざまなフィールドの値を含む結果の文字列を返すメソッドを`Automobile`クラス。 これには、次の 4 つの書式指定文字列を定義します。G で、モデルの名前と年度; を返しますD で、モデルの名前、year、および; のドアの数を返しますC で、モデルの名前、year、およびシリンダー; の数を返しますA で、すべての 4 つのフィールド値を持つ文字列を返します。  
   
  [!code-csharp[System.Object.ToString#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.tostring/cs/tostringoverload1.cs#4)]
  [!code-vb[System.Object.ToString#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.tostring/vb/tostringoverload1.vb#4)]  
