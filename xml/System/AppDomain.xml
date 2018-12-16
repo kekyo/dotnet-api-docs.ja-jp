@@ -1,5 +1,5 @@
 <Type Name="AppDomain" FullName="System.AppDomain">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="40ea79988bc31dd09a52c0a55c2ef2c71dcc4eb7" /><Meta Name="ms.sourcegitcommit" Value="adc8598fd19d91438cacaa8fa7ce613e28c8218e" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/11/2018" /><Meta Name="ms.locfileid" Value="53231912" /></Metadata><TypeSignature Language="C#" Value="public sealed class AppDomain : MarshalByRefObject, _AppDomain, System.Security.IEvidenceFactory" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="525fd5d361f54c46c60f68bb9bb6e19fd0a68244" /><Meta Name="ms.sourcegitcommit" Value="9e3550fb2088d4faf2043f0acb29da4555519937" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/12/2018" /><Meta Name="ms.locfileid" Value="53296346" /></Metadata><TypeSignature Language="C#" Value="public sealed class AppDomain : MarshalByRefObject, _AppDomain, System.Security.IEvidenceFactory" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit AppDomain extends System.MarshalByRefObject implements class System._AppDomain, class System.Security.IEvidenceFactory" />
   <TypeSignature Language="DocId" Value="T:System.AppDomain" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class AppDomain&#xA;Inherits MarshalByRefObject&#xA;Implements _AppDomain, IEvidenceFactory" />
@@ -55,6 +55,9 @@
   
 -   アセンブリが既定のアプリケーション ドメインに読み込まれている場合は、ことはできませんメモリからアンロード、プロセスの実行中にします。 ただし、読み込み、アセンブリを実行する 2 つ目のアプリケーション ドメインを開いた場合、アセンブリが読み込まれないそのアプリケーション ドメインが読み込まれるとします。 場合によっては大きな Dll を使用する実行時間の長いプロセスのワーキング セットを最小限に抑えるには、この手法を使用します。  
   
+ > [!NOTE]
+ >  .NET Core で、<xref:System.AppDomain>実装およびデザインによって制限されますが、分離、アンロード、およびセキュリティの境界を行いません。 .NET core で正確に 1 つである<xref:System.AppDomain>します。 を通じて提供されます。 分離とアンロード<xref:System.Runtime.Loader.AssemblyLoadContext>します。 セキュリティ境界は、プロセスの境界との適切なリモート処理技術によって提供する必要があります。
+ 
  複数のアプリケーション ドメインが 1 つのプロセスで実行できます。ただし、アプリケーション ドメインとスレッド間の一対一の相関関係はありません。 複数のスレッドが 1 つのアプリケーション ドメインに属することができ、スレッドが 1 つのアプリケーション ドメインで実行中に、特定のスレッドが、特定の時点を 1 つのアプリケーション ドメインに限定されていません。  
   
  使用してアプリケーション ドメインが作成された、<xref:System.AppDomain.CreateDomain%2A>メソッド。 <xref:System.AppDomain> インスタンスが読み込まれ、アセンブリを実行するために使用 (<xref:System.Reflection.Assembly>)。 ときに、<xref:System.AppDomain>が不要になった使用中で、アンロードできます。  
@@ -708,7 +711,7 @@
         <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyName" /> が見つかりません。</exception>
         <exception cref="T:System.MemberAccessException"><paramref name="typeName" /> は抽象クラスです。  
   
-または 
+- または - 
 このメンバーは、遅延バインディング メカニズムで呼び出されました。</exception>
         <exception cref="T:System.NotSupportedException">呼び出し元は、<see cref="T:System.MarshalByRefObject" /> を継承しないオブジェクトのアクティベーション属性を提供できません。</exception>
         <exception cref="T:System.ArgumentException"><paramref name="assemblyName" /> が空の文字列 ("") です。</exception>
@@ -780,7 +783,7 @@
         <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyFile" /> が見つかりません。</exception>
         <exception cref="T:System.MemberAccessException"><paramref name="typeName" /> は抽象クラスです。  
   
-- または - 
+または 
 このメンバーは、遅延バインディング メカニズムで呼び出されました。</exception>
         <exception cref="T:System.NotSupportedException">呼び出し元は、<see cref="T:System.MarshalByRefObject" /> を継承しないオブジェクトのアクティベーション属性を提供できません。</exception>
         <exception cref="T:System.ArgumentException"><paramref name="assemblyFile" /> が空の文字列 ("") です。</exception>
@@ -861,6 +864,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="friendlyName" /> は <see langword="null" /> です。</exception>
+        <exception cref="T:System.PlatformNotSupportedException">.NET Core でサポートされていないメソッド。</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">証拠を提供します。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlEvidence" /> (関連する列挙体)</permission>
         <altmember cref="P:System.AppDomain.FriendlyName" />
       </Docs>
@@ -1058,7 +1062,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="friendlyName" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.InvalidOperationException">アプリケーション ドメインが <see langword="null" /> です。  
   
-または 
+- または - 
 <see cref="P:System.AppDomainSetup.ApplicationBase" /> プロパティは、<paramref name="info" /> 用に提供される <see cref="T:System.AppDomainSetup" /> オブジェクトでは設定されません。</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">作成し、アプリケーション ドメインを操作する権限です。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlAppDomain" /> (関連する列挙体) セキュリティ アクション:<see cref="F:System.Security.Permissions.SecurityAction.Demand" />します。</permission>
       </Docs>
@@ -1266,7 +1270,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="assemblyName" /> または <paramref name="typeName" /> が <see langword="null" /> です。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> は正しいアセンブリではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれていますが、<paramref name="assemblyName" /> はさらに新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
         <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyName" /> が見つかりませんでした。</exception>
@@ -1420,7 +1424,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="assemblyName" /> または <paramref name="typeName" /> が <see langword="null" /> です。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> は正しいアセンブリではありません。  
   
-または 
+- または - 
  現在読み込まれているバージョンよりも新しいバージョンの共通言語ランタイムで、<paramref name="assemblyName" /> がコンパイルされました。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
         <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyName" /> が見つかりませんでした。</exception>
@@ -1612,7 +1616,7 @@
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> は正しいアセンブリではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれていますが、<paramref name="assemblyName" /> はさらに新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
         <permission cref="T:System.Security.Permissions.FileIOPermissionAccess">アセンブリ マニフェストを含むファイルを読み取るため、モジュール マニフェストのファイル以外から型を作成する場合またはします。 関連付けられた列挙体。 <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Read" /></permission>
@@ -1691,7 +1695,7 @@
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> は正しいアセンブリではありません。  
   
-- または - 
+または 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれていますが、<paramref name="assemblyName" /> はさらに新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
         <permission cref="T:System.Security.Permissions.FileIOPermissionAccess">アセンブリ マニフェストを含むファイルの読み取りに必要なアクセス許可。 関連付けられた列挙体。 <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Read" /></permission>
@@ -1881,7 +1885,7 @@
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> は正しいアセンブリではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれていますが、<paramref name="assemblyName" /> はさらに新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
         <permission cref="T:System.Security.Permissions.FileIOPermissionAccess">アセンブリ マニフェストを含むファイルの読み取りに必要なアクセス許可。 関連付けられた列挙体。 <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Read" /></permission>
@@ -2335,7 +2339,7 @@
         <exception cref="T:System.MethodAccessException">呼び出し元には、このコンストラクターを呼び出すために必要なアクセス許可がありません。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> は正しいアセンブリではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれていますが、<paramref name="assemblyName" /> はさらに新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
         <permission cref="T:System.Security.Permissions.FileIOPermissionAccess">アセンブリ マニフェストを含むファイルの読み取りに必要なアクセス許可。 関連付けられた列挙体。 <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Read" /></permission>
@@ -2407,7 +2411,7 @@
         <exception cref="T:System.MethodAccessException">呼び出し元には、このコンストラクターを呼び出すために必要なアクセス許可がありません。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> は正しいアセンブリではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれていますが、<paramref name="assemblyName" /> はさらに新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
         <permission cref="T:System.Security.Permissions.FileIOPermissionAccess">アセンブリ マニフェストを含むファイルの読み取りに必要なアクセス許可。 関連付けられた列挙体。 <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Read" /></permission>
@@ -2993,7 +2997,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentException"><paramref name="name" /> の <see langword="Name" /> プロパティが <see langword="null" /> です。  
   
-- または - 
+または 
 <paramref name="name" /> の <see langword="Name" /> プロパティが空白で始まっているか、スラッシュまたは円記号が含まれています。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="securityContextSource" /> の値が列挙値ではありませんでした。</exception>
@@ -3078,7 +3082,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentException"><paramref name="name" /> の <see langword="Name" /> プロパティが <see langword="null" /> です。  
   
-または 
+- または - 
 <paramref name="name" /> の <see langword="Name" /> プロパティが空白文字で始まるか、スラッシュまたはバック スラッシュを含んでいます。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">証拠とアセンブリの読み込み。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlEvidence" /> (関連する列挙体)</permission>
@@ -3403,7 +3407,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentException"><paramref name="name" /> の <see langword="Name" /> プロパティが <see langword="null" /> です。  
   
-または 
+- または - 
 <paramref name="name" /> の <see langword="Name" /> プロパティが空白文字で始まるか、スラッシュまたはバック スラッシュを含んでいます。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
       </Docs>
@@ -3590,7 +3594,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.ArgumentException"><paramref name="name" /> の <see langword="Name" /> プロパティが <see langword="null" /> です。  
   
-または 
+- または - 
 <paramref name="name" /> の <see langword="Name" /> プロパティが空白文字で始まるか、スラッシュまたはバック スラッシュを含んでいます。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">証拠とアセンブリの読み込み。 <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlEvidence" /> (関連する列挙体)</permission>
@@ -4122,7 +4126,7 @@
         <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyFile" /> が見つかりません。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyFile" /> は有効なアセンブリではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれています。<paramref name="assemblyFile" /> は、より新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
@@ -4446,7 +4450,7 @@
         <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyFile" /> が見つかりません。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyFile" /> は有効なアセンブリではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれています。<paramref name="assemblyFile" /> は、より新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
@@ -4741,7 +4745,7 @@
         <exception cref="T:System.IO.FileLoadException"><paramref name="assemblyName" /> によって指定したアセンブリが検出されましたが、読み込むことができません。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> によって指定したアセンブリは、有効なアセンブリではありません。  
   
-- または - 
+または 
  現在読み込まれているバージョンよりも新しいバージョンの共通言語ランタイムで、<paramref name="assemblyName" /> がコンパイルされました。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.MissingMethodException">指定したアセンブリには、エントリ ポイントがありません。</exception>
@@ -4819,7 +4823,7 @@
         <exception cref="T:System.IO.FileLoadException"><paramref name="assemblyName" /> によって指定したアセンブリが検出されましたが、読み込むことができません。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> によって指定したアセンブリは、有効なアセンブリではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれています。<paramref name="assemblyName" /> は、より新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.NotSupportedException"><paramref name="assemblySecurity" /> が <see langword="null" /> ではありません。 レガシ CAS ポリシーが有効でない場合は、<paramref name="assemblySecurity" /> を <see langword="null" /> にする必要があります。</exception>
@@ -5927,7 +5931,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="rawAssembly" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="rawAssembly" /> は有効なアセンブリ名ではありません。  
   
-- または - 
+または 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれています。<paramref name="rawAssembly" /> は、より新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
@@ -6066,7 +6070,7 @@
         <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyString" /> が見つかりません。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="assemblyString" /> は有効なアセンブリではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれています。<paramref name="assemblyString" /> は、より新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>
@@ -6150,7 +6154,7 @@
         <exception cref="T:System.ArgumentNullException"><paramref name="rawAssembly" /> は <see langword="null" /> です。</exception>
         <exception cref="T:System.BadImageFormatException"><paramref name="rawAssembly" /> は有効なアセンブリ名ではありません。  
   
-または 
+- または - 
 共通言語ランタイムのバージョン 2.0 以降が現在読み込まれています。<paramref name="rawAssembly" /> は、より新しいバージョンでコンパイルされています。</exception>
         <exception cref="T:System.AppDomainUnloadedException">アンロードされたアプリケーション ドメインで操作しようとします。</exception>
         <exception cref="T:System.IO.FileLoadException">アセンブリまたはモジュールが、2 つの異なる証拠を使用して 2 回読み込まれました。</exception>

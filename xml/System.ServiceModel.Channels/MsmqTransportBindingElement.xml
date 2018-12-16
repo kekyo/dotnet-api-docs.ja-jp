@@ -1,5 +1,5 @@
 <Type Name="MsmqTransportBindingElement" FullName="System.ServiceModel.Channels.MsmqTransportBindingElement">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="402a3e6a0ac2893494ac7cef8a1b19d0648efc3d" /><Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="08/25/2018" /><Meta Name="ms.locfileid" Value="39996289" /></Metadata><TypeSignature Language="C#" Value="public sealed class MsmqTransportBindingElement : System.ServiceModel.Channels.MsmqBindingElementBase" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="fd45951351fc2f31bab1a0a8b34353fb56cd801b" /><Meta Name="ms.sourcegitcommit" Value="b0551d7828f015124aca601dbb64bd913cc5067d" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/13/2018" /><Meta Name="ms.locfileid" Value="53333704" /></Metadata><TypeSignature Language="C#" Value="public sealed class MsmqTransportBindingElement : System.ServiceModel.Channels.MsmqBindingElementBase" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit MsmqTransportBindingElement extends System.ServiceModel.Channels.MsmqBindingElementBase" />
   <TypeSignature Language="DocId" Value="T:System.ServiceModel.Channels.MsmqTransportBindingElement" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class MsmqTransportBindingElement&#xA;Inherits MsmqBindingElementBase" />
@@ -22,7 +22,7 @@
 ## Remarks  
  <xref:System.ServiceModel.Channels.MsmqTransportBindingElement> は、ユーザーがキューに置かれている通信チャネルのプロパティを設定できるようにします。 キューに置かれている通信チャネルは、そのトランスポートにメッセージ キューを使用します。  
   
- このバインディング要素は、メッセージ キューの標準バインディング (<xref:System.ServiceModel.NetMsmqBinding>) で使用される既定のバインディング要素です。  
+ このバインド要素は、メッセージ キューの標準バインディング (<xref:System.ServiceModel.NetMsmqBinding>) で使用される既定のバインド要素です。  
   
    
   
@@ -100,7 +100,47 @@
         </remarks>
         <exception cref="T:System.ArgumentNullException">コンテキスト値が null です。</exception>
         <exception cref="T:System.ArgumentException">TChannel が IOutputChannel または IOutputSessionChannel ではありません。</exception>
-        <exception cref="T:System.InvalidOperationException">MsmqTransportSecurity.MsmqProtectionLevel が EncryptAndSign で、UseActiveDirectory が false です。</exception>
+        <exception cref="T:System.InvalidOperationException">ExactlyOnce が true で、Durable が false です。
+
+または
+
+UseActiveDirectory が true で、QueueTransferProtocol が Native ではありません。
+
+または
+
+CustomDeadLetterQueue が null ではなく、DeadLetterQueue が Custom ではありません。
+
+または
+
+DeadLetterQueue が Custom on Windows 2003/XP に設定されています。
+
+- または -
+
+ExactlyOnce が false で、DeadLetterQueue が Custom です。
+
+- または -
+
+CustomDeadLetterQueue が設定されていて、キューに書き込むための書き込みアクセス許可がないか、またはキューが存在しません。
+
+または
+
+CustomDeadLetterQueue が非トランザクションです。
+
+または
+
+MsmqTransportSecurity.MsmqAuthenticationMode が WindowsDomain に設定されていて、MSMQ と共に ActiveDirectory 統合がインストールされていません。
+
+- または -
+
+MsmqTransportSecurity.MsmqAuthenticationMode が None で、MsmqTransportSecurity.MsmqProtectionLevel が None ではありません。
+
+または
+
+MsmqTransportSecurity.MsmqAuthenticationMode が Certificate または WindowsDomain で、MsmqTransportSecurity.MsmqProtectionLevel が None です。
+
+- または -
+
+MsmqTransportSecurity.MsmqProtectionLevel が EncryptAndSign で、UseActiveDirectory が false です。</exception>
       </Docs>
     </Member>
     <Member MemberName="BuildChannelListener&lt;TChannel&gt;">
@@ -145,7 +185,43 @@
         </remarks>
         <exception cref="T:System.ArgumentNullException">コンテキスト値が null です。</exception>
         <exception cref="T:System.ArgumentException">TChannel が IInputChannel または IInputSessionChannel ではありません。</exception>
-        <exception cref="T:System.InvalidOperationException">MsmqTransportSecurity.MsmqAuthenticationMode が Certificate または WindowsDomain で、MsmqTransportSecurity.MsmqProtectionLevel が None です。</exception>
+        <exception cref="T:System.InvalidOperationException">ExactlyOnce が true で、Durable が false です。
+
+または
+
+キューが読み取り可能ではありません。
+
+または
+
+ExactlyOnce が true で、キューが非トランザクションです。
+
+または
+
+ExactlyOnce が false で、キューがトランザクションです。
+
+- または -
+
+Windows Vista で、ReceiveErrorHandling が Move に設定され、キュー名に ";" が含まれます。
+
+- または -
+
+Windows Vista で、ExactlyOnce が true に設定され、リトライ サブキューを開くことができません。
+
+- または -
+
+ReceiveErrorHandling が Reject または Move に設定され、プラットフォームが Windows Vista です。
+
+または
+
+MsmqTransportSecurity.MsmqAuthenticationMode が WindowsDomain に設定されていて、MSMQ と共に ActiveDirectory 統合がインストールされていません。
+
+または
+
+MsmqTransportSecurity.MsmqAuthenticationMode が None で、MsmqTransportSecurity.MsmqProtectionLevel が None ではありません。
+
+または
+
+MsmqTransportSecurity.MsmqAuthenticationMode が Certificate または WindowsDomain で、MsmqTransportSecurity.MsmqProtectionLevel が None です。</exception>
       </Docs>
     </Member>
     <Member MemberName="CanBuildChannelFactory&lt;TChannel&gt;">
@@ -174,7 +250,7 @@
         <typeparam name="TChannel">チャネル リスナーのビルドに使用されるチャネルの種類。 許可されているチャネルの種類は、<see cref="T:System.ServiceModel.Channels.IOutputSessionChannel" /> クラスまたは <see cref="T:System.ServiceModel.Channels.IOutputChannel" /> クラスです。</typeparam>
         <param name="context">チャネル ファクトリのビルドに使用する <see cref="T:System.ServiceModel.Channels.BindingContext" />。</param>
         <summary>指定したコンテキストを使用してチャネル ファクトリを作成できるかどうかを示すブール値を返します。</summary>
-        <returns>与えられたコンテキストでチャネル ファクトリをビルドできる場合は <see langword="true" />、それ以外の場合は <see langword="false" />。 <see langword="true" /> が <paramref name="TChannel" /> または <see cref="T:System.ServiceModel.Channels.IOutputChannel" /> の場合にのみ、バインディング要素は <see cref="T:System.ServiceModel.Channels.IOutputSessionChannel" /> を返します。</returns>
+        <returns>与えられたコンテキストでチャネル ファクトリをビルドできる場合は <see langword="true" />、それ以外の場合は <see langword="false" />。 <see langword="true" /> が <paramref name="TChannel" /> または <see cref="T:System.ServiceModel.Channels.IOutputChannel" /> の場合にのみ、バインド要素は <see cref="T:System.ServiceModel.Channels.IOutputSessionChannel" /> を返します。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
