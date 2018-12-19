@@ -1,5 +1,5 @@
 <Type Name="AssemblyLoadContext" FullName="System.Runtime.Loader.AssemblyLoadContext">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="1a5798f3c81e8fb04f46cc72b9ff78a79f39acec" /><Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="08/24/2018" /><Meta Name="ms.locfileid" Value="36536421" /></Metadata><TypeSignature Language="C#" Value="public abstract class AssemblyLoadContext" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="ed2cf140b87d2caa6495800889441797393a717e" /><Meta Name="ms.sourcegitcommit" Value="662f143e6be46d519ff8ab4451d543d91e651478" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/18/2018" /><Meta Name="ms.locfileid" Value="53567798" /></Metadata><TypeSignature Language="C#" Value="public abstract class AssemblyLoadContext" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit AssemblyLoadContext extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Runtime.Loader.AssemblyLoadContext" />
   <TypeSignature Language="VB.NET" Value="Public MustInherit Class AssemblyLoadContext" />
@@ -20,8 +20,54 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <summary>バインディングに関するランタイムのスコープの概念を表します。 このクラスは抽象クラスです。</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[
+
+## Remarks
+ <xref:System.Runtime.Loader.AssemblyLoadContext>読み込みコンテキストを表します。 概念的には、読み込みコンテキストでは、可能性のある一連のアセンブリをアンロードと読み込み、解決して、スコープを作成します。
+ 
+ <xref:System.Runtime.Loader.AssemblyLoadContext> は抽象クラスです。 <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType>具象クラスを作成するために実装する必要があります。
+ 
+ <xref:System.Runtime.Loader.AssemblyLoadContext>アセンブリ バインディングの分離を提供するには、主に存在します。 これにより、1 つのプロセス内で読み込まれる同じアセンブリの複数のバージョンができます。 複数によって提供される分離メカニズムに置き換えられます<xref:System.AppDomain>.NET Framework 内のインスタンス。
+ 
+ > [!NOTE]
+ > <xref:System.Runtime.Loader.AssemblyLoadContext> 任意のセキュリティ機能は提供されません。 すべてのコードでは、プロセスの完全なアクセス許可を持っています。
+
+### <a name="usage-in-the-runtime"></a>ランタイムでの使用状況
+ ランタイムは、2 つのアセンブリ読み込みコンテキストを実装します。 *<xref:System.Runtime.Loader.AssemblyLoadContext.Default?displayProperty=nameWithType>アプリケーションのメイン アセンブリとその静的の依存関係に使用されるランタイムの既定のバインディング コンテキストを表します。
+*、<xref:System.Reflection.Assembly.LoadFile(System.String)?displayProperty=nameWithType>メソッドは最も基本的なインスタンス化して読み込むアセンブリを分離<xref:System.Runtime.Loader.AssemblyLoadContext>します。 独自の各アセンブリを読み込みます単純な分離スキームが<xref:System.Runtime.Loader.AssemblyLoadContext>で依存関係解決策はありません。
+ 
+### <a name="application-usage"></a>アプリケーションの使用状況
+ アプリケーションを作成できます独自<xref:System.Runtime.Loader.AssemblyLoadContext>バインディング シナリオを高度なカスタム ソリューションを作成します。 カスタマイズは、依存関係の解決メカニズムの定義について説明します。
+ 
+ <xref:System.Runtime.Loader.AssemblyLoadContext>マネージ アセンブリの解決策を実装する 2 つの拡張ポイントを提供します。1. <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType>の最初の機会を提供します、<xref:System.Runtime.Loader.AssemblyLoadContext>アセンブリを解決するには、読み込むことと、それを返します。 場合、<xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType>返します`null`、ローダーにアセンブリをロードしようとしています、<xref:System.Runtime.Loader.AssemblyLoadContext.Default?displayProperty=nameWithType>します。
+2. 場合、<xref:System.Runtime.Loader.AssemblyLoadContext.Default?displayProperty=nameWithType>が元のアセンブリを解決できない<xref:System.Runtime.Loader.AssemblyLoadContext>アセンブリを解決する 2 番目のチャンスを取得します。 ランタイムを発生させます、<xref:System.Runtime.Loader.AssemblyLoadContext.Resolving>イベント。
+ 
+ さらに、<xref:System.Runtime.Loader.AssemblyLoadContext.LoadUnmanagedDll(System.String)?displayProperty=nameWithType>仮想メソッドは、既定の非管理対象のアセンブリ解決のカスタマイズを使用します。 既定の実装を返します`null`、これにより、ほとんどのシナリオである既定の検索ポリシーを使用するランタイム検索します。
+
+### <a name="technical-challenges"></a>技術的な課題
+ * 1 つのプロセスのランタイムの複数のバージョンを読み込むことはできません。
+     > [!CAUTION]
+     > 複数のコピーまたは異なるバージョンの framework アセンブリの読み込み中は、予期しないと問題の診断が困難につながります。
+     
+     > [!TIP]
+     > リモート処理やプロセス間通信プロセスの境界を使用して、この分離の問題を解決します。
+ 
+ * アセンブリの読み込みのタイミング、テストおよびデバッグ困難になります。 アセンブリはすぐに解決される、依存関係を持たない通常読み込まれます。 必要とされるため、依存関係が読み込まれます。
+     * ときに依存するアセンブリにコードを分岐します。
+     * ときにコードでは、リソースを読み込みます。
+     * ときにコードでは、明示的にアセンブリを読み込みます。
+ 
+ * 実装<xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType>に存在するさまざまなバージョンを許可するために分離する必要がありますが、新しい依存関係を追加することができます。 最も自然な実装は、既定のコンテキストでこれらの依存関係を配置するとします。 慎重に設計では、新しい依存関係を分離できます。
+ 
+ * バインドの分離プロセスでは、同じ型の名前を持つ複数の種類を作成します。
+     * これにより、わかりづらいエラー メッセージ、たとえば「Foo.Foo 型にキャストできません Foo.Foo を入力します」
+     * 分離の境界を越えてマーシャ リングすることが重要です。 一般的なソリューションは、既定の読み込みコンテキストにのみ読み込まれるアセンブリで定義されているインターフェイスを使用することです。
+ 
+ ]]></format>
+    </remarks>
+    <related type="Article" href="https://github.com/dotnet/coreclr/blob/master/Documentation/design-docs/assemblyloadcontext.md">AssemblyLoadContext CoreCLR の設計ドキュメント</related>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -43,8 +89,16 @@
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary><see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> クラスの新しいインスタンスを初期化します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+
+このコンストラクターは保護されています。 のみ呼び出すことができます、<xref:System.Runtime.Loader.AssemblyLoadContext>クラスまたはその派生クラス。
+
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Default">
@@ -69,8 +123,8 @@
         <ReturnType>System.Runtime.Loader.AssemblyLoadContext</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>既定の <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> を取得します。 既定のコンテキストには、メイン アプリケーション アセンブリとその静的依存関係が含まれます。</summary>
+        <value>既定のアセンブリ読み込みコンテキスト。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -99,10 +153,13 @@
         <Parameter Name="assemblyPath" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="assemblyPath">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assemblyPath">アセンブリへのパス。</param>
+        <summary>アセンブリ パスの <see cref="T:System.Reflection.AssemblyName" /> を取得します。</summary>
+        <returns><paramref name="assemblyPath" /> にあるアセンブリのすべて解析されたアセンブリ名を格納するオブジェクト。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><paramref name="assemblyPath" /> は <see langword="null" /> です。</exception>
+        <exception cref="T:System.IO.FileNotFoundException">アセンブリが見つかりません。</exception>
+        <exception cref="T:System.BadImageFormatException">アセンブリは、有効なアセンブリではありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="GetLoadContext">
@@ -129,10 +186,11 @@
         <Parameter Name="assembly" Type="System.Reflection.Assembly" />
       </Parameters>
       <Docs>
-        <param name="assembly">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assembly">アセンブリ。</param>
+        <summary>指定された <see cref="T:System.Reflection.Assembly" /> を含む <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> を取得します。</summary>
+        <returns><paramref name="assembly" /> を含むアセンブリ読み込みコンテキスト。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><paramref name="assembly" /> は <see langword="null" /> です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Load">
@@ -159,10 +217,20 @@
         <Parameter Name="assemblyName" Type="System.Reflection.AssemblyName" />
       </Parameters>
       <Docs>
-        <param name="assemblyName">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="assemblyName">読み込むアセンブリを記述するオブジェクト。</param>
+        <summary>派生クラス内でオーバーライドされると、<see cref="T:System.Reflection.AssemblyName" /> に基づいてアセンブリを解決して読み込むことができます。</summary>
+        <returns>読み込まれるアセンブリ。または <see langword="null" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+ 
+## Remarks
+ アセンブリの解決時に、<xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)>メソッドには、読み込まれたアセンブリに、アセンブリ名を解決するのには、ファースト チャンスです。 アセンブリを読み込むか、返すことできます`null`します。 返された場合`null`、解像度処理が続行されます。 参照してください<xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName(System.Reflection.AssemblyName)>の完全なプロセスの説明。
+ 
+ > [!IMPORTANT]
+ > 再帰的なスタック オーバーフローを防ぐためには、呼び出さないでくださいこのインスタンスの<xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName(System.Reflection.AssemblyName)>このメソッドからのメソッド。
+ 
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="LoadFromAssemblyName">
@@ -189,10 +257,32 @@
         <Parameter Name="assemblyName" Type="System.Reflection.AssemblyName" />
       </Parameters>
       <Docs>
-        <param name="assemblyName">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="assemblyName">読み込むアセンブリについて記述しているオブジェクト。</param>
+        <summary><see cref="T:System.Reflection.AssemblyName" /> を指定してアセンブリを解決して読み込みます。</summary>
+        <returns>読み込まれるアセンブリ。またはスローされます。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+ <xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName%2A> 解決することでアセンブリを読み込み、<xref:System.Reflection.AssemblyName>します。 これは、フル解像度をトリガーします。 解像度の代替シーケンスは、このプロセスを次に示します。1. メソッド呼び出し<xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)>します。
+         > [!IMPORTANT]
+         > <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)> must not call this method to prevent recursive stack overflow.
+     2. Unless the assembly is loaded or an exception is thrown, the method attempts to load the assembly in the default <xref:System.Runtime.Loader.AssemblyLoadContext>.
+     3. Unless the assembly is loaded or an exception is thrown, the method fires the <xref:System.Runtime.Loader.AssemblyLoadContext.Resolving> event.
+     4. Unless the assembly is loaded or an exception is thrown, the method fires the <xref:System.AppDomain.AssemblyResolve> event.
+ 
+ > [!NOTE]
+ > <xref:System.IO.FileLoadException> 場合にスローされる`assemblyRef`完全なアセンブリ名と簡易名に一致する最初のアセンブリは、互換性のないバージョンまたはカルチャを指定します。 ローダーは、単純な名前と一致する他のアセンブリのプローブを続行できません。
+ 
+ 各<xref:System.Runtime.Loader.AssemblyLoadContext>のみ読み込むことができます。 * 実行可能アセンブリの 1 つのバージョン。
+* 各カルチャのサテライト アセンブリの 1 つのバージョンです。
+ 
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException"><paramref name="assemblyName" /> は <see langword="null" /> です。</exception>
+        <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyName" /> が見つかりません。</exception>
+        <exception cref="T:System.BadImageFormatException"><paramref name="assemblyName" /> は正しいアセンブリではありません。</exception>
+        <exception cref="T:System.IO.FileLoadException"><paramref name="assemblyName" /> と一致しないアセンブリまたはモジュールが読み込まれました。</exception>
       </Docs>
     </Member>
     <Member MemberName="LoadFromAssemblyPath">
@@ -220,10 +310,15 @@
         <Parameter Name="assemblyPath" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="assemblyPath">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assemblyPath">読み込むファイルの完全修飾パス。</param>
+        <summary>指定したパスのアセンブリ ファイルの内容を読み込みます。</summary>
+        <returns>読み込まれるアセンブリ。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException"><paramref name="assemblyPath" /> 引数が絶対パスではありません。</exception>
+        <exception cref="T:System.ArgumentNullException"><paramref name="assemblyPath" /> パラメーターが <see langword="null" /> です。</exception>
+        <exception cref="T:System.IO.FileLoadException">検出されたファイルを読み込めませんでした。</exception>
+        <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyPath" /> パラメーターが空の文字列 ("") になっているか、存在しません。</exception>
+        <exception cref="T:System.BadImageFormatException"><paramref name="assemblyPath" /> は正しいアセンブリではありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="LoadFromNativeImagePath">
@@ -252,11 +347,26 @@
         <Parameter Name="assemblyPath" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="nativeImagePath">To be added.</param>
-        <param name="assemblyPath">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="nativeImagePath">読み込むファイルの完全修飾パス。</param>
+        <param name="assemblyPath">読み込むファイルの IL バージョンの完全修飾パス。または <see langword="null" />。</param>
+        <summary>指定したパスにあるマネージド アセンブリ ファイルのネイティブ イメージの内容を読み込みます。</summary>
+        <returns>読み込まれるアセンブリ。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+ マネージ アセンブリのネイティブ イメージでは、特定のプラットフォームで実行されているを最適化するには、jit です。
+ 
+ アセンブリのパスは、アセンブリの IL バージョンへのパスを参照します。 省略可能な引数は、IL は通常、ネイティブ イメージに含まれていることです。 使用できます、ランタイムによってフォールバックとしてネイティブ イメージが見つからない場合。
+ 
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException"><paramref name="nativeImagePath" /> 引数が絶対パスではありません。</exception>
+        <exception cref="T:System.ArgumentException"><paramref name="assemblyPath" /> 引数が絶対パスではありません。</exception>
+        <exception cref="T:System.ArgumentNullException"><paramref name="nativeImagePath" /> パラメーターが <see langword="null" /> です。</exception>
+        <exception cref="T:System.IO.FileLoadException">検出されたファイルを読み込めませんでした。</exception>
+        <exception cref="T:System.IO.FileNotFoundException"><paramref name="nativeImagePath" /> パラメーターが空の文字列 ("") になっているか、存在しません。</exception>
+        <exception cref="T:System.BadImageFormatException"><paramref name="assemblyPath" /> は正しいアセンブリではありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="LoadFromStream">
@@ -283,10 +393,12 @@
         <Parameter Name="assembly" Type="System.IO.Stream" />
       </Parameters>
       <Docs>
-        <param name="assembly">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assembly">マネージド アセンブリを含む COFF ベースのイメージであるバイト配列。</param>
+        <summary>マネージド アセンブリを含む COFF (Common Object File Format) ベースのイメージを使用して、アセンブリを読み込みます。</summary>
+        <returns>読み込まれるアセンブリ。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><paramref name="assembly" /> は <see langword="null" /> です。</exception>
+        <exception cref="T:System.BadImageFormatException"><paramref name="assembly" /> は正しいアセンブリではありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="LoadFromStream">
@@ -314,11 +426,13 @@
         <Parameter Name="assemblySymbols" Type="System.IO.Stream" />
       </Parameters>
       <Docs>
-        <param name="assembly">To be added.</param>
-        <param name="assemblySymbols">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assembly">マネージド アセンブリを含む COFF ベースのイメージであるバイト配列。</param>
+        <param name="assemblySymbols">アセンブリのシンボルを表す生バイトを格納するバイト配列。</param>
+        <summary>マネージド アセンブリが含まれている COFF (Common Object File Format) ベースのイメージを使用して、このアセンブリを読み込みます。アセンブリのシンボルを含めることもできます。</summary>
+        <returns>読み込まれるアセンブリ。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><paramref name="assembly" /> は <see langword="null" /> です。</exception>
+        <exception cref="T:System.BadImageFormatException"><paramref name="assembly" /> は正しいアセンブリではありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="LoadUnmanagedDll">
@@ -346,10 +460,19 @@
         <Parameter Name="unmanagedDllName" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="unmanagedDllName">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="unmanagedDllName">アンマネージ ライブラリの名前。 通常、これはパスまたは拡張子を含まないファイル名です。</param>
+        <summary>名前を指定してアンマネージ ライブラリを読み込むことを派生クラスに許可します。</summary>
+        <returns>読み込まれたライブラリのハンドル。または <see langword="null" />。</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+ 既定の実装を常に戻り`null`します。 ときに`null`返されるか、ランタイムは既定のポリシーでライブラリを読み込みます。
+ 
+ アンマネージ ライブラリの検索アルゴリズムをカスタマイズするのには、この仮想メソッドをオーバーライドできます。 オーバーライドされた場合、名前は、ライブラリを識別するために使用できます。 読み込まれたライブラリは、要求と一致する必要はありませんが、必要に応じて変換することができます。 これには、プラットフォーム固有の名前付けの名前を調整することが含まれます。
+ 
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="LoadUnmanagedDllFromPath">
@@ -377,10 +500,13 @@
         <Parameter Name="unmanagedDllPath" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="unmanagedDllPath">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="unmanagedDllPath">アンマネージ ライブラリのパス。</param>
+        <summary>指定したパスからアンマネージ ライブラリを読み込みます。</summary>
+        <returns>読み込まれたライブラリのハンドル。</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><paramref name="unmanagedDllPath" /> は <see langword="null" /> です。</exception>
+        <exception cref="T:System.ArgumentException"><paramref name="unmanagedDllPath" /> 引数が絶対パスではありません。</exception>
+        <exception cref="T:System.IO.FileNotFoundException">アンマネージ ライブラリが見つかりません。</exception>
       </Docs>
     </Member>
     <Member MemberName="Resolving">
@@ -405,8 +531,22 @@
         <ReturnType>System.Func&lt;System.Runtime.Loader.AssemblyLoadContext,System.Reflection.AssemblyName,System.Reflection.Assembly&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>このアセンブリ読み込みコンテキストに読み込もうとしたときにアセンブリの解決に失敗したときに発生します。</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+ 指定されているアセンブリを返すかを返すには、このイベントのハンドラーの役目です`null`アセンブリが認識されない場合。
+ 
+ > [!IMPORTANT]
+ >  イベント ハンドラーがない値を返すまでに、イベント ハンドラーが順序で呼び出されます場合、このイベントの 1 つ以上のイベント ハンドラーが登録されている、`null`します。 後続のイベント ハンドラーは無視されます。
+ 
+ イベントの処理の詳細については、「[処理とイベントの発生](~/docs/standard/events/index.md)」を参照してください。
+ 
+ いずれかでこのイベントのハンドラーを追加できることは<xref:System.Runtime.Loader.AssemblyLoadContext>既定のコンテキストを含むです。
+ 
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="SetProfileOptimizationRoot">
@@ -491,7 +631,7 @@
         <ReturnType>System.Action&lt;System.Runtime.Loader.AssemblyLoadContext&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
+        <summary><see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> がアンロードされた時点で発生します。</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
