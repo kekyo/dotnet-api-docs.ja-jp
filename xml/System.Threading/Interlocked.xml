@@ -1,5 +1,5 @@
 <Type Name="Interlocked" FullName="System.Threading.Interlocked">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="a8c91429c4211b1e1da8ab9a2544c92e96f992ae" /><Meta Name="ms.sourcegitcommit" Value="1654a92bac785a221098172d9cacd405ceaac9b7" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/01/2018" /><Meta Name="ms.locfileid" Value="52732252" /></Metadata><TypeSignature Language="C#" Value="public static class Interlocked" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="3b2fdb41b1e5f8614494e0d69b0a97131cab338e" /><Meta Name="ms.sourcegitcommit" Value="662f143e6be46d519ff8ab4451d543d91e651478" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/18/2018" /><Meta Name="ms.locfileid" Value="53567031" /></Metadata><TypeSignature Language="C#" Value="public static class Interlocked" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Interlocked extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Threading.Interlocked" />
   <TypeSignature Language="VB.NET" Value="Public Class Interlocked" />
@@ -526,7 +526,7 @@
 ## Remarks
 
 > [!IMPORTANT]
-> .NET Framework 2.0 以降、<xref:System.Threading.Interlocked.CompareExchange%60%601%28%60%600%40%2C%60%600%2C%60%600%29>メソッドのオーバー ロードは、参照型の場合、タイプ セーフな代替手段を提供します。 このオーバー ロードではなく呼び出すことをお勧めします。
+> .NET Framework 2.0 より、<xref:System.Threading.Interlocked.CompareExchange%60%601%28%60%600%40%2C%60%600%2C%60%600%29> メソッド オーバーロードから参照型に対してタイプ セーフの代替が提供されます。 このオーバー ロードではなく呼び出すことをお勧めします。
 
 場合`comparand`内のオブジェクトと`location1`しが参照によって等しい`value`に格納されて`location1`します。 それ以外の場合は演算が実行されません。 比較および交換操作はアトミック操作として実行されます。 戻り値<xref:System.Threading.Interlocked.CompareExchange%2A>の元の値は、`location1`交換が行われているかどうかを示す、します。  
 
@@ -741,7 +741,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- このメソッドがラッピングによってオーバーフロー条件を処理します。 場合`location`  =  <xref:System.Int32.MinValue?displayProperty=nameWithType>、 `location` - 1 =<xref:System.Int32.MaxValue?displayProperty=nameWithType>します。 例外をスローすることはありません。  
+ このメソッドは、ラップすることによってオーバーフロー状態を処理します。場合`location`  =  <xref:System.Int32.MinValue?displayProperty=nameWithType>、 `location` - 1 =<xref:System.Int32.MaxValue?displayProperty=nameWithType>します。 例外をスローすることはありません。  
   
    
   
@@ -1093,7 +1093,7 @@
 ## Remarks
 
 > [!IMPORTANT]
-> .NET Framework 2.0 以降、<xref:System.Threading.Interlocked.Exchange%60%601%28%60%600%40%2C%60%600%29>メソッドのオーバー ロードは、参照型の場合、タイプ セーフな代替手段を提供します。 このオーバー ロードではなく呼び出すことをお勧めします。
+> .NET Framework 2.0 より、<xref:System.Threading.Interlocked.Exchange%60%601%28%60%600%40%2C%60%600%29> メソッド オーバーロードから参照型に対してタイプ セーフの代替が提供されます。 このオーバー ロードではなく呼び出すことをお勧めします。
 
  ]]></format>
         </remarks>
@@ -1395,7 +1395,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>メモリ アクセスを同期します。現在のスレッドを実行中のプロセッサは、<see cref="M:System.Threading.Interlocked.MemoryBarrier" /> を呼び出す前のメモリ アクセスを <see cref="M:System.Threading.Interlocked.MemoryBarrier" /> の呼び出し後のメモリ アクセス以降に実行するように命令を並べ替えることはできなくなります。</summary>
+        <summary>メモリへのアクセスを次のように同期します。現在のスレッドを実行するプロセッサは、<see cref="M:System.Threading.Interlocked.MemoryBarrier" /> を呼び出す前のメモリ アクセスを <see cref="M:System.Threading.Interlocked.MemoryBarrier" /> の呼び出し後のメモリ アクセスより後に実行するように命令を並べ替えることはできません。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1434,8 +1434,24 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>すべての CPU からの読み取りと書き込みがバリアを超えて移動できるように、プロセス全体のメモリ バリアを提供します。</summary>
+        <remarks>  
+          <format type="text/markdown"><![CDATA[  
+
+`MemoryBarrierProcessWide`メソッドは、"normal"によって異なります。<xref:System.Threading.Interlocked.MemoryBarrier%2A>メソッドとして、次のとおりです。
+
+- 通常のメモリ バリアはにより、読み取りと書き込みを現在の CPU からは、バリアの間で移動できません。 任意の読み取りまたは書き込みプロセス全体のメモリ バリアによって任意の CPU からプロセスで使用されている、境界を越えた移動できません。
+
+- 場合、通常メモリ バリアが妥当な共有アクセスを許可*すべて*データにアクセスするスレッドがバリアを使用します。 プロセス全体のメモリ バリア フォース*他 Cpu*プロセス メモリ (たとえば、フラッシュ バッファーの書き込みし、読み取りバッファーを同期する) と同期します。 これにより、一部のスレッドで非インタロックされた操作と、まだ適切な共有アクセスします。 
+
+- 通常のメモリ バリアは、非常に小さいオーバーヘッドです。通常のインタロックされた操作では、サイクルの数が 100 よりも少ない可能性がありますコスト。 プロセス全体のメモリ バリアは非常に不経済です。 プロセス内のすべての CPU を強制する必要がある何千ものサイクルの予想されるコストに何を実行します。 
+
+`MemoryBarrierProcessWide`メソッドはロック制御不要のプログラミングのすべての微妙なからも低下します。 ただし、実際にはまれですを呼び出す必要がある場合、このメソッドは非常に便利なできます。
+
+このメソッドの呼び出しをラップする[FlushProcessWriteBuffers](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-flushprocesswritebuffers) Windows 上と[sys_membarrier](https://lore.kernel.org/patchwork/patch/188708/) Linux 上。
+
+         ]]></format>
+         </remarks>
       </Docs>
     </Member>
     <Member MemberName="Read">
