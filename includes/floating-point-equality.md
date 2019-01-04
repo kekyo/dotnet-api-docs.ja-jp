@@ -1,0 +1,4 @@
+
+> [!IMPORTANT]
+>  <span data-ttu-id="f478a-101">中間値を丸める際は、丸め処理アルゴリズムによって等値テストが実行されます。</span><span class="sxs-lookup"><span data-stu-id="f478a-101">When rounding midpoint values, the rounding algorithm performs an equality test.</span></span> <span data-ttu-id="f478a-102">浮動小数点形式での精度およびバイナリ表現における問題により、メソッドによって返される値が予測不可能な場合があります。</span><span class="sxs-lookup"><span data-stu-id="f478a-102">Because of problems of binary representation and precision in the floating-point format, the value returned by the method can be unexpected.</span></span> <span data-ttu-id="f478a-103">詳細については、「[丸め処理や有効桁数](xref:System.Math.Round%2A#rounding-and-precision)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="f478a-103">For more information, see ["Rounding and precision"](xref:System.Math.Round%2A#rounding-and-precision).</span></span>
+
