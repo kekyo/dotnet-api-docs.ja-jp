@@ -1,5 +1,5 @@
 <Type Name="ThreadState" FullName="System.Threading.ThreadState">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="b8710dc07ad77b4f8e2660f7d8cb94d2994182e8" /><Meta Name="ms.sourcegitcommit" Value="c0c07dbd19cd7017243f9ac36915755f79bc8da6" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="11/27/2018" /><Meta Name="ms.locfileid" Value="52356548" /></Metadata><TypeSignature Language="C#" Value="public enum ThreadState" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="de9dafba87efb71f60dbaa21b02c02c97ede1712" /><Meta Name="ms.sourcegitcommit" Value="19b66619a469ee45c85c618f8a605859882eb638" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="01/10/2019" /><Meta Name="ms.locfileid" Value="54183773" /></Metadata><TypeSignature Language="C#" Value="public enum ThreadState" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed ThreadState extends System.Enum" />
   <TypeSignature Language="DocId" Value="T:System.Threading.ThreadState" />
   <TypeSignature Language="VB.NET" Value="Public Enum ThreadState" />
@@ -42,12 +42,16 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ThreadState>列挙体は、いくつかにのみ関心のシナリオをデバッグします。 コードは、スレッドのアクティビティを同期するのにスレッドの状態を使用しないでください必要があります。  
+  `ThreadState`列挙体は、スレッドのすべての可能な実行状態のセットを定義します。 いくつかにのみ関心のシナリオをデバッグします。 コードは、スレッドのアクティビティを同期するのにスレッドの状態を使用しないでください必要があります。  
   
- <xref:System.Threading.ThreadState> スレッドのすべての可能な実行状態のセットを定義します。 スレッドを作成すると、それが終了するまで少なくとも 1 つの状態には。 共通言語ランタイム内で作成されたスレッドは最初に、`Unstarted`状態では、ランタイムに付属している外部のスレッドが既に中に、`Running`状態。 `Unstarted`にスレッドが遷移した、`Running`呼び出して状態<xref:System.Threading.Thread.Start%2A>します。 すべての組み合わせ`ThreadState`有効な値は、たとえば、スレッドが両方にすることはできません、`Aborted`と`Unstarted`状態。  
+  スレッドを作成すると、それが終了するまで少なくとも 1 つの状態には。 共通言語ランタイム内で作成されたスレッドは最初に、<xref:System.Threading.ThreadState.Unstarted>放置すると、ランタイムに付属しているスレッドが既に開始状態では、外部の中に、または、<xref:System.Threading.ThreadState.Running>状態。 スレッドが遷移した、<xref:System.Threading.ThreadState.Unstarted>状態へ、<xref:System.Threading.ThreadState.Running>呼び出して状態<xref:System.Threading.Thread.Start%2A?displayProperty=nameWithType>します。 スレッドは、 <xref:System.Threading.ThreadState.Unstarted> への呼び出しの結果として <xref:System.Threading.Thread.Start%2A>状態から出ると、 <xref:System.Threading.ThreadState.Unstarted> 状態に戻ることはできません。  
+
+  スレッドは、特定の時点では、複数の状態であることができます。 呼び出しでスレッドがブロックされている場合など<xref:System.Threading.Monitor.Wait%2A?displayProperty=nameWithType>、および別のスレッド呼び出し<xref:System.Threading.Thread.Abort%2A?displayProperty=nameWithType>両方であるが、ブロックされたスレッドでは、ブロックされたスレッド、<xref:System.Threading.ThreadState.WaitSleepJoin>と<xref:System.Threading.ThreadState.AbortRequested>と同時に状態。 この場合、呼び出しからスレッドが戻るとすぐに<xref:System.Threading.Monitor.Wait%2A?displayProperty=nameWithType>または受信する中断されると、<xref:System.Threading.ThreadAbortException>中止を開始します。 すべての組み合わせ`ThreadState`有効な値は、たとえば、スレッドが両方にすることはできません、<xref:System.Threading.ThreadState.Aborted>と<xref:System.Threading.ThreadState.Unstarted>状態。  
+
+  また、スレッドは <xref:System.Threading.ThreadState.Stopped> 状態から出ることはできません。  
   
 > [!IMPORTANT]
->  2 つのスレッドの状態の列挙型がある:<xref:System.Threading.ThreadState?displayProperty=nameWithType>と<xref:System.Diagnostics.ThreadState?displayProperty=nameWithType>します。  
+> 2 つのスレッドの状態の列挙型がある:<xref:System.Threading.ThreadState?displayProperty=nameWithType>と<xref:System.Diagnostics.ThreadState?displayProperty=nameWithType>します。  
   
  次の表では、状態の変更が発生するアクションを示します。  
   
@@ -56,20 +60,18 @@
 |共通言語ランタイム内のスレッドが作成されます。|<xref:System.Threading.ThreadState.Unstarted>|  
 |別のスレッドの呼び出し、<xref:System.Threading.Thread.Start%2A?displayProperty=nameWithType>新しいスレッドの呼び出しでメソッドを返します。<br /><br /> <xref:System.Threading.Thread.Start%2A>メソッドでは、新しいスレッドの実行が開始されるまでは返されません。 呼び出し中に実行します。 どの時点で、新しいスレッドが開始されますを知る方法はありません<xref:System.Threading.Thread.Start%2A>します。|<xref:System.Threading.ThreadState.Running>|  
 |スレッドの呼び出し <xref:System.Threading.Thread.Sleep%2A>|<xref:System.Threading.ThreadState.WaitSleepJoin>|  
-|スレッドが別のオブジェクトで <xref:System.Threading.Monitor.Wait%2A> を呼び出す。|<xref:System.Threading.ThreadState.WaitSleepJoin>|  
+|スレッドが別のオブジェクトで <xref:System.Threading.Monitor.Wait%2A?displayProperty=nameWithType> を呼び出す。|<xref:System.Threading.ThreadState.WaitSleepJoin>|  
 |スレッドが別のスレッドで <xref:System.Threading.Thread.Join%2A> を呼び出す。|<xref:System.Threading.ThreadState.WaitSleepJoin>|  
 |別のスレッドの呼び出し <xref:System.Threading.Thread.Interrupt%2A>|<xref:System.Threading.ThreadState.Running>|  
 |別のスレッドの呼び出し <xref:System.Threading.Thread.Suspend%2A>|<xref:System.Threading.ThreadState.SuspendRequested>|  
 |スレッドが <xref:System.Threading.Thread.Suspend%2A> 要求に応答する。|<xref:System.Threading.ThreadState.Suspended>|  
 |別のスレッドの呼び出し <xref:System.Threading.Thread.Resume%2A>|<xref:System.Threading.ThreadState.Running>|  
 |別のスレッドの呼び出し <xref:System.Threading.Thread.Abort%2A>|<xref:System.Threading.ThreadState.AbortRequested>|  
-|スレッドが <xref:System.Threading.Thread.Abort%2A> 要求に応答する。|<xref:System.Threading.ThreadState.Stopped>|  
-|スレッドが終了します。|停止|  
+|スレッドに応答する、<xref:System.Threading.Thread.Abort%2A>要求。|<xref:System.Threading.ThreadState.Stopped>|  
+|スレッドが終了します。|<xref:System.Threading.ThreadState.Stopped>|  
   
- 上記の状態、に加えても、<xref:System.Threading.ThreadState.Background>状態で、スレッドが背景または前景で実行されているかどうかを示します。  
-  
- スレッドは、特定の時点では、複数の状態であることができます。 呼び出しでスレッドがブロックされている場合など、<xref:System.Threading.Monitor.Wait%2A>と別のスレッド呼び出し<xref:System.Threading.Thread.Abort%2A>両方であるが、ブロックされたスレッドでは、ブロックされたスレッド、<xref:System.Threading.ThreadState.WaitSleepJoin>と<xref:System.Threading.ThreadState.AbortRequested>と同時に状態。 この場合、呼び出しからスレッドが戻るとすぐに<xref:System.Threading.Monitor.Wait%2A>または受信する中断されると、<xref:System.Threading.ThreadAbortException>中止を開始します。  
-  
+ 上記の状態、に加えても、<xref:System.Threading.ThreadState.Background>状態で、スレッドが背景または前景で実行されているかどうかを示します。 詳細については、「[フォアグラウンド スレッドとバックグラウンド スレッド](~/docs/standard/threading/foreground-and-background-threads.md)」を参照してください。  
+   
  <xref:System.Threading.Thread.ThreadState%2A?displayProperty=nameWithType>スレッドのプロパティは、スレッドの現在の状態を提供します。 アプリケーションでは、スレッドが実行されているかどうかを決定するのにビット マスクを使用する必要があります。 値以降<xref:System.Threading.ThreadState.Running>はゼロ (0)、次のコードによって、スレッドが実行されているかどうかをテストします。
 
 ```csharp
@@ -83,7 +85,6 @@
  ]]></format>
     </remarks>
     <altmember cref="T:System.Threading.Thread" />
-    <related type="Article" href="~/docs/standard/threading/managed-thread-states.md">マネージド スレッドの状態</related>
   </Docs>
   <Members>
     <Member MemberName="Aborted">
