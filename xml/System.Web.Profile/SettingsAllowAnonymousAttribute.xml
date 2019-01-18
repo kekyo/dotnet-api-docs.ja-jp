@@ -1,5 +1,5 @@
 <Type Name="SettingsAllowAnonymousAttribute" FullName="System.Web.Profile.SettingsAllowAnonymousAttribute">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="6eac8ebde968ee41be2510824da9536790645a85" /><Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="11/17/2018" /><Meta Name="ms.locfileid" Value="51925447" /></Metadata><TypeSignature Language="C#" Value="public sealed class SettingsAllowAnonymousAttribute : Attribute" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="e9df9cb5ee47ebc17d34bc93d802714c11078de1" /><Meta Name="ms.sourcegitcommit" Value="112ca25eddde8ac8b788d67c406b7745ba914261" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="01/15/2019" /><Meta Name="ms.locfileid" Value="54312232" /></Metadata><TypeSignature Language="C#" Value="public sealed class SettingsAllowAnonymousAttribute : Attribute" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit SettingsAllowAnonymousAttribute extends System.Attribute" />
   <TypeSignature Language="DocId" Value="T:System.Web.Profile.SettingsAllowAnonymousAttribute" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class SettingsAllowAnonymousAttribute&#xA;Inherits Attribute" />
@@ -25,95 +25,56 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.Profile.SettingsAllowAnonymousAttribute>クラスは、ユーザーが匿名ユーザーの場合、カスタム プロファイル実装のプロパティをアクセスできるかどうかを識別するために使用されます。 匿名 id を有効にする方法については、構成要素に指定されたドキュメントを参照してください。  
+ <xref:System.Web.Profile.SettingsAllowAnonymousAttribute>クラスは、ユーザーが匿名ユーザーの場合、カスタム プロファイル実装のプロパティをアクセスできるかどうかを識別するために使用されます。 匿名 id を有効にする方法については、指定されたドキュメントを参照して、 [anonymousIdentification](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/91ka2e6a(v%3dvs.100))構成要素。  
   
  ない場合は<xref:System.Web.Profile.SettingsAllowAnonymousAttribute>のプロファイル プロパティ、プロファイル プロパティの匿名アクセスが許可されていませんが指定されています。  
   
- カスタム プロファイル実装が継承するクラス、<xref:System.Web.Profile.ProfileBase>クラスを抽象化し、ユーザー プロファイルの構成要素で指定されていないプロパティを定義します。 アプリケーションの Web.config ファイルで、カスタムのユーザー プロファイルの種類を指定することができます、`inherits`次の例に示すように構成要素の属性です。  
-  
- `<configuration>`  
-  
- `<connectionStrings>`  
-  
- `<add`  
-  
- `name="SqlServices"`  
-  
- `connectionString="Data Source=localhost;Integrated Security=SSPI;Initial Catalog=aspnetdb;" />`  
-  
- `</connectionStrings>`  
-  
- `<system.web>`  
-  
- `<authentication mode="Forms" >`  
-  
- `<forms`  
-  
- `loginUrl="login.aspx"`  
-  
- `name=".ASPXFORMSAUTH" />`  
-  
- `</authentication>`  
-  
- `<authorization>`  
-  
- `<deny users="?" />`  
-  
- `</authorization>`  
-  
- `<profile inherits="Samples.AspNet.Profile.EmployeeProfile"`  
-  
- `defaultProvider="SqlProvider">`  
-  
- `<providers>`  
-  
- `<clear />`  
-  
- `<add`  
-  
- `name="SqlProvider"`  
-  
- `type="System.Web.Profile.SqlProfileProvider"`  
-  
- `connectionStringName="SqlServices"`  
-  
- `description="SQL Profile Provider for Sample"/>`  
-  
- `<add`  
-  
- `name="EmployeeInfoProvider"`  
-  
- `type="System.Web.Profile.SqlProfileProvider"`  
-  
- `connectionStringName="SqlServices"`  
-  
- `description="SQL Profile Provider for Employee Info"/>`  
-  
- `</providers>`  
-  
- `<properties>`  
-  
- `<add name="GarmentSize" />`  
-  
- `</properties>`  
-  
- `</profile>`  
-  
- `</system.web>`  
-  
- `</configuration>`  
-  
-   
+ カスタム プロファイル実装が継承するクラス、<xref:System.Web.Profile.ProfileBase>抽象クラスとプロパティで指定されていないユーザー プロファイルを定義、[プロファイル](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/ms164644(v%3dvs.100))構成要素。 アプリケーションの Web.config ファイルで、カスタムのユーザー プロファイルの種類を指定することができます、`inherits`の属性、[プロファイル](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/ms164644(v%3dvs.100))構成要素の次の例に示すようにします。  
+
+ ```xml
+<configuration>  
+  <connectionStrings> 
+    <add name="SqlServices"  
+         connectionString="Data Source=localhost;Integrated Security=SSPI;Initial Catalog=aspnetdb;" />  
+  </connectionStrings>  
+  <system.web>  
+    <authentication mode="Forms" >  
+      <forms loginUrl="login.aspx"  
+             name=".ASPXFORMSAUTH" />  
+    </authentication>  
+    <authorization>  
+      <deny users="?" />  
+    </authorization>  
+    <profile inherits="Samples.AspNet.Profile.EmployeeProfile"  
+             defaultProvider="SqlProvider">  
+      <providers>  
+        <clear />  
+        <add name="SqlProvider"  
+             type="System.Web.Profile.SqlProfileProvider"  
+             connectionStringName="SqlServices"  
+             description="SQL Profile Provider for Sample"/>  
+        <add name="EmployeeInfoProvider"  
+             type="System.Web.Profile.SqlProfileProvider"  
+             connectionStringName="SqlServices"  
+             description="SQL Profile Provider for Employee Info"/>  
+      </providers>  
+      <properties>  
+        <add name="GarmentSize" />  
+      </properties>  
+    </profile>  
+  </system.web>  
+</configuration>  
+```  
   
 ## Examples  
- 次のコード例から継承するクラスを定義する、<xref:System.Web.Profile.ProfileBase>カスタム プロファイルを作成します。 カスタム プロファイルの種類がで指定された、`inherits`アプリケーションの Web.config ファイル内の構成要素の属性です。  
+ 次のコード例から継承するクラスを定義する、<xref:System.Web.Profile.ProfileBase>カスタム プロファイルを作成します。 カスタム プロファイルの種類がで指定された、`inherits`の属性、[プロファイル](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/ms164644(v%3dvs.100))アプリケーションの Web.config ファイル内の構成要素。  
   
  [!code-csharp[System.Web.Profile.ProfileBase#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Profile.ProfileBase/CS/employeeprofile.cs#1)]
  [!code-vb[System.Web.Profile.ProfileBase#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Profile.ProfileBase/VB/employeeprofile.vb#1)]  
   
  ]]></format>
     </remarks>
-    <related type="Article" href="https://msdn.microsoft.com/library/89439440-92ea-48c3-a4bd-dea40307899d">ASP.NET プロファイル プロパティの概要</related>
+    <related type="Article" href="https://docs.microsoft.com/previous-versions/2y3fs9xs(v=vs.140)">ASP.NET プロファイル プロパティの概要</related>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -144,23 +105,23 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.Profile.SettingsAllowAnonymousAttribute>クラスは、ユーザーが匿名ユーザーの場合、カスタム プロファイル実装のプロパティをアクセスできるかどうかを識別するために使用されます。 匿名 id を有効にする方法については、構成要素を参照してください。  
+ <xref:System.Web.Profile.SettingsAllowAnonymousAttribute>クラスは、ユーザーが匿名ユーザーの場合、カスタム プロファイル実装のプロパティをアクセスできるかどうかを識別するために使用されます。 匿名 id を有効にする方法については、次を参照してください。、 [anonymousIdentification](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/91ka2e6a(v%3dvs.100))構成要素。  
   
  ない場合は<xref:System.Web.Profile.SettingsAllowAnonymousAttribute>のプロファイル プロパティ、プロファイル プロパティへの匿名アクセスが許可されていませんが指定されています。  
   
- カスタム プロファイル実装が継承するクラス、<xref:System.Web.Profile.ProfileBase>クラスを抽象化し、ユーザー プロファイルの構成要素で指定されていないプロパティを定義します。  
+ カスタム プロファイル実装が継承するクラス、<xref:System.Web.Profile.ProfileBase>抽象クラスとプロパティで指定されていないユーザー プロファイルを定義、[プロファイル](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/ms164644(v%3dvs.100))構成要素。  
   
    
   
 ## Examples  
- 次の例から継承するクラスを定義する、<xref:System.Web.Profile.ProfileBase>カスタム プロファイルを作成するクラス。 カスタム プロファイルの種類がで指定された、`inherits`アプリケーションの Web.config ファイル内の構成要素の属性です。 カスタム プロファイル実装を指定する構成ファイルの例は、次を参照してください。、<xref:System.Web.Profile.SettingsAllowAnonymousAttribute>クラスの概要。  
+ 次の例から継承するクラスを定義する、<xref:System.Web.Profile.ProfileBase>カスタム プロファイルを作成するクラス。 カスタム プロファイルの種類がで指定された、`inherits`の属性、[プロファイル](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/ms164644(v%3dvs.100))アプリケーションの Web.config ファイル内の構成要素。 カスタム プロファイル実装を指定する構成ファイルの例は、次を参照してください。、<xref:System.Web.Profile.SettingsAllowAnonymousAttribute>クラスの概要。  
   
  [!code-csharp[System.Web.Profile.ProfileBase#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Profile.ProfileBase/CS/employeeprofile.cs#1)]
  [!code-vb[System.Web.Profile.ProfileBase#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Profile.ProfileBase/VB/employeeprofile.vb#1)]  
   
  ]]></format>
         </remarks>
-        <related type="Article" href="https://msdn.microsoft.com/library/89439440-92ea-48c3-a4bd-dea40307899d">ASP.NET プロファイル プロパティの概要</related>
+        <related type="Article" href="https://docs.microsoft.com/previous-versions/2y3fs9xs(v=vs.140)">ASP.NET プロファイル プロパティの概要</related>
       </Docs>
     </Member>
     <Member MemberName="Allow">
@@ -188,7 +149,7 @@
         <summary>ユーザーが匿名ユーザーである場合、そのユーザーが関連付けられたカスタム プロファイル実装のプロパティにアクセスできるかどうかを示す値を取得します。</summary>
         <value>関連付けられたプロファイル プロパティに匿名ユーザーがアクセスできる場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</value>
         <remarks>To be added.</remarks>
-        <related type="Article" href="https://msdn.microsoft.com/library/89439440-92ea-48c3-a4bd-dea40307899d">ASP.NET プロファイル プロパティの概要</related>
+        <related type="Article" href="https://docs.microsoft.com/previous-versions/2y3fs9xs(v=vs.140)">ASP.NET プロファイル プロパティの概要</related>
       </Docs>
     </Member>
     <Member MemberName="IsDefaultAttribute">
@@ -212,7 +173,7 @@
         <summary><see cref="P:System.Web.Profile.SettingsAllowAnonymousAttribute.Allow" /> プロパティが既定値に設定されているかどうかを示す値を取得します。</summary>
         <returns><see cref="P:System.Web.Profile.SettingsAllowAnonymousAttribute.Allow" /> プロパティが既定値に設定されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>To be added.</remarks>
-        <related type="Article" href="https://msdn.microsoft.com/library/89439440-92ea-48c3-a4bd-dea40307899d">ASP.NET プロファイル プロパティの概要</related>
+        <related type="Article" href="https://docs.microsoft.com/previous-versions/2y3fs9xs(v=vs.140)">ASP.NET プロファイル プロパティの概要</related>
       </Docs>
     </Member>
   </Members>
