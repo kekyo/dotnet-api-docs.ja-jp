@@ -1,5 +1,5 @@
 <Type Name="HttpClient" FullName="System.Net.Http.HttpClient">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="3b44ea987abd73ea55c4988dbcf16b845d245596" /><Meta Name="ms.sourcegitcommit" Value="adc8598fd19d91438cacaa8fa7ce613e28c8218e" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/11/2018" /><Meta Name="ms.locfileid" Value="53233095" /></Metadata><TypeSignature Language="C#" Value="public class HttpClient : System.Net.Http.HttpMessageInvoker" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="50674ebbb7fa95260ef9df597b4c302873920ae6" /><Meta Name="ms.sourcegitcommit" Value="8c966994f39ffe6e7c21611e9ec1b91247a68500" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="01/26/2019" /><Meta Name="ms.locfileid" Value="55084695" /></Metadata><TypeSignature Language="C#" Value="public class HttpClient : System.Net.Http.HttpMessageInvoker" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit HttpClient extends System.Net.Http.HttpMessageInvoker" />
   <TypeSignature Language="DocId" Value="T:System.Net.Http.HttpClient" />
   <TypeSignature Language="VB.NET" Value="Public Class HttpClient&#xA;Inherits HttpMessageInvoker" />
@@ -79,29 +79,50 @@ public class GoodController : ApiController
 | Windows と .NET Framework      | <xref:System.Net.HttpWebRequest>                                                          |
 | Windows/Mono                | <xref:System.Net.HttpWebRequest>                                                          |
 | Windows/UWP                 | Windows ネイティブ<xref:System.Net.Http.WinHttpHandler>(HTTP 2.0 対応)                   |
-| Windows と .NET Core           | Windows ネイティブ<xref:System.Net.Http.WinHttpHandler>(HTTP 2.0 対応)                   |
+| Windows と .NET Core 1.0 2.0   | Windows ネイティブ<xref:System.Net.Http.WinHttpHandler>(HTTP 2.0 対応)                   |
 | Android と Xamarin             | ビルド時に選択します。 使用するか<xref:System.Net.HttpWebRequest>か Android のネイティブを使用して構成します。 [`HttpURLConnection`](https://developer.xamarin.com/api/type/Java.Net.HttpURLConnection/) |
 | iOS、tvOS、watchOS/Xamarin  | ビルド時に選択します。 使用するか<xref:System.Net.HttpWebRequest>Apple を使用するように構成または[ `NSUrlSession` ](https://developer.xamarin.com/api/type/MonoTouch.Foundation.NSUrlSession/) (HTTP 2.0 対応) |
 | macOS/Xamarin               | ビルド時に選択します。 使用するか<xref:System.Net.HttpWebRequest>Apple を使用するように構成または[ `NSUrlSession` ](https://developer.xamarin.com/api/type/MonoTouch.Foundation.NSUrlSession/) (HTTP 2.0 対応) |
-| macOS/Mono                  | <xref:System.Net.HttpWebRequest>                                                                          |
-| macOS と .NET Core             | `libcurl`-ベースの HTTP トランスポート (HTTP 2.0 対応)                                         |
+| macOS/Mono                  | <xref:System.Net.HttpWebRequest>                                                          |
+| macOS と .NET Core 1.0 2.0     | `libcurl`-ベースの HTTP トランスポート (HTTP 2.0 対応)                                         |
 | Linux/Mono                  | <xref:System.Net.HttpWebRequest>                                                          |
-| Linux と .NET Core             | `libcurl`-ベースの HTTP トランスポート (HTTP 2.0 対応)                                         |
-
+| Linux と .NET Core 1.0 2.0     | `libcurl`-ベースの HTTP トランスポート (HTTP 2.0 対応)                                         |
+| .NET core 2.1 以降     | <xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType>                    |
 ユーザーが特定のトランスポートを構成できますも<xref:System.Net.Http.HttpClient>を呼び出すことによって、<xref:System.Net.Http.HttpClient.%23ctor*>を受け取るコンス トラクター、<xref:System.Net.Http.HttpMessageHandler>します。
 
 ### <a name="httpclient-and-net-core"></a>HttpClient および .NET Core
 
-.NET Core 2.1 では、以降、<xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType>クラスの代わりに`HttpClientHandler`などの上位レベルの HTTP ネットワーク クラスで使用される実装を提供します`HttpClient`します。 旧バージョンを使用するアプリケーションを構成する<xref:System.Net.Http.HttpClientHandler?displayProperty=nameWithType>代わりに呼び出すことによって、<xref:System.AppContext.SetSwitch%2A>メソッドとして、次のとおりです。
+.NET Core 2.1 では、以降、<xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType>クラスの代わりに`HttpClientHandler`などの上位レベルの HTTP ネットワーク クラスで使用される実装を提供します`HttpClient`します。 使用<xref:System.Net.Http.SocketsHttpHandler>いくつかの利点を提供しています。
 
-```csharp
-AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", false);
-```
+- 以前の実装と比較して、パフォーマンスが大幅に向上しています。
 
-```vb
-AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
-``` 
+- 展開とサービスを簡略化するプラットフォームの依存関係を除去します。 たとえば、 `libcurl` macOS と .NET Core の .NET Core への依存関係を for Linux が不要になった。
+
+- すべての .NET プラットフォーム間で一貫性のある動作。
+
+この変更が望ましくない場合は、旧バージョンを使用するアプリケーションを構成することができます<xref:System.Net.Http.HttpClientHandler?displayProperty=nameWithType>代わりにさまざまな方法で。
+
+- 呼び出すことによって、<xref:System.AppContext.SetSwitch%2A?displayProperty=nameWithType>メソッドとして、次のとおりです。
+
+   ```csharp
+   AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", false);
+   ```
+
+   ```vb
+   AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
+   ``` 
+- 定義することで、`System.Net.Http.useSocketsHttpHandler`に切り替え、 *. netcore.runtimeconfig.json*構成ファイル。
+
+  ```json
+  "runtimeOptions": {
+    "configProperties": {
+        "System.Net.Http.useSocketsHttpHandler": false
+    }
+  }
+  ```
   
+- という名前の環境変数を定義することで`DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER`いずれかに設定して`false`または 0。
+
 ## Examples  
  [!code-csharp[System.Net.Http.HttpClient#1](~/samples/snippets/csharp/VS_Snippets_Misc/system.net.http.httpclient/cs/source.cs#1)]  
   
@@ -110,7 +131,7 @@ AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
  ]]></format>
     </remarks>
     <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkID=245696">Web サービスに接続します。</related>
-    <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=245697">クイック スタート:HttpClient を使用して接続します。</related>
+    <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=245697">クイック スタート: HttpClient を使用して接続します。</related>
     <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=245699">HttpClient ハンドラーを使用する方法</related>
     <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=245698">HttpClient の接続をセキュリティで保護する方法</related>
     <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=242550">HttpClient のサンプル</related>

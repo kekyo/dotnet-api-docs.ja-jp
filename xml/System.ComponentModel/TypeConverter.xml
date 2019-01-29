@@ -1,5 +1,5 @@
 <Type Name="TypeConverter" FullName="System.ComponentModel.TypeConverter">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="1c9ac16caa10950fc51f35f4e2269cf46c0bbc4d" /><Meta Name="ms.sourcegitcommit" Value="1654a92bac785a221098172d9cacd405ceaac9b7" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/01/2018" /><Meta Name="ms.locfileid" Value="52740988" /></Metadata><TypeSignature Language="C#" Value="public class TypeConverter" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="6512b01a080b09edcfb87c36c82c1f8135951a18" /><Meta Name="ms.sourcegitcommit" Value="8c966994f39ffe6e7c21611e9ec1b91247a68500" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="01/26/2019" /><Meta Name="ms.locfileid" Value="55084682" /></Metadata><TypeSignature Language="C#" Value="public class TypeConverter" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit TypeConverter extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.ComponentModel.TypeConverter" />
   <TypeSignature Language="VB.NET" Value="Public Class TypeConverter" />
@@ -40,9 +40,9 @@
  コンバーターの最も一般的な型は、いずれかのテキスト表現との間に変換します。 クラスの型コンバーターを使用して、クラスにバインドする<xref:System.ComponentModel.TypeConverterAttribute>します。 この属性をオーバーライドすると、しない限り、このクラスから継承するすべてのクラスは基底クラスとして同じの型コンバーターを使用します。  
   
 > [!NOTE]
->  一般的な型システムの目的で、型コンバーターを直接アクセスしないでください。 代わりに、適切なコンバーターを使用してアクセス<xref:System.ComponentModel.TypeDescriptor>します。 詳細については、提供されたコード例を参照してください。  
-  
- **注**XAML の目的で、XAML プロセッサでの検索、<xref:System.ComponentModel.TypeConverterAttribute>経由ではなく、直接<xref:System.ComponentModel.TypeDescriptor>します。 行う必要がある場合の<xref:System.ComponentModel.TypeDescriptor>、コードからインスタンス、または WPF での共有インスタンスを作成するリソースを参照することがなく直接構築に許容される<xref:System.ComponentModel.TypeDescriptor>または他のリフレクションと型システムをサポートします。  
+>  一般的な型システムの目的で、型コンバーターを直接アクセスしないでください。 代わりに、適切なコンバーターを使用してアクセス<xref:System.ComponentModel.TypeDescriptor>します。 詳細については、提供されたコード例を参照してください。 
+>
+> ただし、XAML を使用する場合、XAML プロセッサを検索、<xref:System.ComponentModel.TypeConverterAttribute>経由ではなく、直接<xref:System.ComponentModel.TypeDescriptor>します。 行う必要がある場合の<xref:System.ComponentModel.TypeDescriptor>、コードからインスタンス、または WPF での共有インスタンスを作成するリソースを参照することがなく直接構築に許容される<xref:System.ComponentModel.TypeDescriptor>または他のリフレクションと型システムをサポートします。  
   
  派生したクラス<xref:System.ComponentModel.TypeConverter>(これは文字列では本質的に) マークアップから XAML プロセッサが属性または初期化のテキスト値に変換する方法の一部として参照される多くの場合、実行時の表現のオブジェクトを生成します。 通常、XAML の型変換の動作をサポートするカスタム型の作成者が実装を<xref:System.ComponentModel.TypeConverter>独自一意をサポートするクラス`ConvertFrom`文字列からの動作。 この動作は、XAML 属性の値として指定された文字列からの型変換を使用し、解析されたオブジェクト グラフのオブジェクトを生成できるように、文字列からオブジェクトを作成するために必要なサポートと XAML プロセッサを提供します。 カスタムの型またはカスタムの型のメンバーが適用することによって示される<xref:System.ComponentModel.TypeConverterAttribute>、定義の属性を持つ参照カスタム<xref:System.ComponentModel.TypeConverter>実装します。 詳細については、次を参照してください。 [XAML の概要の型コンバーターの](~/docs/framework/xaml-services/type-converters-for-xaml-overview.md)します。  
   
@@ -82,20 +82,20 @@
  ]]></format>
     </remarks>
     <block subset="none" type="overrides"><para>継承<see cref="T:System.ComponentModel.TypeConverter" />変換要件を実装します。 このクラスから継承する場合は、次のメソッドをオーバーライドできます。 
-、カスタムの型変換をサポートするにはオーバーライド、 <see cref="M:System.ComponentModel.TypeConverter.CanConvertFrom(System.Type)" />、 <see cref="M:System.ComponentModel.TypeConverter.CanConvertTo(System.Type)" />、 <see cref="M:System.ComponentModel.TypeConverter.ConvertFrom(System.Object)" />、および<see cref="M:System.ComponentModel.TypeConverter.ConvertTo(System.Object,System.Type)" />メソッド。  
+、カスタムの型変換をサポートするにはオーバーライド、 <see cref="M:System.ComponentModel.TypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)" />、 <see cref="M:System.ComponentModel.TypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)" />、 <see cref="M:System.ComponentModel.TypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)" />、および<see cref="M:System.ComponentModel.TypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)" />メソッド。  
   
-型に変換する値を変更するオブジェクトの再作成する必要がありますが、オーバーライド、<see cref="M:System.ComponentModel.TypeConverter.CreateInstance(System.Collections.IDictionary)" />と<see cref="M:System.ComponentModel.TypeConverter.GetCreateInstanceSupported" />メソッド。  
+型に変換する値を変更するオブジェクトの再作成する必要がありますが、オーバーライド、<see cref="M:System.ComponentModel.TypeConverter.CreateInstance(System.ComponentModel.ITypeDescriptorContext,System.Collections.IDictionary)" />と<see cref="M:System.ComponentModel.TypeConverter.GetCreateInstanceSupported(System.ComponentModel.ITypeDescriptorContext)" />メソッド。  
   
-、プロパティをサポートする型に変換するにはオーバーライド、<see cref="M:System.ComponentModel.TypeConverter.GetProperties(System.Object)" />と<see cref="M:System.ComponentModel.TypeConverter.GetPropertiesSupported" />メソッド。 変換するクラスには、プロパティがないとプロパティを実装する必要がある、使用することができる場合、<see cref="T:System.ComponentModel.TypeConverter.SimplePropertyDescriptor" />プロパティ記述子を実装するためのベースとしてクラス。 継承する場合<see cref="T:System.ComponentModel.TypeConverter.SimplePropertyDescriptor" />、オーバーライドする必要があります、<see cref="M:System.ComponentModel.PropertyDescriptor.GetValue(System.Object)" />と<see cref="M:System.ComponentModel.PropertyDescriptor.SetValue(System.Object,System.Object)" />メソッド。  
+、プロパティをサポートする型に変換するにはオーバーライド、<see cref="M:System.ComponentModel.TypeConverter.GetProperties(System.ComponentModel.ITypeDescriptorContext,System.Object,System.Attribute[])" />と<see cref="M:System.ComponentModel.TypeConverter.GetPropertiesSupported(System.ComponentModel.ITypeDescriptorContext)" />メソッド。 変換するクラスには、プロパティがないとプロパティを実装する必要がある、使用することができる場合、<see cref="T:System.ComponentModel.TypeConverter.SimplePropertyDescriptor" />プロパティ記述子を実装するためのベースとしてクラス。 継承する場合<see cref="T:System.ComponentModel.TypeConverter.SimplePropertyDescriptor" />、オーバーライドする必要があります、<see cref="M:System.ComponentModel.PropertyDescriptor.GetValue(System.Object)" />と<see cref="M:System.ComponentModel.PropertyDescriptor.SetValue(System.Object,System.Object)" />メソッド。  
   
-、標準値をサポートする型に変換するにはオーバーライド、 <see cref="M:System.ComponentModel.TypeConverter.GetStandardValues" />、 <see cref="M:System.ComponentModel.TypeConverter.GetStandardValuesExclusive" />、<see cref="M:System.ComponentModel.TypeConverter.GetStandardValuesSupported" />と<see cref="M:System.ComponentModel.TypeConverter.IsValid(System.Object)" />メソッド。  
+、標準値をサポートする型に変換するにはオーバーライド、 <see cref="M:System.ComponentModel.TypeConverter.GetStandardValues(System.ComponentModel.ITypeDescriptorContext)" />、 <see cref="M:System.ComponentModel.TypeConverter.GetStandardValuesExclusive(System.ComponentModel.ITypeDescriptorContext)" />、<see cref="M:System.ComponentModel.TypeConverter.GetStandardValuesSupported(System.ComponentModel.ITypeDescriptorContext)" />と<see cref="M:System.ComponentModel.TypeConverter.IsValid(System.ComponentModel.ITypeDescriptorContext,System.Object)" />メソッド。  
   
  <block subset="none" type="note"><para>  
  派生型としてマーク<see langword="internal" />または<see langword="private" />で、型のインスタンスを作成できますが、<see cref="T:System.ComponentModel.TypeDescriptor" />クラス。 呼び出し元を想定して、安全でないコードが信頼されているとは書き込みません。 代わりに呼び出し元が部分信頼で型のインスタンスを作成が前提としています。  
   
 </para></block>  
   
- [全般] (XAML ではない) のための型コンバーターの詳細については、次を参照してください。[方法: 型コンバーターを実装](https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-2013/ayybcxe5(v=vs.120))または[一般的な型変換](https://msdn.microsoft.com/library/49253ae6-7657-4810-82ab-1176a6feeada)します。</para></block>
+ [全般] (XAML ではない) のための型コンバーターの詳細については、次を参照してください。[方法。型コンバーターを実装](https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-2013/ayybcxe5(v=vs.120))または[型変換を汎用化](https://msdn.microsoft.com/library/49253ae6-7657-4810-82ab-1176a6feeada)します。</para></block>
     <altmember cref="T:System.ComponentModel.TypeConverterAttribute" />
     <altmember cref="T:System.ComponentModel.PropertyDescriptorCollection" />
     <altmember cref="T:System.ComponentModel.TypeConverter.SimplePropertyDescriptor" />
