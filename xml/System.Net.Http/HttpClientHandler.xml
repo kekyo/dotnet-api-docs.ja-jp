@@ -1,5 +1,5 @@
 <Type Name="HttpClientHandler" FullName="System.Net.Http.HttpClientHandler">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="ba3ed49c9a90efc55711df6801abd12d767b3a33" /><Meta Name="ms.sourcegitcommit" Value="9e3550fb2088d4faf2043f0acb29da4555519937" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="12/12/2018" /><Meta Name="ms.locfileid" Value="53291601" /></Metadata><TypeSignature Language="C#" Value="public class HttpClientHandler : System.Net.Http.HttpMessageHandler" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="4e4378873f3a5fa6c23c6de9bded7f111e986d3e" /><Meta Name="ms.sourcegitcommit" Value="8c966994f39ffe6e7c21611e9ec1b91247a68500" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="01/26/2019" /><Meta Name="ms.locfileid" Value="55084617" /></Metadata><TypeSignature Language="C#" Value="public class HttpClientHandler : System.Net.Http.HttpMessageHandler" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit HttpClientHandler extends System.Net.Http.HttpMessageHandler" />
   <TypeSignature Language="DocId" Value="T:System.Net.Http.HttpClientHandler" />
   <TypeSignature Language="VB.NET" Value="Public Class HttpClientHandler&#xA;Inherits HttpMessageHandler" />
@@ -22,24 +22,37 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary><see cref="T:System.Net.Http.HttpClient" /> に使用される既定のメッセージ ハンドラー。</summary>
+    <summary>.NET Framework および .NET Core 2.0 以前の <see cref="T:System.Net.Http.HttpClient" /> で使用される既定のメッセージ ハンドラー。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.Http.HttpClientHandler>クラスとその派生クラスは、開発者はさまざまなプロキシ認証に至るまで、オプションの構成を有効にします。  
+ `HttpClientHandler`クラスとその派生クラスは、開発者はさまざまなプロキシ認証に至るまで、オプションの構成を有効にします。  
   
 ### <a name="httpclienthandler-in-net-core"></a>.NET Core で HttpClientHandler
 
-.NET Core 2.1 では、以降、<xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType>クラスの代わりに`HttpClientHandler`上位レベルの HTTP ネットワーク Api で使用される実装を提供します。 使用するアプリケーションを構成する`HttpClientHandler`代わりに呼び出すことによって、<xref:System.AppContext.SetSwitch%2A>メソッドとして、次のとおりです。
+.NET Core 2.1 では、以降、<xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType>クラスの代わりに`HttpClientHandler`上位レベルの HTTP ネットワーク Api で使用される実装を提供します。 使用するアプリケーションを構成する`HttpClientHandler`代わりに、次の方法のいずれかで。
 
-```csharp
-AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", false);
-```
-```vb
-AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
-``` 
+- 呼び出すことによって、<xref:System.AppContext.SetSwitch%2A?displayProperty=nameWithType>メソッドとして、次のとおりです。
+
+  ```csharp
+  AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", false);
+  ```
+  ```vb
+  AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
+  ``` 
+定義することで、`System.Net.Http.useSocketsHttpHandler`に切り替え、 *. netcore.runtimeconfig.json*構成ファイル。
+
+  ```json
+  "runtimeOptions": {
+    "configProperties": {
+        "System.Net.Http.useSocketsHttpHandler": false
+    }
+  }
+  ```
   
+- という名前の環境変数を定義することで`DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER`いずれかに設定して`false`または 0。
+
 ## Examples  
  [!code-csharp[System.Net.Http.HttpClientHandler#1](~/samples/snippets/csharp/VS_Snippets_Misc/system.net.http.httpclienthandler/cs/source.cs#1)]  
   

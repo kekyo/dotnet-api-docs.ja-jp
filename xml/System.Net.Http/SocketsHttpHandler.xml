@@ -1,5 +1,5 @@
 <Type Name="SocketsHttpHandler" FullName="System.Net.Http.SocketsHttpHandler">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="231b43b22ff6ee232f5083c5679b2c62b173f6f8" /><Meta Name="ms.sourcegitcommit" Value="19b66619a469ee45c85c618f8a605859882eb638" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="01/10/2019" /><Meta Name="ms.locfileid" Value="54183747" /></Metadata><TypeSignature Language="C#" Value="public sealed class SocketsHttpHandler : System.Net.Http.HttpMessageHandler" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="7cdbdc2743b0187f9b503ec7761a417e979bc862" /><Meta Name="ms.sourcegitcommit" Value="8c966994f39ffe6e7c21611e9ec1b91247a68500" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="01/26/2019" /><Meta Name="ms.locfileid" Value="55084591" /></Metadata><TypeSignature Language="C#" Value="public sealed class SocketsHttpHandler : System.Net.Http.HttpMessageHandler" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit SocketsHttpHandler extends System.Net.Http.HttpMessageHandler" />
   <TypeSignature Language="DocId" Value="T:System.Net.Http.SocketsHttpHandler" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class SocketsHttpHandler&#xA;Inherits HttpMessageHandler" />
@@ -14,8 +14,43 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <summary>.NET Core 2.1 以降の <see cref="T:System.Net.Http.HttpClient" /> で使用される既定のメッセージ ハンドラーを提供します。</summary>
+        <remarks>  
+          <format type="text/markdown"><![CDATA[  
+
+.NET Core 2.1 では、以降、`SocketsHttpHandler`クラスなどの上位レベルの HTTP ネットワーク クラスで使用される実装を提供<xref:System.Net.Http.HttpClient>します。 使用`SocketsHttpHandler`いくつかの利点を提供しています。
+
+- 以前の実装と比較して、パフォーマンスが大幅に向上しています。
+
+- 展開とサービスを簡略化するプラットフォームの依存関係を除去します。 たとえば、 `libcurl` macOS と .NET Core の .NET Core への依存関係を for Linux が不要になった。
+
+- すべての .NET プラットフォーム間で一貫性のある動作。
+
+この変更が望ましくない場合は、旧バージョンを使用するアプリケーションを構成することができます<xref:System.Net.Http.HttpClientHandler?displayProperty=nameWithType>クラスの代わりにさまざまな方法で。
+
+- 呼び出すことによって、<xref:System.AppContext.SetSwitch%2A?displayProperty=nameWithType>メソッドとして、次のとおりです。
+
+   ```csharp
+   AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", false);
+   ```
+
+   ```vb
+   AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
+   ``` 
+- 定義することで、`System.Net.Http.useSocketsHttpHandler`に切り替え、 *. netcore.runtimeconfig.json*構成ファイル。
+
+  ```json
+  "runtimeOptions": {
+    "configProperties": {
+        "System.Net.Http.useSocketsHttpHandler": false
+    }
+  }
+  ```
+  
+- という名前の環境変数を定義することで`DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER`いずれかに設定して`false`または 0。
+
+         ]]></format>
+         </remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">

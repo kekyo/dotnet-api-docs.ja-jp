@@ -1,5 +1,5 @@
 <Type Name="BindingFlags" FullName="System.Reflection.BindingFlags">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="73fce1aa21d20f45653df555c778b466bca7fbbb" /><Meta Name="ms.sourcegitcommit" Value="c0c07dbd19cd7017243f9ac36915755f79bc8da6" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="11/27/2018" /><Meta Name="ms.locfileid" Value="52368184" /></Metadata><TypeSignature Language="C#" Value="public enum BindingFlags" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="61b76576a70d04513a7283ac5ace3dbd7521f391" /><Meta Name="ms.sourcegitcommit" Value="a489a0c68ea6b109393f1400bbd772073b4befd4" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="01/20/2019" /><Meta Name="ms.locfileid" Value="54416957" /></Metadata><TypeSignature Language="C#" Value="public enum BindingFlags" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed BindingFlags extends System.Enum" />
   <TypeSignature Language="DocId" Value="T:System.Reflection.BindingFlags" />
   <TypeSignature Language="VB.NET" Value="Public Enum BindingFlags" />
@@ -50,7 +50,7 @@
 ## Remarks  
  これら`BindingFlags`クラスの多くの優れたのバインディングの制御、 `System`、 `System.Reflection`、および`System.Runtime`名前空間を呼び出し、作成、取得、設定、およびメンバーと型を検索します。  
   
- `BindingFlags` 次で使用される<xref:System.Type>メソッドとその他の場所など、 <xref:System.Reflection.MethodBase.Invoke%2A?displayProperty=nameWithType> :  
+ `BindingFlags` 次で使用される<xref:System.Type>メソッドとその他の場所など、 <xref:System.Reflection.MethodBase.Invoke%2A?displayProperty=nameWithType>:  
   
 -   <xref:System.Reflection.MethodBase.Invoke%2A?displayProperty=nameWithType>  
   
@@ -95,7 +95,7 @@
 > [!NOTE]
 >  指定する必要があります`Instance`または`Static`と共に`Public`または`NonPublic`またはメンバーは返されません。  
   
- 次の表に、既定では、実行の強制型変換<xref:System.Reflection.Binder.ChangeType%2A?displayProperty=nameWithType>します。 このテーブルが特にに適用されます、`ExactBinding`バインディング フラグ。  
+ 次の表に、既定では、実行の強制型変換<xref:System.Reflection.Binder.ChangeType%2A?displayProperty=nameWithType>します。 このテーブルが特にに適用されます、`BindingFlags.ExactBinding`バインディング フラグ。 一般原則を<xref:System.Reflection.Binder.ChangeType%2A>拡大変換で、データが失われることのみを実行する必要があります。 拡大強制型変換の例の強制型変換は、64 ビット符号付き整数である値を 32 ビット符号付き整数である値。 これは、データが失われる可能性があります縮小強制変換と区別されます。 縮小強制型変換の例の強制型変換は、32 ビット符号付き整数の 64 ビット符号付き整数。 
   
 |ソースの種類|ターゲットの種類|  
 |-----------------|-----------------|  
@@ -112,8 +112,13 @@
 |`Int64`|`Single`、 `Double`|  
 |`Single`|`Double`|  
 |非参照|参照渡しされます。|  
+
+ときに、`BindingFlags.ExactBinding`バインディング フラグを使用すると、リフレクションは、共通型システムのアクセシビリティ規則をモデル化します。 たとえば、呼び出し元が同じアセンブリ内にある場合は、呼び出し元は必要ありません特殊なアクセス許可内部メンバー。 それ以外の場合、呼び出し元が必要な<xref:System.Security.Permissions.ReflectionPermission>します。 これは、保護されているメンバーの参照で一貫性のある、プライベート、およびなど。  
   
    
+  
+   
+     
   
 ## Examples  
  次の例では、さまざまなバインディング フラグを示します。  
@@ -312,19 +317,7 @@
       </ReturnValue>
       <MemberValue>65536</MemberValue>
       <Docs>
-        <summary>指定した引数の型が、対応する仮パラメーター (仮引数) の型と完全に一致する必要があることを指定します。 呼び出し元が null 以外の <see langword="Binder" /> オブジェクトを指定した場合、これは適切なメソッドを選択する <see langword="BindToXXX" /> 実装を呼び出し元が提供することを意味するため、リフレクションは例外をスローします。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- リフレクションは、共通型システムのアクセシビリティ規則をモデル化します。 たとえば、呼び出し元が同じアセンブリ内にある場合は、呼び出し元は必要ありません特殊なアクセス許可内部メンバー。 それ以外の場合、呼び出し元が必要な<xref:System.Security.Permissions.ReflectionPermission>します。 これは、保護されているメンバーの参照で一貫性のある、プライベート、およびなど。  
-  
- 一般原則を<xref:System.Reflection.Binder.ChangeType%2A>拡大変換で、データが失われることのみを実行する必要があります。 拡大強制型変換の例の強制型変換は、64 ビット符号付き整数である値を 32 ビット符号付き整数である値。 これは、データが失われる可能性があります縮小強制変換と区別されます。 縮小強制型変換の例の強制型変換は、32 ビット符号付き整数の 64 ビット符号付き整数。  
-  
- 既定のバインダーでは、カスタム バインダーがこのフラグのセマンティクスを実装中にこのフラグを設定を無視します。  
-  
- ]]></format>
-        </remarks>
+        <summary>指定した引数の型が、対応する仮パラメーター (仮引数) の型と完全に一致する必要があることを指定します。 呼び出し元が null 以外の <see langword="Binder" /> オブジェクトを指定した場合、これは適切なメソッドを選択する <see langword="BindToXXX" /> 実装を呼び出し元が提供することを意味するため、リフレクションは例外をスローします。 既定のバインダーはこのフラグを無視しますが、カスタム バインダーではこのフラグにセマンティクスを実装することができます。</summary>
       </Docs>
     </Member>
     <Member MemberName="FlattenHierarchy">
@@ -679,15 +672,7 @@
       </ReturnValue>
       <MemberValue>262144</MemberValue>
       <Docs>
-        <summary>パラメーター数が指定された引数の数と一致するメンバーのセットを返します。 このバインディング フラグは、既定値を持つパラメーターを取るメソッドと、可変個の引数 (vararg) を取るメソッドで使用します。 このフラグは、<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" /> と共に使用する場合にだけ使用してください。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- パラメーターに既定値は後続の引数を省略すると、呼び出しでのみ使用されます。 最後の引数が必要があります。  
-  
- ]]></format>
-        </remarks>
+        <summary>パラメーター数が指定された引数の数と一致するメンバーのセットを返します。 このバインディング フラグは、既定値を持つパラメーターを取るメソッドと、可変個の引数 (vararg) を取るメソッドで使用します。 このフラグは、<see cref="M:System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])" /> と共に使用する場合にだけ使用してください。<br /><br />既定値のパラメーターは、後続の引数が省略されている呼び出しでのみ使用されます。 これが最後の引数である必要があります。</summary>
       </Docs>
     </Member>
     <Member MemberName="Public">
