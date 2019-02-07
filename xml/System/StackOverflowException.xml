@@ -1,5 +1,5 @@
 <Type Name="StackOverflowException" FullName="System.StackOverflowException">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="1f6d3a4b551412dd113545524fabdb90f2a0abd9" /><Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="11/29/2018" /><Meta Name="ms.locfileid" Value="52606079" /></Metadata><TypeSignature Language="C#" Value="public sealed class StackOverflowException : SystemException" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="991aa9f4b94575c2f58703680ad95ac0d43e46c1" /><Meta Name="ms.sourcegitcommit" Value="9cee676b7864fa9dcb91319dcf5c339f3a724fbf" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="02/07/2019" /><Meta Name="ms.locfileid" Value="55828888" /></Metadata><TypeSignature Language="C#" Value="public sealed class StackOverflowException : SystemException" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit StackOverflowException extends System.SystemException" />
   <TypeSignature Language="DocId" Value="T:System.StackOverflowException" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class StackOverflowException&#xA;Inherits SystemException" />
@@ -39,21 +39,25 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.StackOverflowException> 通常、非常に深いか、無限再帰が発生した場合、実行スタックのオーバーフロー エラーに対してスローされます。  
+ `StackOverflowException` 通常、非常に深いか、無限再帰が発生した場合、実行スタックのオーバーフロー エラーに対してスローされます。 コードが無限ループや無限再帰がないようにします。
   
- <xref:System.StackOverflowException> 値は 0x800703E9 HRESULT COR_E_STACKOVERFLOW を使用します。 <xref:System.Reflection.Emit.OpCodes.Localloc>中間言語 (IL) 命令をスロー<xref:System.StackOverflowException>します。 初期プロパティ値の一覧については、<xref:System.StackOverflowException>オブジェクトを参照してください、<xref:System.StackOverflowException.%23ctor%2A>コンス トラクター。  
+ `StackOverflowException` 値は 0x800703E9 HRESULT COR_E_STACKOVERFLOW を使用します。 <xref:System.Reflection.Emit.OpCodes.Localloc>中間言語 (IL) 命令をスロー`StackOverflowException`します。 初期プロパティ値の一覧については、`StackOverflowException`オブジェクトを参照してください、<xref:System.StackOverflowException.%23ctor%2A>コンス トラクター。  
   
-## <a name="version-considerations"></a>バージョンの考慮事項  
- .NET Framework 1.0 および 1.1 では、キャッチする可能性があります、<xref:System.StackOverflowException>オブジェクト (たとえば、無限再帰から回復する場合)。 以降、.NET Framework 2.0 では、キャッチすることはできません、<xref:System.StackOverflowException>オブジェクトを`try` / `catch`ブロック、および対応するプロセスが既定で終了します。 そのため、検出し、スタック オーバーフローを防ぐためにコードを記述する必要があります。 たとえば、アプリは、再帰に依存する場合を使用して、カウンターまたは状態の条件を再帰的ループを終了します。 次の例に、再帰の数を呼び出すことを確認するカウンターを使用して、`Execute`メソッド MAX_RECURSIVE_CALLS 定数で定義されている最大数を超えないようにします。  
+ 以降、.NET Framework 2.0 では、キャッチすることはできません、`StackOverflowException`オブジェクトを`try` / `catch`ブロック、および対応するプロセスが既定で終了します。 そのため、検出し、スタック オーバーフローを防ぐためにコードを記述する必要があります。 たとえば、アプリは、再帰に依存する場合を使用して、カウンターまたは状態の条件を再帰的ループを終了します。
+参照してください (Examples)(#examples) この技法の図解は。
+ 
+> [!NOTE]
+>  適用、<xref:System.Runtime.ExceptionServices.HandleProcessCorruptedStateExceptionsAttribute>属性をスローするメソッド、`StackOverflowException`も何も起こりません。 引き続き、ユーザー コードから例外を処理することはできません。
+
+ アプリでは、共通言語ランタイム (CLR) をホストしている場合、CLR がスタック オーバーフロー例外が発生し、対応するプロセスを続けるアプリケーション ドメインをアンロードするを指定できます。 詳細については、次を参照してください。 [ICLRPolicyManager インターフェイス](~/docs/framework/unmanaged-api/hosting/iclrpolicymanager-interface.md)します。
+
+## Examples
+
+ 次の例に、再帰の数を呼び出すことを確認するカウンターを使用して、`Execute`メソッド MAX_RECURSIVE_CALLS 定数で定義されている最大数を超えないようにします。
   
  [!code-csharp[System.StackOverflowException.Class#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.stackoverflowexception.class/cs/example1a.cs#1)]
  [!code-vb[System.StackOverflowException.Class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.stackoverflowexception.class/vb/example1a.vb#1)]  
-  
-> [!NOTE]
->  適用、<xref:System.Runtime.ExceptionServices.HandleProcessCorruptedStateExceptionsAttribute>属性をスローするメソッド、<xref:System.StackOverflowException>も何も起こりません。 引き続き、ユーザー コードから例外を処理することはできません。  
-  
- アプリでは、共通言語ランタイム (CLR) をホストしている場合、CLR がスタック オーバーフロー例外が発生し、対応するプロセスを続けるアプリケーション ドメインをアンロードするを指定できます。 詳細については、次を参照してください。 [ICLRPolicyManager インターフェイス](~/docs/framework/unmanaged-api/hosting/iclrpolicymanager-interface.md)します。  
-  
+
  ]]></format>
     </remarks>
     <altmember cref="T:System.Exception" />
