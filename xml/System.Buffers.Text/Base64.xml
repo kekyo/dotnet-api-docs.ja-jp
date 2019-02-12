@@ -1,5 +1,5 @@
 <Type Name="Base64" FullName="System.Buffers.Text.Base64">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="bd26f05d3faf0be64d011b599382cd4414c163b6" /><Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="08/25/2018" /><Meta Name="ms.locfileid" Value="39792218" /></Metadata><TypeSignature Language="C#" Value="public static class Base64" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="6e867549bad18c4e522116cc020182629a8708f6" /><Meta Name="ms.sourcegitcommit" Value="9cee676b7864fa9dcb91319dcf5c339f3a724fbf" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="02/07/2019" /><Meta Name="ms.locfileid" Value="55828991" /></Metadata><TypeSignature Language="C#" Value="public static class Base64" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Base64 extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Buffers.Text.Base64" />
   <TypeSignature Language="VB.NET" Value="Public Class Base64" />
@@ -15,7 +15,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>To be added.</summary>
+    <summary>バイナリ データと base 64 で表される UTF-8 でエンコードされたテキスト間の変換を行います。</summary>
     <remarks>To be added.</remarks>
   </Docs>
   <Members>
@@ -42,14 +42,27 @@
         <Parameter Name="isFinalBlock" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="utf8">To be added.</param>
-        <param name="bytes">To be added.</param>
-        <param name="bytesConsumed">To be added.</param>
-        <param name="bytesWritten">To be added.</param>
-        <param name="isFinalBlock">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="utf8">デコードが必要な base 64 方式の UTF-8 でエンコードされたテキストを含む入力スパン。</param>
+        <param name="bytes">操作の結果 (つまり、デコードされたバイナリ データ) を含む出力スパン。</param>
+        <param name="bytesConsumed">操作中に使用された入力バイト数。 必要な場合、これを使用して後続の呼び出しの入力をスライスできます。</param>
+        <param name="bytesWritten">出力スパンに書き込まれたバイト数。 必要な場合、これを使用して後続の呼び出しの出力をスライスできます。</param>
+        <param name="isFinalBlock">デコードするデータ全体が入力スパンに含まれている場合は <see langword="true" /> (既定値)。 一部のデータが入力スパンに含まれており、後続のデータがある場合は <see langword="false" />。</param>
+        <summary>base 64 として表される UTF-8 でエンコードされたテキストのスパンをバイナリ データにデコードします。 入力が 4 の倍数でない場合は、可能な限り 4 の倍数に最も近い値にデコードされます。</summary>
+        <returns>デコード操作の状態を示す列挙値の 1 つ。</returns>
+        <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+
+戻り値は、次のようにできます。
+
+- <xref:System.Buffers.OperationStatus.Done?displayProperty=nameWithType>:入力範囲全体の処理に成功しました。
+- <xref:System.Buffers.OperationStatus.DestinationTooSmall?displayProperty=nameWithType>:デコードされた入力の書き込み先の出力範囲内に十分な領域がありません。
+- <xref:System.Buffers.OperationStatus.NeedMoreData?displayProperty=nameWithType>:`isFinalBlock`は`false`、、の入力が 4 の倍数ではありません。 それ以外の場合、部分的な入力と見なされます<xref:System.Buffers.OperationStatus.InvalidData>します。
+- <xref:System.Buffers.OperationStatus.InvalidData?displayProperty=nameWithType>:入力の予想されるベース 64 の範囲外のバイトが含まれていますに無効なまたは埋め込み文字が 3 つ以上あるまたはが完了していない (つまり、いない 4 の倍数) と`isFinalBlock`は`true`します。
+
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="DecodeFromUtf8InPlace">
@@ -73,11 +86,24 @@
         <Parameter Name="bytesWritten" Type="System.Int32" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="buffer">To be added.</param>
-        <param name="bytesWritten">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="buffer">デコードが必要な base-64 テキスト データを含む入力スパン。</param>
+        <param name="bytesWritten">バッファーに書き込まれたバイト数。</param>
+        <summary>base 64 方式の UTF-8 でエンコードされたテキストのスパン (インプレース) をバイナリ データにデコードします。 デコードされたバイナリ出力は、入力に含まれるテキスト データよりも小さくなります (この操作ではデータがデフレートされます)。 入力が 4 の倍数でない場合、このメソッドではデータがデコードされません。</summary>
+        <returns>デコード操作の状態を示す列挙値の 1 つ。</returns>
+        <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+
+戻り値は、次のようにできます。
+
+- <xref:System.Buffers.OperationStatus.Done?displayProperty=nameWithType>:入力範囲全体の処理に成功しました。
+- <xref:System.Buffers.OperationStatus.InvalidData?displayProperty=nameWithType>:入力の予想されるベース 64 の範囲外のバイトが含まれていますに無効なまたは埋め込み文字が 3 つ以上あるまたはが完了していない (つまり、いない 4 の倍数)。
+
+このメソッドが返すことはできません、<xref:System.Buffers.OperationStatus.DestinationTooSmall?displayProperty=nameWithType>と<xref:System.Buffers.OperationStatus.NeedMoreData?displayProperty=nameWithType>値。
+
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="EncodeToUtf8">
@@ -103,14 +129,29 @@
         <Parameter Name="isFinalBlock" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="bytes">To be added.</param>
-        <param name="utf8">To be added.</param>
-        <param name="bytesConsumed">To be added.</param>
-        <param name="bytesWritten">To be added.</param>
-        <param name="isFinalBlock">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="bytes">エンコードが必要なバイナリ データを含む入力スパン。</param>
+        <param name="utf8">操作の結果 (つまり、base 64 方式の UTF-8 でエンコードされたテキスト) を含む出力スパン。</param>
+        <param name="bytesConsumed">操作中に使用された入力バイト数。 必要な場合、これを使用して後続の呼び出しの入力をスライスできます。</param>
+        <param name="bytesWritten">出力スパンに書き込まれたバイト数。 必要な場合、これを使用して後続の呼び出しの出力をスライスできます。</param>
+        <param name="isFinalBlock">エンコードするデータ全体が入力スパンに含まれている場合は <see langword="true" /> (既定値)。 一部のデータが入力スパンに含まれており、後続のデータがある場合は <see langword="false" />。</param>
+        <summary>バイナリ データのスパンを base 64 として表される UTF-8 でエンコードされたテキストにエンコードします。</summary>
+        <returns>エンコード操作の状態を示す列挙値の 1 つ。</returns>
+        <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+
+戻り値は、次のようにできます。
+
+- <xref:System.Buffers.OperationStatus.Done?displayProperty=nameWithType>:入力範囲全体の処理に成功しました。
+- <xref:System.Buffers.OperationStatus.DestinationTooSmall?displayProperty=nameWithType>:エンコードされた入力に合わせて出力範囲で十分な領域がありません。
+- <xref:System.Buffers.OperationStatus.NeedMoreData?displayProperty=nameWithType>:`isFinalBlock`は`false`します。 の場合`isFinalBlock`は`true`、入力が 3 の倍数でない場合、出力が埋め込まれます。
+
+このメソッドが返すことができません<xref:System.Buffers.OperationStatus.InvalidData?displayProperty=nameWithType>base 64 エンコード可能ではないです。
+
+ ]]></format>
+        </remarks>
+
       </Docs>
     </Member>
     <Member MemberName="EncodeToUtf8InPlace">
@@ -135,12 +176,25 @@
         <Parameter Name="bytesWritten" Type="System.Int32" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="buffer">To be added.</param>
-        <param name="dataLength">To be added.</param>
-        <param name="bytesWritten">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="buffer">エンコードが必要なバイナリ データを含む入力スパン。 このメソッドではインプレース変換が実行されるので、操作の結果を格納するための十分な大きさが必要です。</param>
+        <param name="dataLength">エンコードが必要な、バッファー内に含まれるバイナリ データのバイト数。 この値はバッファー長より小さくしてください。</param>
+        <param name="bytesWritten">バッファーに書き込まれたバイト数。</param>
+        <summary>バイナリ データのスパン (インプレース) を base 64 として表される UTF-8 でエンコードされたテキストにエンコードします。 エンコードされたテキスト出力は、入力に含まれるバイナリ データよりも大きくなります (この操作ではデータがインフレートされます)。</summary>
+        <returns>エンコード操作の状態を示す列挙値の 1 つ。</returns>
+        <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+
+戻り値は、次のようにできます。
+
+- <xref:System.Buffers.OperationStatus.Done?displayProperty=nameWithType>:バッファー全体の処理に成功しました。
+- <xref:System.Buffers.OperationStatus.DestinationTooSmall?displayProperty=nameWithType>:超えるバッファーに十分な領域がない`dataLength`に合わせて、入力のエンコードの結果。
+
+このメソッドが返すことができません<xref:System.Buffers.OperationStatus.NeedMoreData?displayProperty=nameWithType>と<xref:System.Buffers.OperationStatus.InvalidData?displayProperty=nameWithType>します。
+
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetMaxDecodedFromUtf8Length">
@@ -164,9 +218,10 @@
       </Parameters>
       <Docs>
         <param name="length">To be added.</param>
-        <summary>To be added.</summary>
+        <summary>サイズ <paramref name="length" /> のバイト スパン内の base-64 でエンコードされたテキストをデコードする場合は、結果の最大長 (バイト数) を返します。</summary>
         <returns>To be added.</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="length" /> が 0 未満です。</exception>
       </Docs>
     </Member>
     <Member MemberName="GetMaxEncodedToUtf8Length">
@@ -190,9 +245,10 @@
       </Parameters>
       <Docs>
         <param name="length">To be added.</param>
-        <summary>To be added.</summary>
+        <summary>サイズ <paramref name="length" /> のバイト スパン内のバイナリ データをエンコードする場合は、結果の最大長 (バイト数) を返します。</summary>
         <returns>To be added.</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="length" /> は 0 未満または 1610612733 より大きくなります (エンコードによってデータが 4/3 倍にインフレートされるため)。</exception>
       </Docs>
     </Member>
   </Members>
