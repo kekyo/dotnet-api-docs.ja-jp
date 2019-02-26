@@ -1,5 +1,5 @@
 <Type Name="XmlNodeType" FullName="System.Xml.XmlNodeType">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="beb49da4e5041683aa68e9c41480c99fdd1e4848" /><Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="08/24/2018" /><Meta Name="ms.locfileid" Value="37481772" /></Metadata><TypeSignature Language="C#" Value="public enum XmlNodeType" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="b05b4d833b750ad3465979433432a1ac25d30904" /><Meta Name="ms.sourcegitcommit" Value="8e213bb5e6801f6e29861ba72664978ad00e34fa" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="02/18/2019" /><Meta Name="ms.locfileid" Value="56372584" /></Metadata><TypeSignature Language="C#" Value="public enum XmlNodeType" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed XmlNodeType extends System.Enum" />
   <TypeSignature Language="DocId" Value="T:System.Xml.XmlNodeType" />
   <TypeSignature Language="VB.NET" Value="Public Enum XmlNodeType" />
@@ -29,7 +29,36 @@
   </Base>
   <Docs>
     <summary>ノードの型を指定します。</summary>
-    <remarks>To be added.</remarks>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+
+次の表は、XML ノードとその親と子ノードに関する追加情報を提供します。
+
+| フィールド | 説明 | 子ノードを持つことができます。 | 子ノードを指定できます。 |
+|---|---|---|---|
+|`Attribute`| |`EntityReference`、 `Text`|なし。 子ノードとは見なされません、`Element`します。|
+|`CDATA`| マークアップとして認識されるテキストのブロックをエスケープする CDATA セクションを使用します。|なし。|`DocumentFragment`、 `EntityReference`、および `Element`|
+|`Comment`| | なし。 |`Document`、 `DocumentFragment`、 `EntityReference`|
+|`Document`| |`XmlDeclaration`、 `Element` (1 つの最大) `ProcessingInstruction`、 `Comment`、 `DocumentType`|なし|
+|`DocumentFragment`|ドキュメント内で実際に含まれるされることがなく、ドキュメントをノードまたはサブツリーに関連付けます。|`Element`, `ProcessingInstruction`, `Comment`, `Text`, `CDATA`, `EntityReference`|なし。 
+|`DocumentType`| |`Notation`、 `Entity`|なし|
+|`Element`| |`Element`, `Text`, `Comment`, `ProcessingInstruction`, `CDATA`, `EntityReference`| `Document`, `DocumentFragment`, `EntityReference`, `Element`|
+|`EndElement`|ときに返される、<xref:System.Xml.XmlReader>が要素の末尾を取得します。| | |   
+|`EndEntity`| | | |
+|`Entity`| |展開されたエンティティを表す子ノード (たとえば、`Text`と`EntityReference`ノード) |`DocumentType`|
+|`EntityReference`| |`Element`, `ProcessingInstruction`, `Comment`, `Text`, `CDATA`, `EntityReference` |`Attribute`, `DocumentFragment`, `Element`, `EntityReference` |
+|`None`| | | |
+|`Notation`| | なし | `DocumentType`| 
+|`ProcessingInstruction`| | なし | `Document`, `DocumentFragment`, `Element`, `EntityReference`|
+|`SignificantWhitespace`| | | |
+|`Text`| | なし | `Attribute`, `DocumentFragment`, `Element`, `EntityReference` |
+|`Whitespace`| | | |
+|`XmlDeclaration`| ドキュメントの最初のノードである必要があります。 属性のバージョンとエンコードの情報を提供することができます。 |なし|`Document`|
+
+ ]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName="Attribute">
@@ -65,14 +94,6 @@
       <MemberValue>2</MemberValue>
       <Docs>
         <summary>属性 (例: <c>id='123'</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- `Attribute`ノードは、次の子ノードの型を持つことができます:`Text`と`EntityReference`します。 `Attribute`ノードが他のノード型の子ノードとして表示されません。 子ノードとは見なされません、`Element`します。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="CDATA">
@@ -108,14 +129,6 @@
       <MemberValue>4</MemberValue>
       <Docs>
         <summary>CDATA セクション (例: <c>&lt;![CDATA[my escaped text]]&gt;</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- マークアップとして認識されるテキストのブロックをエスケープする CDATA セクションを使用します。 A`CDATA`ノードが子ノードを含めることはできません。 子として表示されることができますが、 `DocumentFragment`、 `EntityReference`、および`Element`ノード。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Comment">
@@ -151,14 +164,6 @@
       <MemberValue>8</MemberValue>
       <Docs>
         <summary>コメント (例: <c>&lt;!-- my comment --&gt;</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- A`Comment`ノードが子ノードを含めることはできません。 子として表示されることができますが、 `Document`、 `DocumentFragment`、 `Element`、および`EntityReference`ノード。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Document">
@@ -194,14 +199,6 @@
       <MemberValue>9</MemberValue>
       <Docs>
         <summary>ドキュメント ツリーのルートして、XML ドキュメント全体へのアクセスを実現するドキュメント オブジェクト。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- A`Document`ノードは、次の子ノードの型を持つことができます: `XmlDeclaration`、 `Element` (1 つの最大値)、 `ProcessingInstruction`、 `Comment`、および`DocumentType`します。 任意のノード型の子としては表示できません。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="DocumentFragment">
@@ -237,14 +234,6 @@
       <MemberValue>11</MemberValue>
       <Docs>
         <summary>ドキュメント フラグメント。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- `DocumentFragment`ノードに関連付けますノードまたはサブツリーをドキュメントを使用せず、ドキュメント内で実際に含まれるされています。 A`DocumentFragment`ノードは、次の子ノードの型を持つことができます: `Element`、 `ProcessingInstruction`、 `Comment`、 `Text`、 `CDATA`、および`EntityReference`します。 任意のノード型の子としては表示できません。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="DocumentType">
@@ -280,14 +269,6 @@
       <MemberValue>10</MemberValue>
       <Docs>
         <summary>次のようなタグで示されるドキュメント型宣言 (例: <c>&lt;!DOCTYPE...&gt;</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- A`DocumentType`ノードは、次の子ノードの型を持つことができます:`Notation`と`Entity`します。 子として表示されることができますが、`Document`ノード。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Element">
@@ -323,14 +304,6 @@
       <MemberValue>1</MemberValue>
       <Docs>
         <summary>要素 (例: <c>&lt;item&gt;</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- `Element`ノードは、次の子ノードの型を持つことができます: `Element`、 `Text`、 `Comment`、 `ProcessingInstruction`、 `CDATA`、および`EntityReference`します。 子であることができます、 `Document`、 `DocumentFragment`、 `EntityReference`、および`Element`ノード。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="EndElement">
@@ -366,14 +339,6 @@
       <MemberValue>15</MemberValue>
       <Docs>
         <summary>終了要素タグ (例: <c>&lt;/item&gt;</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- `EndElement` ノードが返されるときに<xref:System.Xml.XmlReader>が要素の末尾を取得します。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="EndEntity">
@@ -444,14 +409,6 @@
       <MemberValue>6</MemberValue>
       <Docs>
         <summary>エンティティ宣言 (例: <c>&lt;!ENTITY...&gt;</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- `Entity`ノードが展開されたエンティティを表す子ノードを持つことができます (たとえば、`Text`と`EntityReference`ノード)。 子として表示されることができますが、`DocumentType`ノード。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="EntityReference">
@@ -487,14 +444,6 @@
       <MemberValue>5</MemberValue>
       <Docs>
         <summary>エンティティへの参照 (例: <c>&amp;num;</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- `EntityReference`ノードは、次の子ノードの型を持つことができます: `Element`、 `ProcessingInstruction`、 `Comment`、 `Text`、 `CDATA`、および`EntityReference`します。 子として表示されることができますが、 `Attribute`、 `DocumentFragment`、 `Element`、および`EntityReference`ノード。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="None">
@@ -565,14 +514,6 @@
       <MemberValue>12</MemberValue>
       <Docs>
         <summary>ドキュメント型宣言内の表記 (例: <c>&lt;!NOTATION...&gt;</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- A`Notation`ノードが子ノードを含めることはできません。 子として表示されることができますが、`DocumentType`ノード。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="ProcessingInstruction">
@@ -608,14 +549,6 @@
       <MemberValue>7</MemberValue>
       <Docs>
         <summary>処理命令 (例: <c>&lt;?pi test?&gt;</c>)。</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- A`ProcessingInstruction`ノードが子ノードを含めることはできません。 子として表示されることができますが、 `Document`、 `DocumentFragment`、 `Element`、および`EntityReference`ノード。  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="SignificantWhitespace">
