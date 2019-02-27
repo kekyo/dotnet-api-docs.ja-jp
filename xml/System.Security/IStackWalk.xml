@@ -1,5 +1,5 @@
 <Type Name="IStackWalk" FullName="System.Security.IStackWalk">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="68bb1d581343b243676d9e52c3b1ec47ab5eed42" /><Meta Name="ms.sourcegitcommit" Value="0d6aa6694f157a08fe52cd25b4d9d3dcf913e812" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="10/12/2018" /><Meta Name="ms.locfileid" Value="49143199" /></Metadata><TypeSignature Language="C#" Value="public interface IStackWalk" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="ffff6974a1ebf871cd84ed3f0b180c1e73b50d37" /><Meta Name="ms.sourcegitcommit" Value="8e213bb5e6801f6e29861ba72664978ad00e34fa" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="02/18/2019" /><Meta Name="ms.locfileid" Value="56402370" /></Metadata><TypeSignature Language="C#" Value="public interface IStackWalk" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IStackWalk" />
   <TypeSignature Language="DocId" Value="T:System.Security.IStackWalk" />
   <TypeSignature Language="VB.NET" Value="Public Interface IStackWalk" />
@@ -17,6 +17,10 @@
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.1.0</AssemblyVersion>
   </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime.Extensions</AssemblyName>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
   <Interfaces />
   <Attributes>
     <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
@@ -24,7 +28,7 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>呼び出し履歴内のすべての呼び出し元に、保護されたリソースへのアクセスに必要なアクセス許可を設定するかどうかを判断するスタック ウォークを管理します。</summary>
+    <summary>コール スタック内のすべての呼び出し元に、保護されているリソースへのアクセスに必要なアクセス許可が与えられているかどうかを判断するスタック ウォークを管理します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -57,12 +61,16 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>スタック内の上位の呼び出し元がリソースへのアクセス許可を付与されていない場合であっても、呼び出し元のコードが現在のアクセス許可で識別されるリソースにアクセスできることをアサートします。</summary>
+        <summary>スタック内の上位にある呼び出し元に、現在のアクセス許可オブジェクトによって識別されているリソースへのアクセス許可がない場合でも、呼び出しコードがそのリソースにアクセスできるようにアサートします。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -78,7 +86,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.Security.SecurityException">呼び出し元のコードに <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Assertion" /> がありません。</exception>
+        <exception cref="T:System.Security.SecurityException">呼び出しコードに <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Assertion" /> が指定されていません。</exception>
         <related type="Article" href="~/docs/framework/misc/using-the-assert-method.md">Assert メソッドの使用</related>
       </Docs>
     </Member>
@@ -102,12 +110,16 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>呼び出し履歴のすべての呼び出し元に、現在のアクセス許可オブジェクトで指定されたアクセス許可が付与されているかどうかを判断します。</summary>
+        <summary>コール スタック内のすべての呼び出し元に、現在のアクセス許可オブジェクトによって指定されているアクセス許可が与えられているかどうかを実行時に判断します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -118,10 +130,10 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.Security.SecurityException">呼び出し履歴の上位にある呼び出し元には、現在のアクセス許可オブジェクトで指定されたアクセス許可がありません。  
+        <exception cref="T:System.Security.SecurityException">コール スタック内の上位にある呼び出し元に、現在のアクセス許可オブジェクトによって指定されているアクセス許可がありません。  
   
-- または - 
-呼び出し履歴内の呼び出し元は、現在のアクセス許可オブジェクトで <see cref="M:System.Security.IStackWalk.Deny" /> を呼び出しました。</exception>
+または 
+コール スタック内の呼び出し元が、現在のアクセス許可オブジェクトに対して <see cref="M:System.Security.IStackWalk.Deny" /> を呼び出しました。</exception>
       </Docs>
     </Member>
     <Member MemberName="Deny">
@@ -144,12 +156,16 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>呼び出し元のコードを通過する現在のオブジェクトのすべての <see cref="M:System.Security.IStackWalk.Demand" /> が失敗します。</summary>
+        <summary>呼び出しコードを通過する現在のオブジェクトに対するすべての <see cref="M:System.Security.IStackWalk.Demand" /> を失敗させます。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -185,12 +201,16 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>呼び出し側コードによってパススルーされる現在のものを除き、全オブジェクトのあらゆる <see cref="M:System.Security.IStackWalk.Demand" /> を失敗させます。これは、呼び出しスタックの上位にあるコードに対して他のリソースにアクセスするためのアクセス権限が付与されている場合にも当てはまります。</summary>
+        <summary>コール スタック内の上位にあるコードに、他のリソースへのアクセス許可が与えられている場合でも、現在のオブジェクトを除き、呼び出しコードを通過するすべてのオブジェクトに対するすべての <see cref="M:System.Security.IStackWalk.Demand" /> を失敗させます。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
