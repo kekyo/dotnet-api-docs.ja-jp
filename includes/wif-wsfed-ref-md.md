@@ -1,1 +1,1 @@
-このクラスが表すメッセージについて詳しくは、次の仕様のセクション 13 をご覧ください。[Web Services Federation Language (WS-Federation) Version 1.2 ](http://docs.oasis-open.org/wsfed/federation/v1.2/os/ws-federation-1.2-spec-os.html) (http://docs.oasis-open.org/wsfed/federation/v1.2/os/ws-federation-1.2-spec-os.html)。
+このクラスが表すメッセージについて詳しくは、次の仕様のセクション 13 をご覧ください:「[Web Services Federation Language (WS-Federation) Version 1.2 (Web Services Federation Language (WS-Federation) バージョン 1.2)](https://docs.oasis-open.org/wsfed/federation/v1.2/os/ws-federation-1.2-spec-os.html)」。
