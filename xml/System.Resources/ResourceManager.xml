@@ -59,7 +59,7 @@
   
     -   [ResourceManager オブジェクトをインスタンス化します。](#instantiating)  
   
-    -   [ResourceManager およびカルチャ固有のリソース](#CultureSpecific)  
+    -   [ResourceManager とカルチャ固有のリソース](#CultureSpecific)  
   
     -   [リソースの取得](#retrieving)  
   
@@ -138,45 +138,45 @@ vbc ShowTime.vb /resource:strings.resources
  [!code-vb[System.Resources.ResourceManager.Class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.resources.resourcemanager.class/vb/showtime.vb#1)]  
   
 <a name="CultureSpecific"></a>   
-### <a name="resourcemanager-and-culture-specific-resources"></a>ResourceManager およびカルチャ固有のリソース  
- この記事で説明したようにローカライズされたアプリにデプロイするリソースが必要です[Packaging and Deploying Resources](~/docs/framework/resources/packaging-and-deploying-resources-in-desktop-apps.md)します。 取得する対象のリソースは、現在のスレッドに基づくアセンブリが正しく構成されている場合、resource manager を決定します<xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType>プロパティ。 (そのプロパティも返されます、現在のスレッド UI カルチャ)。たとえば、アプリをコンパイルした場合は、既定で 2 つのサテライト アセンブリでは、フランス語とロシア語の言語リソースを使用して、メイン アセンブリで英語の言語リソースと<xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType>FR-FR に設定されて、リソース マネージャーの取得、フランス語リソース。  
+### <a name="resourcemanager-and-culture-specific-resources"></a>ResourceManager とカルチャ固有のリソース  
+ [リソースのパッケージ化と配置](~/docs/framework/resources/packaging-and-deploying-resources-in-desktop-apps.md)の記事で説明したように、ローカライズされたアプリはリソースを配置する必要があります。 アセンブリが正しく構成されているなら、リソース マネージャーは、現在のスレッドの <xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType> プロパティに基づいて、どのリソースを取得するかを決定します。 (そのプロパティは現在のスレッドの UI カルチャを返します。) たとえば、メイン アセンブリに既定の英語の言語リソースがあり、2 つのサテライト アセンブリにフランス語とロシア語の言語リソースがあるようにアプリがコンパイルされていて、<xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType> プロパティが fr-FR に設定されている場合、リソース マネージャーはフランス語のリソースを取得します。  
   
- 設定することができます、<xref:System.Globalization.CultureInfo.CurrentUICulture%2A>プロパティ明示的または暗黙的にします。 設定する方法を決定する方法、<xref:System.Resources.ResourceManager>オブジェクトのカルチャに基づいてリソースを取得します。  
+ <xref:System.Globalization.CultureInfo.CurrentUICulture%2A> プロパティは明示的または暗黙的に設定できます。 それを設定する方法によって、<xref:System.Resources.ResourceManager> オブジェクトがカルチャに基づいてリソースを取得する方法が決定されます。  
   
--   明示的に設定する場合、<xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType>プロパティ、リソース マネージャーを常に特定のカルチャをユーザーのブラウザーまたはオペレーティング システムの言語に関係なく、そのカルチャのリソースを取得します。 既定の言語の英語リソースでコンパイルされるアプリと英語 (米国)、フランス語 (フランス)、およびロシア語 (ロシア) リソースを含む 3 つのサテライト アセンブリを検討してください。 場合、<xref:System.Globalization.CultureInfo.CurrentUICulture%2A>プロパティが、FR-FR、<xref:System.Resources.ResourceManager>オブジェクトは常にフランス語 (フランス) リソースを取得、場合でも、ユーザーのオペレーティング システムの言語がフランス語ではありません。 プロパティを明示的に設定する前に、目的の動作は、このことを確認します。  
+-   明示的に <xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType> プロパティに特定のカルチャを設定する場合、リソース マネージャーは常に、ユーザーのブラウザーまたはオペレーティング システムの言語に関係なく、そのカルチャのリソースを取得します。 既定の英語の言語リソースと、英語 (米国)、フランス語 (フランス)、およびロシア語 (ロシア) のリソースを含む 3 つのサテライト アセンブリとともにコンパイルされているアプリを考えます。 <xref:System.Globalization.CultureInfo.CurrentUICulture%2A> プロパティが fr-FR に設定されている場合、たとえユーザーのオペレーティング システムの言語がフランス語ではないとしても、<xref:System.Resources.ResourceManager> オブジェクトは常にフランス語 (フランス) のリソースを取得します。 プロパティを明示的に設定する前に、これが目的の動作であることを確認してください。  
   
-     、ASP.NET アプリで設定する必要があります、<xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType>プロパティを明示的になっていないため、サーバーの設定が着信クライアント要求を一致する可能性があります。 ASP.NET アプリを設定できる、<xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType>プロパティ、ユーザーのブラウザーを明示的に使用する言語。  
+     ASP.NET アプリでは、サーバーの設定が受信したクライアント要求と一致しない可能性があるため、<xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType> プロパティを明示的に設定する必要があります。 ASP.NET アプリは <xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType> プロパティをユーザーのブラウザーが受け入れ可能な言語に明示的に設定できます。  
   
-     明示的に設定、<xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType>プロパティは、そのスレッドの現在の UI カルチャを定義します。 アプリで他のスレッドの現在の UI カルチャには影響しません。  
+     <xref:System.Threading.Thread.CurrentUICulture%2A?displayProperty=nameWithType> プロパティを明示的に設定することによって、そのスレッドの現在の UI カルチャが定義されます。 これは、アプリの他のスレッドの現在の UI カルチャには影響しません。  
   
--   アプリケーション ドメイン内のすべてのスレッド UI カルチャを設定するには割り当てることで、 <xref:System.Globalization.CultureInfo> 、静的なカルチャを表すオブジェクト<xref:System.Globalization.CultureInfo.DefaultThreadCurrentUICulture%2A?displayProperty=nameWithType>プロパティ。  
+-   <xref:System.Globalization.CultureInfo.DefaultThreadCurrentUICulture%2A?displayProperty=nameWithType> 静的プロパティに UI カルチャを表す <xref:System.Globalization.CultureInfo> オブジェクトを割り当てることで、アプリ ドメイン内のすべてのスレッドの UI カルチャを設定できます。  
   
--   現在の UI カルチャが明示的に設定しないと、現在のアプリケーション ドメインの既定のカルチャを定義していない場合、<xref:System.Globalization.CultureInfo.CurrentUICulture%2A?displayProperty=nameWithType>プロパティは、Windows によって暗黙的に設定`GetUserDefaultUILanguage`関数。 この関数は、によって、Multilingual User Interface (MUI)、これにより、既定の言語を設定するユーザーに提供されます。 UI 言語が、ユーザーが設定されていない場合の既定値はオペレーティング システムのリソースの言語は、システムにインストールされた言語です。  
+-   現在の UI カルチャを明示的に設定せず、現在のアプリ ドメインに既定のカルチャを定義しない場合、<xref:System.Globalization.CultureInfo.CurrentUICulture%2A?displayProperty=nameWithType> プロパティは Windows の `GetUserDefaultUILanguage` 関数によって暗黙的に設定されます。 この関数は Multilingual User Interface (MUI) によって提供されます。MUI は、ユーザーが既定の言語を設定できるようにします。 UI 言語がユーザーによって設定されていない場合、その既定値はシステムによってインストールされた言語になります。これはオペレーティング システムのリソースの言語です。  
   
- 次の単純な"Hello world"の例では、現在の UI カルチャが明示的に設定します。 次の 3 つのカルチャのリソースが含まれています。英語 (米国) または en-us (英語)、フランス語 (フランス) や、FR-FR、およびロシア語 (ロシア) または RU-RU です。 Greetings.txt をという名前のテキスト ファイルでは、EN-US でリソースが含まれています。  
+ 次の単純な "Hello world" の例では、現在の UI カルチャを明示的に設定します。 これには、英語 (米国) (en-US)、フランス語 (フランス) (fr-FR)、およびロシア語 (ロシア) (ru-RU) の 3 つのカルチャのリソースが含まれています。 en-US のリソースは、Greetings.txt という名前のテキスト ファイルに含まれています。  
   
 ```  
 HelloString=Hello world!  
 ```  
   
- Greetings.fr をという名前のテキスト ファイルに含まれる、FR-FR のリソースに入っています。  
+ fr-FR のリソースは、Greetings.fr-FR.txt という名前のテキスト ファイルに含まれています。  
   
 ```  
 HelloString=Salut tout le monde!  
 ```  
   
- Greetings.ru をという名前のテキスト ファイルに含まれる RU-RU リソースに格納します。  
+ ru-RU のリソースは、Greetings.ru-RU.txt という名前のテキスト ファイルに含まれています。  
   
 ```  
 HelloString=Всем привет!  
 ```  
   
- 次の例では、(Visual Basic バージョンの Example.vb) または Example.cs c# バージョンのソース コードに示します。  
+ 次に、この例のソース コード (Visual Basic バージョンの Example.vb または C# バージョンの Example.cs) を示します。  
   
  [!code-csharp[Conceptual.Resources.CurrentCulture#1](~/samples/snippets/csharp/VS_Snippets_CLR/conceptual.resources.currentculture/cs/example.cs#1)]
  [!code-vb[Conceptual.Resources.CurrentCulture#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/conceptual.resources.currentculture/vb/example.vb#1)]  
   
- この例をコンパイルするには、次のコマンドを含み、コマンド プロンプトから実行バッチ (.bat) ファイルを作成します。 C# を使用している場合は、指定`csc`の代わりに`vbc`と`Example.cs`の代わりに`Example.vb`します。  
+ この例をコンパイルするには、次のコマンドを含むバッチ (.bat) ファイルを作成し、コマンド プロンプトからそれを実行します。 C# を使用している場合は、`vbc` の代わりに `csc` を指定し、`Example.vb` の代わりに `Example.cs` を指定します。  
   
 ```  
 resgen Greetings.txt   
@@ -193,19 +193,19 @@ al /embed:Greetings.ru-RU.resources /culture:ru-RU /out:ru-RU\Example.resources.
   
 <a name="retrieving"></a>   
 ### <a name="retrieving-resources"></a>リソースの取得  
- 呼び出す、<xref:System.Resources.ResourceManager.GetObject%28System.String%29>と<xref:System.Resources.ResourceManager.GetString%28System.String%29>特定のリソースにアクセスするメソッド。 呼び出すことも、<xref:System.Resources.ResourceManager.GetStream%28System.String%29>文字列以外のリソースをバイト配列として取得するメソッド。 既定では、リソースがローカライズされているアプリでこれらのメソッドを返しますの呼び出しを行ったスレッドの現在の UI カルチャで決定するカルチャのリソース。 前のセクションを参照してください。 [ResourceManager とカルチャ固有のリソース](#CultureSpecific)、スレッドの現在の UI カルチャを定義する方法の詳細についてはします。 リソース マネージャーは、現在のスレッド UI カルチャのリソースを見つけることができない場合、は、指定したリソースを取得するフォールバック プロセスが使用されます。 リソース マネージャーが、ローカライズされたリソースを見つけられない場合は、既定のカルチャのリソースが使用されます。 リソース フォールバック規則の詳細については、この記事の「リソース フォールバック プロセス」セクションを参照してください。 [Packaging and Deploying Resources](~/docs/framework/resources/packaging-and-deploying-resources-in-desktop-apps.md)します。  
+ 特定のリソースにアクセスするには、<xref:System.Resources.ResourceManager.GetObject%28System.String%29> と <xref:System.Resources.ResourceManager.GetString%28System.String%29> メソッドを呼び出します。 <xref:System.Resources.ResourceManager.GetStream%28System.String%29> メソッドを呼び出して、文字列以外のリソースをバイト配列として取得することもできます。 既定では、リソースがローカライズされているアプリでは、これらのメソッドは、呼び出しを行ったスレッドの現在の UI カルチャによって決定されるカルチャのリソースを返します。 スレッドの現在の UI カルチャを定義する方法の詳細については、前のセクションの [ResourceManager とカルチャ固有のリソース](#CultureSpecific)を参照してください。 リソース マネージャーが現在のスレッドの UI カルチャのリソースを見つけられない場合は、フォールバック プロセスを使用して、指定したリソースを取得します。 リソース マネージャーがローカライズされたリソースを何も見つけられない場合は、既定のカルチャのリソースを使用します。 リソース フォールバック規則の詳細については、[リソースのパッケージ化と配置](~/docs/framework/resources/packaging-and-deploying-resources-in-desktop-apps.md)の記事内の「リソース フォールバック プロセス」セクションを参照してください。  
   
 > [!NOTE]
->  .Resources ファイルが指定されている場合、<xref:System.Resources.ResourceManager>クラスのコンス トラクターが見つからない場合、リソースを取得しようとすると、スロー、<xref:System.Resources.MissingManifestResourceException>または<xref:System.Resources.MissingSatelliteAssemblyException>例外。 例外に対処する方法については、次を参照してください。、 [MissingManifestResourceException の処理と MissingSatelliteAssemblyException 例外](#exception)このトピックで後述します。  
+>  <xref:System.Resources.ResourceManager> クラスのコンストラクターで指定された .resources ファイルが見つからない場合、リソースを取得しようとすると、<xref:System.Resources.MissingManifestResourceException> または <xref:System.Resources.MissingSatelliteAssemblyException> 例外がスローされます。 例外に対処する方法については、この記事で後述する [MissingManifestResourceException および MissingSatelliteAssemblyException 例外の処理](#exception)を参照してください。  
   
- 次の例では、<xref:System.Resources.ResourceManager.GetString%2A>カルチャに固有のリソースを取得します。 英語 (en)、フランス語 (フランス) (FR-FR)、およびロシア語 (ロシア) (RU-RU) の .txt ファイルからコンパイルされたリソースのカルチャ。 例は、英語 (米国)、フランス語 (フランス)、ロシア語 (ロシア)、およびスウェーデン語 (スウェーデン) を現在のカルチャと現在の UI カルチャを変更します。 呼び出して、<xref:System.Resources.ResourceManager.GetString%2A>メソッドをおよび現在の日付と月が表示されますが、ローカライズされた文字列を取得します。 スウェーデン語 (スウェーデン) が現在の UI カルチャの場合を除き、適切なローカライズされた文字列が表示に注意してください。 スウェーデン語の言語リソースが利用できないため、アプリは代わりに既定のカルチャは英語のリソースを使用します。  
+ 次の例では、<xref:System.Resources.ResourceManager.GetString%2A> メソッドを使用して、カルチャ固有のリソースを取得します。 これは、英語 (en)、フランス語 (フランス) (fr-FR)、およびロシア語 (ロシア) (ru-RU) の .txt ファイルからコンパイルされたリソースで構成されます。 例では、現在のカルチャと現在の UI カルチャを、英語 (米国)、フランス語 (フランス)、ロシア語 (ロシア)、およびスウェーデン語 (スウェーデン) に変更します。 それから、<xref:System.Resources.ResourceManager.GetString%2A> メソッドを呼び出して、ローカライズされた文字列を取得します。この文字列は現在の日付と月と一緒に表示されます。 現在の UI カルチャがスウェーデン語 (スウェーデン) である場合を除き、適切なローカライズされた文字列が出力に表示されることに注意してください。 スウェーデン語の言語リソースが利用できないため、アプリは代わりに既定のカルチャである英語のリソースを使用します。  
   
- 例では、次の表に記載されたテキスト ベースのリソース ファイルが必要です。 という名前の 1 つの文字列リソースを持つ各`DateStart`します。  
+ 例には、次の表に記載されたテキスト ベースのリソース ファイルが必要です。 それぞれには `DateStart` という名前の唯一の文字列リソースがあります。  
   
-|culture|ファイル名|リソース名|リソースの値|  
+|カルチャ|ファイル名|リソース名|リソースの値|  
 |-------------|---------------|-------------------|--------------------|  
-|en-US|DateStrings.txt|`DateStart`|今日が|  
-|fr-FR|DateStrings.fr ファイルに格納|`DateStart`|Aujourd'hui, c'est le|  
+|en-US|DateStrings.txt|`DateStart`|Today is|  
+|fr-FR|DateStrings.fr-FR.txt|`DateStart`|Aujourd'hui, c'est le|  
 |ru-RU|DateStrings.ru-RU.txt|`DateStart`|Сегодня|  
   
  次に、この例のソース コード (Visual Basic バージョンの ShowDate.vb または C# バージョンの ShowDate.cs) を示します。  
