@@ -1,5 +1,5 @@
 <Type Name="PermissionSet" FullName="System.Security.PermissionSet">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="e1b5104a2d1f92358f836502a4aa12bde6a4f35a" /><Meta Name="ms.sourcegitcommit" Value="220917117f9d774aaa482439aa7324e39dc1f5b6" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="02/25/2019" /><Meta Name="ms.locfileid" Value="56759106" /></Metadata><TypeSignature Language="C#" Value="public class PermissionSet : System.Collections.ICollection, System.Runtime.Serialization.IDeserializationCallback, System.Security.ISecurityEncodable, System.Security.IStackWalk" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="3f320951e177899d3535bf0b802381b14180a9a6" /><Meta Name="ms.sourcegitcommit" Value="bac13a81377b1c4ebf3990e3287a6f1700f73751" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="03/19/2019" /><Meta Name="ms.locfileid" Value="57918404" /></Metadata><TypeSignature Language="C#" Value="public class PermissionSet : System.Collections.ICollection, System.Runtime.Serialization.IDeserializationCallback, System.Security.ISecurityEncodable, System.Security.IStackWalk" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit PermissionSet extends System.Object implements class System.Collections.ICollection, class System.Collections.IEnumerable, class System.Runtime.Serialization.IDeserializationCallback, class System.Security.ISecurityEncodable, class System.Security.IStackWalk" />
   <TypeSignature Language="DocId" Value="T:System.Security.PermissionSet" />
   <TypeSignature Language="VB.NET" Value="Public Class PermissionSet&#xA;Implements ICollection, IDeserializationCallback, ISecurityEncodable, IStackWalk" />
@@ -50,7 +50,7 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>複数の異なる型のアクセス許可を格納できるコレクションを表します。</summary>
+    <summary>数多くの種類のアクセス許可を含めることができるコレクションを表します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -130,7 +130,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException"><paramref name="state" /> パラメーターが、有効な <see cref="T:System.Security.Permissions.PermissionState" /> ではありません。</exception>
+        <exception cref="T:System.ArgumentException"><paramref name="state" /> パラメーターが正しい <see cref="T:System.Security.Permissions.PermissionState" /> ではありません。</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -161,8 +161,8 @@
         <Parameter Name="permSet" Type="System.Security.PermissionSet" />
       </Parameters>
       <Docs>
-        <param name="permSet">新しい <see cref="T:System.Security.PermissionSet" /> の値の取得元となるセット。<see langword="null" /> を指定すると、空の <see cref="T:System.Security.PermissionSet" /> が作成されます。</param>
-        <summary><paramref name="permSet" /> パラメーターから取得した初期値で <see cref="T:System.Security.PermissionSet" /> クラスの新しいインスタンスを初期化します。</summary>
+        <param name="permSet">新しい <see cref="T:System.Security.PermissionSet" /> の値の取得元となるセット。または、空の <see cref="T:System.Security.PermissionSet" /> を作成する場合は <see langword="null" />。</param>
+        <summary><see cref="T:System.Security.PermissionSet" /> パラメーターから取得した初期値を使用して、<paramref name="permSet" /> クラスの新しいインスタンスを初期化します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -209,7 +209,7 @@
       <Docs>
         <param name="perm">追加する権限。</param>
         <summary>指定した権限を <see cref="T:System.Security.PermissionSet" /> に追加します。</summary>
-        <returns>追加されたアクセス許可と、<see cref="T:System.Security.PermissionSet" /> 内に既に存在する同じ型のアクセス許可の和集合。</returns>
+        <returns>追加されるアクセス許可と、<see cref="T:System.Security.PermissionSet" /> に既に存在する同じ型のすべてのアクセス許可の和集合。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -317,7 +317,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>アクセス許可要求によって保護されているリソースへのアクセス許可が、スタックの上位にある呼び出し元に付与されていない場合でも、呼び出し元コードが、このメソッドを呼び出すコードを通じてリソースにアクセスできるように宣言します。 <see cref="M:System.Security.PermissionSet.Assert" /> を使用すると、セキュリティ上の問題が発生することがあります。</summary>
+        <summary>呼び出し側コードが、このメソッドを呼び出すコードを通じて、アクセス許可要求によって保護されているリソースにアクセス可能であるということ、それも、スタックの中で上位に位置する呼び出し側にリソースへのアクセス許可が付与されていない場合でさえそれが可能であることを宣言します。 <see cref="M:System.Security.PermissionSet.Assert" /> を使用すると、セキュリティ上の脆弱性が発生することがあります。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -329,10 +329,10 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.Security.SecurityException">アサートされる <see cref="T:System.Security.PermissionSet" /> インスタンスが、アサート コードに与えられませんでした。  
+        <exception cref="T:System.Security.SecurityException">アサートされる <see cref="T:System.Security.PermissionSet" /> インスタンスがアサート側コードに付与されていません。  
   
 または 
-現在のフレームに既にアクティブな <see cref="M:System.Security.PermissionSet.Assert" /> が存在しています。</exception>
+現在のフレームにはアクティブな <see cref="M:System.Security.PermissionSet.Assert" /> が既に存在しています。</exception>
         <related type="Article" href="~/docs/framework/misc/using-the-assert-method.md">Assert メソッドの使用</related>
       </Docs>
     </Member>
@@ -422,11 +422,11 @@
         <Parameter Name="outFormat" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="inFormat">ASCII、Unicode、またはバイナリのいずれかのエンコード形式を表す文字列。 有効値は、"XMLASCII" または "XML"、"XMLUNICODE"、および "BINARY" です。</param>
-        <param name="inData">XML エンコード済みアクセス許可セット。</param>
-        <param name="outFormat">ASCII、Unicode、またはバイナリのいずれかのエンコード形式を表す文字列。 有効値は、"XMLASCII" または "XML"、"XMLUNICODE"、および "BINARY" です。</param>
-        <summary>エンコード済みの <see cref="T:System.Security.PermissionSet" /> を別の XML エンコード形式に変換します。</summary>
-        <returns>指定した出力形式の暗号化されたアクセス許可セット。</returns>
+        <param name="inFormat">ASCII、Unicode、またはバイナリのいずれかのエンコード形式を表す文字列。 使用可能な値は、"XMLASCII" または "XML"、"XMLUNICODE"、"BINARY" です。</param>
+        <param name="inData">XML でエンコードされたアクセス許可のセット。</param>
+        <param name="outFormat">ASCII、Unicode、またはバイナリのいずれかのエンコード形式を表す文字列。 使用可能な値は、"XMLASCII" または "XML"、"XMLUNICODE"、"BINARY" です。</param>
+        <summary>エンコードされた <see cref="T:System.Security.PermissionSet" /> を、ある XML エンコード形式から別の XML エンコード形式に変換します。</summary>
+        <returns>指定した出力形式の暗号化されたアクセス許可のセット。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -527,13 +527,13 @@
         <Parameter Name="index" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="array">コピー先のターゲット配列。</param>
-        <param name="index">コピーを開始する配列内の、インデックス番号が 0 から始まる開始位置。</param>
-        <summary>セットのアクセス許可オブジェクトを、<see cref="T:System.Array" /> 内の示された位置にコピーします。</summary>
+        <param name="array">コピー先となるターゲット配列。</param>
+        <param name="index">コピーを開始する配列内の開始位置 (0 ベース)。</param>
+        <summary>アクセス許可セットのオブジェクトを <see cref="T:System.Array" /> の指定された場所にコピーします。</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="array" /> パラメーターが <see langword="null" /> です。</exception>
-        <exception cref="T:System.ArgumentException"><paramref name="array" /> パラメーターが複数の次元を持っています。</exception>
-        <exception cref="T:System.IndexOutOfRangeException"><paramref name="index" /> パラメーターが <paramref name="array" /> パラメーターの範囲外です。</exception>
+        <exception cref="T:System.ArgumentException"><paramref name="array" /> パラメーターに複数のディメンションが指定されています。</exception>
+        <exception cref="T:System.IndexOutOfRangeException"><paramref name="index" /> パラメーターは <paramref name="array" /> パラメーターの範囲外です。</exception>
       </Docs>
     </Member>
     <Member MemberName="Count">
@@ -625,7 +625,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>コール スタック内の上位にあるすべての呼び出し元に、現在のインスタンスによって指定されているアクセス許可が与えられていない場合は、実行時に強制的に <see cref="T:System.Security.SecurityException" /> を呼び出します。</summary>
+        <summary>現在のインスタンスによって指定されているアクセス許可が付与されていない呼び出し元が、呼び出し履歴の上流に 1 つでも存在した場合、実行時に <see cref="T:System.Security.SecurityException" /> を強制します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -647,7 +647,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.Security.SecurityException">呼び出しチェイン内の呼び出し元が、要求されたアクセス許可を保持していません。</exception>
+        <exception cref="T:System.Security.SecurityException">呼び出しチェーン内の呼び出し元に、要求されたアクセス許可がありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="Deny">
@@ -693,7 +693,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>現在の <see cref="M:System.Security.PermissionSet.Demand" /> に格納されているアクセス許可の型と積集合を持つアクセス許可について、呼び出しコードを通過する <see cref="T:System.Security.PermissionSet" /> がすべて失敗するようにします。</summary>
+        <summary>現在の <see cref="T:System.Security.PermissionSet" /> に含まれる型の権限との交差部分のある権限について呼び出し側コードをパススルーする <see cref="M:System.Security.PermissionSet.Demand" /> があれば、それが失敗するようにします。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -706,7 +706,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.Security.SecurityException"><see cref="M:System.Security.PermissionSet.Deny" /> の以前の呼び出しによって、現在のスタック フレームに対するアクセス許可が既に制限されています。</exception>
+        <exception cref="T:System.Security.SecurityException"><see cref="M:System.Security.PermissionSet.Deny" /> の前回の呼び出しにより、現在のスタック フレームの権限はすでに制限されています。</exception>
       </Docs>
     </Member>
     <Member MemberName="Equals">
@@ -719,8 +719,8 @@
       <MemberSignature Language="DocId" Value="M:System.Security.PermissionSet.Equals(System.Object)" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="VB.NET" Value="Public Overrides Function Equals (obj As Object) As Boolean" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; override bool Equals(System::Object ^ obj);" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="F#" Value="override this.Equals : obj -&gt; bool" Usage="permissionSet.Equals o" FrameworkAlternate="netframework-1.1;dotnet-plat-ext-2.1;dotnet-plat-ext-2.2;dotnet-plat-ext-3.0;netcore-2.0;netcore-2.1;netcore-2.2;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="F#" Value="override this.Equals : obj -&gt; bool" Usage="permissionSet.Equals obj" FrameworkAlternate="netframework-2.0" />
+      <MemberSignature Language="F#" Value="override this.Equals : obj -&gt; bool" Usage="permissionSet.Equals o" FrameworkAlternate="netframework-1.1" />
+      <MemberSignature Language="F#" Value="override this.Equals : obj -&gt; bool" Usage="permissionSet.Equals obj" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="DocId" Value="M:System.Security.PermissionSet.Equals(System.Object)" FrameworkAlternate="netframework-2.0;netcore-3.0" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
@@ -753,7 +753,7 @@
       <Docs>
         <param name="o">現在の <see cref="T:System.Security.PermissionSet" /> と比較するオブジェクト。</param>
         <param name="obj">To be added.</param>
-        <summary>指定した <see cref="T:System.Security.PermissionSet" /> オブジェクトまたは <see cref="T:System.Security.NamedPermissionSet" /> オブジェクトが、現在の <see cref="T:System.Security.PermissionSet" /> と等しいかどうかを判断します。</summary>
+        <summary>指定した <see cref="T:System.Security.PermissionSet" /> または <see cref="T:System.Security.NamedPermissionSet" /> オブジェクトが、現在の <see cref="T:System.Security.PermissionSet" /> と等しいかどうかを判断します。</summary>
         <returns>指定したオブジェクトが現在の <see cref="T:System.Security.PermissionSet" /> オブジェクトと等しい場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -801,7 +801,7 @@
         <Parameter Name="et" Type="System.Security.SecurityElement" />
       </Parameters>
       <Docs>
-        <param name="et">セキュリティ オブジェクトの再構築に使用する XML エンコーディング。</param>
+        <param name="et">セキュリティ オブジェクトの再構築に使用する XML エンコード。</param>
         <summary>XML エンコードから指定された状態で、セキュリティ オブジェクトを再構築します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -854,8 +854,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>セットのアクセス許可の列挙子を返します。</summary>
-        <returns>セットのアクセス許可の列挙子オブジェクト。</returns>
+        <summary>設定のアクセス許可の列挙子を返します。</summary>
+        <returns>設定のアクセス許可の列挙子オブジェクト。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -902,8 +902,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>セットのアクセス許可の列挙子を返します。</summary>
-        <returns>セットのアクセス許可の列挙子オブジェクト。</returns>
+        <summary>設定のアクセス許可の列挙子を返します。</summary>
+        <returns>設定のアクセス許可の列挙子オブジェクト。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -990,9 +990,9 @@
         <Parameter Name="permClass" Type="System.Type" />
       </Parameters>
       <Docs>
-        <param name="permClass">必要なアクセス許可オブジェクトの型。</param>
-        <summary>指定した型のアクセス許可オブジェクトがセット内にある場合は、そのアクセス許可オブジェクトを取得します。</summary>
-        <returns><see cref="T:System.Security.PermissionSet" /> に格納されている、<paramref name="permClass" /> パラメーターで指定した型のアクセス許可オブジェクトのコピー。アクセス許可オブジェクトがない場合は <see langword="null" />。</returns>
+        <param name="permClass">目的のアクセス許可オブジェクトの型。</param>
+        <summary>セット内に存在する場合は、指定した型のアクセス許可オブジェクトを取得します。</summary>
+        <returns><see cref="T:System.Security.PermissionSet" /> に含まれている <paramref name="permClass" /> パラメーターで指定された型のアクセス許可オブジェクトのコピー。存在しない場合は <see langword="null" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1033,8 +1033,8 @@
       </Parameters>
       <Docs>
         <param name="permClass">アクセス許可オブジェクトの型。</param>
-        <summary>指定した型のアクセス許可オブジェクトがセット内にある場合は、そのアクセス許可オブジェクトを取得します。</summary>
-        <returns><see cref="T:System.Security.PermissionSet" /> に格納されている、<paramref name="permClass" /> パラメーターで指定した型のアクセス許可オブジェクトのコピー。アクセス許可オブジェクトがない場合は <see langword="null" />。</returns>
+        <summary>セット内に存在する場合は、指定した型のアクセス許可オブジェクトを取得します。</summary>
+        <returns>アクセス許可オブジェクトのコピー。その型は、<paramref name="permClass" /> パラメーターで指定された型か、<see cref="T:System.Security.PermissionSet" /> に含まれている型か、いずれも存在しない場合は <see langword="null" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1083,9 +1083,9 @@
         <Parameter Name="other" Type="System.Security.PermissionSet" />
       </Parameters>
       <Docs>
-        <param name="other">現在の <see cref="T:System.Security.PermissionSet" /> との積集合を持つアクセス許可セット。</param>
-        <summary>現在の <see cref="T:System.Security.PermissionSet" /> と指定した <see cref="T:System.Security.PermissionSet" /> の積集合を表すアクセス許可セットを作成して返します。</summary>
-        <returns>現在の <see cref="T:System.Security.PermissionSet" /> と指定したターゲットの積集合を表す新しいアクセス許可セット。 積集合が空である場合、このオブジェクトは <see langword="null" /> です。</returns>
+        <param name="other">現在の <see cref="T:System.Security.PermissionSet" /> と交差するアクセス許可セット。</param>
+        <summary>現在の <see cref="T:System.Security.PermissionSet" /> と指定した <see cref="T:System.Security.PermissionSet" /> の積集合であるアクセス許可セットを作成して返します。</summary>
+        <returns>現在の <see cref="T:System.Security.PermissionSet" /> と指定されたターゲットの積集合を表す新しいアクセス許可セット。 積集合が空の場合、このオブジェクトは <see langword="null" /> です。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1142,7 +1142,7 @@
       <Parameters />
       <Docs>
         <summary><see cref="T:System.Security.PermissionSet" /> が空かどうかを示す値を取得します。</summary>
-        <returns><see cref="T:System.Security.PermissionSet" /> が空の場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <returns><see langword="true" /> が空の場合は <see cref="T:System.Security.PermissionSet" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1238,9 +1238,9 @@
         <Parameter Name="target" Type="System.Security.PermissionSet" />
       </Parameters>
       <Docs>
-        <param name="target">サブセットの関係を調べるアクセス許可セット。 これは、<see cref="T:System.Security.PermissionSet" /> または <see cref="T:System.Security.NamedPermissionSet" /> のいずれかにする必要があります。</param>
-        <summary>現在の <see cref="T:System.Security.PermissionSet" /> が、指定した <see cref="T:System.Security.PermissionSet" /> のサブセットかどうかを判断します。</summary>
-        <returns>現在の <see cref="T:System.Security.PermissionSet" /> が <paramref name="target" /> パラメーターのサブセットの場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
+        <param name="target">サブセットの関係をテストするためのアクセス許可セット。 これは <see cref="T:System.Security.PermissionSet" /> か <see cref="T:System.Security.NamedPermissionSet" /> のいずれかである必要があります。</param>
+        <summary>現在の <see cref="T:System.Security.PermissionSet" /> が指定した <see cref="T:System.Security.PermissionSet" /> のサブセットであるかどうかを判断します。</summary>
+        <returns>現在の <see cref="T:System.Security.PermissionSet" /> が <paramref name="target" /> パラメーターのサブセットである場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1291,7 +1291,7 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>コレクションでスレッド セーフが確実に行われるかどうかを示す値を取得します。</summary>
+        <summary>コレクションが確実にスレッド セーフであるかどうかを示す値を取得します。</summary>
         <value>常に <see langword="false" />。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1343,8 +1343,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary><see cref="T:System.Security.PermissionSet" /> が <see langword="Unrestricted" /> かどうかを判断します。</summary>
-        <returns><see cref="T:System.Security.PermissionSet" /> が <see langword="true" /> の場合は、<see langword="Unrestricted" />。それ以外の場合は <see langword="false" />。</returns>
+        <summary><see cref="T:System.Security.PermissionSet" /> が <see langword="Unrestricted" /> であるかどうかを判断します。</summary>
+        <returns><see cref="T:System.Security.PermissionSet" /> が <see langword="Unrestricted" /> の場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1401,7 +1401,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>現在の <see cref="M:System.Security.PermissionSet.Demand" /> のサブセットではない任意の <see cref="T:System.Security.PermissionSet" /> について、呼び出しコードを通過する <see cref="T:System.Security.PermissionSet" /> がすべて失敗するようにします。</summary>
+        <summary>現在の <see cref="T:System.Security.PermissionSet" /> のサブセットではない <see cref="T:System.Security.PermissionSet" /> について、呼び出し側コードをパススルーする <see cref="M:System.Security.PermissionSet.Demand" /> が失敗するようにします。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1445,9 +1445,9 @@
         <Parameter Name="permClass" Type="System.Type" />
       </Parameters>
       <Docs>
-        <param name="permClass">削除するアクセス許可の型。</param>
+        <param name="permClass">削除するアクセス許可の種類。</param>
         <summary>セットから特定の型のアクセス許可を削除します。</summary>
-        <returns>セットから削除されたアクセス許可。</returns>
+        <returns>セットからアクセス許可が削除されました。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1509,7 +1509,7 @@ myPermSet.RemovePermission(typeof(FileIOPermission));
       <Docs>
         <param name="permClass">削除するアクセス許可の型。</param>
         <summary>セットから特定の型のアクセス許可を削除します。</summary>
-        <returns>セットから削除されたアクセス許可。</returns>
+        <returns>セットからアクセス許可が削除されました。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1557,7 +1557,7 @@ myPermSet.RemovePermission(typeof(FileIOPermission));
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>現在のフレームに対する以前の <see cref="M:System.Security.CodeAccessPermission.Assert" /> をすべて削除し、無効にします。</summary>
+        <summary>現在のフレームのすべての以前の <see cref="M:System.Security.CodeAccessPermission.Assert" /> が削除され、使用できなくなります。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1566,7 +1566,7 @@ myPermSet.RemovePermission(typeof(FileIOPermission));
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">現在のフレームには、<see cref="M:System.Security.CodeAccessPermission.Assert" /> が存在しません。</exception>
+        <exception cref="T:System.InvalidOperationException">現在のフレームには以前の <see cref="M:System.Security.CodeAccessPermission.Assert" /> はありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="SetPermission">
@@ -1601,8 +1601,8 @@ myPermSet.RemovePermission(typeof(FileIOPermission));
       </Parameters>
       <Docs>
         <param name="perm">設定するアクセス許可。</param>
-        <summary><see cref="T:System.Security.PermissionSet" /> にアクセス許可を設定して、同じ型の既存のアクセス許可を置き換えます。</summary>
-        <returns>セットのアクセス許可。</returns>
+        <summary><see cref="T:System.Security.PermissionSet" /> にアクセス許可を設定し、同じ種類のすべての既存のアクセス権を置換します。</summary>
+        <returns>設定されたアクセス許可。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1653,8 +1653,8 @@ myPermSet.RemovePermission(typeof(FileIOPermission));
       </Parameters>
       <Docs>
         <param name="perm">設定するアクセス許可。</param>
-        <summary><see cref="T:System.Security.PermissionSet" /> にアクセス許可を設定して、同じ型の既存のアクセス許可を置き換えます。</summary>
-        <returns>セットのアクセス許可。</returns>
+        <summary><see cref="T:System.Security.PermissionSet" /> にアクセス許可を設定し、同じ種類のすべての既存のアクセス権を置換します。</summary>
+        <returns>設定されたアクセス許可。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1897,9 +1897,9 @@ myPermSet.RemovePermission(typeof(FileIOPermission));
         <Parameter Name="other" Type="System.Security.PermissionSet" />
       </Parameters>
       <Docs>
-        <param name="other">現在の <see cref="T:System.Security.PermissionSet" /> との和集合を形成するアクセス許可セット。</param>
-        <summary>現在の <see cref="T:System.Security.PermissionSet" /> と指定した <see cref="T:System.Security.PermissionSet" /> の和集合を表す <see cref="T:System.Security.PermissionSet" /> を作成します。</summary>
-        <returns>現在の <see cref="T:System.Security.PermissionSet" /> と指定した <see cref="T:System.Security.PermissionSet" /> の和集合を表す新しいアクセス許可セット。</returns>
+        <param name="other">現在の <see cref="T:System.Security.PermissionSet" /> と和集合を形成するアクセス許可セット。</param>
+        <summary>現在の <see cref="T:System.Security.PermissionSet" /> と指定された <see cref="T:System.Security.PermissionSet" /> の和集合である <see cref="T:System.Security.PermissionSet" /> を作成します。</summary>
+        <returns>現在の <see cref="T:System.Security.PermissionSet" /> と指定された <see cref="T:System.Security.PermissionSet" /> の和集合を表す新しいアクセス許可セット。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
