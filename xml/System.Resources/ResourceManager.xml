@@ -51,13 +51,13 @@
 
  <xref:System.Resources.ResourceManager> クラスは、アセンブリに埋め込まれているバイナリ .resources ファイル、または、スタンドアロンの .resources ファイルからリソースを取得します。 アプリがローカライズされ、ローカライズされたリソースが[サテライト アセンブリ](~/docs/framework/resources/creating-satellite-assemblies-for-desktop-apps.md)に配置されているなら、アプリは、カルチャ固有のリソースを検索し、ローカライズされたリソースが存在しない場合は、リソース フォールバックを提供します。また、リソースのシリアル化をサポートします。  
   
- デスクトップ アプリでのリソース作成および管理の詳細については、[!INCLUDE[win8_appname_long](~/includes/win8-appname-long-md.md)]アプリは、次のセクションを参照してください。  
+ デスクトップ アプリや [!INCLUDE[win8_appname_long](~/includes/win8-appname-long-md.md)] アプリでのリソース作成および管理の詳細については、次のセクションを参照してください。  
   
 -   [デスクトップ アプリ](#desktop)  
   
     -   [リソースの作成](#creating_resources)  
   
-    -   [ResourceManager オブジェクトをインスタンス化します。](#instantiating)  
+    -   [ResourceManager オブジェクトのインスタンス化](#instantiating)  
   
     -   [ResourceManager とカルチャ固有のリソース](#CultureSpecific)  
   
@@ -73,50 +73,50 @@
   
 <a name="desktop"></a>   
 ## <a name="desktop-apps"></a>デスクトップ アプリ  
- デスクトップ アプリの場合、<xref:System.Resources.ResourceManager>クラスは、バイナリ リソース (.resources) ファイルからリソースを取得します。 言語コンパイラでは通常、または[アセンブリ リンカー (AL.exe)](~/docs/framework/tools/al-exe-assembly-linker.md)をアセンブリにこれらのリソース ファイルを埋め込みます。 使用することも、<xref:System.Resources.ResourceManager>リソースを呼び出すことによって、アセンブリに埋め込まれていない .resources ファイルから直接取得するオブジェクト、<xref:System.Resources.ResourceManager.CreateFileBasedResourceManager%2A>メソッド。  
+ デスクトップ アプリの場合、<xref:System.Resources.ResourceManager> クラスは、バイナリ リソース (.resources) ファイルからリソースを取得します。 通常は、言語コンパイラか[アセンブリ リンカー (AL.exe)](~/docs/framework/tools/al-exe-assembly-linker.md) がアセンブリにこれらのリソース ファイルを埋め込みます。 <xref:System.Resources.ResourceManager.CreateFileBasedResourceManager%2A> メソッドを呼び出すことによって、<xref:System.Resources.ResourceManager> オブジェクトを使用して、アセンブリに埋め込まれていない .resources ファイルからリソースを直接取得できます。  
   
 > [!CAUTION]
->  によって明示的にリリースされるまで、リソースがロックされたままであるために、xcopy による配置では、ASP.NET アプリで、スタンドアロン .resources ファイルを使用して中断されます、<xref:System.Resources.ResourceManager.ReleaseAllResources%2A>メソッド。 ASP.NET アプリケーションでリソースをデプロイする場合は、サテライト アセンブリに .resources ファイルをコンパイルする必要があります。  
+>  ASP.NET アプリでスタンドアロン .resources ファイルを使用すると、XCOPY による配置が中断されます。<xref:System.Resources.ResourceManager.ReleaseAllResources%2A> メソッドによって明示的に解放されるまで、リソースがロックされたままになるためです。 ASP.NET アプリでリソースを配置する場合は、サテライト アセンブリに .resources ファイルをコンパイルする必要があります。  
   
- リソース ベースのアプリでは、1 つの .resources ファイルには、カルチャに固有のリソースが見つからない場合に使われるリソースの既定のカルチャのリソースが含まれています。 たとえば、アプリの既定のカルチャが英語 (en) の場合は、英語リソースは英語 (米国) (EN-US) またはフランス語 (フランス) (FR-FR) などの特定のカルチャのローカライズされたリソースが見つからないときに使用されます。 通常、既定のカルチャのリソースは、メイン アプリケーション アセンブリに埋め込まれているし、他のカルチャのローカライズされたリソースがサテライト アセンブリに埋め込まれています。 サテライト アセンブリには、リソースのみが含まれます。 メインのアセンブリとの拡張機能として、同じルート ファイル名がある。 resources.dll します。 アプリのアセンブリがグローバル アセンブリ キャッシュに登録されていない場合は、サテライト アセンブリは、アセンブリのカルチャに対応する名前のアプリのサブディレクトリに格納されます。  
+ リソース ベースのアプリでは、1 つの .resources ファイルは既定のカルチャのリソースを含んでいます。そのリソースは、カルチャ固有のリソースが見つからない場合に使用されます。 たとえば、アプリの既定のカルチャが英語 (en) の場合は、英語 (米国) (en-US) やフランス語 (フランス) (fr-FR) などの、特定のカルチャに対してローカライズされたリソースが見つからないときに、英語の言語リソースが使用されます。 通常は、既定のカルチャのリソースはメイン アプリ アセンブリに埋め込まれ、他のローカライズされたリソースはサテライト アセンブリに埋め込まれます。 サテライト アセンブリはリソースのみを含みます。 サテライト アセンブリは、メイン アセンブリと同じルート ファイル名と、resources.dll の拡張子を持ちます。 アプリのアセンブリがグローバル アセンブリ キャッシュに登録されていない場合は、サテライト アセンブリは、アセンブリのカルチャに対応する名前を持つ、アプリのサブディレクトリに格納されます。  
   
 <a name="creating_resources"></a>   
 ### <a name="creating-resources"></a>リソースの作成  
- リソース ベースのアプリを開発する際に、テキスト ファイル (拡張子が .txt または .restext ファイル) または XML ファイル (.resx 拡張子を持つファイル) でリソース情報を格納します。 テキストまたは使用する XML ファイルをコンパイルし、[リソース ファイル ジェネレーター (Resgen.exe)](~/docs/framework/tools/resgen-exe-resource-file-generator.md)バイナリ .resources ファイルを作成します。 コンパイラ オプションを使用して、実行可能ファイルまたはライブラリで、結果として得られる .resources ファイルを埋め込むことができますし、`/resources`の c# および Visual Basic コンパイラ、またはを埋め込むことができますをサテライト アセンブリを使用して、します。 Visual Studio プロジェクトに .resx ファイルを含めると、Visual Studio は、コンパイル、および既定の埋め込みを処理し、ビルド プロセスの一部として自動的にローカライズされたリソース。  
+ リソース ベースのアプリを開発する際は、テキスト ファイル (.txt か .restext 拡張子を持つファイル) または XML ファイル (.resx 拡張子を持つファイル) にリソース情報を格納します。 それから[リソース ファイル ジェネレーター (Resgen.exe)](~/docs/framework/tools/resgen-exe-resource-file-generator.md) を使用して、テキスト ファイルまたは XML ファイルをコンパイルし、バイナリ .resources ファイルを作成します。 C# や Visual Basic コンパイラにおける `/resources` のようなコンパイラ オプションを使用して、作成した .resources ファイルを実行可能ファイルまたはライブラリに埋め込むことができます。または、アセンブリ リンカー (Al.exe) を使用して、サテライト アセンブリに埋め込むことができます。 Visual Studio プロジェクトに .resx ファイルを含めると、Visual Studio はビルド プロセスの一部として、既定のリソースとローカライズされたリソースのコンパイルおよび埋め込みを自動的に処理します。  
   
- 理想的がアプリを作成するすべての言語のリソースをサポートするか、少なくとも意味のある各言語のサブセットの。 バイナリ .resources ファイルの名前が名前付け規則に従う*basename*.*cultureName*.resources、場所*basename*はアプリの名前または詳細のレベルに応じて、クラスの名前。 <xref:System.Globalization.CultureInfo.Name%2A?displayProperty=nameWithType>プロパティの使用を判断*cultureName*します。 アプリの既定のカルチャのリソースに名前を付ける*basename*.resources します。  
+ 理想的には、アプリがサポートするすべての言語か、少なくとも各言語で意味をなすサブセットに対して、リソースを作成してください。 バイナリ .resources ファイルの名前は、*basename*.*cultureName*.resources の名前付け規則に従います。ここで *basename* は、必要な詳細のレベルに応じて、アプリの名前またはクラスの名前になります。 *cultureName* を判断するには、<xref:System.Globalization.CultureInfo.Name%2A?displayProperty=nameWithType> プロパティを使用します。 アプリの既定のカルチャのリソースには、*basename*.resources の名前をつけてください。  
   
- たとえば、いくつかのリソースのアセンブリは MyResources ベースの名前を持つリソース ファイルがあるとします。 これらのリソース ファイルが日本 (日本語) のカルチャをドイツのカルチャでは、簡体字中国語カルチャの MyResources.zh-CHS.resources MyResources.de.resources の MyResources.ja JP.resources などの名前とMyResources.fr BE.resources のフランス語 (ベルギー) のカルチャ。 既定のリソース ファイルは、MyResources.resources を名前必要があります。 カルチャ固有のリソース ファイルは、各カルチャのサテライト アセンブリに通常パッケージ化されます。 既定のリソース ファイルは、アプリのメイン アセンブリに埋め込まれる必要があります。  
+ たとえば、ベースの名前に MyResources を持つリソース ファイルにいくつかのリソースが含まれているアセンブリを想定します。 これらのリソース ファイルは、日本 (日本語) のカルチャには MyResources.ja-JP.resources、ドイツのカルチャには MyResources.de.resources、簡体字中国語のカルチャには MyResources.zh-CHS.resources、フランス語 (ベルギー) のカルチャには MyResources.fr-BE.resources、などの名前を持つ必要があります。 既定のリソース ファイルは MyResources.resources の名前を持つ必要があります。 通常は、カルチャ固有のリソース ファイルは、カルチャごとにサテライト アセンブリにパッケージ化されます。 既定のリソース ファイルは、アプリのメイン アセンブリに埋め込まれる必要があります。  
   
- プライベートとしてマークするリソースを利用できるは常にそれらをマークするパブリックとして他のアセンブリによってアクセスできるようにできます。 (サテライト アセンブリにコードが含まれていないためプライベートとしてマークされているリソースは任意のメカニズムを通じてアプリで使用します。)  
+ 注意として、リソースをプライベートとしてマークできますが、他のアセンブリからアクセスできるように、常にリソースをパブリックとしてマークしてください。 (サテライト アセンブリはコードを含まないため、プライベートとしてマークされたリソースは、どんな方法を使ってもアプリで使用できません。)  
   
- 作成の詳細については、パッケージ化、および、リソースのデプロイ記事を参照して、[リソース ファイルの作成](~/docs/framework/resources/creating-resource-files-for-desktop-apps.md)、[サテライト アセンブリの作成](~/docs/framework/resources/creating-satellite-assemblies-for-desktop-apps.md)、および[パッケージ化と配置リソース](~/docs/framework/resources/packaging-and-deploying-resources-in-desktop-apps.md)します。  
+ リソースの作成、パッケージ化、および、配置の詳細については、[リソース ファイルの作成](~/docs/framework/resources/creating-resource-files-for-desktop-apps.md)、[サテライト アセンブリの作成](~/docs/framework/resources/creating-satellite-assemblies-for-desktop-apps.md)、[リソースのパッケージ化と配置](~/docs/framework/resources/packaging-and-deploying-resources-in-desktop-apps.md)の記事を参照してください。  
   
 <a name="instantiating"></a>   
-### <a name="instantiating-a-resourcemanager-object"></a>ResourceManager オブジェクトをインスタンス化します。  
- インスタンス化する、<xref:System.Resources.ResourceManager>埋め込みの .resources ファイルからそのクラス コンス トラクターのオーバー ロードの 1 つを呼び出してリソースを取得するオブジェクトです。 これを密に結合を<xref:System.Resources.ResourceManager>ローカライズされたサテライト アセンブリに .resources ファイルの特定の .resources ファイルと、関連付けられたすべてのオブジェクト。  
+### <a name="instantiating-a-resourcemanager-object"></a>ResourceManager オブジェクトのインスタンス化  
+ 埋め込まれた .resources ファイルからリソースを取得する <xref:System.Resources.ResourceManager> オブジェクトのインスタンス化は、それのクラス コンストラクターのオーバーロードの 1 つを呼び出すことによって行います。 これは、<xref:System.Resources.ResourceManager> オブジェクトを、特定の .resources ファイルや、サテライト アセンブリにあり関連するローカライズされた .resources ファイルとを密に結びつけます。  
   
- 2 つの最もよく呼び出されたコンス トラクターは次のとおりです。  
+ 最もよく呼び出されるコンストラクターは次の 2 つです。  
   
--   <xref:System.Resources.ResourceManager.%23ctor%28System.String%2CSystem.Reflection.Assembly%29> 2 つの指定した情報に基づいてリソースを検索する: .resources ファイル、および既定の .resources ファイルが存在するアセンブリの基本名。 ベース名には、そのカルチャまたは拡張機能のない、.resources ファイルの名前空間とルート名が含まれています。 Visual Studio 環境で作成した .resources ファイルの操作を行いますが、通常、コマンドラインからコンパイルされる .resources ファイルには、名前空間の名前が含まれていないことに注意してください。 たとえば、MyCompany.StringResources.resources という名前のリソース ファイルは、<xref:System.Resources.ResourceManager>という名前の静的メソッドからコンス トラクターが呼び出されます`Example.Main`、次のコードをインスタンス化します、<xref:System.Resources.ResourceManager>からリソースを取得できます。リソース ファイル:  
+-   <xref:System.Resources.ResourceManager.%23ctor%28System.String%2CSystem.Reflection.Assembly%29> は、指定した 2 つの情報に基づいてリソースを検索します。それらは .resources ファイルのベース名と、既定の .resources ファイルが存在するアセンブリです。 ベース名は、.resources ファイルの名前空間とルート名を含み、それのカルチャや拡張子を含みません。 コマンド ラインからコンパイルされた .resources ファイルは、通常は名前空間の名前を含みませんが、Visual Studio 環境で作成した .resources ファイルはそれを含むことに注意してください。 たとえば、リソース ファイルの名前が MyCompany.StringResources.resources であり、`Example.Main` という名前の静的メソッドから <xref:System.Resources.ResourceManager> コンストラクターを呼び出す場合、次のコードが .resources ファイルからリソースを取得できる <xref:System.Resources.ResourceManager> オブジェクトをインスタンス化します。  
   
      [!code-csharp[Conceptual.Resources.Retrieving#1](~/samples/snippets/csharp/VS_Snippets_CLR/conceptual.resources.retrieving/cs/ctor1.cs#1)]
      [!code-vb[Conceptual.Resources.Retrieving#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/conceptual.resources.retrieving/vb/ctor1.vb#1)]  
   
--   <xref:System.Resources.ResourceManager.%23ctor%28System.Type%29> 型のオブジェクトからの情報に基づいて、サテライト アセンブリにリソースを検索します。 型の完全修飾名は、ファイル名拡張子なしの .resources ファイルのベース名に対応します。 Visual Studio リソース デザイナーを使用して作成されたデスクトップ アプリでは、Visual Studio は、の完全修飾名は .resources ファイルのルート名と同じラッパー クラスを作成します。 MyCompany.StringResources.resources という名前のリソース ファイルは、という名前のラッパー クラスがある場合など`MyCompany.StringResources`、次のコードをインスタンス化、 <xref:System.Resources.ResourceManager> .resources ファイルからリソースを取得できるオブジェクト。  
+-   <xref:System.Resources.ResourceManager.%23ctor%28System.Type%29> は、型オブジェクトからの情報に基づいて、サテライト アセンブリにあるリソースを検索します。 型の完全修飾名は、ファイル名の拡張子を含まない .resources ファイルのベース名に対応します。 Visual Studio リソース デザイナーを使用して作成されたデスクトップ アプリでは、Visual Studio は .resources ファイルのルート名と同じ完全修飾名を持つラッパー クラスを作成します。 たとえば、リソース ファイルの名前が MyCompany.StringResources.resources であり、`MyCompany.StringResources` という名前のラッパー クラスがある場合、次のコードが .resources ファイルからリソースを取得できる <xref:System.Resources.ResourceManager> オブジェクトをインスタンス化します。  
   
      [!code-csharp[Conceptual.Resources.Retrieving#2](~/samples/snippets/csharp/VS_Snippets_CLR/conceptual.resources.retrieving/cs/ctor1.cs#2)]
      [!code-vb[Conceptual.Resources.Retrieving#2](~/samples/snippets/visualbasic/VS_Snippets_CLR/conceptual.resources.retrieving/vb/ctor1.vb#2)]  
   
- コンス トラクターの呼び出しを作成し、有効な場合は、適切なリソースが見つからない<xref:System.Resources.ResourceManager>オブジェクト。 ただし、リソースを取得しようとするがスローされます、<xref:System.Resources.MissingManifestResourceException>例外。 例外に対処する方法については、次を参照してください。、 [MissingManifestResourceException の処理と MissingSatelliteAssembly 例外](#exception)この記事で後述する「します。  
+ 適切なリソースが見つからない場合、コンストラクターの呼び出しは有効な <xref:System.Resources.ResourceManager> オブジェクトを作成します。 ただし、リソースを取得しようとすると、<xref:System.Resources.MissingManifestResourceException> 例外がスローされます。 例外に対処する方法については、この記事で後述する [MissingManifestResourceException および MissingSatelliteAssemblyException 例外の処理](#exception)を参照してください。  
   
- 次の例では、インスタンス化する方法を示しています、<xref:System.Resources.ResourceManager>オブジェクト。 実行可能ファイル ShowTime.exe という名前のソース コードが含まれています。 次のテキスト ファイルを 1 つの文字列リソースを含む Strings.txt という名前も含まれています`TimeHeader`:。  
+ 次の例は、<xref:System.Resources.ResourceManager> オブジェクトをインスタンス化する方法を示しています。 それには ShowTime.exe という名前の実行可能ファイルのソース コードが含まれています。 また、次に示す `TimeHeader` という唯一の文字列リソースを含む、Strings.txt という名前のテキスト ファイルも含まれます。  
   
 ```  
 TimeHeader=The current time is  
 ```  
   
- バッチ ファイルを使用するには、リソース ファイルを生成し、実行可能ファイルに埋め込むことです。 C# コンパイラを使用して、実行可能ファイルを生成するバッチ ファイルを次に示します。  
+ バッチ ファイルを使用して、リソース ファイルを生成し、実行可能ファイルに埋め込むことができます。 C# コンパイラを使用して、実行可能ファイルを生成するバッチ ファイルを次に示します。  
   
 ```  
   
