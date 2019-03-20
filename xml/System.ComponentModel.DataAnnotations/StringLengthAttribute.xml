@@ -1,5 +1,5 @@
 <Type Name="StringLengthAttribute" FullName="System.ComponentModel.DataAnnotations.StringLengthAttribute">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="51d331bc16db945d74a534119894a67783c52523" /><Meta Name="ms.sourcegitcommit" Value="8e213bb5e6801f6e29861ba72664978ad00e34fa" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="02/18/2019" /><Meta Name="ms.locfileid" Value="56387770" /></Metadata><TypeSignature Language="C#" Value="public class StringLengthAttribute : System.ComponentModel.DataAnnotations.ValidationAttribute" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="c5702fa8b42a49316d32fa07f8c2ec6567d686d5" /><Meta Name="ms.sourcegitcommit" Value="bac13a81377b1c4ebf3990e3287a6f1700f73751" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="03/19/2019" /><Meta Name="ms.locfileid" Value="57936538" /></Metadata><TypeSignature Language="C#" Value="public class StringLengthAttribute : System.ComponentModel.DataAnnotations.ValidationAttribute" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit StringLengthAttribute extends System.ComponentModel.DataAnnotations.ValidationAttribute" />
   <TypeSignature Language="DocId" Value="T:System.ComponentModel.DataAnnotations.StringLengthAttribute" />
   <TypeSignature Language="VB.NET" Value="Public Class StringLengthAttribute&#xA;Inherits ValidationAttribute" />
@@ -38,9 +38,10 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ASP.NET 動的データでは、データ モデルでの CRUD (作成、読み取り、更新、削除) 操作を使用します。 各フィールドの文字の最小値と最大の長さを指定するには、データがされているときに挿入または更新します。 文字データ型で、<xref:System.ComponentModel.DataAnnotations.StringLengthAttribute.MinimumLength%2A>と<xref:System.ComponentModel.DataAnnotations.StringLengthAttribute.MaximumLength%2A>プロパティは文字列を格納するために必要なバイトの最大数を識別します。  
-  
-   
+ ASP.NET 動的データでは、データ モデルでの CRUD (作成、読み取り、更新、削除) 操作を使用します。 各フィールドの文字の最小値と最大の長さを指定するには、データがされているときに挿入または更新します。 文字データ型で、<xref:System.ComponentModel.DataAnnotations.StringLengthAttribute.MinimumLength%2A>と<xref:System.ComponentModel.DataAnnotations.StringLengthAttribute.MaximumLength%2A>プロパティは文字列を格納するために必要なバイトの最大数を識別します。
+ 
+使用することができます[複合書式指定](~/docs/standard/base-types/composite-formatting.md)エラー メッセージ内のプレース ホルダー: {0} ; プロパティの名前を指定します{1} ; 最大の長さと{2}最小の長さです。
+渡される引数に対応して、プレース ホルダー、<xref:System.String.Format%2A?displayProperty=nameWithType>メソッド実行時にします。   
   
 ## Examples  
  次の例では、フィールド内の文字の数を制限する方法を示します。 この例では、AdventureWorksLT データベースの Products テーブル内の ThumbnailPhotoFileName フィールドで動作します。 フィールドでは、4 文字の制限が適用することで、 <xref:System.ComponentModel.DataAnnotations.StringLengthAttribute> Product エンティティを表す部分クラスに属性します。  
@@ -59,6 +60,10 @@ public class ProductMetadata
     [StringLength(4, ErrorMessage = "The ThumbnailPhotoFileName value cannot exceed 4 characters. ")]  
     public object ThumbnailPhotoFileName;  
   
+    [ScaffoldColumn(true)]  
+    [StringLength(4, ErrorMessage = "The {0} value cannot exceed {1} characters. ")]  
+    public object PhotoFileName;  
+
 }  
 ```  
   
@@ -73,6 +78,10 @@ Public Class ProductMetadata
     <ScaffoldColumn(True)> _   
     <StringLength(4, ErrorMessage := "The ThumbnailPhotoFileName value cannot exceed 4 characters. ")> _   
     Public ThumbnailPhotoFileName As Object   
+  
+    <ScaffoldColumn(True)> _   
+    <StringLength(4, ErrorMessage := "The {0} value cannot exceed {1} characters. ")> _   
+    Public PhotoFileName As Object   
   
 End Class  
 ```  
@@ -138,7 +147,7 @@ End Class
       </Parameters>
       <Docs>
         <param name="name">検証失敗の原因になったフィールドの名前。</param>
-        <summary>指定したエラー メッセージに書式を適用します。</summary>
+        <summary>指定したエラー メッセージに書式を適用します </summary>
         <returns>書式設定されたエラー メッセージ。</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maximumLength" /> が負の値です。  

@@ -1,5 +1,5 @@
 <Type Name="ConstructorBuilder" FullName="System.Reflection.Emit.ConstructorBuilder">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="338711fd7af6e49018c5bdb3ada6bb8bd45eddd6" /><Meta Name="ms.sourcegitcommit" Value="756d085f27705e86604f1bba5f2086ee23761acf" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="01/30/2019" /><Meta Name="ms.locfileid" Value="55317401" /></Metadata><TypeSignature Language="C#" Value="public sealed class ConstructorBuilder : System.Reflection.ConstructorInfo, System.Runtime.InteropServices._ConstructorBuilder" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="ebfb6ceb9dc8d4e4eb1ae98666e8aa12b5d7259c" /><Meta Name="ms.sourcegitcommit" Value="bac13a81377b1c4ebf3990e3287a6f1700f73751" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="03/19/2019" /><Meta Name="ms.locfileid" Value="57952177" /></Metadata><TypeSignature Language="C#" Value="public sealed class ConstructorBuilder : System.Reflection.ConstructorInfo, System.Runtime.InteropServices._ConstructorBuilder" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit ConstructorBuilder extends System.Reflection.ConstructorInfo implements class System.Runtime.InteropServices._ConstructorBuilder" />
   <TypeSignature Language="DocId" Value="T:System.Reflection.Emit.ConstructorBuilder" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class ConstructorBuilder&#xA;Inherits ConstructorInfo&#xA;Implements _ConstructorBuilder" />
@@ -38,7 +38,7 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>動的クラスのコンストラクターを定義し、表します。</summary>
+    <summary>動的クラスのコンストラクターを定義および表現します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -113,11 +113,11 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="action" Type="System.Security.Permissions.SecurityAction" />
-        <Parameter Name="pset" Type="System.Security.PermissionSet" />
+        <Parameter Name="action" Type="System.Security.Permissions.SecurityAction" Index="0" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="pset" Type="System.Security.PermissionSet" Index="1" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="action">Demand、Assert などの実行されるセキュリティ アクション。</param>
+        <param name="action">Demand、Assert など、実行するセキュリティ アクション。</param>
         <param name="pset">アクションが適用されるアクセス許可のセット。</param>
         <summary>このコンストラクターに宣言セキュリティを追加します。</summary>
         <remarks>
@@ -140,7 +140,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="action" /> が正しくありません (RequestMinimum、RequestOptional、および RequestRefuse が正しくありません)。</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="action" /> が無効です。RequestMinimum、RequestOptional、および RequestRefuse が無効です。</exception>
         <exception cref="T:System.InvalidOperationException">含んでいる型が <see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> を使用して以前に作成されています。  
   
 または 
@@ -213,8 +213,8 @@
         <ReturnType>System.Reflection.CallingConventions</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>宣言する型がジェネリックかどうかに依存する <see cref="T:System.Reflection.CallingConventions" /> の値を取得します。</summary>
-        <value>宣言する型がジェネリックの場合は <see cref="F:System.Reflection.CallingConventions.HasThis" />、それ以外の場合は <see cref="F:System.Reflection.CallingConventions.Standard" /> です。</value>
+        <summary>宣言型がジェネリックかどうかに応じて異なる <see cref="T:System.Reflection.CallingConventions" /> 値を取得します。</summary>
+        <value>宣言型がジェネリックである場合は <see cref="F:System.Reflection.CallingConventions.HasThis" />。それ以外の場合は <see cref="F:System.Reflection.CallingConventions.Standard" />。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -291,9 +291,9 @@
         <Parameter Name="strParamName" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="iSequence">パラメーター リストのパラメーターの位置。 最初のパラメーターに対応する 1 から順番にインデックス番号がパラメーターに付けられます。</param>
+        <param name="iSequence">パラメーター リストのパラメーターの位置。 パラメーターのインデックスは 1 から始まります。最初のパラメーターが 1 です。</param>
         <param name="attributes">パラメーターの属性。</param>
-        <param name="strParamName">パラメーターの名前。 名前は、null 文字列にすることができます。</param>
+        <param name="strParamName">パラメーターの名前。 名前は null 文字列でもかまいません。</param>
         <summary>このコンストラクターのパラメーターを定義します。</summary>
         <returns>このコンストラクターの新しいパラメーターを表すオブジェクト。</returns>
         <remarks>
@@ -304,7 +304,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="iSequence" /> が 0 (ゼロ) より小さいか、またはコンストラクターのパラメーター数よりも大きい値です。</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="iSequence" /> が 0 (ゼロ) 未満か、コンストラクターのパラメーター数を超える値です。</exception>
         <exception cref="T:System.InvalidOperationException">含んでいる型は <see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> を使用して作成されています。</exception>
       </Docs>
     </Member>
@@ -315,7 +315,7 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>このコンストラクターに定義済みのカスタム属性を返します。</summary>
+        <summary>このコンストラクターに対して定義されているカスタム属性を返します。</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="GetCustomAttributes">
@@ -342,11 +342,11 @@
         <ReturnType>System.Object[]</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="inherit" Type="System.Boolean" />
+        <Parameter Name="inherit" Type="System.Boolean" Index="0" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="inherit">基底クラスからのカスタム属性の継承を制御します。 このパラメーターは無視されます。</param>
-        <summary>このコンストラクターに定義済みのカスタム属性をすべて返します。</summary>
+        <param name="inherit">基本クラスからのカスタム属性の継承を制御します。 このパラメーターは無視されます。</param>
+        <summary>この型に対して定義されているすべてのカスタム属性を返します。</summary>
         <returns>この <see cref="T:System.Reflection.Emit.ConstructorBuilder" /> インスタンスで表されるコンストラクターのすべてのカスタム属性を表す、オブジェクトの配列。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -385,13 +385,13 @@
         <ReturnType>System.Object[]</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="attributeType" Type="System.Type" />
-        <Parameter Name="inherit" Type="System.Boolean" />
+        <Parameter Name="attributeType" Type="System.Type" Index="0" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="inherit" Type="System.Boolean" Index="1" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
         <param name="attributeType">カスタム属性の型。</param>
-        <param name="inherit">基底クラスからのカスタム属性の継承を制御します。 このパラメーターは無視されます。</param>
-        <summary>指定された型で識別されるカスタム属性を返します。</summary>
+        <param name="inherit">基本クラスからのカスタム属性の継承を制御します。 このパラメーターは無視されます。</param>
+        <summary>指定された型によって識別されるカスタム属性を返します。</summary>
         <returns>このコンストラクターの属性を表すオブジェクトの配列。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -413,7 +413,7 @@
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>このコンストラクターのメソッド本体を生成するのに使用できる <see cref="T:System.Reflection.Emit.ILGenerator" /> を取得します。</summary>
+        <summary>このコンストラクターのメソッド本体を出力するために使用できる <see cref="T:System.Reflection.Emit.ILGenerator" /> を取得します。</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="GetILGenerator">
@@ -461,10 +461,10 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">このコンストラクターは、既定のコンストラクターです。  
+        <exception cref="T:System.InvalidOperationException">コンストラクターが、既定のコンストラクターです。  
   
 または 
-コンストラクターに、メソッド本体があってはならないことを示す <see cref="T:System.Reflection.MethodAttributes" /> フラグまたは <see cref="T:System.Reflection.MethodImplAttributes" /> フラグが付いています。</exception>
+コンストラクターが、メソッド本体を持たないことを示す <see cref="T:System.Reflection.MethodAttributes" /> フラグまたは <see cref="T:System.Reflection.MethodImplAttributes" /> フラグを持っています。</exception>
       </Docs>
     </Member>
     <Member MemberName="GetILGenerator">
@@ -491,11 +491,11 @@
         <ReturnType>System.Reflection.Emit.ILGenerator</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="streamSize" Type="System.Int32" />
+        <Parameter Name="streamSize" Type="System.Int32" Index="0" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="streamSize">バイト単位の MSIL ストリームのサイズ。</param>
-        <summary>指定された MSIL ストリーム サイズの <see cref="T:System.Reflection.Emit.ILGenerator" /> オブジェクトを取得します。これは、このコンストラクターのためのメソッド本体をビルドするために使用できます。</summary>
+        <param name="streamSize">MSIL ストリームのサイズ (バイト単位)。</param>
+        <summary>このコンストラクターのメソッド本体の作成に使用できる、指定した MSIL ストリーム サイズを持つ <see cref="T:System.Reflection.Emit.ILGenerator" /> オブジェクトを取得します。</summary>
         <returns>このコンストラクターの <see cref="T:System.Reflection.Emit.ILGenerator" />。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -505,10 +505,10 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">このコンストラクターは、既定のコンストラクターです。  
+        <exception cref="T:System.InvalidOperationException">コンストラクターが、既定のコンストラクターです。  
   
 または 
-コンストラクターに、メソッド本体があってはならないことを示す <see cref="T:System.Reflection.MethodAttributes" /> フラグまたは <see cref="T:System.Reflection.MethodImplAttributes" /> フラグが付いています。</exception>
+コンストラクターが、メソッド本体を持たないことを示す <see cref="T:System.Reflection.MethodAttributes" /> フラグまたは <see cref="T:System.Reflection.MethodImplAttributes" /> フラグを持っています。</exception>
       </Docs>
     </Member>
     <Member MemberName="GetMethodImplementationFlags">
@@ -575,8 +575,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>このコンストラクターを含むモジュールへの参照を返します。</summary>
-        <returns>このコンストラクターを含むこのモジュール。</returns>
+        <summary>このコンストラクターが格納されているモジュールへの参照を返します。</summary>
+        <returns>このコンストラクターが格納されているモジュール。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -636,8 +636,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException"><see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> は、.NET Framework バージョン 1.0 および 1.1 でこのコンストラクターの型に呼び出されていません。</exception>
-        <exception cref="T:System.NotSupportedException"><see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> は、.NET Framework バージョン 2.0 でこのコンストラクターの型に呼び出されていません。</exception>
+        <exception cref="T:System.InvalidOperationException">.NET Framework Version 1.0 および 1.1 では、このコンストラクターの型で <see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> が呼び出されませんでした。</exception>
+        <exception cref="T:System.NotSupportedException">.NET Framework Version 2.0 では、このコンストラクターの型で <see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> が呼び出されませんでした。</exception>
       </Docs>
     </Member>
     <Member MemberName="GetToken">
@@ -704,8 +704,8 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>このコンストラクターのローカル変数をゼロに初期化する必要があるかどうかを取得または設定します。</summary>
-        <value>読み取り/書き込み。 このコンストラクターのローカル変数をゼロに初期化する必要があるかどうかを取得または設定します。</value>
+        <summary>このコンストラクターのローカル変数をゼロで初期化するかどうかを取得または設定します。</summary>
+        <value>読み取り/書き込み。 このコンストラクターのローカル変数をゼロで初期化するかどうかを取得または設定します。</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -716,7 +716,7 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>このインスタンスによって動的に反映されるコンストラクターを呼び出します。</summary>
+        <summary>このインスタンスが動的にリフレクションするコンストラクターを呼び出します。</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="Invoke">
@@ -742,16 +742,16 @@
         <ReturnType>System.Object</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="invokeAttr" Type="System.Reflection.BindingFlags" />
-        <Parameter Name="binder" Type="System.Reflection.Binder" />
-        <Parameter Name="parameters" Type="System.Object[]" />
-        <Parameter Name="culture" Type="System.Globalization.CultureInfo" />
+        <Parameter Name="invokeAttr" Type="System.Reflection.BindingFlags" Index="0" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="binder" Type="System.Reflection.Binder" Index="1" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="parameters" Type="System.Object[]" Index="2" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="culture" Type="System.Globalization.CultureInfo" Index="3" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="invokeAttr">これは、InvokeMethod や NonPublic などの、<see cref="T:System.Reflection.BindingFlags" /> からのビット フラグでなければなりません。</param>
+        <param name="invokeAttr"><see cref="T:System.Reflection.BindingFlags" /> のビット フラグ InvokeMethod、NonPublic などにする必要があります。</param>
         <param name="binder">バインディング、引数型の強制変換、メンバーの呼び出し、および、リフレクションを使用した <see langword="MemberInfo" /> オブジェクトの取得を有効にするオブジェクト。 バインダーが <see langword="null" /> の場合は、既定のバインダーが使用されます。 以下を参照してください。<see cref="T:System.Reflection.Binder" /></param>
-        <param name="parameters">引数リスト。 これは、呼び出されるコンストラクターのパラメーターと同じ数、順序、型の引数の配列です。 パラメーターがない場合は、これは <see langword="null" /> である必要があります。</param>
-        <param name="culture">型の強制変換を制御するために使用する <see cref="T:System.Globalization.CultureInfo" /> のインスタンス。 null の場合は、現在のスレッドの <see cref="T:System.Globalization.CultureInfo" /> が使用されます。 (たとえば、これは 1000 を表す <see cref="T:System.String" /> を <see cref="T:System.Double" /> 値に変換する場合に必要です。これは、カルチャによって 1000 の表記が異なるためです。)</param>
+        <param name="parameters">引数リスト。 これは、呼び出すコンストラクターのパラメーターと同じ数、順序、および型の引数の配列です。 パラメーターがない場合は、<see langword="null" /> にします。</param>
+        <param name="culture">型の強制変換を制御するために使用する <see cref="T:System.Globalization.CultureInfo" /> のインスタンス。 null の場合は、現在のスレッドの <see cref="T:System.Globalization.CultureInfo" /> が使用されます。 たとえば、このパラメーターでは、1000 を表す <see cref="T:System.String" /> を <see cref="T:System.Double" /> 値に変換して指定する必要があります。これは、カルチャによって 1000 の表記が異なるためです。</param>
         <summary>特定のオブジェクト上のインスタンスによって表されるコンストラクターを動的に呼び出します。その際、指定されたバインダーの制約下で、指定されたパラメーターを一緒に渡します。</summary>
         <returns>呼び出されたコンストラクターによって返される値。</returns>
         <remarks>
@@ -767,7 +767,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 <see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用してコンストラクターを取得し、返された <see cref="T:System.Reflection.ConstructorInfo" /> で <see cref="M:System.Reflection.ConstructorInfo.Invoke(System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)" /> を呼び出すことができます。</exception>
+        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 コンストラクターを取得するには、<see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用し、返された <see cref="M:System.Reflection.ConstructorInfo.Invoke(System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)" /> に対して <see cref="T:System.Reflection.ConstructorInfo" /> を呼び出します。</exception>
         <altmember cref="T:System.Reflection.Binder" />
         <altmember cref="T:System.Reflection.BindingFlags" />
       </Docs>
@@ -795,19 +795,19 @@
         <ReturnType>System.Object</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="obj" Type="System.Object" />
-        <Parameter Name="invokeAttr" Type="System.Reflection.BindingFlags" />
-        <Parameter Name="binder" Type="System.Reflection.Binder" />
-        <Parameter Name="parameters" Type="System.Object[]" />
-        <Parameter Name="culture" Type="System.Globalization.CultureInfo" />
+        <Parameter Name="obj" Type="System.Object" Index="0" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="invokeAttr" Type="System.Reflection.BindingFlags" Index="1" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="binder" Type="System.Reflection.Binder" Index="2" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="parameters" Type="System.Object[]" Index="3" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="culture" Type="System.Globalization.CultureInfo" Index="4" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="obj">再初期化を必要とするオブジェクト。</param>
-        <param name="invokeAttr">望ましいバインディングの種類を指定する <see langword="BindingFlags" /> 値の 1 つ。</param>
-        <param name="binder">プロパティのセットを定義し、バインディング、引数の型の強制変換、およびリフレクションを使用したメンバーの呼び出しの機能を有効にする <see langword="Binder" />。 <paramref name="binder" /> が <see langword="null" /> の場合、Binder.DefaultBinding が使用されます。</param>
-        <param name="parameters">引数リスト。 これは、呼び出されるコンストラクターのパラメーターと同じ数、順序、型の引数の配列です。 パラメーターがない場合、これは null 参照でなければなりません (Visual Basic では <see langword="Nothing" />)。</param>
+        <param name="obj">再初期化が必要なオブジェクト。</param>
+        <param name="invokeAttr">目的のバインディングの種類を指定する <see langword="BindingFlags" /> 値の 1 つ。</param>
+        <param name="binder">プロパティのセットを定義し、バインディング、引数の型の強制変換、およびリフレクションを使用したメンバーの呼び出しの機能を有効にする <see langword="Binder" />。 <paramref name="binder" /> が <see langword="null" /> の場合は、Binder.DefaultBinding が使用されます。</param>
+        <param name="parameters">引数リスト。 これは、呼び出すコンストラクターのパラメーターと同じ数、順序、および型の引数の配列です。 パラメーターがない場合は、null 参照 (Visual Basic では <see langword="Nothing" />) になります。</param>
         <param name="culture">型の強制変換を制御するために使用する <see cref="T:System.Globalization.CultureInfo" />。 null の場合は、現在のスレッドの <see cref="T:System.Globalization.CultureInfo" /> が使用されます。</param>
-        <summary>指定された <see langword="Binder" /> の制約下において、指定された引数で、このインスタンスによって反映されるコンストラクターを動的に呼び出します。</summary>
+        <summary>指定されているバインダーの制約下で、このインスタンスによってリフレクションされるコンストラクターを引数を指定して動的に呼び出します。<see langword="Binder" /></summary>
         <returns>コンストラクターに関連付けられているクラスのインスタンス。</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -821,7 +821,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 <see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用してコンストラクターを取得し、返された <see cref="T:System.Reflection.ConstructorInfo" /> で <see cref="M:System.Reflection.ConstructorInfo.Invoke(System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)" /> を呼び出すことができます。</exception>
+        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 コンストラクターを取得するには、<see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用し、返された <see cref="M:System.Reflection.ConstructorInfo.Invoke(System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)" /> に対して <see cref="T:System.Reflection.ConstructorInfo" /> を呼び出します。</exception>
         <altmember cref="T:System.Reflection.Binder" />
         <altmember cref="T:System.Reflection.BindingFlags" />
       </Docs>
@@ -850,12 +850,12 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="attributeType" Type="System.Type" />
-        <Parameter Name="inherit" Type="System.Boolean" />
+        <Parameter Name="attributeType" Type="System.Type" Index="0" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="inherit" Type="System.Boolean" Index="1" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
         <param name="attributeType">カスタム属性の型。</param>
-        <param name="inherit">基底クラスからのカスタム属性の継承を制御します。 このパラメーターは無視されます。</param>
+        <param name="inherit">基本クラスからのカスタム属性の継承を制御します。 このパラメーターは無視されます。</param>
         <summary>指定されたカスタム属性の型が定義されているかどうかを確認します。</summary>
         <returns>指定されたカスタム属性の型が定義されている場合は <see langword="true" />。それ以外の場合は <see langword="false" />。</returns>
         <remarks>
@@ -866,7 +866,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 <see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用してコンストラクターを取得し、返された <see cref="T:System.Reflection.ConstructorInfo" /> で <see cref="M:System.Reflection.MemberInfo.IsDefined(System.Type,System.Boolean)" /> を呼び出すことができます。</exception>
+        <exception cref="T:System.NotSupportedException">このメソッドは現在サポートされていません。 コンストラクターを取得するには、<see cref="M:System.Type.GetConstructor(System.Reflection.BindingFlags,System.Reflection.Binder,System.Reflection.CallingConventions,System.Type[],System.Reflection.ParameterModifier[])" /> を使用し、返された <see cref="M:System.Reflection.MemberInfo.IsDefined(System.Type,System.Boolean)" /> に対して <see cref="T:System.Reflection.ConstructorInfo" /> を呼び出します。</exception>
       </Docs>
     </Member>
     <Member MemberName="MethodHandle">
@@ -896,7 +896,7 @@
         <summary>メソッドの内部ハンドルを取得します。 基になるメタデータ ハンドルにアクセスするには、このハンドルを使用します。</summary>
         <value>メソッドの内部ハンドル。 基になるメタデータ ハンドルにアクセスするには、このハンドルを使用します。</value>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.NotSupportedException">このプロパティは、このクラスではサポートされていません。</exception>
+        <exception cref="T:System.NotSupportedException">このクラスでは、このプロパティはサポートされていません。</exception>
       </Docs>
     </Member>
     <Member MemberName="MethodImplementationFlags">
@@ -947,7 +947,7 @@
       </ReturnValue>
       <Docs>
         <summary>このコンストラクターが定義されている動的モジュールを取得します。</summary>
-        <value>このコンストラクターが定義されている動的モジュールを表わす <see cref="T:System.Reflection.Module" /> オブジェクト。</value>
+        <value>このコンストラクターが定義されている動的モジュールを表す <see cref="T:System.Reflection.Module" /> オブジェクト。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1024,7 +1024,7 @@
         <ReturnType>System.Type</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>このオブジェクトの取得元となった <see cref="T:System.Type" /> オブジェクトへの参照を保持します。</summary>
+        <summary>このオブジェクトを取得するために使用した <see cref="T:System.Type" /> オブジェクトへの参照を保持します。</summary>
         <value><see langword="Type" />からこのオブジェクトが取得されたオブジェクトします。</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1173,7 +1173,7 @@
       <Docs>
         <param name="con">カスタム属性のコンストラクター。</param>
         <param name="binaryAttribute">属性を表すバイト blob。</param>
-        <summary>指定されたカスタム属性の blob を使用して、カスタム属性を設定します。</summary>
+        <summary>指定されたカスタム属性 BLOB を使用して、カスタム属性を設定します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1259,32 +1259,32 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="il" Type="System.Byte[]" />
-        <Parameter Name="maxStack" Type="System.Int32" />
-        <Parameter Name="localSignature" Type="System.Byte[]" />
-        <Parameter Name="exceptionHandlers" Type="System.Collections.Generic.IEnumerable&lt;System.Reflection.Emit.ExceptionHandler&gt;" />
-        <Parameter Name="tokenFixups" Type="System.Collections.Generic.IEnumerable&lt;System.Int32&gt;" />
+        <Parameter Name="il" Type="System.Byte[]" Index="0" FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="maxStack" Type="System.Int32" Index="1" FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="localSignature" Type="System.Byte[]" Index="2" FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="exceptionHandlers" Type="System.Collections.Generic.IEnumerable&lt;System.Reflection.Emit.ExceptionHandler&gt;" Index="3" FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="tokenFixups" Type="System.Collections.Generic.IEnumerable&lt;System.Int32&gt;" Index="4" FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="il">有効な MSIL 命令を含む配列。</param>
-        <param name="maxStack">スタック評価の最大深度。</param>
-        <param name="localSignature">シリアル化されたローカル変数の構造を含むバイト配列。 コンストラクターにローカル変数がない場合は、<see langword="null" /> を指定します。</param>
-        <param name="exceptionHandlers">コンストラクターの例外ハンドラーを含むコレクション。 コンストラクターに例外ハンドラーがない場合は、<see langword="null" /> を指定します。</param>
-        <param name="tokenFixups"><paramref name="il" /> のオフセットを表す値のコレクション。それぞれが、変更される可能性のあるトークンの先頭を指定します。 変更する必要のあるトークンがコンストラクターにない場合は、<see langword="null" /> を指定します。</param>
-        <summary>Microsoft intermediate language (MSIL) の命令の指定したバイト配列を使用して、コンストラクターの本体を作成します。</summary>
+        <param name="il">有効な MSIL 命令を格納する配列。</param>
+        <param name="maxStack">評価スタックの最大深度。</param>
+        <param name="localSignature">シリアル化されたローカル変数の構造体を格納するバイトの配列。 コンストラクターにローカル変数がない場合に <see langword="null" /> を指定します。</param>
+        <param name="exceptionHandlers">コンストラクターの例外ハンドラーを含むコレクション。 コンストラクターに例外ハンドラーがない場合に <see langword="null" /> を指定します。</param>
+        <param name="tokenFixups">変更できるトークンの開始をそれぞれが指定する、<paramref name="il" /> のオフセットを表す値のコレクション。 コンストラクターに、変更するトークンがない場合 <see langword="null" /> を指定します。</param>
+        <summary>指定した MSIL (Microsoft Intermediate Language) 命令のバイト配列を使用して、コンストラクターの本体を作成します。</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="il" /> は <see langword="null" />です。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maxStack" /> が負の値です。  
   
 または 
-<paramref name="exceptionHandlers" /> のいずれかが、<paramref name="il" /> 外のオフセットを指定しています。  
+<paramref name="exceptionHandlers" /> の 1 つが <paramref name="il" /> の範囲外にあるオフセットを指定します。  
   
 または 
-<paramref name="tokenFixups" /> のいずれかが、<paramref name="il" /> 配列外のオフセットを指定しています。</exception>
-        <exception cref="T:System.InvalidOperationException">含んでいる型は、<see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> メソッドを使用して以前に作成されています。  
+<paramref name="tokenFixups" /> の 1 つが <paramref name="il" /> の配列の外側にあるオフセットを指定します。</exception>
+        <exception cref="T:System.InvalidOperationException">コンテナー型が <see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> メソッドを使用して作成されています。  
   
 または 
-このメソッドはこの <see cref="T:System.Reflection.Emit.ConstructorBuilder" /> オブジェクトで以前に呼び出されています。</exception>
+このメソッドは前にこの <see cref="T:System.Reflection.Emit.ConstructorBuilder" /> について呼び出されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="SetSymCustomAttribute">
@@ -1309,13 +1309,13 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="name" Type="System.String" />
-        <Parameter Name="data" Type="System.Byte[]" />
+        <Parameter Name="name" Type="System.String" Index="0" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="data" Type="System.Byte[]" Index="1" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
         <param name="name">カスタム属性の名前。</param>
         <param name="data">カスタム属性の値。</param>
-        <summary>シンボル情報に関連付けられているこのコンストラクターのカスタム属性を設定します。</summary>
+        <summary>シンボリック情報に関連付けられたこのコンストラクターのカスタム属性を設定します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1331,7 +1331,7 @@
         <exception cref="T:System.InvalidOperationException">含んでいる型は <see cref="M:System.Reflection.Emit.TypeBuilder.CreateType" /> を使用して作成されています。  
   
 または 
-モジュールに、シンボルのライターが定義されていません。 たとえば、モジュールがデバッグ モジュールではありません。</exception>
+モジュールにシンボル ライターが定義されていません。 たとえば、モジュールがデバッグ モジュールではありません。</exception>
       </Docs>
     </Member>
     <Member MemberName="Signature">
@@ -1356,7 +1356,7 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>文字列の形式でフィールドの署名を取得します。</summary>
+        <summary>フィールドのシグネチャを文字列の書式で取得します。</summary>
         <value>フィールドの署名。</value>
         <remarks>To be added.</remarks>
       </Docs>
@@ -1385,11 +1385,11 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="riid" Type="System.Guid" RefType="ref" />
-        <Parameter Name="rgszNames" Type="System.IntPtr" />
-        <Parameter Name="cNames" Type="System.UInt32" />
-        <Parameter Name="lcid" Type="System.UInt32" />
-        <Parameter Name="rgDispId" Type="System.IntPtr" />
+        <Parameter Name="riid" Type="System.Guid" RefType="ref" Index="0" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="rgszNames" Type="System.IntPtr" Index="1" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="cNames" Type="System.UInt32" Index="2" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="lcid" Type="System.UInt32" Index="3" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="rgDispId" Type="System.IntPtr" Index="4" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
         <param name="riid">将来使用するために予約されています。 IID_NULL にする必要があります。</param>
@@ -1433,9 +1433,9 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="iTInfo" Type="System.UInt32" />
-        <Parameter Name="lcid" Type="System.UInt32" />
-        <Parameter Name="ppTInfo" Type="System.IntPtr" />
+        <Parameter Name="iTInfo" Type="System.UInt32" Index="0" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="lcid" Type="System.UInt32" Index="1" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="ppTInfo" Type="System.IntPtr" Index="2" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
         <param name="iTInfo">返される型情報。</param>
@@ -1477,7 +1477,7 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="pcTInfo" Type="System.UInt32" RefType="out" />
+        <Parameter Name="pcTInfo" Type="System.UInt32" RefType="out" Index="0" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
         <param name="pcTInfo">オブジェクトにより提供される型タイプ情報インターフェイスの数を受け取る場所を指定します。</param>
@@ -1517,14 +1517,14 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="dispIdMember" Type="System.UInt32" />
-        <Parameter Name="riid" Type="System.Guid" RefType="ref" />
-        <Parameter Name="lcid" Type="System.UInt32" />
-        <Parameter Name="wFlags" Type="System.Int16" />
-        <Parameter Name="pDispParams" Type="System.IntPtr" />
-        <Parameter Name="pVarResult" Type="System.IntPtr" />
-        <Parameter Name="pExcepInfo" Type="System.IntPtr" />
-        <Parameter Name="puArgErr" Type="System.IntPtr" />
+        <Parameter Name="dispIdMember" Type="System.UInt32" Index="0" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="riid" Type="System.Guid" RefType="ref" Index="1" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="lcid" Type="System.UInt32" Index="2" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="wFlags" Type="System.Int16" Index="3" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="pDispParams" Type="System.IntPtr" Index="4" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="pVarResult" Type="System.IntPtr" Index="5" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="pExcepInfo" Type="System.IntPtr" Index="6" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
+        <Parameter Name="puArgErr" Type="System.IntPtr" Index="7" FrameworkAlternate="netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinmac-3.0" />
       </Parameters>
       <Docs>
         <param name="dispIdMember">メンバーを識別します。</param>
