@@ -1,5 +1,5 @@
 <Type Name="Process" FullName="System.Diagnostics.Process">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="6b1dc611089c85302c9d21de8cb2fc5281ea5b4d" /><Meta Name="ms.sourcegitcommit" Value="bac13a81377b1c4ebf3990e3287a6f1700f73751" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="03/19/2019" /><Meta Name="ms.locfileid" Value="57937326" /></Metadata><TypeSignature Language="C#" Value="public class Process : System.ComponentModel.Component" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="738e978e4247fe3d388927b8137573b1f560c992" /><Meta Name="ms.sourcegitcommit" Value="4ee26ac79338b0bf99fa1e0913e8a06b21994d8e" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="03/26/2019" /><Meta Name="ms.locfileid" Value="58456991" /></Metadata><TypeSignature Language="C#" Value="public class Process : System.ComponentModel.Component" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Process extends System.ComponentModel.Component" />
   <TypeSignature Language="DocId" Value="T:System.Diagnostics.Process" />
   <TypeSignature Language="VB.NET" Value="Public Class Process&#xA;Inherits Component" />
@@ -2077,6 +2077,36 @@ process.BeginOutputReadLine();
         <altmember cref="M:System.Environment.Exit(System.Int32)" />
         <altmember cref="M:System.Diagnostics.Process.CloseMainWindow" />
         <altmember cref="M:System.Diagnostics.Process.Start" />
+      </Docs>
+    </Member>
+    <Member MemberName="Kill">
+      <MemberSignature Language="C#" Value="public void Kill (bool entireProcessTree);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Kill(bool entireProcessTree) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Diagnostics.Process.Kill(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Kill (entireProcessTree As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Kill(bool entireProcessTree);" />
+      <MemberSignature Language="F#" Value="member this.Kill : bool -&gt; unit" Usage="process.Kill entireProcessTree" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Diagnostics.Process</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="entireProcessTree" Type="System.Boolean" Index="0" FrameworkAlternate="netcore-3.0" />
+      </Parameters>
+      <Docs>
+        <param name="entireProcessTree">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="LeaveDebugMode">
@@ -4281,44 +4311,22 @@ process.BeginOutputReadLine();
  これに対し、<xref:System.Diagnostics.Process.BeginErrorReadLine%2A>で読み取り操作を非同期の開始、<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。 このメソッドは、ストリーム出力に指定されたイベント ハンドラーを有効にして、すぐにストリーム出力するイベント ハンドラー中に、その他の作業を実行できる呼び出し元に返します。  
   
  同期読み取り操作は、呼び出し元からの読み取りとの間の依存関係を導入、<xref:System.Diagnostics.Process.StandardError%2A>ストリームと子要素は、そのストリームへの書き込みを処理します。 これらの依存関係と、デッドロック状態があります。 子プロセスのリダイレクトされたストリームから読み取ると、呼び出し元は、子に依存します。 呼び出し元は、子のストリームに書き込みまたはストリームを閉じるまで、読み取り操作を待機します。 子プロセスが、リダイレクトされたストリームを入力するための十分なデータを書き込むときに、親に依存します。 子プロセスは、親の完全なストリームから読み取りまたはストリームを閉じるまで、次の書き込み操作を待機します。 デッドロック状態の結果、呼び出し元と子プロセスが、操作を完了する相互に待機し、どちらも進むことができます。 呼び出し元と子プロセス間の依存関係を評価することによって、デッドロックを回避できます。  
-  
- 次の c# コードでは、たとえば、リダイレクトされたストリームから読み取り、子プロセスが終了するまで待機する方法を示します。  
-  
-```csharp  
-// Start the child process.  
- Process p = new Process();  
- // Redirect the error stream of the child process.  
- p.StartInfo.UseShellExecute = false;  
- p.StartInfo.RedirectStandardError = true;  
- p.StartInfo.FileName = "Write500Lines.exe";  
- p.Start();  
- // Do not wait for the child process to exit before  
- // reading to the end of its redirected error stream.  
- // p.WaitForExit();  
- // Read the error stream first and then wait.  
- string error = p.StandardError.ReadToEnd();  
- p.WaitForExit();  
-```  
-  
- コード例は、呼び出すことによってデッドロック状態を回避`p.StandardError.ReadToEnd`する前に`p.WaitForExit`します。 デッドロック状態が生じる場合は、親プロセスが呼び出し`p.WaitForExit`する前に`p.StandardError.ReadToEnd`子プロセスは、リダイレクトされたストリームを入力するための十分なテキストを書き込みます。 親プロセスが、子プロセスが終了する無期限に待機します。 完全なから読み取る親の子プロセスを無制限に待機が<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。  
-  
- 同様の問題がある、標準出力と標準エラー ストリームからすべてのテキストを読み取るときにします。 たとえば、次の c# コードは、両方のストリームで読み取り操作を実行します。  
-  
-```csharp  
-// Do not perform a synchronous read to the end of both   
-// redirected streams.  
-// string output = p.StandardOutput.ReadToEnd();  
-// string error = p.StandardError.ReadToEnd();  
-// p.WaitForExit();  
-// Use asynchronous read operations on at least one of the streams.  
-p.BeginOutputReadLine();  
-string error = p.StandardError.ReadToEnd();  
-p.WaitForExit();  
-```  
-  
- コード例では、デッドロック状態を回避非同期の読み取り操作を実行して、<xref:System.Diagnostics.Process.StandardOutput%2A>ストリーム。 デッドロック状態が、親の呼び出しを処理する場合に結果`p.StandardOutput.ReadToEnd`続けて`p.StandardError.ReadToEnd`子プロセスが、エラー ストリームを入力するための十分なテキストを書き込みます。 子プロセスが終了する親プロセスが無期限に待機がその<xref:System.Diagnostics.Process.StandardOutput%2A>ストリーム。 完全なから読み取る親の子プロセスを無制限に待機が<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。  
-  
- 非同期の読み取り操作は、これらの依存関係とデッドロックの可能性を回避するために使用できます。 または、別のスレッドで各ストリームの出力の読み取りを 2 つのスレッドを作成してデッドロックの状態を回避できます。  
+
+最後の 2 つの例では、このセクションの使用、<xref:System.Diagnostics.Process.Start%2A>という名前の実行可能ファイルを起動するメソッド*Write500Lines.exe*します。 次の例には、そのソース コードが含まれています。
+
+[!code-csharp[Executable launched by Process.Start](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/write500lines.cs)]
+[!code-vb[Executable launched by Process.Start](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/write500lines.vb)]
+
+次の例では、リダイレクトされたエラー ストリームから読み取り、子プロセスが終了するまで待機する方法を示します。 デッドロック状態を呼び出すことによって回避`p.StandardError.ReadToEnd`する前に`p.WaitForExit`します。 デッドロック状態が生じる場合は、親プロセスが呼び出し`p.WaitForExit`する前に`p.StandardError.ReadToEnd`子プロセスは、リダイレクトされたストリームを入力するための十分なテキストを書き込みます。 親プロセスが、子プロセスが終了する無期限に待機します。 完全なから読み取る親の子プロセスを無制限に待機が<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。   
+
+[!code-csharp[Reading from the error stream](~/samples/snippets/csharp/api/system.diagnostics/process/standarderror/stderror-sync.cs)]
+[!code-vb[Reading from the error stream](~/samples/snippets/visualbasic/api/system.diagnostics/process/standarderror/stderror-sync.vb)]  
+
+同様の問題がある、標準出力と標準エラー ストリームからすべてのテキストを読み取るときにします。 次の例では、両方のストリームで読み取り操作を実行します。 非同期の読み取り操作を実行して、デッドロックを回避、<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。 デッドロック状態が、親の呼び出しを処理する場合に結果`p.StandardOutput.ReadToEnd`続けて`p.StandardError.ReadToEnd`子プロセスが、エラー ストリームを入力するための十分なテキストを書き込みます。 子プロセスが終了する親プロセスが無期限に待機がその<xref:System.Diagnostics.Process.StandardOutput%2A>ストリーム。 完全なから読み取る親の子プロセスを無制限に待機が<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。  
+[!code-csharp[Reading from both streams](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/stdoutput-async.cs)]
+[!code-vb[Reading from both streams](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/stdoutput-async.vb)]  
+
+非同期の読み取り操作は、これらの依存関係とデッドロックの可能性を回避するために使用できます。 または、別のスレッドで各ストリームの出力の読み取りを 2 つのスレッドを作成してデッドロックの状態を回避できます。  
   
 > [!NOTE]
 >  リダイレクトされたストリームで読み取り操作を非同期と同期を混在させることはできません。 リダイレクトされたストリームの 1 回、<xref:System.Diagnostics.Process>が開かれる、非同期または同期のモードですべてさらに読み取られてそのストリームに対する操作が同じモードである必要があります。 例に従っていない<xref:System.Diagnostics.Process.BeginErrorReadLine%2A>への呼び出しで<xref:System.IO.StreamReader.ReadLine%2A>上、<xref:System.Diagnostics.Process.StandardError%2A>ストリーム、またはその逆。 ただし、異なるモードでの 2 つの異なるストリームを読み取ることができます。 たとえば、呼び出す<xref:System.Diagnostics.Process.BeginOutputReadLine%2A>を呼び出して<xref:System.IO.StreamReader.ReadLine%2A>の<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。  
@@ -4475,34 +4483,20 @@ p.WaitForExit();
  これに対し、<xref:System.Diagnostics.Process.BeginOutputReadLine%2A>で読み取り操作を非同期の開始、<xref:System.Diagnostics.Process.StandardOutput%2A>ストリーム。 このメソッドは、ストリーム出力に指定されたイベント ハンドラーを有効にして、すぐにストリーム出力するイベント ハンドラー中に、その他の作業を実行できる呼び出し元に返します。  
   
  同期読み取り操作は、呼び出し元からの読み取りとの間の依存関係を導入、<xref:System.Diagnostics.Process.StandardOutput%2A>ストリームと子要素は、そのストリームへの書き込みを処理します。 これらの依存関係と、デッドロック状態があります。 子プロセスのリダイレクトされたストリームから読み取ると、呼び出し元は、子に依存します。 呼び出し元は、子のストリームに書き込みまたはストリームを閉じるまで、読み取り操作を待機します。 子プロセスが、リダイレクトされたストリームを入力するための十分なデータを書き込むときに、親に依存します。 子プロセスは、親の完全なストリームから読み取りまたはストリームを閉じるまで、次の書き込み操作を待機します。 デッドロック状態の結果、呼び出し元と子プロセスが、操作を完了する相互に待機し、どちらも進むことができます。 呼び出し元と子プロセス間の依存関係を評価することによって、デッドロックを回避できます。  
-  
- 次の c# コードでは、たとえば、リダイレクトされたストリームから読み取り、子プロセスが終了するまで待機する方法を示します。  
-  
-```csharp  
-Process p = new Process();  
-p.StartInfo.UseShellExecute = false;  
-p.StartInfo.RedirectStandardOutput = true;  
-p.StartInfo.FileName = "Write500Lines.exe";  
-p.Start();  
-  
-// To avoid deadlocks, always read the output stream first and then wait.  
-string output = p.StandardOutput.ReadToEnd();  
-p.WaitForExit();  
-```  
-  
- コード例は、呼び出すことによってデッドロック状態を回避`p.StandardOutput.ReadToEnd`する前に`p.WaitForExit`します。 デッドロック状態が生じる場合は、親プロセスが呼び出し`p.WaitForExit`する前に`p.StandardOutput.ReadToEnd`子プロセスは、リダイレクトされたストリームを入力するための十分なテキストを書き込みます。 親プロセスが、子プロセスが終了する無期限に待機します。 完全なから読み取る親の子プロセスを無制限に待機が<xref:System.Diagnostics.Process.StandardOutput%2A>ストリーム。  
-  
- 同様の問題がある、標準出力と標準エラー ストリームからすべてのテキストを読み取るときにします。 たとえば、次の c# コードは、両方のストリームで読み取り操作を実行します。  
-  
-```csharp  
-// To avoid deadlocks, use asynchronous read operations on at least one of the streams.  
-// Do not perform a synchronous read to the end of both redirected streams.  
-p.BeginOutputReadLine();  
-string error = p.StandardError.ReadToEnd();  
-p.WaitForExit();  
-```  
-  
- コード例では、デッドロック状態を回避非同期の読み取り操作を実行して、<xref:System.Diagnostics.Process.StandardOutput%2A>ストリーム。 デッドロック状態が、親の呼び出しを処理する場合に結果`p.StandardOutput.ReadToEnd`続けて`p.StandardError.ReadToEnd`子プロセスが、エラー ストリームを入力するための十分なテキストを書き込みます。 子プロセスが終了する親プロセスが無期限に待機がその<xref:System.Diagnostics.Process.StandardOutput%2A>ストリーム。 完全なから読み取る親の子プロセスを無制限に待機が<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。  
+
+最後の 2 つの例では、このセクションの使用、<xref:System.Diagnostics.Process.Start%2A>という名前の実行可能ファイルを起動するメソッド*Write500Lines.exe*します。 次の例には、そのソース コードが含まれています。
+
+[!code-csharp[Executable launched by Process.Start](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/write500lines.cs)]
+[!code-vb[Executable launched by Process.Start](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/write500lines.vb)]
+
+次の例では、リダイレクトされたストリームから読み取り、子プロセスが終了するまで待機する方法を示します。 例では、呼び出すことによって、デッドロックを回避できます`p.StandardOutput.ReadToEnd`する前に`p.WaitForExit`します。 デッドロック状態が生じる場合は、親プロセスが呼び出し`p.WaitForExit`する前に`p.StandardOutput.ReadToEnd`子プロセスは、リダイレクトされたストリームを入力するための十分なテキストを書き込みます。 親プロセスが、子プロセスが終了する無期限に待機します。 完全なから読み取る親の子プロセスを無制限に待機が<xref:System.Diagnostics.Process.StandardOutput%2A>ストリーム。  
+
+[!code-csharp[Reading synchronously from a redirected output stream](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/stdoutput-sync.cs)]  
+[!code-vb[Reading synchronously from a redirected output stream](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/stdoutput-sync.vb)]  
+
+同様の問題がある、標準出力と標準エラー ストリームからすべてのテキストを読み取るときにします。 次の例では、両方のストリームで読み取り操作を実行します。 非同期の読み取り操作を実行して、デッドロックを回避、<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。 デッドロック状態が、親の呼び出しを処理する場合に結果`p.StandardOutput.ReadToEnd`続けて`p.StandardError.ReadToEnd`子プロセスが、エラー ストリームを入力するための十分なテキストを書き込みます。 子プロセスが終了する親プロセスが無期限に待機がその<xref:System.Diagnostics.Process.StandardOutput%2A>ストリーム。 完全なから読み取る親の子プロセスを無制限に待機が<xref:System.Diagnostics.Process.StandardError%2A>ストリーム。   
+[!code-csharp[Reading from a redirected output and error stream](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/stdoutput-async.cs)]  
+[!code-vb[Reading from a redirected output and error stream](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/stdoutput-async.vb)]    
   
  非同期の読み取り操作は、これらの依存関係とデッドロックの可能性を回避するために使用できます。 または、別のスレッドで各ストリームの出力の読み取りを 2 つのスレッドを作成してデッドロックの状態を回避できます。  
   
