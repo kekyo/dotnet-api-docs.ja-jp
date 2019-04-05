@@ -3662,19 +3662,18 @@ Task t Status: RanToCompletion, Result: 42
         <summary>現在の <see cref="T:System.Threading.Tasks.Task" /> で <see cref="T:System.Threading.Tasks.TaskScheduler" /> を同期的に実行します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[
-
+  
 ## Remarks
- 通常、タスクはスレッド プールのスレッドで非同期的に実行され、呼び出し元のスレッドをブロックしないでください。 呼び出すことによって実行されるタスク、<xref:System.Threading.Tasks.Task.RunSynchronously>メソッドは、現在に関連付けられた<xref:System.Threading.Tasks.TaskScheduler>呼び出し元のスレッドで実行されます。 ターゲットのスケジューラが呼び出し元のスレッドでこのタスクの実行をサポートしていない場合、スケジューラで実行するため、タスクがスケジュールされ、タスクの実行が完了するまで呼び出し元のスレッドがブロックされます。 呼び出し元のスレッドが呼び出す必要がありますが、タスクを同期的に実行する場合でも<xref:System.Threading.Tasks.Task.Wait%2A>タスクがスローされる例外を処理します。  例外処理の詳細については、次を参照してください。[例外処理](~/docs/standard/parallel-programming/exception-handling-task-parallel-library.md)します。
+通常、タスクはスレッド プールのスレッドで非同期的に実行され、呼び出し元のスレッドをブロックしません。<xref:System.Threading.Tasks.Task.RunSynchronously>メソッドを呼び出すことによって実行されるタスクは、現在の<xref:System.Threading.Tasks.TaskScheduler>に関連付けられ、呼び出し元のスレッドで実行されます。対象となるスケジューラが、このタスクの呼び出し元のスレッドでの実行をサポートしていない場合、タスクはそのスケジューラ上で実行をスケジュールされ、タスクの実行が完了するまで呼び出し元のスレッドがブロックされます。タスクは同期的に実行されるものの、タスクがスローする例外を処理するためには、呼び出し元のスレッドが<xref:System.Threading.Tasks.Task.Wait%2A>を呼び出す必要があります。例外処理の詳細については、[例外処理](~/docs/standard/parallel-programming/exception-handling-task-parallel-library.md)を参照してください。
 
- 呼び出すことによって実行されるタスク、<xref:System.Threading.Tasks.Task.RunSynchronously%2A>メソッドは呼び出しをインスタンス化、<xref:System.Threading.Tasks.Task>または<xref:System.Threading.Tasks.Task%601>クラスのコンス トラクター。 タスクを同期的に実行する必要があります、<xref:System.Threading.Tasks.TaskStatus.Created>状態。 タスクの開始し、1 回だけ実行可能性があります。 例外時の結果が 2 番目のタスクをスケジュールしようとするとします。
-
+<xref:System.Threading.Tasks.Task.RunSynchronously%2A>メソッドを呼び出すことによって実行されるタスクは、<xref:System.Threading.Tasks.Task>または<xref:System.Threading.Tasks.Task%601>クラスのコンストラクター呼び出しによりインスタンス化されます。タスクが同期的に実行されるためには、<xref:System.Threading.Tasks.TaskStatus.Created>の状態である必要があります。タスクはただ1回限り開始し実行することができます。同じタスクを複数回スケジュールしようとすると、例外が発生します。
 
 
 ## Examples
- 次の例では、呼び出すことによって実行されるタスク、<xref:System.Threading.Tasks.Task.RunSynchronously%2A>メソッドを 1 つの非同期的に実行します。 どちらの場合も、タスクの実行タスクの ID とスレッドの ID を表示する同等のラムダ式で、タスクが実行されています。 タスクは、1 から 1,000,000 までの整数の合計を計算します。 呼び出して、タスクを実行、出力の例に示すよう、<xref:System.Threading.Tasks.Task.RunSynchronously%2A>メソッドの実行、アプリケーションのスレッドで非同期タスクではありません。
+次の例では、<xref:System.Threading.Tasks.Task.RunSynchronously%2A>メソッドを呼び出すことによって実行されるタスクと、非同期メソッドを実行することによって実行されるタスクを比較しています。どちらの場合も、タスクはタスクIDとスレッドIDを表示する同じラムダ式をが実行します。タスクは、1 から 1,000,000 までの整数の合計を計算します。例の出力が示すように、<xref:System.Threading.Tasks.Task.RunSynchronously%2A>メソッドによるタスクはアプリケーションのスレッドで実行されており、非同期メソッドによるタスクはそうではありません。
 
- [!code-csharp[System.Threading.Tasks.Task.RunSynchronously#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task.runsynchronously/cs/runsynchronously1.cs#1)]
- [!code-vb[System.Threading.Tasks.Task.RunSynchronously#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task.runsynchronously/vb/runsynchronously1.vb#1)]
+[!code-csharp[System.Threading.Tasks.Task.RunSynchronously#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task.runsynchronously/cs/runsynchronously1.cs#1)]
+[!code-vb[System.Threading.Tasks.Task.RunSynchronously#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task.runsynchronously/vb/runsynchronously1.vb#1)]
 
  ]]></format>
         </remarks>
@@ -3724,9 +3723,9 @@ Task t Status: RanToCompletion, Result: 42
           <format type="text/markdown"><![CDATA[
 
 ## Remarks
- 呼び出すことによって実行されるタスク、<xref:System.Threading.Tasks.Task.RunSynchronously%2A>メソッドは呼び出しをインスタンス化、<xref:System.Threading.Tasks.Task>または<xref:System.Threading.Tasks.Task%601>クラスのコンス トラクター。 タスクを同期的に実行する必要があります、<xref:System.Threading.Tasks.TaskStatus.Created>状態。 タスクの開始し、1 回だけ実行可能性があります。 例外時の結果が 2 番目のタスクをスケジュールしようとするとします。
+<xref:System.Threading.Tasks.Task.RunSynchronously%2A>メソッドを呼び出すことによって実行されるタスクは、<xref:System.Threading.Tasks.Task>または<xref:System.Threading.Tasks.Task%601>クラスのコンストラクター呼び出しによってインスタンス化されます。同期的に実行されるタスクは、<xref:System.Threading.Tasks.TaskStatus.Created>の状態である必要があります。タスクは開始することができ、1 回だけ実行することができます。複数回タスクをスケジュールしようとすると例外が発生します。
 
- ターゲットのスケジューラが現在のスレッドでこのタスクの実行をサポートしていない場合、スケジューラで実行するため、タスクがスケジュールされ、タスクの実行が完了するまで、現在のスレッドがブロックされます。 このためは、呼び出し元のスレッドはなどのメソッドを呼び出す必要ありません<xref:System.Threading.Tasks.Task.Wait%2A>タスクの実行が完了したことを確認します。 タスク操作の例外処理の詳細については、次を参照してください。[例外処理](~/docs/standard/parallel-programming/exception-handling-task-parallel-library.md)します。
+ターゲットのスケジューラが現在のスレッドでこのタスクの実行をサポートしていない場合、そのスケジューラで実行するためにタスクはスケジュールされ、タスクの実行が完了するまで現在のスレッドがブロックされます。このため、呼び出し元のスレッドは、タスクの実行が完了したことを保証するために<xref:System.Threading.Tasks.Task.Wait%2A>などのメソッドを呼び出す必要ありません。 タスク操作の例外処理の詳細については、[例外処理](~/docs/standard/parallel-programming/exception-handling-task-parallel-library.md)を参照してください。
 
  ]]></format>
         </remarks>
