@@ -1,5 +1,5 @@
 <Type Name="XslTransform" FullName="System.Xml.Xsl.XslTransform">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="4afbddceffc87860ef4d77470b0756b765447efc" /><Meta Name="ms.sourcegitcommit" Value="a3e01ec36374fac54a55add0dcc1e754e394abeb" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="03/30/2019" /><Meta Name="ms.locfileid" Value="58736742" /></Metadata><TypeSignature Language="C#" Value="public sealed class XslTransform" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="56c2b4ff793499c653610da3b24ae254bfe9e9b3" /><Meta Name="ms.sourcegitcommit" Value="3efce15f3841385ee3ba24bd71ff0c0cf9a47815" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="04/03/2019" /><Meta Name="ms.locfileid" Value="58875373" /></Metadata><TypeSignature Language="C#" Value="public sealed class XslTransform" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit XslTransform extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Xml.Xsl.XslTransform" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class XslTransform" />
@@ -83,15 +83,54 @@
   
 -   `msxsl:script`要素を含めることができます、`language`属性を使用するスクリプト言語を指定します。 値、`language`属性は、次のいずれかを指定する必要があります。C#、CSharp、VB、VisualBasic、JScript、または JavaScript。 言語名が大文字小文字を区別しないために、JavaScript と javascript は、どちらも有効です。 場合、`language`属性が指定されていない、既定値は JScript です。  
   
--   `msxsl:script`要素を含める必要があります、`implements-prefix`スクリプト ブロックに関連付けられている名前空間を表すプレフィックスを含む属性。 この名前空間は、スタイル シート内で定義されている必要があります。 スタイル シートには、名前空間にグループ分けされる複数のスクリプト ブロックを含めることができます。 同じ名前空間内の複数の言語のスクリプト ブロックすることはできません。 スクリプト ブロックは、スクリプト ブロックが同じ名前空間内に提供されるもう 1 つのスクリプト ブロックで定義された関数を呼び出すことができます。 スクリプト ブロックの内容は、ルールとスクリプト言語の構文に従って解析されます (によって提供される、`language`属性)。 たとえば、C# スクリプト ブロックがあれば、コメントが付きます、`//`文字。 コメントは、有効な XML コンテンツである必要があります。  
+-   `msxsl:script`要素を含める必要があります、`implements-prefix`スクリプト ブロックに関連付けられている名前空間を表すプレフィックスを含む属性。 この名前空間は、スタイル シート内で定義されている必要があります。 スタイル シートには、名前空間にグループ分けされる複数のスクリプト ブロックを含めることができます。 同じ名前空間内の複数の言語のスクリプト ブロックすることはできません。 スクリプト ブロックは、スクリプト ブロックが同じ名前空間内に提供されるもう 1 つのスクリプト ブロックで定義された関数を呼び出すことができます。 スクリプト ブロックの内容は、ルールとスクリプト言語の構文に従って解析されます (によって提供される、`language`属性)。 たとえば、c# スクリプト ブロックがあれば、コメントが付きます、`//`文字。 コメントは、有効な XML コンテンツである必要があります。  
   
- `Note` CDATA セクション内スクリプト ブロックをラップすることをお勧めします。  
+> [!NOTE]
+> CDATA セクション内スクリプト ブロックをラップすることをお勧めします。
   
-```  
-<msxsl:script implements-prefix='xy' language='C#'>  
-  <![CDATA[  
-  // Add code here.  
-  ]]]></format>
+ [!INCLUDE [xsltransform-script](~/includes/xsltransform-script.md)] 
+   
+ 関数は、`msxsl:script` 要素内で宣言できます。 既定でサポートされる名前空間を次の表に示します。  
+  
+|サポートされている名前空間|説明|  
+|--------------------------|-----------------|  
+|`System`|システム クラス。|  
+|`System.Collection`|コレクション クラス|  
+|`System.Text`|テキスト処理クラス。|  
+|`System.Xml`|コア XML クラス|  
+|`System.Xml.Xsl`|XSLT クラス|  
+|`System.Xml.XPath`|XPath (XML Path Language) クラス|  
+  
+ 指定された引数と戻り値がスクリプト関数で定義されているは、以下 World Wide Web Consortium (W3C) の種類のいずれかである必要があります。 次の表では、W3C 型、XPath と XSLT、またはのいずれかの間のマッピングおよび対応する .NET Framework クラス。  
+  
+|W3C 型|対応する .NET クラス|  
+|--------------|---------------------------|  
+|文字列 (XPath)|`System.String`|  
+|ブール値 (XPath)|`System.Boolean`|  
+|数 (XPath)|`System.Double`|  
+|結果ツリー フラグメント (XSLT)|`System.Xml.XPath.XPathNavigator`|  
+|ノード セット (XPath)|`System.Xml.XPath.XPathNodeIterator`|  
+  
+ スクリプト関数が数値型これらの型が強制的に変換 Int16、UInt16、Int32、UInt32、Int64、UInt64、Single、または 10 進数、W3C XPath 数値型に対応する Double にします。  
+  
+ 例外がスローされている関数が呼び出されたときに必要な種類のいずれかに引数の結果を変換することはできません。  
+  
+> [!NOTE]
+>  `msxsl:script` `msxsl:node-list`からのみの機能は、`urn:schemas-microsoft-com:xslt`でサポートされている名前空間、<xref:System.Xml.Xsl.XslTransform>クラス。  
+  
+ <xref:System.Xml.Xsl.XslTransform> 拡張機能のメカニズムとしての共通言語ランタイム (CLR) コードを使用することがあります。 これは、実現するためのクラスのインスタンスを渡すことによって、<xref:System.Xml.Xsl.XslTransform>クラスと、XSLT スタイル シート内のパブリック メソッドを呼び出します。 定義されているメソッド、`params`このシナリオで渡されるパラメーター数が指定されていないため、キーワードが正しく動作しません。 参照してください[params](~/docs/csharp/language-reference/keywords/params.md)の詳細。  
+  
+ 詳細については、次を参照してください。 [XslTransform クラスによる XSLT 変換](~/docs/standard/data/xml/xslt-transformations-with-the-xsltransform-class.md)します。  
+  
+   
+  
+## Examples  
+ 次の例では、指定した XML ドキュメントを変換し、コンソールに結果を出力します。  
+  
+ [!code-csharp[Classic WebData XslTransform Example#1](~/samples/snippets/csharp/VS_Snippets_Data/Classic WebData XslTransform Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData XslTransform Example#1](~/samples/snippets/visualbasic/VS_Snippets_Data/Classic WebData XslTransform Example/VB/source.vb#1)]  
+  
+ ]]></format>
     </remarks>
     <threadsafe><see cref="T:System.Xml.Xsl.XslTransform" /> オブジェクトは、変換操作の唯一のスレッド セーフです。 その他の操作には、スレッド セーフであるとは限りません。 他のメソッドが呼び出されないオブジェクトの読み込み操作中にすることを確認する必要があります。</threadsafe>
   </Docs>
