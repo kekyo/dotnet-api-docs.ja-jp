@@ -1,5 +1,5 @@
 <Type Name="ReaderWriterLockSlim" FullName="System.Threading.ReaderWriterLockSlim">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="3464038fcf06fcd6ab722a9c4b6f82b812141c99" /><Meta Name="ms.sourcegitcommit" Value="84c54c0c7d64827a5637d1f05e74e1f0598606a1" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="08/27/2018" /><Meta Name="ms.locfileid" Value="42942854" /></Metadata><TypeSignature Language="C#" Value="public class ReaderWriterLockSlim : IDisposable" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="0fee7c4885e8d1b579011bb73bd7952ec0ae6dc1" /><Meta Name="ms.sourcegitcommit" Value="a3e01ec36374fac54a55add0dcc1e754e394abeb" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="03/30/2019" /><Meta Name="ms.locfileid" Value="58696271" /></Metadata><TypeSignature Language="C#" Value="public class ReaderWriterLockSlim : IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit ReaderWriterLockSlim extends System.Object implements class System.IDisposable" />
   <TypeSignature Language="DocId" Value="T:System.Threading.ReaderWriterLockSlim" />
   <TypeSignature Language="VB.NET" Value="Public Class ReaderWriterLockSlim&#xA;Implements IDisposable" />
@@ -21,6 +21,7 @@
   <AssemblyInfo>
     <AssemblyName>netstandard</AssemblyName>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>
@@ -31,7 +32,7 @@
     </Interface>
   </Interfaces>
   <Docs>
-    <summary>リソースへのアクセス管理に使用するロックを表し、複数のスレッドによる読み取りや排他アクセスでの書き込みを許可します。</summary>
+    <summary>リソースへのアクセス管理に使用するロックを表し、複数のスレッドによる読み取りや排他アクセスでの書き込みを実現します。</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -48,7 +49,7 @@
  再帰ポリシーに関係なく 1 つのスレッドが書き込みモードで、いつでもすることができます。 スレッドは書き込みモードでは、他のスレッドできますなしでロックに入るのモード。 1 つのスレッドをいつでもアップグレード可能モードでできます。 任意の数のスレッドが読み取りモードであることができますが 1 つのスレッドでありアップグレード可能モードの他のスレッドが読み取りモードでは。  
   
 > [!IMPORTANT]
->  この型は、<xref:System.IDisposable>インターフェイス。 型の使用が完了したら、直接的または間接的にそれを破棄する必要があります。 型の直接 dispose を呼び出してその<xref:System.IDisposable.Dispose%2A>メソッド、 `try` / `catch`ブロックします。 直接ことのない破棄する場合など、言語コンストラクトを使用して`using`(で C# の場合) または`Using`(Visual Basic) でします。 詳細については、"を使用して、オブジェクトを実装する IDisposable"のセクションを参照してください、<xref:System.IDisposable>インターフェイスに関するトピック。  
+>  この型は <xref:System.IDisposable> インターフェイスを実装します。 型の使用が完了したら、直接的または間接的に型を破棄する必要があります。 直接的に型を破棄するには、`try` / `catch` ブロック内で <xref:System.IDisposable.Dispose%2A> メソッドを呼び出します。 間接的に型を破棄するには、`using` (C# の場合) または `Using` (Visual Basic 言語) などの言語構成要素を使用します。 詳細については、<xref:System.IDisposable> インターフェイスに関するトピック内の「IDisposable を実装するオブジェクトの使用」セクションを参照してください。  
   
  <xref:System.Threading.ReaderWriterLockSlim> マネージ スレッドの関係が設定されました。つまり、各<xref:System.Threading.Thread>オブジェクトを入力し、ロック モードを終了する独自のメソッド呼び出しを行う必要があります。 スレッドが別のスレッドのモードを変更できるはありません。  
   
@@ -101,16 +102,16 @@
 ## <a name="lock-states"></a>ロックの状態  
  その状態の用語では、ロックを考えると便利です。 A <xref:System.Threading.ReaderWriterLockSlim> 4 つの状態のいずれかであることができます。 入力されていません、読み取り、アップグレード、および記述します。  
   
--   入力されていません。 この状態でスレッドがロックに入ってない (またはすべてのスレッドがロックを終了)。  
+-   入力されていません。この状態でスレッドがロックに入っていない (またはすべてのスレッドがロックを終了)。  
   
--   読む: この状態で、1 つまたは複数のスレッド ロックに入った読み取りアクセスの保護されたリソースにします。  
+-   読み取り:この状態で、1 つまたは複数のスレッド ロックに入った読み取りアクセスの保護されたリソースにします。  
   
     > [!NOTE]
     >  スレッドを使用して読み取りモードでロックを入力することができます、<xref:System.Threading.ReaderWriterLockSlim.EnterReadLock%2A>または<xref:System.Threading.ReaderWriterLockSlim.TryEnterReadLock%2A>メソッド、またはアップグレード可能モードからダウン グレードします。  
   
--   アップグレード: この状態で、1 つのスレッドがロックに入った書き込みアクセスにアップグレードするオプションを使用して読み取りアクセス用 (つまり、アップグレード可能モードで)、読み取りアクセス用に 0 個以上のスレッドがロックに入っているとします。 一度に複数のスレッドは; をアップグレードするオプションを使用してロックを入力できます。アップグレード可能モードを開始しようとする追加のスレッドがブロックされます。  
+-   アップグレード:この状態で、1 つのスレッドがロックに入った書き込みアクセスにアップグレードするオプションを使用して読み取りアクセス用 (つまり、アップグレード可能モードで)、読み取りアクセス用に 0 個以上のスレッドがロックに入っているとします。 一度に複数のスレッドは; をアップグレードするオプションを使用してロックを入力できます。アップグレード可能モードを開始しようとする追加のスレッドがブロックされます。  
   
--   書き込み: この状態で、1 つのスレッドがロックに入った書き込みアクセス権の保護されたリソースに。 そのスレッドは、ロックを所有している排他的です。 何らかの理由でロックに入ろうとするその他のスレッドがブロックされます。  
+-   書き込み:この状態で、1 つのスレッドがロックに入った書き込みアクセス権の保護されたリソースに。 そのスレッドは、ロックを所有している排他的です。 何らかの理由でロックに入ろうとするその他のスレッドがブロックされます。  
   
  次の表に、再帰では、ときにスレッドを許可しないロックのロックの状態間の遷移`t`左端の列で説明されているアクションを実行します。 時に、その操作を行う`t`モードがありません。 (特殊なケース場所`t`では、アップグレード可能モードは、表の脚注に記載されています)。一番上の行では、ロックの開始時の状態について説明します。 セルは、スレッドの処理について説明し、かっこで囲まれたロック状態の変更を表示します。  
   
@@ -200,6 +201,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="netframework-4.0">
@@ -271,6 +273,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="recursionPolicy" Type="System.Threading.LockRecursionPolicy" />
@@ -342,6 +345,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -400,6 +404,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="netframework-4.0">
@@ -416,7 +421,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLockSlim.Dispose%2A> を使い終わったら <xref:System.Threading.ReaderWriterLockSlim> を呼び出します。 <xref:System.Threading.ReaderWriterLockSlim.Dispose%2A> メソッドによって、<xref:System.Threading.ReaderWriterLockSlim> は使用不可の状態になります。 呼び出した後<xref:System.Threading.ReaderWriterLockSlim.Dispose%2A>へのすべての参照を解放する必要があります、<xref:System.Threading.ReaderWriterLockSlim>ガベージ コレクターがメモリをクリアできるようにする、<xref:System.Threading.ReaderWriterLockSlim>によって占有されていた。 詳細については、次を参照してください。[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)と[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)します。  
+ <xref:System.Threading.ReaderWriterLockSlim> を使い終わったら、<xref:System.Threading.ReaderWriterLockSlim.Dispose%2A>を呼び出します。 <xref:System.Threading.ReaderWriterLockSlim.Dispose%2A>メソッドによって、<xref:System.Threading.ReaderWriterLockSlim> は使用不可の状態になります。 <xref:System.Threading.ReaderWriterLockSlim.Dispose%2A>呼び出し後は、<xref:System.Threading.ReaderWriterLockSlim>によって占有されていたメモリをガベージ コレクターがクリアできるよう、<xref:System.Threading.ReaderWriterLockSlim> へのすべての参照を解放する必要があります。 詳細については、[アンマネージ リソースのクリーンアップ](~/docs/standard/garbage-collection/unmanaged.md)および[Dispose メソッドの実装](~/docs/standard/garbage-collection/implementing-dispose.md)を参照してください。  
   
 > [!NOTE]
 >  常に呼び出す<xref:System.Threading.ReaderWriterLockSlim.Dispose%2A>への参照を解放する前に、<xref:System.Threading.ReaderWriterLockSlim>オブジェクト。  
@@ -425,10 +430,10 @@
         </remarks>
         <exception cref="T:System.Threading.SynchronizationLockException"><see cref="P:System.Threading.ReaderWriterLockSlim.WaitingReadCount" /> が 0 より大きい値です。  
   
-- または - 
+または 
  <see cref="P:System.Threading.ReaderWriterLockSlim.WaitingUpgradeCount" /> が 0 より大きい値です。  
   
-- または - 
+または 
  <see cref="P:System.Threading.ReaderWriterLockSlim.WaitingWriteCount" /> が 0 より大きい値です。</exception>
       </Docs>
     </Member>
@@ -456,6 +461,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -494,12 +500,12 @@
         </remarks>
         <exception cref="T:System.Threading.LockRecursionException"><see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティは <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> です。現在のスレッドは、読み取りロックを保持しながら読み取りロックを取得しようとしました。  
   
-- または - 
+または 
 <see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティは <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> です。現在のスレッドは、書き込みロックを保持しながら読み取りロックを取得しようとしました。  
   
-- または - 
-再帰の回数は、カウンターの容量を超える可能性があります。 この制限は非常に大きいため、アプリケーションで、この例外が発生することはないはずです。</exception>
-        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されています。</exception>
+または 
+再帰の回数がカウンターの容量をオーバーします。 この制限は非常に大きいため、アプリケーションで、この例外が発生することはないはずです。</exception>
+        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="EnterUpgradeableReadLock">
@@ -526,6 +532,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -570,12 +577,12 @@
         </remarks>
         <exception cref="T:System.Threading.LockRecursionException"><see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティが <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> で、現在のスレッドは既にいずれかのモードでロックに入っています。  
   
-- または - 
+または 
 現在のスレッドは既に読み取りモードに入っているため、アップグレード可能モードに入ろうとするとデッドロックの可能性が生じます。  
   
-- または - 
-再帰の回数は、カウンターの容量を超える可能性があります。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
-        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されています。</exception>
+または 
+再帰の回数がカウンターの容量をオーバーします。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
+        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="EnterWriteLock">
@@ -602,6 +609,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -636,12 +644,12 @@
         </remarks>
         <exception cref="T:System.Threading.LockRecursionException"><see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティが <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> で、現在のスレッドは既にいずれかのモードでロックに入っています。  
   
-- または - 
+または 
 現在のスレッドは読み取りモードに入っており、まだ書き込みロックを持っていないため、書き込みモードでロックに入ろうとするとデッドロックの可能性が生じます。  
   
-- または - 
-再帰の回数は、カウンターの容量を超える可能性があります。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
-        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されています。</exception>
+または 
+再帰の回数がカウンターの容量をオーバーします。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
+        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="ExitReadLock">
@@ -668,13 +676,14 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>読み取りモードの再帰カウントを減らし、結果のカウントが 0 (ゼロ) の場合には読み取りモードを終了します。</summary>
+        <summary>読み取りモードの再帰カウントを減らし、結果が 0 (ゼロ) の場合には読み取りモードを終了します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -724,13 +733,14 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>アップグレード可能モードの再帰カウントを減らし、結果のカウントが 0 (ゼロ) の場合にはアップグレード可能モードを終了します。</summary>
+        <summary>アップグレード可能モードの再帰カウントを減らし、結果が 0 (ゼロ) の場合にはアップグレード可能モードを終了します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -786,13 +796,14 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>書き込みモードの再帰カウントを減らし、結果のカウントが 0 (ゼロ) の場合には書き込みモードを終了します。</summary>
+        <summary>書き込みモードの再帰カウントを減らし、結果が 0 (ゼロ) の場合には書き込みモードを終了します。</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -842,6 +853,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -893,6 +905,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -944,6 +957,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -995,6 +1009,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Threading.LockRecursionPolicy</ReturnType>
@@ -1044,6 +1059,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -1085,6 +1101,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -1126,6 +1143,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -1178,6 +1196,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -1186,7 +1205,7 @@
         <Parameter Name="millisecondsTimeout" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="millisecondsTimeout">待機するミリ秒数。無制限に待機する場合は <see cref="F:System.Threading.Timeout.Infinite" /> (-1)。</param>
+        <param name="millisecondsTimeout">待機するミリ秒数。無制限に待機する場合は -1 (<see cref="F:System.Threading.Timeout.Infinite" />)。</param>
         <summary>オプションのタイムアウトを表す整数を指定して、読み取りモードでロックに入ることを試みます。</summary>
         <returns>呼び出し元のスレッドが読み取りモードに入った場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
         <remarks>
@@ -1208,10 +1227,10 @@
         </remarks>
         <exception cref="T:System.Threading.LockRecursionException"><see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティが <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> で、現在のスレッドは既にロックに入っています。  
   
-- または - 
-再帰の回数は、カウンターの容量を超える可能性があります。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
+または 
+再帰の回数がカウンターの容量をオーバーします。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout" /> の値が負ですが、指定できる唯一の負の値である <see cref="F:System.Threading.Timeout.Infinite" /> (-1) と等しくありません。</exception>
-        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されています。</exception>
+        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="TryEnterReadLock">
@@ -1238,6 +1257,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -1268,13 +1288,13 @@
         </remarks>
         <exception cref="T:System.Threading.LockRecursionException"><see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティが <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> で、現在のスレッドは既にロックに入っています。  
   
-- または - 
-再帰の回数は、カウンターの容量を超える可能性があります。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
+または 
+再帰の回数がカウンターの容量をオーバーします。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> の値が負ですが、指定できる唯一の負の値である -1 ミリ秒と等しくありません。  
   
-- または - 
+または 
 <paramref name="timeout" /> の値が <see cref="F:System.Int32.MaxValue" /> ミリ秒を超えています。</exception>
-        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されています。</exception>
+        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されました。</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="TryEnterUpgradeableReadLock">
@@ -1312,6 +1332,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -1320,7 +1341,7 @@
         <Parameter Name="millisecondsTimeout" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="millisecondsTimeout">待機するミリ秒数。無制限に待機する場合は <see cref="F:System.Threading.Timeout.Infinite" /> (-1)。</param>
+        <param name="millisecondsTimeout">待機するミリ秒数。無制限に待機する場合は -1 (<see cref="F:System.Threading.Timeout.Infinite" />)。</param>
         <summary>オプションのタイムアウトを指定して、アップグレード可能モードでロックに入ることを試みます。</summary>
         <returns>呼び出し元のスレッドがアップグレード可能モードに入った場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
         <remarks>
@@ -1342,13 +1363,13 @@
         </remarks>
         <exception cref="T:System.Threading.LockRecursionException"><see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティが <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> で、現在のスレッドは既にロックに入っています。  
   
-- または - 
+または 
 現在のスレッドは最初に読み取りモードでロックに入ったため、アップグレード可能モードに入ろうとするとデッドロックの可能性が生じます。  
   
-- または - 
-再帰の回数は、カウンターの容量を超える可能性があります。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
+または 
+再帰の回数がカウンターの容量をオーバーします。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout" /> の値が負ですが、指定できる唯一の負の値である <see cref="F:System.Threading.Timeout.Infinite" /> (-1) と等しくありません。</exception>
-        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されています。</exception>
+        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="TryEnterUpgradeableReadLock">
@@ -1375,6 +1396,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -1405,16 +1427,16 @@
         </remarks>
         <exception cref="T:System.Threading.LockRecursionException"><see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティが <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> で、現在のスレッドは既にロックに入っています。  
   
-- または - 
+または 
 現在のスレッドは最初に読み取りモードでロックに入ったため、アップグレード可能モードに入ろうとするとデッドロックの可能性が生じます。  
   
-- または - 
-再帰の回数は、カウンターの容量を超える可能性があります。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
+または 
+再帰の回数がカウンターの容量をオーバーします。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> の値が負ですが、指定できる唯一の負の値である -1 ミリ秒と等しくありません。  
   
-- または - 
+または 
 <paramref name="timeout" /> の値が <see cref="F:System.Int32.MaxValue" /> ミリ秒を超えています。</exception>
-        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されています。</exception>
+        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されました。</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="TryEnterWriteLock">
@@ -1452,6 +1474,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -1460,7 +1483,7 @@
         <Parameter Name="millisecondsTimeout" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="millisecondsTimeout">待機するミリ秒数。無制限に待機する場合は <see cref="F:System.Threading.Timeout.Infinite" /> (-1)。</param>
+        <param name="millisecondsTimeout">待機するミリ秒数。無制限に待機する場合は -1 (<see cref="F:System.Threading.Timeout.Infinite" />)。</param>
         <summary>オプションのタイムアウトを指定して、書き込みモードでロックに入ることを試みます。</summary>
         <returns>呼び出し元のスレッドが書き込みモードに入った場合は <see langword="true" />、それ以外の場合は <see langword="false" />。</returns>
         <remarks>
@@ -1492,13 +1515,13 @@
         </remarks>
         <exception cref="T:System.Threading.LockRecursionException"><see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティが <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> で、現在のスレッドは既にロックに入っています。  
   
-- または - 
+または 
 現在のスレッドは最初に読み取りモードでロックに入ったため、書き込みモードに入ろうとするとデッドロックの可能性が生じます。  
   
-- または - 
-再帰の回数は、カウンターの容量を超える可能性があります。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
+または 
+再帰の回数がカウンターの容量をオーバーします。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout" /> の値が負ですが、指定できる唯一の負の値である <see cref="F:System.Threading.Timeout.Infinite" /> (-1) と等しくありません。</exception>
-        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されています。</exception>
+        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="TryEnterWriteLock">
@@ -1525,6 +1548,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -1551,16 +1575,16 @@
         </remarks>
         <exception cref="T:System.Threading.LockRecursionException"><see cref="P:System.Threading.ReaderWriterLockSlim.RecursionPolicy" /> プロパティが <see cref="F:System.Threading.LockRecursionPolicy.NoRecursion" /> で、現在のスレッドは既にロックに入っています。  
   
-- または - 
+または 
 現在のスレッドは最初に読み取りモードでロックに入ったため、書き込みモードに入ろうとするとデッドロックの可能性が生じます。  
   
-- または - 
-再帰の回数は、カウンターの容量を超える可能性があります。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
+または 
+再帰の回数がカウンターの容量をオーバーします。 この容量は非常に大きいので、アプリケーションでこの状況が発生することは通常はありません。</exception>
         <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> の値が負ですが、指定できる唯一の負の値である -1 ミリ秒と等しくありません。  
   
-- または - 
+または 
 <paramref name="timeout" /> の値が <see cref="F:System.Int32.MaxValue" /> ミリ秒を超えています。</exception>
-        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されています。</exception>
+        <exception cref="T:System.ObjectDisposedException"><see cref="T:System.Threading.ReaderWriterLockSlim" /> オブジェクトは破棄されました。</exception>
       </Docs>
     </Member>
     <Member MemberName="WaitingReadCount">
@@ -1587,6 +1611,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="netframework-4.0">
@@ -1643,6 +1668,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="netframework-4.0">
@@ -1699,6 +1725,7 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="netframework-4.0">
