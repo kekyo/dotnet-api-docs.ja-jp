@@ -1,5 +1,5 @@
 <Type Name="Unsafe" FullName="System.Runtime.CompilerServices.Unsafe">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="25f6f9e753a0c47cbfccc2147725a47353028eab" /><Meta Name="ms.sourcegitcommit" Value="a3e01ec36374fac54a55add0dcc1e754e394abeb" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="03/30/2019" /><Meta Name="ms.locfileid" Value="58703996" /></Metadata><TypeSignature Language="C#" Value="public static class Unsafe" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="bfce2be5c17299e8735ea4a200426489fb8d145b" /><Meta Name="ms.sourcegitcommit" Value="76fb6534b56e2b5f6aaaac2150d71a43c9133dbd" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ja-JP" /><Meta Name="ms.lasthandoff" Value="04/22/2019" /><Meta Name="ms.locfileid" Value="59893414" /></Metadata><TypeSignature Language="C#" Value="public static class Unsafe" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Unsafe extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Runtime.CompilerServices.Unsafe" />
   <TypeSignature Language="VB.NET" Value="Public Class Unsafe" />
@@ -1046,11 +1046,38 @@
         <Parameter Name="box" Type="System.Object" Index="0" FrameworkAlternate="dotnet-plat-ext-3.0" />
       </Parameters>
       <Docs>
-        <typeparam name="T">To be added.</typeparam>
-        <param name="box">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="T">ボックス化する型。</typeparam>
+        <param name="box">ボックス化解除する値。</param>
+        <summary>ボックス化された値に <see langword="mutable ref" /> を返します。</summary>
+        <returns>ボックス化された値 <paramref name="box" /> への <see langword="mutable ref" />。</returns>
+        <remarks>  
+          <format type="text/markdown"><![CDATA[  
+
+`Unbox<T>`メソッドは、IL のラッパーだけ[unbox](xref:System.Reflection.Emit.OpCodes.Unbox)命令。 パフォーマンスの最適化として便利です。 API を受け取るたびに、<xref:System.Object>必要があります、同じ値の型のさまざまな値で繰り返し呼び出されるボックス オブジェクトを再利用できる新しいたびに作成される 1 つではなく。
+
+`Unbox<T>`メソッドには、重要な制約言語コンパイラを強制して、呼び出し元の責任です。 IL`unbox`命令の制御-変更可能性マネージ ポインターを返します。 ため、.NET と .NET 言語コンパイラは、この制約を表すことはできません、`Unbox<T>`メソッドを変更可能な通常の返します`ref T`します。 ただし開発者**は許可されません**いることを確認しない限り、返される参照を変更`T`は変更可能な構造体の型です。 たとえば、ためなどのプリミティブ数値<xref:System.Int32>変更可能な構造体の型ではない、次のコードはサポートされていません。
+
+```csharp
+Unsafe.Box<int>(obj) = 30;
+```
+
+などの型とは異なり、<xref:System.Drawing.Point?<displayProperty=nameWithType>パブリック プロパティの setter を含む変更可能な構造体は次のコードがサポートされています。
+
+```csharp
+Unsafe.Unbox<System.Drawing.Point>(obj).X = 50;
+```
+
+詳細については、III.1.8.1.2.2 のセクションを参照してください (「Controlled muttability マネージ ポインター」) と III.4.32 (「ボックス化解除--ボックス化された値の型を未加工の形式に変換」) で[ECMA 335。共通言語基盤 (CLI) のパーティションは VI に](https://www.ecma-international.org/publications/files/ECMA-ST/ECMA-335.pdf)します。
+
+         ]]></format>
+         </remarks>       
+        <exception cref="T:System.NullReferenceException"><paramref name="box" /> は <see langword="null" /> です。<typeparamref name="T" /> は null 非許容値型です。</exception>
+         <exception cref="T:System.InvalidCastException"><paramref name="box" /> はボックス化された値型ではありません。
+         
+または
+
+<paramref name="box" /> はボックス化された <typeparamref name="T" /> ではありません。</exception>
+        <exception cref="T:System.TypeLoadException"><typeparamref name="T" /> が見つかりません。</exception>
       </Docs>
     </Member>
     <Member MemberName="Write&lt;T&gt;">
